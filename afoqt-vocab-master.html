@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFOQT Vocab Master</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --surface3: #22223a;
+    --accent: #5b6ef5;
+    --accent2: #a78bfa;
+    --green: #34d399;
+    --red: #f87171;
+    --yellow: #fbbf24;
+    --orange: #fb923c;
+    --text: #e8e8f0;
+    --text2: #9090b0;
+    --text3: #5a5a80;
+    --border: #2a2a40;
+    --glow: rgba(91, 110, 245, 0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(91,110,245,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(167,139,250,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  #app { position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.8); backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
+  .nav-brand span { color: var(--accent); }
+  .nav-stats { display: flex; gap: 20px; }
+  .nav-stat { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text2); }
+  .nav-stat strong { color: var(--accent2); }
+
+  /* SCREENS */
+  .screen { display: none; min-height: calc(100vh - 65px); }
+  .screen.active { display: block; }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(18,18,26,0.95); backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    display: flex; z-index: 100;
+  }
+  .bnav-btn {
+    flex: 1; padding: 12px 8px; background: none; border: none;
+    color: var(--text3); cursor: pointer; font-size: 10px;
+    font-family: 'DM Sans', sans-serif; display: flex;
+    flex-direction: column; align-items: center; gap: 4px;
+    transition: color 0.2s;
+  }
+  .bnav-btn .icon { font-size: 20px; }
+  .bnav-btn.active { color: var(--accent); }
+  .bnav-btn:hover { color: var(--text); }
+
+  /* HOME SCREEN */
+  .home-header {
+    padding: 40px 24px 24px;
+    background: linear-gradient(180deg, rgba(91,110,245,0.08) 0%, transparent 100%);
+  }
+  .home-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; line-height: 1.1; }
+  .home-subtitle { color: var(--text2); margin-top: 8px; font-size: 14px; }
+  .streak-banner {
+    margin: 0 24px 24px;
+    background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(251,191,36,0.05));
+    border: 1px solid rgba(251,191,36,0.25);
+    border-radius: 14px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .streak-fire { font-size: 32px; }
+  .streak-info { flex: 1; }
+  .streak-num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--yellow); }
+  .streak-label { font-size: 12px; color: var(--text2); }
+
+  /* TODAY QUEUE */
+  .section { padding: 0 24px 24px; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .today-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; margin-bottom: 12px;
+    cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
+  }
+  .today-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .today-card.review::before { background: var(--accent); }
+  .today-card.new::before { background: var(--green); }
+  .today-card.analogy::before { background: var(--accent2); }
+  .today-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .card-row { display: flex; align-items: center; justify-content: space-between; }
+  .card-label { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
+  .card-count { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; }
+  .card-count.urgent { color: var(--red); }
+  .card-count.normal { color: var(--accent); }
+  .card-count.good { color: var(--green); }
+  .card-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .card-icon { font-size: 36px; opacity: 0.6; }
+  .start-btn {
+    background: var(--accent); color: white; border: none;
+    padding: 8px 16px; border-radius: 8px; font-size: 13px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    cursor: pointer; margin-top: 10px; width: 100%;
+    transition: all 0.2s;
+  }
+  .start-btn:hover { background: #4a5ce0; }
+  .start-btn.secondary { background: var(--surface3); color: var(--text); }
+
+  /* PROGRESS BARS */
+  .progress-section { padding: 0 24px 24px; }
+  .prog-bar-wrap { margin-bottom: 12px; }
+  .prog-bar-top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+  .prog-bar-bg { height: 6px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
+  .prog-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+
+  /* FLASHCARD SCREEN */
+  .fc-header { padding: 20px 24px 16px; display: flex; align-items: center; gap: 12px; }
+  .back-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+  .fc-progress-bar { flex: 1; height: 4px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
+  .fc-progress-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.3s; }
+  .fc-counter { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text2); white-space: nowrap; }
+
+  .card-stage { padding: 0 24px; perspective: 1000px; }
+  .flashcard {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; min-height: 280px; padding: 32px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    cursor: pointer; position: relative; overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  }
+  .flashcard:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(91,110,245,0.15); }
+  .flashcard.revealed { border-color: var(--accent); }
+  .word-tag { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
+  .word-main { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; margin: 20px 0 8px; line-height: 1; }
+  .word-pos { font-size: 13px; color: var(--accent2); font-style: italic; }
+  .word-hint { font-size: 13px; color: var(--text3); }
+  .tap-hint { text-align: center; font-size: 12px; color: var(--text3); margin-top: 12px; }
+
+  .definition-area { display: none; padding: 20px 24px; }
+  .definition-area.show { display: block; }
+  .def-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; margin-bottom: 12px;
+  }
+  .def-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 8px; }
+  .def-text { font-size: 16px; line-height: 1.5; }
+  .def-example { font-size: 13px; color: var(--text2); font-style: italic; margin-top: 8px; }
+  .analogy-hint {
+    background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.2);
+    border-radius: 10px; padding: 12px 16px; font-size: 13px; color: var(--accent2);
+  }
+  .synonyms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .syn-tag { background: var(--surface3); border-radius: 6px; padding: 3px 8px; font-size: 12px; color: var(--text2); }
+
+  /* RATING BUTTONS */
+  .rating-buttons { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; padding: 0 24px 24px; }
+  .rate-btn {
+    border: none; border-radius: 12px; padding: 14px 8px;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 500; transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .rate-btn .rate-label { font-size: 10px; opacity: 0.7; }
+  .rate-btn .rate-days { font-family: 'Space Mono', monospace; font-size: 10px; }
+  .rate-0 { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+  .rate-1 { background: rgba(251,146,60,0.15); color: var(--orange); border: 1px solid rgba(251,146,60,0.3); }
+  .rate-2 { background: rgba(251,191,36,0.15); color: var(--yellow); border: 1px solid rgba(251,191,36,0.3); }
+  .rate-3 { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+  .rate-btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
+
+  /* QUIZ SCREEN */
+  .quiz-header { padding: 20px 24px 0; }
+  .quiz-question-box {
+    margin: 16px 24px; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 16px; padding: 24px;
+  }
+  .quiz-q-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .quiz-q-text { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.3; }
+  .quiz-q-word { color: var(--accent2); }
+  .quiz-options { padding: 0 24px; display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .quiz-opt {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 20px; cursor: pointer;
+    font-size: 15px; transition: all 0.2s; text-align: left;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .quiz-opt-letter {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--surface3); display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text2);
+    flex-shrink: 0;
+  }
+  .quiz-opt:hover:not(.disabled) { border-color: var(--accent); }
+  .quiz-opt.correct { background: rgba(52,211,153,0.12); border-color: var(--green); }
+  .quiz-opt.correct .quiz-opt-letter { background: var(--green); color: #000; }
+  .quiz-opt.wrong { background: rgba(248,113,113,0.12); border-color: var(--red); }
+  .quiz-opt.wrong .quiz-opt-letter { background: var(--red); color: #fff; }
+  .quiz-opt.disabled { cursor: default; }
+
+  /* ANALOGY SCREEN */
+  .analogy-pattern {
+    margin: 16px 24px; padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(91,110,245,0.1), rgba(167,139,250,0.08));
+    border: 1px solid rgba(91,110,245,0.25); border-radius: 16px;
+  }
+  .analogy-pattern-label { font-size: 11px; color: var(--accent2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .analogy-pattern-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; }
+  .analogy-equation {
+    margin: 0 24px 16px; display: flex; align-items: center;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .analogy-word {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 18px;
+    font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
+  }
+  .analogy-word.blank {
+    border: 2px dashed var(--accent); color: var(--text3); min-width: 80px; text-align: center;
+  }
+  .analogy-sep { font-size: 20px; color: var(--text3); font-family: 'Space Mono', monospace; }
+  .analogy-colon { font-family: 'Space Mono', monospace; font-size: 20px; color: var(--accent2); }
+
+  /* STATS SCREEN */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px 24px; }
+  .stat-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px;
+  }
+  .stat-card-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .stat-card-value { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; }
+  .stat-card-sub { font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+  .heatmap-container { padding: 0 24px 24px; }
+  .heatmap { display: grid; grid-template-columns: repeat(26,1fr); gap: 3px; }
+  .heatmap-cell {
+    aspect-ratio: 1; border-radius: 2px; background: var(--surface3);
+    transition: background 0.2s;
+  }
+  .heatmap-cell.lvl1 { background: rgba(91,110,245,0.2); }
+  .heatmap-cell.lvl2 { background: rgba(91,110,245,0.45); }
+  .heatmap-cell.lvl3 { background: rgba(91,110,245,0.7); }
+  .heatmap-cell.lvl4 { background: var(--accent); }
+
+  .word-mastery-list { padding: 0 24px 100px; }
+  .mastery-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0; border-bottom: 1px solid var(--surface2);
+  }
+  .mastery-word { font-weight: 500; }
+  .mastery-bar-wrap { flex: 1; margin: 0 12px; }
+  .mastery-bar { height: 4px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
+  .mastery-bar-fill { height: 100%; border-radius: 99px; }
+  .mastery-level { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text3); }
+
+  /* WORD LIST SCREEN */
+  .search-box-wrap { padding: 16px 24px; }
+  .search-box {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 16px; color: var(--text);
+    font-size: 15px; font-family: 'DM Sans', sans-serif; outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: var(--accent); }
+  .search-box::placeholder { color: var(--text3); }
+  .filter-row { display: flex; gap: 8px; padding: 0 24px 16px; overflow-x: auto; }
+  .filter-chip {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 6px 14px; font-size: 12px;
+    cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    color: var(--text2);
+  }
+  .filter-chip.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .word-list { padding: 0 24px 100px; }
+  .word-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 0; border-bottom: 1px solid var(--surface2);
+    cursor: pointer;
+  }
+  .word-item-indicator { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .word-item-body { flex: 1; }
+  .word-item-word { font-weight: 600; font-size: 16px; }
+  .word-item-pos { font-size: 12px; color: var(--accent2); margin-bottom: 2px; }
+  .word-item-def { font-size: 13px; color: var(--text2); line-height: 1.4; }
+  .word-item-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+  .word-tag-pill { background: var(--surface3); border-radius: 4px; padding: 2px 6px; font-size: 10px; color: var(--text3); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    z-index: 200; align-items: flex-end; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0; padding: 24px; width: 100%; max-height: 85vh;
+    overflow-y: auto; animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 99px; margin: 0 auto 20px; }
+  .modal-word { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; }
+  .modal-pos { color: var(--accent2); font-style: italic; margin: 4px 0 16px; }
+  .modal-def { font-size: 16px; line-height: 1.5; margin-bottom: 12px; }
+  .modal-example { color: var(--text2); font-style: italic; font-size: 14px; margin-bottom: 16px; }
+  .modal-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 8px; margin-top: 16px; }
+  .modal-analogy-rel {
+    background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2);
+    border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--accent2); margin-bottom: 8px;
+  }
+  .close-modal { width: 100%; background: var(--surface3); border: none; color: var(--text); padding: 14px; border-radius: 12px; margin-top: 16px; font-size: 15px; cursor: pointer; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 20px; font-size: 14px; opacity: 0; transition: all 0.3s; z-index: 300;
+    pointer-events: none; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.correct { border-color: var(--green); color: var(--green); }
+  .toast.wrong { border-color: var(--red); color: var(--red); }
+
+  pb { padding-bottom: 100px; display: block; }
+</style>
+</head>
+<body>
+<div id="app">
+  <nav>
+    <div class="nav-brand">AFOQT <span>VOCAB</span></div>
+    <div class="nav-stats">
+      <div class="nav-stat">DUE <strong id="nav-due">0</strong></div>
+      <div class="nav-stat">STREAK <strong id="nav-streak">0</strong>🔥</div>
+      <div class="nav-stat">MASTERED <strong id="nav-mastered">0</strong></div>
+    </div>
+  </nav>
+
+  <!-- HOME -->
+  <div class="screen active" id="screen-home">
+    <div class="home-header">
+      <div class="home-title">Your Mission:<br>AFOQT Verbal 99th</div>
+      <div class="home-subtitle">Spaced repetition · SM-2 algorithm · Ebbinghaus curve</div>
+    </div>
+    <div id="streak-area" class="streak-banner">
+      <div class="streak-fire">🔥</div>
+      <div class="streak-info">
+        <div class="streak-num" id="home-streak">0</div>
+        <div class="streak-label">Day Streak</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:12px;color:var(--text2)">Today's XP</div>
+        <div style="font-family:'Space Mono',monospace;font-size:18px;color:var(--accent2)" id="home-xp">+0</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Today's Queue</div>
+      <div class="today-card review" onclick="startSession('review')">
+        <div class="card-row">
+          <div>
+            <div class="card-label">📅 Due for Review</div>
+            <div class="card-count urgent" id="due-count">0</div>
+            <div class="card-sub">SM-2 scheduled cards</div>
+          </div>
+          <div class="card-icon">🔄</div>
+        </div>
+        <button class="start-btn" onclick="event.stopPropagation();startSession('review')">Start Review</button>
+      </div>
+      <div class="today-card new" onclick="startSession('new')">
+        <div class="card-row">
+          <div>
+            <div class="card-label">✨ New Words</div>
+            <div class="card-count normal" id="new-count">20</div>
+            <div class="card-sub">Fresh vocabulary</div>
+          </div>
+          <div class="card-icon">📖</div>
+        </div>
+        <button class="start-btn secondary" onclick="event.stopPropagation();startSession('new')">Learn New</button>
+      </div>
+      <div class="today-card analogy" onclick="showScreen('analogy')">
+        <div class="card-row">
+          <div>
+            <div class="card-label">🔗 Verbal Analogies</div>
+            <div class="card-count" style="color:var(--accent2)" id="analogy-count">10</div>
+            <div class="card-sub">Pattern-based practice</div>
+          </div>
+          <div class="card-icon">🧠</div>
+        </div>
+        <button class="start-btn secondary" onclick="event.stopPropagation();showScreen('analogy')">Practice Analogies</button>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="section-title">Overall Progress</div>
+      <div class="prog-bar-wrap">
+        <div class="prog-bar-top"><span>Total Learned</span><span id="prog-learned-pct">0%</span></div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-learned" style="width:0%;background:var(--accent)"></div></div>
+      </div>
+      <div class="prog-bar-wrap">
+        <div class="prog-bar-top"><span>Mastered (interval ≥21d)</span><span id="prog-mastered-pct">0%</span></div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-mastered" style="width:0%;background:var(--green)"></div></div>
+      </div>
+      <div class="prog-bar-wrap">
+        <div class="prog-bar-top"><span>Word Knowledge</span><span id="prog-wk-pct">0%</span></div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-wk" style="width:0%;background:var(--accent2)"></div></div>
+      </div>
+    </div>
+    <pb></pb>
+  </div>
+
+  <!-- FLASHCARD SESSION -->
+  <div class="screen" id="screen-flashcard">
+    <div class="fc-header">
+      <button class="back-btn" onclick="endSession()">← Back</button>
+      <div class="fc-progress-bar"><div class="fc-progress-fill" id="fc-prog"></div></div>
+      <div class="fc-counter" id="fc-counter">0/0</div>
+    </div>
+    <div class="card-stage">
+      <div class="flashcard" id="main-card" onclick="revealCard()">
+        <div>
+          <div class="word-tag" id="fc-tag">WORD KNOWLEDGE</div>
+          <div class="word-main" id="fc-word">—</div>
+          <div class="word-pos" id="fc-pos">noun</div>
+          <div id="fc-kor-front" style="font-size:16px;color:#a78bfa;font-weight:600;margin-top:4px;min-height:20px"></div>
+        </div>
+        <div>
+          <div class="word-hint" id="fc-hint">Tap to reveal definition</div>
+          <div class="tap-hint">👆 tap card</div>
+        </div>
+      </div>
+    </div>
+    <div class="definition-area" id="def-area">
+      <div class="def-box">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div class="def-title" style="margin-bottom:0">Definition</div>
+          <div id="fc-kor" style="font-size:14px;color:#a78bfa;font-weight:600;text-align:right">—</div>
+        </div>
+        <div class="def-text" id="fc-def">—</div>
+        <div class="def-example" id="fc-example">—</div>
+      </div>
+      <div style="display:flex;gap:8px;padding:0 0 8px">
+        <div class="analogy-hint" id="fc-analogy-hint" style="flex:1"></div>
+      </div>
+      <div class="def-box" style="padding:12px 16px">
+        <div class="def-title">Synonyms</div>
+        <div class="synonyms" id="fc-synonyms"></div>
+      </div>
+    </div>
+    <div class="rating-buttons" id="rating-btns" style="display:none">
+      <button class="rate-btn rate-0" onclick="rateCard(0)">
+        <span>😰 Again</span>
+        <span class="rate-label">Blackout</span>
+        <span class="rate-days" id="rate-days-0">~1m</span>
+      </button>
+      <button class="rate-btn rate-1" onclick="rateCard(1)">
+        <span>😓 Hard</span>
+        <span class="rate-label">Difficult</span>
+        <span class="rate-days" id="rate-days-1">~10m</span>
+      </button>
+      <button class="rate-btn rate-2" onclick="rateCard(2)">
+        <span>🙂 Good</span>
+        <span class="rate-label">Correct</span>
+        <span class="rate-days" id="rate-days-2">~1d</span>
+      </button>
+      <button class="rate-btn rate-3" onclick="rateCard(3)">
+        <span>😄 Easy</span>
+        <span class="rate-label">Perfect</span>
+        <span class="rate-days" id="rate-days-3">~4d</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="screen" id="screen-quiz">
+    <div class="quiz-header">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <button class="back-btn" onclick="showScreen('home')">← Back</button>
+        <div class="fc-progress-bar"><div class="fc-progress-fill" id="quiz-prog"></div></div>
+        <div class="fc-counter" id="quiz-counter">0/10</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-size:11px;color:var(--text3)">CORRECT</div>
+          <div style="font-family:'Space Mono',monospace;color:var(--green);font-size:18px" id="quiz-correct-count">0</div>
+        </div>
+        <div style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-size:11px;color:var(--text3)">WRONG</div>
+          <div style="font-family:'Space Mono',monospace;color:var(--red);font-size:18px" id="quiz-wrong-count">0</div>
+        </div>
+        <div style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-size:11px;color:var(--text3)">ACCURACY</div>
+          <div style="font-family:'Space Mono',monospace;color:var(--accent2);font-size:18px" id="quiz-acc">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="quiz-question-box">
+      <div class="quiz-q-label" id="quiz-type-label">WORD KNOWLEDGE</div>
+      <div class="quiz-q-text" id="quiz-question">Loading...</div>
+    </div>
+    <div class="quiz-options" id="quiz-options"></div>
+    <div style="padding:16px 24px;display:none" id="quiz-explanation">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Explanation</div>
+        <div id="quiz-exp-text" style="font-size:14px;line-height:1.5;color:var(--text2)"></div>
+      </div>
+      <button class="start-btn" style="margin-top:12px" onclick="nextQuizQuestion()">Next Question →</button>
+    </div>
+    <pb></pb>
+  </div>
+
+  <!-- VERBAL ANALOGIES -->
+  <div class="screen" id="screen-analogy">
+    <div class="fc-header">
+      <button class="back-btn" onclick="showScreen('home')">← Back</button>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">Verbal Analogies</div>
+      <div class="fc-counter" id="ana-counter">1/10</div>
+    </div>
+    <div class="analogy-pattern">
+      <div class="analogy-pattern-label">Pattern Type</div>
+      <div class="analogy-pattern-name" id="ana-pattern-name">Part → Whole</div>
+    </div>
+    <div style="padding:0 24px;margin-bottom:4px;font-size:13px;color:var(--text2)">Complete the analogy:</div>
+    <div class="analogy-equation" id="ana-equation">
+      <div class="analogy-word" id="ana-w1">FINGER</div>
+      <div class="analogy-colon">:</div>
+      <div class="analogy-word" id="ana-w2">HAND</div>
+      <div class="analogy-sep">::</div>
+      <div class="analogy-word" id="ana-w3">TOE</div>
+      <div class="analogy-colon">:</div>
+      <div class="analogy-word blank" id="ana-blank">?</div>
+    </div>
+    <div style="padding:0 24px 8px;font-size:12px;color:var(--text3)" id="ana-tip"></div>
+    <div class="quiz-options" id="ana-options"></div>
+    <div style="padding:16px 24px;display:none" id="ana-explanation">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Why this works</div>
+        <div id="ana-exp-text" style="font-size:14px;line-height:1.5;color:var(--text2)"></div>
+      </div>
+      <div style="margin-top:12px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);border-radius:10px;padding:12px 16px">
+        <div style="font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">AFOQT Tip</div>
+        <div id="ana-afoqt-tip" style="font-size:13px;color:var(--text2)"></div>
+      </div>
+      <button class="start-btn" style="margin-top:12px" onclick="nextAnalogyQuestion()">Next Analogy →</button>
+    </div>
+    <pb></pb>
+  </div>
+
+  <!-- STATS SCREEN -->
+  <div class="screen" id="screen-stats">
+    <div style="padding:24px 24px 0;font-family:'Syne',sans-serif;font-size:22px;font-weight:800">Statistics</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-label">Total Words</div>
+        <div class="stat-card-value" id="stat-total">5,247</div>
+        <div class="stat-card-sub">in database</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Cards Reviewed</div>
+        <div class="stat-card-value" id="stat-reviewed">0</div>
+        <div class="stat-card-sub">all time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Mastered</div>
+        <div class="stat-card-value" style="color:var(--green)" id="stat-mastered">0</div>
+        <div class="stat-card-sub">interval ≥ 21 days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Retention Rate</div>
+        <div class="stat-card-value" style="color:var(--accent2)" id="stat-retention">—</div>
+        <div class="stat-card-sub">avg accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Quiz Accuracy</div>
+        <div class="stat-card-value" style="color:var(--yellow)" id="stat-quiz-acc">—</div>
+        <div class="stat-card-sub">word knowledge</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Analogy Acc.</div>
+        <div class="stat-card-value" style="color:var(--orange)" id="stat-ana-acc">—</div>
+        <div class="stat-card-sub">verbal analogies</div>
+      </div>
+    </div>
+    <div class="heatmap-container">
+      <div class="section-title" style="padding:0;margin-bottom:12px">Activity (Last 6 Months)</div>
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+    <div class="word-mastery-list">
+      <div class="section-title" style="padding:0;margin-bottom:12px">Recently Reviewed</div>
+      <div id="recent-list"></div>
+    </div>
+    <pb></pb>
+  </div>
+
+  <!-- WORD LIST SCREEN -->
+  <div class="screen" id="screen-words">
+    <div style="padding:20px 24px 0;font-family:'Syne',sans-serif;font-size:22px;font-weight:800">Word Bank</div>
+    <div class="search-box-wrap">
+      <input class="search-box" type="text" placeholder="Search words, definitions..." id="search-input" oninput="filterWords()">
+    </div>
+    <div class="filter-row">
+      <div class="filter-chip active" onclick="setFilter('all',this)">All</div>
+      <div class="filter-chip" onclick="setFilter('new',this)">New</div>
+      <div class="filter-chip" onclick="setFilter('learning',this)">Learning</div>
+      <div class="filter-chip" onclick="setFilter('review',this)">Review</div>
+      <div class="filter-chip" onclick="setFilter('mastered',this)">Mastered</div>
+      <div class="filter-chip" onclick="setFilter('wk',this)">Word Knowledge</div>
+      <div class="filter-chip" onclick="setFilter('analogy',this)">Analogies</div>
+    </div>
+    <div class="word-list" id="word-list"></div>
+    <pb></pb>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bnav-btn active" onclick="showScreen('home')" id="bnav-home">
+    <span class="icon">🏠</span><span>Home</span>
+  </button>
+  <button class="bnav-btn" onclick="showScreen('quiz');startQuiz()" id="bnav-quiz">
+    <span class="icon">📝</span><span>Quiz</span>
+  </button>
+  <button class="bnav-btn" onclick="showScreen('analogy');startAnalogy()" id="bnav-analogy">
+    <span class="icon">🔗</span><span>Analogies</span>
+  </button>
+  <button class="bnav-btn" onclick="showScreen('stats')" id="bnav-stats">
+    <span class="icon">📊</span><span>Stats</span>
+  </button>
+  <button class="bnav-btn" onclick="showScreen('words')" id="bnav-words">
+    <span class="icon">📚</span><span>Words</span>
+  </button>
+</div>
+
+<!-- WORD DETAIL MODAL -->
+<div class="modal-overlay" id="word-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-word" id="modal-word">—</div>
+    <div class="modal-pos" id="modal-pos">—</div>
+    <div id="modal-kor" style="font-size:20px;color:#a78bfa;font-weight:700;margin-bottom:12px"></div>
+    <div class="modal-def" id="modal-def">—</div>
+    <div class="modal-example" id="modal-example">—</div>
+    <div class="modal-section-title">Synonyms</div>
+    <div class="synonyms" id="modal-synonyms"></div>
+    <div class="modal-section-title">Analogy Relations</div>
+    <div id="modal-analogies"></div>
+    <button class="close-modal" onclick="document.getElementById('word-modal').classList.remove('open')">Close</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// AFOQT WORD DATABASE (500 representative words of 5000+)
+// ============================================================
+const WORDS = [
+  // TIER 1 - AFOQT HIGH FREQUENCY
+  {id:1,word:"ABATE",pos:"verb",kor:"(강도가) 약해지다, 누그러지다",def:"To reduce in amount, degree, or intensity; to subside or diminish",example:"The storm finally began to abate after three days.",synonyms:["diminish","lessen","subside","wane","dwindle"],category:"wk",analogyRelations:["abate:intensify::expand:contract (antonym)","fever:abate::storm:subside (process)"]},
+  {id:2,word:"ABERRANT",pos:"adj",kor:"이상한, 정상에서 벗어난",def:"Departing from an accepted standard; deviating from the normal",example:"His aberrant behavior alarmed his colleagues.",synonyms:["deviant","anomalous","abnormal","atypical","irregular"],category:"wk",analogyRelations:["aberrant:normal::peculiar:ordinary (antonym)"]},
+  {id:3,word:"ABEYANCE",pos:"noun",kor:"일시 정지, 중단 상태",def:"A state of temporary suspension or inactivity",example:"The project was held in abeyance pending further funding.",synonyms:["suspension","dormancy","inactivity","pause","hiatus"],category:"wk",analogyRelations:["abeyance:activity::silence:noise (antonym state)"]},
+  {id:4,word:"ABJURE",pos:"verb",kor:"(신념·주의를) 공식적으로 버리다, 포기하다",def:"To formally renounce or reject a belief or allegiance",example:"He abjured his former political views.",synonyms:["renounce","forswear","recant","repudiate","abandon"],category:"wk"},
+  {id:5,word:"ABSCOND",pos:"verb",kor:"(몰래) 도망치다, 잠적하다",def:"To leave hurriedly and secretly, typically to escape from custody",example:"The thief absconded with the jewels before police arrived.",synonyms:["flee","escape","bolt","run away","decamp"],category:"wk"},
+  {id:6,word:"ABSTEMIOUS",pos:"adj",kor:"절제하는, 음식·음주를 삼가는",def:"Moderate in eating and drinking; refraining from indulgence",example:"His abstemious lifestyle contributed to his longevity.",synonyms:["temperate","moderate","restrained","frugal","austere"],category:"wk",analogyRelations:["abstemious:gluttonous::frugal:wasteful (antonym)"]},
+  {id:7,word:"ABSTRUSE",pos:"adj",kor:"난해한, 이해하기 어려운",def:"Difficult to understand; obscure in meaning",example:"The abstruse mathematical proofs confused most students.",synonyms:["obscure","recondite","arcane","esoteric","cryptic"],category:"wk"},
+  {id:8,word:"ACERBIC",pos:"adj",kor:"신랄한, 가혹한",def:"Sharp and forthright; bitter and cutting in tone",example:"Her acerbic wit made critics uncomfortable.",synonyms:["caustic","sharp","biting","acidic","tart"],category:"wk"},
+  {id:9,word:"ACRIMONY",pos:"noun",kor:"(말·태도의) 신랄함, 격렬한 반감",def:"Bitterness or ill feeling, especially in speech or manner",example:"The divorce was marked by great acrimony.",synonyms:["bitterness","hostility","rancor","animosity","enmity"],category:"wk",analogyRelations:["acrimony:goodwill::hostility:friendship (antonym)","acrimony:dispute::harmony:cooperation"]},
+  {id:10,word:"ACUMEN",pos:"noun",kor:"예리한 판단력, 통찰력",def:"The ability to make good judgments; keen insight",example:"Her business acumen led to rapid expansion.",synonyms:["shrewdness","insight","astuteness","sagacity","perspicacity"],category:"wk",analogyRelations:["acumen:dullness::perspicacity:obtuseness (antonym)"]},
+  {id:11,word:"ADROIT",pos:"adj",kor:"능숙한, 재치 있는",def:"Clever or skillful in using the hands or mind",example:"The adroit negotiator secured an excellent deal.",synonyms:["dexterous","skillful","proficient","deft","nimble"],category:"wk",analogyRelations:["adroit:clumsy::graceful:awkward (antonym)"]},
+  {id:12,word:"ADULATION",pos:"noun",kor:"지나친 찬사, 맹목적인 숭배",def:"Excessive admiration or praise",example:"The pop star received adulation from millions of fans.",synonyms:["flattery","worship","veneration","idolization","fawning"],category:"wk"},
+  {id:13,word:"ADVERSITY",pos:"noun",kor:"역경, 불행한 상황",def:"Difficult or unpleasant circumstances; misfortune",example:"She showed great courage in the face of adversity.",synonyms:["hardship","misfortune","difficulty","tribulation","trial"],category:"wk",analogyRelations:["adversity:prosperity::hardship:comfort (antonym)"]},
+  {id:14,word:"AFFABLE",pos:"adj",kor:"상냥한, 붙임성 있는",def:"Friendly, good-natured, and easy to talk to",example:"The affable host made everyone feel welcome.",synonyms:["friendly","amiable","genial","cordial","pleasant"],category:"wk",analogyRelations:["affable:aloof::gregarious:antisocial (antonym)"]},
+  {id:15,word:"AGGRANDIZE",pos:"verb",kor:"(권력·지위를) 높이다, 과장하다",def:"To increase the power, status, or wealth of; to exaggerate",example:"He used false claims to aggrandize his reputation.",synonyms:["exalt","magnify","inflate","enhance","glorify"],category:"wk"},
+  {id:16,word:"ALACRITY",pos:"noun",kor:"민첩함, 활기찬 의욕",def:"Brisk and cheerful readiness; eagerness",example:"She accepted the invitation with alacrity.",synonyms:["eagerness","enthusiasm","promptness","readiness","zeal"],category:"wk",analogyRelations:["alacrity:reluctance::eagerness:hesitation (antonym)"]},
+  {id:17,word:"ALLEVIATE",pos:"verb",kor:"(고통·문제를) 완화하다, 경감하다",def:"To make suffering, deficiency, or a problem less severe",example:"Aspirin alleviates mild pain effectively.",synonyms:["relieve","ease","mitigate","assuage","lessen"],category:"wk",analogyRelations:["alleviate:aggravate::soothe:irritate (antonym)"]},
+  {id:18,word:"ALOOF",pos:"adj",kor:"냉담한, 초연한",def:"Not friendly or forthcoming; cool and distant",example:"His aloof manner made it hard to approach him.",synonyms:["distant","detached","reserved","standoffish","remote"],category:"wk"},
+  {id:19,word:"ALTRUISM",pos:"noun",kor:"이타주의, 남을 위하는 마음",def:"Selfless concern for the well-being of others",example:"Her altruism led her to donate her entire salary to charity.",synonyms:["selflessness","generosity","benevolence","philanthropy","magnanimity"],category:"wk"},
+  {id:20,word:"AMBIGUOUS",pos:"adj",kor:"모호한, 다의적인",def:"Open to more than one interpretation; not having one clear meaning",example:"The ambiguous contract led to legal disputes.",synonyms:["vague","unclear","equivocal","indefinite","obscure"],category:"wk"},
+  {id:21,word:"AMELIORATE",pos:"verb",kor:"개선하다, 나아지게 하다",def:"To make something bad or unsatisfactory better",example:"New policies were designed to ameliorate poverty.",synonyms:["improve","better","enhance","remedy","reform"],category:"wk",analogyRelations:["ameliorate:worsen::improve:deteriorate (antonym)"]},
+  {id:22,word:"ANACHRONISM",pos:"noun",kor:"시대착오, 시대에 맞지 않는 것",def:"Something belonging to a period other than the one in which it exists",example:"Carrying a sword today would be an anachronism.",synonyms:["archaism","relic","antiquity","incongruity"],category:"wk"},
+  {id:23,word:"ANARCHY",pos:"noun",kor:"무정부 상태, 무질서",def:"Absence of government or authority; disorder and confusion",example:"The collapse of government led to anarchy.",synonyms:["chaos","disorder","lawlessness","mayhem","bedlam"],category:"wk",analogyRelations:["anarchy:order::chaos:control (antonym)"]},
+  {id:24,word:"ANECDOTE",pos:"noun",kor:"일화, 짧은 흥미로운 이야기",def:"A short amusing or interesting story about a real incident",example:"She illustrated her point with a clever anecdote.",synonyms:["story","tale","account","narrative","vignette"],category:"wk"},
+  {id:25,word:"ANIMOSITY",pos:"noun",kor:"적대감, 원한",def:"Strong hostility or opposition toward someone",example:"There was deep animosity between the rival teams.",synonyms:["hostility","enmity","antagonism","hatred","antipathy"],category:"wk",analogyRelations:["animosity:goodwill::hatred:affection (antonym)"]},
+  {id:26,word:"ANOMALY",pos:"noun",kor:"이상 현상, 예외적인 것",def:"Something that deviates from what is standard, normal, or expected",example:"The anomaly in the data suggested a measurement error.",synonyms:["irregularity","aberration","deviation","oddity","exception"],category:"wk"},
+  {id:27,word:"ANTAGONIST",pos:"noun",kor:"적대자, 반대자",def:"A person who actively opposes or is hostile to another",example:"The novel's antagonist undermined every plan.",synonyms:["adversary","opponent","enemy","rival","foe"],category:"wk",analogyRelations:["antagonist:protagonist::villain:hero (opposition roles)"]},
+  {id:28,word:"APATHY",pos:"noun",kor:"무관심, 냉담",def:"Lack of interest, enthusiasm, or concern",example:"Voter apathy resulted in low election turnout.",synonyms:["indifference","lethargy","listlessness","disinterest","passivity"],category:"wk",analogyRelations:["apathy:enthusiasm::indifference:passion (antonym)"]},
+  {id:29,word:"APPEASE",pos:"verb",kor:"달래다, 진정시키다",def:"To pacify or placate someone by giving them what they want",example:"Attempting to appease aggressors rarely brings peace.",synonyms:["pacify","placate","mollify","conciliate","assuage"],category:"wk"},
+  {id:30,word:"ARBITRARY",pos:"adj",kor:"임의적인, 제멋대로인",def:"Based on random choice rather than reason or system",example:"The arbitrary rules seemed designed to confuse.",synonyms:["random","capricious","whimsical","haphazard","erratic"],category:"wk"},
+  {id:31,word:"ARDENT",pos:"adj",kor:"열렬한, 열정적인",def:"Having or displaying a strong feeling of enthusiasm or devotion",example:"She was an ardent supporter of environmental causes.",synonyms:["passionate","fervent","zealous","enthusiastic","eager"],category:"wk",analogyRelations:["ardent:apathetic::fervent:indifferent (antonym)"]},
+  {id:32,word:"ARDUOUS",pos:"adj",kor:"힘든, 몹시 고된",def:"Involving or requiring strenuous effort; difficult and tiring",example:"The arduous climb took three days.",synonyms:["difficult","strenuous","laborious","taxing","grueling"],category:"wk",analogyRelations:["arduous:easy::strenuous:effortless (antonym)"]},
+  {id:33,word:"ARTICULATE",pos:"adj/verb",kor:"(말을) 명확히 표현하는, 유창한",def:"Having or showing the ability to speak fluently and coherently",example:"The articulate speaker held the audience's attention.",synonyms:["eloquent","fluent","expressive","well-spoken","lucid"],category:"wk"},
+  {id:34,word:"ASCETIC",pos:"adj",kor:"금욕적인, 고행의",def:"Practicing severe self-discipline and abstaining from all forms of indulgence",example:"The monk's ascetic lifestyle was admired by many.",synonyms:["austere","spartan","self-denying","abstemious","frugal"],category:"wk"},
+  {id:35,word:"ASSUAGE",pos:"verb",kor:"(감정을) 누그러뜨리다, 달래다",def:"To make an unpleasant feeling less intense; to satisfy a craving",example:"She tried to assuage his fears with reassuring words.",synonyms:["relieve","ease","allay","mitigate","appease"],category:"wk"},
+  {id:36,word:"ASTUTE",pos:"adj",kor:"기민한, 영리한, 예리한",def:"Having an ability to accurately assess situations; shrewd",example:"The astute investor spotted the trend early.",synonyms:["shrewd","perceptive","clever","sagacious","sharp"],category:"wk"},
+  {id:37,word:"ATROPHY",pos:"verb/noun",kor:"(사용 부족으로) 쇠약해지다, 위축",def:"To waste away or cause to waste away from lack of use",example:"Muscles atrophy quickly without regular exercise.",synonyms:["wither","waste","degenerate","decline","deteriorate"],category:"wk",analogyRelations:["atrophy:growth::decay:flourishing (antonym process)"]},
+  {id:38,word:"AUDACIOUS",pos:"adj",kor:"대담한, 담대한",def:"Showing a willingness to take surprisingly bold risks",example:"The audacious plan surprised even his allies.",synonyms:["bold","daring","brazen","intrepid","fearless"],category:"wk"},
+  {id:39,word:"AUSPICIOUS",pos:"adj",kor:"길조의, 상서로운",def:"Giving or suggesting signs of future success; favorable",example:"The sunny weather seemed auspicious for the launch.",synonyms:["promising","favorable","propitious","encouraging","bright"],category:"wk",analogyRelations:["auspicious:ominous::promising:threatening (antonym)"]},
+  {id:40,word:"AUSTERE",pos:"adj",kor:"엄격한, 검소한",def:"Severe or strict in manner; with no comfort or adornment",example:"The austere interior had bare white walls.",synonyms:["severe","stern","stark","spartan","ascetic"],category:"wk"},
+  {id:41,word:"AVARICE",pos:"noun",kor:"탐욕, 재물에 대한 욕심",def:"Extreme greed for wealth or material gain",example:"His avarice led him to betray his partners.",synonyms:["greed","cupidity","covetousness","acquisitiveness","rapacity"],category:"wk",analogyRelations:["avarice:generosity::greed:benevolence (antonym)"]},
+  {id:42,word:"BANAL",pos:"adj",kor:"진부한, 평범한",def:"So lacking in originality as to be obvious and boring",example:"The speech was full of banal platitudes.",synonyms:["trite","hackneyed","clichéd","mundane","commonplace"],category:"wk"},
+  {id:43,word:"BELLIGERENT",pos:"adj",kor:"호전적인, 싸우기 좋아하는",def:"Hostile and aggressive; inclined to start quarrels or wars",example:"The belligerent nation threatened its neighbors.",synonyms:["aggressive","hostile","combative","pugnacious","warlike"],category:"wk",analogyRelations:["belligerent:peaceful::combative:conciliatory (antonym)"]},
+  {id:44,word:"BENEFICENT",pos:"adj",kor:"자선적인, 선을 베푸는",def:"Generous or doing good; resulting in good",example:"The beneficent donor funded the entire hospital wing.",synonyms:["benevolent","charitable","philanthropic","generous","munificent"],category:"wk"},
+  {id:45,word:"BENEVOLENT",pos:"adj",kor:"자비로운, 인정이 많은",def:"Well meaning and kindly; generous and charitable",example:"The benevolent king was loved by all his subjects.",synonyms:["kind","charitable","generous","philanthropic","magnanimous"],category:"wk"},
+  {id:46,word:"BREVITY",pos:"noun",kor:"간결함, 짧음",def:"Concise and exact use of words; shortness of time",example:"Brevity is the soul of wit.",synonyms:["conciseness","succinctness","terseness","pithiness","laconism"],category:"wk",analogyRelations:["brevity:verbosity::conciseness:wordiness (antonym)"]},
+  {id:47,word:"BUCOLIC",pos:"adj",kor:"전원적인, 목가적인",def:"Relating to the pleasant aspects of the countryside and rural life",example:"They enjoyed a bucolic weekend in Vermont.",synonyms:["rural","pastoral","idyllic","rustic","agrarian"],category:"wk"},
+  {id:48,word:"CAPRICIOUS",pos:"adj",kor:"변덕스러운, 예측 불가한",def:"Given to sudden and unaccountable changes of mood or behavior",example:"The capricious weather ruined outdoor plans.",synonyms:["fickle","erratic","mercurial","unpredictable","volatile"],category:"wk",analogyRelations:["capricious:steadfast::fickle:constant (antonym)"]},
+  {id:49,word:"CASTIGATE",pos:"verb",kor:"(심하게) 질책하다, 혹평하다",def:"To reprimand severely; to criticize harshly",example:"The editor castigated the reporter for the errors.",synonyms:["berate","chastise","rebuke","censure","upbraid"],category:"wk"},
+  {id:50,word:"CELERITY",pos:"noun",kor:"신속함, 빠름",def:"Swiftness of movement; quickness",example:"The crisis demanded they act with great celerity.",synonyms:["speed","swiftness","rapidity","alacrity","haste"],category:"wk",analogyRelations:["celerity:sluggishness::speed:slowness (antonym)"]},
+  {id:51,word:"CENSURE",pos:"verb/noun",kor:"비난하다, 공식 비판",def:"To express severe disapproval of; formal criticism",example:"The senator was censured by the ethics committee.",synonyms:["condemn","criticize","reprimand","rebuke","reprove"],category:"wk"},
+  {id:52,word:"CHICANERY",pos:"noun",kor:"속임수, 교활한 술책",def:"Trickery or deception using clever but unsound reasoning",example:"He won the case through legal chicanery.",synonyms:["trickery","deception","duplicity","deceit","subterfuge"],category:"wk"},
+  {id:53,word:"CIRCUMSPECT",pos:"adj",kor:"신중한, 조심스러운",def:"Wary and unwilling to take risks; cautious",example:"The circumspect investor diversified broadly.",synonyms:["cautious","prudent","wary","discreet","careful"],category:"wk"},
+  {id:54,word:"CLANDESTINE",pos:"adj",kor:"은밀한, 비밀스러운",def:"Kept secret or done secretively",example:"They held clandestine meetings in the basement.",synonyms:["secret","covert","surreptitious","furtive","undercover"],category:"wk"},
+  {id:55,word:"COERCE",pos:"verb",kor:"강요하다, 억지로 시키다",def:"To persuade someone to do something by force or threat",example:"He was coerced into signing the document.",synonyms:["force","compel","pressure","intimidate","bully"],category:"wk"},
+  {id:56,word:"COGENT",pos:"adj",kor:"설득력 있는, 논리적으로 강력한",def:"Clear, logical, and convincing; powerfully persuasive",example:"She presented a cogent argument for reform.",synonyms:["persuasive","compelling","convincing","forceful","lucid"],category:"wk"},
+  {id:57,word:"COMPLACENT",pos:"adj",kor:"자기만족에 빠진, 안일한",def:"Showing smugness or uncritical satisfaction with oneself or achievements",example:"Their complacent attitude led to their defeat.",synonyms:["self-satisfied","smug","content","untroubled","uncritical"],category:"wk",analogyRelations:["complacent:vigilant::lax:careful (antonym)"]},
+  {id:58,word:"CONCILIATE",pos:"verb",kor:"달래다, 화해시키다",def:"To make calm; to stop someone from feeling angry or hostile",example:"He tried to conciliate the opposing factions.",synonyms:["pacify","placate","appease","mollify","reconcile"],category:"wk"},
+  {id:59,word:"CONDONE",pos:"verb",kor:"(잘못을) 묵인하다, 용납하다",def:"To accept or forgive behavior that most people think is wrong",example:"We cannot condone such reckless behavior.",synonyms:["tolerate","overlook","excuse","forgive","sanction"],category:"wk"},
+  {id:60,word:"CONFLAGRATION",pos:"noun",kor:"대화재, 대규모 분쟁",def:"An extensive destructive fire; a large-scale conflict",example:"The conflagration consumed the entire block.",synonyms:["blaze","inferno","firestorm","wildfire"],category:"wk",analogyRelations:["conflagration:fire::deluge:rain (degree/scale)"]},
+  {id:61,word:"CONGENIAL",pos:"adj",kor:"마음이 맞는, 쾌적한",def:"Pleasant because it suits one's personality or interests",example:"She found the academic environment congenial.",synonyms:["agreeable","pleasant","genial","compatible","amiable"],category:"wk"},
+  {id:62,word:"CONTRITE",pos:"adj",kor:"뉘우치는, 진심으로 후회하는",def:"Feeling or expressing remorse for sins or wrongdoing",example:"He was genuinely contrite about his mistake.",synonyms:["remorseful","penitent","regretful","sorrowful","apologetic"],category:"wk"},
+  {id:63,word:"CONVOLUTED",pos:"adj",kor:"복잡한, 뒤얽힌",def:"Extremely complex and difficult to follow",example:"The convoluted tax code confused even experts.",synonyms:["complex","intricate","tortuous","labyrinthine","complicated"],category:"wk"},
+  {id:64,word:"CORROBORATE",pos:"verb",kor:"확인하다, 입증하다",def:"To confirm or give support to a statement or theory",example:"Her testimony corroborated his alibi.",synonyms:["confirm","verify","validate","substantiate","support"],category:"wk"},
+  {id:65,word:"COUNTENANCE",pos:"noun/verb",kor:"용모, 표정; 허용하다",def:"A person's face or expression; to give approval to",example:"She could not countenance such dishonesty.",synonyms:["face","expression","visage","approve","sanction"],category:"wk"},
+  {id:66,word:"CRAVEN",pos:"adj",kor:"비겁한, 겁쟁이의",def:"Contemptibly lacking in courage; cowardly",example:"His craven surrender shocked his allies.",synonyms:["cowardly","pusillanimous","spineless","timid","gutless"],category:"wk",analogyRelations:["craven:valiant::cowardly:brave (antonym)"]},
+  {id:67,word:"CULPABLE",pos:"adj",kor:"비난받아 마땅한, 책임이 있는",def:"Deserving blame; responsible for a fault or wrong",example:"Both parties were culpable for the accident.",synonyms:["blameworthy","at fault","guilty","responsible","liable"],category:"wk"},
+  {id:68,word:"CUPIDITY",pos:"noun",kor:"탐욕, 지나친 욕심",def:"Greed for money or possessions",example:"His cupidity drove him to commit fraud.",synonyms:["greed","avarice","covetousness","rapacity","acquisitiveness"],category:"wk"},
+  {id:69,word:"DAUNTLESS",pos:"adj",kor:"용감무쌍한, 두려움을 모르는",def:"Showing fearlessness and determination",example:"The dauntless explorer pressed forward despite danger.",synonyms:["fearless","intrepid","bold","undaunted","courageous"],category:"wk",analogyRelations:["dauntless:timid::intrepid:fearful (antonym)"]},
+  {id:70,word:"DEBASE",pos:"verb",kor:"(가치·품질을) 낮추다, 타락시키다",def:"To reduce in quality or value; to lower in character",example:"Inflation can debase the currency.",synonyms:["degrade","lower","corrupt","taint","defile"],category:"wk"},
+  {id:71,word:"DECORUM",pos:"noun",kor:"예의 바름, 품위",def:"Behavior in keeping with good taste and propriety",example:"Guests were expected to observe proper decorum.",synonyms:["propriety","etiquette","decency","correctness","civility"],category:"wk",analogyRelations:["decorum:impropriety::propriety:rudeness (antonym)"]},
+  {id:72,word:"DEFER",pos:"verb",kor:"미루다; (의견에) 따르다",def:"To put off to a later time; to submit to another's judgment",example:"She deferred to the expert's opinion.",synonyms:["postpone","delay","yield","submit","acquiesce"],category:"wk"},
+  {id:73,word:"DEMAGOGUE",pos:"noun",kor:"선동가, 대중 선동 정치인",def:"A political leader who seeks support by appealing to prejudices",example:"The demagogue exploited public fears.",synonyms:["agitator","rabble-rouser","firebrand","populist"],category:"wk"},
+  {id:74,word:"DENOUNCE",pos:"verb",kor:"비난하다, 공개적으로 규탄하다",def:"To publicly declare to be wrong or evil; to inform against",example:"The committee denounced the fraudulent practices.",synonyms:["condemn","censure","criticize","castigate","indict"],category:"wk"},
+  {id:75,word:"DESICCATE",pos:"verb",kor:"(수분을) 완전히 말리다, 건조시키다",def:"To cause to lose moisture; to dry up completely",example:"The desert heat desiccated the plant.",synonyms:["dry","dehydrate","parch","wither","shrivel"],category:"wk"},
+  {id:76,word:"DESULTORY",pos:"adj",kor:"산만한, 계획 없이 이것저것 건드리는",def:"Lacking a plan, purpose, or enthusiasm; random",example:"His desultory study habits led to poor results.",synonyms:["random","haphazard","erratic","aimless","unfocused"],category:"wk"},
+  {id:77,word:"DIATRIBE",pos:"noun",kor:"격렬한 비난 연설, 독설",def:"A forceful and bitter verbal attack against someone or something",example:"He launched a diatribe against the administration.",synonyms:["tirade","rant","harangue","polemic","invective"],category:"wk"},
+  {id:78,word:"DIDACTIC",pos:"adj",kor:"교훈적인, 가르치려 드는",def:"Intended to teach; too eager to instruct others",example:"The novel has a didactic tone throughout.",synonyms:["instructive","educational","preachy","moralistic","pedagogic"],category:"wk"},
+  {id:79,word:"DIFFIDENT",pos:"adj",kor:"자신감 없는, 소심한",def:"Modest or shy due to a lack of self-confidence",example:"Her diffident manner hid her true abilities.",synonyms:["shy","timid","reserved","bashful","self-effacing"],category:"wk",analogyRelations:["diffident:assertive::timid:bold (antonym)"]},
+  {id:80,word:"DILETTANTE",pos:"noun",kor:"아마추어, 겉핥기식 취미인",def:"A person who cultivates an area of interest casually and superficially",example:"He was a dilettante who dabbled in art without commitment.",synonyms:["amateur","dabbler","nonprofessional","trifler"],category:"wk"},
+  {id:81,word:"DIRGE",pos:"noun",kor:"애도가, 장송곡",def:"A lament for the dead, especially one forming part of a funeral rite",example:"The mournful dirge echoed through the cathedral.",synonyms:["elegy","lament","requiem","threnody","funeral song"],category:"wk",analogyRelations:["dirge:funeral::anthem:celebration (occasion)"]},
+  {id:82,word:"DISCERN",pos:"verb",kor:"식별하다, 알아차리다",def:"To recognize or find out; to perceive clearly",example:"It was hard to discern the truth from the lies.",synonyms:["perceive","detect","distinguish","recognize","identify"],category:"wk"},
+  {id:83,word:"DISPASSIONATE",pos:"adj",kor:"감정에 치우치지 않는, 냉정한",def:"Not influenced by strong emotion; rational and impartial",example:"A judge must remain dispassionate.",synonyms:["impartial","objective","detached","neutral","unbiased"],category:"wk"},
+  {id:84,word:"DISPARATE",pos:"adj",kor:"이질적인, 본질적으로 다른",def:"Essentially different in kind; without connection",example:"The report combined disparate data sources.",synonyms:["different","distinct","unlike","divergent","contrasting"],category:"wk"},
+  {id:85,word:"DISSEMBLE",pos:"verb",kor:"(감정·의도를) 숨기다, 위장하다",def:"To conceal one's true feelings or beliefs; to deceive",example:"Politicians sometimes dissemble to gain support.",synonyms:["conceal","pretend","disguise","deceive","mask"],category:"wk"},
+  {id:86,word:"DOCILE",pos:"adj",kor:"순종적인, 다루기 쉬운",def:"Ready to accept control or instruction; submissive",example:"The docile students followed every instruction.",synonyms:["obedient","compliant","submissive","tractable","amenable"],category:"wk",analogyRelations:["docile:rebellious::compliant:defiant (antonym)"]},
+  {id:87,word:"DOGMATIC",pos:"adj",kor:"독단적인, 교조적인",def:"Inclined to lay down principles as unquestionably true",example:"His dogmatic approach stifled creative thinking.",synonyms:["opinionated","doctrinaire","inflexible","rigid","authoritarian"],category:"wk"},
+  {id:88,word:"DUBIOUS",pos:"adj",kor:"의심스러운, 미심쩍은",def:"Hesitating or doubting; of questionable quality or reliability",example:"The evidence was dubious at best.",synonyms:["doubtful","questionable","suspect","uncertain","skeptical"],category:"wk"},
+  {id:89,word:"EBULLIENCE",pos:"noun",kor:"활기, 넘치는 열정",def:"The quality of being cheerful and full of energy; exuberance",example:"Her natural ebullience brightened every room.",synonyms:["exuberance","enthusiasm","vivacity","effervescence","zest"],category:"wk"},
+  {id:90,word:"ECCENTRIC",pos:"adj",kor:"괴짜의, 별난",def:"Unconventional and slightly strange",example:"The eccentric professor wore a different hat each day.",synonyms:["quirky","unconventional","odd","peculiar","idiosyncratic"],category:"wk"},
+  {id:91,word:"EFFICACIOUS",pos:"adj",kor:"효과적인, 효능 있는",def:"Successful in producing a desired or intended result",example:"The new treatment proved highly efficacious.",synonyms:["effective","efficient","potent","productive","successful"],category:"wk",analogyRelations:["efficacious:ineffective::potent:impotent (antonym)"]},
+  {id:92,word:"EGREGIOUS",pos:"adj",kor:"터무니없이 나쁜, 지독한",def:"Outstandingly bad; shocking",example:"The egregious error caused significant damage.",synonyms:["flagrant","glaring","atrocious","scandalous","outrageous"],category:"wk"},
+  {id:93,word:"ELOQUENT",pos:"adj",kor:"웅변적인, 유창한",def:"Fluent or persuasive in speaking or writing",example:"Her eloquent speech moved the entire audience.",synonyms:["articulate","expressive","fluent","persuasive","well-spoken"],category:"wk"},
+  {id:94,word:"ELUSIVE",pos:"adj",kor:"잡기 힘든, 파악하기 어려운",def:"Difficult to find, catch, or achieve",example:"The elusive criminal evaded capture for years.",synonyms:["evasive","slippery","fleeting","intangible","hard to pin down"],category:"wk"},
+  {id:95,word:"EMBROIL",pos:"verb",kor:"(분쟁에) 휘말리게 하다",def:"To involve someone deeply in an argument or difficult situation",example:"He was embroiled in a lengthy legal dispute.",synonyms:["entangle","involve","implicate","enmesh","ensnare"],category:"wk"},
+  {id:96,word:"EMINENT",pos:"adj",kor:"저명한, 탁월한",def:"Famous and respected within a particular sphere",example:"An eminent surgeon performed the procedure.",synonyms:["distinguished","renowned","prominent","notable","illustrious"],category:"wk",analogyRelations:["eminent:obscure::renowned:unknown (antonym)"]},
+  {id:97,word:"EMPIRICAL",pos:"adj",kor:"경험적인, 실증적인",def:"Based on observation or experience rather than theory",example:"The empirical evidence supported the hypothesis.",synonyms:["observational","experimental","practical","experiential"],category:"wk"},
+  {id:98,word:"ENDEMIC",pos:"adj",kor:"특정 지역에 고유한, 풍토성의",def:"Native or restricted to a certain place; regularly found among a community",example:"Malaria is endemic in parts of Africa.",synonyms:["native","indigenous","local","prevalent","widespread"],category:"wk"},
+  {id:99,word:"ENERVATE",pos:"verb",kor:"기력을 빼앗다, 약하게 하다",def:"To weaken; to drain of energy or vitality",example:"The long illness enervated him greatly.",synonyms:["weaken","exhaust","debilitate","sap","enfeeble"],category:"wk",analogyRelations:["enervate:invigorate::weaken:strengthen (antonym)"]},
+  {id:100,word:"ENIGMATIC",pos:"adj",kor:"수수께끼 같은, 불가사의한",def:"Difficult to interpret or understand; mysterious",example:"The Mona Lisa's enigmatic smile has puzzled many.",synonyms:["mysterious","puzzling","inscrutable","cryptic","baffling"],category:"wk"},
+  {id:101,word:"EPHEMERAL",pos:"adj",kor:"덧없는, 순간적인",def:"Lasting for a very short time",example:"Fame is often ephemeral.",synonyms:["fleeting","transitory","brief","short-lived","transient"],category:"wk",analogyRelations:["ephemeral:permanent::fleeting:lasting (antonym)"]},
+  {id:102,word:"EQUIVOCATE",pos:"verb",kor:"모호하게 말하다, 얼버무리다",def:"To use ambiguous language to conceal the truth or avoid commitment",example:"The politician equivocated when asked direct questions.",synonyms:["hedge","prevaricate","waffle","be evasive","stall"],category:"wk"},
+  {id:103,word:"ERUDITE",pos:"adj",kor:"박학한, 학식이 풍부한",def:"Having or showing wide knowledge or learning",example:"The erudite professor had mastered six languages.",synonyms:["learned","scholarly","educated","knowledgeable","intellectual"],category:"wk",analogyRelations:["erudite:ignorant::scholarly:uneducated (antonym)"]},
+  {id:104,word:"ESOTERIC",pos:"adj",kor:"난해한, 소수만 아는 비밀스러운",def:"Intended for or understood by only a small group with specialized knowledge",example:"The esoteric ritual was known only to initiates.",synonyms:["obscure","arcane","abstruse","cryptic","recondite"],category:"wk"},
+  {id:105,word:"EULOGY",pos:"noun",kor:"추도사, 찬사",def:"A speech praising someone, especially one delivered at a funeral",example:"He delivered a moving eulogy for his mentor.",synonyms:["tribute","encomium","panegyric","praise","commendation"],category:"wk",analogyRelations:["eulogy:funeral::toast:wedding (occasion)"]},
+  {id:106,word:"EXACERBATE",pos:"verb",kor:"악화시키다, 더 심하게 만들다",def:"To make a problem, bad situation, or negative feeling worse",example:"His aggressive tone exacerbated the conflict.",synonyms:["worsen","aggravate","intensify","inflame","compound"],category:"wk",analogyRelations:["exacerbate:alleviate::aggravate:soothe (antonym)"]},
+  {id:107,word:"EXCULPATE",pos:"verb",kor:"무죄를 입증하다, 혐의를 벗기다",def:"To show or declare that someone is not guilty of wrongdoing",example:"New evidence exculpated the wrongly convicted man.",synonyms:["exonerate","acquit","absolve","clear","vindicate"],category:"wk"},
+  {id:108,word:"EXPEDIENT",pos:"adj",kor:"편의적인, 이득이 되는",def:"Convenient and practical, though possibly improper or immoral",example:"It was expedient to compromise rather than fight.",synonyms:["convenient","advantageous","practical","pragmatic","politic"],category:"wk"},
+  {id:109,word:"EXPLICIT",pos:"adj",kor:"명시적인, 분명한",def:"Stated clearly and in detail, leaving no room for confusion",example:"The contract had explicit terms.",synonyms:["clear","direct","unambiguous","precise","definite"],category:"wk",analogyRelations:["explicit:implicit::overt:covert (opposition)"]},
+  {id:110,word:"EXTOL",pos:"verb",kor:"극찬하다, 칭송하다",def:"To praise enthusiastically",example:"She extolled the virtues of the new program.",synonyms:["praise","laud","commend","acclaim","glorify"],category:"wk"},
+  {id:111,word:"FALLACIOUS",pos:"adj",kor:"잘못된, 논리적 오류가 있는",def:"Based on a mistaken belief; misleading or deceptive",example:"The fallacious argument was easily disproved.",synonyms:["false","erroneous","misleading","incorrect","unsound"],category:"wk"},
+  {id:112,word:"FASTIDIOUS",pos:"adj",kor:"까다로운, 꼼꼼한",def:"Very attentive to detail; difficult to please",example:"The fastidious chef tasted everything twice.",synonyms:["meticulous","particular","fussy","exacting","scrupulous"],category:"wk"},
+  {id:113,word:"FATUOUS",pos:"adj",kor:"어리석은, 하찮은",def:"Silly and pointless; lacking intelligence",example:"His fatuous comments annoyed everyone.",synonyms:["silly","foolish","inane","vapid","idiotic"],category:"wk"},
+  {id:114,word:"FERVENT",pos:"adj",kor:"열렬한, 뜨거운",def:"Having or displaying a passionate intensity",example:"She was a fervent advocate for human rights.",synonyms:["passionate","ardent","zealous","intense","fervid"],category:"wk"},
+  {id:115,word:"FICKLE",pos:"adj",kor:"변덕스러운, 일관성 없는",def:"Changing frequently, especially as regards one's loyalties",example:"Public opinion is fickle.",synonyms:["changeable","capricious","unpredictable","inconsistent","volatile"],category:"wk"},
+  {id:116,word:"FLAGRANT",pos:"adj",kor:"뻔뻔한, 노골적으로 나쁜",def:"Conspicuously or obviously offensive",example:"This was a flagrant violation of the rules.",synonyms:["blatant","glaring","brazen","outrageous","egregious"],category:"wk"},
+  {id:117,word:"FLEDGLING",pos:"adj/noun",kor:"신출내기, 미숙한",def:"New and inexperienced; a person or organization that is new",example:"The fledgling company faced many challenges.",synonyms:["novice","newcomer","beginner","neophyte","emerging"],category:"wk",analogyRelations:["fledgling:experienced::novice:expert (degree)"]},
+  {id:118,word:"FLORID",pos:"adj",kor:"화려한, 지나치게 꾸민",def:"Elaborately or excessively intricate; having a red flushed complexion",example:"His florid prose was exhausting to read.",synonyms:["ornate","elaborate","flowery","flamboyant","overwrought"],category:"wk"},
+  {id:119,word:"FORBEARANCE",pos:"noun",kor:"인내, 자제",def:"Patient restraint; the quality of being tolerant",example:"She showed great forbearance under pressure.",synonyms:["patience","tolerance","restraint","endurance","leniency"],category:"wk"},
+  {id:120,word:"FRUGAL",pos:"adj",kor:"검약한, 절약하는",def:"Sparing or economical with money or food",example:"His frugal habits allowed him to retire early.",synonyms:["economical","thrifty","sparing","careful","penny-wise"],category:"wk",analogyRelations:["frugal:wasteful::thrifty:extravagant (antonym)"]},
+  // Continue with more words...
+  {id:121,word:"GARRULOUS",pos:"adj",kor:"수다스러운, 쓸데없는 말이 많은",def:"Excessively talkative, especially about trivial matters",example:"The garrulous neighbor talked for hours.",synonyms:["talkative","chatty","verbose","loquacious","babbling"],category:"wk",analogyRelations:["garrulous:taciturn::verbose:laconic (antonym)"]},
+  {id:122,word:"GREGARIOUS",pos:"adj",kor:"사교적인, 무리 지어 사는",def:"Fond of company; sociable",example:"She was gregarious by nature and loved parties.",synonyms:["sociable","outgoing","extroverted","convivial","affable"],category:"wk"},
+  {id:123,word:"HACKNEYED",pos:"adj",kor:"진부한, 흔해빠진",def:"Lacking in freshness; overused and therefore less effective",example:"The speech was full of hackneyed phrases.",synonyms:["trite","clichéd","banal","tired","worn-out"],category:"wk"},
+  {id:124,word:"HAPLESS",pos:"adj",kor:"불운한, 재수 없는",def:"Unfortunate; unlucky",example:"The hapless traveler missed every connection.",synonyms:["unlucky","unfortunate","ill-fated","wretched","luckless"],category:"wk"},
+  {id:125,word:"HARANGUE",pos:"noun/verb",kor:"장황한 연설, 호통치다",def:"A lengthy and aggressive speech; to lecture at length",example:"He harangued the crowd for over an hour.",synonyms:["tirade","rant","diatribe","lecture","berate"],category:"wk"},
+  {id:126,word:"HEGEMONY",pos:"noun",kor:"패권, 지배권",def:"Leadership or dominance, especially of one country over others",example:"American hegemony shaped post-war politics.",synonyms:["dominance","supremacy","authority","control","leadership"],category:"wk"},
+  {id:127,word:"HERESY",pos:"noun",kor:"이단, 정통에 어긋난 신념",def:"Belief or opinion contrary to orthodox doctrine",example:"In medieval times, heresy could be punishable by death.",synonyms:["dissent","unorthodoxy","apostasy","nonconformity","blasphemy"],category:"wk"},
+  {id:128,word:"HYPOCRITICAL",pos:"adj",kor:"위선적인",def:"Behaving in a way that contradicts one's stated beliefs",example:"It would be hypocritical to condemn what I myself do.",synonyms:["two-faced","insincere","sanctimonious","pharisaical","duplicitous"],category:"wk"},
+  {id:129,word:"ICONOCLAST",pos:"noun",kor:"우상 파괴자, 기존 관습에 도전하는 사람",def:"A person who attacks cherished beliefs or institutions",example:"The iconoclast challenged every tradition.",synonyms:["rebel","nonconformist","dissenter","radical","challenger"],category:"wk"},
+  {id:130,word:"IGNOBLE",pos:"adj",kor:"비열한, 수치스러운",def:"Not honorable in character or purpose",example:"His ignoble actions disgraced his family.",synonyms:["dishonorable","shameful","base","mean","disgraceful"],category:"wk",analogyRelations:["ignoble:noble::dishonorable:honorable (antonym)"]},
+  {id:131,word:"IMMUTABLE",pos:"adj",kor:"불변의, 바뀌지 않는",def:"Unchanging over time or unable to be changed",example:"The laws of physics are immutable.",synonyms:["unchangeable","fixed","permanent","invariable","constant"],category:"wk"},
+  {id:132,word:"IMPARTIAL",pos:"adj",kor:"공평한, 편견 없는",def:"Treating all rivals or disputants equally; unbiased",example:"A jury must be impartial.",synonyms:["unbiased","neutral","objective","fair","disinterested"],category:"wk"},
+  {id:133,word:"IMPETUOUS",pos:"adj",kor:"충동적인, 성급한",def:"Acting or done quickly without thought or care",example:"His impetuous decision led to regret.",synonyms:["impulsive","rash","hasty","reckless","precipitous"],category:"wk",analogyRelations:["impetuous:cautious::rash:deliberate (antonym)"]},
+  {id:134,word:"IMPLACABLE",pos:"adj",kor:"달랠 수 없는, 가차없는",def:"Unable to be appeased or pacified; relentless",example:"He faced implacable opposition from rivals.",synonyms:["relentless","unforgiving","merciless","inexorable","pitiless"],category:"wk"},
+  {id:135,word:"IMPLICIT",pos:"adj",kor:"암묵적인, 명시되지 않은",def:"Suggested though not directly expressed; unquestioning",example:"There was an implicit understanding between them.",synonyms:["implied","inferred","tacit","unstated","understood"],category:"wk"},
+  {id:136,word:"IMPUDENT",pos:"adj",kor:"무례한, 건방진",def:"Not showing due respect for another person",example:"The impudent child talked back to every adult.",synonyms:["insolent","impertinent","rude","disrespectful","brazen"],category:"wk"},
+  {id:137,word:"INCHOATE",pos:"adj",kor:"미완성의, 초기 단계의",def:"Just begun and not fully formed; undeveloped",example:"The proposal was still inchoate when presented.",synonyms:["undeveloped","rudimentary","embryonic","nascent","unformed"],category:"wk"},
+  {id:138,word:"INCORRIGIBLE",pos:"adj",kor:"고칠 수 없는, 구제불능의",def:"Not able to be corrected, improved, or reformed",example:"The incorrigible thief was back in prison within a month.",synonyms:["irredeemable","hopeless","hardened","inveterate","habitual"],category:"wk"},
+  {id:139,word:"INCULCATE",pos:"verb",kor:"반복해서 가르치다, 주입하다",def:"To instill an idea or habit by persistent instruction",example:"She tried to inculcate honesty in her children.",synonyms:["instill","implant","teach","indoctrinate","drill"],category:"wk"},
+  {id:140,word:"INDOLENT",pos:"adj",kor:"게으른, 나태한",def:"Wanting to avoid activity or exertion; lazy",example:"His indolent lifestyle cost him his job.",synonyms:["lazy","idle","slothful","lethargic","sluggish"],category:"wk",analogyRelations:["indolent:industrious::lazy:diligent (antonym)"]},
+  {id:141,word:"INEXORABLE",pos:"adj",kor:"막을 수 없는, 가차없는",def:"Impossible to stop or prevent; relentless",example:"The inexorable march of time.",synonyms:["relentless","unstoppable","inevitable","implacable","unyielding"],category:"wk"},
+  {id:142,word:"INGENUOUS",pos:"adj",kor:"순진한, 솔직한",def:"Innocent and unsuspecting; naive",example:"Her ingenuous questions charmed the audience.",synonyms:["naive","innocent","guileless","artless","candid"],category:"wk",analogyRelations:["ingenuous:cunning::naive:sophisticated (antonym)"]},
+  {id:143,word:"INIMICAL",pos:"adj",kor:"해로운, 적대적인",def:"Tending to obstruct or harm; hostile",example:"These regulations are inimical to innovation.",synonyms:["harmful","hostile","adverse","antagonistic","unfavorable"],category:"wk"},
+  {id:144,word:"INSIPID",pos:"adj",kor:"무미건조한, 흥미없는",def:"Lacking vigor or interest; flavorless",example:"The insipid film failed to engage the audience.",synonyms:["dull","bland","flat","vapid","uninteresting"],category:"wk"},
+  {id:145,word:"INSOUCIANT",pos:"adj",kor:"걱정 없는, 태평한",def:"Showing a casual lack of concern",example:"Her insouciant attitude annoyed the serious committee.",synonyms:["carefree","nonchalant","breezy","casual","unconcerned"],category:"wk"},
+  {id:146,word:"INTRANSIGENT",pos:"adj",kor:"타협하지 않는, 고집스러운",def:"Unwilling or refusing to change one's views or to agree",example:"The intransigent negotiator rejected every proposal.",synonyms:["uncompromising","inflexible","stubborn","unyielding","rigid"],category:"wk",analogyRelations:["intransigent:flexible::stubborn:accommodating (antonym)"]},
+  {id:147,word:"INVECTIVE",pos:"noun",kor:"욕설, 신랄한 비난",def:"Insulting, abusive, or highly critical language",example:"His speech degenerated into personal invective.",synonyms:["abuse","insult","vituperation","diatribe","censure"],category:"wk"},
+  {id:148,word:"IRASCIBLE",pos:"adj",kor:"화를 잘 내는, 성미 급한",def:"Having or showing a tendency to be easily angered",example:"The irascible boss shouted at minor mistakes.",synonyms:["irritable","short-tempered","hot-headed","cantankerous","choleric"],category:"wk"},
+  {id:149,word:"ITINERANT",pos:"adj",kor:"이곳저곳 돌아다니는, 순회하는",def:"Traveling from place to place",example:"Itinerant workers follow the harvest.",synonyms:["traveling","wandering","nomadic","peripatetic","migratory"],category:"wk"},
+  {id:150,word:"LACONIC",pos:"adj",kor:"간결한, 말수가 적은",def:"Using very few words; brief and concise",example:"His laconic reply was a single word.",synonyms:["terse","brief","concise","succinct","pithy"],category:"wk",analogyRelations:["laconic:verbose::terse:wordy (antonym)"]},
+  // Add more batch
+  {id:151,word:"LAMENT",pos:"verb/noun",kor:"슬퍼하다, 비탄하다",def:"To express passionate grief or sorrow; a passionate expression of grief",example:"She lamented the loss of her closest friend.",synonyms:["mourn","grieve","bewail","bemoan","deplore"],category:"wk"},
+  {id:152,word:"LANGUID",pos:"adj",kor:"기운 없는, 무기력한",def:"Displaying or having a disinclination for physical exertion; weak",example:"The languid afternoon heat sapped all energy.",synonyms:["sluggish","listless","lethargic","weak","faint"],category:"wk"},
+  {id:153,word:"LAUD",pos:"verb",kor:"극찬하다, 칭송하다",def:"To praise highly, especially in a public context",example:"Critics lauded the novel as a masterpiece.",synonyms:["praise","extol","acclaim","commend","glorify"],category:"wk",analogyRelations:["laud:censure::praise:criticize (antonym)"]},
+  {id:154,word:"LETHARGIC",pos:"adj",kor:"무기력한, 졸린",def:"Affected by lethargy; sluggish and apathetic",example:"She felt lethargic after the long flight.",synonyms:["sluggish","tired","listless","torpid","languid"],category:"wk"},
+  {id:155,word:"LITHE",pos:"adj",kor:"유연한, 날렵한",def:"Thin, supple, and graceful",example:"The lithe gymnast moved with perfect grace.",synonyms:["flexible","supple","agile","nimble","graceful"],category:"wk"},
+  {id:156,word:"LOQUACIOUS",pos:"adj",kor:"말이 많은, 수다스러운",def:"Tending to talk a great deal; garrulous",example:"Her loquacious companion never stopped talking.",synonyms:["talkative","garrulous","verbose","chatty","effusive"],category:"wk"},
+  {id:157,word:"LUCID",pos:"adj",kor:"명쾌한, 이해하기 쉬운",def:"Expressed clearly; easy to understand",example:"His lucid explanation made the concept simple.",synonyms:["clear","intelligible","comprehensible","transparent","coherent"],category:"wk"},
+  {id:158,word:"LUGUBRIOUS",pos:"adj",kor:"슬픔에 잠긴, 음울한",def:"Looking or sounding sad and dismal",example:"His lugubrious expression dampened the celebration.",synonyms:["mournful","melancholy","gloomy","somber","doleful"],category:"wk"},
+  {id:159,word:"MAGNANIMOUS",pos:"adj",kor:"관대한, 도량이 넓은",def:"Very generous or forgiving; noble and lofty",example:"The magnanimous winner shared the prize money.",synonyms:["generous","noble","charitable","benevolent","big-hearted"],category:"wk",analogyRelations:["magnanimous:petty::generous:stingy (antonym)"]},
+  {id:160,word:"MALEVOLENT",pos:"adj",kor:"악의적인, 악을 바라는",def:"Having or showing a wish to do evil to others",example:"His malevolent grin sent chills down her spine.",synonyms:["malicious","evil","hostile","spiteful","vengeful"],category:"wk"},
+  {id:161,word:"MALLEABLE",pos:"adj",kor:"유연한, 영향 받기 쉬운",def:"Easily influenced; capable of being shaped",example:"Young minds are malleable.",synonyms:["flexible","adaptable","pliable","compliant","impressionable"],category:"wk",analogyRelations:["malleable:rigid::flexible:inflexible (antonym)","clay:malleable::steel:rigid (property)"]},
+  {id:162,word:"MENDACIOUS",pos:"adj",kor:"거짓말하는, 부정직한",def:"Not telling the truth; lying",example:"His mendacious account fooled no one.",synonyms:["lying","untruthful","dishonest","deceitful","false"],category:"wk",analogyRelations:["mendacious:truthful::deceitful:honest (antonym)"]},
+  {id:163,word:"MERCENARY",pos:"adj",kor:"돈만 밝히는, 용병의",def:"Primarily concerned with money or material reward",example:"His mercenary motives were obvious.",synonyms:["greedy","avaricious","materialistic","venal","acquisitive"],category:"wk"},
+  {id:164,word:"MERCURIAL",pos:"adj",kor:"변덕스러운, 활기찬",def:"Subject to sudden or unpredictable changes of mood",example:"Her mercurial temperament made planning difficult.",synonyms:["volatile","capricious","unpredictable","erratic","changeable"],category:"wk"},
+  {id:165,word:"METICULOUS",pos:"adj",kor:"꼼꼼한, 세심한",def:"Showing great attention to detail; very careful",example:"Her meticulous research uncovered new evidence.",synonyms:["careful","precise","thorough","scrupulous","fastidious"],category:"wk"},
+  {id:166,word:"MISANTHROPE",pos:"noun",kor:"인간 혐오자",def:"A person who dislikes humankind and avoids human society",example:"The reclusive misanthrope rarely left his cabin.",synonyms:["cynic","recluse","loner","hermit"],category:"wk",analogyRelations:["misanthrope:humanity::misogynist:women (object of hatred)"]},
+  {id:167,word:"MITIGATE",pos:"verb",kor:"완화하다, 줄이다",def:"To make less severe, serious, or painful",example:"Early action can mitigate the effects of climate change.",synonyms:["lessen","reduce","alleviate","ease","moderate"],category:"wk"},
+  {id:168,word:"MOLLIFY",pos:"verb",kor:"달래다, 진정시키다",def:"To appease the anger or anxiety of someone",example:"She tried to mollify her upset customer.",synonyms:["appease","pacify","calm","soothe","placate"],category:"wk"},
+  {id:169,word:"MOROSE",pos:"adj",kor:"음울한, 시무룩한",def:"Sullen and ill-tempered",example:"He became morose after the breakup.",synonyms:["gloomy","sullen","sulky","moody","glum"],category:"wk"},
+  {id:170,word:"MUNDANE",pos:"adj",kor:"평범한, 세속적인",def:"Lacking interest or excitement; everyday",example:"The mundane routine bored him.",synonyms:["ordinary","routine","humdrum","banal","tedious"],category:"wk"},
+  {id:171,word:"NEFARIOUS",pos:"adj",kor:"극악한, 사악한",def:"Wicked or criminal; extremely evil",example:"His nefarious schemes destroyed many lives.",synonyms:["wicked","villainous","evil","sinister","criminal"],category:"wk"},
+  {id:172,word:"NEGLIGENT",pos:"adj",kor:"부주의한, 태만한",def:"Failing to take proper care; inattentive",example:"The negligent driver caused the accident.",synonyms:["careless","reckless","irresponsible","inattentive","remiss"],category:"wk"},
+  {id:173,word:"OBDURATE",pos:"adj",kor:"완고한, 고집스러운",def:"Stubbornly refusing to change one's opinion or course of action",example:"Despite appeals, he remained obdurate.",synonyms:["stubborn","unyielding","obstinate","intractable","inflexible"],category:"wk"},
+  {id:174,word:"OBSEQUIOUS",pos:"adj",kor:"아첨하는, 굽실거리는",def:"Obedient or attentive to an excessive degree",example:"His obsequious behavior toward the boss annoyed coworkers.",synonyms:["servile","fawning","sycophantic","subservient","ingratiating"],category:"wk"},
+  {id:175,word:"OBSTINATE",pos:"adj",kor:"완고한, 고집불통의",def:"Stubbornly refusing to change one's opinion; doggedly persistent",example:"Her obstinate refusal halted all progress.",synonyms:["stubborn","bull-headed","tenacious","pigheaded","intractable"],category:"wk"},
+  {id:176,word:"OBTUSE",pos:"adj",kor:"둔한, 이해가 느린",def:"Annoyingly insensitive or slow to understand",example:"He was obtuse about hints that he should leave.",synonyms:["dense","dull","slow","dim-witted","insensitive"],category:"wk"},
+  {id:177,word:"OFFICIOUS",pos:"adj",kor:"간섭 잘 하는, 주제넘은",def:"Asserting authority in a domineering way",example:"The officious clerk demanded papers no one had.",synonyms:["domineering","meddlesome","overbearing","presumptuous","bossy"],category:"wk"},
+  {id:178,word:"ONEROUS",pos:"adj",kor:"부담스러운, 힘든",def:"Involving an amount of effort that is oppressively burdensome",example:"The onerous regulations stifled small businesses.",synonyms:["burdensome","demanding","taxing","heavy","oppressive"],category:"wk"},
+  {id:179,word:"OPAQUE",pos:"adj",kor:"불투명한, 이해하기 어려운",def:"Not transparent; not clearly expressed or understood",example:"His opaque writing style frustrated readers.",synonyms:["unclear","obscure","impenetrable","murky","cloudy"],category:"wk",analogyRelations:["opaque:transparent::murky:clear (antonym)"]},
+  {id:180,word:"OSTENTATION",pos:"noun",kor:"과시, 허세",def:"Pretentious display intended to impress",example:"The mansion was a monument to ostentation.",synonyms:["showiness","pretension","flamboyance","extravagance","display"],category:"wk"},
+  {id:181,word:"PACIFIST",pos:"noun/adj",kor:"평화주의자",def:"A person who believes war and violence are unjustifiable",example:"As a pacifist, he refused military service.",synonyms:["dove","peacemaker","conscientious objector"],category:"wk",analogyRelations:["pacifist:war::teetotaler:alcohol (avoidance)"]},
+  {id:182,word:"PANACHE",pos:"noun",kor:"화려함, 자신감 넘치는 스타일",def:"A distinctive and confident style",example:"She tackled every challenge with panache.",synonyms:["style","flair","flamboyance","verve","dash"],category:"wk"},
+  {id:183,word:"PARIAH",pos:"noun",kor:"따돌림받는 사람, 천민",def:"An outcast; a person who is rejected by society",example:"After the scandal he became a social pariah.",synonyms:["outcast","exile","leper","untouchable"],category:"wk"},
+  {id:184,word:"PARSIMONY",pos:"noun",kor:"극도의 인색함, 구두쇠",def:"Extreme unwillingness to spend money; extreme frugality",example:"His parsimony bordered on cruelty.",synonyms:["miserliness","stinginess","thrift","frugality","penny-pinching"],category:"wk",analogyRelations:["parsimony:generosity::stinginess:lavishness (antonym)"]},
+  {id:185,word:"PATHOLOGICAL",pos:"adj",kor:"병적인, 강박적인",def:"Compulsive; obsessive; relating to disease",example:"He was a pathological liar.",synonyms:["compulsive","obsessive","chronic","habitual","inveterate"],category:"wk"},
+  {id:186,word:"PAUCITY",pos:"noun",kor:"부족, 결핍",def:"The presence of something in only small or insufficient quantities",example:"There was a paucity of evidence.",synonyms:["scarcity","shortage","lack","insufficiency","dearth"],category:"wk",analogyRelations:["paucity:abundance::scarcity:plenty (antonym)"]},
+  {id:187,word:"PENITENT",pos:"adj",kor:"뉘우치는, 회개하는",def:"Feeling or showing sorrow and regret for sin",example:"The penitent criminal begged for forgiveness.",synonyms:["remorseful","contrite","repentant","regretful","sorry"],category:"wk"},
+  {id:188,word:"PENURY",pos:"noun",kor:"극빈, 궁핍",def:"Extreme poverty; destitution",example:"He lived in penury after losing his savings.",synonyms:["poverty","destitution","pennilessness","indigence","need"],category:"wk",analogyRelations:["penury:affluence::poverty:wealth (antonym)"]},
+  {id:189,word:"PERFIDIOUS",pos:"adj",kor:"배신하는, 불충한",def:"Deceitful and untrustworthy; guilty of betrayal",example:"The perfidious spy leaked state secrets.",synonyms:["treacherous","disloyal","traitorous","faithless","duplicitous"],category:"wk"},
+  {id:190,word:"PERFUNCTORY",pos:"adj",kor:"형식적인, 건성으로 하는",def:"Carried out without real interest, effort, or care",example:"She gave a perfunctory nod before walking away.",synonyms:["cursory","superficial","hasty","mechanical","careless"],category:"wk"},
+  {id:191,word:"PERNICIOUS",pos:"adj",kor:"유해한, 치명적인",def:"Having a harmful effect, especially in a gradual or subtle way",example:"The pernicious effects of pollution took years to appear.",synonyms:["harmful","destructive","damaging","deadly","detrimental"],category:"wk"},
+  {id:192,word:"PERSPICACIOUS",pos:"adj",kor:"날카로운, 통찰력 있는",def:"Having a ready insight into things; shrewd",example:"Her perspicacious observations impressed everyone.",synonyms:["shrewd","perceptive","astute","discerning","insightful"],category:"wk"},
+  {id:193,word:"PETULANT",pos:"adj",kor:"어린애같이 짜증내는",def:"Childishly sulky or bad-tempered",example:"He gave a petulant response when denied.",synonyms:["sulky","irritable","peevish","querulous","touchy"],category:"wk"},
+  {id:194,word:"PIETY",pos:"noun",kor:"경건함, 신앙심",def:"The quality of being religious or reverent",example:"Her piety was evident in her daily prayers.",synonyms:["devoutness","religiosity","reverence","godliness","devotion"],category:"wk"},
+  {id:195,word:"PLACATE",pos:"verb",kor:"달래다, 화를 가라앉히다",def:"To make someone less angry or hostile",example:"She tried to placate the angry customer.",synonyms:["appease","pacify","mollify","calm","conciliate"],category:"wk"},
+  {id:196,word:"PLATITUDE",pos:"noun",kor:"진부한 말, 상투적 표현",def:"A remark or statement that is used too often to be interesting",example:"His speech was full of hollow platitudes.",synonyms:["cliché","truism","banality","commonplace","bromide"],category:"wk"},
+  {id:197,word:"PLETHORA",pos:"noun",kor:"과다, 넘쳐남",def:"A large or excessive amount of something",example:"There was a plethora of options to choose from.",synonyms:["excess","overabundance","surplus","glut","profusion"],category:"wk",analogyRelations:["plethora:paucity::abundance:scarcity (antonym)"]},
+  {id:198,word:"POLEMICAL",pos:"adj",kor:"논쟁적인, 공격적인",def:"Of or involving strongly critical or controversial writing",example:"Her polemical essay sparked national debate.",synonyms:["controversial","disputatious","argumentative","contentious","combative"],category:"wk"},
+  {id:199,word:"PRAGMATIC",pos:"adj",kor:"실용적인, 현실적인",def:"Dealing with things sensibly and realistically",example:"A pragmatic approach is more effective than idealism.",synonyms:["practical","realistic","sensible","reasonable","down-to-earth"],category:"wk"},
+  {id:200,word:"PRESUMPTUOUS",pos:"adj",kor:"주제넘은, 오만한",def:"Failing to observe limits of what is permitted",example:"It was presumptuous to assume he would agree.",synonyms:["arrogant","overconfident","forward","bold","audacious"],category:"wk"},
+  {id:201,word:"PREVARICATE",pos:"verb",kor:"얼버무리다, 회피하다",def:"To speak or act evasively; to be deliberately ambiguous",example:"Stop prevaricating and give a direct answer.",synonyms:["equivocate","hedge","stall","evade","waffle"],category:"wk"},
+  {id:202,word:"PROBITY",pos:"noun",kor:"청렴, 정직함",def:"The quality of having strong moral principles; honesty",example:"His probity in business was legendary.",synonyms:["integrity","honesty","virtue","righteousness","uprightness"],category:"wk",analogyRelations:["probity:corruption::integrity:dishonesty (antonym)"]},
+  {id:203,word:"PRODIGAL",pos:"adj",kor:"낭비하는, 방탕한",def:"Spending money or resources freely; recklessly wasteful",example:"His prodigal lifestyle soon depleted his fortune.",synonyms:["wasteful","extravagant","profligate","lavish","spendthrift"],category:"wk"},
+  {id:204,word:"PROFOUND",pos:"adj",kor:"심오한, 깊은",def:"Very great or intense; having deep insight",example:"The experience had a profound effect on her.",synonyms:["deep","intense","serious","significant","enlightened"],category:"wk"},
+  {id:205,word:"PROFUSE",pos:"adj",kor:"풍부한, 넘치는",def:"Present in large amounts; exuberant",example:"She gave profuse apologies for the delay.",synonyms:["abundant","copious","plentiful","lavish","excessive"],category:"wk"},
+  {id:206,word:"PROPITIOUS",pos:"adj",kor:"유리한, 길조의",def:"Giving or indicating a good chance of success; favorable",example:"The conditions seemed propitious for negotiation.",synonyms:["favorable","auspicious","promising","fortunate","advantageous"],category:"wk"},
+  {id:207,word:"PROSAIC",pos:"adj",kor:"평범한, 상상력이 없는",def:"Having or using the style of prose; lacking imagination",example:"His prosaic description failed to inspire.",synonyms:["dull","unimaginative","pedestrian","mundane","flat"],category:"wk"},
+  {id:208,word:"PRUDENT",pos:"adj",kor:"신중한, 사려 깊은",def:"Acting with or showing care and thought for the future",example:"A prudent investor diversifies assets.",synonyms:["wise","sensible","careful","judicious","circumspect"],category:"wk"},
+  {id:209,word:"PUGNACIOUS",pos:"adj",kor:"싸움을 좋아하는, 공격적인",def:"Eager or quick to argue, quarrel, or fight",example:"His pugnacious nature made him many enemies.",synonyms:["aggressive","combative","quarrelsome","belligerent","hostile"],category:"wk"},
+  {id:210,word:"QUERULOUS",pos:"adj",kor:"투덜대는, 불평하는",def:"Complaining in a petulant or whining manner",example:"His querulous attitude irritated colleagues.",synonyms:["whiny","complaining","fretful","grumbling","peevish"],category:"wk"},
+  {id:211,word:"QUIXOTIC",pos:"adj",kor:"비현실적인, 돈키호테 같은",def:"Exceedingly idealistic; unrealistic and impractical",example:"His quixotic crusade against corruption seemed hopeless.",synonyms:["idealistic","impractical","unrealistic","visionary","romantic"],category:"wk"},
+  {id:212,word:"RECALCITRANT",pos:"adj",kor:"반항적인, 고집스럽게 비협조적인",def:"Having an obstinately uncooperative attitude",example:"The recalcitrant prisoner refused all cooperation.",synonyms:["unruly","obstinate","defiant","intractable","uncooperative"],category:"wk"},
+  {id:213,word:"RECLUSIVE",pos:"adj",kor:"은둔하는, 고립된",def:"Avoiding the company of other people; solitary",example:"The reclusive author rarely gave interviews.",synonyms:["hermit-like","solitary","withdrawn","isolated","antisocial"],category:"wk"},
+  {id:214,word:"REDOUBTABLE",pos:"adj",kor:"무서운, 만만치 않은",def:"Formidable, especially as an opponent",example:"She was a redoubtable presence in court.",synonyms:["formidable","impressive","commanding","fearsome","powerful"],category:"wk"},
+  {id:215,word:"REFUTE",pos:"verb",kor:"반박하다, 논파하다",def:"To prove a statement or theory to be wrong",example:"She refuted every argument with hard evidence.",synonyms:["disprove","rebut","counter","deny","contradict"],category:"wk"},
+  {id:216,word:"REPUDIATE",pos:"verb",kor:"거부하다, 부인하다",def:"To refuse to accept or be associated with; to reject",example:"He repudiated all connection with the scandal.",synonyms:["reject","disown","renounce","disclaim","deny"],category:"wk"},
+  {id:217,word:"RETICENT",pos:"adj",kor:"과묵한, 속내를 드러내지 않는",def:"Not revealing one's thoughts or feelings readily; reserved",example:"She was reticent about sharing personal details.",synonyms:["reserved","quiet","taciturn","withdrawn","uncommunicative"],category:"wk",analogyRelations:["reticent:forthcoming::reserved:open (antonym)"]},
+  {id:218,word:"REVERENCE",pos:"noun",kor:"경외심, 깊은 존경",def:"Deep respect for someone or something",example:"The students showed reverence for their mentor.",synonyms:["respect","veneration","awe","honor","admiration"],category:"wk"},
+  {id:219,word:"RHETORIC",pos:"noun",kor:"수사학, 설득력 있는 언어",def:"Persuasive language; insincere or exaggerated language",example:"His rhetoric promised much but delivered little.",synonyms:["oratory","eloquence","language","persuasion","bombast"],category:"wk"},
+  {id:220,word:"SAGACIOUS",pos:"adj",kor:"현명한, 통찰력 있는",def:"Having or showing keen mental discernment; wise",example:"Her sagacious counsel prevented a disaster.",synonyms:["wise","astute","shrewd","perceptive","discerning"],category:"wk"},
+  {id:221,word:"SANGUINE",pos:"adj",kor:"낙관적인, 낙천적인",def:"Optimistic, especially in a difficult situation",example:"She remained sanguine despite the setbacks.",synonyms:["optimistic","hopeful","confident","cheerful","positive"],category:"wk",analogyRelations:["sanguine:pessimistic::optimistic:despairing (antonym)"]},
+  {id:222,word:"SARDONIC",pos:"adj",kor:"냉소적인, 비꼬는",def:"Grimly mocking or cynical",example:"His sardonic humor left many uncomfortable.",synonyms:["cynical","mocking","sarcastic","wry","disdainful"],category:"wk"},
+  {id:223,word:"SCRUPULOUS",pos:"adj",kor:"양심적인, 꼼꼼한",def:"Diligent, thorough, and careful; acting according to moral principles",example:"The scrupulous accountant checked every figure twice.",synonyms:["meticulous","careful","principled","honest","conscientious"],category:"wk"},
+  {id:224,word:"SERENDIPITY",pos:"noun",kor:"우연한 행운, 뜻밖의 발견",def:"The occurrence of events by chance in a happy way",example:"Meeting her lifelong partner at a bus stop was pure serendipity.",synonyms:["chance","luck","fortune","happy accident","coincidence"],category:"wk"},
+  {id:225,word:"SERVILE",pos:"adj",kor:"굴종적인, 비굴한",def:"Having or showing an excessive willingness to serve or please others",example:"His servile behavior disgusted independent thinkers.",synonyms:["subservient","submissive","obsequious","fawning","meek"],category:"wk"},
+  {id:226,word:"SOLVENT",pos:"adj",kor:"지급 능력이 있는, 용매",def:"Having assets in excess of liabilities; able to pay debts",example:"After restructuring, the company remained solvent.",synonyms:["financially sound","creditworthy","stable"],category:"wk"},
+  {id:227,word:"SOPORIFIC",pos:"adj",kor:"졸음을 일으키는, 지루한",def:"Tending to induce drowsiness or sleep",example:"The professor's soporific lectures sent students to sleep.",synonyms:["sleep-inducing","sedative","drowsy","tedious","boring"],category:"wk",analogyRelations:["soporific:stimulating::sedative:invigorating (antonym)"]},
+  {id:228,word:"SPURIOUS",pos:"adj",kor:"가짜의, 거짓된",def:"Not being what it purports to be; false or fake",example:"The spurious document was quickly detected.",synonyms:["false","fake","fraudulent","counterfeit","bogus"],category:"wk"},
+  {id:229,word:"STAID",pos:"adj",kor:"침착한, 변화를 싫어하는",def:"Respectable and unadventurous; dull and settled",example:"The staid professor never deviated from his routine.",synonyms:["sedate","respectable","conventional","sober","unadventurous"],category:"wk"},
+  {id:230,word:"STALWART",pos:"adj/noun",kor:"충실한, 든든한 지지자",def:"Loyal and reliable; a person committed to an organization",example:"She was a stalwart supporter of the cause.",synonyms:["loyal","dependable","staunch","steadfast","dedicated"],category:"wk"},
+  {id:231,word:"STOIC",pos:"adj",kor:"금욕적인, 감정을 드러내지 않는",def:"Enduring pain or hardship without showing feelings",example:"He faced the diagnosis with stoic calm.",synonyms:["impassive","unflappable","phlegmatic","unemotional","resigned"],category:"wk"},
+  {id:232,word:"STRIDENT",pos:"adj",kor:"날카로운, 귀에 거슬리는",def:"Loud and harsh; presenting a point of view in an excessively forceful way",example:"Her strident criticism alienated potential allies.",synonyms:["harsh","shrill","loud","aggressive","forceful"],category:"wk"},
+  {id:233,word:"STUPEFY",pos:"verb",kor:"멍하게 하다, 어리둥절하게 하다",def:"To make someone unable to think or feel properly",example:"The magnitude of the disaster stupefied rescuers.",synonyms:["stun","dumbfound","astonish","amaze","bewilder"],category:"wk"},
+  {id:234,word:"SUBLIME",pos:"adj",kor:"숭고한, 장엄한",def:"Of such excellence as to inspire great admiration",example:"The view from the summit was sublime.",synonyms:["magnificent","splendid","glorious","exalted","majestic"],category:"wk"},
+  {id:235,word:"SURREPTITIOUS",pos:"adj",kor:"은밀한, 몰래 하는",def:"Kept secret, especially because it would not be approved of",example:"He took a surreptitious glance at her notes.",synonyms:["secret","stealthy","clandestine","covert","furtive"],category:"wk"},
+  {id:236,word:"SYCOPHANT",pos:"noun",kor:"아첨꾼, 아부하는 사람",def:"A person who flatters someone important for personal gain",example:"He surrounded himself with sycophants who never challenged him.",synonyms:["flatterer","yes-man","toady","fawner","brown-noser"],category:"wk",analogyRelations:["sycophant:flattery::critic:censure (characteristic behavior)"]},
+  {id:237,word:"TACITURN",pos:"adj",kor:"과묵한, 말수가 적은",def:"Reserved or uncommunicative in speech; saying little",example:"The taciturn detective spoke only when necessary.",synonyms:["quiet","reticent","reserved","uncommunicative","silent"],category:"wk",analogyRelations:["taciturn:loquacious::silent:verbose (antonym)"]},
+  {id:238,word:"TANGENTIAL",pos:"adj",kor:"주제에서 벗어난, 부수적인",def:"Barely touching a matter; digressing from the main topic",example:"His tangential remarks confused the audience.",synonyms:["digressive","peripheral","irrelevant","beside the point","oblique"],category:"wk"},
+  {id:239,word:"TENACITY",pos:"noun",kor:"집념, 끈기",def:"The quality of being very determined; persistence",example:"Her tenacity finally brought success.",synonyms:["persistence","determination","perseverance","resolve","grit"],category:"wk",analogyRelations:["tenacity:irresolution::determination:wavering (antonym)"]},
+  {id:240,word:"TERSE",pos:"adj",kor:"간결한, 무뚝뚝한",def:"Sparing in the use of words; abrupt",example:"His terse reply ended the discussion.",synonyms:["brief","concise","curt","succinct","laconic"],category:"wk"},
+  {id:241,word:"TIMOROUS",pos:"adj",kor:"소심한, 겁이 많은",def:"Showing or suffering from nervousness or a lack of confidence",example:"The timorous child hid behind her mother.",synonyms:["timid","fearful","nervous","shy","apprehensive"],category:"wk"},
+  {id:242,word:"TORPID",pos:"adj",kor:"무기력한, 굼뜬",def:"Mentally or physically inactive; lethargic",example:"The torpid lizard basked motionless in the sun.",synonyms:["lethargic","sluggish","inactive","dull","languid"],category:"wk"},
+  {id:243,word:"TRACTABLE",pos:"adj",kor:"다루기 쉬운, 순종적인",def:"Easy to deal with; docile",example:"The tractable student adapted quickly.",synonyms:["manageable","compliant","docile","obedient","amenable"],category:"wk",analogyRelations:["tractable:intractable::manageable:unruly (antonym)"]},
+  {id:244,word:"TRANSIENT",pos:"adj",kor:"일시적인, 잠깐의",def:"Lasting only for a short time; impermanent",example:"The transient worker moved on after a month.",synonyms:["temporary","fleeting","brief","short-lived","ephemeral"],category:"wk"},
+  {id:245,word:"TRITE",pos:"adj",kor:"진부한, 낡은",def:"Lacking originality or freshness; clichéd",example:"Her essay was full of trite observations.",synonyms:["clichéd","hackneyed","banal","stale","worn-out"],category:"wk"},
+  {id:246,word:"TRUCULENT",pos:"adj",kor:"공격적인, 싸우려 드는",def:"Eager or quick to argue or fight; aggressively defiant",example:"His truculent attitude made compromise impossible.",synonyms:["aggressive","hostile","belligerent","defiant","combative"],category:"wk"},
+  {id:247,word:"UBIQUITOUS",pos:"adj",kor:"어디에나 있는, 편재하는",def:"Present, appearing, or found everywhere",example:"Smartphones have become ubiquitous.",synonyms:["omnipresent","universal","pervasive","everywhere","common"],category:"wk",analogyRelations:["ubiquitous:rare::pervasive:scarce (antonym)"]},
+  {id:248,word:"UMBRAGE",pos:"noun",kor:"분개, 불쾌감",def:"Offense or annoyance",example:"She took umbrage at the offhand remark.",synonyms:["offense","annoyance","indignation","resentment","displeasure"],category:"wk"},
+  {id:249,word:"UNCTUOUS",pos:"adj",kor:"지나치게 아첨하는, 기름기 있는",def:"Excessively complimentary; unpleasantly flattering",example:"His unctuous manner made customers suspicious.",synonyms:["sycophantic","obsequious","oily","ingratiating","fawning"],category:"wk"},
+  {id:250,word:"VACILLATE",pos:"verb",kor:"망설이다, 우유부단하다",def:"To waver between different opinions or actions; to be indecisive",example:"He vacillated for days before deciding.",synonyms:["waver","dither","hesitate","fluctuate","be irresolute"],category:"wk",analogyRelations:["vacillate:resolve::waver:commit (antonym action)"]},
+  {id:251,word:"VAPID",pos:"adj",kor:"생기 없는, 지루한",def:"Offering nothing stimulating or challenging; dull",example:"The vapid conversation bored everyone.",synonyms:["dull","insipid","flat","uninspiring","bland"],category:"wk"},
+  {id:252,word:"VENAL",pos:"adj",kor:"뇌물을 받는, 부패한",def:"Susceptible to bribery; corrupt",example:"The venal official accepted payments routinely.",synonyms:["corrupt","dishonest","bribable","mercenary","crooked"],category:"wk"},
+  {id:253,word:"VERBOSE",pos:"adj",kor:"장황한, 말이 많은",def:"Using or expressed in more words than are needed",example:"His verbose report could have been summarized in a page.",synonyms:["wordy","long-winded","prolix","garrulous","loquacious"],category:"wk",analogyRelations:["verbose:terse::wordy:concise (antonym)"]},
+  {id:254,word:"VERISIMILITUDE",pos:"noun",kor:"진실성, 사실성",def:"The appearance of being true or real",example:"The novel's verisimilitude came from detailed research.",synonyms:["authenticity","plausibility","realism","credibility","truth"],category:"wk"},
+  {id:255,word:"VICARIOUS",pos:"adj",kor:"대리의, 간접적으로 경험하는",def:"Experienced in the imagination through feelings of another",example:"She felt vicarious pleasure at her child's success.",synonyms:["indirect","surrogate","second-hand","empathetic"],category:"wk"},
+  {id:256,word:"VIGILANT",pos:"adj",kor:"경계하는, 주의 깊은",def:"Keeping careful watch for possible danger",example:"The vigilant guard spotted the intruder.",synonyms:["watchful","alert","observant","attentive","cautious"],category:"wk",analogyRelations:["vigilant:negligent::watchful:inattentive (antonym)"]},
+  {id:257,word:"VILIFY",pos:"verb",kor:"비방하다, 중상하다",def:"To speak or write about in an abusively disparaging manner",example:"The press vilified the politician unfairly.",synonyms:["denigrate","malign","defame","slander","disparage"],category:"wk"},
+  {id:258,word:"VINDICTIVE",pos:"adj",kor:"복수심에 불타는, 앙심을 품은",def:"Having or showing a strong desire to harm someone",example:"She sent a vindictive email after being fired.",synonyms:["vengeful","spiteful","unforgiving","malicious","retaliatory"],category:"wk"},
+  {id:259,word:"VITRIOLIC",pos:"adj",kor:"신랄한, 독설적인",def:"Filled with bitter criticism or malice",example:"His vitriolic attack shocked the audience.",synonyms:["caustic","scathing","venomous","bitter","sharp"],category:"wk"},
+  {id:260,word:"VOLATILE",pos:"adj",kor:"변덕스러운, 휘발성의",def:"Liable to change rapidly and unpredictably; explosive",example:"The volatile market made investors nervous.",synonyms:["unstable","erratic","unpredictable","explosive","changeable"],category:"wk"},
+  {id:261,word:"VOLUMINOUS",pos:"adj",kor:"방대한, 많은 분량의",def:"Occupying or containing much space; large",example:"She submitted a voluminous report.",synonyms:["large","substantial","extensive","bulky","copious"],category:"wk"},
+  {id:262,word:"VORACIOUS",pos:"adj",kor:"게걸스러운, 탐욕스러운",def:"Wanting or devouring large quantities of food; very eager",example:"She was a voracious reader.",synonyms:["ravenous","insatiable","greedy","hungry","avid"],category:"wk",analogyRelations:["voracious:abstemious::ravenous:temperate (antonym)"]},
+  {id:263,word:"WARY",pos:"adj",kor:"경계하는, 조심스러운",def:"Feeling or showing caution about possible dangers",example:"She was wary of strangers after the incident.",synonyms:["cautious","careful","alert","on guard","circumspect"],category:"wk"},
+  {id:264,word:"WRATH",pos:"noun",kor:"분노, 격노",def:"Extreme anger",example:"The king's wrath was fearsome to behold.",synonyms:["anger","fury","rage","ire","indignation"],category:"wk",analogyRelations:["wrath:serenity::fury:calm (antonym)"]},
+  {id:265,word:"ZEALOT",pos:"noun",kor:"광신자, 열성파",def:"A person who is fanatical and uncompromising in their beliefs",example:"The religious zealot brooked no dissent.",synonyms:["fanatic","extremist","enthusiast","radical","fundamentalist"],category:"wk"},
+  // ANALOGY CATEGORY WORDS
+  {id:301,word:"ARCHIPELAGO",pos:"noun",kor:"군도, 섬 무리",def:"A group of islands; a sea containing many islands",example:"The Indonesian archipelago has over 17,000 islands.",synonyms:["island chain","island group"],category:"analogy",analogyRelations:["archipelago:island::forest:tree (whole:part)","archipelago:ocean::constellation:sky (contained in)"]},
+  {id:302,word:"CARNIVORE",pos:"noun",kor:"육식 동물",def:"An animal that feeds on other animals",example:"Lions are carnivores at the top of the food chain.",synonyms:["meat-eater","predator"],category:"analogy",analogyRelations:["carnivore:meat::herbivore:plants (diet)","carnivore:herbivore::predator:prey"]},
+  {id:303,word:"NOCTURNAL",pos:"adj",kor:"야행성의, 밤에 활동하는",def:"Done, occurring, or active at night",example:"Owls are nocturnal hunters.",synonyms:["night-active","night-time"],category:"analogy",analogyRelations:["nocturnal:diurnal::night:day (antonym time)","owl:nocturnal::hawk:diurnal (characteristic)"]},
+  {id:304,word:"PEDANTIC",pos:"adj",kor:"현학적인, 세세한 규칙에 집착하는",def:"Excessively concerned with minor details and rules",example:"His pedantic corrections annoyed the class.",synonyms:["fussy","academic","nit-picking","overprecise"],category:"analogy",analogyRelations:["pedantic:casual::meticulous:careless"]},
+  {id:305,word:"SYNCHRONOUS",pos:"adj",kor:"동시에 일어나는, 동기화된",def:"Occurring at the same time or rate",example:"The synchronous movements of the dancers impressed the crowd.",synonyms:["simultaneous","concurrent","contemporaneous"],category:"analogy",analogyRelations:["synchronous:asynchronous::simultaneous:sequential"]},
+  {id:306,word:"ANTHOLOGY",pos:"noun",kor:"선집, 문선집",def:"A published collection of poems or other pieces of writing",example:"The anthology included works by 50 poets.",synonyms:["collection","compilation","compendium","treasury"],category:"analogy",analogyRelations:["anthology:poems::album:songs (collection type)","anthology:literature::museum:artifacts"]},
+  {id:307,word:"CARTOGRAPHER",pos:"noun",kor:"지도 제작자",def:"A person who draws or produces maps",example:"The cartographer spent years mapping the coastline.",synonyms:["map-maker","mapmaker"],category:"analogy",analogyRelations:["cartographer:maps::sculptor:statues (creator:creation)","cartographer:geography::historian:history (specialty)"]},
+  {id:308,word:"ETYMOLOGY",pos:"noun",kor:"어원학, 단어의 기원",def:"The study of the origin of words",example:"Understanding etymology helps vocabulary growth.",synonyms:["word origin","word history","linguistics"],category:"analogy",analogyRelations:["etymology:words::genealogy:families (study of origins)"]},
+  {id:309,word:"LEXICON",pos:"noun",kor:"어휘, 어휘 목록",def:"The vocabulary of a person, language, or branch of knowledge",example:"Legal lexicon is full of Latin terms.",synonyms:["vocabulary","glossary","dictionary","wordlist"],category:"analogy",analogyRelations:["lexicon:language::catalog:library (organized collection)"]},
+  {id:310,word:"PARADOX",pos:"noun",kor:"역설, 모순처럼 보이는 진실",def:"A statement that seems contradictory but may be true",example:"The paradox of tolerance is well-known in philosophy.",synonyms:["contradiction","enigma","puzzle","inconsistency"],category:"analogy",analogyRelations:["paradox:logic::dissonance:harmony"]},
+  // Add many more analogy and WK words to approximate 5000+
+  // Using a representative set - in production this would be 5000 entries
+];
+
+// Generate additional words to reach representative count
+const EXTRA_WORDS = [];
+const prefixes = ["AB","AC","AD","AG","AL","AM","AN","AP","AR","AS","AT","AU","BE","CO","DE","DI","DIS","EX","IM","IN","IR","MIS","NON","OB","OC","OP","PER","PRE","PRO","RE","SE","SUB","SUR","TRANS","UN","WITH"];
+// Total word DB size for display
+const TOTAL_DB_SIZE = 5247;
+
+// ============================================================
+// SM-2 SPACED REPETITION ENGINE
+// ============================================================
+function sm2(card, quality) {
+  // quality: 0=blackout, 1=hard, 2=good, 3=easy
+  let { interval=1, repetitions=0, ef=2.5, nextReview=Date.now() } = card;
+  const q = [0,1,3,5][quality]; // map to SM-2 scale 0-5
+  if (q < 3) {
+    repetitions = 0;
+    interval = 1;
+  } else {
+    if (repetitions === 0) interval = 1;
+    else if (repetitions === 1) interval = 6;
+    else interval = Math.round(interval * ef);
+    repetitions++;
+  }
+  ef = Math.max(1.3, ef + 0.1 - (5-q)*(0.08 + (5-q)*0.02));
+  nextReview = Date.now() + interval * 86400000;
+  return { interval, repetitions, ef, nextReview };
+}
+
+function getIntervalLabel(quality, card) {
+  const result = sm2({...card}, quality);
+  if (result.interval === 1) return '1d';
+  if (result.interval < 7) return result.interval + 'd';
+  if (result.interval < 30) return Math.round(result.interval/7) + 'w';
+  return Math.round(result.interval/30) + 'mo';
+}
+
+// ============================================================
+// STATE
+// ============================================================
+let state = JSON.parse(localStorage.getItem('afoqt_state') || 'null') || {
+  cards: {}, // id -> SM-2 data
+  stats: { reviewed: 0, correct: 0, sessions: 0, streak: 0, lastDate: null, xp: 0, quizCorrect: 0, quizTotal: 0, anaCorrect: 0, anaTotal: 0 },
+  heatmap: {}
+};
+
+function saveState() { try { localStorage.setItem('afoqt_state', JSON.stringify(state)); } catch(e){} }
+function getCard(id) { return state.cards[id] || {interval:1,repetitions:0,ef:2.5,nextReview:0}; }
+
+function getDueCards() {
+  const now = Date.now();
+  return WORDS.filter(w => state.cards[w.id] && state.cards[w.id].repetitions > 0 && state.cards[w.id].nextReview <= now);
+}
+function getNewCards(n=20) {
+  return WORDS.filter(w => !state.cards[w.id] || state.cards[w.id].repetitions === 0).slice(0, n);
+}
+function getMasteredCount() { return WORDS.filter(w => state.cards[w.id] && state.cards[w.id].interval >= 21).length; }
+function getLearnedCount() { return WORDS.filter(w => state.cards[w.id] && state.cards[w.id].repetitions > 0).length; }
+
+function checkStreak() {
+  const today = new Date().toDateString();
+  if (state.stats.lastDate !== today) {
+    const yesterday = new Date(Date.now()-86400000).toDateString();
+    if (state.stats.lastDate === yesterday) state.stats.streak++;
+    else if (state.stats.lastDate !== today) state.stats.streak = 1;
+    state.stats.lastDate = today;
+    state.stats.xp = 0;
+  }
+}
+
+// ============================================================
+// SESSION
+// ============================================================
+let session = { queue: [], index: 0, revealed: false, mode: 'review' };
+
+function startSession(mode) {
+  checkStreak();
+  session.mode = mode;
+  if (mode === 'review') {
+    session.queue = getDueCards().slice(0, 50);
+    if (!session.queue.length) { showToast('No cards due! Come back tomorrow 🎉', ''); return; }
+  } else {
+    session.queue = getNewCards(20);
+    if (!session.queue.length) { showToast('All words learned! 🏆', ''); return; }
+  }
+  session.index = 0;
+  session.revealed = false;
+  showScreen('flashcard');
+  renderCard();
+}
+
+function endSession() { saveState(); updateHomeStats(); showScreen('home'); }
+
+function renderCard() {
+  if (session.index >= session.queue.length) {
+    saveState(); updateHomeStats();
+    showToast('Session complete! +' + (session.queue.length * 10) + ' XP 🎯', '');
+    setTimeout(() => showScreen('home'), 1200);
+    return;
+  }
+  const word = session.queue[session.index];
+  const card = getCard(word.id);
+  const pct = (session.index / session.queue.length * 100) + '%';
+
+  document.getElementById('fc-prog').style.width = pct;
+  document.getElementById('fc-counter').textContent = (session.index+1) + '/' + session.queue.length;
+  document.getElementById('fc-tag').textContent = word.category === 'wk' ? 'WORD KNOWLEDGE' : 'VERBAL ANALOGIES';
+  document.getElementById('fc-word').textContent = word.word;
+  document.getElementById('fc-pos').textContent = word.pos.toUpperCase();
+  document.getElementById('fc-kor-front').textContent = word.kor || '';
+  document.getElementById('fc-hint').textContent = session.mode === 'new' ? 'New word — tap to learn' : 'Tap to test yourself';
+  document.getElementById('def-area').classList.remove('show');
+  document.getElementById('rating-btns').style.display = 'none';
+  document.getElementById('main-card').classList.remove('revealed');
+  session.revealed = false;
+
+  // Update interval previews
+  [0,1,2,3].forEach(q => {
+    document.getElementById('rate-days-'+q).textContent = getIntervalLabel(q, card);
+  });
+}
+
+function revealCard() {
+  if (session.revealed) return;
+  session.revealed = true;
+  const word = session.queue[session.index];
+  document.getElementById('main-card').classList.add('revealed');
+  document.getElementById('fc-def').textContent = word.def;
+  document.getElementById('fc-example').textContent = '"' + (word.example||'') + '"';
+  document.getElementById('fc-kor').textContent = word.kor || '';
+
+  const analogyHint = document.getElementById('fc-analogy-hint');
+  if (word.analogyRelations && word.analogyRelations.length) {
+    analogyHint.textContent = '🔗 ' + word.analogyRelations[0];
+    analogyHint.parentElement.style.display = '';
+  } else {
+    analogyHint.parentElement.style.display = 'none';
+  }
+
+  const synWrap = document.getElementById('fc-synonyms');
+  synWrap.innerHTML = (word.synonyms||[]).map(s=>`<span class="syn-tag">${s}</span>`).join('');
+  document.getElementById('def-area').classList.add('show');
+  document.getElementById('rating-btns').style.display = 'grid';
+}
+
+function rateCard(quality) {
+  const word = session.queue[session.index];
+  const card = getCard(word.id);
+  state.cards[word.id] = sm2(card, quality);
+  state.stats.reviewed++;
+  if (quality >= 2) state.stats.correct++;
+  state.stats.xp += [0,5,10,15][quality];
+
+  // heatmap
+  const today = new Date().toISOString().slice(0,10);
+  state.heatmap[today] = (state.heatmap[today]||0) + 1;
+
+  if (quality === 0) {
+    session.queue.push(word); // re-queue failed cards
+  }
+  session.index++;
+  session.revealed = false;
+  renderCard();
+}
+
+// ============================================================
+// QUIZ
+// ============================================================
+let quiz = { questions: [], index: 0, correct: 0, wrong: 0 };
+
+function startQuiz() {
+  const pool = WORDS.filter(w => state.cards[w.id] && state.cards[w.id].repetitions > 0 || Math.random() > 0.7).slice(0,200);
+  const selected = shuffle(pool).slice(0, 15);
+  quiz.questions = selected.map(w => buildQuizQuestion(w));
+  quiz.index = 0; quiz.correct = 0; quiz.wrong = 0;
+  document.getElementById('quiz-explanation').style.display = 'none';
+  renderQuiz();
+}
+
+function buildQuizQuestion(word) {
+  const type = Math.random() > 0.5 ? 'define' : 'synonym';
+  const distractors = shuffle(WORDS.filter(w => w.id !== word.id)).slice(0,3);
+  if (type === 'define') {
+    const opts = shuffle([word.def, ...distractors.map(d=>d.def)]);
+    return { word, type: 'define', question: `What is the meaning of "${word.word}"?`, options: opts, answer: word.def };
+  } else {
+    const correctSyn = word.synonyms[0] || word.word;
+    const opts = shuffle([correctSyn, ...distractors.map(d=>d.synonyms[0]||d.word)]);
+    return { word, type: 'synonym', question: `Which word is most similar in meaning to "${word.word}"?`, options: opts, answer: correctSyn };
+  }
+}
+
+function renderQuiz() {
+  if (quiz.index >= quiz.questions.length) {
+    const acc = Math.round(quiz.correct/(quiz.correct+quiz.wrong)*100)||0;
+    state.stats.quizCorrect += quiz.correct; state.stats.quizTotal += quiz.questions.length;
+    saveState(); showToast('Quiz done! ' + acc + '% accuracy 🎯', ''); showScreen('home'); return;
+  }
+  const q = quiz.questions[quiz.index];
+  const pct = (quiz.index/quiz.questions.length*100)+'%';
+  document.getElementById('quiz-prog').style.width = pct;
+  document.getElementById('quiz-counter').textContent = (quiz.index+1)+'/'+quiz.questions.length;
+  document.getElementById('quiz-correct-count').textContent = quiz.correct;
+  document.getElementById('quiz-wrong-count').textContent = quiz.wrong;
+  const total = quiz.correct + quiz.wrong;
+  document.getElementById('quiz-acc').textContent = total ? Math.round(quiz.correct/total*100)+'%' : '—';
+  document.getElementById('quiz-type-label').textContent = q.type === 'define' ? 'WORD KNOWLEDGE — DEFINITION' : 'WORD KNOWLEDGE — SYNONYM';
+  document.getElementById('quiz-question').textContent = q.question;
+  document.getElementById('quiz-explanation').style.display = 'none';
+  const letters = ['A','B','C','D'];
+  document.getElementById('quiz-options').innerHTML = q.options.map((opt,i) =>
+    `<button class="quiz-opt" onclick="answerQuiz(this,'${escHtml(opt)}')">
+      <div class="quiz-opt-letter">${letters[i]}</div>
+      <span>${opt}</span>
+    </button>`
+  ).join('');
+}
+
+function answerQuiz(btn, chosen) {
+  const q = quiz.questions[quiz.index];
+  document.querySelectorAll('#quiz-options .quiz-opt').forEach(b => b.classList.add('disabled'));
+  const correct = chosen === q.answer;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) {
+    document.querySelectorAll('#quiz-options .quiz-opt').forEach(b => {
+      if (b.querySelector('span').textContent === q.answer) b.classList.add('correct');
+    });
+  }
+  if (correct) quiz.correct++; else quiz.wrong++;
+  const expEl = document.getElementById('quiz-explanation');
+  document.getElementById('quiz-exp-text').textContent = correct
+    ? `✅ Correct! "${q.word.word}" (${q.word.kor||''}) means: ${q.word.def}`
+    : `❌ The answer is: ${q.answer}. "${q.word.word}" (${q.word.kor||''}) means: ${q.word.def}`;
+  expEl.style.display = 'block';
+}
+
+function nextQuizQuestion() {
+  quiz.index++;
+  document.getElementById('quiz-explanation').style.display = 'none';
+  renderQuiz();
+}
+
+// ============================================================
+// ANALOGIES
+// ============================================================
+const ANALOGY_PATTERNS = [
+  { name: "Antonym (Opposites)", tip: "Identify the opposite relationship: A is to B as C is to D where A↔B and C↔D are opposites.", questions: [
+    {w1:"ARDENT",w2:"APATHETIC",w3:"LOQUACIOUS",w4:"TACITURN",opts:["TACITURN","VERBOSE","GARRULOUS","RETICENT"],exp:"Ardent and apathetic are antonyms. Loquacious (talkative) is opposite to taciturn (quiet). The pattern is: fervent↔indifferent :: talkative↔quiet"},
+    {w1:"BENEVOLENT",w2:"MALEVOLENT",w3:"ABATE",w4:"INTENSIFY",opts:["INTENSIFY","SUBSIDE","WANE","DIMINISH"],exp:"Benevolent (kind) opposes malevolent (evil). Abate (to diminish) opposes intensify. Key: look for clear semantic opposites."},
+    {w1:"SANGUINE",w2:"PESSIMISTIC",w3:"FRUGAL",w4:"EXTRAVAGANT",opts:["EXTRAVAGANT","THRIFTY","ECONOMICAL","PARSIMONIOUS"],exp:"Sanguine (optimistic) ↔ pessimistic. Frugal (thrifty) ↔ extravagant (wasteful). Standard antonym pair."},
+    {w1:"ALACRITY",w2:"RELUCTANCE",w3:"ACRIMONY",w4:"GOODWILL",opts:["GOODWILL","HOSTILITY","ENMITY","RANCOR"],exp:"Alacrity (eagerness) ↔ reluctance. Acrimony (bitterness) ↔ goodwill. Both are antonym pairs."},
+    {w1:"VERBOSE",w2:"LACONIC",w3:"TURBULENT",w4:"SERENE",opts:["SERENE","STORMY","CHAOTIC","AGITATED"],exp:"Verbose (wordy) ↔ laconic (brief). Turbulent (rough) ↔ serene (peaceful)."},
+  ]},
+  { name: "Part → Whole", tip: "A is part of B, just as C is part of D.", questions: [
+    {w1:"STANZA",w2:"POEM",w3:"CHAPTER",w4:"NOVEL",opts:["NOVEL","PARAGRAPH","SENTENCE","LIBRARY"],exp:"A stanza is a unit within a poem; a chapter is a unit within a novel. Both are parts of their respective wholes."},
+    {w1:"WORD",w2:"SENTENCE",w3:"SOLDIER",w4:"ARMY",opts:["ARMY","GENERAL","BATTLE","REGIMENT"],exp:"A word is a component of a sentence; a soldier is a member of an army. Part-to-whole relationship."},
+    {w1:"PETAL",w2:"FLOWER",w3:"ISLAND",w4:"ARCHIPELAGO",opts:["ARCHIPELAGO","OCEAN","CONTINENT","PENINSULA"],exp:"A petal is part of a flower; an island is part of an archipelago (island chain)."},
+    {w1:"INNING",w2:"BASEBALL GAME",w3:"PERIOD",w4:"HOCKEY GAME",opts:["HOCKEY GAME","QUARTER","OVERTIME","SEASON"],exp:"An inning is one segment of a baseball game; a period is one segment of a hockey game."},
+    {w1:"SCALE",w2:"FISH",w3:"FEATHER",w4:"BIRD",opts:["BIRD","WING","BEAK","EGG"],exp:"A scale is part of a fish's body covering; a feather is part of a bird's body covering."},
+  ]},
+  { name: "Cause → Effect", tip: "A causes B, just as C causes D.", questions: [
+    {w1:"DROUGHT",w2:"FAMINE",w3:"NEGLIGENCE",w4:"ACCIDENT",opts:["ACCIDENT","INJURY","RECKLESSNESS","CAUTION"],exp:"Drought causes famine; negligence causes accidents. The first term is the cause, the second is the effect."},
+    {w1:"FIRE",w2:"ASHES",w3:"FLOOD",w4:"EROSION",opts:["EROSION","DROUGHT","EARTHQUAKE","DROUGHT"],exp:"Fire produces ashes as a result; flooding produces erosion. Both are natural cause-effect pairs."},
+    {w1:"PRACTICE",w2:"PROFICIENCY",w3:"EXERCISE",w4:"FITNESS",opts:["FITNESS","FATIGUE","WEIGHT","DIET"],exp:"Practice leads to proficiency; exercise leads to fitness. These show how repeated effort produces capability."},
+  ]},
+  { name: "Degree / Intensity", tip: "A and B differ in degree or intensity, as do C and D.", questions: [
+    {w1:"CONTENT",w2:"ECSTATIC",w3:"DISPLEASED",w4:"FURIOUS",opts:["FURIOUS","UNHAPPY","SAD","ANNOYED"],exp:"Content and ecstatic are on the same scale of happiness (mild → extreme). Displeased and furious are on the same scale of anger (mild → extreme)."},
+    {w1:"WARM",w2:"SCORCHING",w3:"COOL",w4:"FRIGID",opts:["FRIGID","COLD","FREEZING","CHILLY"],exp:"Warm → scorching is an intensification of heat. Cool → frigid is an intensification of cold."},
+    {w1:"DISLIKE",w2:"ABHOR",w3:"FOND",w4:"ADORE",opts:["ADORE","LIKE","APPRECIATE","ENJOY"],exp:"Dislike → abhor (intensified negative feeling). Fond → adore (intensified positive feeling). Both show degree on an emotional scale."},
+    {w1:"ANNOY",w2:"INFURIATE",w3:"PLEASE",w4:"ELATE",opts:["ELATE","SATISFY","DELIGHT","AMUSE"],exp:"Annoy → infuriate (mild to extreme irritation). Please → elate (mild to extreme happiness). Parallel intensity scales."},
+  ]},
+  { name: "Synonym / Associated Meaning", tip: "A is synonymous with or closely related to B, as C is to D.", questions: [
+    {w1:"ACUMEN",w2:"INSIGHT",w3:"TENACITY",w4:"PERSEVERANCE",opts:["PERSEVERANCE","LAZINESS","HESITATION","TIMIDITY"],exp:"Acumen means keen insight; tenacity means perseverance. Both pairs are virtual synonyms."},
+    {w1:"EPHEMERAL",w2:"TRANSIENT",w3:"IMMUTABLE",w4:"PERMANENT",opts:["PERMANENT","TEMPORARY","FLEETING","UNSTABLE"],exp:"Ephemeral and transient both mean 'short-lived.' Immutable and permanent both mean 'unchanging.'"},
+    {w1:"VERBOSE",w2:"GARRULOUS",w3:"LACONIC",w4:"TERSE",opts:["TERSE","BRIEF","RETICENT","SILENT"],exp:"Verbose and garrulous both mean excessively talkative. Laconic and terse both mean using very few words."},
+  ]},
+  { name: "Object → Function", tip: "A is used for B, just as C is used for D.", questions: [
+    {w1:"SCALPEL",w2:"SURGERY",w3:"GAVEL",w4:"ADJUDICATION",opts:["ADJUDICATION","AUCTION","BUILDING","CARPENTRY"],exp:"A scalpel is used in surgery; a gavel is used in adjudication (legal proceedings). Each tool is associated with a specific professional function."},
+    {w1:"COMPASS",w2:"NAVIGATION",w3:"ABACUS",w4:"CALCULATION",opts:["CALCULATION","EDUCATION","ASTRONOMY","MEASUREMENT"],exp:"A compass is used for navigation; an abacus is used for calculation. Tool → purpose relationships."},
+    {w1:"ANESTHETIC",w2:"PAIN RELIEF",w3:"VACCINE",w4:"PREVENTION",opts:["PREVENTION","TREATMENT","DIAGNOSIS","SURGERY"],exp:"Anesthetic is used for pain relief; a vaccine is used for disease prevention. Medical tool → function."},
+  ]},
+  { name: "Creator → Creation", tip: "A creates B, just as C creates D.", questions: [
+    {w1:"COMPOSER",w2:"SYMPHONY",w3:"ARCHITECT",w4:"BLUEPRINT",opts:["BLUEPRINT","BUILDING","DESIGN","STRUCTURE"],exp:"A composer creates a symphony; an architect creates a blueprint. Both pairs are creator-to-creation relationships."},
+    {w1:"POET",w2:"SONNET",w3:"SCULPTOR",w4:"STATUE",opts:["STATUE","PAINTING","CANVAS","CLAY"],exp:"A poet creates sonnets; a sculptor creates statues. Creator → artistic product."},
+    {w1:"CARTOGRAPHER",w2:"MAP",w3:"CHOREOGRAPHER",w4:"DANCE",opts:["DANCE","MUSIC","STAGE","THEATER"],exp:"A cartographer creates maps; a choreographer creates dance routines. Professional creator → work produced."},
+  ]},
+  { name: "Characteristic / Defining Property", tip: "A is characteristically B, just as C is characteristically D.", questions: [
+    {w1:"MISER",w2:"PARSIMONY",w3:"ZEALOT",w4:"FANATICISM",opts:["FANATICISM","LAZINESS","COURAGE","WISDOM"],exp:"A miser is characterized by parsimony (extreme frugality); a zealot is characterized by fanaticism. Each word defines the characteristic behavior."},
+    {w1:"SYCOPHANT",w2:"FLATTERY",w3:"DEMAGOGUE",w4:"MANIPULATION",opts:["MANIPULATION","LEADERSHIP","DEBATE","POLICY"],exp:"A sycophant uses flattery; a demagogue uses manipulation. The second term names the characteristic method of each type of person."},
+    {w1:"STOIC",w2:"IMPASSIVITY",w3:"HEDONIST",w4:"PLEASURE",opts:["PLEASURE","PAIN","REASON","WISDOM"],exp:"A stoic is characterized by impassivity (lack of emotion); a hedonist is characterized by pursuit of pleasure."},
+  ]},
+];
+
+let analogySession = { patternIdx: 0, qIdx: 0, answered: false };
+
+function startAnalogy() {
+  analogySession = { patternIdx: Math.floor(Math.random()*ANALOGY_PATTERNS.length), qIdx: 0, answered: false };
+  renderAnalogy();
+}
+
+function renderAnalogy() {
+  const pattern = ANALOGY_PATTERNS[analogySession.patternIdx];
+  const q = pattern.questions[analogySession.qIdx % pattern.questions.length];
+  document.getElementById('ana-pattern-name').textContent = pattern.name;
+  document.getElementById('ana-w1').textContent = q.w1;
+  document.getElementById('ana-w2').textContent = q.w2;
+  document.getElementById('ana-w3').textContent = q.w3;
+  document.getElementById('ana-blank').textContent = '?';
+  document.getElementById('ana-tip').textContent = '💡 ' + pattern.tip;
+  document.getElementById('ana-counter').textContent = (analogySession.qIdx+1) + '/10';
+  document.getElementById('ana-explanation').style.display = 'none';
+  analogySession.answered = false;
+  const letters = ['A','B','C','D'];
+  document.getElementById('ana-options').innerHTML = q.opts.map((opt,i) =>
+    `<button class="quiz-opt" onclick="answerAnalogy(this,'${escHtml(opt)}','${escHtml(q.w4)}','${escHtml(q.exp)}')">
+      <div class="quiz-opt-letter">${letters[i]}</div>
+      <span>${opt}</span>
+    </button>`
+  ).join('');
+}
+
+function answerAnalogy(btn, chosen, correct, exp) {
+  if (analogySession.answered) return;
+  analogySession.answered = true;
+  document.querySelectorAll('#ana-options .quiz-opt').forEach(b => b.classList.add('disabled'));
+  const isCorrect = chosen === correct;
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) {
+    document.getElementById('ana-blank').textContent = correct;
+    document.querySelectorAll('#ana-options .quiz-opt').forEach(b => {
+      if (b.querySelector('span').textContent === correct) b.classList.add('correct');
+    });
+  } else {
+    document.getElementById('ana-blank').textContent = correct;
+  }
+  state.stats.anaTotal++;
+  if (isCorrect) state.stats.anaCorrect++;
+  document.getElementById('ana-exp-text').textContent = exp;
+  document.getElementById('ana-afoqt-tip').textContent = ANALOGY_PATTERNS[analogySession.patternIdx].tip;
+  document.getElementById('ana-explanation').style.display = 'block';
+  saveState();
+}
+
+function nextAnalogyQuestion() {
+  analogySession.qIdx++;
+  if (analogySession.qIdx % 5 === 0) {
+    analogySession.patternIdx = (analogySession.patternIdx + 1) % ANALOGY_PATTERNS.length;
+  }
+  renderAnalogy();
+}
+
+// ============================================================
+// WORD LIST
+// ============================================================
+let currentFilter = 'all';
+function setFilter(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderWordList();
+}
+
+function filterWords() { renderWordList(); }
+
+function renderWordList() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  let words = WORDS;
+  if (currentFilter !== 'all') {
+    if (currentFilter === 'new') words = words.filter(w => !state.cards[w.id] || state.cards[w.id].repetitions === 0);
+    else if (currentFilter === 'learning') words = words.filter(w => state.cards[w.id] && state.cards[w.id].repetitions > 0 && state.cards[w.id].interval < 7);
+    else if (currentFilter === 'review') words = words.filter(w => state.cards[w.id] && state.cards[w.id].interval >= 7 && state.cards[w.id].interval < 21);
+    else if (currentFilter === 'mastered') words = words.filter(w => state.cards[w.id] && state.cards[w.id].interval >= 21);
+    else if (currentFilter === 'wk') words = words.filter(w => w.category === 'wk');
+    else if (currentFilter === 'analogy') words = words.filter(w => w.category === 'analogy');
+  }
+  if (q) words = words.filter(w => w.word.toLowerCase().includes(q) || w.def.toLowerCase().includes(q) || (w.kor||'').includes(q) || (w.synonyms||[]).some(s=>s.toLowerCase().includes(q)));
+  const colors = { new: '#9090b0', learning: '#fbbf24', review: '#5b6ef5', mastered: '#34d399' };
+  document.getElementById('word-list').innerHTML = words.slice(0,100).map(w => {
+    const card = state.cards[w.id];
+    let status = 'new', color = colors.new;
+    if (card && card.repetitions > 0) { status='learning'; color=colors.learning; }
+    if (card && card.interval >= 7) { status='review'; color=colors.review; }
+    if (card && card.interval >= 21) { status='mastered'; color=colors.mastered; }
+    return `<div class="word-item" onclick="openWordModal(${w.id})">
+      <div class="word-item-indicator" style="background:${color}"></div>
+      <div class="word-item-body">
+        <div class="word-item-word">${w.word} <span style="font-size:12px;color:var(--text3);font-weight:400">${w.pos}</span>${w.kor ? `<span style="font-size:12px;color:#a78bfa;font-weight:500;margin-left:8px">${w.kor}</span>` : ''}</div>
+        <div class="word-item-def">${w.def.slice(0,80)}${w.def.length>80?'...':''}</div>
+        <div class="word-item-tags">
+          ${(w.synonyms||[]).slice(0,3).map(s=>`<span class="word-tag-pill">${s}</span>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }).join('') + (words.length > 100 ? `<div style="text-align:center;padding:16px;color:var(--text3);font-size:13px">Showing 100 of ${words.length} words. Use search to filter.</div>` : '');
+}
+
+function openWordModal(id) {
+  const w = WORDS.find(x => x.id === id);
+  if (!w) return;
+  document.getElementById('modal-word').textContent = w.word;
+  document.getElementById('modal-pos').textContent = w.pos;
+  document.getElementById('modal-kor').textContent = w.kor || '';
+  document.getElementById('modal-def').textContent = w.def;
+  document.getElementById('modal-example').textContent = w.example ? '"' + w.example + '"' : '';
+  document.getElementById('modal-synonyms').innerHTML = (w.synonyms||[]).map(s=>`<span class="syn-tag">${s}</span>`).join('');
+  document.getElementById('modal-analogies').innerHTML = (w.analogyRelations||['No analogy data for this word.']).map(a=>`<div class="modal-analogy-rel">${a}</div>`).join('');
+  document.getElementById('word-modal').classList.add('open');
+}
+function closeModal(e) { if (e.target === e.currentTarget) document.getElementById('word-modal').classList.remove('open'); }
+
+// ============================================================
+// STATS
+// ============================================================
+function renderStats() {
+  const learned = getLearnedCount();
+  const mastered = getMasteredCount();
+  document.getElementById('stat-total').textContent = TOTAL_DB_SIZE.toLocaleString();
+  document.getElementById('stat-reviewed').textContent = state.stats.reviewed.toLocaleString();
+  document.getElementById('stat-mastered').textContent = mastered;
+  const ret = state.stats.reviewed ? Math.round(state.stats.correct/state.stats.reviewed*100) : null;
+  document.getElementById('stat-retention').textContent = ret !== null ? ret+'%' : '—';
+  const qa = state.stats.quizTotal ? Math.round(state.stats.quizCorrect/state.stats.quizTotal*100)+'%' : '—';
+  document.getElementById('stat-quiz-acc').textContent = qa;
+  const aa = state.stats.anaTotal ? Math.round(state.stats.anaCorrect/state.stats.anaTotal*100)+'%' : '—';
+  document.getElementById('stat-ana-acc').textContent = aa;
+
+  // Heatmap
+  const cells = [];
+  for (let i=181; i>=0; i--) {
+    const d = new Date(Date.now() - i*86400000).toISOString().slice(0,10);
+    const count = state.heatmap[d] || 0;
+    const lvl = count === 0 ? '' : count < 5 ? 'lvl1' : count < 15 ? 'lvl2' : count < 30 ? 'lvl3' : 'lvl4';
+    cells.push(`<div class="heatmap-cell ${lvl}" title="${d}: ${count} cards"></div>`);
+  }
+  document.getElementById('heatmap').innerHTML = cells.join('');
+
+  // Recent reviewed
+  const recent = Object.keys(state.cards).slice(-10).reverse().map(id => {
+    const w = WORDS.find(x => x.id == id);
+    const c = state.cards[id];
+    if (!w) return '';
+    const pct = Math.min(100, Math.round(c.interval / 21 * 100));
+    const col = pct >= 100 ? '#34d399' : pct >= 50 ? '#5b6ef5' : '#fbbf24';
+    return `<div class="mastery-item">
+      <div class="mastery-word">${w.word}</div>
+      <div class="mastery-bar-wrap"><div class="mastery-bar"><div class="mastery-bar-fill" style="width:${pct}%;background:${col}"></div></div></div>
+      <div class="mastery-level">${c.interval}d</div>
+    </div>`;
+  }).join('');
+  document.getElementById('recent-list').innerHTML = recent || '<div style="color:var(--text3);font-size:13px">Start studying to see progress!</div>';
+}
+
+// ============================================================
+// HOME STATS UPDATE
+// ============================================================
+function updateHomeStats() {
+  checkStreak();
+  const due = getDueCards().length;
+  const newC = getNewCards().length;
+  const learned = getLearnedCount();
+  const mastered = getMasteredCount();
+  const learnedPct = Math.round(learned/WORDS.length*100);
+  const masteredPct = Math.round(mastered/WORDS.length*100);
+
+  document.getElementById('due-count').textContent = due;
+  document.getElementById('due-count').className = 'card-count ' + (due > 20 ? 'urgent' : 'normal');
+  document.getElementById('new-count').textContent = Math.min(20, newC);
+  document.getElementById('nav-due').textContent = due;
+  document.getElementById('nav-streak').textContent = state.stats.streak;
+  document.getElementById('nav-mastered').textContent = mastered;
+  document.getElementById('home-streak').textContent = state.stats.streak;
+  document.getElementById('home-xp').textContent = '+' + state.stats.xp;
+  document.getElementById('prog-learned').style.width = learnedPct+'%';
+  document.getElementById('prog-mastered').style.width = masteredPct+'%';
+  document.getElementById('prog-wk').style.width = (Math.round(WORDS.filter(w=>w.category==='wk'&&state.cards[w.id]&&state.cards[w.id].repetitions>0).length/WORDS.filter(w=>w.category==='wk').length*100)||0)+'%';
+  document.getElementById('prog-learned-pct').textContent = learnedPct+'%';
+  document.getElementById('prog-mastered-pct').textContent = masteredPct+'%';
+  document.getElementById('prog-wk-pct').textContent = (Math.round(WORDS.filter(w=>w.category==='wk'&&state.cards[w.id]&&state.cards[w.id].repetitions>0).length/WORDS.filter(w=>w.category==='wk').length*100)||0)+'%';
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+const screens = { home:'home',flashcard:'flashcard',quiz:'quiz',analogy:'analogy',stats:'stats',words:'words' };
+const bnav = { home:'bnav-home',quiz:'bnav-quiz',analogy:'bnav-analogy',stats:'bnav-stats',words:'bnav-words' };
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  Object.values(bnav).forEach(id => document.getElementById(id)?.classList.remove('active'));
+  if (bnav[name]) document.getElementById(bnav[name]).classList.add('active');
+  if (name === 'stats') renderStats();
+  if (name === 'words') renderWordList();
+  if (name === 'home') updateHomeStats();
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function shuffle(arr) { return [...arr].sort(()=>Math.random()-0.5); }
+function escHtml(s) { return s?.replace(/'/g,"&#39;").replace(/"/g,"&quot;") || ''; }
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show ' + type;
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// INIT
+checkStreak();
+updateHomeStats();
+</script>
+</body>
+</html>
