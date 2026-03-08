@@ -568,7 +568,10 @@
       <div class="flashcard" id="main-card" onclick="revealCard()">
         <div>
           <div class="word-tag" id="fc-tag">WORD KNOWLEDGE</div>
-          <div class="word-main" id="fc-word">—</div>
+          <div style="display:flex;align-items:center;gap:10px;justify-content:center">
+            <div class="word-main" id="fc-word">—</div>
+            <button onclick="event.stopPropagation();speakWord(document.getElementById('fc-word').textContent)" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0" title="발음 듣기">🔊</button>
+          </div>
           <div class="word-pos" id="fc-pos">noun</div>
           <div id="fc-kor-front" style="font-size:16px;color:#a78bfa;font-weight:600;margin-top:4px;min-height:20px"></div>
         </div>
@@ -924,7 +927,10 @@
 <div class="modal-overlay" id="word-modal" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-handle"></div>
-    <div class="modal-word" id="modal-word">—</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="modal-word" id="modal-word">—</div>
+      <button onclick="speakWord(document.getElementById('modal-word').textContent)" style="background:var(--surface2);border:1px solid var(--border);border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s" title="발음 듣기">🔊</button>
+    </div>
     <div class="modal-pos" id="modal-pos">—</div>
     <div id="modal-kor" style="font-size:20px;color:#a78bfa;font-weight:700;margin-bottom:12px"></div>
     <div class="modal-def" id="modal-def">—</div>
@@ -1063,6 +1069,7 @@ function renderCard() {
   document.getElementById('rating-btns').style.display = 'none';
   document.getElementById('main-card').classList.remove('revealed');
   session.revealed = false;
+  speakWord(word.word);
 
   // Update interval previews
   [0,1,2,3].forEach(q => {
@@ -1381,6 +1388,25 @@ function _appendWordItems() {
   }
 }
 
+// ============================================================
+// TEXT-TO-SPEECH
+// ============================================================
+function speakWord(word) {
+  if (!word || word === '—') return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(word.toLowerCase());
+  utter.lang = 'en-US';
+  utter.rate = 0.85;
+  utter.pitch = 1;
+  // prefer a natural English voice if available
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(v => v.lang === 'en-US' && v.name.includes('Google'))
+    || voices.find(v => v.lang === 'en-US')
+    || voices.find(v => v.lang.startsWith('en'));
+  if (preferred) utter.voice = preferred;
+  window.speechSynthesis.speak(utter);
+}
+
 function openWordModal(id) {
   const w = WORDS.find(x => x.id === id);
   if (!w) return;
@@ -1392,6 +1418,7 @@ function openWordModal(id) {
   document.getElementById('modal-synonyms').innerHTML = (w.synonyms||[]).map(s=>`<span class="syn-tag">${s}</span>`).join('');
   document.getElementById('modal-analogies').innerHTML = (w.analogyRelations||['No analogy data for this word.']).map(a=>`<div class="modal-analogy-rel">${a}</div>`).join('');
   document.getElementById('word-modal').classList.add('open');
+  speakWord(w.word);
 }
 function closeModal(e) { if (e.target === e.currentTarget) document.getElementById('word-modal').classList.remove('open'); }
 
