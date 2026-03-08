@@ -808,6 +808,64 @@
     </div>
   </div>
 
+  <!-- TTS 설정 -->
+  <div class="settings-section">
+    <div class="settings-label">발음 (TTS) 설정</div>
+    <div class="settings-card" style="overflow:hidden">
+      <!-- 자동 재생 토글 -->
+      <div class="settings-row" style="cursor:default">
+        <div class="settings-row-icon" style="background:rgba(52,211,153,0.12);color:var(--green)">🔊</div>
+        <div class="settings-row-body">
+          <div class="settings-row-title">자동 발음</div>
+          <div class="settings-row-sub">단어 카드/모달 열 때 자동 재생</div>
+        </div>
+        <label class="theme-toggle">
+          <input type="checkbox" id="tts-auto-checkbox" onchange="toggleTTSAuto(this.checked)">
+          <span class="theme-slider"></span>
+        </label>
+      </div>
+      <div class="settings-divider"></div>
+      <!-- 음성 선택 -->
+      <div class="settings-row" style="cursor:default;flex-wrap:wrap;gap:8px">
+        <div class="settings-row-icon" style="background:rgba(91,110,245,0.12);color:var(--accent)">🎙️</div>
+        <div class="settings-row-body">
+          <div class="settings-row-title">음성 선택</div>
+          <div class="settings-row-sub" id="tts-voice-sub">en-US 음성 로딩 중...</div>
+        </div>
+      </div>
+      <div style="padding:0 16px 16px">
+        <select id="tts-voice-select" onchange="saveTTSVoice(this.value)"
+          style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;appearance:auto">
+          <option value="">음성 로딩 중...</option>
+        </select>
+      </div>
+      <div class="settings-divider"></div>
+      <!-- 속도 설정 -->
+      <div class="settings-row" style="cursor:default">
+        <div class="settings-row-icon" style="background:rgba(251,191,36,0.12);color:var(--yellow)">⚡</div>
+        <div class="settings-row-body">
+          <div class="settings-row-title">재생 속도</div>
+          <div class="settings-row-sub" id="tts-rate-label">0.82x (기본)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button class="set-counter-btn" onclick="changeTTSRate(-0.1)">－</button>
+          <span style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;min-width:40px;text-align:center" id="tts-rate-val">0.82</span>
+          <button class="set-counter-btn" onclick="changeTTSRate(0.1)">＋</button>
+        </div>
+      </div>
+      <div class="settings-divider"></div>
+      <!-- 테스트 버튼 -->
+      <div class="settings-row" onclick="speakWord('vocabulary')" style="cursor:pointer">
+        <div class="settings-row-icon" style="background:rgba(167,139,250,0.12);color:var(--accent2)">▶️</div>
+        <div class="settings-row-body">
+          <div class="settings-row-title">테스트 재생</div>
+          <div class="settings-row-sub">"vocabulary" 단어로 현재 음성 테스트</div>
+        </div>
+        <div class="settings-row-arrow">›</div>
+      </div>
+    </div>
+  </div>
+
   <!-- 일일 학습량 -->
   <div class="settings-section">
     <div class="settings-label">하루 새 단어 목표</div>
@@ -1069,7 +1127,7 @@ function renderCard() {
   document.getElementById('rating-btns').style.display = 'none';
   document.getElementById('main-card').classList.remove('revealed');
   session.revealed = false;
-  speakWord(word.word);
+  speakWordAuto(word.word);
 
   // Update interval previews
   [0,1,2,3].forEach(q => {
@@ -1392,36 +1450,99 @@ function _appendWordItems() {
 // TEXT-TO-SPEECH
 // ============================================================
 let _ttsVoice = null;
+let _ttsAllVoices = [];
 
-function _loadTTSVoice() {
+function _loadTTSVoices() {
   const voices = window.speechSynthesis.getVoices();
   if (!voices.length) return;
-  // Priority: Google US English > Microsoft US > any en-US > any en
-  _ttsVoice =
-    voices.find(v => v.lang === 'en-US' && /google/i.test(v.name)) ||
-    voices.find(v => v.lang === 'en-US' && /microsoft/i.test(v.name)) ||
-    voices.find(v => v.lang === 'en-US' && /zira|david|mark|aria|guy/i.test(v.name)) ||
-    voices.find(v => v.lang === 'en-US') ||
-    voices.find(v => v.lang === 'en-GB') ||
-    voices.find(v => v.lang.startsWith('en'));
+  // Only English voices
+  _ttsAllVoices = voices.filter(v => v.lang.startsWith('en'));
+
+  // Populate select if on settings screen
+  _populateTTSSelect();
+
+  // Apply saved voice or pick best default
+  const savedName = state.settings?.ttsVoice;
+  if (savedName) {
+    _ttsVoice = _ttsAllVoices.find(v => v.name === savedName) || null;
+  }
+  if (!_ttsVoice) {
+    _ttsVoice =
+      _ttsAllVoices.find(v => v.lang === 'en-US' && /google/i.test(v.name)) ||
+      _ttsAllVoices.find(v => v.lang === 'en-US' && /microsoft/i.test(v.name)) ||
+      _ttsAllVoices.find(v => v.lang === 'en-US' && /zira|david|mark|aria|guy|jenny|ana/i.test(v.name)) ||
+      _ttsAllVoices.find(v => v.lang === 'en-US') ||
+      _ttsAllVoices.find(v => v.lang === 'en-GB') ||
+      _ttsAllVoices[0] || null;
+  }
+  _populateTTSSelect();
 }
 
-// voices load asynchronously — try immediately and on event
-_loadTTSVoice();
-if (window.speechSynthesis.onvoiceschanged !== undefined) {
-  window.speechSynthesis.onvoiceschanged = _loadTTSVoice;
+function _populateTTSSelect() {
+  const sel = document.getElementById('tts-voice-select');
+  const sub = document.getElementById('tts-voice-sub');
+  if (!sel) return;
+  if (!_ttsAllVoices.length) {
+    sel.innerHTML = '<option value="">음성을 찾을 수 없습니다</option>';
+    if (sub) sub.textContent = '지원되지 않는 브라우저';
+    return;
+  }
+  const saved = state.settings?.ttsVoice || (_ttsVoice ? _ttsVoice.name : '');
+  sel.innerHTML = _ttsAllVoices.map(v =>
+    `<option value="${v.name}" ${v.name === saved ? 'selected' : ''}>${v.name} (${v.lang})</option>`
+  ).join('');
+  if (sub) sub.textContent = `${_ttsAllVoices.length}개 영어 음성 사용 가능`;
+}
+
+function saveTTSVoice(name) {
+  _ttsVoice = _ttsAllVoices.find(v => v.name === name) || null;
+  if (!state.settings) state.settings = { newPerDay: 20 };
+  state.settings.ttsVoice = name;
+  saveState();
+  showToast('음성 저장됨 ✓', '');
+}
+
+function toggleTTSAuto(on) {
+  if (!state.settings) state.settings = { newPerDay: 20 };
+  state.settings.ttsAuto = on;
+  saveState();
+  showToast(on ? '자동 발음 켜짐 🔊' : '자동 발음 꺼짐', '');
+}
+
+function changeTTSRate(delta) {
+  if (!state.settings) state.settings = { newPerDay: 20 };
+  const cur = state.settings.ttsRate || 0.82;
+  const next = Math.round(Math.max(0.5, Math.min(1.5, cur + delta)) * 100) / 100;
+  state.settings.ttsRate = next;
+  saveState();
+  document.getElementById('tts-rate-val').textContent = next.toFixed(2);
+  const labels = { 0.5:'느림', 0.6:'느림', 0.7:'조금 느림', 0.8:'기본', 0.9:'기본', 1.0:'보통', 1.1:'빠름', 1.2:'빠름', 1.3:'매우 빠름', 1.4:'매우 빠름', 1.5:'최대' };
+  document.getElementById('tts-rate-label').textContent = `${next.toFixed(2)}x (${labels[Math.round(next*10)/10] || ''})`;
 }
 
 function speakWord(word) {
   if (!word || word === '—') return;
+  // respect auto-play setting (manual button calls always play)
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(word.toLowerCase());
   utter.lang = 'en-US';
-  utter.rate = 0.82;
+  utter.rate = state.settings?.ttsRate || 0.82;
   utter.pitch = 1;
-  if (!_ttsVoice) _loadTTSVoice();
+  if (!_ttsVoice) _loadTTSVoices();
   if (_ttsVoice) utter.voice = _ttsVoice;
   window.speechSynthesis.speak(utter);
+}
+
+function speakWordAuto(word) {
+  // only plays when auto setting is on
+  if (state.settings?.ttsAuto === false) return;
+  speakWord(word);
+}
+
+// Load voices async
+_loadTTSVoices();
+if (typeof window.speechSynthesis !== 'undefined') {
+  window.speechSynthesis.onvoiceschanged = _loadTTSVoices;
 }
 
 function openWordModal(id) {
@@ -1435,7 +1556,7 @@ function openWordModal(id) {
   document.getElementById('modal-synonyms').innerHTML = (w.synonyms||[]).map(s=>`<span class="syn-tag">${s}</span>`).join('');
   document.getElementById('modal-analogies').innerHTML = (w.analogyRelations||['No analogy data for this word.']).map(a=>`<div class="modal-analogy-rel">${a}</div>`).join('');
   document.getElementById('word-modal').classList.add('open');
-  speakWord(w.word);
+  speakWordAuto(w.word);
 }
 function closeModal(e) { if (e.target === e.currentTarget) document.getElementById('word-modal').classList.remove('open'); }
 
@@ -1545,6 +1666,14 @@ function renderSettings() {
   document.getElementById('theme-checkbox').checked = isLight;
   document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
   document.getElementById('theme-title').textContent = isLight ? '라이트 모드' : '다크 모드';
+  // TTS
+  const ttsAuto = state.settings?.ttsAuto !== false;
+  document.getElementById('tts-auto-checkbox').checked = ttsAuto;
+  const rate = state.settings?.ttsRate || 0.82;
+  document.getElementById('tts-rate-val').textContent = rate.toFixed(2);
+  const labels = {0.5:'느림',0.6:'느림',0.7:'조금 느림',0.8:'기본',0.9:'기본',1.0:'보통',1.1:'빠름',1.2:'빠름',1.3:'매우 빠름',1.4:'매우 빠름',1.5:'최대'};
+  document.getElementById('tts-rate-label').textContent = `${rate.toFixed(2)}x (${labels[Math.round(rate*10)/10]||''})`;
+  _populateTTSSelect();
 }
 
 function changeNewPerDay(delta) {
