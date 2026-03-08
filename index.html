@@ -90,7 +90,7 @@
     z-index: 0;
   }
 
-  /* CENTER CONTAINER — mobile app look on PC */
+  /* CENTER CONTAINER — responsive */
   #app {
     position: relative;
     max-width: 480px;
@@ -102,6 +102,9 @@
   body.light #app {
     box-shadow: 0 0 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
   }
+  @media (min-width: 768px)  { #app { max-width: 720px; } }
+  @media (min-width: 1100px) { #app { max-width: 960px; } }
+  @media (min-width: 1400px) { #app { max-width: 1100px; } }
 
   /* Toast also centered */
   .toast { max-width: 400px; }
@@ -376,6 +379,15 @@
   .word-item-def { font-size: 13px; color: var(--text2); line-height: 1.4; }
   .word-item-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
   .word-tag-pill { background: var(--surface3); border-radius: 4px; padding: 2px 6px; font-size: 10px; color: var(--text3); }
+  @media (min-width: 768px) {
+    .word-list { padding: 0 32px 100px; }
+    #word-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+    #word-list > div[id="wl-sentinel"] { grid-column: 1 / -1; }
+    .word-item { border-bottom: 1px solid var(--surface2); }
+  }
+  @media (min-width: 1100px) {
+    #word-list { grid-template-columns: 1fr 1fr 1fr; gap: 0 32px; }
+  }
 
   /* MODAL */
   .modal-overlay {
