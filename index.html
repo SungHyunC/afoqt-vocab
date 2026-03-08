@@ -1300,6 +1300,10 @@ function setFilter(f, el) {
 
 function filterWords() { renderWordList(); }
 
+let _wlFiltered = [];
+let _wlPage = 0;
+const _WL_PAGE = 50;
+
 function renderWordList() {
   const q = document.getElementById('search-input').value.toLowerCase();
   let words = WORDS;
@@ -1312,24 +1316,57 @@ function renderWordList() {
     else if (currentFilter === 'analogy') words = words.filter(w => w.category === 'analogy');
   }
   if (q) words = words.filter(w => w.word.toLowerCase().includes(q) || w.def.toLowerCase().includes(q) || (w.kor||'').includes(q) || (w.synonyms||[]).some(s=>s.toLowerCase().includes(q)));
+  _wlFiltered = words;
+  _wlPage = 0;
+  const listEl = document.getElementById('word-list');
+  listEl.innerHTML = '';
+  _appendWordItems();
+}
+
+function _renderWordItem(w) {
   const colors = { new: '#9090b0', learning: '#fbbf24', review: '#5b6ef5', mastered: '#34d399' };
-  document.getElementById('word-list').innerHTML = words.slice(0,100).map(w => {
-    const card = state.cards[w.id];
-    let status = 'new', color = colors.new;
-    if (card && card.repetitions > 0) { status='learning'; color=colors.learning; }
-    if (card && card.interval >= 7) { status='review'; color=colors.review; }
-    if (card && card.interval >= 21) { status='mastered'; color=colors.mastered; }
-    return `<div class="word-item" onclick="openWordModal(${w.id})">
-      <div class="word-item-indicator" style="background:${color}"></div>
-      <div class="word-item-body">
-        <div class="word-item-word">${w.word} <span style="font-size:12px;color:var(--text3);font-weight:400">${w.pos}</span>${w.kor ? `<span style="font-size:12px;color:#a78bfa;font-weight:500;margin-left:8px">${w.kor}</span>` : ''}</div>
-        <div class="word-item-def">${w.def.slice(0,80)}${w.def.length>80?'...':''}</div>
-        <div class="word-item-tags">
-          ${(w.synonyms||[]).slice(0,3).map(s=>`<span class="word-tag-pill">${s}</span>`).join('')}
-        </div>
+  const card = state.cards[w.id];
+  let color = colors.new;
+  if (card && card.repetitions > 0) color = colors.learning;
+  if (card && card.interval >= 7) color = colors.review;
+  if (card && card.interval >= 21) color = colors.mastered;
+  return `<div class="word-item" onclick="openWordModal(${w.id})">
+    <div class="word-item-indicator" style="background:${color}"></div>
+    <div class="word-item-body">
+      <div class="word-item-word">${w.word} <span style="font-size:12px;color:var(--text3);font-weight:400">${w.pos}</span>${w.kor ? `<span style="font-size:12px;color:#a78bfa;font-weight:500;margin-left:8px">${w.kor}</span>` : ''}</div>
+      <div class="word-item-def">${w.def.slice(0,80)}${w.def.length>80?'...':''}</div>
+      <div class="word-item-tags">
+        ${(w.synonyms||[]).slice(0,3).map(s=>`<span class="word-tag-pill">${s}</span>`).join('')}
       </div>
-    </div>`;
-  }).join('') + (words.length > 100 ? `<div style="text-align:center;padding:16px;color:var(--text3);font-size:13px">Showing 100 of ${words.length} words. Use search to filter.</div>` : '');
+    </div>
+  </div>`;
+}
+
+function _appendWordItems() {
+  const listEl = document.getElementById('word-list');
+  const sentinel = document.getElementById('wl-sentinel');
+  if (sentinel) sentinel.remove();
+
+  const start = _wlPage * _WL_PAGE;
+  const chunk = _wlFiltered.slice(start, start + _WL_PAGE);
+  if (chunk.length === 0) return;
+
+  listEl.insertAdjacentHTML('beforeend', chunk.map(_renderWordItem).join(''));
+  _wlPage++;
+
+  const shown = Math.min(_wlPage * _WL_PAGE, _wlFiltered.length);
+  const total = _wlFiltered.length;
+  const info = `<div id="wl-sentinel" style="text-align:center;padding:16px;color:var(--text3);font-size:13px">${shown < total ? `<span style="color:var(--accent);cursor:pointer;font-weight:600" onclick="_appendWordItems()">▼ 더 보기 (${shown}/${total})</span>` : `총 ${total}개 단어`}</div>`;
+  listEl.insertAdjacentHTML('beforeend', info);
+
+  // Intersection Observer for auto-load on scroll
+  if (shown < total) {
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { obs.disconnect(); _appendWordItems(); }
+    }, { rootMargin: '200px' });
+    const el = document.getElementById('wl-sentinel');
+    if (el) obs.observe(el);
+  }
 }
 
 function openWordModal(id) {
