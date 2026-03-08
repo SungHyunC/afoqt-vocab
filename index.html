@@ -1391,19 +1391,36 @@ function _appendWordItems() {
 // ============================================================
 // TEXT-TO-SPEECH
 // ============================================================
+let _ttsVoice = null;
+
+function _loadTTSVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+  // Priority: Google US English > Microsoft US > any en-US > any en
+  _ttsVoice =
+    voices.find(v => v.lang === 'en-US' && /google/i.test(v.name)) ||
+    voices.find(v => v.lang === 'en-US' && /microsoft/i.test(v.name)) ||
+    voices.find(v => v.lang === 'en-US' && /zira|david|mark|aria|guy/i.test(v.name)) ||
+    voices.find(v => v.lang === 'en-US') ||
+    voices.find(v => v.lang === 'en-GB') ||
+    voices.find(v => v.lang.startsWith('en'));
+}
+
+// voices load asynchronously — try immediately and on event
+_loadTTSVoice();
+if (window.speechSynthesis.onvoiceschanged !== undefined) {
+  window.speechSynthesis.onvoiceschanged = _loadTTSVoice;
+}
+
 function speakWord(word) {
   if (!word || word === '—') return;
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(word.toLowerCase());
   utter.lang = 'en-US';
-  utter.rate = 0.85;
+  utter.rate = 0.82;
   utter.pitch = 1;
-  // prefer a natural English voice if available
-  const voices = window.speechSynthesis.getVoices();
-  const preferred = voices.find(v => v.lang === 'en-US' && v.name.includes('Google'))
-    || voices.find(v => v.lang === 'en-US')
-    || voices.find(v => v.lang.startsWith('en'));
-  if (preferred) utter.voice = preferred;
+  if (!_ttsVoice) _loadTTSVoice();
+  if (_ttsVoice) utter.voice = _ttsVoice;
   window.speechSynthesis.speak(utter);
 }
 
