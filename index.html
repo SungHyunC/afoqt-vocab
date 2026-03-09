@@ -562,7 +562,11 @@
     <div class="fc-header">
       <button class="back-btn" onclick="endSession()">← Back</button>
       <div class="fc-progress-bar"><div class="fc-progress-fill" id="fc-prog"></div></div>
-      <div class="fc-counter" id="fc-counter">0/0</div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <button onclick="prevCard()" id="fc-prev-btn" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:4px 10px;color:var(--text2);font-size:13px;cursor:pointer;opacity:0.5" title="이전">‹</button>
+        <div class="fc-counter" id="fc-counter">0/0</div>
+        <button onclick="nextCard()" id="fc-next-btn" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:4px 10px;color:var(--text2);font-size:13px;cursor:pointer" title="다음">›</button>
+      </div>
     </div>
     <div class="card-stage">
       <div class="flashcard" id="main-card" onclick="revealCard()">
@@ -1086,6 +1090,38 @@ function checkStreak() {
 // ============================================================
 let session = { queue: [], index: 0, revealed: false, mode: 'review' };
 
+function saveSession() {
+  try {
+    // store only word IDs + index to keep it small
+    localStorage.setItem('afoqt_session', JSON.stringify({
+      ids: session.queue.map(w => w.id),
+      index: session.index,
+      mode: session.mode
+    }));
+  } catch(e) {}
+}
+
+function restoreSession() {
+  try {
+    const raw = localStorage.getItem('afoqt_session');
+    if (!raw) return false;
+    const s = JSON.parse(raw);
+    if (!s.ids || !s.ids.length) return false;
+    const queue = s.ids.map(id => WORDS.find(w => w.id === id)).filter(Boolean);
+    if (!queue.length) return false;
+    session.queue = queue;
+    session.index = Math.min(s.index || 0, queue.length - 1);
+    session.mode = s.mode || 'review';
+    session.revealed = false;
+    return true;
+  } catch(e) { return false; }
+}
+
+function clearSession() {
+  try { localStorage.removeItem('afoqt_session'); } catch(e) {}
+  session = { queue: [], index: 0, revealed: false, mode: 'review' };
+}
+
 function startSession(mode) {
   checkStreak();
   session.mode = mode;
@@ -1099,15 +1135,16 @@ function startSession(mode) {
   }
   session.index = 0;
   session.revealed = false;
+  saveSession();
   showScreen('flashcard');
   renderCard();
 }
 
-function endSession() { saveState(); updateHomeStats(); showScreen('home'); }
+function endSession() { clearSession(); saveState(); updateHomeStats(); showScreen('home'); }
 
 function renderCard() {
   if (session.index >= session.queue.length) {
-    saveState(); updateHomeStats();
+    clearSession(); saveState(); updateHomeStats();
     showToast('Session complete! +' + (session.queue.length * 10) + ' XP 🎯', '');
     setTimeout(() => showScreen('home'), 1200);
     return;
@@ -1118,6 +1155,11 @@ function renderCard() {
 
   document.getElementById('fc-prog').style.width = pct;
   document.getElementById('fc-counter').textContent = (session.index+1) + '/' + session.queue.length;
+  // prev/next 버튼 상태
+  const prevBtn = document.getElementById('fc-prev-btn');
+  const nextBtn = document.getElementById('fc-next-btn');
+  if (prevBtn) prevBtn.style.opacity = session.index <= 0 ? '0.3' : '1';
+  if (nextBtn) nextBtn.style.opacity = session.index >= session.queue.length - 1 ? '0.3' : '1';
   document.getElementById('fc-tag').textContent = word.category === 'wk' ? 'WORD KNOWLEDGE' : 'VERBAL ANALOGIES';
   document.getElementById('fc-word').textContent = word.word;
   document.getElementById('fc-pos').textContent = word.pos.toUpperCase();
@@ -1133,6 +1175,22 @@ function renderCard() {
   [0,1,2,3].forEach(q => {
     document.getElementById('rate-days-'+q).textContent = getIntervalLabel(q, card);
   });
+}
+
+function prevCard() {
+  if (session.index <= 0) return;
+  session.index--;
+  session.revealed = false;
+  saveSession();
+  renderCard();
+}
+
+function nextCard() {
+  if (session.index >= session.queue.length - 1) return;
+  session.index++;
+  session.revealed = false;
+  saveSession();
+  renderCard();
 }
 
 function revealCard() {
@@ -1175,6 +1233,7 @@ function rateCard(quality) {
   }
   session.index++;
   session.revealed = false;
+  saveSession();
   renderCard();
 }
 
@@ -1539,7 +1598,18 @@ function speakWordAuto(word) {
   speakWord(word);
 }
 
-// Load voices async — retry until available
+// 키보드 단축키
+document.addEventListener('keydown', e => {
+  const fc = document.getElementById('screen-flashcard');
+  if (!fc || !fc.classList.contains('active')) return;
+  if (e.key === 'ArrowLeft')  { prevCard(); }
+  if (e.key === 'ArrowRight') { if (session.revealed) { /* do nothing, use rating */ } else nextCard(); }
+  if (e.key === ' ' || e.key === 'Enter') { if (!session.revealed) revealCard(); }
+  if (e.key === '1') { if (session.revealed) rateCard(0); }
+  if (e.key === '2') { if (session.revealed) rateCard(1); }
+  if (e.key === '3') { if (session.revealed) rateCard(2); }
+  if (e.key === '4') { if (session.revealed) rateCard(3); }
+});
 _loadTTSVoices();
 if (typeof window.speechSynthesis !== 'undefined') {
   window.speechSynthesis.onvoiceschanged = _loadTTSVoices;
@@ -1624,7 +1694,8 @@ function updateHomeStats() {
 
   document.getElementById('due-count').textContent = due;
   document.getElementById('due-count').className = 'card-count ' + (due > 20 ? 'urgent' : 'normal');
-  document.getElementById('new-count').textContent = Math.min(state.settings?.newPerDay || 20, newC);
+  const npd = state.settings?.newPerDay || 20;
+  document.getElementById('new-count').textContent = Math.min(npd, newC);
   document.getElementById('nav-due').textContent = due;
   document.getElementById('nav-streak').textContent = state.stats.streak;
   document.getElementById('nav-mastered').textContent = mastered;
@@ -1793,6 +1864,12 @@ fetch('words.json')
     checkStreak();
     updateHomeStats();
     if (state.settings?.theme === 'light') document.body.classList.add('light');
+    // 진행 중이던 세션 복원
+    if (restoreSession()) {
+      showToast('이전 세션을 이어서 진행합니다 📖', '');
+      showScreen('flashcard');
+      renderCard();
+    }
   })
   .catch(() => {
     document.getElementById('loading-msg').textContent = '⚠️ words.json을 찾을 수 없습니다. index.html과 같은 폴더에 words.json을 넣어주세요.';
