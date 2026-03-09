@@ -932,24 +932,46 @@
 
   <!-- 기기 연동 -->
   <div class="settings-section">
-    <div class="settings-label">📱↔💻 기기 연동</div>
+    <div class="settings-label">☁️ 클라우드 동기화</div>
     <div class="settings-card" style="padding:16px 20px">
-      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">
-        학습 데이터를 내보내고 다른 기기에서 가져와서 동기화하세요.
+      <!-- 연결 안 된 상태 -->
+      <div id="sync-setup" style="display:block">
+        <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.7">
+          GitHub Gist로 모든 기기에서 자동 동기화.<br>
+          <b style="color:var(--text)">① GitHub 로그인 → Settings → Developer settings → Personal access tokens → Tokens (classic)</b><br>
+          <b style="color:var(--text)">② "gist" 권한만 체크 후 토큰 생성</b>
+        </div>
+        <input id="sync-token-input" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx (GitHub 토큰)"
+          style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:13px;font-family:'Space Mono',monospace;outline:none;box-sizing:border-box;margin-bottom:10px"/>
+        <button onclick="syncSetup()" style="width:100%;padding:13px;border-radius:12px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
+          🔗 연결하기
+        </button>
       </div>
-      <!-- Export -->
-      <button onclick="exportState()" style="width:100%;padding:13px;border-radius:12px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;font-family:'DM Sans',sans-serif">
-        📤 데이터 내보내기 (복사)
-      </button>
-      <!-- Import -->
-      <div style="display:flex;gap:8px">
-        <textarea id="sync-import-input" placeholder="다른 기기에서 복사한 데이터를 여기에 붙여넣기..." 
-          style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;font-family:'Space Mono',monospace;resize:none;height:60px;outline:none"></textarea>
+      <!-- 연결된 상태 -->
+      <div id="sync-connected" style="display:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
+          <div style="font-size:13px;color:var(--text)">클라우드 연결됨</div>
+          <div id="sync-last-time" style="font-size:11px;color:var(--text3);margin-left:auto"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <button onclick="syncUpload()" style="padding:12px;border-radius:10px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
+            ☁️ 업로드
+          </button>
+          <button onclick="syncDownload()" style="padding:12px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
+            📥 다운로드
+          </button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onclick="syncAutoToggle()" id="sync-auto-btn" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">
+            🔄 자동동기화: OFF
+          </button>
+          <button onclick="syncDisconnect()" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--red);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">
+            🔌 연결 해제
+          </button>
+        </div>
       </div>
-      <button onclick="importState()" style="width:100%;padding:13px;border-radius:12px;border:none;background:var(--green);color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px;font-family:'DM Sans',sans-serif">
-        📥 데이터 가져오기 (덮어쓰기)
-      </button>
-      <div style="font-size:11px;color:var(--text3);margin-top:10px;text-align:center">⚠️ 가져오기 시 현재 기기 데이터가 대체됩니다</div>
+      <div id="sync-status" style="font-size:12px;color:var(--text3);margin-top:10px;text-align:center;min-height:16px"></div>
     </div>
   </div>
 
@@ -1185,6 +1207,7 @@ function renderCard() {
   if (session.index >= session.queue.length) {
     clearSession(); saveState(); updateHomeStats();
     showToast('Session complete! +' + (session.queue.length * 10) + ' XP 🎯', '');
+    syncAutoUploadIfEnabled();
     setTimeout(() => showScreen('home'), 1200);
     return;
   }
@@ -1724,8 +1747,9 @@ function renderStats() {
 // ============================================================
 function updateHomeStats() {
   checkStreak();
+  const npd = state.settings?.newPerDay || 20;
   const due = getDueCards().length;
-  const newC = getNewCards().length;
+  const newC = Math.min(npd, getNewCards(npd).length);  // ← npd 전달해서 정확한 개수
   const learned = getLearnedCount();
   const mastered = getMasteredCount();
   const learnedPct = Math.round(learned/WORDS.length*100);
@@ -1733,8 +1757,7 @@ function updateHomeStats() {
 
   document.getElementById('due-count').textContent = due;
   document.getElementById('due-count').className = 'card-count ' + (due > 20 ? 'urgent' : 'normal');
-  const npd = state.settings?.newPerDay || 20;
-  document.getElementById('new-count').textContent = Math.min(npd, newC);
+  document.getElementById('new-count').textContent = newC;
   document.getElementById('nav-due').textContent = due;
   document.getElementById('nav-streak').textContent = state.stats.streak;
   document.getElementById('nav-mastered').textContent = mastered;
@@ -1761,7 +1784,7 @@ function showScreen(name) {
   if (name === 'stats') renderStats();
   if (name === 'words') renderWordList();
   if (name === 'home') updateHomeStats();
-  if (name === 'settings') renderSettings();
+  if (name === 'settings') { renderSettings(); syncRenderUI(); }
 }
 
 // ============================================================
@@ -1813,49 +1836,147 @@ function changeNewPerDay(delta) {
 }
 
 // ============================================================
-// 기기 연동 - Export / Import
+// ☁️ 클라우드 동기화 (GitHub Gist)
 // ============================================================
-function exportState() {
+const SYNC_KEY = 'afoqt_sync';
+
+function getSyncCfg() {
+  try { return JSON.parse(localStorage.getItem(SYNC_KEY) || 'null'); } catch(e) { return null; }
+}
+function saveSyncCfg(cfg) {
+  try { localStorage.setItem(SYNC_KEY, JSON.stringify(cfg)); } catch(e) {}
+}
+
+function syncRenderUI() {
+  const cfg = getSyncCfg();
+  const setup = document.getElementById('sync-setup');
+  const connected = document.getElementById('sync-connected');
+  const autoBtn = document.getElementById('sync-auto-btn');
+  if (!setup || !connected) return;
+  if (cfg && cfg.token && cfg.gistId) {
+    setup.style.display = 'none';
+    connected.style.display = '';
+    const last = cfg.lastSync ? new Date(cfg.lastSync).toLocaleString('ko-KR') : '없음';
+    document.getElementById('sync-last-time').textContent = '마지막: ' + last;
+    if (autoBtn) autoBtn.textContent = '🔄 자동동기화: ' + (cfg.autoSync ? 'ON' : 'OFF');
+  } else {
+    setup.style.display = '';
+    connected.style.display = 'none';
+  }
+}
+
+function syncSetStatus(msg, color) {
+  const el = document.getElementById('sync-status');
+  if (el) { el.textContent = msg; el.style.color = color || 'var(--text3)'; }
+}
+
+async function syncSetup() {
+  const token = document.getElementById('sync-token-input')?.value.trim();
+  if (!token) { syncSetStatus('토큰을 입력하세요', 'var(--red)'); return; }
+  syncSetStatus('연결 중...', 'var(--text3)');
   try {
-    const payload = JSON.stringify(state);
-    // 클립보드 복사
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(payload).then(() => {
-        showToast('📤 클립보드에 복사됐어요! 다른 기기에서 붙여넣기 하세요.', '');
-      }).catch(() => _fallbackCopy(payload));
+    // 기존 Gist 찾기
+    const listRes = await fetch('https://api.github.com/gists', {
+      headers: { Authorization: 'token ' + token, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (!listRes.ok) throw new Error('토큰이 유효하지 않습니다 (' + listRes.status + ')');
+    const gists = await listRes.json();
+    let gistId = null;
+    const found = gists.find(g => g.files && g.files['afoqt_vocab_sync.json']);
+    if (found) {
+      gistId = found.id;
+      syncSetStatus('기존 Gist 발견! 연결 완료.', 'var(--green)');
     } else {
-      _fallbackCopy(payload);
+      // 새 Gist 생성
+      const createRes = await fetch('https://api.github.com/gists', {
+        method: 'POST',
+        headers: { Authorization: 'token ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          description: 'AFOQT Vocab Study Data',
+          public: false,
+          files: { 'afoqt_vocab_sync.json': { content: JSON.stringify(state) } }
+        })
+      });
+      if (!createRes.ok) throw new Error('Gist 생성 실패');
+      const created = await createRes.json();
+      gistId = created.id;
+      syncSetStatus('새 Gist 생성 완료!', 'var(--green)');
     }
-  } catch(e) { showToast('내보내기 실패: ' + e.message, ''); }
+    saveSyncCfg({ token, gistId, autoSync: false, lastSync: null });
+    syncRenderUI();
+    showToast('☁️ 클라우드 연결 완료!', '');
+  } catch(e) { syncSetStatus('❌ ' + e.message, 'var(--red)'); }
 }
 
-function _fallbackCopy(text) {
-  const el = document.getElementById('sync-import-input');
-  if (el) { el.value = text; el.select(); }
-  try { document.execCommand('copy'); showToast('📤 복사됐어요! (textarea에도 표시)', ''); }
-  catch(e) { showToast('복사 실패 — textarea에서 직접 복사하세요', ''); }
+async function syncUpload() {
+  const cfg = getSyncCfg();
+  if (!cfg) return;
+  syncSetStatus('업로드 중...', 'var(--text3)');
+  try {
+    const res = await fetch('https://api.github.com/gists/' + cfg.gistId, {
+      method: 'PATCH',
+      headers: { Authorization: 'token ' + cfg.token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ files: { 'afoqt_vocab_sync.json': { content: JSON.stringify(state) } } })
+    });
+    if (!res.ok) throw new Error('업로드 실패 (' + res.status + ')');
+    cfg.lastSync = Date.now();
+    saveSyncCfg(cfg);
+    syncRenderUI();
+    syncSetStatus('✅ 업로드 완료!', 'var(--green)');
+    showToast('☁️ 클라우드 업로드 완료!', '');
+  } catch(e) { syncSetStatus('❌ ' + e.message, 'var(--red)'); }
 }
 
-function importState() {
-  const input = document.getElementById('sync-import-input');
-  const text = input ? input.value.trim() : '';
-  if (!text) { showToast('붙여넣기할 데이터가 없어요', ''); return; }
-  showConfirm('📥','데이터 가져오기','현재 기기의 학습 데이터가 모두 대체됩니다. 계속할까요?','var(--green)', () => {
-    try {
-      const imported = JSON.parse(text);
-      if (!imported.cards || !imported.stats) throw new Error('올바르지 않은 데이터 형식');
-      // 마이그레이션
-      if (!imported.settings) imported.settings = initState().settings;
-      if (!imported.heatmap) imported.heatmap = {};
-      state = imported;
-      saveState();
-      clearSession();
-      updateHomeStats();
-      if (input) input.value = '';
-      showToast('✅ 데이터 가져오기 완료!', '');
-      showScreen('home');
-    } catch(e) { showToast('❌ 오류: ' + e.message, ''); }
+async function syncDownload() {
+  const cfg = getSyncCfg();
+  if (!cfg) return;
+  syncSetStatus('다운로드 중...', 'var(--text3)');
+  try {
+    const res = await fetch('https://api.github.com/gists/' + cfg.gistId, {
+      headers: { Authorization: 'token ' + cfg.token }
+    });
+    if (!res.ok) throw new Error('다운로드 실패 (' + res.status + ')');
+    const gist = await res.json();
+    const raw = gist.files?.['afoqt_vocab_sync.json']?.content;
+    if (!raw) throw new Error('데이터 없음');
+    const imported = JSON.parse(raw);
+    if (!imported.cards || !imported.stats) throw new Error('올바르지 않은 데이터');
+    if (!imported.settings) imported.settings = initState().settings;
+    state = imported;
+    saveState();
+    clearSession();
+    cfg.lastSync = Date.now();
+    saveSyncCfg(cfg);
+    updateHomeStats();
+    syncRenderUI();
+    syncSetStatus('✅ 다운로드 완료!', 'var(--green)');
+    showToast('📥 클라우드 데이터 동기화 완료!', '');
+    if (state.settings?.theme === 'light') document.body.classList.add('light');
+    else document.body.classList.remove('light');
+  } catch(e) { syncSetStatus('❌ ' + e.message, 'var(--red)'); }
+}
+
+function syncAutoToggle() {
+  const cfg = getSyncCfg();
+  if (!cfg) return;
+  cfg.autoSync = !cfg.autoSync;
+  saveSyncCfg(cfg);
+  syncRenderUI();
+  showToast(cfg.autoSync ? '🔄 자동 동기화 켜짐 (세션 완료 시 자동 업로드)' : '자동 동기화 꺼짐', '');
+}
+
+function syncDisconnect() {
+  showConfirm('🔌', '연결 해제', 'Gist 연결을 해제합니다. 학습 데이터는 유지됩니다.', 'var(--red)', () => {
+    localStorage.removeItem(SYNC_KEY);
+    syncRenderUI();
+    showToast('연결 해제됨', '');
   });
+}
+
+// 세션 완료 시 자동 업로드
+function syncAutoUploadIfEnabled() {
+  const cfg = getSyncCfg();
+  if (cfg && cfg.autoSync) syncUpload();
 }
 
 function showConfirm(icon, title, desc, btnColor, onOk) {
@@ -1943,8 +2064,13 @@ fetch('words.json')
     checkStreak();
     updateHomeStats();
     if (state.settings?.theme === 'light') document.body.classList.add('light');
-    // 진행 중이던 세션 복원
-    if (restoreSession()) {
+    // 자동 동기화 켜져 있으면 앱 시작 시 최신 데이터 다운로드
+    const _syncCfg = getSyncCfg();
+    if (_syncCfg && _syncCfg.autoSync) {
+      syncDownload().then(() => {
+        if (restoreSession()) { showScreen('flashcard'); renderCard(); }
+      });
+    } else if (restoreSession()) {
       showToast('이전 세션을 이어서 진행합니다 📖', '');
       showScreen('flashcard');
       renderCard();
