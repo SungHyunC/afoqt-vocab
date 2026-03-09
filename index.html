@@ -930,6 +930,29 @@
     </div>
   </div>
 
+  <!-- 기기 연동 -->
+  <div class="settings-section">
+    <div class="settings-label">📱↔💻 기기 연동</div>
+    <div class="settings-card" style="padding:16px 20px">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+        학습 데이터를 내보내고 다른 기기에서 가져와서 동기화하세요.
+      </div>
+      <!-- Export -->
+      <button onclick="exportState()" style="width:100%;padding:13px;border-radius:12px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;font-family:'DM Sans',sans-serif">
+        📤 데이터 내보내기 (복사)
+      </button>
+      <!-- Import -->
+      <div style="display:flex;gap:8px">
+        <textarea id="sync-import-input" placeholder="다른 기기에서 복사한 데이터를 여기에 붙여넣기..." 
+          style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;font-family:'Space Mono',monospace;resize:none;height:60px;outline:none"></textarea>
+      </div>
+      <button onclick="importState()" style="width:100%;padding:13px;border-radius:12px;border:none;background:var(--green);color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px;font-family:'DM Sans',sans-serif">
+        📥 데이터 가져오기 (덮어쓰기)
+      </button>
+      <div style="font-size:11px;color:var(--text3);margin-top:10px;text-align:center">⚠️ 가져오기 시 현재 기기 데이터가 대체됩니다</div>
+    </div>
+  </div>
+
   <!-- 앱 정보 -->
   <div class="settings-section">
     <div class="settings-label">앱 정보</div>
@@ -1052,14 +1075,28 @@ function getIntervalLabel(quality, card) {
 // ============================================================
 // STATE
 // ============================================================
-let state = JSON.parse(localStorage.getItem('afoqt_state') || 'null') || {
-  cards: {}, // id -> SM-2 data
-  stats: { reviewed: 0, correct: 0, sessions: 0, streak: 0, lastDate: null, xp: 0, quizCorrect: 0, quizTotal: 0, anaCorrect: 0, anaTotal: 0 },
-  heatmap: {},
-  settings: { newPerDay: 20 }
-};
-// Migrate old state without settings
-if (!state.settings) state.settings = { newPerDay: 20 };
+function initState() {
+  return {
+    cards: {},
+    stats: { reviewed: 0, correct: 0, sessions: 0, streak: 0, lastDate: null, xp: 0, quizCorrect: 0, quizTotal: 0, anaCorrect: 0, anaTotal: 0 },
+    heatmap: {},
+    settings: { newPerDay: 20, theme: 'dark', ttsAuto: true, ttsRate: 0.82 }
+  };
+}
+
+let state = (() => {
+  try {
+    const saved = JSON.parse(localStorage.getItem('afoqt_state'));
+    if (!saved) return initState();
+    // 마이그레이션: 없는 필드 보완
+    if (!saved.settings) saved.settings = { newPerDay: 20 };
+    if (!saved.settings.newPerDay) saved.settings.newPerDay = 20;
+    if (!saved.stats) saved.stats = initState().stats;
+    if (!saved.cards) saved.cards = {};
+    if (!saved.heatmap) saved.heatmap = {};
+    return saved;
+  } catch(e) { return initState(); }
+})();
 
 function saveState() { try { localStorage.setItem('afoqt_state', JSON.stringify(state)); } catch(e){} }
 function getCard(id) { return state.cards[id] || {interval:1,repetitions:0,ef:2.5,nextReview:0}; }
@@ -1109,8 +1146,10 @@ function restoreSession() {
     if (!s.ids || !s.ids.length) return false;
     const queue = s.ids.map(id => WORDS.find(w => w.id === id)).filter(Boolean);
     if (!queue.length) return false;
+    const idx = typeof s.index === 'number' ? s.index : 0;
+    if (idx >= queue.length) return false;
     session.queue = queue;
-    session.index = Math.min(s.index || 0, queue.length - 1);
+    session.index = idx;
     session.mode = s.mode || 'review';
     session.revealed = false;
     return true;
@@ -1765,11 +1804,58 @@ function renderSettings() {
 }
 
 function changeNewPerDay(delta) {
-  if (!state.settings) state.settings = { newPerDay: 20 };
-  state.settings.newPerDay = Math.max(5, Math.min(50, (state.settings.newPerDay || 20) + delta));
+  if (!state.settings) state.settings = initState().settings;
+  state.settings.newPerDay = Math.max(5, Math.min(100, (state.settings.newPerDay || 20) + delta));
   document.getElementById('set-npd').textContent = state.settings.newPerDay;
   saveState();
+  updateHomeStats();
   showToast('저장됨 ✓', '');
+}
+
+// ============================================================
+// 기기 연동 - Export / Import
+// ============================================================
+function exportState() {
+  try {
+    const payload = JSON.stringify(state);
+    // 클립보드 복사
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(payload).then(() => {
+        showToast('📤 클립보드에 복사됐어요! 다른 기기에서 붙여넣기 하세요.', '');
+      }).catch(() => _fallbackCopy(payload));
+    } else {
+      _fallbackCopy(payload);
+    }
+  } catch(e) { showToast('내보내기 실패: ' + e.message, ''); }
+}
+
+function _fallbackCopy(text) {
+  const el = document.getElementById('sync-import-input');
+  if (el) { el.value = text; el.select(); }
+  try { document.execCommand('copy'); showToast('📤 복사됐어요! (textarea에도 표시)', ''); }
+  catch(e) { showToast('복사 실패 — textarea에서 직접 복사하세요', ''); }
+}
+
+function importState() {
+  const input = document.getElementById('sync-import-input');
+  const text = input ? input.value.trim() : '';
+  if (!text) { showToast('붙여넣기할 데이터가 없어요', ''); return; }
+  showConfirm('📥','데이터 가져오기','현재 기기의 학습 데이터가 모두 대체됩니다. 계속할까요?','var(--green)', () => {
+    try {
+      const imported = JSON.parse(text);
+      if (!imported.cards || !imported.stats) throw new Error('올바르지 않은 데이터 형식');
+      // 마이그레이션
+      if (!imported.settings) imported.settings = initState().settings;
+      if (!imported.heatmap) imported.heatmap = {};
+      state = imported;
+      saveState();
+      clearSession();
+      updateHomeStats();
+      if (input) input.value = '';
+      showToast('✅ 데이터 가져오기 완료!', '');
+      showScreen('home');
+    } catch(e) { showToast('❌ 오류: ' + e.message, ''); }
+  });
 }
 
 function showConfirm(icon, title, desc, btnColor, onOk) {
@@ -1826,13 +1912,6 @@ function resetAll() {
     updateHomeStats();
     showToast('전체 초기화 완료 🗑️', '');
   });
-}
-
-function initState() {
-  return {
-    cards: {}, stats: { reviewed:0, correct:0, streak:0, lastStudied:null, xp:0, quizCorrect:0, quizTotal:0, anaCorrect:0, anaTotal:0 },
-    heatmap: {}, settings: { newPerDay: 20 }
-  };
 }
 
 // ============================================================
