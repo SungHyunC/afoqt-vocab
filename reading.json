@@ -1,0 +1,706 @@
+[
+  {
+    "id": 1,
+    "title": "Photosynthesis and Energy",
+    "topic": "science",
+    "passage": "Photosynthesis is the process by which green plants, algae, and some bacteria convert light energy into chemical energy stored in glucose. This complex reaction occurs primarily in the chloroplasts, organelles found in plant cells that contain a green pigment called chlorophyll. Chlorophyll absorbs sunlight, particularly in the red and blue wavelengths, while reflecting green light, which is why plants appear green to the human eye. During photosynthesis, carbon dioxide from the air and water from the soil are combined using light energy to produce glucose and oxygen. The oxygen is released as a byproduct, replenishing the atmosphere that animals and humans depend on for survival. Glucose, in turn, serves as the primary energy source for the plant, fueling growth, reproduction, and cellular maintenance. Without photosynthesis, the food chains that sustain nearly all life on Earth would collapse entirely, making this process one of the most fundamental biological mechanisms on the planet.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "chlorophyll reflects green light and absorbs other wavelengths",
+          "photosynthesis converts light energy into chemical energy essential for life",
+          "plants store glucose in their chloroplasts for later use",
+          "carbon dioxide and water are the only inputs needed for plant growth"
+        ],
+        "answer": 1,
+        "explain": "지문 전체가 광합성의 정의, 과정, 그리고 생명 유지에 있어서의 중요성을 설명하고 있으므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, oxygen is released during photosynthesis as",
+        "type": "detail",
+        "options": [
+          "a primary energy source for plants",
+          "a fuel for cellular maintenance",
+          "a byproduct of the reaction",
+          "a component absorbed by chlorophyll"
+        ],
+        "answer": 2,
+        "explain": "지문에서 '산소는 부산물로 방출된다(oxygen is released as a byproduct)'고 명시하고 있으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that if chlorophyll were destroyed in all plants,",
+        "type": "inference",
+        "options": [
+          "animals would adapt by consuming more carbon dioxide",
+          "food chains on Earth would be severely disrupted",
+          "plants would switch to absorbing blue light instead",
+          "glucose production would continue through alternate means"
+        ],
+        "answer": 1,
+        "explain": "지문 마지막에 광합성 없이는 먹이사슬이 붕괴된다고 했으므로, 엽록소 파괴로 광합성이 불가능해지면 같은 결과가 나타날 것이라 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "The Battle of Midway",
+    "topic": "history",
+    "passage": "The Battle of Midway, fought from June 4 to 7, 1942, stands as one of the most decisive naval engagements in the Pacific Theater of World War II. American naval forces, having broken Japanese naval codes, anticipated the attack on Midway Atoll and prepared an ambush rather than simply defending the island. The Japanese Imperial Navy, commanded by Admiral Yamamoto Isoroku, launched a massive strike force that included four fleet carriers — Akagi, Kaga, Soryu, and Hiryu. American dive bombers, striking at a critical moment when Japanese carrier decks were crowded with armed and fueled aircraft, sank all four carriers within minutes. The loss devastated the Japanese naval aviation corps, eliminating hundreds of experienced pilots and aircrews irreplaceable in the short term. Midway reversed the momentum in the Pacific, transitioning the Allied war effort from a defensive posture to one that would eventually carry American forces all the way to Japan's home islands.",
+    "questions": [
+      {
+        "q": "The passage suggests that the American victory at Midway was largely due to",
+        "type": "inference",
+        "options": [
+          "superior aircraft technology and faster carriers",
+          "a larger number of naval vessels",
+          "advance knowledge of Japanese plans through code-breaking",
+          "direct orders from President Roosevelt"
+        ],
+        "answer": 2,
+        "explain": "지문에서 미군이 일본 해군 암호를 해독하여 공격을 예상하고 매복 준비를 했다고 명시하므로, 승리의 핵심 요인은 암호 해독임을 추론할 수 있다."
+      },
+      {
+        "q": "According to the passage, which of the following was a direct consequence of the Battle of Midway?",
+        "type": "detail",
+        "options": [
+          "Japan captured Midway Atoll for use as a base",
+          "The United States lost two fleet carriers in the battle",
+          "Japan lost four fleet carriers and many experienced pilots",
+          "Admiral Yamamoto was captured by American forces"
+        ],
+        "answer": 2,
+        "explain": "지문에서 일본이 네 척의 항공모함을 잃고 수백 명의 숙련된 조종사를 잃었다고 직접 서술하고 있으므로 정답은 C이다."
+      },
+      {
+        "q": "The author's primary purpose in this passage is to",
+        "type": "tone_purpose",
+        "options": [
+          "criticize Japanese naval strategy during World War II",
+          "describe the historical significance and outcome of the Battle of Midway",
+          "argue that code-breaking was more important than combat skill",
+          "provide a biography of Admiral Yamamoto"
+        ],
+        "answer": 1,
+        "explain": "지문은 미드웨이 해전의 경과와 역사적 중요성을 객관적으로 설명하는 것이 주목적이므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Artificial Intelligence in Medicine",
+    "topic": "technology",
+    "passage": "Artificial intelligence is increasingly being integrated into medical diagnostics, offering tools that analyze data with speed and consistency beyond human capability. Machine learning algorithms trained on vast datasets of medical images can now detect certain cancers, diabetic retinopathy, and cardiac abnormalities with accuracy rivaling or exceeding that of experienced specialists. One prominent application involves deep learning models that scan radiology images to flag potential tumors, reducing the time between imaging and diagnosis. Beyond imaging, AI systems analyze electronic health records to predict patient deterioration before clinical signs become obvious, enabling proactive intervention. However, the technology carries notable limitations. AI models may reflect biases present in training data, potentially underperforming for underrepresented patient populations. Additionally, the lack of interpretability in many models — often called the 'black box' problem — makes it difficult for physicians to understand why a particular diagnosis was suggested. Consequently, experts advocate using AI as a decision-support tool rather than a replacement for clinical judgment.",
+    "questions": [
+      {
+        "q": "The phrase 'black box problem' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "AI systems that are too expensive for widespread hospital use",
+          "the inability to understand how an AI model reaches its conclusions",
+          "a flaw in radiology equipment that distorts scan images",
+          "the tendency of AI to make random errors in diagnosis"
+        ],
+        "answer": 1,
+        "explain": "'블랙박스 문제'는 지문에서 의사들이 AI가 왜 특정 진단을 내렸는지 이해하기 어렵다는 설명과 함께 제시되므로, 모델의 추론 과정을 파악하기 어렵다는 의미이다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "AI has completely replaced physicians in radiology departments",
+          "machine learning will eventually solve all problems in medicine",
+          "AI offers significant diagnostic benefits in medicine but also has important limitations",
+          "training data bias makes AI useless for clinical applications"
+        ],
+        "answer": 2,
+        "explain": "지문은 AI의 의료 진단에서의 유용성과 함께 편향 및 해석 가능성 문제 등의 한계를 균형 있게 서술하고 있으므로 정답은 C이다."
+      },
+      {
+        "q": "Based on the passage, experts recommend that AI in medicine should be used",
+        "type": "detail",
+        "options": [
+          "exclusively for cancer detection tasks",
+          "only in hospitals with very large patient populations",
+          "as a tool to support, not replace, physician judgment",
+          "after bias in training datasets has been entirely eliminated"
+        ],
+        "answer": 2,
+        "explain": "지문 마지막 문장에서 전문가들은 AI를 임상 판단의 대체물이 아닌 의사결정 지원 도구로 사용할 것을 권고한다고 명시하고 있다."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Migration of Arctic Terns",
+    "topic": "nature",
+    "passage": "The Arctic tern undertakes the longest known migration of any animal on Earth, traveling from its breeding grounds in the Arctic to wintering areas in the Antarctic and back again each year — a round trip that can exceed 70,000 kilometers. Researchers tracking individual birds with miniature geolocators have discovered that these small seabirds do not follow a straight path; instead, they exploit prevailing wind patterns to reduce energy expenditure during the crossing of entire ocean basins. Arctic terns feed primarily on small fish and crustaceans, often performing dramatic plunge dives from altitude to catch prey near the water's surface. Their life expectancy can reach thirty years, meaning a single bird may travel the equivalent of three round trips to the Moon over its lifetime. This remarkable feat of endurance and navigation highlights the extraordinary adaptations that evolution has produced in migratory species, making the Arctic tern a subject of fascination for biologists worldwide.",
+    "questions": [
+      {
+        "q": "According to the passage, Arctic terns avoid a straight migration path primarily to",
+        "type": "detail",
+        "options": [
+          "locate better feeding areas along the ocean surface",
+          "avoid predators that patrol direct oceanic routes",
+          "take advantage of wind patterns and conserve energy",
+          "reduce the total distance traveled each year"
+        ],
+        "answer": 2,
+        "explain": "지문에서 북극제비갈매기는 에너지 소비를 줄이기 위해 탁월풍(prevailing wind)을 이용한다고 명시하고 있으므로 정답은 C이다."
+      },
+      {
+        "q": "The author's tone when describing the Arctic tern's migration can best be described as",
+        "type": "tone_purpose",
+        "options": [
+          "skeptical and cautious",
+          "humorous and lighthearted",
+          "admiring and informative",
+          "critical and analytical"
+        ],
+        "answer": 2,
+        "explain": "'remarkable feat', 'extraordinary adaptations', 'fascination' 등의 표현을 통해 저자가 경이롭고 정보 전달적인 어조로 서술하고 있음을 알 수 있다."
+      },
+      {
+        "q": "It can be inferred from the passage that a thirty-year-old Arctic tern has",
+        "type": "inference",
+        "options": [
+          "traveled roughly three times the distance to the Moon and back",
+          "completed fewer migrations than a bird of average lifespan",
+          "lived in the Arctic for its entire life without migrating",
+          "consumed more fish than any other seabird species"
+        ],
+        "answer": 0,
+        "explain": "지문에서 한 마리의 새가 평생 달까지 왕복 세 번에 해당하는 거리를 이동할 수 있다고 했으므로, 30년을 산 새는 그 거리를 여행했을 것이라 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Urbanization and Mental Health",
+    "topic": "social science",
+    "passage": "Rapid urbanization has transformed how billions of people live, work, and interact with their environment, with significant implications for mental health. Studies consistently show that urban residents have higher rates of anxiety, depression, and schizophrenia compared to rural populations, though the precise causal mechanisms remain debated. Several factors are implicated: chronic exposure to noise pollution disrupts sleep and elevates stress hormones; reduced access to green spaces limits restorative contact with nature; and the social anonymity of dense cities can foster loneliness even amid crowds. At the same time, cities offer advantages such as greater access to mental health services, cultural activities, and social networks for minority groups who may be isolated in rural areas. Researchers emphasize that urban design itself can mitigate negative outcomes — incorporating parks, quiet zones, and community gathering spaces into city planning has been associated with measurable improvements in residents' psychological well-being. The challenge lies in balancing density and growth with environments that sustain mental health.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that",
+        "type": "main_idea",
+        "options": [
+          "cities are uniformly harmful to mental health and should be redesigned",
+          "rural populations suffer from higher rates of depression than urban residents",
+          "urbanization presents both mental health risks and benefits that city planning can help address",
+          "noise pollution is the single greatest threat to urban mental health"
+        ],
+        "answer": 2,
+        "explain": "지문은 도시화의 정신건강에 대한 부정적, 긍정적 영향을 모두 다루고, 도시 설계를 통한 개선 가능성을 언급하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, cities may benefit some minority groups because they",
+        "type": "detail",
+        "options": [
+          "experience less noise pollution in urban environments",
+          "have access to social networks that rural areas may not provide",
+          "are less likely to develop anxiety in dense populations",
+          "can avoid anonymity by living in smaller urban neighborhoods"
+        ],
+        "answer": 1,
+        "explain": "지문에서 도시는 농촌 지역에서 고립될 수 있는 소수 집단에게 사회적 네트워크에 대한 더 큰 접근성을 제공한다고 명시하고 있다."
+      },
+      {
+        "q": "The word 'restorative' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "physically dangerous",
+          "economically productive",
+          "healing or refreshing",
+          "architecturally designed"
+        ],
+        "answer": 2,
+        "explain": "지문에서 '자연과의 회복적(restorative) 접촉'이라는 맥락으로 사용되었으므로, 녹지가 정신을 회복·치유하는 효과를 가진다는 의미임을 알 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Supersonic Flight and the Sound Barrier",
+    "topic": "military/aviation",
+    "passage": "On October 14, 1947, United States Air Force test pilot Captain Charles 'Chuck' Yeager became the first person verified to exceed the speed of sound in level flight, piloting the experimental Bell X-1 aircraft over the Mojave Desert. The achievement, long considered impossible by some engineers, shattered what popular imagination had termed the 'sound barrier' — a perceived wall of air compression and shock waves that destabilized early aircraft attempting to approach Mach 1. Yeager flew the mission with two broken ribs from a riding accident days before, a fact kept secret to avoid mission cancellation. The X-1 was not an ordinary aircraft; it was carried aloft by a B-29 bomber and air-launched at altitude, conserving fuel for the supersonic dash. Yeager's success opened the door to military and commercial supersonic aviation, ultimately leading to aircraft such as the SR-71 Blackbird, which cruised at more than three times the speed of sound, and the Concorde passenger jet.",
+    "questions": [
+      {
+        "q": "The passage implies that the 'sound barrier' was",
+        "type": "inference",
+        "options": [
+          "a physical wall of ice crystals that formed at high altitude",
+          "a government regulation prohibiting speeds above Mach 1",
+          "a real but surmountable challenge involving shock waves and instability",
+          "an engineering myth with no basis in actual flight dynamics"
+        ],
+        "answer": 2,
+        "explain": "지문에서 음속 장벽이 공기 압축과 충격파로 인해 항공기를 불안정하게 만드는 실질적인 현상으로 묘사되고, 결국 극복되었으므로 실재하지만 극복 가능한 도전이었음을 추론할 수 있다."
+      },
+      {
+        "q": "According to the passage, which detail about Yeager's mission was kept secret at the time?",
+        "type": "detail",
+        "options": [
+          "The location of the flight over the Mojave Desert",
+          "The fact that the X-1 was launched from a B-29 bomber",
+          "Yeager's two broken ribs from a riding accident",
+          "The date of the flight on October 14, 1947"
+        ],
+        "answer": 2,
+        "explain": "지문에서 예거가 낙마 사고로 부러진 갈비뼈 두 개를 숨겼고, 임무 취소를 막기 위해 비밀로 했다고 명시하고 있다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the Bell X-1 was a poorly designed aircraft that barely survived supersonic flight",
+          "Chuck Yeager's supersonic breakthrough was a landmark achievement that advanced aviation",
+          "the B-29 bomber was the most important aircraft of the postwar era",
+          "commercial aviation became possible only after the Concorde was built"
+        ],
+        "answer": 1,
+        "explain": "지문 전체가 예거의 음속 돌파 업적과 그것이 항공 발전에 미친 영향을 중심으로 서술되어 있으므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "The Impressionist Movement",
+    "topic": "arts",
+    "passage": "Impressionism emerged in France during the 1860s and 1870s as a radical departure from the formal, meticulously detailed paintings favored by the established academies of art. Artists such as Claude Monet, Pierre-Auguste Renoir, and Camille Pissarro sought to capture the transient effects of light and atmosphere rather than producing polished historical or mythological scenes. Their technique involved applying paint in short, visible brushstrokes and mixing colors on the canvas rather than the palette, creating a shimmering, spontaneous quality that shocked conservative critics. The movement's name itself originated as a dismissive insult: a critic reviewing Monet's painting 'Impression, Sunrise' coined the term to mock what he saw as an unfinished sketch. Ironically, the artists embraced the label. Impressionism ultimately liberated Western painting from rigid academic traditions, paving the way for Post-Impressionism, Cubism, and virtually every modern art movement that followed. Today, Impressionist works command some of the highest prices at international auction houses.",
+    "questions": [
+      {
+        "q": "According to the passage, the term 'Impressionism' was originally",
+        "type": "detail",
+        "options": [
+          "coined by Monet to describe his own painting style",
+          "used approvingly by the French Academy of Art",
+          "intended as a mocking criticism by a reviewer",
+          "a technical term from the world of photography"
+        ],
+        "answer": 2,
+        "explain": "지문에서 '인상주의'라는 용어는 비평가가 모네의 작품을 조롱하기 위해 만든 모욕적인 표현이었다고 명시하고 있다."
+      },
+      {
+        "q": "The word 'transient' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "permanent and unchanging",
+          "brief and fleeting",
+          "geometric and precise",
+          "dark and somber"
+        ],
+        "answer": 1,
+        "explain": "인상주의 화가들이 빛과 대기의 일시적인(transient) 효과를 포착하려 했다는 문맥에서, transient는 '순간적이고 덧없는'의 의미임을 알 수 있다."
+      },
+      {
+        "q": "It can be inferred from the passage that without Impressionism,",
+        "type": "inference",
+        "options": [
+          "French art would have remained unknown outside Europe",
+          "modern art movements such as Cubism might have developed very differently",
+          "Monet would have become an academic painter instead",
+          "auction prices for classical paintings would be lower today"
+        ],
+        "answer": 1,
+        "explain": "지문에서 인상주의가 후기 인상주의, 입체파, 사실상 모든 현대 미술 운동의 길을 열었다고 했으므로, 인상주의 없이는 이 운동들이 다른 방향으로 전개되었을 것이라 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Plate Tectonics",
+    "topic": "science",
+    "passage": "The theory of plate tectonics, formalized in the 1960s, revolutionized the earth sciences by providing a unifying framework to explain phenomena as diverse as earthquakes, volcanic eruptions, mountain building, and the distribution of fossils across continents. According to the theory, Earth's rigid outer shell — the lithosphere — is divided into roughly fifteen major plates that float atop the semi-fluid asthenosphere below. These plates move slowly, driven by convection currents generated by heat from Earth's interior, typically at rates of a few centimeters per year. When plates collide, one may be forced beneath the other in a process called subduction, generating deep ocean trenches and volcanic arcs. Where plates pull apart, new seafloor forms through volcanic activity at mid-ocean ridges. The matching coastlines of South America and Africa, which fit together like puzzle pieces, provided early evidence for continental drift, the forerunner of plate tectonics theory. Today the theory is supported by vast bodies of seismic, magnetic, and geological data.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "plate tectonics explains why South America and Africa have similar coastlines",
+          "plate tectonics is a comprehensive theory that explains many major geological phenomena",
+          "subduction zones are the most dangerous geological features on Earth",
+          "convection currents in the ocean drive all major weather patterns"
+        ],
+        "answer": 1,
+        "explain": "지문 전체가 판구조론이 지진, 화산, 조산 운동 등 다양한 지질 현상을 통합적으로 설명하는 이론임을 서술하고 있으므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, subduction occurs when",
+        "type": "detail",
+        "options": [
+          "two plates move apart and magma fills the gap",
+          "convection currents reverse direction beneath the lithosphere",
+          "one plate is forced beneath another during a collision",
+          "mid-ocean ridges generate new seafloor through volcanic activity"
+        ],
+        "answer": 2,
+        "explain": "지문에서 판이 충돌할 때 하나가 다른 판 아래로 밀려 들어가는 과정을 섭입(subduction)이라고 명시하고 있다."
+      },
+      {
+        "q": "The passage implies that continental drift theory was important because it",
+        "type": "inference",
+        "options": [
+          "proved that Earth's interior was composed entirely of liquid rock",
+          "provided early observational evidence that later helped develop plate tectonics",
+          "explained how ocean trenches form at mid-ocean ridges",
+          "showed that earthquakes could only occur along continental margins"
+        ],
+        "answer": 1,
+        "explain": "지문에서 대륙이동설이 판구조론의 전신(forerunner)이라고 했고, 남미와 아프리카의 해안선 일치가 초기 증거로 제시되었으므로, 이 이론이 판구조론 발전에 기여했음을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "The Silk Road",
+    "topic": "history",
+    "passage": "The Silk Road was not a single road but a vast network of overland and maritime trade routes stretching across Eurasia, connecting China and East Asia with Central Asia, the Middle East, East Africa, and Europe. Active for over a millennium, from roughly the 2nd century BCE through the 15th century CE, the network facilitated the exchange of silk, spices, glassware, precious metals, and agricultural products. Yet commerce was only one dimension of the Silk Road's legacy. Religious traditions including Buddhism, Islam, and Christianity spread along its routes, as did artistic styles, musical instruments, and agricultural techniques. Plague, too, traveled these pathways — the Black Death of the 14th century likely moved westward along Silk Road networks. Caravanserais, large roadside inns spaced approximately one day's travel apart, provided merchants with shelter, food, water, and a place to conduct business, forming a commercial infrastructure that sustained long-distance trade for centuries.",
+    "questions": [
+      {
+        "q": "The passage suggests that the Silk Road's most significant impact was",
+        "type": "inference",
+        "options": [
+          "limited to the transport of silk and spices between Asia and Europe",
+          "broader than trade, encompassing cultural, religious, and even disease transmission",
+          "primarily felt in East Africa, which was the main destination of goods",
+          "the construction of caravanserais across the Eurasian continent"
+        ],
+        "answer": 1,
+        "explain": "지문에서 실크로드는 교역 외에도 종교, 예술, 기술, 심지어 흑사병의 전파 경로였음을 설명하므로, 그 영향이 교역을 훨씬 넘어섰음을 추론할 수 있다."
+      },
+      {
+        "q": "According to the passage, caravanserais served travelers by",
+        "type": "detail",
+        "options": [
+          "providing military escort between major trading cities",
+          "offering shelter, food, water, and a place to trade",
+          "storing silk and other luxury goods for long periods",
+          "acting as border checkpoints to regulate commerce"
+        ],
+        "answer": 1,
+        "explain": "지문에서 카라반사라이가 상인들에게 쉼터, 음식, 물, 거래 장소를 제공했다고 명시하고 있으므로 정답은 B이다."
+      },
+      {
+        "q": "The author's primary purpose in this passage is to",
+        "type": "tone_purpose",
+        "options": [
+          "argue that the Silk Road caused more harm than good through disease",
+          "describe the Silk Road as a multifaceted network with wide-ranging historical effects",
+          "compare maritime routes to overland routes in terms of trade efficiency",
+          "celebrate the commercial achievements of medieval Chinese merchants"
+        ],
+        "answer": 1,
+        "explain": "지문은 실크로드의 교역, 문화, 종교, 질병 전파 등 다양한 역할을 균형 있게 설명하는 것이 주목적이므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Blockchain Technology",
+    "topic": "technology",
+    "passage": "A blockchain is a type of distributed ledger in which records, called blocks, are linked and secured using cryptographic techniques. Each block contains a set of transaction data, a timestamp, and a cryptographic hash of the preceding block, creating a chain in which altering any single block would invalidate all subsequent entries. This structure makes blockchain inherently resistant to tampering, since any attempt to modify historical data would require recalculating the hashes of every subsequent block — a computationally prohibitive task on large networks. Originally devised as the foundation for the cryptocurrency Bitcoin in 2008, blockchain technology has since attracted interest far beyond digital currency. Governments explore its use for secure voting systems, supply chain managers employ it to authenticate product origins, and healthcare organizations evaluate it for maintaining interoperable patient records. Critics, however, note significant drawbacks: blockchain networks consume enormous amounts of electricity, transaction processing speeds remain slow compared to centralized databases, and governance disputes among participants can stall development.",
+    "questions": [
+      {
+        "q": "According to the passage, what makes blockchain resistant to data tampering?",
+        "type": "detail",
+        "options": [
+          "It is stored on a single highly secure government server",
+          "Each block contains a hash of the previous block, so altering one invalidates all subsequent blocks",
+          "Transaction speeds are too slow for hackers to exploit effectively",
+          "Blockchain uses military-grade encryption unavailable to the public"
+        ],
+        "answer": 1,
+        "explain": "지문에서 하나의 블록을 변경하면 이후 모든 블록의 해시를 다시 계산해야 하므로 변조가 사실상 불가능하다고 명시하고 있다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "blockchain is a revolutionary technology with no meaningful drawbacks",
+          "Bitcoin remains the only practical application of blockchain technology",
+          "blockchain offers tamper-resistant record-keeping with broad applications but also significant limitations",
+          "governments should immediately adopt blockchain for all public records"
+        ],
+        "answer": 2,
+        "explain": "지문은 블록체인의 특성과 다양한 응용 가능성을 설명하면서 에너지 소비, 속도, 거버넌스 등의 한계도 균형 있게 제시하고 있으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that blockchain was originally developed",
+        "type": "inference",
+        "options": [
+          "to provide governments with a way to monitor financial transactions",
+          "specifically to solve problems in supply chain management",
+          "as the underlying technology for a decentralized digital currency",
+          "by healthcare organizations seeking to share patient records"
+        ],
+        "answer": 2,
+        "explain": "지문에서 블록체인이 2008년 암호화폐 비트코인의 기반으로 고안되었다고 명시하므로, 분산형 디지털 화폐를 위해 개발되었음을 알 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Coral Reef Ecosystems",
+    "topic": "nature",
+    "passage": "Coral reefs cover less than one percent of the ocean floor yet support an estimated twenty-five percent of all marine species, earning them the nickname 'rainforests of the sea.' Reefs are built by colonies of tiny animals called coral polyps, which secrete calcium carbonate skeletons that accumulate over thousands of years to form intricate three-dimensional structures. Living within the tissue of coral polyps are microscopic algae called zooxanthellae, which photosynthesize and provide up to ninety percent of the coral's energy needs in exchange for shelter and nutrients. When water temperatures rise even slightly above normal for extended periods, corals expel these algae in a stress response known as bleaching. Without zooxanthellae, corals turn white and, if stress conditions persist, eventually die. Rising ocean temperatures linked to climate change have caused mass bleaching events of unprecedented scale and frequency in recent decades. Beyond their ecological value, reefs protect coastlines from wave erosion, support local fisheries, and generate billions of dollars in tourism revenue annually.",
+    "questions": [
+      {
+        "q": "The relationship between coral polyps and zooxanthellae described in the passage is best characterized as",
+        "type": "inference",
+        "options": [
+          "parasitic, with zooxanthellae harming the coral over time",
+          "competitive, with both organisms fighting for the same nutrients",
+          "mutually beneficial, with each organism providing something the other needs",
+          "neutral, with zooxanthellae having no measurable effect on coral health"
+        ],
+        "answer": 2,
+        "explain": "조류는 산호에 에너지를 제공하고, 산호는 조류에게 보금자리와 영양소를 제공하므로 상호 이익이 되는 공생 관계임을 추론할 수 있다."
+      },
+      {
+        "q": "According to the passage, coral bleaching occurs when",
+        "type": "detail",
+        "options": [
+          "calcium carbonate skeletons dissolve due to ocean acidification",
+          "zooxanthellae multiply too rapidly inside coral tissue",
+          "corals expel their symbiotic algae in response to elevated water temperatures",
+          "wave action physically strips the outer layer of coral polyps"
+        ],
+        "answer": 2,
+        "explain": "지문에서 산호 백화는 수온이 비정상적으로 높아질 때 산호가 조류를 방출하는 스트레스 반응이라고 명시하고 있다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "coral reefs are disappearing entirely due to human fishing practices",
+          "coral reefs are extraordinarily valuable ecosystems that face serious threats from warming oceans",
+          "zooxanthellae are the most important organisms in marine biology",
+          "ocean tourism is the primary reason governments protect coral reefs"
+        ],
+        "answer": 1,
+        "explain": "지문은 산호초의 생태적 중요성과 기후변화로 인한 위협을 중심으로 서술하고 있으므로, 산호초가 귀중하지만 위협받는 생태계라는 것이 주제이다."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "The Psychology of Conformity",
+    "topic": "social science",
+    "passage": "Social psychologist Solomon Asch conducted a landmark series of experiments in the 1950s to investigate the degree to which individuals would conform to an obviously incorrect group consensus. In each session, a single genuine subject was placed in a room with several confederates — actors pretending to be fellow participants. The group was shown lines of different lengths and asked to identify which matched a standard. Confederates unanimously gave a clearly wrong answer, and researchers recorded whether the real subject would conform. Remarkably, approximately 75 percent of subjects agreed with the incorrect majority at least once during the experiment, and about one-third of all responses across subjects were conformist. Post-experiment interviews revealed that some subjects truly doubted their own perception, while others knew the majority was wrong but feared social disapproval. Asch's findings demonstrated that group pressure can exert powerful influence on individual judgment even in situations where the correct answer is objectively obvious, raising enduring questions about independent thinking in social contexts.",
+    "questions": [
+      {
+        "q": "The main idea of Asch's experiments, as described in the passage, is that",
+        "type": "main_idea",
+        "options": [
+          "humans have poor visual perception when judging line lengths",
+          "social pressure can lead individuals to conform to an incorrect group opinion",
+          "actors are effective tools for studying psychological phenomena",
+          "one-third of people are naturally incapable of independent thought"
+        ],
+        "answer": 1,
+        "explain": "애시의 실험은 명백히 틀린 다수의 의견에도 개인이 동조할 수 있다는 것을 보여주며, 집단 압력이 판단에 미치는 영향이 핵심 주제이다."
+      },
+      {
+        "q": "According to the passage, post-experiment interviews showed that subjects conformed for",
+        "type": "detail",
+        "options": [
+          "financial rewards offered by the researchers",
+          "either genuine self-doubt or fear of social disapproval",
+          "confusion about the instructions given at the start",
+          "a desire to help the researchers achieve their hypothesis"
+        ],
+        "answer": 1,
+        "explain": "지문에서 인터뷰를 통해 일부는 자신의 지각을 의심했고, 다른 일부는 사회적 비난이 두려워 동조했다고 명시하고 있다."
+      },
+      {
+        "q": "The word 'confederates' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "government officials overseeing the experiment",
+          "genuine volunteers recruited from the public",
+          "actors working with the researcher to create a false consensus",
+          "research assistants who recorded the data"
+        ],
+        "answer": 2,
+        "explain": "지문에서 '공모자들(confederates)'은 다른 참가자인 척 연기하는 배우들로 설명되고 있으므로, 거짓 합의를 만들기 위해 연구자와 협력하는 배우들을 뜻한다."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Stealth Aircraft Technology",
+    "topic": "military/aviation",
+    "passage": "Stealth aircraft are designed to minimize their detectability to radar, infrared sensors, and acoustic detection systems, giving them the ability to penetrate defended airspace without triggering enemy countermeasures. The primary technique for reducing radar cross-section involves shaping the aircraft so that radar waves are reflected away from the detecting antenna rather than back toward it. Faceted designs and smooth, blended surfaces accomplish this by redirecting radar energy in non-threatening directions. Radar-absorbing materials — composite structures impregnated with carbon particles and other compounds — further attenuate the reflected signal. The B-2 Spirit bomber, for example, has a radar cross-section roughly equivalent to that of a large bird despite its 172-foot wingspan. Infrared signatures are reduced by mixing engine exhaust with cooler air before it exits the aircraft and by shielding engine components from direct observation. Stealth does not render an aircraft invisible; rather, it reduces detection range enough to shrink the window during which enemy systems can respond effectively.",
+    "questions": [
+      {
+        "q": "According to the passage, the primary method stealth aircraft use to reduce radar detection is",
+        "type": "detail",
+        "options": [
+          "emitting jamming signals that confuse enemy radar systems",
+          "flying at altitudes above the effective range of ground radar",
+          "shaping the aircraft to reflect radar waves away from the detecting antenna",
+          "using radar-absorbing paint on all external surfaces"
+        ],
+        "answer": 2,
+        "explain": "지문에서 레이더 단면적을 줄이는 주요 방법은 레이더 전파를 감지 안테나 반대 방향으로 반사하도록 항공기 형태를 설계하는 것이라고 명시하고 있다."
+      },
+      {
+        "q": "The passage implies that stealth technology is best understood as",
+        "type": "inference",
+        "options": [
+          "a system that makes aircraft completely undetectable by all sensors",
+          "a way to reduce detection range rather than achieve full invisibility",
+          "a technology limited to bombers like the B-2 Spirit",
+          "primarily useful for reducing acoustic rather than radar signatures"
+        ],
+        "answer": 1,
+        "explain": "지문 마지막에 스텔스는 항공기를 완전히 보이지 않게 하는 것이 아니라 탐지 거리를 줄이는 것이라고 명시하고 있으므로 정답은 B이다."
+      },
+      {
+        "q": "The author's tone in this passage can best be described as",
+        "type": "tone_purpose",
+        "options": [
+          "enthusiastic and promotional",
+          "alarmed and cautionary",
+          "technical and informative",
+          "humorous and ironic"
+        ],
+        "answer": 2,
+        "explain": "지문은 스텔스 기술의 원리와 적용을 객관적이고 기술적인 방식으로 설명하고 있으므로, 어조는 기술적이고 정보 전달적이다."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Jazz and Improvisation",
+    "topic": "arts",
+    "passage": "Jazz, which emerged from African American communities in New Orleans around the turn of the twentieth century, is distinguished above all by improvisation — the spontaneous composition of melody and harmony in real time during a performance. While classical musicians perform written scores with precision, jazz musicians use the underlying chord structure of a piece as a framework within which to create original melodic lines on the spot. This demands deep familiarity with music theory, an extensive repertoire of melodic patterns called licks, and an acute responsiveness to fellow musicians. Early jazz drew from ragtime, blues, and gospel traditions, blending African rhythmic complexity with European harmonic conventions. Figures such as Louis Armstrong, Duke Ellington, and later Miles Davis and John Coltrane expanded the language of jazz, each pushing improvisation in new directions. Jazz has since influenced virtually every genre of popular music worldwide, from rock and soul to hip-hop, making its improvisatory spirit one of the most pervasive forces in modern musical culture.",
+    "questions": [
+      {
+        "q": "The word 'licks' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "errors made during live jazz performance",
+          "short pre-learned melodic phrases used in improvisation",
+          "written musical scores distributed to band members",
+          "a style of playing associated with early blues musicians"
+        ],
+        "answer": 1,
+        "explain": "지문에서 '릭(licks)'은 즉흥 연주에 사용되는 방대한 멜로디 패턴 레퍼토리로 설명되고 있으므로, 즉흥 연주에 활용되는 짧은 멜로디 구절을 의미한다."
+      },
+      {
+        "q": "According to the passage, jazz improvisation requires musicians to have",
+        "type": "detail",
+        "options": [
+          "formal conservatory training in classical composition",
+          "knowledge of music theory, melodic patterns, and responsiveness to other musicians",
+          "the ability to read and perform complex written scores at sight",
+          "a background in gospel music exclusively"
+        ],
+        "answer": 1,
+        "explain": "지문에서 즉흥 연주는 음악 이론에 대한 깊은 이해, 방대한 멜로디 패턴, 그리고 다른 연주자에 대한 반응성을 요구한다고 명시하고 있다."
+      },
+      {
+        "q": "It can be inferred from the passage that jazz's influence on modern music is",
+        "type": "inference",
+        "options": [
+          "limited to New Orleans and similar cities in the American South",
+          "confined mainly to genres that also use improvisation",
+          "extensive, reaching genres as different as rock, soul, and hip-hop",
+          "declining as classical music regains popularity worldwide"
+        ],
+        "answer": 2,
+        "explain": "지문에서 재즈가 록, 소울, 힙합을 포함한 사실상 모든 대중음악 장르에 영향을 미쳤다고 명시하고 있으므로, 그 영향이 매우 광범위함을 알 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "The Water Cycle",
+    "topic": "science",
+    "passage": "The water cycle, also called the hydrological cycle, describes the continuous movement of water through Earth's systems — atmosphere, land surface, oceans, and subsurface reservoirs. Solar energy drives evaporation, converting liquid water from oceans, lakes, and rivers into water vapor that rises into the atmosphere. As moist air ascends and cools, water vapor condenses around microscopic particles to form clouds and eventually precipitation — rain, snow, sleet, or hail — depending on atmospheric temperature. Water that falls on land follows several pathways: it may flow along the surface as runoff into streams and rivers, be absorbed into the soil and percolate downward to recharge groundwater aquifers, or be taken up by plant roots and returned to the atmosphere through transpiration. Glaciers and polar ice caps store freshwater for millennia, effectively removing it from the active cycle until they melt. Climate change is altering the cycle's intensity and distribution, causing more extreme precipitation events in some regions while deepening droughts in others.",
+    "questions": [
+      {
+        "q": "According to the passage, transpiration refers to",
+        "type": "detail",
+        "options": [
+          "the conversion of liquid water to water vapor by solar heating of ocean surfaces",
+          "water returning to the atmosphere after being absorbed by plant roots",
+          "the process by which water vapor condenses to form clouds",
+          "the downward movement of water through soil to recharge aquifers"
+        ],
+        "answer": 1,
+        "explain": "지문에서 증산(transpiration)은 식물 뿌리가 흡수한 물이 대기로 돌아가는 과정으로 설명되어 있으므로 정답은 B이다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "glaciers are the most important freshwater storage system on Earth",
+          "precipitation is the most critical phase of the water cycle",
+          "the water cycle is a continuous process that moves water through Earth's systems and is being altered by climate change",
+          "solar energy alone determines how much water evaporates from the oceans each year"
+        ],
+        "answer": 2,
+        "explain": "지문은 물 순환의 전체적인 과정과 경로를 설명하고, 기후변화로 인한 변화를 언급하며 마무리하므로 정답은 C이다."
+      },
+      {
+        "q": "Based on the passage, it can be inferred that melting glaciers would",
+        "type": "inference",
+        "options": [
+          "immediately reduce the amount of precipitation falling in coastal areas",
+          "cause water previously stored for millennia to re-enter the active water cycle",
+          "permanently eliminate groundwater aquifer recharge in polar regions",
+          "reverse the effects of climate change by cooling ocean temperatures"
+        ],
+        "answer": 1,
+        "explain": "지문에서 빙하는 수천 년 동안 물을 저장하여 활성 순환에서 제거한다고 했으므로, 빙하가 녹으면 이 물이 다시 활성 순환에 유입될 것이라 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Drone Warfare and Ethics",
+    "topic": "military/aviation",
+    "passage": "Unmanned aerial vehicles, commonly called drones, have transformed modern military operations by enabling surveillance and strike missions without exposing pilots to direct risk. Remotely piloted systems such as the MQ-9 Reaper can loiter for extended periods over a target area, transmitting real-time intelligence before releasing precision-guided munitions. Proponents argue that drones reduce collateral damage compared to traditional airstrikes by allowing operators more time to assess targets and abort strikes if civilians appear. Critics counter that the psychological distance created by remote operation may lower the threshold for using lethal force, since the consequences feel abstract to the operator thousands of miles away. Autonomous systems — drones that select and engage targets without human authorization — raise additional ethical questions, as international law generally requires human judgment before the use of force. The debate over accountability is equally pressing: when an autonomous system causes civilian casualties, determining legal and moral responsibility among manufacturers, military commanders, and governments remains deeply unresolved.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "drones are superior to manned aircraft in every respect and should replace them entirely",
+          "drone warfare offers military advantages but raises serious ethical and legal questions",
+          "autonomous weapons systems are already widely used in modern conflicts",
+          "the MQ-9 Reaper is the most effective precision strike platform ever developed"
+        ],
+        "answer": 1,
+        "explain": "지문은 드론의 군사적 이점과 함께 원거리 조작의 심리적 문제, 자율 시스템의 윤리 문제, 책임 소재 등 다양한 우려를 균형 있게 제시하고 있다."
+      },
+      {
+        "q": "Critics of drone warfare argue that remote operation may",
+        "type": "detail",
+        "options": [
+          "make it impossible to transmit reliable intelligence from the target area",
+          "lower the threshold for using lethal force because consequences feel less immediate",
+          "expose drone operators to radiation hazards from satellite communications",
+          "prevent military commanders from receiving real-time target assessment data"
+        ],
+        "answer": 1,
+        "explain": "지문에서 비판론자들은 원거리 조작으로 인한 심리적 거리감이 무력 사용의 문턱을 낮출 수 있다고 주장한다고 명시하고 있다."
+      },
+      {
+        "q": "According to the passage, autonomous weapons systems raise legal concerns because",
+        "type": "inference",
+        "options": [
+          "they are far more expensive to manufacture than remotely piloted systems",
+          "international law requires human judgment before the use of force, which they bypass",
+          "drone operators lack the training needed to supervise autonomous systems effectively",
+          "satellite communications used to control them are vulnerable to enemy jamming"
+        ],
+        "answer": 1,
+        "explain": "지문에서 국제법은 일반적으로 무력 사용 전 인간의 판단을 요구하는데, 자율 시스템은 인간의 승인 없이 표적을 선택·교전하므로 법적 문제가 발생한다고 설명하고 있다."
+      }
+    ]
+  }
+]

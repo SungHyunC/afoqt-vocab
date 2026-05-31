@@ -14,11 +14,10 @@
 </head>
 <body>
 
-<!-- ===== App bar ===== -->
 <header class="appbar">
   <div>
-    <h1>AFOQT Vocab Master</h1>
-    <div class="sub" id="bar-sub">Verbal 단어 마스터</div>
+    <h1 id="barTitle">AFOQT Vocab Master</h1>
+    <div class="sub" id="bar-sub">Verbal 마스터 · 6/1 → 7/10</div>
   </div>
   <div class="row" style="align-items:center;gap:10px">
     <span class="sync-dot off" id="syncDot" title="동기화 상태"></span>
@@ -26,10 +25,9 @@
   </div>
 </header>
 
-<!-- ===== Loading ===== -->
-<div id="boot" class="view active"><div class="spinner"></div><p class="center muted">단어 불러오는 중…</p></div>
+<div id="boot" class="view active"><div class="spinner"></div><p class="center muted">불러오는 중…</p></div>
 
-<!-- ===== Home ===== -->
+<!-- ===== HOME ===== -->
 <main id="view-home" class="view">
   <div class="card hero">
     <div class="row" style="justify-content:space-between;align-items:flex-start">
@@ -49,14 +47,29 @@
   <button class="btn primary" id="btnStart" style="margin-top:16px;font-size:17px;padding:17px">▶︎ 오늘 학습 시작</button>
 
   <div class="grid3" style="margin-top:16px">
-    <div class="card tight stat"><div class="num" id="stStreak">0</div><div class="lbl">🔥 스트릭(일)</div></div>
+    <div class="card tight stat"><div class="num" id="stStreak">0</div><div class="lbl">🔥 스트릭</div></div>
     <div class="card tight stat"><div class="num" id="stToday">0</div><div class="lbl">오늘 학습</div></div>
     <div class="card tight stat"><div class="num" id="stDue">0</div><div class="lbl">복습 대기</div></div>
   </div>
-  <div class="grid3" style="margin-top:10px">
-    <div class="card tight stat"><div class="num" id="stLearned">0</div><div class="lbl">학습한 단어</div></div>
-    <div class="card tight stat"><div class="num" id="stMastered">0</div><div class="lbl">마스터</div></div>
-    <div class="card tight stat"><div class="num" id="stRemain">0</div><div class="lbl">남은 단어</div></div>
+
+  <h2 class="section">Verbal 섹션</h2>
+  <div class="seccard" id="secWK">
+    <div class="ic">📇</div>
+    <div class="meta"><b>Word Knowledge</b><div class="muted" id="wkSub">어휘 · 동의어</div>
+      <div class="progressbar mini"><i id="wkBar"></i></div></div>
+    <div class="go">›</div>
+  </div>
+  <div class="seccard" id="secVA">
+    <div class="ic">🔗</div>
+    <div class="meta"><b>Verbal Analogies</b><div class="muted" id="vaSub">유추 추론</div>
+      <div class="progressbar mini"><i id="vaBar"></i></div></div>
+    <div class="go">›</div>
+  </div>
+  <div class="seccard" id="secRC">
+    <div class="ic">📖</div>
+    <div class="meta"><b>Reading Comprehension</b><div class="muted" id="rcSub">독해</div>
+      <div class="progressbar mini"><i id="rcBar"></i></div></div>
+    <div class="go">›</div>
   </div>
 
   <div class="card" style="margin-top:16px">
@@ -65,11 +78,32 @@
       <div class="pill" id="recPace">신규 –/일</div>
     </div>
   </div>
-
-  <button class="btn ghost" id="btnQuizHome" style="margin-top:14px">🧠 퀴즈로 점검하기</button>
 </main>
 
-<!-- ===== Study (flashcards) ===== -->
+<!-- ===== VOCAB HUB (Word Knowledge) ===== -->
+<main id="view-vocab" class="view">
+  <h2 class="section">📇 Word Knowledge</h2>
+  <div class="grid2">
+    <div class="card tight stat"><div class="num" id="vkLearned">0</div><div class="lbl">학습한 단어</div></div>
+    <div class="card tight stat"><div class="num" id="vkMastered">0</div><div class="lbl">마스터</div></div>
+    <div class="card tight stat"><div class="num" id="vkHigh">0</div><div class="lbl">빈출 학습</div></div>
+    <div class="card tight stat"><div class="num" id="vkRemain">0</div><div class="lbl">남은 단어</div></div>
+  </div>
+  <button class="btn primary" id="vkStart" style="margin-top:16px">▶︎ 플래시카드 학습</button>
+  <button class="btn ghost" id="vkQuiz" style="margin-top:10px">🧠 퀴즈</button>
+  <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 보기</button>
+
+  <h2 class="section">학습 우선순위</h2>
+  <div class="card">
+    <label class="switch-row"><span>⭐ 빈출 단어 먼저 (AFOQT/GRE 핵심)</span>
+      <input type="checkbox" id="optHighFirst" checked></label>
+    <label class="switch-row"><span>빈출 단어만 학습 (std 제외)</span>
+      <input type="checkbox" id="optHighOnly"></label>
+    <div class="hintbox" style="margin-top:10px">빈출(high)·중요(mid)·일반(std) 순으로 외웁니다. GRE Magoosh 단어도 포함됩니다.</div>
+  </div>
+</main>
+
+<!-- ===== STUDY (flashcards) ===== -->
 <main id="view-study" class="view">
   <div class="study-top">
     <button class="btn sm ghost" id="studyBack">← 나가기</button>
@@ -77,9 +111,7 @@
     <span id="studyMode">복습</span>
   </div>
   <div class="progressbar" style="margin-bottom:14px"><i id="studyBar"></i></div>
-
   <div id="studyArea"></div>
-
   <div id="studyDone" class="card center hidden" style="margin-top:20px">
     <div class="big-emoji">🎉</div>
     <h2 id="doneTitle">세션 완료!</h2>
@@ -89,7 +121,7 @@
   </div>
 </main>
 
-<!-- ===== Quiz ===== -->
+<!-- ===== QUIZ ===== -->
 <main id="view-quiz" class="view">
   <div class="study-top">
     <button class="btn sm ghost" id="quizBack">← 나가기</button>
@@ -105,8 +137,9 @@
     <div class="field"><label>출제 범위</label>
       <select id="quizScope">
         <option value="learned">학습한 단어</option>
+        <option value="high">⭐ 빈출 단어</option>
         <option value="due">복습 대기 단어</option>
-        <option value="starred">⭐ 즐겨찾기</option>
+        <option value="starred">★ 즐겨찾기</option>
         <option value="all">전체 단어</option>
       </select>
     </div>
@@ -129,12 +162,15 @@
   </div>
 </main>
 
-<!-- ===== Words ===== -->
+<!-- ===== WORDS LIST ===== -->
 <main id="view-words" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="wordsBack">← 어휘</button><span></span><span></span></div>
   <input class="search" id="searchBox" placeholder="🔎 단어 / 뜻 검색…">
   <div class="filters" id="wordFilters">
     <button class="chip on" data-f="all">전체</button>
-    <button class="chip" data-f="starred">⭐ 즐겨찾기</button>
+    <button class="chip" data-f="high">⭐ 빈출</button>
+    <button class="chip" data-f="gre">GRE</button>
+    <button class="chip" data-f="starred">★ 즐겨찾기</button>
     <button class="chip" data-f="new">미학습</button>
     <button class="chip" data-f="learning">학습중</button>
     <button class="chip" data-f="review">복습</button>
@@ -144,7 +180,62 @@
   <div class="wlist" id="wordList"></div>
 </main>
 
-<!-- ===== Stats ===== -->
+<!-- ===== ANALOGY (Verbal Analogies) ===== -->
+<main id="view-analogy" class="view">
+  <div id="vaHub">
+    <h2 class="section">🔗 Verbal Analogies</h2>
+    <p class="muted" style="margin:0 0 12px">A : B = C : ? — 같은 관계의 짝을 고르세요.</p>
+    <div class="grid3">
+      <div class="card tight stat"><div class="num" id="vaSeen">0</div><div class="lbl">푼 문제</div></div>
+      <div class="card tight stat"><div class="num" id="vaMastered">0</div><div class="lbl">마스터</div></div>
+      <div class="card tight stat"><div class="num" id="vaAcc">–</div><div class="lbl">정답률</div></div>
+    </div>
+    <button class="btn primary" id="vaStart" style="margin-top:16px">▶︎ 유추 연습 시작</button>
+    <button class="btn ghost" id="vaReview" style="margin-top:10px">🔁 틀린 문제 복습</button>
+  </div>
+  <div id="vaPlay" class="hidden">
+    <div class="study-top">
+      <button class="btn sm ghost" id="vaBack">← 나가기</button>
+      <span id="vaCount">0 / 0</span>
+      <span id="vaScore">0점</span>
+    </div>
+    <div class="progressbar" style="margin-bottom:14px"><i id="vaBar"></i></div>
+    <div id="vaArea"></div>
+  </div>
+  <div id="vaDone" class="card center hidden">
+    <div class="big-emoji" id="vaEmoji">🎯</div>
+    <h2 id="vaResult"></h2>
+    <p class="muted" id="vaResultSub"></p>
+    <button class="btn primary" id="vaRetry" style="margin-top:10px">계속</button>
+    <button class="btn ghost" id="vaHomeBtn" style="margin-top:10px">홈으로</button>
+  </div>
+</main>
+
+<!-- ===== READING (Reading Comprehension) ===== -->
+<main id="view-reading" class="view">
+  <h2 class="section">📖 Reading Comprehension</h2>
+  <p class="muted" style="margin:0 0 12px">지문을 읽고 문제를 푸세요. (주제·세부·추론·문맥어휘)</p>
+  <div class="grid2">
+    <div class="card tight stat"><div class="num" id="rcDone">0</div><div class="lbl">완료 지문</div></div>
+    <div class="card tight stat"><div class="num" id="rcAccTop">–</div><div class="lbl">정답률</div></div>
+  </div>
+  <div class="wlist" id="rcList" style="margin-top:14px"></div>
+</main>
+
+<!-- ===== PASSAGE reader ===== -->
+<main id="view-passage" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="rcBack">← 독해 목록</button><span id="rcTitle"></span><span></span></div>
+  <div class="card" id="passageBox"></div>
+  <div id="rcQArea" style="margin-top:16px"></div>
+  <div id="rcResult" class="card center hidden">
+    <div class="big-emoji" id="rcEmoji">📘</div>
+    <h2 id="rcResultText"></h2>
+    <button class="btn primary" id="rcNext" style="margin-top:10px">다음 지문</button>
+    <button class="btn ghost" id="rcToList" style="margin-top:10px">목록으로</button>
+  </div>
+</main>
+
+<!-- ===== STATS ===== -->
 <main id="view-stats" class="view">
   <h2 class="section">학습 달력 (6/1 – 7/10)</h2>
   <div class="card">
@@ -158,22 +249,23 @@
 
   <h2 class="section">진척도</h2>
   <div class="grid2">
-    <div class="card tight stat"><div class="num" id="sLearned">0</div><div class="lbl">학습한 단어</div></div>
-    <div class="card tight stat"><div class="num" id="sMastered">0</div><div class="lbl">마스터</div></div>
-    <div class="card tight stat"><div class="num" id="sTotalRev">0</div><div class="lbl">누적 복습수</div></div>
+    <div class="card tight stat"><div class="num" id="sLearned">0</div><div class="lbl">어휘 학습</div></div>
+    <div class="card tight stat"><div class="num" id="sMastered">0</div><div class="lbl">어휘 마스터</div></div>
+    <div class="card tight stat"><div class="num" id="sVA">0</div><div class="lbl">유추 푼 문제</div></div>
+    <div class="card tight stat"><div class="num" id="sRC">0</div><div class="lbl">독해 완료</div></div>
     <div class="card tight stat"><div class="num" id="sAcc">–</div><div class="lbl">평균 정답률</div></div>
+    <div class="card tight stat"><div class="num" id="sTotalRev">0</div><div class="lbl">누적 복습수</div></div>
   </div>
 
   <h2 class="section">예상</h2>
   <div class="card" id="projection"></div>
 </main>
 
-<!-- ===== Settings sheet ===== -->
+<!-- ===== Settings ===== -->
 <div class="sheet-bg" id="settingsSheet">
   <div class="sheet">
     <h3>⚙️ 설정</h3>
-    <p class="muted" style="font-size:13px;margin-top:2px">학습 일정과 실시간 동기화를 설정합니다.</p>
-
+    <p class="muted" style="font-size:13px;margin-top:2px">학습 일정과 실시간 동기화.</p>
     <div class="field"><label>하루 신규 단어 (비우면 자동 계산)</label>
       <input type="number" id="setGoal" min="0" step="5" placeholder="자동"></div>
     <div class="field"><label>시작일</label><input type="date" id="setStart"></div>
@@ -184,21 +276,17 @@
       <div class="code-val" id="syncCodeView">–</div>
       <div class="row" style="margin-top:8px;gap:8px;flex-wrap:wrap">
         <button class="btn sm ghost" id="copyCode">📋 복사</button>
-        <button class="btn sm ghost" id="enterCode">↘︎ 다른 코드 입력</button>
+        <button class="btn sm ghost" id="enterCode">↘︎ 다른 코드</button>
         <button class="btn sm ghost" id="newCode">🆕 새 코드</button>
       </div>
-      <div class="hintbox">다른 기기(폰)에서도 <b>같은 동기화 코드</b>를 입력하면 진도·스트릭이 실시간으로 함께 업데이트됩니다. 이 코드는 비밀번호처럼 보관하세요.</div>
+      <div class="hintbox">다른 기기(폰)에서 같은 코드를 입력하면 진도·스트릭이 실시간 동기화됩니다.</div>
     </div>
-
-    <div class="field"><label>동기화 상태</label>
-      <div class="hintbox" id="syncStatusText">오프라인 모드</div>
-    </div>
+    <div class="field"><label>동기화 상태</label><div class="hintbox" id="syncStatusText">오프라인 모드</div></div>
 
     <details style="margin-top:16px">
       <summary class="muted" style="font-size:13px;cursor:pointer">고급: Supabase 직접 입력</summary>
       <div class="field"><label>Supabase URL</label><input id="setUrl" placeholder="https://xxxx.supabase.co"></div>
-      <div class="field"><label>Supabase anon key</label><input id="setKey" placeholder="eyJ..."></div>
-      <div class="hintbox">보통은 <code>config.js</code> 에 한 번만 넣으면 모든 기기에서 자동 적용됩니다. 여기 입력값은 이 기기에만 저장됩니다.</div>
+      <div class="field"><label>Supabase key</label><input id="setKey" placeholder="sb_publishable_... 또는 eyJ..."></div>
     </details>
 
     <button class="btn primary" id="saveSettings" style="margin-top:20px">저장</button>
@@ -208,12 +296,11 @@
   </div>
 </div>
 
-<!-- ===== Bottom nav ===== -->
 <nav class="nav" id="nav">
   <button data-go="home" class="on"><span class="ic">🏠</span>홈</button>
-  <button data-go="study"><span class="ic">📇</span>학습</button>
-  <button data-go="quiz"><span class="ic">🧠</span>퀴즈</button>
-  <button data-go="words"><span class="ic">📚</span>단어장</button>
+  <button data-go="vocab"><span class="ic">📇</span>어휘</button>
+  <button data-go="analogy"><span class="ic">🔗</span>유추</button>
+  <button data-go="reading"><span class="ic">📖</span>독해</button>
   <button data-go="stats"><span class="ic">📊</span>통계</button>
 </nav>
 
