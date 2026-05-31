@@ -111,6 +111,7 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .q-word{font-size:26px;font-weight:800;margin-bottom:18px;word-break:break-word}
 .choices{display:flex;flex-direction:column;gap:10px}
 .choice{padding:15px 16px;border-radius:14px;background:var(--card2);text-align:left;font-size:15px;border:2px solid transparent;line-height:1.4}
+.choice.sel{border-color:var(--brand);background:#6366f122}
 .choice.correct{border-color:var(--ok);background:#16a34a22}
 .choice.wrong{border-color:var(--bad);background:#dc262622}
 .choice:disabled{opacity:1}
@@ -167,3 +168,38 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
 .spinner{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--brand2);border-radius:50%;animation:spin 1s linear infinite;margin:40px auto}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- section cards (home) ---------- */
+.seccard{display:flex;align-items:center;gap:14px;padding:15px;margin-top:10px;background:var(--card);
+  border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.seccard:active{transform:scale(.99)}
+.seccard .ic{font-size:26px;flex:0 0 auto}
+.seccard .meta{flex:1;min-width:0}
+.seccard .meta b{font-size:15px}
+.seccard .go{font-size:24px;color:var(--muted)}
+.progressbar.mini{height:6px;margin-top:8px}
+
+/* ---------- switches ---------- */
+.switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;font-size:14px;font-weight:600}
+.switch-row+.switch-row{border-top:1px solid var(--line)}
+.switch-row input{width:46px;height:26px;-webkit-appearance:none;appearance:none;background:var(--card2);border-radius:999px;position:relative;cursor:pointer;flex:0 0 auto;transition:background .2s}
+.switch-row input:checked{background:var(--brand)}
+.switch-row input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.switch-row input:checked::after{left:23px}
+
+/* ---------- analogy ---------- */
+.ana-stem{font-size:30px;font-weight:800;text-align:center;letter-spacing:1px;margin:6px 0 4px}
+.ana-rel{text-align:center;color:var(--muted);font-size:13px;margin-bottom:6px}
+.ana-q{text-align:center;color:var(--brand2);font-weight:700;margin-bottom:16px}
+.ana-explain{margin-top:14px;font-size:13px;line-height:1.6;background:var(--card2);padding:12px;border-radius:12px}
+
+/* ---------- reading ---------- */
+.passage{font-size:15.5px;line-height:1.75;white-space:pre-wrap}
+.passage h3{margin:0 0 4px;font-size:18px}
+.rc-topic{display:inline-block;font-size:11px;font-weight:700;color:var(--brand2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.rc-q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.rc-q .qt{font-weight:700;margin-bottom:4px;font-size:11px;color:var(--muted);text-transform:uppercase}
+.rc-q .qq{font-weight:600;margin-bottom:12px;line-height:1.4}
+.witem .src{margin-left:6px;font-size:10px;font-weight:700;color:var(--brand2)}
+.tag.high{background:#fbbf2433;color:var(--gold)}
+.done-check{margin-left:auto;color:var(--ok);font-size:18px}

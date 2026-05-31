@@ -1,5 +1,5 @@
 /* AFOQT Vocab Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v2-0-0";
+const CACHE = "afoqt-v2-1-0";
 const ASSETS = [
   "./",
   "./index.html",
@@ -7,6 +7,8 @@ const ASSETS = [
   "./app.js",
   "./config.js",
   "./words.json",
+  "./analogies.json",
+  "./reading.json",
   "./icon.svg",
   "./manifest.webmanifest",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
