@@ -1,2084 +1,226 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#4f46e5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AFOQT Vocab">
+<link rel="apple-touch-icon" href="./icon.svg">
+<link rel="manifest" href="./manifest.webmanifest">
 <title>AFOQT Vocab Master</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --surface2: #1a1a26;
-    --surface3: #22223a;
-    --accent: #5b6ef5;
-    --accent2: #a78bfa;
-    --green: #34d399;
-    --red: #f87171;
-    --yellow: #fbbf24;
-    --orange: #fb923c;
-    --text: #e8e8f0;
-    --text2: #9090b0;
-    --text3: #5a5a80;
-    --border: #2a2a40;
-    --glow: rgba(91, 110, 245, 0.15);
-  }
-  body.light {
-    --bg: #f5f5f8;
-    --surface: #ffffff;
-    --surface2: #eeeef5;
-    --surface3: #e2e2ec;
-    --accent: #4a5ce0;
-    --accent2: #7c5cdb;
-    --green: #059669;
-    --red: #dc2626;
-    --yellow: #d97706;
-    --orange: #ea580c;
-    --text: #0f0f1a;
-    --text2: #4a4a6a;
-    --text3: #9090b0;
-    --border: #d4d4e8;
-    --glow: rgba(74, 92, 224, 0.10);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.25s, color 0.15s, border-color 0.2s; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  body.light::after { background: #dcdce8; }
-
-  /* Light mode specific fixes */
-  body.light nav { background: rgba(255,255,255,0.92); }
-  body.light .bottom-nav { background: rgba(255,255,255,0.95); }
-  body.light .flashcard { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-  body.light .home-header { background: linear-gradient(180deg, rgba(74,92,224,0.06) 0%, transparent 100%); }
-  body.light .streak-banner { background: linear-gradient(135deg, rgba(217,119,6,0.08), rgba(217,119,6,0.03)); border-color: rgba(217,119,6,0.2); }
-  body.light .analogy-pattern { background: linear-gradient(135deg, rgba(74,92,224,0.07), rgba(124,92,219,0.05)); }
-  body.light .modal-overlay { background: rgba(0,0,0,0.4); }
-  body.light .quiz-opt:hover:not(.disabled) { background: var(--surface3); }
-  body.light .rate-0 { background: rgba(220,38,38,0.08); }
-  body.light .rate-1 { background: rgba(234,88,12,0.08); }
-  body.light .rate-2 { background: rgba(217,119,6,0.08); }
-  body.light .rate-3 { background: rgba(5,150,105,0.08); }
-  body.light .heatmap-cell { background: #e2e2ec; }
-  body.light .heatmap-cell.lvl1 { background: rgba(74,92,224,0.2); }
-  body.light .heatmap-cell.lvl2 { background: rgba(74,92,224,0.45); }
-  body.light .heatmap-cell.lvl3 { background: rgba(74,92,224,0.7); }
-  body.light .today-card { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-  body.light .bnav-btn { color: var(--text3); }
-  body.light .bnav-btn.active { color: var(--accent); }
-  /* PC: dark side background */
-  body::after {
-    content: '';
-    position: fixed; inset: 0;
-    background: #06060a;
-    z-index: -2;
-  }
-  body::before {
-    content: '';
-    position: fixed;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: radial-gradient(ellipse at 30% 20%, rgba(91,110,245,0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 80%, rgba(167,139,250,0.04) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* CENTER CONTAINER — responsive */
-  #app {
-    position: relative;
-    max-width: 480px;
-    margin: 0 auto;
-    min-height: 100vh;
-    background: var(--bg);
-    box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04);
-  }
-  body.light #app {
-    box-shadow: 0 0 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
-  }
-  @media (min-width: 768px)  { #app { max-width: 720px; } }
-  @media (min-width: 1100px) { #app { max-width: 960px; } }
-  @media (min-width: 1400px) { #app { max-width: 1100px; } }
-
-  /* Toast also centered */
-  .toast { max-width: 400px; }
-
-  /* NAV */
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; border-bottom: 1px solid var(--border);
-    background: var(--surface); backdrop-filter: blur(12px);
-    position: sticky; top: 0; z-index: 100;
-  }
-  .nav-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
-  .nav-brand span { color: var(--accent); }
-  .nav-stats { display: flex; gap: 20px; }
-  .nav-stat { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text2); }
-  .nav-stat strong { color: var(--accent2); }
-
-  /* SCREENS - defined below with dvh fix */
-
-  /* BOTTOM NAV */
-  .bottom-nav {
-    position: fixed; bottom: 0;
-    left: 50%; transform: translateX(-50%);
-    width: 100%; max-width: 480px;
-    background: var(--surface); backdrop-filter: blur(16px);
-    border-top: 1px solid var(--border);
-    display: flex; z-index: 150;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  .bnav-btn {
-    flex: 1; padding: 10px 8px 12px; background: none; border: none;
-    color: var(--text3); cursor: pointer; font-size: 10px;
-    font-family: 'DM Sans', sans-serif; display: flex;
-    flex-direction: column; align-items: center; gap: 4px;
-    transition: color 0.2s; min-height: 56px;
-  }
-  .bnav-btn .icon { font-size: 20px; }
-  .bnav-btn.active { color: var(--accent); }
-  .bnav-btn:hover { color: var(--text); }
-
-  /* HOME SCREEN */
-  .home-header {
-    padding: 40px 24px 24px;
-    background: linear-gradient(180deg, rgba(91,110,245,0.08) 0%, transparent 100%);
-  }
-  .home-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 800; line-height: 1.1; }
-  .home-subtitle { color: var(--text2); margin-top: 8px; font-size: 14px; }
-  .streak-banner {
-    margin: 0 24px 24px;
-    background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(251,191,36,0.05));
-    border: 1px solid rgba(251,191,36,0.25);
-    border-radius: 14px; padding: 16px 20px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .streak-fire { font-size: 32px; }
-  .streak-info { flex: 1; }
-  .streak-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; color: var(--yellow); }
-  .streak-label { font-size: 12px; color: var(--text2); }
-
-  /* TODAY QUEUE */
-  .section { padding: 0 24px 24px; }
-  .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .today-card {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 16px; padding: 20px; margin-bottom: 12px;
-    cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
-  }
-  .today-card::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  }
-  .today-card.review::before { background: var(--accent); }
-  .today-card.new::before { background: var(--green); }
-  .today-card.analogy::before { background: var(--accent2); }
-  .today-card:hover { border-color: var(--accent); transform: translateY(-1px); }
-  .card-row { display: flex; align-items: center; justify-content: space-between; }
-  .card-label { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
-  .card-count { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; }
-  .card-count.urgent { color: var(--red); }
-  .card-count.normal { color: var(--accent); }
-  .card-count.good { color: var(--green); }
-  .card-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
-  .card-icon { font-size: 36px; opacity: 0.6; }
-  .start-btn {
-    background: var(--accent); color: white; border: none;
-    padding: 8px 16px; border-radius: 8px; font-size: 13px;
-    font-family: 'DM Sans', sans-serif; font-weight: 500;
-    cursor: pointer; margin-top: 10px; width: 100%;
-    transition: all 0.2s;
-  }
-  .start-btn:hover { background: #4a5ce0; }
-  .start-btn.secondary { background: var(--surface3); color: var(--text); }
-
-  /* PROGRESS BARS */
-  .progress-section { padding: 0 24px 24px; }
-  .prog-bar-wrap { margin-bottom: 12px; }
-  .prog-bar-top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
-  .prog-bar-bg { height: 6px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
-  .prog-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
-
-  /* FLASHCARD SCREEN */
-  .fc-header { padding: 20px 24px 16px; display: flex; align-items: center; gap: 12px; }
-  .back-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; }
-  .fc-progress-bar { flex: 1; height: 4px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
-  .fc-progress-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.3s; }
-  .fc-counter { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text2); white-space: nowrap; }
-
-  .card-stage { padding: 0 24px; perspective: 1000px; }
-  .flashcard {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; min-height: 240px; padding: 24px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    cursor: pointer; position: relative; overflow: hidden;
-    transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
-  }
-  .flashcard:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(91,110,245,0.15); }
-  .flashcard.revealed { border-color: var(--accent); }
-  .word-tag { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
-  .word-main { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(28px, 9vw, 46px); font-weight: 800; margin: 16px 0 8px; line-height: 1.1; word-break: break-word; letter-spacing: -0.5px; }
-  .word-pos { font-size: 13px; color: var(--accent2); font-style: italic; }
-  .word-hint { font-size: 13px; color: var(--text3); }
-  .tap-hint { text-align: center; font-size: 12px; color: var(--text3); margin-top: 12px; }
-
-  .definition-area { display: none; padding: 12px 24px; }
-  .definition-area.show { display: block; }
-  .def-box {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 14px; padding: 20px; margin-bottom: 12px;
-  }
-  .def-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 8px; }
-  .def-text { font-size: 16px; line-height: 1.5; }
-  .def-example { font-size: 13px; color: var(--text2); font-style: italic; margin-top: 8px; }
-  .analogy-hint {
-    background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.2);
-    border-radius: 10px; padding: 12px 16px; font-size: 13px; color: var(--accent2);
-  }
-  .synonyms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-  .syn-tag { background: var(--surface3); border-radius: 6px; padding: 3px 8px; font-size: 12px; color: var(--text2); }
-
-  /* RATING BUTTONS */
-  .rating-buttons {
-    display: grid; grid-template-columns: repeat(4,1fr); gap: 8px;
-    padding: 0 24px;
-    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
-  }
-  .rate-btn {
-    border: none; border-radius: 12px; padding: 14px 4px;
-    cursor: pointer; font-family: 'DM Sans', sans-serif;
-    font-size: 12px; font-weight: 500; transition: all 0.2s;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-  }
-  .rate-btn .rate-label { font-size: 10px; opacity: 0.7; }
-  .rate-btn .rate-days { font-family: 'Space Mono', monospace; font-size: 10px; }
-  .rate-0 { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
-  .rate-1 { background: rgba(251,146,60,0.15); color: var(--orange); border: 1px solid rgba(251,146,60,0.3); }
-  .rate-2 { background: rgba(251,191,36,0.15); color: var(--yellow); border: 1px solid rgba(251,191,36,0.3); }
-  .rate-3 { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
-  .rate-btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
-
-  /* QUIZ SCREEN */
-  .quiz-header { padding: 20px 24px 0; }
-  .quiz-question-box {
-    margin: 16px 24px; background: var(--surface2);
-    border: 1px solid var(--border); border-radius: 16px; padding: 24px;
-  }
-  .quiz-q-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .quiz-q-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.3; }
-  .quiz-q-word { color: var(--accent2); }
-  .quiz-options { padding: 0 24px; display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-  .quiz-opt {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 16px 20px; cursor: pointer;
-    font-size: 15px; transition: all 0.2s; text-align: left;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .quiz-opt-letter {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--surface3); display: flex; align-items: center; justify-content: center;
-    font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text2);
-    flex-shrink: 0;
-  }
-  .quiz-opt:hover:not(.disabled) { border-color: var(--accent); }
-  .quiz-opt.correct { background: rgba(52,211,153,0.12); border-color: var(--green); }
-  .quiz-opt.correct .quiz-opt-letter { background: var(--green); color: #000; }
-  .quiz-opt.wrong { background: rgba(248,113,113,0.12); border-color: var(--red); }
-  .quiz-opt.wrong .quiz-opt-letter { background: var(--red); color: #fff; }
-  .quiz-opt.disabled { cursor: default; }
-
-  /* ANALOGY SCREEN */
-  .analogy-pattern {
-    margin: 16px 24px; padding: 20px 24px;
-    background: linear-gradient(135deg, rgba(91,110,245,0.1), rgba(167,139,250,0.08));
-    border: 1px solid rgba(91,110,245,0.25); border-radius: 16px;
-  }
-  .analogy-pattern-label { font-size: 11px; color: var(--accent2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-  .analogy-pattern-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; }
-  .analogy-equation {
-    margin: 0 24px 16px; display: flex; align-items: center;
-    gap: 12px; flex-wrap: wrap;
-  }
-  .analogy-word {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 18px;
-    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;
-  }
-  .analogy-word.blank {
-    border: 2px dashed var(--accent); color: var(--text3); min-width: 80px; text-align: center;
-  }
-  .analogy-sep { font-size: 20px; color: var(--text3); font-family: 'Space Mono', monospace; }
-  .analogy-colon { font-family: 'Space Mono', monospace; font-size: 20px; color: var(--accent2); }
-
-  /* STATS SCREEN */
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px 24px; }
-  .stat-card {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 14px; padding: 18px;
-  }
-  .stat-card-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-  .stat-card-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 800; }
-  .stat-card-sub { font-size: 12px; color: var(--text2); margin-top: 4px; }
-
-  .heatmap-container { padding: 0 24px 24px; }
-  .heatmap { display: grid; grid-template-columns: repeat(26,1fr); gap: 3px; }
-  .heatmap-cell {
-    aspect-ratio: 1; border-radius: 2px; background: var(--surface3);
-    transition: background 0.2s;
-  }
-  .heatmap-cell.lvl1 { background: rgba(91,110,245,0.2); }
-  .heatmap-cell.lvl2 { background: rgba(91,110,245,0.45); }
-  .heatmap-cell.lvl3 { background: rgba(91,110,245,0.7); }
-  .heatmap-cell.lvl4 { background: var(--accent); }
-
-  .word-mastery-list { padding: 0 24px 100px; }
-  .mastery-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 0; border-bottom: 1px solid var(--surface2);
-  }
-  .mastery-word { font-weight: 500; }
-  .mastery-bar-wrap { flex: 1; margin: 0 12px; }
-  .mastery-bar { height: 4px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
-  .mastery-bar-fill { height: 100%; border-radius: 99px; }
-  .mastery-level { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text3); }
-
-  /* WORD LIST SCREEN */
-  .search-box-wrap { padding: 16px 24px; }
-  .search-box {
-    width: 100%; background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 12px 16px; color: var(--text);
-    font-size: 15px; font-family: 'DM Sans', sans-serif; outline: none;
-    transition: border-color 0.2s;
-  }
-  .search-box:focus { border-color: var(--accent); }
-  .search-box::placeholder { color: var(--text3); }
-  .filter-row { display: flex; gap: 8px; padding: 0 24px 16px; overflow-x: auto; }
-  .filter-chip {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 20px; padding: 6px 14px; font-size: 12px;
-    cursor: pointer; white-space: nowrap; transition: all 0.2s;
-    color: var(--text2);
-  }
-  .filter-chip.active { background: var(--accent); border-color: var(--accent); color: white; }
-  .word-list { padding: 0 24px 100px; }
-  .word-item {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 14px 0; border-bottom: 1px solid var(--surface2);
-    cursor: pointer;
-  }
-  .word-item-indicator { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
-  .word-item-body { flex: 1; }
-  .word-item-word { font-weight: 600; font-size: 16px; }
-  .word-item-pos { font-size: 12px; color: var(--accent2); margin-bottom: 2px; }
-  .word-item-def { font-size: 13px; color: var(--text2); line-height: 1.4; }
-  .word-item-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
-  .word-tag-pill { background: var(--surface3); border-radius: 4px; padding: 2px 6px; font-size: 10px; color: var(--text3); }
-  @media (min-width: 768px) {
-    .word-list { padding: 0 32px 100px; }
-    #word-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
-    #word-list > div[id="wl-sentinel"] { grid-column: 1 / -1; }
-    .word-item { border-bottom: 1px solid var(--surface2); }
-  }
-  @media (min-width: 1100px) {
-    #word-list { grid-template-columns: 1fr 1fr 1fr; gap: 0 32px; }
-  }
-
-  /* MODAL */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
-    z-index: 9000; align-items: flex-end; justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px 20px 0 0; padding: 24px;
-    width: 100%; max-width: 480px; max-height: 85vh;
-    overflow-y: auto; animation: slideUp 0.3s ease;
-  }
-  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 99px; margin: 0 auto 20px; }
-  .modal-word { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800; }
-  .modal-pos { color: var(--accent2); font-style: italic; margin: 4px 0 16px; }
-  .modal-def { font-size: 16px; line-height: 1.5; margin-bottom: 12px; }
-  .modal-example { color: var(--text2); font-style: italic; font-size: 14px; margin-bottom: 16px; }
-  .modal-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 8px; margin-top: 16px; }
-  .modal-analogy-rel {
-    background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2);
-    border-radius: 10px; padding: 10px 14px; font-size: 13px; color: var(--accent2); margin-bottom: 8px;
-  }
-  .close-modal { width: 100%; background: var(--surface3); border: none; color: var(--text); padding: 14px; border-radius: 12px; margin-top: 16px; font-size: 15px; cursor: pointer; }
-
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 10px 20px; font-size: 14px; opacity: 0; transition: all 0.3s; z-index: 300;
-    pointer-events: none; white-space: nowrap; z-index: 9100;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  .toast.correct { border-color: var(--green); color: var(--green); }
-  .toast.wrong { border-color: var(--red); color: var(--red); }
-
-  pb { padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)); display: block; }
-  
-  /* Flashcard screen scrollable */
-  #screen-flashcard { overflow-y: auto; padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
-
-  /* Screen min height fix */
-  .screen { display: none; min-height: calc(100dvh - 65px); }
-  .screen.active { display: block; }
-  /* THEME TOGGLE SWITCH */
-  .theme-toggle { position: relative; width: 52px; height: 28px; flex-shrink: 0; }
-  .theme-toggle input { opacity: 0; width: 0; height: 0; }
-  .theme-slider {
-    position: absolute; inset: 0; background: var(--surface3);
-    border-radius: 28px; cursor: pointer; border: 1px solid var(--border);
-    transition: background 0.25s;
-  }
-  .theme-slider::before {
-    content: ''; position: absolute; width: 20px; height: 20px;
-    left: 3px; top: 3px; background: var(--text2);
-    border-radius: 50%; transition: transform 0.25s, background 0.25s;
-  }
-  .theme-toggle input:checked + .theme-slider { background: var(--accent); border-color: var(--accent); }
-  .theme-toggle input:checked + .theme-slider::before { transform: translateX(24px); background: #fff; }
-
-  /* SETTINGS SCREEN */
-  .settings-section { padding: 16px 24px 0; }
-  .settings-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 8px; font-weight: 600; }
-  .settings-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; }
-  .settings-row {
-    display: flex; align-items: center; gap: 14px; padding: 14px 20px;
-    cursor: pointer; transition: background 0.15s;
-  }
-  .settings-row:hover { background: rgba(255,255,255,0.03); }
-  .settings-row-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .settings-row-body { flex: 1; }
-  .settings-row-title { font-size: 15px; font-weight: 600; }
-  .settings-row-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
-  .settings-row-arrow { font-size: 20px; color: var(--text3); }
-  .settings-divider { height: 1px; background: var(--border); margin: 0 20px; }
-  .set-counter-btn {
-    width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border);
-    background: var(--surface3); color: var(--text); font-size: 18px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; line-height: 1;
-    transition: all 0.15s;
-  }
-  .set-counter-btn:hover { border-color: var(--accent); color: var(--accent); }
-</style>
+<link rel="stylesheet" href="./app.css">
 </head>
 <body>
-<div id="app">
-  <nav>
-    <div class="nav-brand">AFOQT <span>VOCAB</span></div>
-    <div class="nav-stats">
-      <div class="nav-stat">DUE <strong id="nav-due">0</strong></div>
-      <div class="nav-stat">STREAK <strong id="nav-streak">0</strong>🔥</div>
-      <div class="nav-stat">MASTERED <strong id="nav-mastered">0</strong></div>
-    </div>
-  </nav>
 
-  <!-- HOME -->
-  <div class="screen active" id="screen-home">
-    <div class="home-header">
-      <div class="home-title">Your Mission:<br>AFOQT Verbal 99th</div>
-      <div class="home-subtitle">Spaced repetition · SM-2 algorithm · Ebbinghaus curve</div>
-    </div>
-    <div id="streak-area" class="streak-banner">
-      <div class="streak-fire">🔥</div>
-      <div class="streak-info">
-        <div class="streak-num" id="home-streak">0</div>
-        <div class="streak-label">Day Streak</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:12px;color:var(--text2)">Today's XP</div>
-        <div style="font-family:'Space Mono',monospace;font-size:18px;color:var(--accent2)" id="home-xp">+0</div>
-      </div>
-    </div>
+<!-- ===== App bar ===== -->
+<header class="appbar">
+  <div>
+    <h1>AFOQT Vocab Master</h1>
+    <div class="sub" id="bar-sub">Verbal 단어 마스터</div>
+  </div>
+  <div class="row" style="align-items:center;gap:10px">
+    <span class="sync-dot off" id="syncDot" title="동기화 상태"></span>
+    <button class="icon-btn" id="btnSettings" aria-label="설정">⚙️</button>
+  </div>
+</header>
 
-    <div class="section">
-      <div class="section-title">Today's Queue</div>
-      <div class="today-card review" onclick="startSession('review')">
-        <div class="card-row">
-          <div>
-            <div class="card-label">📅 Due for Review</div>
-            <div class="card-count urgent" id="due-count">0</div>
-            <div class="card-sub">SM-2 scheduled cards</div>
-          </div>
-          <div class="card-icon">🔄</div>
-        </div>
-        <button class="start-btn" onclick="event.stopPropagation();startSession('review')">Start Review</button>
-      </div>
-      <div class="today-card new" onclick="startSession('new')">
-        <div class="card-row">
-          <div>
-            <div class="card-label">✨ New Words</div>
-            <div class="card-count normal" id="new-count">20</div>
-            <div class="card-sub">Fresh vocabulary</div>
-          </div>
-          <div class="card-icon">📖</div>
-        </div>
-        <button class="start-btn secondary" onclick="event.stopPropagation();startSession('new')">Learn New</button>
-      </div>
-      <div class="today-card analogy" onclick="showScreen('analogy')">
-        <div class="card-row">
-          <div>
-            <div class="card-label">🔗 Verbal Analogies</div>
-            <div class="card-count" style="color:var(--accent2)" id="analogy-count">10</div>
-            <div class="card-sub">Pattern-based practice</div>
-          </div>
-          <div class="card-icon">🧠</div>
-        </div>
-        <button class="start-btn secondary" onclick="event.stopPropagation();showScreen('analogy')">Practice Analogies</button>
-      </div>
-    </div>
+<!-- ===== Loading ===== -->
+<div id="boot" class="view active"><div class="spinner"></div><p class="center muted">단어 불러오는 중…</p></div>
 
-    <div class="progress-section">
-      <div class="section-title">Overall Progress</div>
-      <div class="prog-bar-wrap">
-        <div class="prog-bar-top"><span>Total Learned</span><span id="prog-learned-pct">0%</span></div>
-        <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-learned" style="width:0%;background:var(--accent)"></div></div>
+<!-- ===== Home ===== -->
+<main id="view-home" class="view">
+  <div class="card hero">
+    <div class="row" style="justify-content:space-between;align-items:flex-start">
+      <div>
+        <div class="muted" style="font-size:13px;opacity:.9">시험까지</div>
+        <div class="days"><span id="daysLeft">–</span> <small>일</small></div>
+        <div class="goal-line" id="examLine">목표일 7/10</div>
       </div>
-      <div class="prog-bar-wrap">
-        <div class="prog-bar-top"><span>Mastered (interval ≥21d)</span><span id="prog-mastered-pct">0%</span></div>
-        <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-mastered" style="width:0%;background:var(--green)"></div></div>
-      </div>
-      <div class="prog-bar-wrap">
-        <div class="prog-bar-top"><span>Word Knowledge</span><span id="prog-wk-pct">0%</span></div>
-        <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-wk" style="width:0%;background:var(--accent2)"></div></div>
+      <div class="ring" id="goalRing" style="--p:0">
+        <div class="v"><b id="ringPct">0%</b><span>오늘 목표</span></div>
       </div>
     </div>
-    <pb></pb>
+    <div class="progressbar"><i id="overallBar"></i></div>
+    <div class="muted" style="font-size:12px;margin-top:6px" id="overallLine">전체 진도</div>
   </div>
 
-  <!-- FLASHCARD SESSION -->
-  <div class="screen" id="screen-flashcard">
-    <div class="fc-header">
-      <button class="back-btn" onclick="endSession()">← Back</button>
-      <div class="fc-progress-bar"><div class="fc-progress-fill" id="fc-prog"></div></div>
-      <div style="display:flex;align-items:center;gap:6px">
-        <button onclick="prevCard()" id="fc-prev-btn" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:4px 10px;color:var(--text2);font-size:13px;cursor:pointer;opacity:0.5" title="이전">‹</button>
-        <div class="fc-counter" id="fc-counter">0/0</div>
-        <button onclick="nextCard()" id="fc-next-btn" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:4px 10px;color:var(--text2);font-size:13px;cursor:pointer" title="다음">›</button>
-      </div>
-    </div>
-    <div class="card-stage">
-      <div class="flashcard" id="main-card" onclick="revealCard()">
-        <div>
-          <div class="word-tag" id="fc-tag">WORD KNOWLEDGE</div>
-          <div style="display:flex;align-items:center;gap:10px;justify-content:center">
-            <div class="word-main" id="fc-word">—</div>
-            <button onclick="event.stopPropagation();speakWord(document.getElementById('fc-word').textContent)" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0" title="발음 듣기">🔊</button>
-          </div>
-          <div class="word-pos" id="fc-pos">noun</div>
-          <div id="fc-kor-front" style="font-size:16px;color:#a78bfa;font-weight:600;margin-top:4px;min-height:20px"></div>
-        </div>
-        <div>
-          <div class="word-hint" id="fc-hint">Tap to reveal definition</div>
-          <div class="tap-hint">👆 tap card</div>
-        </div>
-      </div>
-    </div>
-    <div class="definition-area" id="def-area">
-      <div class="def-box">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-          <div class="def-title" style="margin-bottom:0">Definition</div>
-          <div id="fc-kor" style="font-size:14px;color:#a78bfa;font-weight:600;text-align:right">—</div>
-        </div>
-        <div class="def-text" id="fc-def">—</div>
-        <div class="def-example" id="fc-example">—</div>
-      </div>
-      <div style="display:flex;gap:8px;padding:0 0 8px">
-        <div class="analogy-hint" id="fc-analogy-hint" style="flex:1"></div>
-      </div>
-      <div class="def-box" style="padding:12px 16px">
-        <div class="def-title">Synonyms</div>
-        <div class="synonyms" id="fc-synonyms"></div>
-      </div>
-    </div>
-    <div class="rating-buttons" id="rating-btns" style="display:none">
-      <button class="rate-btn rate-0" onclick="rateCard(0)">
-        <span>😰 Again</span>
-        <span class="rate-label">Blackout</span>
-        <span class="rate-days" id="rate-days-0">~1m</span>
-      </button>
-      <button class="rate-btn rate-1" onclick="rateCard(1)">
-        <span>😓 Hard</span>
-        <span class="rate-label">Difficult</span>
-        <span class="rate-days" id="rate-days-1">~10m</span>
-      </button>
-      <button class="rate-btn rate-2" onclick="rateCard(2)">
-        <span>🙂 Good</span>
-        <span class="rate-label">Correct</span>
-        <span class="rate-days" id="rate-days-2">~1d</span>
-      </button>
-      <button class="rate-btn rate-3" onclick="rateCard(3)">
-        <span>😄 Easy</span>
-        <span class="rate-label">Perfect</span>
-        <span class="rate-days" id="rate-days-3">~4d</span>
-      </button>
+  <button class="btn primary" id="btnStart" style="margin-top:16px;font-size:17px;padding:17px">▶︎ 오늘 학습 시작</button>
+
+  <div class="grid3" style="margin-top:16px">
+    <div class="card tight stat"><div class="num" id="stStreak">0</div><div class="lbl">🔥 스트릭(일)</div></div>
+    <div class="card tight stat"><div class="num" id="stToday">0</div><div class="lbl">오늘 학습</div></div>
+    <div class="card tight stat"><div class="num" id="stDue">0</div><div class="lbl">복습 대기</div></div>
+  </div>
+  <div class="grid3" style="margin-top:10px">
+    <div class="card tight stat"><div class="num" id="stLearned">0</div><div class="lbl">학습한 단어</div></div>
+    <div class="card tight stat"><div class="num" id="stMastered">0</div><div class="lbl">마스터</div></div>
+    <div class="card tight stat"><div class="num" id="stRemain">0</div><div class="lbl">남은 단어</div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <div><b>오늘의 권장량</b><div class="muted" style="font-size:12px">7/10까지 다 외우려면</div></div>
+      <div class="pill" id="recPace">신규 –/일</div>
     </div>
   </div>
 
-  <!-- QUIZ SCREEN -->
-  <div class="screen" id="screen-quiz">
-    <div class="quiz-header">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <button class="back-btn" onclick="showScreen('home')">← Back</button>
-        <div class="fc-progress-bar"><div class="fc-progress-fill" id="quiz-prog"></div></div>
-        <div class="fc-counter" id="quiz-counter">0/10</div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <div style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
-          <div style="font-size:11px;color:var(--text3)">CORRECT</div>
-          <div style="font-family:'Space Mono',monospace;color:var(--green);font-size:18px" id="quiz-correct-count">0</div>
-        </div>
-        <div style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
-          <div style="font-size:11px;color:var(--text3)">WRONG</div>
-          <div style="font-family:'Space Mono',monospace;color:var(--red);font-size:18px" id="quiz-wrong-count">0</div>
-        </div>
-        <div style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center">
-          <div style="font-size:11px;color:var(--text3)">ACCURACY</div>
-          <div style="font-family:'Space Mono',monospace;color:var(--accent2);font-size:18px" id="quiz-acc">—</div>
-        </div>
-      </div>
-    </div>
-    <div class="quiz-question-box">
-      <div class="quiz-q-label" id="quiz-type-label">WORD KNOWLEDGE</div>
-      <div class="quiz-q-text" id="quiz-question">Loading...</div>
-    </div>
-    <div class="quiz-options" id="quiz-options"></div>
-    <div style="padding:16px 24px;display:none" id="quiz-explanation">
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px">
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Explanation</div>
-        <div id="quiz-exp-text" style="font-size:14px;line-height:1.5;color:var(--text2)"></div>
-      </div>
-      <button class="start-btn" style="margin-top:12px" onclick="nextQuizQuestion()">Next Question →</button>
-    </div>
-    <pb></pb>
-  </div>
+  <button class="btn ghost" id="btnQuizHome" style="margin-top:14px">🧠 퀴즈로 점검하기</button>
+</main>
 
-  <!-- VERBAL ANALOGIES -->
-  <div class="screen" id="screen-analogy">
-    <div class="fc-header">
-      <button class="back-btn" onclick="showScreen('home')">← Back</button>
-      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px">Verbal Analogies</div>
-      <div class="fc-counter" id="ana-counter">1/10</div>
-    </div>
-    <div class="analogy-pattern">
-      <div class="analogy-pattern-label">Pattern Type</div>
-      <div class="analogy-pattern-name" id="ana-pattern-name">Part → Whole</div>
-    </div>
-    <div style="padding:0 24px;margin-bottom:4px;font-size:13px;color:var(--text2)">Complete the analogy:</div>
-    <div class="analogy-equation" id="ana-equation">
-      <div class="analogy-word" id="ana-w1">FINGER</div>
-      <div class="analogy-colon">:</div>
-      <div class="analogy-word" id="ana-w2">HAND</div>
-      <div class="analogy-sep">::</div>
-      <div class="analogy-word" id="ana-w3">TOE</div>
-      <div class="analogy-colon">:</div>
-      <div class="analogy-word blank" id="ana-blank">?</div>
-    </div>
-    <div style="padding:0 24px 8px;font-size:12px;color:var(--text3)" id="ana-tip"></div>
-    <div class="quiz-options" id="ana-options"></div>
-    <div style="padding:16px 24px;display:none" id="ana-explanation">
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px">
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Why this works</div>
-        <div id="ana-exp-text" style="font-size:14px;line-height:1.5;color:var(--text2)"></div>
-      </div>
-      <div style="margin-top:12px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);border-radius:10px;padding:12px 16px">
-        <div style="font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">AFOQT Tip</div>
-        <div id="ana-afoqt-tip" style="font-size:13px;color:var(--text2)"></div>
-      </div>
-      <button class="start-btn" style="margin-top:12px" onclick="nextAnalogyQuestion()">Next Analogy →</button>
-    </div>
-    <pb></pb>
+<!-- ===== Study (flashcards) ===== -->
+<main id="view-study" class="view">
+  <div class="study-top">
+    <button class="btn sm ghost" id="studyBack">← 나가기</button>
+    <span id="studyCount">0 / 0</span>
+    <span id="studyMode">복습</span>
   </div>
+  <div class="progressbar" style="margin-bottom:14px"><i id="studyBar"></i></div>
 
-  <!-- STATS SCREEN -->
-  <div class="screen" id="screen-stats">
-    <div style="padding:24px 24px 0;font-family:'Syne',sans-serif;font-size:22px;font-weight:800">Statistics</div>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-card-label">Total Words</div>
-        <div class="stat-card-value" id="stat-total">5,247</div>
-        <div class="stat-card-sub">in database</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-label">Cards Reviewed</div>
-        <div class="stat-card-value" id="stat-reviewed">0</div>
-        <div class="stat-card-sub">all time</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-label">Mastered</div>
-        <div class="stat-card-value" style="color:var(--green)" id="stat-mastered">0</div>
-        <div class="stat-card-sub">interval ≥ 21 days</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-label">Retention Rate</div>
-        <div class="stat-card-value" style="color:var(--accent2)" id="stat-retention">—</div>
-        <div class="stat-card-sub">avg accuracy</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-label">Quiz Accuracy</div>
-        <div class="stat-card-value" style="color:var(--yellow)" id="stat-quiz-acc">—</div>
-        <div class="stat-card-sub">word knowledge</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-label">Analogy Acc.</div>
-        <div class="stat-card-value" style="color:var(--orange)" id="stat-ana-acc">—</div>
-        <div class="stat-card-sub">verbal analogies</div>
-      </div>
-    </div>
-    <div class="heatmap-container">
-      <div class="section-title" style="padding:0;margin-bottom:12px">Activity (Last 6 Months)</div>
-      <div class="heatmap" id="heatmap"></div>
-    </div>
-    <div class="word-mastery-list">
-      <div class="section-title" style="padding:0;margin-bottom:12px">Recently Reviewed</div>
-      <div id="recent-list"></div>
-    </div>
-    <pb></pb>
+  <div id="studyArea"></div>
+
+  <div id="studyDone" class="card center hidden" style="margin-top:20px">
+    <div class="big-emoji">🎉</div>
+    <h2 id="doneTitle">세션 완료!</h2>
+    <p class="muted" id="doneSub"></p>
+    <button class="btn primary" id="doneHome" style="margin-top:10px">홈으로</button>
+    <button class="btn ghost" id="doneMore" style="margin-top:10px">계속 학습</button>
   </div>
+</main>
 
-  <!-- WORD LIST SCREEN -->
-  <div class="screen" id="screen-words">
-    <div style="padding:20px 24px 0;font-family:'Syne',sans-serif;font-size:22px;font-weight:800">Word Bank</div>
-    <div class="search-box-wrap">
-      <input class="search-box" type="text" placeholder="Search words, definitions..." id="search-input" oninput="filterWords()">
-    </div>
-    <div class="filter-row">
-      <div class="filter-chip active" onclick="setFilter('all',this)">All</div>
-      <div class="filter-chip" onclick="setFilter('new',this)">New</div>
-      <div class="filter-chip" onclick="setFilter('learning',this)">Learning</div>
-      <div class="filter-chip" onclick="setFilter('review',this)">Review</div>
-      <div class="filter-chip" onclick="setFilter('mastered',this)">Mastered</div>
-      <div class="filter-chip" onclick="setFilter('wk',this)">Word Knowledge</div>
-      <div class="filter-chip" onclick="setFilter('analogy',this)">Analogies</div>
-    </div>
-    <div class="word-list" id="word-list"></div>
-    <pb></pb>
+<!-- ===== Quiz ===== -->
+<main id="view-quiz" class="view">
+  <div class="study-top">
+    <button class="btn sm ghost" id="quizBack">← 나가기</button>
+    <span id="quizCount">0 / 0</span>
+    <span id="quizScore">0점</span>
   </div>
-
-<!-- SETTINGS SCREEN -->
-<div class="screen" id="screen-settings">
-  <div style="padding:28px 24px 8px">
-    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800">설정</div>
-    <div style="font-size:13px;color:var(--text2);margin-top:4px">앱 관리 및 데이터 초기화</div>
+  <div class="progressbar" style="margin-bottom:14px"><i id="quizBar"></i></div>
+  <div id="quizArea"></div>
+  <div id="quizStart" class="card center">
+    <div class="big-emoji">🧠</div>
+    <h2>퀴즈 모드</h2>
+    <p class="muted">학습한 단어로 10문제 객관식</p>
+    <div class="field"><label>출제 범위</label>
+      <select id="quizScope">
+        <option value="learned">학습한 단어</option>
+        <option value="due">복습 대기 단어</option>
+        <option value="starred">⭐ 즐겨찾기</option>
+        <option value="all">전체 단어</option>
+      </select>
+    </div>
+    <div class="field"><label>유형</label>
+      <select id="quizType">
+        <option value="mix">혼합</option>
+        <option value="e2k">영어 → 뜻</option>
+        <option value="k2e">뜻 → 영어</option>
+        <option value="syn">동의어 찾기</option>
+      </select>
+    </div>
+    <button class="btn primary" id="quizGo" style="margin-top:14px">시작</button>
   </div>
+  <div id="quizDone" class="card center hidden">
+    <div class="big-emoji" id="quizEmoji">🎯</div>
+    <h2 id="quizResult"></h2>
+    <p class="muted" id="quizResultSub"></p>
+    <button class="btn primary" id="quizRetry" style="margin-top:10px">다시</button>
+    <button class="btn ghost" id="quizHomeBtn" style="margin-top:10px">홈으로</button>
+  </div>
+</main>
 
-  <!-- 학습 현황 요약 -->
-  <div class="settings-section">
-    <div class="settings-label">현재 학습 현황</div>
-    <div class="settings-card" style="padding:20px">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center">
-        <div>
-          <div style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--accent)" id="set-reviewed">0</div>
-          <div style="font-size:11px;color:var(--text2);margin-top:4px">복습 완료</div>
-        </div>
-        <div>
-          <div style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--green)" id="set-mastered">0</div>
-          <div style="font-size:11px;color:var(--text2);margin-top:4px">마스터</div>
-        </div>
-        <div>
-          <div style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--yellow)" id="set-streak">0</div>
-          <div style="font-size:11px;color:var(--text2);margin-top:4px">연속 일수</div>
-        </div>
-      </div>
+<!-- ===== Words ===== -->
+<main id="view-words" class="view">
+  <input class="search" id="searchBox" placeholder="🔎 단어 / 뜻 검색…">
+  <div class="filters" id="wordFilters">
+    <button class="chip on" data-f="all">전체</button>
+    <button class="chip" data-f="starred">⭐ 즐겨찾기</button>
+    <button class="chip" data-f="new">미학습</button>
+    <button class="chip" data-f="learning">학습중</button>
+    <button class="chip" data-f="review">복습</button>
+    <button class="chip" data-f="mastered">마스터</button>
+  </div>
+  <div class="muted" id="wordCount" style="font-size:12px;margin:2px 4px 10px"></div>
+  <div class="wlist" id="wordList"></div>
+</main>
+
+<!-- ===== Stats ===== -->
+<main id="view-stats" class="view">
+  <h2 class="section">학습 달력 (6/1 – 7/10)</h2>
+  <div class="card">
+    <div class="cal" id="calHead"></div>
+    <div class="cal" id="calGrid" style="margin-top:5px"></div>
+    <div class="row" style="justify-content:center;gap:16px;margin-top:12px">
+      <span class="pill">🔥 <b id="calStreak">0</b>일 연속</span>
+      <span class="pill">✅ <b id="calMet">0</b>일 목표달성</span>
     </div>
   </div>
 
-  <!-- 테마 설정 -->
-  <div class="settings-section">
-    <div class="settings-label">화면 테마</div>
-    <div class="settings-card" style="overflow:hidden">
-      <div class="settings-row" style="cursor:default">
-        <div class="settings-row-icon" style="background:rgba(91,110,245,0.12);color:var(--accent)" id="theme-icon">🌙</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title" id="theme-title">다크 모드</div>
-          <div class="settings-row-sub">눈에 편한 어두운 테마</div>
-        </div>
-        <label class="theme-toggle">
-          <input type="checkbox" id="theme-checkbox" onchange="toggleTheme(this.checked)">
-          <span class="theme-slider"></span>
-        </label>
-      </div>
-    </div>
+  <h2 class="section">진척도</h2>
+  <div class="grid2">
+    <div class="card tight stat"><div class="num" id="sLearned">0</div><div class="lbl">학습한 단어</div></div>
+    <div class="card tight stat"><div class="num" id="sMastered">0</div><div class="lbl">마스터</div></div>
+    <div class="card tight stat"><div class="num" id="sTotalRev">0</div><div class="lbl">누적 복습수</div></div>
+    <div class="card tight stat"><div class="num" id="sAcc">–</div><div class="lbl">평균 정답률</div></div>
   </div>
 
-  <!-- TTS 설정 -->
-  <div class="settings-section">
-    <div class="settings-label">발음 (TTS) 설정</div>
-    <div class="settings-card" style="overflow:hidden">
-      <!-- 자동 재생 토글 -->
-      <div class="settings-row" style="cursor:default">
-        <div class="settings-row-icon" style="background:rgba(52,211,153,0.12);color:var(--green)">🔊</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title">자동 발음</div>
-          <div class="settings-row-sub">단어 카드/모달 열 때 자동 재생</div>
-        </div>
-        <label class="theme-toggle">
-          <input type="checkbox" id="tts-auto-checkbox" onchange="toggleTTSAuto(this.checked)">
-          <span class="theme-slider"></span>
-        </label>
-      </div>
-      <div class="settings-divider"></div>
-      <!-- 음성 선택 -->
-      <div class="settings-row" style="cursor:default;flex-wrap:wrap;gap:8px">
-        <div class="settings-row-icon" style="background:rgba(91,110,245,0.12);color:var(--accent)">🎙️</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title">음성 선택</div>
-          <div class="settings-row-sub" id="tts-voice-sub">en-US 음성 로딩 중...</div>
-        </div>
-      </div>
-      <div style="padding:0 16px 16px">
-        <select id="tts-voice-select" onchange="saveTTSVoice(this.value)"
-          style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;appearance:auto">
-          <option value="">음성 로딩 중...</option>
-        </select>
-      </div>
-      <div class="settings-divider"></div>
-      <!-- 속도 설정 -->
-      <div class="settings-row" style="cursor:default">
-        <div class="settings-row-icon" style="background:rgba(251,191,36,0.12);color:var(--yellow)">⚡</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title">재생 속도</div>
-          <div class="settings-row-sub" id="tts-rate-label">0.82x (기본)</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <button class="set-counter-btn" onclick="changeTTSRate(-0.1)">－</button>
-          <span style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;min-width:40px;text-align:center" id="tts-rate-val">0.82</span>
-          <button class="set-counter-btn" onclick="changeTTSRate(0.1)">＋</button>
-        </div>
-      </div>
-      <div class="settings-divider"></div>
-      <!-- 테스트 버튼 -->
-      <div class="settings-row" onclick="speakWord('vocabulary')" style="cursor:pointer">
-        <div class="settings-row-icon" style="background:rgba(167,139,250,0.12);color:var(--accent2)">▶️</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title">테스트 재생</div>
-          <div class="settings-row-sub">"vocabulary" 단어로 현재 음성 테스트</div>
-        </div>
-        <div class="settings-row-arrow">›</div>
-      </div>
-    </div>
-  </div>
+  <h2 class="section">예상</h2>
+  <div class="card" id="projection"></div>
+</main>
 
-  <!-- 일일 학습량 -->
-  <div class="settings-section">
-    <div class="settings-label">하루 새 단어 목표</div>
-    <div class="settings-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px">
-        <div>
-          <div style="font-size:15px;font-weight:600">New Words / Day</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:2px">한 세션당 새 단어 수</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px">
-          <button class="set-counter-btn" onclick="changeNewPerDay(-5)">－</button>
-          <span style="font-family:'Space Mono',monospace;font-size:20px;font-weight:700;min-width:36px;text-align:center" id="set-npd">20</span>
-          <button class="set-counter-btn" onclick="changeNewPerDay(5)">＋</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- ===== Settings sheet ===== -->
+<div class="sheet-bg" id="settingsSheet">
+  <div class="sheet">
+    <h3>⚙️ 설정</h3>
+    <p class="muted" style="font-size:13px;margin-top:2px">학습 일정과 실시간 동기화를 설정합니다.</p>
 
-  <!-- 초기화 옵션들 -->
-  <div class="settings-section">
-    <div class="settings-label">데이터 관리</div>
-    <div class="settings-card" style="overflow:hidden">
-      <div class="settings-row" onclick="resetStreak()">
-        <div class="settings-row-icon" style="background:rgba(251,191,36,0.12);color:var(--yellow)">🔥</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title">스트릭 초기화</div>
-          <div class="settings-row-sub">연속 학습 기록만 초기화</div>
-        </div>
-        <div class="settings-row-arrow">›</div>
-      </div>
-      <div class="settings-divider"></div>
-      <div class="settings-row" onclick="resetStats()">
-        <div class="settings-row-icon" style="background:rgba(91,110,245,0.12);color:var(--accent)">📊</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title">통계 초기화</div>
-          <div class="settings-row-sub">XP, 퀴즈 기록, 복습 횟수 초기화</div>
-        </div>
-        <div class="settings-row-arrow">›</div>
-      </div>
-      <div class="settings-divider"></div>
-      <div class="settings-row" onclick="resetProgress()">
-        <div class="settings-row-icon" style="background:rgba(167,139,250,0.12);color:var(--accent2)">🃏</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title">학습 진도 초기화</div>
-          <div class="settings-row-sub">모든 카드를 '새 단어'로 리셋 (통계 유지)</div>
-        </div>
-        <div class="settings-row-arrow">›</div>
-      </div>
-      <div class="settings-divider"></div>
-      <div class="settings-row" onclick="resetAll()">
-        <div class="settings-row-icon" style="background:rgba(248,113,113,0.12);color:var(--red)">🗑️</div>
-        <div class="settings-row-body">
-          <div class="settings-row-title" style="color:var(--red)">전체 초기화</div>
-          <div class="settings-row-sub">모든 데이터를 완전히 삭제</div>
-        </div>
-        <div class="settings-row-arrow" style="color:var(--red)">›</div>
-      </div>
-    </div>
-  </div>
+    <div class="field"><label>하루 신규 단어 (비우면 자동 계산)</label>
+      <input type="number" id="setGoal" min="0" step="5" placeholder="자동"></div>
+    <div class="field"><label>시작일</label><input type="date" id="setStart"></div>
+    <div class="field"><label>시험 목표일</label><input type="date" id="setExam"></div>
 
-  <!-- 기기 연동 -->
-  <div class="settings-section">
-    <div class="settings-label">☁️ 클라우드 동기화</div>
-    <div class="settings-card" style="padding:16px 20px">
-      <!-- 연결 안 된 상태 -->
-      <div id="sync-setup" style="display:block">
-        <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.7">
-          GitHub Gist로 모든 기기에서 자동 동기화.<br>
-          <b style="color:var(--text)">① GitHub 로그인 → Settings → Developer settings → Personal access tokens → Tokens (classic)</b><br>
-          <b style="color:var(--text)">② "gist" 권한만 체크 후 토큰 생성</b>
-        </div>
-        <input id="sync-token-input" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx (GitHub 토큰)"
-          style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:13px;font-family:'Space Mono',monospace;outline:none;box-sizing:border-box;margin-bottom:10px"/>
-        <button onclick="syncSetup()" style="width:100%;padding:13px;border-radius:12px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
-          🔗 연결하기
-        </button>
+    <h3 style="margin-top:22px">🔄 기기 간 동기화</h3>
+    <div class="field"><label>동기화 코드 (Sync Code)</label>
+      <div class="code-val" id="syncCodeView">–</div>
+      <div class="row" style="margin-top:8px;gap:8px;flex-wrap:wrap">
+        <button class="btn sm ghost" id="copyCode">📋 복사</button>
+        <button class="btn sm ghost" id="enterCode">↘︎ 다른 코드 입력</button>
+        <button class="btn sm ghost" id="newCode">🆕 새 코드</button>
       </div>
-      <!-- 연결된 상태 -->
-      <div id="sync-connected" style="display:none">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-          <div style="width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
-          <div style="font-size:13px;color:var(--text)">클라우드 연결됨</div>
-          <div id="sync-last-time" style="font-size:11px;color:var(--text3);margin-left:auto"></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-          <button onclick="syncUpload()" style="padding:12px;border-radius:10px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
-            ☁️ 업로드
-          </button>
-          <button onclick="syncDownload()" style="padding:12px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">
-            📥 다운로드
-          </button>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <button onclick="syncAutoToggle()" id="sync-auto-btn" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">
-            🔄 자동동기화: OFF
-          </button>
-          <button onclick="syncDisconnect()" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--red);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">
-            🔌 연결 해제
-          </button>
-        </div>
-      </div>
-      <div id="sync-status" style="font-size:12px;color:var(--text3);margin-top:10px;text-align:center;min-height:16px"></div>
+      <div class="hintbox">다른 기기(폰)에서도 <b>같은 동기화 코드</b>를 입력하면 진도·스트릭이 실시간으로 함께 업데이트됩니다. 이 코드는 비밀번호처럼 보관하세요.</div>
     </div>
-  </div>
 
-  <!-- 앱 정보 -->
-  <div class="settings-section">
-    <div class="settings-label">앱 정보</div>
-    <div class="settings-card" style="padding:16px 20px">
-      <div style="font-size:13px;color:var(--text2);line-height:1.8">
-        <div>📖 단어 DB: <strong style="color:var(--text)">5,247 단어</strong></div>
-        <div>🧠 알고리즘: <strong style="color:var(--text)">SM-2 (Ebbinghaus)</strong></div>
-        <div>🎯 목표: <strong style="color:var(--text)">AFOQT Verbal 99th Percentile</strong></div>
-      </div>
+    <div class="field"><label>동기화 상태</label>
+      <div class="hintbox" id="syncStatusText">오프라인 모드</div>
     </div>
-  </div>
-  <pb></pb>
-</div>
 
-<!-- CONFIRM MODAL -->
-<div class="modal-overlay" id="confirm-modal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div style="font-size:32px;text-align:center;margin-bottom:12px" id="confirm-icon">⚠️</div>
-    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;text-align:center;margin-bottom:8px" id="confirm-title">확인</div>
-    <div style="font-size:14px;color:var(--text2);text-align:center;line-height:1.6;margin-bottom:24px" id="confirm-desc">이 작업은 되돌릴 수 없습니다.</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <button onclick="document.getElementById('confirm-modal').classList.remove('open')"
-        style="padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--surface3);color:var(--text);font-size:15px;font-family:'DM Sans',sans-serif;cursor:pointer">취소</button>
-      <button id="confirm-ok-btn"
-        style="padding:14px;border-radius:12px;border:none;background:var(--red);color:#fff;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer">확인</button>
-    </div>
+    <details style="margin-top:16px">
+      <summary class="muted" style="font-size:13px;cursor:pointer">고급: Supabase 직접 입력</summary>
+      <div class="field"><label>Supabase URL</label><input id="setUrl" placeholder="https://xxxx.supabase.co"></div>
+      <div class="field"><label>Supabase anon key</label><input id="setKey" placeholder="eyJ..."></div>
+      <div class="hintbox">보통은 <code>config.js</code> 에 한 번만 넣으면 모든 기기에서 자동 적용됩니다. 여기 입력값은 이 기기에만 저장됩니다.</div>
+    </details>
+
+    <button class="btn primary" id="saveSettings" style="margin-top:20px">저장</button>
+    <button class="btn ghost" id="closeSettings" style="margin-top:10px">닫기</button>
+    <button class="btn ghost" id="resetAll" style="margin-top:10px;color:var(--bad)">⚠️ 학습 기록 초기화</button>
+    <div class="center muted" style="font-size:11px;margin-top:14px" id="verLine"></div>
   </div>
 </div>
 
-</div><!-- /#app -->
-
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-  <button class="bnav-btn active" onclick="showScreen('home')" id="bnav-home">
-    <span class="icon">🏠</span><span>Home</span>
-  </button>
-  <button class="bnav-btn" onclick="showScreen('quiz');startQuiz()" id="bnav-quiz">
-    <span class="icon">📝</span><span>Quiz</span>
-  </button>
-  <button class="bnav-btn" onclick="showScreen('analogy');startAnalogy()" id="bnav-analogy">
-    <span class="icon">🔗</span><span>Analogies</span>
-  </button>
-  <button class="bnav-btn" onclick="showScreen('stats')" id="bnav-stats">
-    <span class="icon">📊</span><span>Stats</span>
-  </button>
-  <button class="bnav-btn" onclick="showScreen('words')" id="bnav-words">
-    <span class="icon">📚</span><span>Words</span>
-  </button>
-  <button class="bnav-btn" onclick="showScreen('settings')" id="bnav-settings">
-    <span class="icon">⚙️</span><span>설정</span>
-  </button>
-</div>
-
-
-<!-- WORD DETAIL MODAL -->
-<div class="modal-overlay" id="word-modal" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <div class="modal-word" id="modal-word">—</div>
-      <button onclick="speakWord(document.getElementById('modal-word').textContent)" style="background:var(--surface2);border:1px solid var(--border);border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s" title="발음 듣기">🔊</button>
-    </div>
-    <div class="modal-pos" id="modal-pos">—</div>
-    <div id="modal-kor" style="font-size:20px;color:#a78bfa;font-weight:700;margin-bottom:12px"></div>
-    <div class="modal-def" id="modal-def">—</div>
-    <div class="modal-example" id="modal-example">—</div>
-    <div class="modal-section-title">Synonyms</div>
-    <div class="synonyms" id="modal-synonyms"></div>
-    <div class="modal-section-title">Analogy Relations</div>
-    <div id="modal-analogies"></div>
-    <button class="close-modal" onclick="document.getElementById('word-modal').classList.remove('open')">Close</button>
-  </div>
-</div>
-<!-- LOADING OVERLAY -->
-<div id="loading-overlay" style="position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;">
-  <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:800;color:var(--text)">AFOQT <span style="color:var(--accent)">VOCAB</span></div>
-  <div style="width:44px;height:44px;border:3px solid var(--surface3);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite"></div>
-  <div style="font-size:13px;color:var(--text2)" id="loading-msg">단어 DB 불러오는 중...</div>
-  <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
-</div>
+<!-- ===== Bottom nav ===== -->
+<nav class="nav" id="nav">
+  <button data-go="home" class="on"><span class="ic">🏠</span>홈</button>
+  <button data-go="study"><span class="ic">📇</span>학습</button>
+  <button data-go="quiz"><span class="ic">🧠</span>퀴즈</button>
+  <button data-go="words"><span class="ic">📚</span>단어장</button>
+  <button data-go="stats"><span class="ic">📊</span>통계</button>
+</nav>
 
 <div class="toast" id="toast"></div>
 
-<script>
-// ============================================================
-// WORD DATABASE — loaded from words.json
-// ============================================================
-let WORDS = [];
-
-// ============================================================
-// SM-2 SPACED REPETITION ENGINE
-// ============================================================
-function sm2(card, quality) {
-  // quality: 0=blackout, 1=hard, 2=good, 3=easy
-  let { interval=1, repetitions=0, ef=2.5, nextReview=Date.now() } = card;
-  const q = [0,1,3,5][quality]; // map to SM-2 scale 0-5
-  if (q < 3) {
-    repetitions = 0;
-    interval = 1;
-  } else {
-    if (repetitions === 0) interval = 1;
-    else if (repetitions === 1) interval = 6;
-    else interval = Math.round(interval * ef);
-    repetitions++;
-  }
-  ef = Math.max(1.3, ef + 0.1 - (5-q)*(0.08 + (5-q)*0.02));
-  nextReview = Date.now() + interval * 86400000;
-  return { interval, repetitions, ef, nextReview };
-}
-
-function getIntervalLabel(quality, card) {
-  const result = sm2({...card}, quality);
-  if (result.interval === 1) return '1d';
-  if (result.interval < 7) return result.interval + 'd';
-  if (result.interval < 30) return Math.round(result.interval/7) + 'w';
-  return Math.round(result.interval/30) + 'mo';
-}
-
-// ============================================================
-// STATE
-// ============================================================
-function initState() {
-  return {
-    cards: {},
-    stats: { reviewed: 0, correct: 0, sessions: 0, streak: 0, lastDate: null, xp: 0, quizCorrect: 0, quizTotal: 0, anaCorrect: 0, anaTotal: 0 },
-    heatmap: {},
-    settings: { newPerDay: 20, theme: 'dark', ttsAuto: true, ttsRate: 0.82 }
-  };
-}
-
-let state = (() => {
-  try {
-    const saved = JSON.parse(localStorage.getItem('afoqt_state'));
-    if (!saved) return initState();
-    // 마이그레이션: 없는 필드 보완
-    if (!saved.settings) saved.settings = { newPerDay: 20 };
-    if (!saved.settings.newPerDay) saved.settings.newPerDay = 20;
-    if (!saved.stats) saved.stats = initState().stats;
-    if (!saved.cards) saved.cards = {};
-    if (!saved.heatmap) saved.heatmap = {};
-    return saved;
-  } catch(e) { return initState(); }
-})();
-
-function saveState() { try { localStorage.setItem('afoqt_state', JSON.stringify(state)); } catch(e){} }
-function getCard(id) { return state.cards[id] || {interval:1,repetitions:0,ef:2.5,nextReview:0}; }
-
-function getDueCards() {
-  const now = Date.now();
-  return WORDS.filter(w => state.cards[w.id] && state.cards[w.id].repetitions > 0 && state.cards[w.id].nextReview <= now);
-}
-function getNewCards(n=20) {
-  return WORDS.filter(w => !state.cards[w.id] || state.cards[w.id].repetitions === 0).slice(0, n);
-}
-function getMasteredCount() { return WORDS.filter(w => state.cards[w.id] && state.cards[w.id].interval >= 21).length; }
-function getLearnedCount() { return WORDS.filter(w => state.cards[w.id] && state.cards[w.id].repetitions > 0).length; }
-
-function checkStreak() {
-  const today = new Date().toDateString();
-  if (state.stats.lastDate !== today) {
-    const yesterday = new Date(Date.now()-86400000).toDateString();
-    if (state.stats.lastDate === yesterday) state.stats.streak++;
-    else if (state.stats.lastDate !== today) state.stats.streak = 1;
-    state.stats.lastDate = today;
-    state.stats.xp = 0;
-  }
-}
-
-// ============================================================
-// SESSION
-// ============================================================
-let session = { queue: [], index: 0, revealed: false, mode: 'review' };
-
-function saveSession() {
-  try {
-    // store only word IDs + index to keep it small
-    localStorage.setItem('afoqt_session', JSON.stringify({
-      ids: session.queue.map(w => w.id),
-      index: session.index,
-      mode: session.mode
-    }));
-  } catch(e) {}
-}
-
-function restoreSession() {
-  try {
-    const raw = localStorage.getItem('afoqt_session');
-    if (!raw) return false;
-    const s = JSON.parse(raw);
-    if (!s.ids || !s.ids.length) return false;
-    const queue = s.ids.map(id => WORDS.find(w => w.id === id)).filter(Boolean);
-    if (!queue.length) return false;
-    const idx = typeof s.index === 'number' ? s.index : 0;
-    if (idx >= queue.length) return false;
-    session.queue = queue;
-    session.index = idx;
-    session.mode = s.mode || 'review';
-    session.revealed = false;
-    return true;
-  } catch(e) { return false; }
-}
-
-function clearSession() {
-  try { localStorage.removeItem('afoqt_session'); } catch(e) {}
-  session = { queue: [], index: 0, revealed: false, mode: 'review' };
-}
-
-function startSession(mode) {
-  checkStreak();
-  session.mode = mode;
-  if (mode === 'review') {
-    session.queue = getDueCards().slice(0, 50);
-    if (!session.queue.length) { showToast('No cards due! Come back tomorrow 🎉', ''); return; }
-  } else {
-    const npd = state.settings?.newPerDay || 20;
-    session.queue = getNewCards(npd);
-    if (!session.queue.length) { showToast('All words learned! 🏆', ''); return; }
-  }
-  session.index = 0;
-  session.revealed = false;
-  saveSession();
-  showScreen('flashcard');
-  renderCard();
-}
-
-function endSession() { clearSession(); saveState(); updateHomeStats(); showScreen('home'); }
-
-function renderCard() {
-  if (session.index >= session.queue.length) {
-    clearSession(); saveState(); updateHomeStats();
-    showToast('Session complete! +' + (session.queue.length * 10) + ' XP 🎯', '');
-    syncAutoUploadIfEnabled();
-    setTimeout(() => showScreen('home'), 1200);
-    return;
-  }
-  const word = session.queue[session.index];
-  const card = getCard(word.id);
-  const pct = (session.index / session.queue.length * 100) + '%';
-
-  document.getElementById('fc-prog').style.width = pct;
-  document.getElementById('fc-counter').textContent = (session.index+1) + '/' + session.queue.length;
-  // prev/next 버튼 상태
-  const prevBtn = document.getElementById('fc-prev-btn');
-  const nextBtn = document.getElementById('fc-next-btn');
-  if (prevBtn) prevBtn.style.opacity = session.index <= 0 ? '0.3' : '1';
-  if (nextBtn) nextBtn.style.opacity = session.index >= session.queue.length - 1 ? '0.3' : '1';
-  document.getElementById('fc-tag').textContent = word.category === 'wk' ? 'WORD KNOWLEDGE' : 'VERBAL ANALOGIES';
-  document.getElementById('fc-word').textContent = word.word;
-  document.getElementById('fc-pos').textContent = word.pos.toUpperCase();
-  document.getElementById('fc-kor-front').textContent = word.kor || '';
-  document.getElementById('fc-hint').textContent = session.mode === 'new' ? 'New word — tap to learn' : 'Tap to test yourself';
-  document.getElementById('def-area').classList.remove('show');
-  document.getElementById('rating-btns').style.display = 'none';
-  document.getElementById('main-card').classList.remove('revealed');
-  session.revealed = false;
-  speakWordAuto(word.word);
-
-  // Update interval previews
-  [0,1,2,3].forEach(q => {
-    document.getElementById('rate-days-'+q).textContent = getIntervalLabel(q, card);
-  });
-}
-
-function prevCard() {
-  if (session.index <= 0) return;
-  session.index--;
-  session.revealed = false;
-  saveSession();
-  renderCard();
-}
-
-function nextCard() {
-  if (session.index >= session.queue.length - 1) return;
-  session.index++;
-  session.revealed = false;
-  saveSession();
-  renderCard();
-}
-
-function revealCard() {
-  if (session.revealed) return;
-  session.revealed = true;
-  const word = session.queue[session.index];
-  document.getElementById('main-card').classList.add('revealed');
-  document.getElementById('fc-def').textContent = word.def;
-  document.getElementById('fc-example').textContent = '"' + (word.example||'') + '"';
-  document.getElementById('fc-kor').textContent = word.kor || '';
-
-  const analogyHint = document.getElementById('fc-analogy-hint');
-  if (word.analogyRelations && word.analogyRelations.length) {
-    analogyHint.textContent = '🔗 ' + word.analogyRelations[0];
-    analogyHint.parentElement.style.display = '';
-  } else {
-    analogyHint.parentElement.style.display = 'none';
-  }
-
-  const synWrap = document.getElementById('fc-synonyms');
-  synWrap.innerHTML = (word.synonyms||[]).map(s=>`<span class="syn-tag">${s}</span>`).join('');
-  document.getElementById('def-area').classList.add('show');
-  document.getElementById('rating-btns').style.display = 'grid';
-}
-
-function rateCard(quality) {
-  const word = session.queue[session.index];
-  const card = getCard(word.id);
-  state.cards[word.id] = sm2(card, quality);
-  state.stats.reviewed++;
-  if (quality >= 2) state.stats.correct++;
-  state.stats.xp += [0,5,10,15][quality];
-
-  // heatmap
-  const today = new Date().toISOString().slice(0,10);
-  state.heatmap[today] = (state.heatmap[today]||0) + 1;
-
-  if (quality === 0) {
-    session.queue.push(word); // re-queue failed cards
-  }
-  session.index++;
-  session.revealed = false;
-  saveSession();
-  renderCard();
-}
-
-// ============================================================
-// QUIZ
-// ============================================================
-let quiz = { questions: [], index: 0, correct: 0, wrong: 0 };
-
-function startQuiz() {
-  const pool = WORDS.filter(w => state.cards[w.id] && state.cards[w.id].repetitions > 0 || Math.random() > 0.7).slice(0,200);
-  const selected = shuffle(pool).slice(0, 15);
-  quiz.questions = selected.map(w => buildQuizQuestion(w));
-  quiz.index = 0; quiz.correct = 0; quiz.wrong = 0;
-  document.getElementById('quiz-explanation').style.display = 'none';
-  renderQuiz();
-}
-
-function buildQuizQuestion(word) {
-  const type = Math.random() > 0.5 ? 'define' : 'synonym';
-  const distractors = shuffle(WORDS.filter(w => w.id !== word.id)).slice(0,3);
-  if (type === 'define') {
-    const opts = shuffle([word.def, ...distractors.map(d=>d.def)]);
-    return { word, type: 'define', question: `What is the meaning of "${word.word}"?`, options: opts, answer: word.def };
-  } else {
-    const correctSyn = word.synonyms[0] || word.word;
-    const opts = shuffle([correctSyn, ...distractors.map(d=>d.synonyms[0]||d.word)]);
-    return { word, type: 'synonym', question: `Which word is most similar in meaning to "${word.word}"?`, options: opts, answer: correctSyn };
-  }
-}
-
-function renderQuiz() {
-  if (quiz.index >= quiz.questions.length) {
-    const acc = Math.round(quiz.correct/(quiz.correct+quiz.wrong)*100)||0;
-    state.stats.quizCorrect += quiz.correct; state.stats.quizTotal += quiz.questions.length;
-    saveState(); showToast('Quiz done! ' + acc + '% accuracy 🎯', ''); showScreen('home'); return;
-  }
-  const q = quiz.questions[quiz.index];
-  const pct = (quiz.index/quiz.questions.length*100)+'%';
-  document.getElementById('quiz-prog').style.width = pct;
-  document.getElementById('quiz-counter').textContent = (quiz.index+1)+'/'+quiz.questions.length;
-  document.getElementById('quiz-correct-count').textContent = quiz.correct;
-  document.getElementById('quiz-wrong-count').textContent = quiz.wrong;
-  const total = quiz.correct + quiz.wrong;
-  document.getElementById('quiz-acc').textContent = total ? Math.round(quiz.correct/total*100)+'%' : '—';
-  document.getElementById('quiz-type-label').textContent = q.type === 'define' ? 'WORD KNOWLEDGE — DEFINITION' : 'WORD KNOWLEDGE — SYNONYM';
-  document.getElementById('quiz-question').textContent = q.question;
-  document.getElementById('quiz-explanation').style.display = 'none';
-  const letters = ['A','B','C','D'];
-  document.getElementById('quiz-options').innerHTML = q.options.map((opt,i) =>
-    `<button class="quiz-opt" onclick="answerQuiz(this,'${escHtml(opt)}')">
-      <div class="quiz-opt-letter">${letters[i]}</div>
-      <span>${opt}</span>
-    </button>`
-  ).join('');
-}
-
-function answerQuiz(btn, chosen) {
-  const q = quiz.questions[quiz.index];
-  document.querySelectorAll('#quiz-options .quiz-opt').forEach(b => b.classList.add('disabled'));
-  const correct = chosen === q.answer;
-  btn.classList.add(correct ? 'correct' : 'wrong');
-  if (!correct) {
-    document.querySelectorAll('#quiz-options .quiz-opt').forEach(b => {
-      if (b.querySelector('span').textContent === q.answer) b.classList.add('correct');
-    });
-  }
-  if (correct) quiz.correct++; else quiz.wrong++;
-  const expEl = document.getElementById('quiz-explanation');
-  document.getElementById('quiz-exp-text').textContent = correct
-    ? `✅ Correct! "${q.word.word}" (${q.word.kor||''}) means: ${q.word.def}`
-    : `❌ The answer is: ${q.answer}. "${q.word.word}" (${q.word.kor||''}) means: ${q.word.def}`;
-  expEl.style.display = 'block';
-}
-
-function nextQuizQuestion() {
-  quiz.index++;
-  document.getElementById('quiz-explanation').style.display = 'none';
-  renderQuiz();
-}
-
-// ============================================================
-// ANALOGIES
-// ============================================================
-const ANALOGY_PATTERNS = [
-  { name: "Antonym (Opposites)", tip: "Identify the opposite relationship: A is to B as C is to D where A↔B and C↔D are opposites.", questions: [
-    {w1:"ARDENT",w2:"APATHETIC",w3:"LOQUACIOUS",w4:"TACITURN",opts:["TACITURN","VERBOSE","GARRULOUS","RETICENT"],exp:"Ardent and apathetic are antonyms. Loquacious (talkative) is opposite to taciturn (quiet). The pattern is: fervent↔indifferent :: talkative↔quiet"},
-    {w1:"BENEVOLENT",w2:"MALEVOLENT",w3:"ABATE",w4:"INTENSIFY",opts:["INTENSIFY","SUBSIDE","WANE","DIMINISH"],exp:"Benevolent (kind) opposes malevolent (evil). Abate (to diminish) opposes intensify. Key: look for clear semantic opposites."},
-    {w1:"SANGUINE",w2:"PESSIMISTIC",w3:"FRUGAL",w4:"EXTRAVAGANT",opts:["EXTRAVAGANT","THRIFTY","ECONOMICAL","PARSIMONIOUS"],exp:"Sanguine (optimistic) ↔ pessimistic. Frugal (thrifty) ↔ extravagant (wasteful). Standard antonym pair."},
-    {w1:"ALACRITY",w2:"RELUCTANCE",w3:"ACRIMONY",w4:"GOODWILL",opts:["GOODWILL","HOSTILITY","ENMITY","RANCOR"],exp:"Alacrity (eagerness) ↔ reluctance. Acrimony (bitterness) ↔ goodwill. Both are antonym pairs."},
-    {w1:"VERBOSE",w2:"LACONIC",w3:"TURBULENT",w4:"SERENE",opts:["SERENE","STORMY","CHAOTIC","AGITATED"],exp:"Verbose (wordy) ↔ laconic (brief). Turbulent (rough) ↔ serene (peaceful)."},
-  ]},
-  { name: "Part → Whole", tip: "A is part of B, just as C is part of D.", questions: [
-    {w1:"STANZA",w2:"POEM",w3:"CHAPTER",w4:"NOVEL",opts:["NOVEL","PARAGRAPH","SENTENCE","LIBRARY"],exp:"A stanza is a unit within a poem; a chapter is a unit within a novel. Both are parts of their respective wholes."},
-    {w1:"WORD",w2:"SENTENCE",w3:"SOLDIER",w4:"ARMY",opts:["ARMY","GENERAL","BATTLE","REGIMENT"],exp:"A word is a component of a sentence; a soldier is a member of an army. Part-to-whole relationship."},
-    {w1:"PETAL",w2:"FLOWER",w3:"ISLAND",w4:"ARCHIPELAGO",opts:["ARCHIPELAGO","OCEAN","CONTINENT","PENINSULA"],exp:"A petal is part of a flower; an island is part of an archipelago (island chain)."},
-    {w1:"INNING",w2:"BASEBALL GAME",w3:"PERIOD",w4:"HOCKEY GAME",opts:["HOCKEY GAME","QUARTER","OVERTIME","SEASON"],exp:"An inning is one segment of a baseball game; a period is one segment of a hockey game."},
-    {w1:"SCALE",w2:"FISH",w3:"FEATHER",w4:"BIRD",opts:["BIRD","WING","BEAK","EGG"],exp:"A scale is part of a fish's body covering; a feather is part of a bird's body covering."},
-  ]},
-  { name: "Cause → Effect", tip: "A causes B, just as C causes D.", questions: [
-    {w1:"DROUGHT",w2:"FAMINE",w3:"NEGLIGENCE",w4:"ACCIDENT",opts:["ACCIDENT","INJURY","RECKLESSNESS","CAUTION"],exp:"Drought causes famine; negligence causes accidents. The first term is the cause, the second is the effect."},
-    {w1:"FIRE",w2:"ASHES",w3:"FLOOD",w4:"EROSION",opts:["EROSION","DROUGHT","EARTHQUAKE","DROUGHT"],exp:"Fire produces ashes as a result; flooding produces erosion. Both are natural cause-effect pairs."},
-    {w1:"PRACTICE",w2:"PROFICIENCY",w3:"EXERCISE",w4:"FITNESS",opts:["FITNESS","FATIGUE","WEIGHT","DIET"],exp:"Practice leads to proficiency; exercise leads to fitness. These show how repeated effort produces capability."},
-  ]},
-  { name: "Degree / Intensity", tip: "A and B differ in degree or intensity, as do C and D.", questions: [
-    {w1:"CONTENT",w2:"ECSTATIC",w3:"DISPLEASED",w4:"FURIOUS",opts:["FURIOUS","UNHAPPY","SAD","ANNOYED"],exp:"Content and ecstatic are on the same scale of happiness (mild → extreme). Displeased and furious are on the same scale of anger (mild → extreme)."},
-    {w1:"WARM",w2:"SCORCHING",w3:"COOL",w4:"FRIGID",opts:["FRIGID","COLD","FREEZING","CHILLY"],exp:"Warm → scorching is an intensification of heat. Cool → frigid is an intensification of cold."},
-    {w1:"DISLIKE",w2:"ABHOR",w3:"FOND",w4:"ADORE",opts:["ADORE","LIKE","APPRECIATE","ENJOY"],exp:"Dislike → abhor (intensified negative feeling). Fond → adore (intensified positive feeling). Both show degree on an emotional scale."},
-    {w1:"ANNOY",w2:"INFURIATE",w3:"PLEASE",w4:"ELATE",opts:["ELATE","SATISFY","DELIGHT","AMUSE"],exp:"Annoy → infuriate (mild to extreme irritation). Please → elate (mild to extreme happiness). Parallel intensity scales."},
-  ]},
-  { name: "Synonym / Associated Meaning", tip: "A is synonymous with or closely related to B, as C is to D.", questions: [
-    {w1:"ACUMEN",w2:"INSIGHT",w3:"TENACITY",w4:"PERSEVERANCE",opts:["PERSEVERANCE","LAZINESS","HESITATION","TIMIDITY"],exp:"Acumen means keen insight; tenacity means perseverance. Both pairs are virtual synonyms."},
-    {w1:"EPHEMERAL",w2:"TRANSIENT",w3:"IMMUTABLE",w4:"PERMANENT",opts:["PERMANENT","TEMPORARY","FLEETING","UNSTABLE"],exp:"Ephemeral and transient both mean 'short-lived.' Immutable and permanent both mean 'unchanging.'"},
-    {w1:"VERBOSE",w2:"GARRULOUS",w3:"LACONIC",w4:"TERSE",opts:["TERSE","BRIEF","RETICENT","SILENT"],exp:"Verbose and garrulous both mean excessively talkative. Laconic and terse both mean using very few words."},
-  ]},
-  { name: "Object → Function", tip: "A is used for B, just as C is used for D.", questions: [
-    {w1:"SCALPEL",w2:"SURGERY",w3:"GAVEL",w4:"ADJUDICATION",opts:["ADJUDICATION","AUCTION","BUILDING","CARPENTRY"],exp:"A scalpel is used in surgery; a gavel is used in adjudication (legal proceedings). Each tool is associated with a specific professional function."},
-    {w1:"COMPASS",w2:"NAVIGATION",w3:"ABACUS",w4:"CALCULATION",opts:["CALCULATION","EDUCATION","ASTRONOMY","MEASUREMENT"],exp:"A compass is used for navigation; an abacus is used for calculation. Tool → purpose relationships."},
-    {w1:"ANESTHETIC",w2:"PAIN RELIEF",w3:"VACCINE",w4:"PREVENTION",opts:["PREVENTION","TREATMENT","DIAGNOSIS","SURGERY"],exp:"Anesthetic is used for pain relief; a vaccine is used for disease prevention. Medical tool → function."},
-  ]},
-  { name: "Creator → Creation", tip: "A creates B, just as C creates D.", questions: [
-    {w1:"COMPOSER",w2:"SYMPHONY",w3:"ARCHITECT",w4:"BLUEPRINT",opts:["BLUEPRINT","BUILDING","DESIGN","STRUCTURE"],exp:"A composer creates a symphony; an architect creates a blueprint. Both pairs are creator-to-creation relationships."},
-    {w1:"POET",w2:"SONNET",w3:"SCULPTOR",w4:"STATUE",opts:["STATUE","PAINTING","CANVAS","CLAY"],exp:"A poet creates sonnets; a sculptor creates statues. Creator → artistic product."},
-    {w1:"CARTOGRAPHER",w2:"MAP",w3:"CHOREOGRAPHER",w4:"DANCE",opts:["DANCE","MUSIC","STAGE","THEATER"],exp:"A cartographer creates maps; a choreographer creates dance routines. Professional creator → work produced."},
-  ]},
-  { name: "Characteristic / Defining Property", tip: "A is characteristically B, just as C is characteristically D.", questions: [
-    {w1:"MISER",w2:"PARSIMONY",w3:"ZEALOT",w4:"FANATICISM",opts:["FANATICISM","LAZINESS","COURAGE","WISDOM"],exp:"A miser is characterized by parsimony (extreme frugality); a zealot is characterized by fanaticism. Each word defines the characteristic behavior."},
-    {w1:"SYCOPHANT",w2:"FLATTERY",w3:"DEMAGOGUE",w4:"MANIPULATION",opts:["MANIPULATION","LEADERSHIP","DEBATE","POLICY"],exp:"A sycophant uses flattery; a demagogue uses manipulation. The second term names the characteristic method of each type of person."},
-    {w1:"STOIC",w2:"IMPASSIVITY",w3:"HEDONIST",w4:"PLEASURE",opts:["PLEASURE","PAIN","REASON","WISDOM"],exp:"A stoic is characterized by impassivity (lack of emotion); a hedonist is characterized by pursuit of pleasure."},
-  ]},
-];
-
-let analogySession = { patternIdx: 0, qIdx: 0, answered: false };
-
-function startAnalogy() {
-  analogySession = { patternIdx: Math.floor(Math.random()*ANALOGY_PATTERNS.length), qIdx: 0, answered: false };
-  renderAnalogy();
-}
-
-function renderAnalogy() {
-  const pattern = ANALOGY_PATTERNS[analogySession.patternIdx];
-  const q = pattern.questions[analogySession.qIdx % pattern.questions.length];
-  document.getElementById('ana-pattern-name').textContent = pattern.name;
-  document.getElementById('ana-w1').textContent = q.w1;
-  document.getElementById('ana-w2').textContent = q.w2;
-  document.getElementById('ana-w3').textContent = q.w3;
-  document.getElementById('ana-blank').textContent = '?';
-  document.getElementById('ana-tip').textContent = '💡 ' + pattern.tip;
-  document.getElementById('ana-counter').textContent = (analogySession.qIdx+1) + '/10';
-  document.getElementById('ana-explanation').style.display = 'none';
-  analogySession.answered = false;
-  const letters = ['A','B','C','D'];
-  document.getElementById('ana-options').innerHTML = q.opts.map((opt,i) =>
-    `<button class="quiz-opt" onclick="answerAnalogy(this,'${escHtml(opt)}','${escHtml(q.w4)}','${escHtml(q.exp)}')">
-      <div class="quiz-opt-letter">${letters[i]}</div>
-      <span>${opt}</span>
-    </button>`
-  ).join('');
-}
-
-function answerAnalogy(btn, chosen, correct, exp) {
-  if (analogySession.answered) return;
-  analogySession.answered = true;
-  document.querySelectorAll('#ana-options .quiz-opt').forEach(b => b.classList.add('disabled'));
-  const isCorrect = chosen === correct;
-  btn.classList.add(isCorrect ? 'correct' : 'wrong');
-  if (!isCorrect) {
-    document.getElementById('ana-blank').textContent = correct;
-    document.querySelectorAll('#ana-options .quiz-opt').forEach(b => {
-      if (b.querySelector('span').textContent === correct) b.classList.add('correct');
-    });
-  } else {
-    document.getElementById('ana-blank').textContent = correct;
-  }
-  state.stats.anaTotal++;
-  if (isCorrect) state.stats.anaCorrect++;
-  document.getElementById('ana-exp-text').textContent = exp;
-  document.getElementById('ana-afoqt-tip').textContent = ANALOGY_PATTERNS[analogySession.patternIdx].tip;
-  document.getElementById('ana-explanation').style.display = 'block';
-  saveState();
-}
-
-function nextAnalogyQuestion() {
-  analogySession.qIdx++;
-  if (analogySession.qIdx % 5 === 0) {
-    analogySession.patternIdx = (analogySession.patternIdx + 1) % ANALOGY_PATTERNS.length;
-  }
-  renderAnalogy();
-}
-
-// ============================================================
-// WORD LIST
-// ============================================================
-let currentFilter = 'all';
-function setFilter(f, el) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderWordList();
-}
-
-function filterWords() { renderWordList(); }
-
-let _wlFiltered = [];
-let _wlPage = 0;
-const _WL_PAGE = 50;
-
-function renderWordList() {
-  const q = document.getElementById('search-input').value.toLowerCase();
-  let words = WORDS;
-  if (currentFilter !== 'all') {
-    if (currentFilter === 'new') words = words.filter(w => !state.cards[w.id] || state.cards[w.id].repetitions === 0);
-    else if (currentFilter === 'learning') words = words.filter(w => state.cards[w.id] && state.cards[w.id].repetitions > 0 && state.cards[w.id].interval < 7);
-    else if (currentFilter === 'review') words = words.filter(w => state.cards[w.id] && state.cards[w.id].interval >= 7 && state.cards[w.id].interval < 21);
-    else if (currentFilter === 'mastered') words = words.filter(w => state.cards[w.id] && state.cards[w.id].interval >= 21);
-    else if (currentFilter === 'wk') words = words.filter(w => w.category === 'wk');
-    else if (currentFilter === 'analogy') words = words.filter(w => w.category === 'analogy');
-  }
-  if (q) words = words.filter(w => w.word.toLowerCase().includes(q) || w.def.toLowerCase().includes(q) || (w.kor||'').includes(q) || (w.synonyms||[]).some(s=>s.toLowerCase().includes(q)));
-  _wlFiltered = words;
-  _wlPage = 0;
-  const listEl = document.getElementById('word-list');
-  listEl.innerHTML = '';
-  _appendWordItems();
-}
-
-function _renderWordItem(w) {
-  const colors = { new: '#9090b0', learning: '#fbbf24', review: '#5b6ef5', mastered: '#34d399' };
-  const card = state.cards[w.id];
-  let color = colors.new;
-  if (card && card.repetitions > 0) color = colors.learning;
-  if (card && card.interval >= 7) color = colors.review;
-  if (card && card.interval >= 21) color = colors.mastered;
-  return `<div class="word-item" onclick="openWordModal(${w.id})">
-    <div class="word-item-indicator" style="background:${color}"></div>
-    <div class="word-item-body">
-      <div class="word-item-word">${w.word} <span style="font-size:12px;color:var(--text3);font-weight:400">${w.pos}</span>${w.kor ? `<span style="font-size:12px;color:#a78bfa;font-weight:500;margin-left:8px">${w.kor}</span>` : ''}</div>
-      <div class="word-item-def">${w.def.slice(0,80)}${w.def.length>80?'...':''}</div>
-      <div class="word-item-tags">
-        ${(w.synonyms||[]).slice(0,3).map(s=>`<span class="word-tag-pill">${s}</span>`).join('')}
-      </div>
-    </div>
-  </div>`;
-}
-
-function _appendWordItems() {
-  const listEl = document.getElementById('word-list');
-  const sentinel = document.getElementById('wl-sentinel');
-  if (sentinel) sentinel.remove();
-
-  const start = _wlPage * _WL_PAGE;
-  const chunk = _wlFiltered.slice(start, start + _WL_PAGE);
-  if (chunk.length === 0) return;
-
-  listEl.insertAdjacentHTML('beforeend', chunk.map(_renderWordItem).join(''));
-  _wlPage++;
-
-  const shown = Math.min(_wlPage * _WL_PAGE, _wlFiltered.length);
-  const total = _wlFiltered.length;
-  const info = `<div id="wl-sentinel" style="text-align:center;padding:16px;color:var(--text3);font-size:13px">${shown < total ? `<span style="color:var(--accent);cursor:pointer;font-weight:600" onclick="_appendWordItems()">▼ 더 보기 (${shown}/${total})</span>` : `총 ${total}개 단어`}</div>`;
-  listEl.insertAdjacentHTML('beforeend', info);
-
-  // Intersection Observer for auto-load on scroll
-  if (shown < total) {
-    const obs = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) { obs.disconnect(); _appendWordItems(); }
-    }, { rootMargin: '200px' });
-    const el = document.getElementById('wl-sentinel');
-    if (el) obs.observe(el);
-  }
-}
-
-// ============================================================
-// TEXT-TO-SPEECH
-// ============================================================
-let _ttsVoice = null;
-let _ttsAllVoices = [];
-
-function _loadTTSVoices() {
-  const voices = window.speechSynthesis.getVoices();
-  if (!voices.length) return;
-  // Only English voices
-  _ttsAllVoices = voices.filter(v => v.lang.startsWith('en'));
-
-  // Populate select if on settings screen
-  _populateTTSSelect();
-
-  // Apply saved voice or pick best default
-  const savedName = state.settings?.ttsVoice;
-  if (savedName) {
-    _ttsVoice = _ttsAllVoices.find(v => v.name === savedName) || null;
-  }
-  if (!_ttsVoice) {
-    _ttsVoice =
-      _ttsAllVoices.find(v => v.lang === 'en-US' && /google/i.test(v.name)) ||
-      _ttsAllVoices.find(v => v.lang === 'en-US' && /microsoft/i.test(v.name)) ||
-      _ttsAllVoices.find(v => v.lang === 'en-US' && /zira|david|mark|aria|guy|jenny|ana/i.test(v.name)) ||
-      _ttsAllVoices.find(v => v.lang === 'en-US') ||
-      _ttsAllVoices.find(v => v.lang === 'en-GB') ||
-      _ttsAllVoices[0] || null;
-  }
-  _populateTTSSelect();
-}
-
-function _populateTTSSelect() {
-  const sel = document.getElementById('tts-voice-select');
-  const sub = document.getElementById('tts-voice-sub');
-  if (!sel) return;
-  if (!_ttsAllVoices.length) {
-    sel.innerHTML = '<option value="">음성을 찾을 수 없습니다</option>';
-    if (sub) sub.textContent = '지원되지 않는 브라우저';
-    return;
-  }
-  const saved = state.settings?.ttsVoice || (_ttsVoice ? _ttsVoice.name : '');
-  sel.innerHTML = _ttsAllVoices.map(v =>
-    `<option value="${v.name}" ${v.name === saved ? 'selected' : ''}>${v.name} (${v.lang})</option>`
-  ).join('');
-  if (sub) sub.textContent = `${_ttsAllVoices.length}개 영어 음성 사용 가능`;
-}
-
-function saveTTSVoice(name) {
-  _ttsVoice = _ttsAllVoices.find(v => v.name === name) || null;
-  if (!state.settings) state.settings = { newPerDay: 20 };
-  state.settings.ttsVoice = name;
-  saveState();
-  showToast('음성 저장됨 ✓', '');
-}
-
-function toggleTTSAuto(on) {
-  if (!state.settings) state.settings = { newPerDay: 20 };
-  state.settings.ttsAuto = on;
-  saveState();
-  showToast(on ? '자동 발음 켜짐 🔊' : '자동 발음 꺼짐', '');
-}
-
-function changeTTSRate(delta) {
-  if (!state.settings) state.settings = { newPerDay: 20 };
-  const cur = state.settings.ttsRate || 0.82;
-  const next = Math.round(Math.max(0.5, Math.min(1.5, cur + delta)) * 100) / 100;
-  state.settings.ttsRate = next;
-  saveState();
-  document.getElementById('tts-rate-val').textContent = next.toFixed(2);
-  const labels = { 0.5:'느림', 0.6:'느림', 0.7:'조금 느림', 0.8:'기본', 0.9:'기본', 1.0:'보통', 1.1:'빠름', 1.2:'빠름', 1.3:'매우 빠름', 1.4:'매우 빠름', 1.5:'최대' };
-  document.getElementById('tts-rate-label').textContent = `${next.toFixed(2)}x (${labels[Math.round(next*10)/10] || ''})`;
-}
-
-function speakWord(word) {
-  if (!word || word === '—') return;
-  // respect auto-play setting (manual button calls always play)
-  window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(word.toLowerCase());
-  utter.lang = 'en-US';
-  utter.rate = state.settings?.ttsRate || 0.82;
-  utter.pitch = 1;
-  if (!_ttsVoice) _loadTTSVoices();
-  if (_ttsVoice) utter.voice = _ttsVoice;
-  window.speechSynthesis.speak(utter);
-}
-
-function speakWordAuto(word) {
-  // only plays when auto setting is on
-  if (state.settings?.ttsAuto === false) return;
-  speakWord(word);
-}
-
-// 키보드 단축키
-document.addEventListener('keydown', e => {
-  const fc = document.getElementById('screen-flashcard');
-  if (!fc || !fc.classList.contains('active')) return;
-  if (e.key === 'ArrowLeft')  { prevCard(); }
-  if (e.key === 'ArrowRight') { if (session.revealed) { /* do nothing, use rating */ } else nextCard(); }
-  if (e.key === ' ' || e.key === 'Enter') { if (!session.revealed) revealCard(); }
-  if (e.key === '1') { if (session.revealed) rateCard(0); }
-  if (e.key === '2') { if (session.revealed) rateCard(1); }
-  if (e.key === '3') { if (session.revealed) rateCard(2); }
-  if (e.key === '4') { if (session.revealed) rateCard(3); }
-});
-_loadTTSVoices();
-if (typeof window.speechSynthesis !== 'undefined') {
-  window.speechSynthesis.onvoiceschanged = _loadTTSVoices;
-  // Chrome sometimes needs a nudge
-  if (!_ttsAllVoices.length) {
-    let _initTries = 0;
-    const _initRetry = setInterval(() => {
-      _loadTTSVoices();
-      if (_ttsAllVoices.length || ++_initTries > 30) clearInterval(_initRetry);
-    }, 100);
-  }
-}
-
-function openWordModal(id) {
-  const w = WORDS.find(x => x.id === id);
-  if (!w) return;
-  document.getElementById('modal-word').textContent = w.word;
-  document.getElementById('modal-pos').textContent = w.pos;
-  document.getElementById('modal-kor').textContent = w.kor || '';
-  document.getElementById('modal-def').textContent = w.def;
-  document.getElementById('modal-example').textContent = w.example ? '"' + w.example + '"' : '';
-  document.getElementById('modal-synonyms').innerHTML = (w.synonyms||[]).map(s=>`<span class="syn-tag">${s}</span>`).join('');
-  document.getElementById('modal-analogies').innerHTML = (w.analogyRelations||['No analogy data for this word.']).map(a=>`<div class="modal-analogy-rel">${a}</div>`).join('');
-  document.getElementById('word-modal').classList.add('open');
-  speakWordAuto(w.word);
-}
-function closeModal(e) { if (e.target === e.currentTarget) document.getElementById('word-modal').classList.remove('open'); }
-
-// ============================================================
-// STATS
-// ============================================================
-function renderStats() {
-  const learned = getLearnedCount();
-  const mastered = getMasteredCount();
-  document.getElementById('stat-total').textContent = WORDS.length.toLocaleString();
-  document.getElementById('stat-reviewed').textContent = state.stats.reviewed.toLocaleString();
-  document.getElementById('stat-mastered').textContent = mastered;
-  const ret = state.stats.reviewed ? Math.round(state.stats.correct/state.stats.reviewed*100) : null;
-  document.getElementById('stat-retention').textContent = ret !== null ? ret+'%' : '—';
-  const qa = state.stats.quizTotal ? Math.round(state.stats.quizCorrect/state.stats.quizTotal*100)+'%' : '—';
-  document.getElementById('stat-quiz-acc').textContent = qa;
-  const aa = state.stats.anaTotal ? Math.round(state.stats.anaCorrect/state.stats.anaTotal*100)+'%' : '—';
-  document.getElementById('stat-ana-acc').textContent = aa;
-
-  // Heatmap
-  const cells = [];
-  for (let i=181; i>=0; i--) {
-    const d = new Date(Date.now() - i*86400000).toISOString().slice(0,10);
-    const count = state.heatmap[d] || 0;
-    const lvl = count === 0 ? '' : count < 5 ? 'lvl1' : count < 15 ? 'lvl2' : count < 30 ? 'lvl3' : 'lvl4';
-    cells.push(`<div class="heatmap-cell ${lvl}" title="${d}: ${count} cards"></div>`);
-  }
-  document.getElementById('heatmap').innerHTML = cells.join('');
-
-  // Recent reviewed
-  const recent = Object.keys(state.cards).slice(-10).reverse().map(id => {
-    const w = WORDS.find(x => x.id == id);
-    const c = state.cards[id];
-    if (!w) return '';
-    const pct = Math.min(100, Math.round(c.interval / 21 * 100));
-    const col = pct >= 100 ? '#34d399' : pct >= 50 ? '#5b6ef5' : '#fbbf24';
-    return `<div class="mastery-item">
-      <div class="mastery-word">${w.word}</div>
-      <div class="mastery-bar-wrap"><div class="mastery-bar"><div class="mastery-bar-fill" style="width:${pct}%;background:${col}"></div></div></div>
-      <div class="mastery-level">${c.interval}d</div>
-    </div>`;
-  }).join('');
-  document.getElementById('recent-list').innerHTML = recent || '<div style="color:var(--text3);font-size:13px">Start studying to see progress!</div>';
-}
-
-// ============================================================
-// HOME STATS UPDATE
-// ============================================================
-function updateHomeStats() {
-  checkStreak();
-  const npd = state.settings?.newPerDay || 20;
-  const due = getDueCards().length;
-  const newC = Math.min(npd, getNewCards(npd).length);  // ← npd 전달해서 정확한 개수
-  const learned = getLearnedCount();
-  const mastered = getMasteredCount();
-  const learnedPct = Math.round(learned/WORDS.length*100);
-  const masteredPct = Math.round(mastered/WORDS.length*100);
-
-  document.getElementById('due-count').textContent = due;
-  document.getElementById('due-count').className = 'card-count ' + (due > 20 ? 'urgent' : 'normal');
-  document.getElementById('new-count').textContent = newC;
-  document.getElementById('nav-due').textContent = due;
-  document.getElementById('nav-streak').textContent = state.stats.streak;
-  document.getElementById('nav-mastered').textContent = mastered;
-  document.getElementById('home-streak').textContent = state.stats.streak;
-  document.getElementById('home-xp').textContent = '+' + state.stats.xp;
-  document.getElementById('prog-learned').style.width = learnedPct+'%';
-  document.getElementById('prog-mastered').style.width = masteredPct+'%';
-  document.getElementById('prog-wk').style.width = (Math.round(WORDS.filter(w=>w.category==='wk'&&state.cards[w.id]&&state.cards[w.id].repetitions>0).length/WORDS.filter(w=>w.category==='wk').length*100)||0)+'%';
-  document.getElementById('prog-learned-pct').textContent = learnedPct+'%';
-  document.getElementById('prog-mastered-pct').textContent = masteredPct+'%';
-  document.getElementById('prog-wk-pct').textContent = (Math.round(WORDS.filter(w=>w.category==='wk'&&state.cards[w.id]&&state.cards[w.id].repetitions>0).length/WORDS.filter(w=>w.category==='wk').length*100)||0)+'%';
-}
-
-// ============================================================
-// NAVIGATION
-// ============================================================
-const screens = { home:'home',flashcard:'flashcard',quiz:'quiz',analogy:'analogy',stats:'stats',words:'words',settings:'settings' };
-const bnav = { home:'bnav-home',quiz:'bnav-quiz',analogy:'bnav-analogy',stats:'bnav-stats',words:'bnav-words',settings:'bnav-settings' };
-function showScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-'+name).classList.add('active');
-  Object.values(bnav).forEach(id => document.getElementById(id)?.classList.remove('active'));
-  if (bnav[name]) document.getElementById(bnav[name]).classList.add('active');
-  if (name === 'stats') renderStats();
-  if (name === 'words') renderWordList();
-  if (name === 'home') updateHomeStats();
-  if (name === 'settings') { renderSettings(); syncRenderUI(); }
-}
-
-// ============================================================
-// SETTINGS
-// ============================================================
-function toggleTheme(isLight) {
-  document.body.classList.toggle('light', isLight);
-  state.settings.theme = isLight ? 'light' : 'dark';
-  saveState();
-  document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
-  document.getElementById('theme-title').textContent = isLight ? '라이트 모드' : '다크 모드';
-}
-
-function renderSettings() {
-  document.getElementById('set-reviewed').textContent = state.stats.reviewed.toLocaleString();
-  document.getElementById('set-mastered').textContent = getMasteredCount();
-  document.getElementById('set-streak').textContent = state.stats.streak;
-  document.getElementById('set-npd').textContent = state.settings?.newPerDay || 20;
-  const isLight = state.settings?.theme === 'light';
-  document.getElementById('theme-checkbox').checked = isLight;
-  document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
-  document.getElementById('theme-title').textContent = isLight ? '라이트 모드' : '다크 모드';
-  // TTS
-  const ttsAuto = state.settings?.ttsAuto !== false;
-  document.getElementById('tts-auto-checkbox').checked = ttsAuto;
-  const rate = state.settings?.ttsRate || 0.82;
-  document.getElementById('tts-rate-val').textContent = rate.toFixed(2);
-  const labels = {0.5:'느림',0.6:'느림',0.7:'조금 느림',0.8:'기본',0.9:'기본',1.0:'보통',1.1:'빠름',1.2:'빠름',1.3:'매우 빠름',1.4:'매우 빠름',1.5:'최대'};
-  document.getElementById('tts-rate-label').textContent = `${rate.toFixed(2)}x (${labels[Math.round(rate*10)/10]||''})`;
-  // voices가 아직 안 로드됐으면 재시도
-  if (!_ttsAllVoices.length) {
-    let tries = 0;
-    const retry = setInterval(() => {
-      const v = window.speechSynthesis.getVoices();
-      if (v.length || ++tries > 20) { clearInterval(retry); if (v.length) _loadTTSVoices(); }
-    }, 80);
-  } else {
-    _populateTTSSelect();
-  }
-}
-
-function changeNewPerDay(delta) {
-  if (!state.settings) state.settings = initState().settings;
-  state.settings.newPerDay = Math.max(5, Math.min(100, (state.settings.newPerDay || 20) + delta));
-  document.getElementById('set-npd').textContent = state.settings.newPerDay;
-  saveState();
-  updateHomeStats();
-  showToast('저장됨 ✓', '');
-}
-
-// ============================================================
-// ☁️ 클라우드 동기화 (GitHub Gist)
-// ============================================================
-const SYNC_KEY = 'afoqt_sync';
-
-function getSyncCfg() {
-  try { return JSON.parse(localStorage.getItem(SYNC_KEY) || 'null'); } catch(e) { return null; }
-}
-function saveSyncCfg(cfg) {
-  try { localStorage.setItem(SYNC_KEY, JSON.stringify(cfg)); } catch(e) {}
-}
-
-function syncRenderUI() {
-  const cfg = getSyncCfg();
-  const setup = document.getElementById('sync-setup');
-  const connected = document.getElementById('sync-connected');
-  const autoBtn = document.getElementById('sync-auto-btn');
-  if (!setup || !connected) return;
-  if (cfg && cfg.token && cfg.gistId) {
-    setup.style.display = 'none';
-    connected.style.display = '';
-    const last = cfg.lastSync ? new Date(cfg.lastSync).toLocaleString('ko-KR') : '없음';
-    document.getElementById('sync-last-time').textContent = '마지막: ' + last;
-    if (autoBtn) autoBtn.textContent = '🔄 자동동기화: ' + (cfg.autoSync ? 'ON' : 'OFF');
-  } else {
-    setup.style.display = '';
-    connected.style.display = 'none';
-  }
-}
-
-function syncSetStatus(msg, color) {
-  const el = document.getElementById('sync-status');
-  if (el) { el.textContent = msg; el.style.color = color || 'var(--text3)'; }
-}
-
-async function syncSetup() {
-  const token = document.getElementById('sync-token-input')?.value.trim();
-  if (!token) { syncSetStatus('토큰을 입력하세요', 'var(--red)'); return; }
-  syncSetStatus('연결 중...', 'var(--text3)');
-  try {
-    // 기존 Gist 찾기
-    const listRes = await fetch('https://api.github.com/gists', {
-      headers: { Authorization: 'token ' + token, Accept: 'application/vnd.github.v3+json' }
-    });
-    if (!listRes.ok) throw new Error('토큰이 유효하지 않습니다 (' + listRes.status + ')');
-    const gists = await listRes.json();
-    let gistId = null;
-    const found = gists.find(g => g.files && g.files['afoqt_vocab_sync.json']);
-    if (found) {
-      gistId = found.id;
-      syncSetStatus('기존 Gist 발견! 연결 완료.', 'var(--green)');
-    } else {
-      // 새 Gist 생성
-      const createRes = await fetch('https://api.github.com/gists', {
-        method: 'POST',
-        headers: { Authorization: 'token ' + token, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          description: 'AFOQT Vocab Study Data',
-          public: false,
-          files: { 'afoqt_vocab_sync.json': { content: JSON.stringify(state) } }
-        })
-      });
-      if (!createRes.ok) throw new Error('Gist 생성 실패');
-      const created = await createRes.json();
-      gistId = created.id;
-      syncSetStatus('새 Gist 생성 완료!', 'var(--green)');
-    }
-    saveSyncCfg({ token, gistId, autoSync: false, lastSync: null });
-    syncRenderUI();
-    showToast('☁️ 클라우드 연결 완료!', '');
-  } catch(e) { syncSetStatus('❌ ' + e.message, 'var(--red)'); }
-}
-
-async function syncUpload() {
-  const cfg = getSyncCfg();
-  if (!cfg) return;
-  syncSetStatus('업로드 중...', 'var(--text3)');
-  try {
-    const res = await fetch('https://api.github.com/gists/' + cfg.gistId, {
-      method: 'PATCH',
-      headers: { Authorization: 'token ' + cfg.token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ files: { 'afoqt_vocab_sync.json': { content: JSON.stringify(state) } } })
-    });
-    if (!res.ok) throw new Error('업로드 실패 (' + res.status + ')');
-    cfg.lastSync = Date.now();
-    saveSyncCfg(cfg);
-    syncRenderUI();
-    syncSetStatus('✅ 업로드 완료!', 'var(--green)');
-    showToast('☁️ 클라우드 업로드 완료!', '');
-  } catch(e) { syncSetStatus('❌ ' + e.message, 'var(--red)'); }
-}
-
-async function syncDownload() {
-  const cfg = getSyncCfg();
-  if (!cfg) return;
-  syncSetStatus('다운로드 중...', 'var(--text3)');
-  try {
-    const res = await fetch('https://api.github.com/gists/' + cfg.gistId, {
-      headers: { Authorization: 'token ' + cfg.token }
-    });
-    if (!res.ok) throw new Error('다운로드 실패 (' + res.status + ')');
-    const gist = await res.json();
-    const raw = gist.files?.['afoqt_vocab_sync.json']?.content;
-    if (!raw) throw new Error('데이터 없음');
-    const imported = JSON.parse(raw);
-    if (!imported.cards || !imported.stats) throw new Error('올바르지 않은 데이터');
-    if (!imported.settings) imported.settings = initState().settings;
-    state = imported;
-    saveState();
-    clearSession();
-    cfg.lastSync = Date.now();
-    saveSyncCfg(cfg);
-    updateHomeStats();
-    syncRenderUI();
-    syncSetStatus('✅ 다운로드 완료!', 'var(--green)');
-    showToast('📥 클라우드 데이터 동기화 완료!', '');
-    if (state.settings?.theme === 'light') document.body.classList.add('light');
-    else document.body.classList.remove('light');
-  } catch(e) { syncSetStatus('❌ ' + e.message, 'var(--red)'); }
-}
-
-function syncAutoToggle() {
-  const cfg = getSyncCfg();
-  if (!cfg) return;
-  cfg.autoSync = !cfg.autoSync;
-  saveSyncCfg(cfg);
-  syncRenderUI();
-  showToast(cfg.autoSync ? '🔄 자동 동기화 켜짐 (세션 완료 시 자동 업로드)' : '자동 동기화 꺼짐', '');
-}
-
-function syncDisconnect() {
-  showConfirm('🔌', '연결 해제', 'Gist 연결을 해제합니다. 학습 데이터는 유지됩니다.', 'var(--red)', () => {
-    localStorage.removeItem(SYNC_KEY);
-    syncRenderUI();
-    showToast('연결 해제됨', '');
-  });
-}
-
-// 세션 완료 시 자동 업로드
-function syncAutoUploadIfEnabled() {
-  const cfg = getSyncCfg();
-  if (cfg && cfg.autoSync) syncUpload();
-}
-
-function showConfirm(icon, title, desc, btnColor, onOk) {
-  document.getElementById('confirm-icon').textContent = icon;
-  document.getElementById('confirm-title').textContent = title;
-  document.getElementById('confirm-desc').textContent = desc;
-  const btn = document.getElementById('confirm-ok-btn');
-  btn.style.background = btnColor;
-  btn.onclick = () => {
-    document.getElementById('confirm-modal').classList.remove('open');
-    onOk();
-  };
-  document.getElementById('confirm-modal').classList.add('open');
-}
-
-function resetStreak() {
-  showConfirm('🔥', '스트릭 초기화', '연속 학습 기록이 0으로 초기화됩니다. 다른 데이터는 유지됩니다.', 'var(--yellow)', () => {
-    state.stats.streak = 0;
-    state.stats.lastStudied = null;
-    saveState();
-    renderSettings();
-    updateHomeStats();
-    showToast('스트릭이 초기화되었습니다 🔥', '');
-  });
-}
-
-function resetStats() {
-  showConfirm('📊', '통계 초기화', 'XP, 퀴즈 기록, 복습 횟수가 모두 0으로 초기화됩니다. 학습 진도는 유지됩니다.', 'var(--accent)', () => {
-    state.stats = { reviewed: 0, correct: 0, streak: 0, lastStudied: null, xp: 0, quizCorrect: 0, quizTotal: 0, anaCorrect: 0, anaTotal: 0 };
-    state.heatmap = {};
-    saveState();
-    renderSettings();
-    updateHomeStats();
-    showToast('통계가 초기화되었습니다 📊', '');
-  });
-}
-
-function resetProgress() {
-  showConfirm('🃏', '학습 진도 초기화', '모든 카드가 \'새 단어\'로 돌아갑니다. 통계와 스트릭은 유지됩니다.', 'var(--accent2)', () => {
-    state.cards = {};
-    saveState();
-    renderSettings();
-    updateHomeStats();
-    showToast('학습 진도가 초기화되었습니다 🃏', '');
-  });
-}
-
-function resetAll() {
-  showConfirm('🗑️', '전체 초기화', '모든 학습 데이터, 통계, 진도가 완전히 삭제됩니다. 이 작업은 되돌릴 수 없습니다!', 'var(--red)', () => {
-    localStorage.removeItem('afoqt_state');
-    state = initState();
-    saveState();
-    renderSettings();
-    updateHomeStats();
-    showToast('전체 초기화 완료 🗑️', '');
-  });
-}
-
-// ============================================================
-// UTILITIES
-// ============================================================
-function shuffle(arr) { return [...arr].sort(()=>Math.random()-0.5); }
-function escHtml(s) { return s?.replace(/'/g,"&#39;").replace(/"/g,"&quot;") || ''; }
-function showToast(msg, type='') {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = 'toast show ' + type;
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-// INIT
-
-
-
-// ============================================================
-// INIT — fetch words.json then start app
-// ============================================================
-fetch('words.json')
-  .then(r => {
-    if (!r.ok) throw new Error('words.json not found');
-    return r.json();
-  })
-  .then(data => {
-    WORDS = data;
-    document.getElementById('loading-overlay').style.display = 'none';
-    checkStreak();
-    updateHomeStats();
-    if (state.settings?.theme === 'light') document.body.classList.add('light');
-    // 자동 동기화 켜져 있으면 앱 시작 시 최신 데이터 다운로드
-    const _syncCfg = getSyncCfg();
-    if (_syncCfg && _syncCfg.autoSync) {
-      syncDownload().then(() => {
-        if (restoreSession()) { showScreen('flashcard'); renderCard(); }
-      });
-    } else if (restoreSession()) {
-      showToast('이전 세션을 이어서 진행합니다 📖', '');
-      showScreen('flashcard');
-      renderCard();
-    }
-  })
-  .catch(() => {
-    document.getElementById('loading-msg').textContent = '⚠️ words.json을 찾을 수 없습니다. index.html과 같은 폴더에 words.json을 넣어주세요.';
-  });
-</script>-e 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./config.js"></script>
+<script src="./app.js"></script>
 </body>
 </html>
