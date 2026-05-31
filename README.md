@@ -24,7 +24,7 @@ AFOQT **Verbal** 단어 암기용 모바일 학습 PWA.
 - **PWA / 오프라인** — 홈 화면 설치, 오프라인 학습(온라인 복귀 시 동기화).
 
 데이터:
-- `words.json` — **4,191 단어** (한글뜻·영영정의·예문·동의어·유추관계 + `tier`/`source`). 기존 AFOQT 세트 + **GRE Magoosh 약 1,087단어** 추가.
+- `words.json` — **4,232 단어** (한글뜻·영영정의·예문·동의어·유추관계 + `tier`/`source`). 기존 AFOQT 세트 + **GRE Magoosh 1,128단어** 추가.
 - `analogies.json` — 유추 120문제 · `reading.json` — 독해 지문 16개.
 
 > ⚠️ **업그레이드 시**: Supabase SQL Editor 에서 `supabase/schema.sql` 을 **다시 한 번 실행**하세요 (유추·독해 동기화용 `verbal_progress` 테이블이 추가됨, 재실행 안전).
@@ -86,7 +86,7 @@ window.AFOQT_CONFIG = {
 | `app.css` | 스타일 (모바일 우선, 다크) |
 | `app.js` | 학습 엔진 · SRS · 동기화 · 화면 로직 |
 | `config.js` | Supabase URL/key, 일정 설정 |
-| `words.json` | 단어 데이터 (4,191개, GRE 포함) |
+| `words.json` | 단어 데이터 (4,232개, GRE 포함) |
 | `analogies.json` | 유추 문제 (120) |
 | `reading.json` | 독해 지문 (16) |
 | `sw.js` | 서비스워커 (오프라인 캐시) |
