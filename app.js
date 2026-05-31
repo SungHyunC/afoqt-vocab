@@ -121,9 +121,30 @@ function setSyncDot(s){ const d=$("#syncDot"); d.className="sync-dot "+s;
   const txt={on:`✅ 연결됨 · 코드 ${syncCode()}`,off:"오프라인 모드 (이 기기에만 저장)",err:"⚠️ 동기화 오류 — 키 확인 필요"}[s];
   $("#syncStatusText").textContent=txt; }
 
+// Load the Supabase library on demand (never blocks app startup).
+let sbLibPromise=null;
+function loadSupabase(){
+  if(window.supabase) return Promise.resolve(window.supabase);
+  if(sbLibPromise) return sbLibPromise;
+  sbLibPromise=new Promise((resolve,reject)=>{
+    const s=document.createElement("script");
+    s.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+    s.async=true;
+    s.onload=()=>resolve(window.supabase);
+    s.onerror=()=>reject(new Error("supabase cdn failed"));
+    document.head.appendChild(s);
+    setTimeout(()=>reject(new Error("supabase cdn timeout")), 12000);
+  });
+  return sbLibPromise;
+}
+
 async function initSync(){
-  if(!sbUrl()||!sbKey()||!window.supabase){ setSyncDot("off"); return; }
-  try{ sb=window.supabase.createClient(sbUrl(),sbKey(),{realtime:{params:{eventsPerSecond:5}}});
+  if(!sbUrl()||!sbKey()){ setSyncDot("off"); return; }
+  let lib;
+  try{ lib=await loadSupabase(); }
+  catch(e){ console.warn("sync offline:",e.message); setSyncDot("off"); return; }
+  if(!lib){ setSyncDot("off"); return; }
+  try{ sb=lib.createClient(sbUrl(),sbKey(),{realtime:{params:{eventsPerSecond:5}}});
     setSyncDot("on"); await pullAll(); subscribeRealtime();
   }catch(e){ console.error(e); sb=null; setSyncDot("err"); }
 }
@@ -545,16 +566,36 @@ function wire(){
 /* ============================================================
    BOOT
    ============================================================ */
-async function loadJSON(path){ try{ const r=await fetch(path,{cache:"force-cache"}); if(!r.ok) return null; return await r.json(); }catch{ return null; } }
+async function loadJSON(path){
+  try{
+    const ctrl=new AbortController();
+    const t=setTimeout(()=>ctrl.abort(), 20000);
+    const r=await fetch(path,{cache:"force-cache",signal:ctrl.signal});
+    clearTimeout(t);
+    if(!r.ok) return null;
+    return await r.json();
+  }catch{ return null; }
+}
 async function boot(){
-  loadLocal(); wire();
-  WORDS=await loadJSON("./words.json")||[];
-  if(!WORDS.length){ $("#boot").innerHTML="<p class='center'>단어 데이터를 불러오지 못했습니다.</p>"; return; }
-  WMAP=new Map(WORDS.map(w=>[w.id,w]));
-  ANALOGIES=await loadJSON("./analogies.json")||[];
-  READING=await loadJSON("./reading.json")||[];
-  $("#boot").classList.remove("active"); go("home"); initSync();
-  if("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  try{
+    loadLocal(); wire();
+    WORDS=await loadJSON("./words.json")||[];
+    if(!WORDS.length){
+      $("#boot").innerHTML="<p class='center'>단어 데이터를 불러오지 못했어요.<br>네트워크를 확인하고 새로고침 해주세요.</p>"+
+        "<button class='btn primary' style='max-width:200px;margin:16px auto' onclick='location.reload()'>새로고침</button>";
+      return;
+    }
+    WMAP=new Map(WORDS.map(w=>[w.id,w]));
+    ANALOGIES=await loadJSON("./analogies.json")||[];
+    READING=await loadJSON("./reading.json")||[];
+    $("#boot").classList.remove("active"); go("home");
+    initSync();   // non-blocking: app already usable
+    if("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  }catch(e){
+    console.error("boot failed:",e);
+    $("#boot").innerHTML="<p class='center'>앱 로딩 중 오류가 발생했어요.<br>새로고침 해주세요.</p>"+
+      "<button class='btn primary' style='max-width:200px;margin:16px auto' onclick='location.reload()'>새로고침</button>";
+  }
 }
 document.addEventListener("DOMContentLoaded", boot);
 })();

@@ -306,7 +306,8 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- config + app load first so the app always boots, even if the CDN is slow/blocked.
+     Supabase is loaded separately and never blocks startup (see loadSupabase in app.js). -->
 <script src="./config.js"></script>
 <script src="./app.js"></script>
 </body>
