@@ -1,5 +1,7 @@
 /* AFOQT Vocab Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v2-1-0";
+const CACHE = "afoqt-v2-2-0";
+// Same-origin assets only. The Supabase CDN is loaded lazily by the app and
+// must never block install or startup.
 const ASSETS = [
   "./",
   "./index.html",
@@ -11,7 +13,6 @@ const ASSETS = [
   "./reading.json",
   "./icon.svg",
   "./manifest.webmanifest",
-  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
 ];
 
 self.addEventListener("install", e => {
@@ -32,10 +33,26 @@ self.addEventListener("fetch", e => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
 
-  // Supabase API/Realtime 호출은 캐시하지 않고 항상 네트워크
-  if (url.hostname.endsWith("supabase.co") || url.pathname.includes("/realtime")) return;
+  // Only handle same-origin requests; let the CDN/Supabase go straight to network.
+  if (url.origin !== self.location.origin) return;
 
-  // 정적 자산: 캐시 우선, 네트워크로 백그라운드 갱신
+  // App shell (html/js/css): network-first so updates show up immediately,
+  // falling back to cache when offline.
+  const isShell = /\.(html|js|css)$/.test(url.pathname) || url.pathname.endsWith("/");
+  if (isShell) {
+    e.respondWith(
+      fetch(req).then(res => {
+        if (res && res.status === 200) {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(req, copy)).catch(()=>{});
+        }
+        return res;
+      }).catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // Data/assets: cache-first with background refresh (works offline).
   e.respondWith(
     caches.match(req).then(cached => {
       const net = fetch(req).then(res => {
