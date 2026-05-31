@@ -14,8 +14,8 @@
    값을 비워두면 앱은 오프라인(이 기기에만 저장) 모드로 동작합니다.
    ============================================================ */
 window.AFOQT_CONFIG = {
-  SUPABASE_URL: "",
-  SUPABASE_ANON_KEY: "",
+  SUPABASE_URL: "https://tlmihslbopfavidylikp.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable__MviWEJZbvRXVnEe32pD4w_QuwwXWpA",
 
   // 학습 일정 (기본값)
   START_DATE: "2026-06-01",  // 단어 외우기 시작
