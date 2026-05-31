@@ -702,5 +702,509 @@
         "explain": "지문에서 국제법은 일반적으로 무력 사용 전 인간의 판단을 요구하는데, 자율 시스템은 인간의 승인 없이 표적을 선택·교전하므로 법적 문제가 발생한다고 설명하고 있다."
       }
     ]
+  },
+  {
+    "id": 17,
+    "title": "The Water Cycle",
+    "topic": "science",
+    "passage": "The water cycle, also known as the hydrologic cycle, describes the continuous movement of water on, above, and below the surface of the Earth. Driven primarily by energy from the sun, the cycle begins when heat causes water from oceans, lakes, and rivers to evaporate into the atmosphere as vapor. As this vapor rises and cools, it condenses into tiny droplets that form clouds—a process called condensation. When these droplets combine and grow heavy enough, they fall back to the surface as precipitation in the form of rain, snow, or hail. Some of this water seeps into the ground to replenish underground aquifers, while the rest flows across the land as runoff, eventually returning to the oceans to begin the cycle anew. Because the total amount of water on Earth remains essentially constant, the water you drink today may once have flowed through an ancient river or fallen as rain on a prehistoric forest.",
+    "questions": [
+      {
+        "q": "The passage is primarily concerned with explaining",
+        "options": [
+          "why the sun produces energy",
+          "how water moves continuously through Earth's systems",
+          "the difference between rain and snow",
+          "how aquifers store underground water"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문 전체가 물이 증발·응결·강수·유출을 거쳐 순환하는 과정을 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, clouds are formed during the process of",
+        "options": [
+          "evaporation",
+          "condensation",
+          "precipitation",
+          "runoff"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 수증기가 식어 작은 물방울로 응결(condensation)되어 구름을 형성한다고 명시한다."
+      },
+      {
+        "q": "As used in the passage, the word \"replenish\" most nearly means",
+        "options": [
+          "to drain completely",
+          "to refill or restore",
+          "to pollute",
+          "to measure"
+        ],
+        "answer": 1,
+        "type": "vocab_in_context",
+        "explain": "지하 대수층을 다시 채운다는 맥락이므로 replenish는 '다시 채우다/보충하다'의 의미이다."
+      },
+      {
+        "q": "It can be inferred from the final sentence that water on Earth is",
+        "options": [
+          "constantly being created",
+          "recycled and reused over long periods",
+          "mostly lost to space",
+          "unsafe to drink"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "지구의 물 총량이 일정하며 오늘 마신 물이 과거에 존재했을 수 있다는 서술에서 물이 오랜 기간 재사용·순환됨을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "title": "The Printing Press Revolution",
+    "topic": "history",
+    "passage": "Before the mid-fifteenth century, books in Europe were copied by hand, a painstaking process that made them rare and extraordinarily expensive. This changed dramatically around 1440, when Johannes Gutenberg, a German goldsmith, developed a printing press that used movable metal type. By arranging individual letters into words and pressing inked type onto paper, Gutenberg could produce identical pages quickly and in large numbers. The effects rippled across the continent. As printed books became cheaper and more plentiful, literacy spread beyond monasteries and universities to ordinary townspeople. New ideas—scientific, religious, and political—traveled faster than ever before, fueling movements such as the Protestant Reformation. Many historians regard Gutenberg's invention as a turning point that helped end the medieval era and usher in the modern age, precisely because it democratized access to knowledge.",
+    "questions": [
+      {
+        "q": "The main purpose of the passage is to describe",
+        "options": [
+          "the life of Johannes Gutenberg",
+          "how the printing press transformed European society",
+          "the religious conflicts of the Reformation",
+          "why handwritten books were beautiful"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 인쇄기가 유럽 사회(문해력, 사상 전파)를 어떻게 변화시켰는지 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, before the printing press, books were",
+        "options": [
+          "printed with movable type",
+          "copied by hand and very expensive",
+          "owned by most townspeople",
+          "written only in German"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 인쇄기 이전 책이 손으로 베껴져 드물고 매우 비쌌다고 명시한다."
+      },
+      {
+        "q": "The word \"democratized\" as used in the last sentence most nearly means",
+        "options": [
+          "made available to many people",
+          "made more political",
+          "made more expensive",
+          "kept secret"
+        ],
+        "answer": 0,
+        "type": "vocab_in_context",
+        "explain": "지식에 대한 접근을 '많은 사람이 누릴 수 있게 했다'는 맥락이므로 democratized는 '대중화했다'의 의미이다."
+      },
+      {
+        "q": "It can be inferred that the spread of printed books contributed to",
+        "options": [
+          "a decline in literacy",
+          "the rapid spread of new ideas",
+          "the end of all universities",
+          "fewer religious movements"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "책이 싸지고 많아지면서 사상이 빠르게 퍼져 종교개혁 등을 촉진했다는 서술에서 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "Coral Reefs and Their Decline",
+    "topic": "nature",
+    "passage": "Coral reefs are often called the rainforests of the sea because, despite covering less than one percent of the ocean floor, they support roughly a quarter of all marine species. A reef is built by tiny animals called polyps, which secrete calcium carbonate to form hard skeletons that accumulate over thousands of years. Living within the coral tissue are microscopic algae that provide the polyps with food through photosynthesis and give reefs their vivid colors. This partnership, however, is fragile. When ocean temperatures rise even slightly, the stressed coral expels its algae and turns ghostly white—a phenomenon known as bleaching. Without the algae, the coral loses its main food source and may eventually die. Combined with ocean acidification and pollution, rising temperatures have already damaged reefs worldwide, threatening both marine biodiversity and the millions of people who depend on reefs for food and coastal protection.",
+    "questions": [
+      {
+        "q": "The central idea of the passage is that coral reefs are",
+        "options": [
+          "the largest ecosystem on Earth",
+          "biologically rich but increasingly threatened",
+          "made entirely of algae",
+          "unaffected by ocean temperature"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 산호초가 생물다양성이 풍부하지만 점점 위협받고 있음을 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, coral bleaching occurs when",
+        "options": [
+          "polyps secrete calcium carbonate",
+          "ocean temperatures rise and coral expels its algae",
+          "new algae move into the reef",
+          "reefs grow too quickly"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 수온이 오르면 스트레스를 받은 산호가 조류를 내보내 하얗게 변한다고 명시한다."
+      },
+      {
+        "q": "The phrase \"rainforests of the sea\" is used to emphasize that reefs are",
+        "options": [
+          "wet and tropical",
+          "home to enormous biodiversity",
+          "made of plants",
+          "always green"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "열대우림처럼 좁은 면적에 막대한 생물다양성을 품고 있다는 점을 강조하는 비유이다."
+      },
+      {
+        "q": "As used in the passage, \"fragile\" most nearly means",
+        "options": [
+          "colorful",
+          "easily harmed",
+          "permanent",
+          "enormous"
+        ],
+        "answer": 1,
+        "type": "vocab_in_context",
+        "explain": "작은 수온 변화에도 무너지는 관계라는 맥락이므로 fragile은 '쉽게 손상되는'의 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "The Rise of Renewable Energy",
+    "topic": "technology",
+    "passage": "For more than a century, the world's economies have run largely on fossil fuels—coal, oil, and natural gas—whose combustion releases carbon dioxide and other greenhouse gases. In recent decades, however, renewable sources such as solar and wind have grown from costly novelties into competitive mainstream technologies. Advances in manufacturing and engineering have driven the price of solar panels down by roughly ninety percent since 2010, while wind turbines have grown taller and more efficient. Critics once argued that renewables were too unreliable, since the sun does not always shine and the wind does not always blow. Yet improvements in battery storage and smarter electrical grids are steadily addressing this challenge by storing surplus energy for later use. While fossil fuels still supply most of the world's power today, the momentum behind renewables suggests that the global energy landscape is undergoing a profound and lasting transformation.",
+    "questions": [
+      {
+        "q": "The passage is mainly about",
+        "options": [
+          "why fossil fuels are harmful",
+          "the growing competitiveness of renewable energy",
+          "how batteries are manufactured",
+          "the history of coal mining"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 재생에너지가 비싼 신기술에서 경쟁력 있는 주류 기술로 성장한 흐름을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the price of solar panels since 2010 has",
+        "options": [
+          "risen sharply",
+          "fallen by about ninety percent",
+          "remained unchanged",
+          "doubled"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 2010년 이후 태양광 패널 가격이 약 90% 하락했다고 명시한다."
+      },
+      {
+        "q": "The challenge of renewables being \"unreliable\" is being addressed mainly through",
+        "options": [
+          "building more coal plants",
+          "battery storage and smarter grids",
+          "reducing electricity use",
+          "taller buildings"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 배터리 저장과 더 스마트한 전력망이 간헐성 문제를 해결하고 있다고 설명한다."
+      },
+      {
+        "q": "The author's attitude toward the future of renewable energy can best be described as",
+        "options": [
+          "dismissive",
+          "cautiously optimistic",
+          "alarmed",
+          "indifferent"
+        ],
+        "answer": 1,
+        "type": "tone_purpose",
+        "explain": "화석연료가 여전히 다수임을 인정하면서도 재생에너지의 추세가 지속적 변화를 시사한다고 보아 '조심스럽게 낙관적'이다."
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "title": "The Power of Sleep",
+    "topic": "science",
+    "passage": "Sleep may appear to be a passive state in which the body simply rests, but research over the past several decades has revealed that it is anything but idle. During sleep, the brain actively consolidates memories, transferring information learned during the day from temporary storage into more permanent networks. The body, meanwhile, repairs tissues, regulates hormones, and clears waste products that accumulate in the brain during waking hours. Chronic sleep deprivation has been linked to impaired concentration, weakened immunity, and an increased risk of conditions such as heart disease and diabetes. Despite this, many adults routinely sleep far less than the seven to nine hours that experts recommend, often sacrificing rest for work or entertainment. Scientists now warn that treating sleep as optional is a serious mistake, arguing that adequate rest is not a luxury but a biological necessity as fundamental as food and water.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that sleep is",
+        "options": [
+          "a passive and unimportant state",
+          "an active process essential to health",
+          "only useful for the brain",
+          "a luxury for busy adults"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 수면이 기억 강화·신체 회복을 하는 능동적이며 건강에 필수적인 과정임을 강조하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, during sleep the brain",
+        "options": [
+          "stops all activity",
+          "consolidates memories",
+          "produces waste only",
+          "forgets the day's information"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 수면 중 뇌가 낮에 학습한 정보를 영구 기억으로 옮기며 기억을 강화한다고 명시한다."
+      },
+      {
+        "q": "As used in the passage, \"deprivation\" most nearly means",
+        "options": [
+          "abundance",
+          "lack or shortage",
+          "enjoyment",
+          "schedule"
+        ],
+        "answer": 1,
+        "type": "vocab_in_context",
+        "explain": "만성적인 수면 deprivation이 집중력 저하 등과 연결된다는 맥락이므로 '부족/결핍'의 의미이다."
+      },
+      {
+        "q": "The author most likely included the comparison to food and water in order to",
+        "options": [
+          "suggest sleep is optional",
+          "emphasize that sleep is a basic necessity",
+          "explain digestion",
+          "criticize scientists"
+        ],
+        "answer": 1,
+        "type": "tone_purpose",
+        "explain": "음식·물에 비유한 것은 수면이 사치가 아니라 기본적 생물학적 필수임을 강조하기 위함이다."
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "title": "The Silk Road",
+    "topic": "history",
+    "passage": "The Silk Road was not a single paved highway but a vast network of trade routes that linked China to the Mediterranean for more than fifteen hundred years. Caravans of merchants carried silk, spices, porcelain, and precious metals across deserts and mountains, exchanging goods at bustling oasis cities along the way. Yet the routes carried far more than merchandise. Religions such as Buddhism spread westward and eastward along these paths, while technologies, artistic styles, and even diseases traveled with the traders. Few merchants journeyed the entire length of the route; instead, goods passed from hand to hand, growing more valuable with each exchange. When sea routes became cheaper and safer in the age of exploration, the overland Silk Road gradually declined. Still, its legacy endures as one of history's most important examples of how trade can knit distant civilizations together.",
+    "questions": [
+      {
+        "q": "The passage is primarily about",
+        "options": [
+          "the production of silk in China",
+          "the Silk Road as a network connecting distant civilizations",
+          "why deserts are difficult to cross",
+          "the age of sea exploration"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 실크로드가 먼 문명을 연결한 교역망이었음을 중심으로 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, most merchants on the Silk Road",
+        "options": [
+          "traveled its entire length",
+          "traded goods over only part of the route",
+          "carried only silk",
+          "avoided oasis cities"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 대부분의 상인이 전 구간을 다니지 않고 물건이 손에서 손으로 넘겨졌다고 명시한다."
+      },
+      {
+        "q": "It can be inferred that the Silk Road's importance went beyond trade because it",
+        "options": [
+          "was completely paved",
+          "spread religions, technologies, and ideas",
+          "was used only by soldiers",
+          "existed for only a few years"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "종교·기술·예술이 함께 전파되었다는 서술에서 교역 이상의 문화적 영향이 있었음을 추론할 수 있다."
+      },
+      {
+        "q": "As used in the passage, \"endures\" most nearly means",
+        "options": [
+          "disappears",
+          "lasts or continues",
+          "weakens",
+          "begins"
+        ],
+        "answer": 1,
+        "type": "vocab_in_context",
+        "explain": "그 유산이 지금까지 남아 있다는 맥락이므로 endures는 '지속되다'의 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "title": "How Vaccines Work",
+    "topic": "science",
+    "passage": "A vaccine works by teaching the immune system to recognize and fight a particular pathogen without causing the disease itself. Most vaccines contain a weakened or inactivated form of a virus or bacterium, or merely a harmless piece of it, such as a protein from its surface. When this material enters the body, the immune system responds as if facing a real infection, producing specialized proteins called antibodies and creating memory cells that remain on guard for years. If the person is later exposed to the actual pathogen, these memory cells enable the body to mount a rapid and powerful defense, often stopping the illness before symptoms appear. Because widespread vaccination reduces the number of people who can spread a disease, it also protects those who cannot be vaccinated—a benefit known as herd immunity. Through this mechanism, vaccines have eradicated smallpox and brought diseases such as polio to the brink of elimination.",
+    "questions": [
+      {
+        "q": "The passage mainly explains",
+        "options": [
+          "how diseases spread",
+          "how vaccines train the immune system",
+          "why some people avoid vaccines",
+          "the history of smallpox"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 백신이 면역계가 병원체를 인식·방어하도록 훈련시키는 원리를 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, memory cells allow the body to",
+        "options": [
+          "produce the disease",
+          "respond rapidly to a later infection",
+          "weaken the immune system",
+          "spread pathogens faster"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 기억 세포가 이후 실제 감염 시 빠르고 강한 방어를 가능하게 한다고 명시한다."
+      },
+      {
+        "q": "\"Herd immunity\" as described in the passage protects",
+        "options": [
+          "only vaccinated people",
+          "those who cannot be vaccinated",
+          "animals",
+          "pathogens"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 집단면역이 백신을 맞을 수 없는 사람까지 보호한다고 설명한다."
+      },
+      {
+        "q": "It can be inferred that a vaccine does not cause the disease because it contains",
+        "options": [
+          "a full-strength pathogen",
+          "a weakened, inactivated, or partial form of the pathogen",
+          "only antibodies",
+          "memory cells"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "백신이 약화·불활성화되거나 일부 조각만 담는다는 서술에서 질병을 일으키지 않는 이유를 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "title": "The Importance of Bees",
+    "topic": "nature",
+    "passage": "Bees are among the most important pollinators on the planet, quietly performing a service on which much of the world's food supply depends. As a bee moves from flower to flower gathering nectar, grains of pollen cling to its body and are carried to the next bloom, enabling plants to produce fruits and seeds. Roughly a third of the crops humans eat—including apples, almonds, and countless vegetables—rely on this pollination. In recent years, however, beekeepers have reported alarming declines in bee populations, a trend linked to pesticides, habitat loss, parasites, and disease. Scientists warn that a sharp drop in pollinators could reduce harvests and raise food prices around the globe. Efforts to reverse the decline include planting wildflowers, reducing the use of harmful chemicals, and protecting natural habitats. Far from being a mere nuisance at a summer picnic, the humble bee is a cornerstone of healthy ecosystems and human agriculture alike.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that bees are",
+        "options": [
+          "dangerous insects to be avoided",
+          "vital pollinators now in decline",
+          "useful only for making honey",
+          "harmful to crops"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 벌이 식량 공급에 필수적인 수분 매개자이며 개체 수가 줄고 있음을 강조하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, about how much of human crops rely on pollination?",
+        "options": [
+          "all of them",
+          "about one third",
+          "none",
+          "about ninety percent"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 인간이 먹는 작물의 약 3분의 1이 수분에 의존한다고 명시한다."
+      },
+      {
+        "q": "The decline in bee populations is attributed to all of the following EXCEPT",
+        "options": [
+          "pesticides",
+          "habitat loss",
+          "parasites and disease",
+          "too much wildflower planting"
+        ],
+        "answer": 3,
+        "type": "detail",
+        "explain": "야생화 심기는 오히려 벌을 돕는 해결책으로 제시되며, 감소 원인은 살충제·서식지 상실·기생충/질병이다."
+      },
+      {
+        "q": "The phrase \"far from being a mere nuisance\" suggests the author wants readers to",
+        "options": [
+          "fear bees more",
+          "reconsider and appreciate bees' importance",
+          "ignore bees",
+          "kill bees at picnics"
+        ],
+        "answer": 1,
+        "type": "tone_purpose",
+        "explain": "단순한 성가신 곤충이 아니라는 표현은 독자가 벌의 중요성을 재고하고 인식하게 하려는 의도이다."
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "title": "The Origins of the Olympic Games",
+    "topic": "history",
+    "passage": "The Olympic Games began in ancient Greece nearly three thousand years ago, held every four years in the sacred sanctuary of Olympia in honor of the god Zeus. The earliest recorded games, in 776 BCE, featured a single footrace, but over the centuries the program expanded to include wrestling, boxing, chariot racing, and the pentathlon. Competitors came from city-states across the Greek world, and during the festival a sacred truce was declared so that athletes and spectators could travel safely, even between warring states. Victors were crowned with simple wreaths of olive leaves rather than money, yet the honor they brought to their home cities was immense. The ancient games continued for nearly twelve centuries until they were banned in 393 CE. More than fifteen hundred years later, in 1896, the modern Olympic Games were revived in Athens, reviving an ideal of international competition and peace that still resonates today.",
+    "questions": [
+      {
+        "q": "The passage is mainly concerned with",
+        "options": [
+          "the rules of ancient wrestling",
+          "the history and significance of the Olympic Games",
+          "the life of the god Zeus",
+          "why Athens was important"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 고대 올림픽의 기원, 발전, 그리고 그 의의를 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, victors in the ancient games were awarded",
+        "options": [
+          "large sums of money",
+          "wreaths of olive leaves",
+          "gold medals",
+          "land and houses"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 승자가 돈이 아니라 올리브 잎으로 만든 화관을 받았다고 명시한다."
+      },
+      {
+        "q": "The \"sacred truce\" mentioned in the passage allowed",
+        "options": [
+          "wars to continue during the games",
+          "safe travel for athletes and spectators",
+          "only Athenians to compete",
+          "the games to be canceled"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 신성한 휴전으로 전쟁 중인 도시 사이에서도 선수와 관중이 안전히 이동할 수 있었다고 설명한다."
+      },
+      {
+        "q": "It can be inferred that the modern Olympics were revived in order to",
+        "options": [
+          "replace ancient religion",
+          "renew an ideal of international competition and peace",
+          "make athletes wealthy",
+          "honor the god Zeus"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "1896년 부활이 국제 경쟁과 평화의 이상을 되살렸다는 서술에서 부활의 목적을 추론할 수 있다."
+      }
+    ]
   }
 ]
