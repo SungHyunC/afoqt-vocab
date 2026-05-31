@@ -63301,5 +63301,3335 @@
     "source": "gre-magoosh",
     "tier": "mid",
     "analogyRelations": []
+  },
+  {
+    "id": 3433,
+    "word": "ACME",
+    "pos": "noun",
+    "kor": "정점, 최고점",
+    "def": "the highest point of achievement or excellence",
+    "example": "She reached the acme of her career when she was appointed CEO at thirty.",
+    "synonyms": [
+      "pinnacle",
+      "zenith",
+      "summit",
+      "peak"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3434,
+    "word": "APEX",
+    "pos": "noun",
+    "kor": "정점, 꼭대기",
+    "def": "the top or highest point of something; the culmination",
+    "example": "The pyramid's apex was visible from miles away.",
+    "synonyms": [
+      "peak",
+      "summit",
+      "zenith",
+      "acme"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3435,
+    "word": "ASCEND",
+    "pos": "verb",
+    "kor": "오르다, 올라가다",
+    "def": "to move upward; to rise to a higher level or position",
+    "example": "The mountaineers ascended to the summit before dawn.",
+    "synonyms": [
+      "climb",
+      "rise",
+      "mount",
+      "scale"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3436,
+    "word": "DISCERNMENT",
+    "pos": "noun",
+    "kor": "통찰력, 식별력",
+    "def": "the ability to judge things clearly and with good taste",
+    "example": "Her discernment in selecting artists proved invaluable to the gallery.",
+    "synonyms": [
+      "perception",
+      "acuity",
+      "insight",
+      "judgment"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3437,
+    "word": "IRKSOME",
+    "pos": "adj",
+    "kor": "짜증스러운, 귀찮은",
+    "def": "irritating; causing annoyance or frustration",
+    "example": "The constant interruptions during the lecture were irksome to the students.",
+    "synonyms": [
+      "annoying",
+      "vexing",
+      "tiresome",
+      "galling"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3438,
+    "word": "TEMPERAMENTAL",
+    "pos": "adj",
+    "kor": "감정 기복이 심한; 기질적인",
+    "def": "liable to unreasonable changes of mood; relating to temperament",
+    "example": "The temperamental artist stormed out of rehearsal over a minor disagreement.",
+    "synonyms": [
+      "volatile",
+      "mercurial",
+      "moody",
+      "capricious"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3439,
+    "word": "ADULTERATION",
+    "pos": "noun",
+    "kor": "불순물 혼입, 품질 저하",
+    "def": "the action of making something impure by adding inferior or harmful substances",
+    "example": "Adulteration of the food supply with cheap fillers prompted a government investigation.",
+    "synonyms": [
+      "contamination",
+      "corruption",
+      "debasement",
+      "dilution"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3440,
+    "word": "AGRARIAN",
+    "pos": "adj",
+    "kor": "농업의, 토지에 관한",
+    "def": "relating to cultivated land, agriculture, or rural affairs",
+    "example": "The agrarian reforms redistributed land from wealthy landlords to peasant farmers.",
+    "synonyms": [
+      "agricultural",
+      "rural",
+      "pastoral",
+      "farming"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3441,
+    "word": "AKIN",
+    "pos": "adj",
+    "kor": "유사한, 동족의",
+    "def": "of similar character; related by blood or nature",
+    "example": "Her feeling of dread was akin to the anxiety she experienced before exams.",
+    "synonyms": [
+      "similar",
+      "analogous",
+      "kindred",
+      "related"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3442,
+    "word": "CORROBORATION",
+    "pos": "noun",
+    "kor": "확인, 뒷받침하는 증거",
+    "def": "evidence that confirms or supports a statement or theory",
+    "example": "The witness's testimony provided crucial corroboration of the defendant's alibi.",
+    "synonyms": [
+      "confirmation",
+      "verification",
+      "substantiation",
+      "validation"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3443,
+    "word": "DEFIANCE",
+    "pos": "noun",
+    "kor": "반항, 저항",
+    "def": "bold resistance to authority or an opposing force",
+    "example": "The protesters marched in defiance of the curfew imposed by the government.",
+    "synonyms": [
+      "resistance",
+      "insubordination",
+      "rebellion",
+      "opposition"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3444,
+    "word": "DIDACTICISM",
+    "pos": "noun",
+    "kor": "교훈주의, 지나치게 가르치려는 성향",
+    "def": "the quality of being intended to instruct, often to an excessive or moralistic degree",
+    "example": "The novel's didacticism alienated readers who wanted story over sermon.",
+    "synonyms": [
+      "moralism",
+      "preachiness",
+      "pedagoguery",
+      "instructivism"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3445,
+    "word": "EAVESDROP",
+    "pos": "verb",
+    "kor": "엿듣다, 도청하다",
+    "def": "to listen secretly to a private conversation",
+    "example": "She eavesdropped on her neighbors through the thin apartment wall.",
+    "synonyms": [
+      "overhear",
+      "snoop",
+      "spy",
+      "listen in"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3446,
+    "word": "ELATED",
+    "pos": "adj",
+    "kor": "기분이 매우 들떠 있는, 의기양양한",
+    "def": "extremely happy and excited, often as a result of a success",
+    "example": "The team was elated after winning the championship in the final seconds.",
+    "synonyms": [
+      "ecstatic",
+      "jubilant",
+      "exhilarated",
+      "overjoyed"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3447,
+    "word": "EXHORT",
+    "pos": "verb",
+    "kor": "강력히 촉구하다, 권고하다",
+    "def": "to urge or strongly encourage someone to do something",
+    "example": "The coach exhorted his players to give their best effort in the final quarter.",
+    "synonyms": [
+      "urge",
+      "implore",
+      "entreat",
+      "admonish"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3448,
+    "word": "FALTER",
+    "pos": "verb",
+    "kor": "비틀거리다; 망설이다, 흔들리다",
+    "def": "to lose strength, momentum, or confidence; to hesitate in action or speech",
+    "example": "Her voice faltered with emotion as she delivered the eulogy.",
+    "synonyms": [
+      "waver",
+      "hesitate",
+      "stumble",
+      "vacillate"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3449,
+    "word": "INOCULATE",
+    "pos": "verb",
+    "kor": "예방 접종하다; 사상을 주입하다",
+    "def": "to introduce a vaccine to protect against disease; to instill an idea or attitude",
+    "example": "The clinic inoculated thousands of children against measles during the campaign.",
+    "synonyms": [
+      "vaccinate",
+      "immunize",
+      "inject",
+      "instill"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3450,
+    "word": "NAIVETE",
+    "pos": "noun",
+    "kor": "순진함, 경험 부족",
+    "def": "lack of experience, wisdom, or judgment; innocent simplicity",
+    "example": "His naivete about the business world made him easy prey for unscrupulous partners.",
+    "synonyms": [
+      "ingenuousness",
+      "innocence",
+      "simplicity",
+      "credulity"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3451,
+    "word": "PALATIAL",
+    "pos": "adj",
+    "kor": "궁전 같은, 웅장한",
+    "def": "resembling a palace in being spacious and splendidly decorated",
+    "example": "The CEO's palatial office overlooked the entire city from the top floor.",
+    "synonyms": [
+      "luxurious",
+      "grand",
+      "magnificent",
+      "opulent"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3452,
+    "word": "PEDESTRIAN",
+    "pos": "adj/noun",
+    "kor": "평범한, 진부한; 보행자",
+    "def": "lacking imagination; dull and ordinary; a person walking on a street",
+    "example": "Critics dismissed the film as pedestrian, noting its reliance on tired clichés.",
+    "synonyms": [
+      "mundane",
+      "banal",
+      "prosaic",
+      "ordinary"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3453,
+    "word": "PHILANTHROPIC",
+    "pos": "adj",
+    "kor": "자선의, 박애주의적인",
+    "def": "seeking to promote the welfare of others through charitable acts or donations",
+    "example": "The philanthropic foundation donated millions to fund clean water projects abroad.",
+    "synonyms": [
+      "charitable",
+      "benevolent",
+      "altruistic",
+      "humanitarian"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3454,
+    "word": "PROPOUND",
+    "pos": "verb",
+    "kor": "제안하다, 제시하다",
+    "def": "to put forward a theory, proposal, or problem for consideration",
+    "example": "The scientist propounded a new theory of gravity at the international conference.",
+    "synonyms": [
+      "propose",
+      "advance",
+      "put forth",
+      "advocate"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3455,
+    "word": "PROSPERITY",
+    "pos": "noun",
+    "kor": "번영, 번성",
+    "def": "the state of being successful, usually by having a comfortable financial situation",
+    "example": "The postwar era brought unprecedented prosperity to the middle class.",
+    "synonyms": [
+      "affluence",
+      "success",
+      "wealth",
+      "flourishing"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3456,
+    "word": "BESEECH",
+    "pos": "verb",
+    "kor": "간청하다, 애원하다",
+    "def": "to urgently and fervently ask or implore someone",
+    "example": "She beseeched the judge to show mercy to her elderly father.",
+    "synonyms": [
+      "implore",
+      "entreat",
+      "plead",
+      "supplicate"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3457,
+    "word": "CANONIZE",
+    "pos": "verb",
+    "kor": "성인으로 추대하다; 정전으로 인정하다",
+    "def": "to declare someone a saint; to regard something as being of the highest standard",
+    "example": "The church canonized the missionary two centuries after his death.",
+    "synonyms": [
+      "sanctify",
+      "glorify",
+      "deify",
+      "enshrine"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3458,
+    "word": "CIVILITY",
+    "pos": "noun",
+    "kor": "예의, 정중함",
+    "def": "formal politeness and courtesy in behavior or speech",
+    "example": "The debate moderator urged both candidates to maintain civility.",
+    "synonyms": [
+      "courtesy",
+      "politeness",
+      "decorum",
+      "cordiality"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3459,
+    "word": "COAX",
+    "pos": "verb",
+    "kor": "달래다, 구슬리다",
+    "def": "to gently persuade someone to do something; to obtain by gentle persuasion",
+    "example": "She coaxed the frightened kitten out from under the bed with treats.",
+    "synonyms": [
+      "cajole",
+      "wheedle",
+      "persuade",
+      "entice"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3460,
+    "word": "CODDLE",
+    "pos": "verb",
+    "kor": "지나치게 보호하다, 응석받이로 키우다",
+    "def": "to treat someone in an excessively indulgent or protective way",
+    "example": "Critics argued that the school coddled students by removing all academic pressure.",
+    "synonyms": [
+      "pamper",
+      "mollycoddle",
+      "indulge",
+      "baby"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3461,
+    "word": "DEADPAN",
+    "pos": "adj/adv",
+    "kor": "무표정한, 감정 없이",
+    "def": "impassive; deliberately expressionless when delivering humor or information",
+    "example": "He delivered the punchline with a completely deadpan expression.",
+    "synonyms": [
+      "expressionless",
+      "impassive",
+      "blank",
+      "poker-faced"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3462,
+    "word": "DEFEATIST",
+    "pos": "adj/noun",
+    "kor": "패배주의적인; 패배주의자",
+    "def": "accepting failure as inevitable; having a pessimistic attitude toward success",
+    "example": "A defeatist attitude will only guarantee the very failure you fear.",
+    "synonyms": [
+      "pessimistic",
+      "fatalistic",
+      "resigned",
+      "despondent"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3463,
+    "word": "DETERMINISM",
+    "pos": "noun",
+    "kor": "결정론",
+    "def": "the doctrine that all events are determined by previously existing causes",
+    "example": "Hard determinism holds that free will is an illusion because every choice is caused.",
+    "synonyms": [
+      "fatalism",
+      "necessitarianism",
+      "predeterminism",
+      "inevitabilism"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3464,
+    "word": "DOWNFALL",
+    "pos": "noun",
+    "kor": "몰락, 파멸의 원인",
+    "def": "a loss of prosperity, status, or power; the cause of such a loss",
+    "example": "His arrogance proved to be his downfall when he alienated every ally he had.",
+    "synonyms": [
+      "ruin",
+      "undoing",
+      "collapse",
+      "demise"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3465,
+    "word": "ELITISM",
+    "pos": "noun",
+    "kor": "엘리트주의, 특권 의식",
+    "def": "the belief that a select group deserves privileges; advocacy for elite rule",
+    "example": "Critics accused the admissions policy of reinforcing elitism by favoring wealthy applicants.",
+    "synonyms": [
+      "snobbery",
+      "exclusivity",
+      "privilege",
+      "aristocracy"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3466,
+    "word": "EROSION",
+    "pos": "noun",
+    "kor": "침식; 점진적인 약화",
+    "def": "the gradual destruction of something; the wearing away of land by water or wind",
+    "example": "The erosion of public trust in institutions took decades to reverse.",
+    "synonyms": [
+      "deterioration",
+      "degradation",
+      "attrition",
+      "wearing away"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3467,
+    "word": "FRUITLESS",
+    "pos": "adj",
+    "kor": "결실 없는, 헛된",
+    "def": "failing to produce useful results; without success or benefit",
+    "example": "After hours of fruitless negotiation, both parties walked away without an agreement.",
+    "synonyms": [
+      "futile",
+      "unproductive",
+      "vain",
+      "ineffectual"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3468,
+    "word": "FUTILITY",
+    "pos": "noun",
+    "kor": "무익함, 헛됨",
+    "def": "the quality of having no useful result; pointlessness",
+    "example": "The general recognized the futility of continuing the siege and ordered a retreat.",
+    "synonyms": [
+      "pointlessness",
+      "uselessness",
+      "ineffectiveness",
+      "vanity"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3469,
+    "word": "HINDRANCE",
+    "pos": "noun",
+    "kor": "방해, 장애물",
+    "def": "a thing that makes it more difficult to do something; an obstacle",
+    "example": "The constant rain was a hindrance to the outdoor construction project.",
+    "synonyms": [
+      "obstacle",
+      "impediment",
+      "obstruction",
+      "barrier"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3470,
+    "word": "HUMDRUM",
+    "pos": "adj",
+    "kor": "단조로운, 지루한",
+    "def": "lacking excitement or variety; tediously monotonous",
+    "example": "She longed to escape her humdrum office routine and travel the world.",
+    "synonyms": [
+      "monotonous",
+      "dull",
+      "tedious",
+      "mundane"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3471,
+    "word": "IMPOVERISHED",
+    "pos": "adj",
+    "kor": "가난해진, 빈곤한; 질이 떨어진",
+    "def": "made poor; lacking adequate resources or vitality",
+    "example": "The impoverished village depended on international aid for basic necessities.",
+    "synonyms": [
+      "destitute",
+      "indigent",
+      "deprived",
+      "depleted"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3472,
+    "word": "INALIENABLE",
+    "pos": "adj",
+    "kor": "양도할 수 없는, 빼앗을 수 없는",
+    "def": "unable to be taken away or transferred to another; inherent",
+    "example": "The declaration proclaimed life and liberty as inalienable rights of all people.",
+    "synonyms": [
+      "inherent",
+      "inviolable",
+      "unalienable",
+      "absolute"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3473,
+    "word": "MAWKISH",
+    "pos": "adj",
+    "kor": "지나치게 감상적인, 구역질 나는",
+    "def": "excessively sentimental in a feeble or sickly way",
+    "example": "The mawkish love song relied on cheap emotional clichés rather than genuine feeling.",
+    "synonyms": [
+      "sentimental",
+      "saccharine",
+      "cloying",
+      "schmaltzy"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3474,
+    "word": "MILITANCY",
+    "pos": "noun",
+    "kor": "투쟁성, 전투적 성향",
+    "def": "the use of aggressive or combative methods to achieve a goal",
+    "example": "The union's militancy increased after management rejected every proposal at the table.",
+    "synonyms": [
+      "aggressiveness",
+      "combativeness",
+      "activism",
+      "belligerence"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3475,
+    "word": "MULISH",
+    "pos": "adj",
+    "kor": "고집스러운, 완고한",
+    "def": "refusing to change one's mind despite persuasion; stubbornly obstinate",
+    "example": "His mulish refusal to compromise eventually caused the deal to collapse.",
+    "synonyms": [
+      "stubborn",
+      "obstinate",
+      "headstrong",
+      "intractable"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3476,
+    "word": "MUTED",
+    "pos": "adj",
+    "kor": "억제된, 차분한; (소리가) 작은",
+    "def": "subdued in tone, color, or sound; restrained",
+    "example": "Her muted response to the award suggested she had hoped for something more substantial.",
+    "synonyms": [
+      "subdued",
+      "restrained",
+      "hushed",
+      "dampened"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3477,
+    "word": "PITTANCE",
+    "pos": "noun",
+    "kor": "푼돈, 아주 적은 양",
+    "def": "a very small or inadequate amount of money or something else",
+    "example": "The workers earned a pittance despite the company's record profits that year.",
+    "synonyms": [
+      "trifle",
+      "meager sum",
+      "peanuts",
+      "modicum"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3478,
+    "word": "PREEMPT",
+    "pos": "verb",
+    "kor": "선점하다, 미리 막다",
+    "def": "to take action in order to prevent something from happening; to acquire something in advance",
+    "example": "The president's speech preempted the networks' regular programming.",
+    "synonyms": [
+      "forestall",
+      "prevent",
+      "anticipate",
+      "supplant"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3479,
+    "word": "PREVAILING",
+    "pos": "adj",
+    "kor": "지배적인, 우세한; 현재의",
+    "def": "most widespread or common at a particular time; having influence or power",
+    "example": "The prevailing opinion among experts was that the policy would be ineffective.",
+    "synonyms": [
+      "dominant",
+      "predominant",
+      "current",
+      "widespread"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3480,
+    "word": "PROTRACT",
+    "pos": "verb",
+    "kor": "늘이다, 연장하다",
+    "def": "to extend or prolong something in duration",
+    "example": "The lawyers protracted the trial with unnecessary procedural motions.",
+    "synonyms": [
+      "prolong",
+      "extend",
+      "draw out",
+      "elongate"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3481,
+    "word": "REPROVE",
+    "pos": "verb",
+    "kor": "꾸짖다, 질책하다",
+    "def": "to express disapproval of; to rebuke or scold mildly",
+    "example": "The teacher reproved the student for talking during the examination.",
+    "synonyms": [
+      "rebuke",
+      "scold",
+      "reprimand",
+      "admonish"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3482,
+    "word": "RIFT",
+    "pos": "noun",
+    "kor": "균열, 불화; 틈",
+    "def": "a serious break in friendly relations; a crack or split in something",
+    "example": "The policy disagreement created a rift between the two longtime allies.",
+    "synonyms": [
+      "schism",
+      "breach",
+      "split",
+      "division"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3483,
+    "word": "SACCHARINE",
+    "pos": "adj",
+    "kor": "지나치게 달콤한, 지나치게 감상적인",
+    "def": "excessively sweet or sentimental; sickeningly agreeable or pleasing",
+    "example": "The saccharine ending of the film felt unearned given the dark tone of the rest.",
+    "synonyms": [
+      "cloying",
+      "maudlin",
+      "sugary",
+      "mawkish"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3484,
+    "word": "SOLILOQUY",
+    "pos": "noun",
+    "kor": "독백",
+    "def": "an act of speaking one's thoughts aloud, often in a play when alone on stage",
+    "example": "Hamlet's soliloquy beginning 'To be or not to be' is among the most famous in theater.",
+    "synonyms": [
+      "monologue",
+      "aside",
+      "speech",
+      "self-address"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3485,
+    "word": "STEALTH",
+    "pos": "noun",
+    "kor": "은밀함, 몰래 하기",
+    "def": "cautious and surreptitious action; moving secretly to avoid detection",
+    "example": "The operatives relied on stealth rather than firepower to complete the mission.",
+    "synonyms": [
+      "secrecy",
+      "covertness",
+      "furtiveness",
+      "slyness"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3486,
+    "word": "STILTED",
+    "pos": "adj",
+    "kor": "부자연스러운, 딱딱한",
+    "def": "stiff and self-conscious; not flowing naturally",
+    "example": "His stilted conversation revealed that he was uncomfortable in social settings.",
+    "synonyms": [
+      "stiff",
+      "awkward",
+      "forced",
+      "unnatural"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3487,
+    "word": "STOLID",
+    "pos": "adj",
+    "kor": "둔감한, 감정 표현이 없는",
+    "def": "calm and dependable but showing little emotion or enthusiasm",
+    "example": "The stolid guard stood motionless for hours without any sign of discomfort.",
+    "synonyms": [
+      "impassive",
+      "unemotional",
+      "phlegmatic",
+      "stoic"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3488,
+    "word": "SUPERSEDE",
+    "pos": "verb",
+    "kor": "대체하다, 교체하다",
+    "def": "to take the place of something previously in authority or use; to replace",
+    "example": "Digital cameras largely superseded film cameras within a decade.",
+    "synonyms": [
+      "replace",
+      "displace",
+      "supplant",
+      "succeed"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3489,
+    "word": "TRAVAIL",
+    "pos": "noun",
+    "kor": "고된 노동, 고통",
+    "def": "painfully difficult work or effort; labor and suffering",
+    "example": "After years of travail, the refugees finally found a permanent home.",
+    "synonyms": [
+      "toil",
+      "hardship",
+      "ordeal",
+      "tribulation"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3490,
+    "word": "UNDERSTATE",
+    "pos": "verb",
+    "kor": "과소평가하여 말하다, 절제하여 표현하다",
+    "def": "to describe something as smaller or less important than it really is",
+    "example": "To say the project was challenging would be to understate the difficulties we faced.",
+    "synonyms": [
+      "downplay",
+      "minimize",
+      "diminish",
+      "underemphasize"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3491,
+    "word": "VEHEMENCE",
+    "pos": "noun",
+    "kor": "격렬함, 열렬함",
+    "def": "strong, forceful feeling or expression; great energy or intensity",
+    "example": "She argued her case with such vehemence that the room fell silent.",
+    "synonyms": [
+      "intensity",
+      "fervor",
+      "passion",
+      "ardor"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3492,
+    "word": "VESTIGIAL",
+    "pos": "adj",
+    "kor": "흔적의, 퇴화한",
+    "def": "forming a small remnant of something that was once larger or more developed",
+    "example": "The appendix is considered a vestigial organ with no current known function.",
+    "synonyms": [
+      "rudimentary",
+      "residual",
+      "remnant",
+      "atrophied"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3493,
+    "word": "ALIGHT",
+    "pos": "verb/adj",
+    "kor": "내리다; (빛으로) 환한",
+    "def": "to descend and settle; burning or lit up",
+    "example": "A bluebird alighted on the fence post and regarded us curiously.",
+    "synonyms": [
+      "land",
+      "descend",
+      "settle",
+      "perch"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3494,
+    "word": "ALLEGORICAL",
+    "pos": "adj",
+    "kor": "우화적인, 풍자적인",
+    "def": "containing an allegory; using symbolic figures or events to represent abstract ideas",
+    "example": "Orwell's allegorical novel uses farm animals to critique totalitarian regimes.",
+    "synonyms": [
+      "symbolic",
+      "metaphorical",
+      "figurative",
+      "parabolic"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3495,
+    "word": "AMICABILITY",
+    "pos": "noun",
+    "kor": "우호적임, 상냥함",
+    "def": "the quality of having a friendly and pleasant manner",
+    "example": "His amicability made him an effective mediator between opposing factions.",
+    "synonyms": [
+      "friendliness",
+      "affability",
+      "warmth",
+      "geniality"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3496,
+    "word": "ANTIPATHETIC",
+    "pos": "adj",
+    "kor": "반감을 가진, 적대적인",
+    "def": "showing or feeling a strong aversion or repugnance",
+    "example": "She was antipathetic toward any proposal that would limit individual freedoms.",
+    "synonyms": [
+      "averse",
+      "hostile",
+      "antagonistic",
+      "opposed"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3497,
+    "word": "APHORISTIC",
+    "pos": "adj",
+    "kor": "격언적인, 경구적인",
+    "def": "consisting of or resembling concise, clever statements of truth or principle",
+    "example": "The author's aphoristic prose made her essays highly quotable.",
+    "synonyms": [
+      "epigrammatic",
+      "pithy",
+      "gnomic",
+      "sententious"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3498,
+    "word": "BLUDGEON",
+    "pos": "verb/noun",
+    "kor": "몽둥이로 치다; 강압하다; 곤봉",
+    "def": "to strike with a heavy weapon; to force by using threats",
+    "example": "The editorial accused the administration of trying to bludgeon the press into silence.",
+    "synonyms": [
+      "batter",
+      "beat",
+      "coerce",
+      "browbeat"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3499,
+    "word": "BROIL",
+    "pos": "noun/verb",
+    "kor": "소란, 싸움; 굽다",
+    "def": "a heated quarrel or fight; to cook by direct heat",
+    "example": "The broil between the two factions threatened to split the party permanently.",
+    "synonyms": [
+      "brawl",
+      "fracas",
+      "dispute",
+      "altercation"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3500,
+    "word": "DEFERENT",
+    "pos": "adj",
+    "kor": "복종하는, 공손한",
+    "def": "showing deference; respectfully submissive to another's judgment or authority",
+    "example": "The junior associate was deferent to the senior partner in all client meetings.",
+    "synonyms": [
+      "respectful",
+      "submissive",
+      "obedient",
+      "deferential"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3501,
+    "word": "DISCRIMINATORY",
+    "pos": "adj",
+    "kor": "차별적인",
+    "def": "making unjust distinctions between people based on race, sex, or other factors",
+    "example": "The court ruled that the hiring policy was discriminatory toward female applicants.",
+    "synonyms": [
+      "biased",
+      "prejudiced",
+      "unfair",
+      "inequitable"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3502,
+    "word": "EARTHY",
+    "pos": "adj",
+    "kor": "소박한, 세속적인; 흙 같은",
+    "def": "direct and uninhibited; relating to or resembling earth; unrefined",
+    "example": "Her earthy humor made everyone laugh despite the formal setting.",
+    "synonyms": [
+      "crude",
+      "coarse",
+      "unrefined",
+      "down-to-earth"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3503,
+    "word": "EGOCENTRIC",
+    "pos": "adj",
+    "kor": "자기중심적인",
+    "def": "thinking only of oneself without regard for the feelings of others",
+    "example": "His egocentric worldview prevented him from understanding why colleagues resented him.",
+    "synonyms": [
+      "self-centered",
+      "narcissistic",
+      "selfish",
+      "solipsistic"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3504,
+    "word": "EXCULPATION",
+    "pos": "noun",
+    "kor": "무죄 방면, 책임 면제",
+    "def": "the action of clearing someone from blame or fault",
+    "example": "The new DNA evidence provided complete exculpation for the wrongly convicted man.",
+    "synonyms": [
+      "exoneration",
+      "acquittal",
+      "vindication",
+      "absolution"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3505,
+    "word": "EXHORTATION",
+    "pos": "noun",
+    "kor": "권고, 강력한 촉구",
+    "def": "an address or communication urgently urging someone to take a course of action",
+    "example": "The coach's halftime exhortation energized the team for the second half.",
+    "synonyms": [
+      "urging",
+      "entreaty",
+      "admonition",
+      "encouragement"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3506,
+    "word": "FRIGID",
+    "pos": "adj",
+    "kor": "극도로 차가운; 냉담한",
+    "def": "very cold; showing no warmth or affection; stiff and formal",
+    "example": "The frigid reception from the new team made him wonder if he had made the right choice.",
+    "synonyms": [
+      "icy",
+      "cold",
+      "aloof",
+      "frosty"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3507,
+    "word": "MELANCHOLIC",
+    "pos": "adj",
+    "kor": "우울한, 침울한",
+    "def": "having or expressing a feeling of pensive sadness",
+    "example": "The melancholic melody of the folk song evoked memories of a distant homeland.",
+    "synonyms": [
+      "sorrowful",
+      "pensive",
+      "gloomy",
+      "despondent"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3508,
+    "word": "MISANTHROPIC",
+    "pos": "adj",
+    "kor": "인간 혐오적인",
+    "def": "disliking humankind and avoiding human society",
+    "example": "His misanthropic outlook led him to prefer solitude in the mountains to city life.",
+    "synonyms": [
+      "antisocial",
+      "cynical",
+      "reclusive",
+      "pessimistic"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3509,
+    "word": "OBFUSCATION",
+    "pos": "noun",
+    "kor": "흐리게 함, 혼란스럽게 만들기",
+    "def": "the action of making something unclear or confusing",
+    "example": "The corporation used technical jargon for obfuscation rather than genuine explanation.",
+    "synonyms": [
+      "obscuring",
+      "muddying",
+      "clouding",
+      "confusion"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3510,
+    "word": "OBSTINACY",
+    "pos": "noun",
+    "kor": "완고함, 고집",
+    "def": "the quality of being stubbornly resistant to change or persuasion",
+    "example": "His obstinacy in the face of overwhelming evidence frustrated the entire committee.",
+    "synonyms": [
+      "stubbornness",
+      "intransigence",
+      "pigheadedness",
+      "tenacity"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3511,
+    "word": "ORDAIN",
+    "pos": "verb",
+    "kor": "임명하다, 서품하다; 명령하다",
+    "def": "to make someone a priest or minister; to order or decree authoritatively",
+    "example": "She was ordained as a minister after completing three years of theological study.",
+    "synonyms": [
+      "consecrate",
+      "appoint",
+      "decree",
+      "establish"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3512,
+    "word": "PENANCE",
+    "pos": "noun",
+    "kor": "속죄, 참회",
+    "def": "an act of self-punishment performed to show repentance for wrongdoing",
+    "example": "He spent the rest of his life doing penance for the terrible decision he had made.",
+    "synonyms": [
+      "atonement",
+      "expiation",
+      "contrition",
+      "repentance"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3513,
+    "word": "PREROGATIVE",
+    "pos": "noun",
+    "kor": "특권, 특전",
+    "def": "a right or privilege exclusive to a particular individual or group",
+    "example": "Choosing the project team was entirely the director's prerogative.",
+    "synonyms": [
+      "privilege",
+      "right",
+      "entitlement",
+      "advantage"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3514,
+    "word": "QUERYLOUSNESS",
+    "pos": "noun",
+    "kor": "불평 잘하는 성질",
+    "def": "the tendency to complain about things in a petulant or irritable way",
+    "example": "Her querylousness about every minor inconvenience exhausted the people around her.",
+    "synonyms": [
+      "complaining",
+      "peevishness",
+      "fretfulness",
+      "whining"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3515,
+    "word": "RESTIVENESS",
+    "pos": "noun",
+    "kor": "불안, 안절부절못함",
+    "def": "the state of being restless or difficult to control",
+    "example": "The restiveness of the audience was apparent as the speaker dragged on past the hour mark.",
+    "synonyms": [
+      "restlessness",
+      "agitation",
+      "unease",
+      "impatience"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3516,
+    "word": "RIGHTEOUSNESS",
+    "pos": "noun",
+    "kor": "정의로움, 의로움",
+    "def": "the quality of being morally right or justifiable",
+    "example": "She acted out of a sense of righteousness rather than any desire for personal gain.",
+    "synonyms": [
+      "virtue",
+      "morality",
+      "probity",
+      "rectitude"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3517,
+    "word": "SACRILEGIOUS",
+    "pos": "adj",
+    "kor": "신성 모독적인",
+    "def": "violating or misusing something considered sacred",
+    "example": "Many worshippers found the comedian's jokes about the church sacrilegious.",
+    "synonyms": [
+      "blasphemous",
+      "profane",
+      "irreverent",
+      "desecrating"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3518,
+    "word": "SKULK",
+    "pos": "verb",
+    "kor": "몰래 숨어 있다, 도사리다",
+    "def": "to lurk or move stealthily, typically with a cowardly or sinister intent",
+    "example": "The suspect was seen skulking around the back of the building just before midnight.",
+    "synonyms": [
+      "lurk",
+      "slink",
+      "sneak",
+      "prowl"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3519,
+    "word": "SPECTER",
+    "pos": "noun",
+    "kor": "유령; 위협적인 가능성",
+    "def": "a ghost; a haunting or threatening prospect",
+    "example": "The specter of inflation loomed over the economic recovery discussions.",
+    "synonyms": [
+      "ghost",
+      "phantom",
+      "shadow",
+      "menace"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3520,
+    "word": "STILLNESS",
+    "pos": "noun",
+    "kor": "고요함, 정적",
+    "def": "absence of movement or sound; calm and quiet",
+    "example": "The stillness of the forest was broken only by the distant call of a bird.",
+    "synonyms": [
+      "silence",
+      "calm",
+      "tranquility",
+      "quietude"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3521,
+    "word": "VITUPERATION",
+    "pos": "noun",
+    "kor": "맹렬한 비난, 독설",
+    "def": "bitter and abusive language",
+    "example": "His political speech devolved into vituperation rather than any constructive argument.",
+    "synonyms": [
+      "invective",
+      "tirade",
+      "abuse",
+      "censure"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3522,
+    "word": "ABOMINATION",
+    "pos": "noun",
+    "kor": "혐오스러운 것, 극도로 불쾌한 것",
+    "def": "a thing that causes disgust or hatred; a feeling of hatred",
+    "example": "The destruction of the ancient temple was considered an abomination by the local people.",
+    "synonyms": [
+      "atrocity",
+      "outrage",
+      "horror",
+      "anathema"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3523,
+    "word": "ABROGATION",
+    "pos": "noun",
+    "kor": "폐지, 무효화",
+    "def": "the repeal or abolition of a law, right, or agreement",
+    "example": "The abrogation of the treaty left both parties free to pursue independent policies.",
+    "synonyms": [
+      "repeal",
+      "annulment",
+      "revocation",
+      "nullification"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3524,
+    "word": "AGONISTIC",
+    "pos": "adj",
+    "kor": "논쟁적인; 경쟁적인",
+    "def": "relating to conflict or competition; combative in debate or argument",
+    "example": "The agonistic tone of the debate obscured any chance for genuine dialogue.",
+    "synonyms": [
+      "combative",
+      "contentious",
+      "antagonistic",
+      "competitive"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3525,
+    "word": "ARCHAISM",
+    "pos": "noun",
+    "kor": "고어, 고풍스러운 표현",
+    "def": "a word, expression, or style that is no longer in common use",
+    "example": "The poet's deliberate use of archaisms gave the work an ancient, timeless quality.",
+    "synonyms": [
+      "antiquarianism",
+      "anachronism",
+      "obsoletism",
+      "old usage"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3526,
+    "word": "BEHEST",
+    "pos": "noun",
+    "kor": "명령, 지시",
+    "def": "a person's orders or command",
+    "example": "At the behest of the court, all documents were submitted within the week.",
+    "synonyms": [
+      "command",
+      "order",
+      "instruction",
+      "bidding"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3527,
+    "word": "BEWAIL",
+    "pos": "verb",
+    "kor": "슬피 탄식하다, 애도하다",
+    "def": "to express great regret, disappointment, or grief over something",
+    "example": "She bewailed the loss of the manuscript that had taken years to write.",
+    "synonyms": [
+      "lament",
+      "mourn",
+      "bemoan",
+      "grieve"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3528,
+    "word": "BRAZENLY",
+    "pos": "adv",
+    "kor": "뻔뻔하게, 대담하게",
+    "def": "in an open and shameless manner; without showing embarrassment",
+    "example": "He brazenly denied the accusations despite the video evidence against him.",
+    "synonyms": [
+      "shamelessly",
+      "audaciously",
+      "boldly",
+      "impudently"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3529,
+    "word": "BRUNT",
+    "pos": "noun",
+    "kor": "(공격 등의) 충격, 주요 타격",
+    "def": "the worst part or chief impact of something difficult or unpleasant",
+    "example": "The coastal towns bore the brunt of the hurricane's destruction.",
+    "synonyms": [
+      "impact",
+      "force",
+      "burden",
+      "shock"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3530,
+    "word": "DEFEATISM",
+    "pos": "noun",
+    "kor": "패배주의",
+    "def": "acceptance of failure as inevitable; a tendency to expect the worst",
+    "example": "Defeatism set in among the staff after the third consecutive quarterly loss.",
+    "synonyms": [
+      "pessimism",
+      "fatalism",
+      "resignation",
+      "hopelessness"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3531,
+    "word": "EMBOLDENED",
+    "pos": "adj",
+    "kor": "대담해진, 용기를 얻은",
+    "def": "made bold or more confident and courageous",
+    "example": "Emboldened by her initial success, she decided to launch a second product line.",
+    "synonyms": [
+      "encouraged",
+      "emboldened",
+      "inspired",
+      "fortified"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3532,
+    "word": "GENEROSITY",
+    "pos": "noun",
+    "kor": "너그러움, 관대함",
+    "def": "the quality of being kind and generous; willingness to give freely",
+    "example": "His generosity in funding the scholarship program changed hundreds of lives.",
+    "synonyms": [
+      "magnanimity",
+      "liberality",
+      "benevolence",
+      "munificence"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3533,
+    "word": "HUMILIATION",
+    "pos": "noun",
+    "kor": "굴욕, 수치",
+    "def": "the action of making someone feel ashamed and foolish",
+    "example": "The public humiliation of the official prompted calls for his resignation.",
+    "synonyms": [
+      "degradation",
+      "indignity",
+      "embarrassment",
+      "dishonor"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3534,
+    "word": "IMPOVERISHMENT",
+    "pos": "noun",
+    "kor": "빈곤화, 피폐",
+    "def": "the process of making poor; the state of being deprived of resources",
+    "example": "The prolonged drought led to the impoverishment of entire agricultural regions.",
+    "synonyms": [
+      "destitution",
+      "depletion",
+      "deprivation",
+      "pauperization"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3535,
+    "word": "LAVISHNESS",
+    "pos": "noun",
+    "kor": "사치스러움, 풍부함",
+    "def": "the quality of being rich, elaborate, or luxurious",
+    "example": "The lavishness of the state dinner impressed even the most seasoned diplomats.",
+    "synonyms": [
+      "opulence",
+      "extravagance",
+      "luxury",
+      "profusion"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3536,
+    "word": "PROCRASTINATION",
+    "pos": "noun",
+    "kor": "미루기, 지연",
+    "def": "the action of delaying or postponing something",
+    "example": "Chronic procrastination cost him several important opportunities throughout his career.",
+    "synonyms": [
+      "delay",
+      "postponement",
+      "deferral",
+      "dilatoriness"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3537,
+    "word": "WILLFULNESS",
+    "pos": "noun",
+    "kor": "고집, 의도적임",
+    "def": "the quality of doing what one wants despite opposition; deliberate intention",
+    "example": "The willfulness of the child's behavior suggested a need for clearer boundaries.",
+    "synonyms": [
+      "stubbornness",
+      "obstinacy",
+      "determination",
+      "intentionality"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3538,
+    "word": "ACRIMONIOUSNESS",
+    "pos": "noun",
+    "kor": "신랄함, 독설",
+    "def": "the quality of being bitterly harsh and caustic in manner or speech",
+    "example": "The acrimoniousness of the divorce proceedings damaged both parties' reputations.",
+    "synonyms": [
+      "bitterness",
+      "rancor",
+      "harshness",
+      "acerbity"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3539,
+    "word": "ADROITNESS",
+    "pos": "noun",
+    "kor": "기민함, 솜씨 좋음",
+    "def": "skill and cleverness at doing something, especially with the hands or mind",
+    "example": "The negotiator's adroitness allowed him to navigate the crisis without conceding anything.",
+    "synonyms": [
+      "dexterity",
+      "skill",
+      "agility",
+      "cleverness"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3540,
+    "word": "AFFLICT",
+    "pos": "verb",
+    "kor": "괴롭히다, 고통을 주다",
+    "def": "to cause pain or suffering to; to trouble persistently",
+    "example": "Chronic migraines afflicted her for most of her adult life.",
+    "synonyms": [
+      "torment",
+      "trouble",
+      "plague",
+      "distress"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3541,
+    "word": "AMALGAMATION",
+    "pos": "noun",
+    "kor": "합병, 혼합",
+    "def": "the action of combining or uniting two or more things",
+    "example": "The amalgamation of the two companies created the largest firm in the industry.",
+    "synonyms": [
+      "merger",
+      "combination",
+      "union",
+      "consolidation"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3542,
+    "word": "ADAMANCE",
+    "pos": "noun",
+    "kor": "단호함, 굽힐 수 없음",
+    "def": "the quality of being unwilling to change one's mind or course of action",
+    "example": "His adamance on the negotiating point frustrated his counterparts.",
+    "synonyms": [
+      "inflexibility",
+      "firmness",
+      "stubbornness",
+      "intransigence"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3543,
+    "word": "ADMONISHMENT",
+    "pos": "noun",
+    "kor": "훈계, 경고",
+    "def": "a mild rebuke or gentle warning",
+    "example": "The judge issued an admonishment to the attorney for the inappropriate comment.",
+    "synonyms": [
+      "rebuke",
+      "warning",
+      "reprimand",
+      "caution"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3544,
+    "word": "AFFLUENCE",
+    "pos": "noun",
+    "kor": "풍요, 부유함",
+    "def": "the state of having a great deal of money or wealth",
+    "example": "The neighborhood's sudden affluence reflected the broader economic boom of the era.",
+    "synonyms": [
+      "wealth",
+      "prosperity",
+      "opulence",
+      "abundance"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3545,
+    "word": "AGGRAVATION",
+    "pos": "noun",
+    "kor": "악화; 짜증",
+    "def": "the action of making a problem worse; a cause of annoyance",
+    "example": "The delay was an aggravation of an already stressful situation.",
+    "synonyms": [
+      "worsening",
+      "exacerbation",
+      "irritation",
+      "annoyance"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3546,
+    "word": "AGNOSTICISM",
+    "pos": "noun",
+    "kor": "불가지론",
+    "def": "the belief that the existence of God or ultimate reality is unknown and unknowable",
+    "example": "His agnosticism was not indifference but a carefully considered philosophical position.",
+    "synonyms": [
+      "skepticism",
+      "doubt",
+      "uncertainty",
+      "noncommitment"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3547,
+    "word": "AMIABLENESS",
+    "pos": "noun",
+    "kor": "상냥함, 호감 가는 성질",
+    "def": "the quality of having a friendly, pleasant manner",
+    "example": "Her amiableness drew people to her even in the most formal environments.",
+    "synonyms": [
+      "friendliness",
+      "geniality",
+      "warmth",
+      "pleasantness"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3548,
+    "word": "APPARITION",
+    "pos": "noun",
+    "kor": "유령, 환영",
+    "def": "a ghost or ghostlike image; a remarkable or unexpected sight",
+    "example": "The villagers reported seeing an apparition near the ruins each winter solstice.",
+    "synonyms": [
+      "ghost",
+      "phantom",
+      "specter",
+      "vision"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3549,
+    "word": "ARBITRATION",
+    "pos": "noun",
+    "kor": "중재, 조정",
+    "def": "the use of an arbitrator to settle a dispute; the process of resolving disagreements",
+    "example": "The two firms agreed to resolve the contract dispute through binding arbitration.",
+    "synonyms": [
+      "mediation",
+      "adjudication",
+      "conciliation",
+      "negotiation"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3550,
+    "word": "DEFECTION",
+    "pos": "noun",
+    "kor": "탈당, 탈주; 배반",
+    "def": "the desertion of one's country, cause, or party in favor of an opposing one",
+    "example": "The general's defection to the enemy shocked the entire high command.",
+    "synonyms": [
+      "desertion",
+      "betrayal",
+      "abandonment",
+      "treason"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3551,
+    "word": "DOMINATION",
+    "pos": "noun",
+    "kor": "지배, 우세",
+    "def": "power or control over others; the exercise of authority over a country or group",
+    "example": "The empire's domination over smaller states lasted for nearly three centuries.",
+    "synonyms": [
+      "control",
+      "supremacy",
+      "authority",
+      "hegemony"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3552,
+    "word": "ABASHMENT",
+    "pos": "noun",
+    "kor": "당혹감, 부끄러움",
+    "def": "embarrassment and loss of confidence; the feeling of being disconcerted",
+    "example": "His abashment was evident when he realized he had mispronounced the author's name.",
+    "synonyms": [
+      "embarrassment",
+      "shame",
+      "discomfiture",
+      "mortification"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3553,
+    "word": "ABSOLUTIST",
+    "pos": "adj/noun",
+    "kor": "절대주의적인; 절대주의자",
+    "def": "holding the view that government should have unrestricted power; relating to absolutism",
+    "example": "The absolutist monarch refused to acknowledge any limits on royal authority.",
+    "synonyms": [
+      "authoritarian",
+      "autocratic",
+      "totalitarian",
+      "dictatorial"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3554,
+    "word": "ABSTENTION",
+    "pos": "noun",
+    "kor": "기권, 삼감",
+    "def": "the act of refraining from voting or from an activity",
+    "example": "Three members voted in favor, two against, and one recorded an abstention.",
+    "synonyms": [
+      "abstinence",
+      "refraining",
+      "withholding",
+      "non-participation"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3555,
+    "word": "ABUNDANCE",
+    "pos": "noun",
+    "kor": "풍부함, 다량",
+    "def": "a very large quantity of something; more than enough",
+    "example": "The valley's abundance of water made it ideal for cultivation.",
+    "synonyms": [
+      "plenty",
+      "profusion",
+      "plethora",
+      "wealth"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3556,
+    "word": "ACADEME",
+    "pos": "noun",
+    "kor": "학문 세계, 학계",
+    "def": "the world of scholars, universities, and academic study",
+    "example": "She preferred the hustle of industry to the detached atmosphere of academe.",
+    "synonyms": [
+      "academia",
+      "scholarship",
+      "university",
+      "intellectual world"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3557,
+    "word": "ACCENTUATION",
+    "pos": "noun",
+    "kor": "강조, 두드러지게 함",
+    "def": "the action of making something more prominent or more clearly expressed",
+    "example": "The lighting design used shadow for the accentuation of the sculpture's contours.",
+    "synonyms": [
+      "emphasis",
+      "highlighting",
+      "stress",
+      "intensification"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3558,
+    "word": "ACCLIMATIZE",
+    "pos": "verb",
+    "kor": "적응하다, 순응하다",
+    "def": "to adapt to new conditions, especially a different climate or environment",
+    "example": "It took her several weeks to acclimatize to the high altitude of the mountain village.",
+    "synonyms": [
+      "adapt",
+      "adjust",
+      "acclimate",
+      "habituate"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3559,
+    "word": "ACIDITY",
+    "pos": "noun",
+    "kor": "신맛; 신랄함",
+    "def": "the level of acid in a substance; sharpness or bitterness in tone or manner",
+    "example": "The acidity of her critique stung even those who respected her intelligence.",
+    "synonyms": [
+      "tartness",
+      "sharpness",
+      "sourness",
+      "pungency"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3560,
+    "word": "ACTIVISM",
+    "pos": "noun",
+    "kor": "행동주의, 운동",
+    "def": "the use of vigorous campaigning to bring about political or social change",
+    "example": "Her activism on climate issues earned her recognition far beyond her home country.",
+    "synonyms": [
+      "advocacy advocacy",
+      "agitation",
+      "campaigning",
+      "militancy"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3561,
+    "word": "ACTUALIZATION",
+    "pos": "noun",
+    "kor": "실현, 구체화",
+    "def": "the process of making something actual or real",
+    "example": "The actualization of the long-delayed infrastructure plan required political will.",
+    "synonyms": [
+      "realization",
+      "fulfillment",
+      "implementation",
+      "achievement"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3562,
+    "word": "ADAGIO",
+    "pos": "adv/noun",
+    "kor": "느리게; 느린 악장",
+    "def": "in slow tempo (music); a slow musical composition or movement",
+    "example": "The orchestra performed the adagio with great tenderness and restraint.",
+    "synonyms": [
+      "slowly",
+      "leisurely",
+      "lento",
+      "largo"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3563,
+    "word": "ADAPTABLE",
+    "pos": "adj",
+    "kor": "적응력 있는, 융통성 있는",
+    "def": "able to adjust to new conditions; versatile",
+    "example": "The most adaptable employees thrived when the company restructured its operations.",
+    "synonyms": [
+      "flexible",
+      "versatile",
+      "adjustable",
+      "resilient"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3564,
+    "word": "ADDENDUM",
+    "pos": "noun",
+    "kor": "부록, 추가 사항",
+    "def": "an item of additional material added at the end of a book or document",
+    "example": "The addendum to the contract clarified the payment schedule for the second phase.",
+    "synonyms": [
+      "supplement",
+      "appendix",
+      "addition",
+      "postscript"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3565,
+    "word": "ADJURE",
+    "pos": "verb",
+    "kor": "엄숙히 요청하다, 간청하다",
+    "def": "to command or urge someone solemnly, often under oath",
+    "example": "The judge adjured the witness to tell the full truth without omission.",
+    "synonyms": [
+      "entreat",
+      "implore",
+      "beseech",
+      "command"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3566,
+    "word": "AFFILIATION",
+    "pos": "noun",
+    "kor": "제휴, 연관성, 소속",
+    "def": "the state of being officially attached to or connected with an organization",
+    "example": "Her political affiliation made it difficult to find work in the conservative administration.",
+    "synonyms": [
+      "association",
+      "connection",
+      "membership",
+      "alliance"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3567,
+    "word": "AFTERMATH",
+    "pos": "noun",
+    "kor": "여파, 결과",
+    "def": "the consequences or after-effects of a significant, usually unpleasant event",
+    "example": "The community struggled to rebuild in the aftermath of the devastating flood.",
+    "synonyms": [
+      "consequence",
+      "repercussion",
+      "fallout",
+      "wake"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3568,
+    "word": "AGGLOMERATION",
+    "pos": "noun",
+    "kor": "집괴, 집합체",
+    "def": "a collection of things gathered or accumulated into a mass",
+    "example": "The city was an agglomeration of neighborhoods each with its own distinct character.",
+    "synonyms": [
+      "cluster",
+      "accumulation",
+      "conglomeration",
+      "mass"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3569,
+    "word": "AGITATOR",
+    "pos": "noun",
+    "kor": "선동가, 扇動者",
+    "def": "a person who urges others to protest or rebel; one who stirs up controversy",
+    "example": "The authorities branded the labor organizer an agitator and had him arrested.",
+    "synonyms": [
+      "instigator",
+      "rabble-rouser",
+      "provocateur",
+      "troublemaker"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3570,
+    "word": "ALARMIST",
+    "pos": "adj/noun",
+    "kor": "과도한 경보를 울리는; 과장 경보자",
+    "def": "spreading unnecessary warnings; a person who raises alarms excessively",
+    "example": "Scientists dismissed the senator's claims as alarmist and not grounded in evidence.",
+    "synonyms": [
+      "fearmonger",
+      "scaremonger",
+      "doomsayer",
+      "pessimist"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3571,
+    "word": "ALIENABLE",
+    "pos": "adj",
+    "kor": "양도 가능한",
+    "def": "able to be transferred to new ownership; not inherent or inalienable",
+    "example": "The lawyers debated whether the intellectual property rights were alienable under the contract.",
+    "synonyms": [
+      "transferable",
+      "assignable",
+      "conveyable",
+      "disposable"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3572,
+    "word": "ALLEGORIZE",
+    "pos": "verb",
+    "kor": "우화화하다, 알레고리로 나타내다",
+    "def": "to express or interpret something by means of allegory",
+    "example": "The playwright allegorized the Cold War through the story of two feuding families.",
+    "synonyms": [
+      "symbolize",
+      "represent metaphorically",
+      "fable",
+      "moralize"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3573,
+    "word": "ALLUREMENT",
+    "pos": "noun",
+    "kor": "매력, 유혹",
+    "def": "the quality of being powerfully and mysteriously attractive; a temptation",
+    "example": "The allurement of fame drew many talented young artists to the city.",
+    "synonyms": [
+      "attraction",
+      "enticement",
+      "temptation",
+      "lure"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3574,
+    "word": "ANNIHILATION",
+    "pos": "noun",
+    "kor": "전멸, 소멸",
+    "def": "complete destruction or obliteration",
+    "example": "The invading army threatened total annihilation of the resistance forces.",
+    "synonyms": [
+      "destruction",
+      "obliteration",
+      "eradication",
+      "extermination"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3575,
+    "word": "ARGUMENTATION",
+    "pos": "noun",
+    "kor": "논증, 논쟁",
+    "def": "the process of presenting reasons or evidence in support of a conclusion",
+    "example": "The philosophy course focused on the principles of sound argumentation.",
+    "synonyms": [
+      "reasoning",
+      "debate",
+      "disputation",
+      "logic"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3576,
+    "word": "BAILOUT",
+    "pos": "noun",
+    "kor": "구제 금융, 구원",
+    "def": "financial assistance given to a company or economy to prevent collapse",
+    "example": "The government's bailout of the banking sector was deeply controversial.",
+    "synonyms": [
+      "rescue",
+      "subsidy",
+      "relief",
+      "lifeline"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3577,
+    "word": "COLLABORATION",
+    "pos": "noun",
+    "kor": "협력, 공동 작업",
+    "def": "the action of working with someone to produce something",
+    "example": "The album was the result of a creative collaboration between two legendary musicians.",
+    "synonyms": [
+      "cooperation",
+      "partnership",
+      "teamwork",
+      "joint effort"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3578,
+    "word": "DAUNTLESSNESS",
+    "pos": "noun",
+    "kor": "용감무쌍함, 두려움 없음",
+    "def": "the quality of being fearless and determined; courage in the face of danger",
+    "example": "The firefighter's dauntlessness in running toward the burning building earned her a medal.",
+    "synonyms": [
+      "fearlessness",
+      "intrepidity",
+      "valor",
+      "bravery"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3579,
+    "word": "DEJECTION",
+    "pos": "noun",
+    "kor": "낙담, 의기소침",
+    "def": "a feeling of sadness and despondency; low spirits",
+    "example": "His dejection after the rejection letter lasted several weeks before he tried again.",
+    "synonyms": [
+      "despondency",
+      "gloom",
+      "melancholy",
+      "despair"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3580,
+    "word": "DEMYSTIFY",
+    "pos": "verb",
+    "kor": "신비를 벗기다, 이해하기 쉽게 만들다",
+    "def": "to make something less mysterious or difficult to understand",
+    "example": "The book aims to demystify quantum physics for general readers.",
+    "synonyms": [
+      "clarify",
+      "explain",
+      "illuminate",
+      "simplify"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3581,
+    "word": "DISAFFECTED",
+    "pos": "adj",
+    "kor": "불만을 품은, 등을 돌린",
+    "def": "dissatisfied with those in authority; no longer loyal or supportive",
+    "example": "Disaffected voters stayed home rather than choose between two unpopular candidates.",
+    "synonyms": [
+      "alienated",
+      "estranged",
+      "dissatisfied",
+      "rebellious"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3582,
+    "word": "DISBELIEF",
+    "pos": "noun",
+    "kor": "불신, 믿지 않음",
+    "def": "inability or refusal to accept that something is true or real",
+    "example": "She stared at the results in disbelief, having expected the opposite outcome.",
+    "synonyms": [
+      "incredulity",
+      "skepticism",
+      "doubt",
+      "astonishment"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3583,
+    "word": "ELEVATED",
+    "pos": "adj",
+    "kor": "높아진, 고양된; 고상한",
+    "def": "raised above the usual level; high in quality or status",
+    "example": "The ambassador maintained an elevated tone throughout the formal dinner.",
+    "synonyms": [
+      "lofty",
+      "high-minded",
+      "exalted",
+      "raised"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3584,
+    "word": "EVASIVENESS",
+    "pos": "noun",
+    "kor": "회피성, 모호함",
+    "def": "the tendency to avoid commitment or direct answers; elusive quality",
+    "example": "The politician's evasiveness during the press conference only deepened public suspicion.",
+    "synonyms": [
+      "equivocation",
+      "prevarication",
+      "ambiguity",
+      "elusiveness"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3585,
+    "word": "EXHILARATION",
+    "pos": "noun",
+    "kor": "흥분, 활기",
+    "def": "a feeling of excitement, happiness, or elation",
+    "example": "She felt pure exhilaration when she crossed the finish line first.",
+    "synonyms": [
+      "elation",
+      "excitement",
+      "euphoria",
+      "thrill"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3586,
+    "word": "EXISTENTIAL",
+    "pos": "adj",
+    "kor": "실존적인; 생존에 관한",
+    "def": "relating to human existence or the philosophy of existentialism; concerning survival",
+    "example": "Climate change poses an existential threat to many island nations.",
+    "synonyms": [
+      "fundamental",
+      "ontological",
+      "vital",
+      "essential"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3587,
+    "word": "EXPUNGEMENT",
+    "pos": "noun",
+    "kor": "말소, 삭제",
+    "def": "the action of erasing or removing something completely, especially a legal record",
+    "example": "After completing rehabilitation, he applied for expungement of his juvenile record.",
+    "synonyms": [
+      "erasure",
+      "deletion",
+      "removal",
+      "obliteration"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3588,
+    "word": "FLAMBOYANCY",
+    "pos": "noun",
+    "kor": "화려함, 과시적임",
+    "def": "the quality of being very showy, confident, or extravagant",
+    "example": "Her flamboyancy on stage was exactly what the production needed to succeed.",
+    "synonyms": [
+      "showiness",
+      "extravagance",
+      "ostentation",
+      "flamboyance"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3589,
+    "word": "FRIGIDITY",
+    "pos": "noun",
+    "kor": "냉담함; 극도의 차가움",
+    "def": "the quality of being extremely cold; emotional coldness or unresponsiveness",
+    "example": "The frigidity of her reception at the new firm hinted at deeper workplace problems.",
+    "synonyms": [
+      "coldness",
+      "aloofness",
+      "iciness",
+      "detachment"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3590,
+    "word": "GROTESQUERIE",
+    "pos": "noun",
+    "kor": "기괴함, 괴이한 것",
+    "def": "the quality of being strangely distorted or fantastically ugly; grotesque elements",
+    "example": "The haunted house was decorated with deliberate grotesquerie to unsettle visitors.",
+    "synonyms": [
+      "bizarreness",
+      "freakishness",
+      "monstrousness",
+      "absurdity"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3591,
+    "word": "GRUDGINGLY",
+    "pos": "adv",
+    "kor": "마지못해, 내키지 않으면서",
+    "def": "in a reluctant or resentful manner",
+    "example": "He grudgingly acknowledged that his rival had performed brilliantly.",
+    "synonyms": [
+      "reluctantly",
+      "unwillingly",
+      "resentfully",
+      "begrudgingly"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3592,
+    "word": "HOMOGENEITY",
+    "pos": "noun",
+    "kor": "동질성, 균일성",
+    "def": "the quality or state of being all the same kind; uniformity",
+    "example": "The homogeneity of the panel's viewpoints limited the range of solutions proposed.",
+    "synonyms": [
+      "uniformity",
+      "sameness",
+      "consistency",
+      "similarity"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3593,
+    "word": "HUMANISTIC",
+    "pos": "adj",
+    "kor": "인문주의적인, 인간 중심의",
+    "def": "relating to humanism; concerned with human values and the study of humanity",
+    "example": "The humanistic approach to education emphasizes creativity over rote memorization.",
+    "synonyms": [
+      "humane",
+      "liberal",
+      "philanthropic",
+      "benevolent"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3594,
+    "word": "IMPART",
+    "pos": "verb",
+    "kor": "전달하다, 부여하다",
+    "def": "to make information or knowledge known; to give or bestow a quality",
+    "example": "The mentor imparted decades of wisdom to his young protégé over many conversations.",
+    "synonyms": [
+      "convey",
+      "transmit",
+      "bestow",
+      "communicate"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3595,
+    "word": "IMPLICATURE",
+    "pos": "noun",
+    "kor": "함축, 내포된 의미",
+    "def": "what is implied by an utterance beyond its literal meaning",
+    "example": "The linguist studied the implicature of the phrase to understand its social meaning.",
+    "synonyms": [
+      "implication",
+      "suggestion",
+      "inference",
+      "connotation"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3596,
+    "word": "INEVITABILITY",
+    "pos": "noun",
+    "kor": "필연성, 불가피함",
+    "def": "the quality of being certain to happen; the unavoidable nature of something",
+    "example": "Many historians debate the inevitability of the war given the diplomatic alternatives.",
+    "synonyms": [
+      "certainty",
+      "inescapability",
+      "necessity",
+      "predetermination"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3597,
+    "word": "INFLEXIBILITY",
+    "pos": "noun",
+    "kor": "경직성, 융통성 없음",
+    "def": "the quality of being unwilling to change or compromise",
+    "example": "The manager's inflexibility drove away three talented employees in one month.",
+    "synonyms": [
+      "rigidity",
+      "stubbornness",
+      "intransigence",
+      "obstinacy"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3598,
+    "word": "INNUENDO",
+    "pos": "noun",
+    "kor": "암시, 풍자",
+    "def": "an indirect or subtle reference, especially a suggestive or disparaging one",
+    "example": "The article was filled with innuendo about the official's personal conduct.",
+    "synonyms": [
+      "insinuation",
+      "hint",
+      "implication",
+      "suggestion"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3599,
+    "word": "INSIGNIFICANCE",
+    "pos": "noun",
+    "kor": "중요하지 않음, 사소함",
+    "def": "the quality of having little or no meaning or value",
+    "example": "The vastness of the cosmos made her contemplate the insignificance of human concerns.",
+    "synonyms": [
+      "triviality",
+      "inconsequence",
+      "pettiness",
+      "irrelevance"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3600,
+    "word": "INTELLECT",
+    "pos": "noun",
+    "kor": "지성, 지력",
+    "def": "the faculty of reasoning and understanding; a person with high mental capacity",
+    "example": "She was considered one of the greatest intellects of her generation.",
+    "synonyms": [
+      "intelligence",
+      "mind",
+      "reason",
+      "wisdom"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3601,
+    "word": "INTELLIGENTSIA",
+    "pos": "noun",
+    "kor": "지식인 집단, 인텔리겐치아",
+    "def": "educated people regarded as possessing culture and political initiative",
+    "example": "The reform movement was driven largely by the urban intelligentsia.",
+    "synonyms": [
+      "intellectuals",
+      "scholars",
+      "literati",
+      "cognoscenti"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3602,
+    "word": "INTEMPERANCE",
+    "pos": "noun",
+    "kor": "무절제, 과음",
+    "def": "lack of moderation or restraint; excessive indulgence",
+    "example": "His intemperance at the celebration became a source of embarrassment the next morning.",
+    "synonyms": [
+      "excess",
+      "overindulgence",
+      "immoderation",
+      "dissipation"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3603,
+    "word": "JUDGMENTAL",
+    "pos": "adj",
+    "kor": "비판적인, 남을 잘 판단하는",
+    "def": "having or displaying an excessively critical point of view",
+    "example": "Being judgmental of others' choices often reflects insecurity about one's own decisions.",
+    "synonyms": [
+      "critical",
+      "censorious",
+      "disapproving",
+      "condemnatory"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3604,
+    "word": "KEENNESS",
+    "pos": "noun",
+    "kor": "예리함; 열의",
+    "def": "sharpness of mind or senses; eagerness and enthusiasm",
+    "example": "Her keenness for learning new languages impressed her professors.",
+    "synonyms": [
+      "sharpness",
+      "acuity",
+      "eagerness",
+      "enthusiasm"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3605,
+    "word": "KNACK",
+    "pos": "noun",
+    "kor": "요령, 특별한 재주",
+    "def": "an acquired or natural skill at performing a task",
+    "example": "She had a knack for defusing tense situations with a well-timed joke.",
+    "synonyms": [
+      "talent",
+      "flair",
+      "aptitude",
+      "skill"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3606,
+    "word": "LATENCY",
+    "pos": "noun",
+    "kor": "잠재성; 지연",
+    "def": "the state of being dormant or undeveloped; delay in response",
+    "example": "Network latency affected the quality of the video call during the storm.",
+    "synonyms": [
+      "dormancy",
+      "delay",
+      "lag",
+      "inactivity"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3607,
+    "word": "LENIENCE",
+    "pos": "noun",
+    "kor": "관대함, 너그러움",
+    "def": "the quality of being gentle, tolerant, or forgiving; mildness in judgment",
+    "example": "The judge's lenience surprised the prosecution, who had expected a harsher sentence.",
+    "synonyms": [
+      "leniency",
+      "clemency",
+      "tolerance",
+      "forbearance"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3608,
+    "word": "LIBERALITY",
+    "pos": "noun",
+    "kor": "관대함; 너그러운 마음",
+    "def": "the quality of being open-minded and generous; freedom from prejudice",
+    "example": "His liberality in sharing resources made the entire department more productive.",
+    "synonyms": [
+      "generosity",
+      "open-mindedness",
+      "magnanimity",
+      "munificence"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3609,
+    "word": "LITERALISM",
+    "pos": "noun",
+    "kor": "문자주의, 글자 그대로 해석하기",
+    "def": "strict adherence to the literal meaning of a text; exact representation",
+    "example": "Scriptural literalism can sometimes conflict with modern scientific understanding.",
+    "synonyms": [
+      "exactitude",
+      "textual adherence",
+      "strict interpretation",
+      "fundamentalism"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3610,
+    "word": "MAGNANIMOUSLY",
+    "pos": "adv",
+    "kor": "관대하게, 도량 넓게",
+    "def": "in a very generous or forgiving manner, especially toward a rival",
+    "example": "She magnanimously offered to mentor the colleague who had tried to undermine her.",
+    "synonyms": [
+      "generously",
+      "nobly",
+      "graciously",
+      "benevolently"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3611,
+    "word": "MALEVOLENTLY",
+    "pos": "adv",
+    "kor": "악의적으로",
+    "def": "in a way that shows a desire to do evil or cause harm",
+    "example": "He malevolently spread rumors about his colleague to secure the promotion for himself.",
+    "synonyms": [
+      "maliciously",
+      "spitefully",
+      "wickedly",
+      "vindictively"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3612,
+    "word": "MALIGNANCE",
+    "pos": "noun",
+    "kor": "악의; 악성 종양",
+    "def": "the quality of being very dangerous or harmful; evil intent",
+    "example": "The malignance of the tumor required immediate and aggressive treatment.",
+    "synonyms": [
+      "malevolence",
+      "wickedness",
+      "virulence",
+      "hostility"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3613,
+    "word": "MARGINALIZATION",
+    "pos": "noun",
+    "kor": "소외, 주변화",
+    "def": "the process of making a person or group feel unimportant or excluded",
+    "example": "The policy was criticized for contributing to the marginalization of rural communities.",
+    "synonyms": [
+      "exclusion",
+      "ostracism",
+      "disenfranchisement",
+      "sidelining"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3614,
+    "word": "MINUTIAE",
+    "pos": "noun",
+    "kor": "사소한 세부 사항",
+    "def": "small, precise, or trivial details",
+    "example": "She was known for her attention to minutiae, catching errors others consistently missed.",
+    "synonyms": [
+      "details",
+      "trivialities",
+      "fine points",
+      "particulars"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3615,
+    "word": "MISOGYNY",
+    "pos": "noun",
+    "kor": "여성 혐오",
+    "def": "dislike of, contempt for, or ingrained prejudice against women",
+    "example": "The study documented persistent misogyny in the workplace hiring practices.",
+    "synonyms": [
+      "sexism",
+      "antifeminism",
+      "chauvinism",
+      "prejudice"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3616,
+    "word": "MOCKERY",
+    "pos": "noun",
+    "kor": "조롱, 흉내",
+    "def": "the act of mocking or making fun of someone; a contemptibly poor example",
+    "example": "The trial became a mockery of justice when key evidence was mysteriously suppressed.",
+    "synonyms": [
+      "ridicule",
+      "derision",
+      "scorn",
+      "parody"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
+  },
+  {
+    "id": 3617,
+    "word": "MORALISM",
+    "pos": "noun",
+    "kor": "도덕주의, 윤리 강조",
+    "def": "the practice of moralizing or emphasizing moral concerns, often excessively",
+    "example": "His moralism made colleagues reluctant to share personal decisions with him.",
+    "synonyms": [
+      "moralizing",
+      "self-righteousness",
+      "sanctimony",
+      "preachiness"
+    ],
+    "category": "wk",
+    "source": "gre-magoosh",
+    "tier": "high",
+    "analogyRelations": []
   }
 ]
