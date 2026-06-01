@@ -566,6 +566,31 @@ function wire(){
 /* ============================================================
    BOOT
    ============================================================ */
+// Register the service worker and auto-apply updates so users never get stuck
+// on a stale cached version (no need for ?v= cache-busting URLs).
+function registerSW(){
+  if(!("serviceWorker" in navigator)) return;
+  let reloaded=false;
+  // When a new SW takes control, reload once to pick up fresh assets.
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{
+    if(reloaded) return; reloaded=true; location.reload();
+  });
+  navigator.serviceWorker.register("./sw.js").then(reg=>{
+    reg.update();                       // check for a newer SW now
+    setInterval(()=>reg.update(), 60*60*1000); // and hourly while open
+    reg.addEventListener("updatefound",()=>{
+      const nw=reg.installing;
+      if(!nw) return;
+      nw.addEventListener("statechange",()=>{
+        // A new version installed while an old SW still controls the page:
+        // tell it to activate immediately (sw.js calls skipWaiting too).
+        if(nw.state==="installed" && navigator.serviceWorker.controller){
+          nw.postMessage&&nw.postMessage("skip-waiting");
+        }
+      });
+    });
+  }).catch(()=>{});
+}
 async function loadJSON(path){
   try{
     const ctrl=new AbortController();
@@ -590,7 +615,7 @@ async function boot(){
     READING=await loadJSON("./reading.json")||[];
     $("#boot").classList.remove("active"); go("home");
     initSync();   // non-blocking: app already usable
-    if("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+    registerSW();
   }catch(e){
     console.error("boot failed:",e);
     $("#boot").innerHTML="<p class='center'>앱 로딩 중 오류가 발생했어요.<br>새로고침 해주세요.</p>"+

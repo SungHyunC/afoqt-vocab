@@ -1,5 +1,5 @@
 /* AFOQT Vocab Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v2-2-0";
+const CACHE = "afoqt-v2-3-0";
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
@@ -18,6 +18,11 @@ const ASSETS = [
 self.addEventListener("install", e => {
   self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS).catch(()=>{})));
+});
+
+// Allow the page to force an immediate activation of a waiting SW.
+self.addEventListener("message", e => {
+  if (e.data === "skip-waiting") self.skipWaiting();
 });
 
 self.addEventListener("activate", e => {
