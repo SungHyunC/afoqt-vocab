@@ -1206,5 +1206,565 @@
         "explain": "1896년 부활이 국제 경쟁과 평화의 이상을 되살렸다는 서술에서 부활의 목적을 추론할 수 있다."
       }
     ]
+  },
+  {
+    "id": 26,
+    "title": "The Great Barrier Reef",
+    "topic": "nature",
+    "passage": "Stretching more than two thousand kilometers along the northeastern coast of Australia, the Great Barrier Reef is the largest living structure on Earth—so vast that it can be seen from space. It is not a single reef but a complex of nearly three thousand individual reefs and hundreds of islands, built over millions of years by countless tiny coral polyps. The reef teems with life, providing a habitat for thousands of species of fish, mollusks, sea turtles, and marine mammals. Yet this natural wonder faces mounting threats. Rising sea temperatures have triggered repeated mass bleaching events, while pollution from coastal farms and the growth of crown-of-thorns starfish further stress the corals. Scientists and the Australian government have launched ambitious conservation programs, but many experts caution that the reef's long-term survival ultimately depends on slowing the pace of global climate change.",
+    "questions": [
+      {
+        "q": "The passage is mainly about",
+        "options": [
+          "how coral polyps reproduce",
+          "the size, importance, and threats facing the Great Barrier Reef",
+          "tourism in Australia",
+          "the diet of sea turtles"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 대보초의 규모·중요성·위협을 종합적으로 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the Great Barrier Reef is made up of",
+        "options": [
+          "a single continuous reef",
+          "nearly three thousand individual reefs",
+          "only islands",
+          "artificial structures"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 대보초가 약 3천 개의 개별 산호초로 이루어진 복합체라고 명시한다."
+      },
+      {
+        "q": "As used in the passage, \"teems\" most nearly means",
+        "options": [
+          "is empty of",
+          "is full of",
+          "is afraid of",
+          "is far from"
+        ],
+        "answer": 1,
+        "type": "vocab_in_context",
+        "explain": "수천 종의 생물이 서식한다는 맥락이므로 teems는 '가득하다'의 의미이다."
+      },
+      {
+        "q": "The author suggests that the reef's survival ultimately depends on",
+        "options": [
+          "building more islands",
+          "slowing global climate change",
+          "increasing starfish populations",
+          "stopping all tourism"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "전문가들이 장기 생존이 기후변화 속도를 늦추는 데 달려 있다고 본다는 서술에서 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "title": "The Invention of the Telephone",
+    "topic": "history",
+    "passage": "In March 1876, Alexander Graham Bell spoke the first words ever transmitted by telephone to his assistant in another room: \"Mr. Watson, come here, I want to see you.\" Bell, a teacher of the deaf fascinated by the mechanics of sound, had been racing several rivals to find a way to send the human voice over a wire using electricity. His success transformed communication forever. Within a few decades, telephone lines crisscrossed cities and connected distant towns, allowing people to converse instantly across great distances for the first time in history. The invention reshaped business, journalism, and daily life, shrinking the world in ways that earlier generations could scarcely have imagined. Although Bell is widely credited as the telephone's inventor, the achievement rested on the work of many scientists who had studied electricity and sound before him, a reminder that great breakthroughs are rarely the product of a single mind.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the telephone",
+        "options": [
+          "was difficult to build",
+          "transformed human communication",
+          "was invented entirely by one man",
+          "was first used for business only"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 전화가 인간의 소통 방식을 영구히 바꿨음을 중심으로 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, before inventing the telephone, Bell worked as",
+        "options": [
+          "a journalist",
+          "a teacher of the deaf",
+          "a businessman",
+          "an electrician"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 벨이 청각장애인을 가르치는 교사였다고 명시한다."
+      },
+      {
+        "q": "The final sentence implies that major inventions",
+        "options": [
+          "are always accidental",
+          "build on the work of many people",
+          "cannot be credited to anyone",
+          "are no longer possible"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "여러 과학자의 연구에 기반했다는 서술은 큰 발명이 다수의 작업 위에 이루어짐을 시사한다."
+      },
+      {
+        "q": "As used in the passage, \"crisscrossed\" most nearly means",
+        "options": [
+          "avoided",
+          "covered in many directions",
+          "destroyed",
+          "ignored"
+        ],
+        "answer": 1,
+        "type": "vocab_in_context",
+        "explain": "전화선이 도시를 여러 방향으로 가로질렀다는 맥락이므로 '교차해 뒤덮다'의 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "title": "Volcanoes and Plate Tectonics",
+    "topic": "science",
+    "passage": "Volcanoes are among the most dramatic expressions of the powerful forces at work beneath the Earth's surface. The planet's outer shell is broken into massive slabs of rock called tectonic plates, which drift slowly atop a layer of hot, partially molten rock. Most volcanoes form where these plates meet. Where one plate dives beneath another, rock melts and rises as magma, occasionally erupting through the surface; where plates pull apart, molten rock wells up to create new crust. A smaller number of volcanoes, such as those that built the Hawaiian Islands, form over isolated \"hot spots\" deep within a plate. When a volcano erupts, it can release lava, ash, and gases with destructive force, yet the same process enriches surrounding soils and, over geologic time, has shaped continents and created entire island chains. Far from being mere agents of destruction, volcanoes are essential architects of the Earth's ever-changing surface.",
+    "questions": [
+      {
+        "q": "The passage is primarily concerned with explaining",
+        "options": [
+          "how to predict eruptions",
+          "how volcanoes form and shape the Earth",
+          "why Hawaii is beautiful",
+          "the chemistry of lava"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 화산의 형성 원리와 그것이 지구 표면을 형성하는 역할을 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, most volcanoes form",
+        "options": [
+          "in the center of plates",
+          "where tectonic plates meet",
+          "only over hot spots",
+          "in the ocean only"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 대부분의 화산이 판이 만나는 경계에서 형성된다고 명시한다."
+      },
+      {
+        "q": "The Hawaiian Islands are mentioned as an example of volcanoes that form",
+        "options": [
+          "where plates collide",
+          "over hot spots within a plate",
+          "where plates pull apart",
+          "underwater only"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 하와이가 판 내부의 '핫스팟' 위에서 형성된 예라고 설명한다."
+      },
+      {
+        "q": "The author's view of volcanoes can best be described as",
+        "options": [
+          "purely fearful",
+          "appreciative of their creative role",
+          "completely neutral",
+          "dismissive"
+        ],
+        "answer": 1,
+        "type": "tone_purpose",
+        "explain": "화산이 파괴자일 뿐 아니라 지표를 만드는 '건축가'라는 서술에서 창조적 역할을 인정하는 태도가 드러난다."
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "title": "The Benefits of Reading Fiction",
+    "topic": "social science",
+    "passage": "Reading fiction is often regarded as a pleasant pastime rather than a serious activity, but a growing body of research suggests that losing oneself in a novel may offer surprising psychological benefits. Several studies have found that people who read literary fiction tend to score higher on tests of empathy and social understanding. The explanation, researchers propose, lies in the very nature of storytelling: to follow a narrative, readers must imagine the thoughts, feelings, and motives of characters whose lives differ from their own. In effect, fiction provides a kind of mental rehearsal for understanding real people. Reading has also been linked to reduced stress and improved vocabulary and concentration. While no one claims that a single novel can transform a person, the evidence indicates that the habit of reading stories, far from being idle escapism, may quietly strengthen the very skills that help us navigate a complex social world.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that reading fiction",
+        "options": [
+          "is a waste of time",
+          "may offer real psychological benefits",
+          "is only for children",
+          "improves physical health"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 소설 읽기가 공감 등 심리적 이점을 줄 수 있음을 중심으로 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, readers of literary fiction tend to score higher on tests of",
+        "options": [
+          "mathematics",
+          "empathy and social understanding",
+          "physical strength",
+          "memory only"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 문학 소설 독자가 공감과 사회적 이해 검사에서 더 높은 점수를 받는 경향이 있다고 명시한다."
+      },
+      {
+        "q": "The phrase \"mental rehearsal\" suggests that fiction allows readers to",
+        "options": [
+          "memorize facts",
+          "practice understanding other people",
+          "act in plays",
+          "avoid reality"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "등장인물의 생각을 상상하는 것이 실제 사람을 이해하는 연습이 된다는 의미이다."
+      },
+      {
+        "q": "As used in the passage, \"idle escapism\" refers to an activity that is",
+        "options": [
+          "useful and productive",
+          "a meaningless distraction",
+          "physically demanding",
+          "socially required"
+        ],
+        "answer": 1,
+        "type": "vocab_in_context",
+        "explain": "독서가 'idle escapism'(무의미한 도피)이 아니라는 맥락이므로 그 표현은 '쓸모없는 딴짓'을 가리킨다."
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "title": "The Amazon Rainforest",
+    "topic": "nature",
+    "passage": "The Amazon rainforest, spanning much of South America, is the largest tropical forest on Earth and one of the planet's richest reservoirs of life. A single hectare may contain hundreds of tree species, and scientists estimate that the forest is home to roughly one in ten of all known species. The Amazon also plays a crucial role in regulating the global climate, absorbing enormous quantities of carbon dioxide and producing a significant share of the world's oxygen—reasons it is sometimes called the \"lungs of the planet.\" Yet this vital ecosystem is being cleared at an alarming rate to make way for cattle ranching, agriculture, and logging. Deforestation not only destroys irreplaceable habitats but also releases stored carbon into the atmosphere, accelerating climate change. Protecting the Amazon, conservationists argue, is therefore not merely a regional concern but a global necessity, for its fate is bound up with the health of the entire planet.",
+    "questions": [
+      {
+        "q": "The passage is mainly about",
+        "options": [
+          "how cattle are raised",
+          "the value of the Amazon and the threat of deforestation",
+          "the history of South America",
+          "why trees produce oxygen"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 아마존의 생태적 가치와 삼림 벌채의 위협을 함께 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the Amazon is called the \"lungs of the planet\" because it",
+        "options": [
+          "is shaped like lungs",
+          "absorbs carbon dioxide and produces oxygen",
+          "is very humid",
+          "contains many rivers"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 아마존이 이산화탄소를 흡수하고 산소를 생산하기에 '지구의 허파'로 불린다고 설명한다."
+      },
+      {
+        "q": "It can be inferred that deforestation contributes to climate change because it",
+        "options": [
+          "cools the planet",
+          "releases stored carbon into the atmosphere",
+          "creates more oxygen",
+          "increases rainfall"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "벌채가 저장된 탄소를 대기로 방출한다는 서술에서 기후변화를 가속한다는 추론이 가능하다."
+      },
+      {
+        "q": "The author argues that protecting the Amazon is",
+        "options": [
+          "only a local issue",
+          "a global necessity",
+          "unnecessary",
+          "impossible"
+        ],
+        "answer": 1,
+        "type": "tone_purpose",
+        "explain": "아마존의 운명이 지구 전체의 건강과 묶여 있어 보호가 '전 지구적 필요'라고 주장한다."
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "title": "The Discovery of Penicillin",
+    "topic": "science",
+    "passage": "One of the most important medical discoveries of the twentieth century happened largely by accident. In 1928, the Scottish scientist Alexander Fleming returned from a vacation to find that a mold had contaminated one of his bacterial cultures. Rather than simply discarding the ruined dish, Fleming noticed something remarkable: the bacteria surrounding the mold had been destroyed. The mold, a species of Penicillium, was producing a substance that killed harmful bacteria. Fleming named it penicillin. For years the discovery attracted little attention, and it was only in the early 1940s that other scientists, led by Howard Florey and Ernst Chain, found a way to purify and mass-produce the drug. Their work arrived just in time to save countless lives during the Second World War. Penicillin became the first widely used antibiotic, ushering in a new era of medicine in which once-deadly infections could be routinely cured.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that penicillin",
+        "options": [
+          "was deliberately designed in a lab",
+          "was discovered by accident and revolutionized medicine",
+          "was first used in 1928 worldwide",
+          "is no longer used today"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 페니실린이 우연히 발견되어 의학을 혁신했음을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, Fleming noticed that the mold",
+        "options": [
+          "grew faster than bacteria",
+          "had destroyed the surrounding bacteria",
+          "was harmless",
+          "changed color"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 곰팡이 주위의 세균이 파괴된 것을 플레밍이 발견했다고 명시한다."
+      },
+      {
+        "q": "The contribution of Florey and Chain was to",
+        "options": [
+          "discover the mold",
+          "purify and mass-produce the drug",
+          "name penicillin",
+          "start the war"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 플로리와 체인이 약물을 정제·대량생산하는 방법을 찾았다고 설명한다."
+      },
+      {
+        "q": "It can be inferred that Fleming's response to the contaminated dish was",
+        "options": [
+          "careless",
+          "unusually observant",
+          "angry",
+          "typical of most scientists"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "망친 접시를 그냥 버리지 않고 변화를 알아챈 점에서 그가 유난히 관찰력이 뛰어났음을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "The Economics of Supply and Demand",
+    "topic": "social science",
+    "passage": "At the heart of economics lies a deceptively simple idea: the relationship between supply and demand. Demand refers to how much of a good or service consumers are willing to buy, while supply refers to how much producers are willing to sell. Generally, when the price of an item rises, consumers tend to buy less of it, and producers are willing to make more; when the price falls, the opposite occurs. The price at which the quantity buyers want exactly matches the quantity sellers offer is called the equilibrium price. Markets, left to themselves, tend to drift toward this balance. If a sudden frost destroys much of an orange crop, for example, the reduced supply pushes prices upward until demand falls enough to match what remains. Understanding this dynamic helps explain why prices rise and fall and why shortages and surpluses, though sometimes painful, rarely last forever in a functioning market.",
+    "questions": [
+      {
+        "q": "The passage is primarily about",
+        "options": [
+          "how to start a business",
+          "the basic relationship between supply and demand",
+          "why frost damages crops",
+          "the history of money"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 수요와 공급의 기본 관계를 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the equilibrium price is the price at which",
+        "options": [
+          "supply is zero",
+          "the quantity demanded matches the quantity supplied",
+          "prices stop changing forever",
+          "producers make no profit"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 사려는 양과 팔려는 양이 정확히 일치하는 가격을 균형 가격이라 정의한다."
+      },
+      {
+        "q": "The example of the orange crop is used to illustrate how",
+        "options": [
+          "frost helps farmers",
+          "reduced supply raises prices",
+          "demand never changes",
+          "oranges are grown"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "서리로 공급이 줄면 가격이 오른다는 점을 보여주는 예시이다."
+      },
+      {
+        "q": "It can be inferred that, in a functioning market, shortages",
+        "options": [
+          "last forever",
+          "tend to be temporary",
+          "never occur",
+          "always lower prices"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "부족과 과잉이 영원히 지속되지는 않는다는 서술에서 일시적임을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "title": "The Northern Lights",
+    "topic": "science",
+    "passage": "On clear nights in the far north, the sky sometimes erupts into shimmering curtains of green, pink, and violet light known as the aurora borealis, or northern lights. For centuries these displays inspired myths and legends, but their true cause lies in the interaction between the sun and the Earth. The sun constantly streams out charged particles in what is called the solar wind. When these particles reach Earth, most are deflected by the planet's magnetic field, but some are funneled toward the poles. There they collide with gases high in the atmosphere, causing those gases to glow—oxygen producing greens and reds, nitrogen contributing blues and purples. The same phenomenon occurs near the South Pole, where it is called the aurora australis. Because the displays depend on solar activity, they are most frequent and vivid during periods when the sun is especially stormy, making the lights both a beautiful spectacle and a visible sign of our connection to the star at the center of our solar system.",
+    "questions": [
+      {
+        "q": "The main purpose of the passage is to explain",
+        "options": [
+          "the myths about the aurora",
+          "what causes the northern lights",
+          "why the sun is stormy",
+          "how to photograph the sky"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 북극광이 생기는 과학적 원인을 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the colors of the aurora are produced when charged particles collide with",
+        "options": [
+          "clouds",
+          "gases in the atmosphere",
+          "the magnetic field",
+          "the solar wind"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 입자가 대기 상층의 기체와 충돌하여 빛을 낸다고 명시한다."
+      },
+      {
+        "q": "The aurora australis differs from the aurora borealis mainly in its",
+        "options": [
+          "cause",
+          "location",
+          "color",
+          "brightness"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "오로라 오스트랄리스는 남극 근처에서 나타나는 같은 현상으로, 차이는 '위치'이다."
+      },
+      {
+        "q": "It can be inferred that the northern lights are brightest when",
+        "options": [
+          "the sun is calm",
+          "solar activity is high",
+          "the sky is cloudy",
+          "it is summer"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "태양 활동이 활발할 때 더 빈번하고 선명하다는 서술에서 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "title": "The History of Writing",
+    "topic": "history",
+    "passage": "Writing is so woven into modern life that it is easy to forget it was once a revolutionary invention. The earliest known writing systems emerged independently in several ancient civilizations, beginning around 3200 BCE in Mesopotamia, where merchants pressed wedge-shaped marks into clay tablets to record trade. This system, called cuneiform, started as simple pictures but gradually evolved into abstract symbols representing sounds and ideas. Similar developments occurred in ancient Egypt with hieroglyphics and, much later, in China and Mesoamerica. Before writing, knowledge could be preserved only in human memory and passed on by word of mouth, vanishing whenever a generation died without sharing it. Writing changed everything: it allowed laws to be recorded, stories to be preserved, and knowledge to accumulate across centuries. In a very real sense, written language made history itself possible, for it gave humanity a way to speak across the boundary of time.",
+    "questions": [
+      {
+        "q": "The passage is mainly about",
+        "options": [
+          "how clay tablets were made",
+          "the origins and importance of writing",
+          "the history of trade",
+          "why memory is unreliable"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 문자의 기원과 그 중요성을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the earliest known writing was used by Mesopotamian merchants to",
+        "options": [
+          "write poetry",
+          "record trade",
+          "draw pictures of gods",
+          "send letters"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 메소포타미아 상인들이 교역을 기록하기 위해 문자를 썼다고 명시한다."
+      },
+      {
+        "q": "As used in the passage, \"abstract\" most nearly means",
+        "options": [
+          "realistic and picture-like",
+          "representing ideas rather than direct images",
+          "colorful",
+          "temporary"
+        ],
+        "answer": 1,
+        "type": "vocab_in_context",
+        "explain": "단순한 그림에서 소리와 개념을 나타내는 기호로 발전했다는 맥락이므로 abstract는 '추상적'을 뜻한다."
+      },
+      {
+        "q": "The author suggests that writing \"made history itself possible\" because it",
+        "options": [
+          "replaced spoken language",
+          "allowed knowledge to be preserved across time",
+          "was invented by historians",
+          "ended human memory"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "지식을 세대를 넘어 보존하게 했다는 서술에서 역사 기록이 가능해졌음을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "Artificial Light and Sleep",
+    "topic": "science",
+    "passage": "For nearly all of human history, people lived by the rhythm of the sun, rising at dawn and settling into darkness at night. The widespread use of artificial light, beginning with the electric bulb in the late nineteenth century, dramatically altered this ancient pattern. Today, screens and lamps allow activity at any hour, but researchers warn that this convenience comes at a cost. The human body relies on cues of light and darkness to regulate its internal clock, which governs the release of melatonin, a hormone that promotes sleep. Exposure to bright light in the evening—especially the blue light emitted by phones and computers—can suppress melatonin and trick the brain into thinking it is still daytime. The result is difficulty falling asleep and poorer rest. Sleep scientists increasingly recommend dimming lights and avoiding screens before bed, arguing that respecting the body's natural relationship with darkness is essential to healthy sleep in an artificially lit world.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that artificial light",
+        "options": [
+          "is entirely harmful",
+          "can disrupt natural sleep patterns",
+          "should never be used",
+          "improves sleep"
+        ],
+        "answer": 1,
+        "type": "main_idea",
+        "explain": "지문은 인공조명이 자연스러운 수면 리듬을 방해할 수 있음을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, melatonin is a hormone that",
+        "options": [
+          "keeps people awake",
+          "promotes sleep",
+          "produces light",
+          "increases energy"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 멜라토닌이 수면을 촉진하는 호르몬이라고 명시한다."
+      },
+      {
+        "q": "Blue light from screens affects sleep by",
+        "options": [
+          "increasing melatonin",
+          "suppressing melatonin and mimicking daytime",
+          "cooling the body",
+          "causing dreams"
+        ],
+        "answer": 1,
+        "type": "detail",
+        "explain": "지문은 청색광이 멜라토닌을 억제하고 뇌가 낮으로 착각하게 만든다고 설명한다."
+      },
+      {
+        "q": "The author would most likely agree that, for better sleep, people should",
+        "options": [
+          "use brighter lights at night",
+          "reduce screen use before bed",
+          "avoid sunlight",
+          "sleep during the day"
+        ],
+        "answer": 1,
+        "type": "inference",
+        "explain": "잠들기 전 화면을 피하고 조명을 낮추라는 권고에서 추론할 수 있다."
+      }
+    ]
   }
 ]
