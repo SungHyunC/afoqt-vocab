@@ -203,3 +203,42 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .witem .src{margin-left:6px;font-size:10px;font-weight:700;color:var(--brand2)}
 .tag.high{background:#fbbf2433;color:var(--gold)}
 .done-check{margin-left:auto;color:var(--ok);font-size:18px}
+
+/* ---------- exam (실전 모의고사) ---------- */
+.exam-preset{display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.exam-preset:active{transform:scale(.99)}
+.exam-preset .ic{font-size:26px;flex:0 0 auto}
+.exam-preset .meta b{font-size:16px}
+.exam-preset .meta .muted{font-size:12px;margin-top:2px}
+.exam-preset .meta .last{font-size:11px;color:var(--brand2);margin-top:3px}
+.exam-preset .go{margin-left:auto;color:var(--muted);font-size:20px}
+.exam-bar-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.exam-timer{font-variant-numeric:tabular-nums;font-weight:800;font-size:20px;
+  background:var(--card2);padding:6px 14px;border-radius:999px;letter-spacing:.5px}
+.exam-timer.warn{background:#dc262633;color:#fca5a5;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.55}}
+.exam-sec{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.6px;
+  color:var(--brand2);border:1px solid var(--brand2);border-radius:6px;padding:1px 7px;margin-bottom:10px}
+.exam-prompt{font-weight:700;font-size:16px;line-height:1.45;margin-bottom:6px}
+.exam-stem{font-size:26px;font-weight:800;text-align:center;letter-spacing:1px;margin:12px 0;color:#fff}
+.exam-sub{text-align:center;color:var(--muted);font-size:12px;margin:-6px 0 12px;text-transform:uppercase;letter-spacing:.5px}
+.exam-passage{background:var(--card2);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:14px}
+.exam-passage summary{cursor:pointer;font-weight:700;color:var(--brand2);font-size:13px}
+.exam-passage .passage{font-size:14.5px;line-height:1.7;margin-top:10px}
+.exam-nav{display:flex;gap:10px;margin-top:18px}
+.exam-nav .btn{flex:1}
+.exam-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:14px}
+.exam-grid button{aspect-ratio:1;border-radius:8px;background:var(--card2);font-size:12px;font-weight:700;color:var(--muted)}
+.exam-grid button.answered{background:#6366f133;color:var(--txt);border:1px solid var(--brand)}
+.exam-grid button.cur{outline:2px solid var(--brand2)}
+.exam-scoreline{display:flex;justify-content:space-around;margin:10px 0 4px;flex-wrap:wrap;gap:8px}
+.exam-scoreline .s{text-align:center}
+.exam-scoreline .s b{display:block;font-size:22px}
+.exam-scoreline .s span{font-size:11px;color:var(--muted)}
+.review-q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;font-size:14px}
+.review-q .rh{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.review-q .ro{padding:8px 10px;border-radius:9px;margin-top:5px;line-height:1.4}
+.review-q .ro.ok{background:#16a34a22;border:1px solid var(--ok)}
+.review-q .ro.no{background:#dc262622;border:1px solid var(--bad)}
+.review-q .rx{margin-top:8px;font-size:12.5px;color:var(--muted);line-height:1.6}
