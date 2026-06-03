@@ -19719,5 +19719,9025 @@
         "correct": false
       }
     ]
+  },
+  {
+    "id": 482,
+    "question": "BENIGN : MALIGNANT",
+    "stem": [
+      "BENIGN",
+      "MALIGNANT"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "양성과 악성은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "kind",
+          "cruel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "doctor",
+          "hospital"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "seed",
+          "plant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calf",
+          "cow"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 483,
+    "question": "PROLIFIC : BARREN",
+    "stem": [
+      "PROLIFIC",
+      "BARREN"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "다산적과 불모는 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "fertile",
+          "sterile"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "author",
+          "book"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grape",
+          "wine"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bee",
+          "hive"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 484,
+    "question": "VERBOSE : TERSE",
+    "stem": [
+      "VERBOSE",
+      "TERSE"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "장황함과 간결함은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "wordy",
+          "concise"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "speak",
+          "stammer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "poem",
+          "verse"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "library",
+          "books"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 485,
+    "question": "OPULENT : DESTITUTE",
+    "stem": [
+      "OPULENT",
+      "DESTITUTE"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "호화로움과 궁핍함은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "rich",
+          "poor"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "vault",
+          "gold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "banker",
+          "bank"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "colt",
+          "horse"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 486,
+    "question": "PLACID : TURBULENT",
+    "stem": [
+      "PLACID",
+      "TURBULENT"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "고요함과 격동은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "calm",
+          "stormy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "river",
+          "delta"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "breeze",
+          "gale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lake",
+          "pond"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 487,
+    "question": "LUCID : MUDDLED",
+    "stem": [
+      "LUCID",
+      "MUDDLED"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "명료함과 혼란스러움은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "clear",
+          "confused"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lens",
+          "camera"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "lamp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "water",
+          "ice"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 488,
+    "question": "AMELIORATE : WORSEN",
+    "stem": [
+      "AMELIORATE",
+      "WORSEN"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "개선하다와 악화시키다는 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "improve",
+          "aggravate"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "decay",
+          "neglect"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "repair",
+          "fix"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "build",
+          "construct"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 489,
+    "question": "EXTOL : DENIGRATE",
+    "stem": [
+      "EXTOL",
+      "DENIGRATE"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "칭송하다와 폄하하다는 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "praise",
+          "belittle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "censure",
+          "scold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "teacher",
+          "class"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "singer",
+          "song"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 490,
+    "question": "CANDOR : DECEIT",
+    "stem": [
+      "CANDOR",
+      "DECEIT"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "솔직함과 기만은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "honesty",
+          "lies"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "truth",
+          "fact"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "judge",
+          "court"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "witness",
+          "testimony"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 491,
+    "question": "EBB : FLOW",
+    "stem": [
+      "EBB",
+      "FLOW"
+    ],
+    "relation": "antonym",
+    "tier": "mid",
+    "explain": "썰물과 밀물은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "recede",
+          "surge"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tide",
+          "ocean"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wave",
+          "beach"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "river",
+          "bank"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 492,
+    "question": "TACITURN : GARRULOUS",
+    "stem": [
+      "TACITURN",
+      "GARRULOUS"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "과묵함과 수다스러움은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "silent",
+          "talkative"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "whisper",
+          "speak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "book",
+          "page"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "singer",
+          "melody"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 493,
+    "question": "PARSIMONY : GENEROSITY",
+    "stem": [
+      "PARSIMONY",
+      "GENEROSITY"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "인색함과 관대함은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "stingy",
+          "lavish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "miser",
+          "greedy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "donor",
+          "gift"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bank",
+          "money"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 494,
+    "question": "MUNDANE : EXTRAORDINARY",
+    "stem": [
+      "MUNDANE",
+      "EXTRAORDINARY"
+    ],
+    "relation": "antonym",
+    "tier": "mid",
+    "explain": "평범함과 비범함은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "ordinary",
+          "remarkable"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "routine",
+          "habit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "day",
+          "week"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "work",
+          "job"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 495,
+    "question": "OBSCURE : RENOWNED",
+    "stem": [
+      "OBSCURE",
+      "RENOWNED"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "무명과 명성 높음은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "unknown",
+          "famous"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "star",
+          "fame"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dim",
+          "dark"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hidden",
+          "secret"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 496,
+    "question": "FLACCID : FIRM",
+    "stem": [
+      "FLACCID",
+      "FIRM"
+    ],
+    "relation": "antonym",
+    "tier": "mid",
+    "explain": "흐물흐물함과 단단함은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "limp",
+          "rigid"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "muscle",
+          "arm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soft",
+          "gentle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rope",
+          "knot"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 497,
+    "question": "CACOPHONY : HARMONY",
+    "stem": [
+      "CACOPHONY",
+      "HARMONY"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "불협화음과 조화는 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "noise",
+          "melody"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "discord",
+          "clash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "orchestra",
+          "music"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "drum",
+          "beat"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 498,
+    "question": "NASCENT : MATURE",
+    "stem": [
+      "NASCENT",
+      "MATURE"
+    ],
+    "relation": "antonym",
+    "tier": "mid",
+    "explain": "초기와 성숙은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "emerging",
+          "developed"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "seed",
+          "plant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "baby",
+          "child"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dawn",
+          "day"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 499,
+    "question": "DEARTH : SURFEIT",
+    "stem": [
+      "DEARTH",
+      "SURFEIT"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "부족과 과잉은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "shortage",
+          "excess"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scarce",
+          "rare"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "famine",
+          "drought"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crop",
+          "field"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 500,
+    "question": "VINDICATE : ACCUSE",
+    "stem": [
+      "VINDICATE",
+      "ACCUSE"
+    ],
+    "relation": "antonym",
+    "tier": "mid",
+    "explain": "무죄를 입증하다와 비난하다는 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "absolve",
+          "blame"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "judge",
+          "verdict"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "court",
+          "trial"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "jury",
+          "jurors"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 501,
+    "question": "INERT : ACTIVE",
+    "stem": [
+      "INERT",
+      "ACTIVE"
+    ],
+    "relation": "antonym",
+    "tier": "mid",
+    "explain": "비활성과 활성은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "motionless",
+          "lively"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "gas",
+          "oxygen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rock",
+          "stone"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "statue",
+          "marble"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 502,
+    "question": "RECTITUDE : CORRUPTION",
+    "stem": [
+      "RECTITUDE",
+      "CORRUPTION"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "청렴과 부패는 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "integrity",
+          "dishonesty"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "judge",
+          "court"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "law",
+          "rule"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "honest",
+          "sincere"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 503,
+    "question": "FRACTIOUS : COMPLIANT",
+    "stem": [
+      "FRACTIOUS",
+      "COMPLIANT"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "다루기 힘듦과 순종적은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "unruly",
+          "obedient"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rebel",
+          "cause"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "child",
+          "parent"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dog",
+          "leash"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 504,
+    "question": "WAX : WANE",
+    "stem": [
+      "WAX",
+      "WANE"
+    ],
+    "relation": "antonym",
+    "tier": "mid",
+    "explain": "차오르다와 기울다는 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "grow",
+          "diminish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "moon",
+          "sky"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "expand",
+          "contract"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "dark"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 505,
+    "question": "DIAPHANOUS : OPAQUE",
+    "stem": [
+      "DIAPHANOUS",
+      "OPAQUE"
+    ],
+    "relation": "antonym",
+    "tier": "high",
+    "explain": "비치는과 불투명한은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "sheer",
+          "cloudy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "glass",
+          "window"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "veil",
+          "cloth"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clear",
+          "light"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 506,
+    "question": "PROSAIC : POETIC",
+    "stem": [
+      "PROSAIC",
+      "POETIC"
+    ],
+    "relation": "antonym",
+    "tier": "mid",
+    "explain": "산문적과 시적은 반의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "dull",
+          "lyrical"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "prose",
+          "poem"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "text",
+          "book"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "word",
+          "line"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 507,
+    "question": "ARDUOUS : DIFFICULT",
+    "stem": [
+      "ARDUOUS",
+      "DIFFICULT"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "고된과 어려운은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "strenuous",
+          "hard"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "easy",
+          "simple"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "task",
+          "job"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "climb",
+          "ladder"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 508,
+    "question": "FORTUITOUS : ACCIDENTAL",
+    "stem": [
+      "FORTUITOUS",
+      "ACCIDENTAL"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "우연한과 뜻밖의는 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "chance",
+          "unplanned"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "planned",
+          "deliberate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "luck",
+          "fortune"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "event",
+          "party"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 509,
+    "question": "GREGARIOUS : SOCIABLE",
+    "stem": [
+      "GREGARIOUS",
+      "SOCIABLE"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "사교적과 붙임성 있는은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "outgoing",
+          "friendly"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "shy",
+          "timid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crowd",
+          "mob"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "party",
+          "guest"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 510,
+    "question": "METICULOUS : CAREFUL",
+    "stem": [
+      "METICULOUS",
+      "CAREFUL"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "꼼꼼한과 신중한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "precise",
+          "thorough"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sloppy",
+          "careless"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "detail",
+          "fact"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "audit",
+          "check"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 511,
+    "question": "OBSTINATE : STUBBORN",
+    "stem": [
+      "OBSTINATE",
+      "STUBBORN"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "완고한과 고집 센은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "headstrong",
+          "inflexible"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "flexible",
+          "yielding"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mule",
+          "animal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rock",
+          "stone"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 512,
+    "question": "CLANDESTINE : SECRET",
+    "stem": [
+      "CLANDESTINE",
+      "SECRET"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "은밀한과 비밀의는 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "covert",
+          "hidden"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "open",
+          "public"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spy",
+          "agent"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plan",
+          "plot"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 513,
+    "question": "AFFABLE : FRIENDLY",
+    "stem": [
+      "AFFABLE",
+      "FRIENDLY"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "상냥한과 친근한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "amiable",
+          "cordial"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hostile",
+          "cold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "host",
+          "guest"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smile",
+          "grin"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 514,
+    "question": "CONCISE : BRIEF",
+    "stem": [
+      "CONCISE",
+      "BRIEF"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "간결한과 짧은은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "succinct",
+          "short"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wordy",
+          "verbose"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "note",
+          "memo"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "speech",
+          "talk"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 515,
+    "question": "LETHARGIC : SLUGGISH",
+    "stem": [
+      "LETHARGIC",
+      "SLUGGISH"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "무기력한과 굼뜬은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "listless",
+          "slow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "energetic",
+          "lively"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sloth",
+          "animal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nap",
+          "sleep"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 516,
+    "question": "BENEVOLENT : KIND",
+    "stem": [
+      "BENEVOLENT",
+      "KIND"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "자비로운과 친절한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "charitable",
+          "caring"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cruel",
+          "mean"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "donor",
+          "gift"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "saint",
+          "halo"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 517,
+    "question": "PRUDENT : CAUTIOUS",
+    "stem": [
+      "PRUDENT",
+      "CAUTIOUS"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "신중한과 조심스러운은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "careful",
+          "wary"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rash",
+          "reckless"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plan",
+          "scheme"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "save",
+          "spend"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 518,
+    "question": "INDIGENT : POOR",
+    "stem": [
+      "INDIGENT",
+      "POOR"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "빈곤한과 가난한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "needy",
+          "impoverished"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rich",
+          "wealthy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "beggar",
+          "alms"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "coin",
+          "cent"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 519,
+    "question": "VORACIOUS : RAVENOUS",
+    "stem": [
+      "VORACIOUS",
+      "RAVENOUS"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "게걸스러운과 굶주린은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "greedy",
+          "hungry"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "full",
+          "sated"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "glutton",
+          "food"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "meal",
+          "dish"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 520,
+    "question": "ASTUTE : SHREWD",
+    "stem": [
+      "ASTUTE",
+      "SHREWD"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "기민한과 빈틈없는은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "clever",
+          "sharp"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dull",
+          "foolish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fox",
+          "den"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mind",
+          "brain"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 521,
+    "question": "NEFARIOUS : WICKED",
+    "stem": [
+      "NEFARIOUS",
+      "WICKED"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "극악한과 사악한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "evil",
+          "villainous"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "noble",
+          "virtuous"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "villain",
+          "plot"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crime",
+          "law"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 522,
+    "question": "ZEALOUS : FERVENT",
+    "stem": [
+      "ZEALOUS",
+      "FERVENT"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "열성적과 열렬한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "eager",
+          "passionate"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "apathetic",
+          "indifferent"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fan",
+          "team"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fire",
+          "heat"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 523,
+    "question": "LUMINOUS : RADIANT",
+    "stem": [
+      "LUMINOUS",
+      "RADIANT"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "빛나는과 환한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "glowing",
+          "bright"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dark",
+          "dim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lamp",
+          "bulb"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sun",
+          "star"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 524,
+    "question": "RESOLUTE : DETERMINED",
+    "stem": [
+      "RESOLUTE",
+      "DETERMINED"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "단호한과 결연한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "firm",
+          "steadfast"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wavering",
+          "hesitant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "goal",
+          "aim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "will",
+          "mind"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 525,
+    "question": "SUCCINCT : PITHY",
+    "stem": [
+      "SUCCINCT",
+      "PITHY"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "간결한과 함축적인은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "terse",
+          "compact"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rambling",
+          "lengthy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "note",
+          "memo"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "text",
+          "page"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 526,
+    "question": "EQUANIMITY : COMPOSURE",
+    "stem": [
+      "EQUANIMITY",
+      "COMPOSURE"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "평정심과 침착함은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "calmness",
+          "poise"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "panic",
+          "frenzy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "monk",
+          "robe"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mind",
+          "thought"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 527,
+    "question": "TENACIOUS : PERSISTENT",
+    "stem": [
+      "TENACIOUS",
+      "PERSISTENT"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "끈질긴과 집요한은 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "dogged",
+          "relentless"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "quitting",
+          "yielding"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grip",
+          "hold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rope",
+          "knot"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 528,
+    "question": "ELUCIDATE : CLARIFY",
+    "stem": [
+      "ELUCIDATE",
+      "CLARIFY"
+    ],
+    "relation": "synonym",
+    "tier": "high",
+    "explain": "설명하다와 명확히 하다는 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "explain",
+          "illuminate"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "confuse",
+          "obscure"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "teacher",
+          "class"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "text",
+          "page"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 529,
+    "question": "ABATE : SUBSIDE",
+    "stem": [
+      "ABATE",
+      "SUBSIDE"
+    ],
+    "relation": "synonym",
+    "tier": "mid",
+    "explain": "약해지다와 가라앉다는 유의어 관계.",
+    "options": [
+      {
+        "pair": [
+          "diminish",
+          "lessen"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "intensify",
+          "grow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "storm",
+          "wind"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tide",
+          "wave"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 530,
+    "question": "PETAL : ROSE",
+    "stem": [
+      "PETAL",
+      "ROSE"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "꽃잎은 장미의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "scale",
+          "fish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rose",
+          "petal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "garden",
+          "flower"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stem",
+          "root"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 531,
+    "question": "KEY : PIANO",
+    "stem": [
+      "KEY",
+      "PIANO"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "건반은 피아노의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "string",
+          "guitar"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "piano",
+          "key"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "music",
+          "note"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "player",
+          "band"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 532,
+    "question": "CHAPTER : TEXTBOOK",
+    "stem": [
+      "CHAPTER",
+      "TEXTBOOK"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "장은 교재의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "scene",
+          "play"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "textbook",
+          "chapter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "book",
+          "library"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "page",
+          "word"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 533,
+    "question": "RUNG : STAIRCASE",
+    "stem": [
+      "RUNG",
+      "STAIRCASE"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "단은 계단의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "spoke",
+          "wheel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "staircase",
+          "rung"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ladder",
+          "climb"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "step",
+          "walk"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 534,
+    "question": "SCALE : FISH",
+    "stem": [
+      "SCALE",
+      "FISH"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "비늘은 물고기의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "feather",
+          "bird"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fish",
+          "scale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "aquarium",
+          "fish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fin",
+          "swim"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 535,
+    "question": "BRANCH : TREE",
+    "stem": [
+      "BRANCH",
+      "TREE"
+    ],
+    "relation": "part : whole",
+    "tier": "std",
+    "explain": "가지는 나무의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "limb",
+          "body"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tree",
+          "branch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "forest",
+          "tree"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "leaf",
+          "fall"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 536,
+    "question": "STANZA : POEM",
+    "stem": [
+      "STANZA",
+      "POEM"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "연은 시의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "paragraph",
+          "essay"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "poem",
+          "stanza"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "poet",
+          "verse"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "word",
+          "letter"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 537,
+    "question": "HULL : SHIP",
+    "stem": [
+      "HULL",
+      "SHIP"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "선체는 배의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "fuselage",
+          "aircraft"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "ship",
+          "hull"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sea",
+          "ship"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sail",
+          "wind"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 538,
+    "question": "KEYSTONE : ARCH",
+    "stem": [
+      "KEYSTONE",
+      "ARCH"
+    ],
+    "relation": "part : whole",
+    "tier": "high",
+    "explain": "쐐기돌은 아치의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "cornerstone",
+          "building"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "arch",
+          "keystone"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bridge",
+          "river"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "clay"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 539,
+    "question": "PISTON : ENGINE",
+    "stem": [
+      "PISTON",
+      "ENGINE"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "피스톤은 엔진의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "gear",
+          "clock"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "engine",
+          "piston"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "car",
+          "engine"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fuel",
+          "gas"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 540,
+    "question": "CLAUSE : SENTENCE",
+    "stem": [
+      "CLAUSE",
+      "SENTENCE"
+    ],
+    "relation": "part : whole",
+    "tier": "high",
+    "explain": "절은 문장의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "verse",
+          "song"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sentence",
+          "clause"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "word",
+          "letter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "text",
+          "book"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 541,
+    "question": "WICK : CANDLE",
+    "stem": [
+      "WICK",
+      "CANDLE"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "심지는 양초의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "filament",
+          "bulb"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "candle",
+          "wick"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flame",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wax",
+          "melt"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 542,
+    "question": "PAGE : ATLAS",
+    "stem": [
+      "PAGE",
+      "ATLAS"
+    ],
+    "relation": "part : whole",
+    "tier": "std",
+    "explain": "페이지는 지도책의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "frame",
+          "film"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "atlas",
+          "page"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "map",
+          "route"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "book",
+          "read"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 543,
+    "question": "FANG : SNAKE",
+    "stem": [
+      "FANG",
+      "SNAKE"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "송곳니는 뱀의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "talon",
+          "eagle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "snake",
+          "fang"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "venom",
+          "poison"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "scale",
+          "skin"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 544,
+    "question": "BRISTLE : BRUSH",
+    "stem": [
+      "BRISTLE",
+      "BRUSH"
+    ],
+    "relation": "part : whole",
+    "tier": "mid",
+    "explain": "털은 솔의 일부 → 부분:전체 관계.",
+    "options": [
+      {
+        "pair": [
+          "tine",
+          "fork"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "brush",
+          "bristle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "paint",
+          "color"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "handle",
+          "grip"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 545,
+    "question": "SURGEON : FORCEPS",
+    "stem": [
+      "SURGEON",
+      "FORCEPS"
+    ],
+    "relation": "worker : tool",
+    "tier": "mid",
+    "explain": "외과의는 겸자를 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "plumber",
+          "wrench"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "forceps",
+          "surgeon"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nurse",
+          "hospital"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "patient",
+          "bed"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 546,
+    "question": "TAILOR : NEEDLE",
+    "stem": [
+      "TAILOR",
+      "NEEDLE"
+    ],
+    "relation": "worker : tool",
+    "tier": "mid",
+    "explain": "재단사는 바늘을 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "welder",
+          "torch"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "needle",
+          "tailor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cloth",
+          "fabric"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "suit",
+          "jacket"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 547,
+    "question": "PAINTER : PALETTE",
+    "stem": [
+      "PAINTER",
+      "PALETTE"
+    ],
+    "relation": "worker : tool",
+    "tier": "mid",
+    "explain": "화가는 팔레트를 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "sculptor",
+          "chisel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "palette",
+          "painter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "canvas",
+          "art"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gallery",
+          "painting"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 548,
+    "question": "FARMER : PLOW",
+    "stem": [
+      "FARMER",
+      "PLOW"
+    ],
+    "relation": "worker : tool",
+    "tier": "mid",
+    "explain": "농부는 쟁기를 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "miner",
+          "pickaxe"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "plow",
+          "farmer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "crop"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "barn",
+          "hay"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 549,
+    "question": "CHEMIST : BEAKER",
+    "stem": [
+      "CHEMIST",
+      "BEAKER"
+    ],
+    "relation": "worker : tool",
+    "tier": "mid",
+    "explain": "화학자는 비커를 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "astronomer",
+          "telescope"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "beaker",
+          "chemist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lab",
+          "experiment"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "acid",
+          "base"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 550,
+    "question": "DRESSMAKER : THIMBLE",
+    "stem": [
+      "DRESSMAKER",
+      "THIMBLE"
+    ],
+    "relation": "worker : tool",
+    "tier": "high",
+    "explain": "재봉사는 골무를 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "carpenter",
+          "saw"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "thimble",
+          "dressmaker"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dress",
+          "gown"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "seam",
+          "stitch"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 551,
+    "question": "SURVEYOR : COMPASS",
+    "stem": [
+      "SURVEYOR",
+      "COMPASS"
+    ],
+    "relation": "worker : tool",
+    "tier": "mid",
+    "explain": "측량사는 나침반을 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "sailor",
+          "sextant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "compass",
+          "surveyor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "map",
+          "land"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "plot"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 552,
+    "question": "BUTCHER : CLEAVER",
+    "stem": [
+      "BUTCHER",
+      "CLEAVER"
+    ],
+    "relation": "worker : tool",
+    "tier": "mid",
+    "explain": "정육점 주인은 식칼을 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "woodsman",
+          "hatchet"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cleaver",
+          "butcher"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "meat",
+          "beef"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shop",
+          "store"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 553,
+    "question": "CONDUCTOR : WAND",
+    "stem": [
+      "CONDUCTOR",
+      "WAND"
+    ],
+    "relation": "worker : tool",
+    "tier": "high",
+    "explain": "지휘자는 지휘봉을 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "magician",
+          "staff"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wand",
+          "conductor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "orchestra",
+          "music"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "baton",
+          "beat"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 554,
+    "question": "GARDENER : TROWEL",
+    "stem": [
+      "GARDENER",
+      "TROWEL"
+    ],
+    "relation": "worker : tool",
+    "tier": "mid",
+    "explain": "정원사는 모종삽을 도구로 사용 → 작업자:도구 관계.",
+    "options": [
+      {
+        "pair": [
+          "mason",
+          "level"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "trowel",
+          "gardener"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "garden",
+          "plant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soil",
+          "dirt"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 555,
+    "question": "POTTER : VASE",
+    "stem": [
+      "POTTER",
+      "VASE"
+    ],
+    "relation": "worker : product",
+    "tier": "mid",
+    "explain": "도공은 꽃병을 만듦 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "baker",
+          "cake"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "vase",
+          "potter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clay",
+          "mud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "kiln",
+          "fire"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 556,
+    "question": "COBBLER : BOOT",
+    "stem": [
+      "COBBLER",
+      "BOOT"
+    ],
+    "relation": "worker : product",
+    "tier": "mid",
+    "explain": "제화공은 부츠를 만듦 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "weaver",
+          "rug"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "boot",
+          "cobbler"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "leather",
+          "hide"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shop",
+          "store"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 557,
+    "question": "JEWELER : BROOCH",
+    "stem": [
+      "JEWELER",
+      "BROOCH"
+    ],
+    "relation": "worker : product",
+    "tier": "mid",
+    "explain": "보석세공인은 브로치를 만듦 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "potter",
+          "bowl"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "brooch",
+          "jeweler"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gold",
+          "shine"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ring",
+          "wear"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 558,
+    "question": "MASON : WALL",
+    "stem": [
+      "MASON",
+      "WALL"
+    ],
+    "relation": "worker : product",
+    "tier": "mid",
+    "explain": "석공은 벽을 쌓음 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "carpenter",
+          "cabinet"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wall",
+          "mason"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "clay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "site",
+          "build"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 559,
+    "question": "NOVELIST : NOVEL",
+    "stem": [
+      "NOVELIST",
+      "NOVEL"
+    ],
+    "relation": "worker : product",
+    "tier": "std",
+    "explain": "소설가는 소설을 씀 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "sculptor",
+          "bust"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "novel",
+          "novelist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "book",
+          "read"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plot",
+          "story"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 560,
+    "question": "VINTNER : VINTAGE",
+    "stem": [
+      "VINTNER",
+      "VINTAGE"
+    ],
+    "relation": "worker : product",
+    "tier": "high",
+    "explain": "와인 제조자는 빈티지를 만듦 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "brewer",
+          "ale"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "vintage",
+          "vintner"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grape",
+          "vine"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cellar",
+          "barrel"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 561,
+    "question": "CARTOONIST : COMIC",
+    "stem": [
+      "CARTOONIST",
+      "COMIC"
+    ],
+    "relation": "worker : product",
+    "tier": "mid",
+    "explain": "만화가는 만화를 그림 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "composer",
+          "melody"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "comic",
+          "cartoonist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ink",
+          "pen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "panel",
+          "frame"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 562,
+    "question": "ARCHITECT : DESIGN",
+    "stem": [
+      "ARCHITECT",
+      "DESIGN"
+    ],
+    "relation": "worker : product",
+    "tier": "mid",
+    "explain": "건축가는 설계를 만듦 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "playwright",
+          "script"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "design",
+          "architect"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blueprint",
+          "plan"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "building",
+          "tall"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 563,
+    "question": "CHANDLER : CANDLE",
+    "stem": [
+      "CHANDLER",
+      "CANDLE"
+    ],
+    "relation": "worker : product",
+    "tier": "high",
+    "explain": "양초장이는 양초를 만듦 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "smith",
+          "blade"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "candle",
+          "chandler"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wax",
+          "melt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wick",
+          "light"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 564,
+    "question": "CONFECTIONER : PASTRY",
+    "stem": [
+      "CONFECTIONER",
+      "PASTRY"
+    ],
+    "relation": "worker : product",
+    "tier": "high",
+    "explain": "제과사는 페이스트리를 만듦 → 작업자:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "baker",
+          "loaf"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pastry",
+          "confectioner"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sugar",
+          "sweet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "oven",
+          "bake"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 565,
+    "question": "CHEMIST : LABORATORY",
+    "stem": [
+      "CHEMIST",
+      "LABORATORY"
+    ],
+    "relation": "worker : workplace",
+    "tier": "mid",
+    "explain": "화학자는 실험실에서 일함 → 작업자:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "judge",
+          "courtroom"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "laboratory",
+          "chemist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "acid",
+          "base"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "beaker",
+          "flask"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 566,
+    "question": "ACTOR : STUDIO",
+    "stem": [
+      "ACTOR",
+      "STUDIO"
+    ],
+    "relation": "worker : workplace",
+    "tier": "mid",
+    "explain": "배우는 스튜디오에서 일함 → 작업자:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "chef",
+          "kitchen"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "studio",
+          "actor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stage",
+          "play"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "role",
+          "part"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 567,
+    "question": "BANKER : VAULT",
+    "stem": [
+      "BANKER",
+      "VAULT"
+    ],
+    "relation": "worker : workplace",
+    "tier": "mid",
+    "explain": "은행원은 금고가 있는 곳에서 일함 → 작업자:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "teacher",
+          "classroom"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "vault",
+          "banker"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "money",
+          "cash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loan",
+          "debt"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 568,
+    "question": "MONK : MONASTERY",
+    "stem": [
+      "MONK",
+      "MONASTERY"
+    ],
+    "relation": "worker : workplace",
+    "tier": "high",
+    "explain": "수도사는 수도원에서 지냄 → 사람:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "nun",
+          "convent"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "monastery",
+          "monk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "robe",
+          "habit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "prayer",
+          "chant"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 569,
+    "question": "CLERGYMAN : PULPIT",
+    "stem": [
+      "CLERGYMAN",
+      "PULPIT"
+    ],
+    "relation": "worker : workplace",
+    "tier": "high",
+    "explain": "성직자는 설교단에서 설교함 → 사람:장소 관계.",
+    "options": [
+      {
+        "pair": [
+          "lecturer",
+          "podium"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pulpit",
+          "clergyman"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sermon",
+          "preach"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "church",
+          "faith"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 570,
+    "question": "BLACKSMITH : FORGE",
+    "stem": [
+      "BLACKSMITH",
+      "FORGE"
+    ],
+    "relation": "worker : workplace",
+    "tier": "mid",
+    "explain": "대장장이는 대장간에서 일함 → 작업자:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "baker",
+          "bakery"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "forge",
+          "blacksmith"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "anvil",
+          "tool"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "iron",
+          "metal"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 571,
+    "question": "MECHANIC : GARAGE",
+    "stem": [
+      "MECHANIC",
+      "GARAGE"
+    ],
+    "relation": "worker : workplace",
+    "tier": "std",
+    "explain": "정비공은 정비소에서 일함 → 작업자:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "pharmacist",
+          "pharmacy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "garage",
+          "mechanic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "car",
+          "engine"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wrench",
+          "tool"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 572,
+    "question": "CURATOR : GALLERY",
+    "stem": [
+      "CURATOR",
+      "GALLERY"
+    ],
+    "relation": "worker : workplace",
+    "tier": "mid",
+    "explain": "큐레이터는 갤러리에서 일함 → 작업자:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "librarian",
+          "library"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "gallery",
+          "curator"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "art",
+          "paint"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "frame",
+          "canvas"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 573,
+    "question": "BARISTA : CAFE",
+    "stem": [
+      "BARISTA",
+      "CAFE"
+    ],
+    "relation": "worker : workplace",
+    "tier": "std",
+    "explain": "바리스타는 카페에서 일함 → 작업자:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "bartender",
+          "tavern"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cafe",
+          "barista"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "coffee",
+          "bean"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cup",
+          "mug"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 574,
+    "question": "DIPLOMAT : EMBASSY",
+    "stem": [
+      "DIPLOMAT",
+      "EMBASSY"
+    ],
+    "relation": "worker : workplace",
+    "tier": "high",
+    "explain": "외교관은 대사관에서 일함 → 작업자:일터 관계.",
+    "options": [
+      {
+        "pair": [
+          "senator",
+          "capitol"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "embassy",
+          "diplomat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "treaty",
+          "pact"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nation",
+          "state"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 575,
+    "question": "GOSLING : GOOSE",
+    "stem": [
+      "GOSLING",
+      "GOOSE"
+    ],
+    "relation": "young : adult",
+    "tier": "mid",
+    "explain": "새끼 거위는 거위의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "piglet",
+          "pig"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "goose",
+          "gosling"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gaggle",
+          "geese"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flock",
+          "birds"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 576,
+    "question": "KIT : RABBIT",
+    "stem": [
+      "KIT",
+      "RABBIT"
+    ],
+    "relation": "young : adult",
+    "tier": "mid",
+    "explain": "새끼 토끼는 토끼의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "foal",
+          "horse"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rabbit",
+          "kit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "burrow",
+          "rabbit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hutch",
+          "cage"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 577,
+    "question": "LAMB : SHEEP",
+    "stem": [
+      "LAMB",
+      "SHEEP"
+    ],
+    "relation": "young : adult",
+    "tier": "std",
+    "explain": "어린 양은 양의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "calf",
+          "cow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sheep",
+          "lamb"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wool",
+          "sheep"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flock",
+          "herd"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 578,
+    "question": "ELVER : EEL",
+    "stem": [
+      "ELVER",
+      "EEL"
+    ],
+    "relation": "young : adult",
+    "tier": "high",
+    "explain": "실뱀장어는 뱀장어의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "tadpole",
+          "frog"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "eel",
+          "elver"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fish",
+          "scale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "river",
+          "stream"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 579,
+    "question": "FRY : SALMON",
+    "stem": [
+      "FRY",
+      "SALMON"
+    ],
+    "relation": "young : adult",
+    "tier": "high",
+    "explain": "치어는 연어의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "calf",
+          "whale"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "salmon",
+          "fry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "river",
+          "spawn"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "net",
+          "catch"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 580,
+    "question": "LEVERET : HARE",
+    "stem": [
+      "LEVERET",
+      "HARE"
+    ],
+    "relation": "young : adult",
+    "tier": "high",
+    "explain": "새끼 산토끼는 산토끼의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "cub",
+          "lion"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hare",
+          "leveret"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "run"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "burrow",
+          "den"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 581,
+    "question": "CALF : ELEPHANT",
+    "stem": [
+      "CALF",
+      "ELEPHANT"
+    ],
+    "relation": "young : adult",
+    "tier": "mid",
+    "explain": "새끼 코끼리는 코끼리의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "cub",
+          "tiger"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "elephant",
+          "calf"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "trunk",
+          "tusk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "herd",
+          "pack"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 582,
+    "question": "CHICK : EAGLE",
+    "stem": [
+      "CHICK",
+      "EAGLE"
+    ],
+    "relation": "young : adult",
+    "tier": "mid",
+    "explain": "새끼 독수리는 독수리의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "eaglet",
+          "raptor"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "eagle",
+          "chick"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nest",
+          "tree"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "talon",
+          "claw"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 583,
+    "question": "KIT : BEAVER",
+    "stem": [
+      "KIT",
+      "BEAVER"
+    ],
+    "relation": "young : adult",
+    "tier": "high",
+    "explain": "새끼 비버는 비버의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "pup",
+          "otter"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "beaver",
+          "kit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lodge",
+          "dam"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wood",
+          "gnaw"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 584,
+    "question": "WHELP : DOG",
+    "stem": [
+      "WHELP",
+      "DOG"
+    ],
+    "relation": "young : adult",
+    "tier": "mid",
+    "explain": "강아지(새끼)는 개의 새끼 → 새끼:성체 관계.",
+    "options": [
+      {
+        "pair": [
+          "kitten",
+          "cat"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dog",
+          "whelp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bark",
+          "sound"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "kennel",
+          "house"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 585,
+    "question": "SPARK : COMBUSTION",
+    "stem": [
+      "SPARK",
+      "COMBUSTION"
+    ],
+    "relation": "cause : effect",
+    "tier": "mid",
+    "explain": "불꽃은 연소를 일으킴 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "germ",
+          "infection"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "combustion",
+          "spark"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fire",
+          "ash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smoke",
+          "fire"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 586,
+    "question": "OVEREATING : OBESITY",
+    "stem": [
+      "OVEREATING",
+      "OBESITY"
+    ],
+    "relation": "cause : effect",
+    "tier": "mid",
+    "explain": "과식은 비만을 초래함 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "smoking",
+          "cancer"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "obesity",
+          "overeating"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "diet",
+          "food"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gym",
+          "fit"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 587,
+    "question": "FROST : FROSTBITE",
+    "stem": [
+      "FROST",
+      "FROSTBITE"
+    ],
+    "relation": "cause : effect",
+    "tier": "mid",
+    "explain": "서리(추위)는 동상을 초래함 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "sun",
+          "sunburn"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "frostbite",
+          "frost"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ice",
+          "cold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "snow",
+          "white"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 588,
+    "question": "VIRUS : EPIDEMIC",
+    "stem": [
+      "VIRUS",
+      "EPIDEMIC"
+    ],
+    "relation": "cause : effect",
+    "tier": "mid",
+    "explain": "바이러스는 전염병을 초래함 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "spark",
+          "wildfire"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "epidemic",
+          "virus"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "germ",
+          "cell"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fever",
+          "heat"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 589,
+    "question": "EROSION : CANYON",
+    "stem": [
+      "EROSION",
+      "CANYON"
+    ],
+    "relation": "cause : effect",
+    "tier": "mid",
+    "explain": "침식은 협곡을 만듦 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "pressure",
+          "diamond"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "canyon",
+          "erosion"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "river",
+          "water"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rock",
+          "stone"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 590,
+    "question": "NEGLIGENCE : ACCIDENT",
+    "stem": [
+      "NEGLIGENCE",
+      "ACCIDENT"
+    ],
+    "relation": "cause : effect",
+    "tier": "mid",
+    "explain": "부주의는 사고를 초래함 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "carelessness",
+          "mishap"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "accident",
+          "negligence"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crash",
+          "car"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "road",
+          "drive"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 591,
+    "question": "PROVOCATION : RETALIATION",
+    "stem": [
+      "PROVOCATION",
+      "RETALIATION"
+    ],
+    "relation": "cause : effect",
+    "tier": "high",
+    "explain": "도발은 보복을 초래함 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "insult",
+          "revenge"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "retaliation",
+          "provocation"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "anger",
+          "mad"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fight",
+          "war"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 592,
+    "question": "INFLATION : DEVALUATION",
+    "stem": [
+      "INFLATION",
+      "DEVALUATION"
+    ],
+    "relation": "cause : effect",
+    "tier": "high",
+    "explain": "인플레이션은 화폐가치 하락을 초래함 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "surplus",
+          "glut"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "devaluation",
+          "inflation"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "money",
+          "cash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bank",
+          "loan"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 593,
+    "question": "DROUGHT : CROP FAILURE",
+    "stem": [
+      "DROUGHT",
+      "CROP FAILURE"
+    ],
+    "relation": "cause : effect",
+    "tier": "mid",
+    "explain": "가뭄은 흉작을 초래함 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "flood",
+          "damage"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "crop failure",
+          "drought"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rain",
+          "wet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "plow"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 594,
+    "question": "FRICTION : ABRASION",
+    "stem": [
+      "FRICTION",
+      "ABRASION"
+    ],
+    "relation": "cause : effect",
+    "tier": "mid",
+    "explain": "마찰은 마모를 일으킴 → 원인:결과 관계.",
+    "options": [
+      {
+        "pair": [
+          "heat",
+          "expansion"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "abrasion",
+          "friction"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rub",
+          "touch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sand",
+          "grit"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 595,
+    "question": "SCALPEL : INCISE",
+    "stem": [
+      "SCALPEL",
+      "INCISE"
+    ],
+    "relation": "tool : function",
+    "tier": "mid",
+    "explain": "메스의 기능은 절개하는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "drill",
+          "bore"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "incise",
+          "scalpel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "surgeon",
+          "doctor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blade",
+          "sharp"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 596,
+    "question": "SIEVE : STRAIN",
+    "stem": [
+      "SIEVE",
+      "STRAIN"
+    ],
+    "relation": "tool : function",
+    "tier": "mid",
+    "explain": "체의 기능은 거르는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "funnel",
+          "channel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "strain",
+          "sieve"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flour",
+          "sift"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bowl",
+          "mix"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 597,
+    "question": "PENDULUM : SWING",
+    "stem": [
+      "PENDULUM",
+      "SWING"
+    ],
+    "relation": "tool : function",
+    "tier": "mid",
+    "explain": "진자의 기능은 흔들리는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "hinge",
+          "pivot"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "swing",
+          "pendulum"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clock",
+          "time"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "weight",
+          "heavy"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 598,
+    "question": "THERMOSTAT : REGULATE",
+    "stem": [
+      "THERMOSTAT",
+      "REGULATE"
+    ],
+    "relation": "tool : function",
+    "tier": "high",
+    "explain": "온도조절기의 기능은 조절하는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "valve",
+          "control"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "regulate",
+          "thermostat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heat",
+          "warm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "temperature",
+          "degree"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 599,
+    "question": "MAGNIFIER : ENLARGE",
+    "stem": [
+      "MAGNIFIER",
+      "ENLARGE"
+    ],
+    "relation": "tool : function",
+    "tier": "mid",
+    "explain": "확대경의 기능은 확대하는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "telescope",
+          "view"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "enlarge",
+          "magnifier"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lens",
+          "glass"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "eye",
+          "see"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 600,
+    "question": "CHISEL : CARVE",
+    "stem": [
+      "CHISEL",
+      "CARVE"
+    ],
+    "relation": "tool : function",
+    "tier": "mid",
+    "explain": "끌의 기능은 새기는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "plane",
+          "smooth"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "carve",
+          "chisel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wood",
+          "oak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sculptor",
+          "artist"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 601,
+    "question": "GAVEL : SUMMON",
+    "stem": [
+      "GAVEL",
+      "SUMMON"
+    ],
+    "relation": "tool : function",
+    "tier": "high",
+    "explain": "의사봉의 기능은 (질서를) 소환하는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "whistle",
+          "signal"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "summon",
+          "gavel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "judge",
+          "court"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "law",
+          "rule"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 602,
+    "question": "TOURNIQUET : CONSTRICT",
+    "stem": [
+      "TOURNIQUET",
+      "CONSTRICT"
+    ],
+    "relation": "tool : function",
+    "tier": "high",
+    "explain": "지혈대의 기능은 조이는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "clamp",
+          "grip"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "constrict",
+          "tourniquet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wound",
+          "cut"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blood",
+          "red"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 603,
+    "question": "BEACON : WARN",
+    "stem": [
+      "BEACON",
+      "WARN"
+    ],
+    "relation": "tool : function",
+    "tier": "mid",
+    "explain": "봉화의 기능은 경고하는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "siren",
+          "alert"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "warn",
+          "beacon"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "glow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tower",
+          "tall"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 604,
+    "question": "BALLAST : STEADY",
+    "stem": [
+      "BALLAST",
+      "STEADY"
+    ],
+    "relation": "tool : function",
+    "tier": "high",
+    "explain": "바닥짐의 기능은 안정시키는 것 → 도구:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "keel",
+          "balance"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "steady",
+          "ballast"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ship",
+          "boat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sail",
+          "wind"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 605,
+    "question": "DECANTER : WINE",
+    "stem": [
+      "DECANTER",
+      "WINE"
+    ],
+    "relation": "container : contents",
+    "tier": "mid",
+    "explain": "디캔터에는 와인이 담김 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "flask",
+          "brandy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wine",
+          "decanter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "glass",
+          "cup"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cork",
+          "seal"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 606,
+    "question": "GRANARY : GRAIN",
+    "stem": [
+      "GRANARY",
+      "GRAIN"
+    ],
+    "relation": "container : contents",
+    "tier": "mid",
+    "explain": "곡창에는 곡물이 저장됨 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "silo",
+          "wheat"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "grain",
+          "granary"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "farm",
+          "field"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "seed",
+          "plant"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 607,
+    "question": "QUIVER : ARROWS",
+    "stem": [
+      "QUIVER",
+      "ARROWS"
+    ],
+    "relation": "container : contents",
+    "tier": "mid",
+    "explain": "화살통에는 화살이 담김 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "scabbard",
+          "sword"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "arrows",
+          "quiver"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bow",
+          "string"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "target",
+          "aim"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 608,
+    "question": "CRUET : OIL",
+    "stem": [
+      "CRUET",
+      "OIL"
+    ],
+    "relation": "container : contents",
+    "tier": "high",
+    "explain": "양념병에는 기름이 담김 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "jug",
+          "milk"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "oil",
+          "cruet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "salt",
+          "pepper"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "kitchen",
+          "cook"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 609,
+    "question": "HUMIDOR : CIGARS",
+    "stem": [
+      "HUMIDOR",
+      "CIGARS"
+    ],
+    "relation": "container : contents",
+    "tier": "high",
+    "explain": "시가 보관함에는 시가가 담김 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "cellar",
+          "wine"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cigars",
+          "humidor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smoke",
+          "fume"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "box",
+          "case"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 610,
+    "question": "RESERVOIR : RAINWATER",
+    "stem": [
+      "RESERVOIR",
+      "RAINWATER"
+    ],
+    "relation": "container : contents",
+    "tier": "mid",
+    "explain": "저수지에는 빗물이 담김 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "tank",
+          "fuel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rainwater",
+          "reservoir"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dam",
+          "wall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "river",
+          "flow"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 611,
+    "question": "LOCKER : GEAR",
+    "stem": [
+      "LOCKER",
+      "GEAR"
+    ],
+    "relation": "container : contents",
+    "tier": "std",
+    "explain": "사물함에는 장비가 보관됨 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "trunk",
+          "luggage"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "gear",
+          "locker"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "key",
+          "lock"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "room",
+          "space"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 612,
+    "question": "CARTON : EGGS",
+    "stem": [
+      "CARTON",
+      "EGGS"
+    ],
+    "relation": "container : contents",
+    "tier": "std",
+    "explain": "상자에는 달걀이 담김 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "crate",
+          "apples"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "eggs",
+          "carton"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shell",
+          "crack"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hen",
+          "lay"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 613,
+    "question": "PURSE : COINS",
+    "stem": [
+      "PURSE",
+      "COINS"
+    ],
+    "relation": "container : contents",
+    "tier": "std",
+    "explain": "지갑에는 동전이 담김 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "wallet",
+          "cash"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "coins",
+          "purse"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "money",
+          "gold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "buy",
+          "sell"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 614,
+    "question": "AMPOULE : VACCINE",
+    "stem": [
+      "AMPOULE",
+      "VACCINE"
+    ],
+    "relation": "container : contents",
+    "tier": "high",
+    "explain": "앰풀에는 백신이 담김 → 용기:내용물 관계.",
+    "options": [
+      {
+        "pair": [
+          "vial",
+          "serum"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "vaccine",
+          "ampoule"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "needle",
+          "shot"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nurse",
+          "arm"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 615,
+    "question": "ANEMOMETER : WIND SPEED",
+    "stem": [
+      "ANEMOMETER",
+      "WIND SPEED"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "high",
+    "explain": "풍속계는 풍속을 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "barometer",
+          "pressure"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wind speed",
+          "anemometer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wind",
+          "gust"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "storm",
+          "gale"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 616,
+    "question": "SPHYGMOMANOMETER : BLOOD PRESSURE",
+    "stem": [
+      "SPHYGMOMANOMETER",
+      "BLOOD PRESSURE"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "high",
+    "explain": "혈압계는 혈압을 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "thermometer",
+          "temperature"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "blood pressure",
+          "sphygmomanometer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heart",
+          "beat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nurse",
+          "cuff"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 617,
+    "question": "SEXTANT : LATITUDE",
+    "stem": [
+      "SEXTANT",
+      "LATITUDE"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "high",
+    "explain": "육분의는 위도를 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "compass",
+          "direction"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "latitude",
+          "sextant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "star",
+          "sky"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ship",
+          "sea"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 618,
+    "question": "CALORIMETER : HEAT",
+    "stem": [
+      "CALORIMETER",
+      "HEAT"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "high",
+    "explain": "열량계는 열량을 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "ammeter",
+          "current"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heat",
+          "calorimeter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fire",
+          "flame"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "warm",
+          "hot"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 619,
+    "question": "HYGROMETER : MOISTURE",
+    "stem": [
+      "HYGROMETER",
+      "MOISTURE"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "mid",
+    "explain": "습도계는 습기를 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "ohmmeter",
+          "resistance"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "moisture",
+          "hygrometer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "water",
+          "wet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "air",
+          "humid"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 620,
+    "question": "PROTRACTOR : ANGLE",
+    "stem": [
+      "PROTRACTOR",
+      "ANGLE"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "mid",
+    "explain": "각도기는 각도를 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "ruler",
+          "length"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "angle",
+          "protractor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "line",
+          "straight"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "circle",
+          "round"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 621,
+    "question": "GALVANOMETER : CURRENT",
+    "stem": [
+      "GALVANOMETER",
+      "CURRENT"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "high",
+    "explain": "검류계는 전류를 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "voltmeter",
+          "voltage"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "current",
+          "galvanometer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wire",
+          "copper"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "battery",
+          "power"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 622,
+    "question": "RICHTER SCALE : MAGNITUDE",
+    "stem": [
+      "RICHTER SCALE",
+      "MAGNITUDE"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "mid",
+    "explain": "리히터 규모는 진도를 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "seismograph",
+          "tremor"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "magnitude",
+          "richter scale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "quake",
+          "shake"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fault",
+          "crack"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 623,
+    "question": "SUNDIAL : TIME",
+    "stem": [
+      "SUNDIAL",
+      "TIME"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "mid",
+    "explain": "해시계는 시간을 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "hourglass",
+          "duration"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "time",
+          "sundial"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sun",
+          "shine"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shadow",
+          "dark"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 624,
+    "question": "BALANCE : MASS",
+    "stem": [
+      "BALANCE",
+      "MASS"
+    ],
+    "relation": "instrument : measurement",
+    "tier": "std",
+    "explain": "천칭은 질량을 측정함 → 기구:측정량 관계.",
+    "options": [
+      {
+        "pair": [
+          "scale",
+          "weight"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mass",
+          "balance"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heavy",
+          "light"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gram",
+          "ounce"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 625,
+    "question": "WARM : BOILING",
+    "stem": [
+      "WARM",
+      "BOILING"
+    ],
+    "relation": "degree / intensity",
+    "tier": "mid",
+    "explain": "따뜻함에서 끓음으로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "cool",
+          "freezing"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "boiling",
+          "warm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hot",
+          "cold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fire",
+          "ice"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 626,
+    "question": "DISLIKE : LOATHE",
+    "stem": [
+      "DISLIKE",
+      "LOATHE"
+    ],
+    "relation": "degree / intensity",
+    "tier": "mid",
+    "explain": "싫어함에서 혐오로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "like",
+          "adore"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "loathe",
+          "dislike"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hate",
+          "love"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "anger",
+          "calm"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 627,
+    "question": "DAMP : SODDEN",
+    "stem": [
+      "DAMP",
+      "SODDEN"
+    ],
+    "relation": "degree / intensity",
+    "tier": "mid",
+    "explain": "축축함에서 흠뻑 젖음으로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "warm",
+          "sweltering"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sodden",
+          "damp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wet",
+          "dry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "water",
+          "ice"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 628,
+    "question": "WORRIED : FRANTIC",
+    "stem": [
+      "WORRIED",
+      "FRANTIC"
+    ],
+    "relation": "degree / intensity",
+    "tier": "mid",
+    "explain": "걱정에서 광란으로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "annoyed",
+          "enraged"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "frantic",
+          "worried"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "panic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fear",
+          "brave"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 629,
+    "question": "DROWSY : COMATOSE",
+    "stem": [
+      "DROWSY",
+      "COMATOSE"
+    ],
+    "relation": "degree / intensity",
+    "tier": "high",
+    "explain": "졸림에서 혼수상태로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "tired",
+          "exhausted"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "comatose",
+          "drowsy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sleep",
+          "wake"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nap",
+          "rest"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 630,
+    "question": "FUNNY : HILARIOUS",
+    "stem": [
+      "FUNNY",
+      "HILARIOUS"
+    ],
+    "relation": "degree / intensity",
+    "tier": "std",
+    "explain": "웃긴에서 폭소 나는으로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "good",
+          "superb"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hilarious",
+          "funny"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "joke",
+          "laugh"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smile",
+          "grin"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 631,
+    "question": "BRISK : TORRID",
+    "stem": [
+      "BRISK",
+      "TORRID"
+    ],
+    "relation": "degree / intensity",
+    "tier": "high",
+    "explain": "선선함에서 작열로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "mild",
+          "intense"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "torrid",
+          "brisk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cold",
+          "hot"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wind",
+          "calm"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 632,
+    "question": "GLOWING : BLAZING",
+    "stem": [
+      "GLOWING",
+      "BLAZING"
+    ],
+    "relation": "degree / intensity",
+    "tier": "mid",
+    "explain": "빛남에서 타오름으로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "smoldering",
+          "roaring"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "blazing",
+          "glowing"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ember",
+          "ash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "dark"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 633,
+    "question": "NUDGE : SHOVE",
+    "stem": [
+      "NUDGE",
+      "SHOVE"
+    ],
+    "relation": "degree / intensity",
+    "tier": "mid",
+    "explain": "살짝 밀기에서 세게 밀치기로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "tap",
+          "pound"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "shove",
+          "nudge"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "push",
+          "pull"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hand",
+          "arm"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 634,
+    "question": "MIST : DOWNPOUR",
+    "stem": [
+      "MIST",
+      "DOWNPOUR"
+    ],
+    "relation": "degree / intensity",
+    "tier": "mid",
+    "explain": "안개비에서 폭우로 강도가 커짐 → 정도 관계.",
+    "options": [
+      {
+        "pair": [
+          "breeze",
+          "gale"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "downpour",
+          "mist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rain",
+          "sun"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cloud",
+          "sky"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 635,
+    "question": "SILKWORM : SILK",
+    "stem": [
+      "SILKWORM",
+      "SILK"
+    ],
+    "relation": "source : product",
+    "tier": "mid",
+    "explain": "누에는 비단의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "bee",
+          "honey"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "silk",
+          "silkworm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cocoon",
+          "moth"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thread",
+          "weave"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 636,
+    "question": "MAPLE : SYRUP",
+    "stem": [
+      "MAPLE",
+      "SYRUP"
+    ],
+    "relation": "source : product",
+    "tier": "mid",
+    "explain": "단풍나무는 시럽의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "cane",
+          "molasses"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "syrup",
+          "maple"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tree",
+          "leaf"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sap",
+          "sticky"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 637,
+    "question": "COTTON : FABRIC",
+    "stem": [
+      "COTTON",
+      "FABRIC"
+    ],
+    "relation": "source : product",
+    "tier": "std",
+    "explain": "목화는 직물의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "wool",
+          "yarn"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fabric",
+          "cotton"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plant",
+          "grow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "farm"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 638,
+    "question": "BAUXITE : ALUMINUM",
+    "stem": [
+      "BAUXITE",
+      "ALUMINUM"
+    ],
+    "relation": "source : product",
+    "tier": "high",
+    "explain": "보크사이트는 알루미늄의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "ore",
+          "iron"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "aluminum",
+          "bauxite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mine",
+          "dig"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "metal",
+          "shine"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 639,
+    "question": "CLAY : POTTERY",
+    "stem": [
+      "CLAY",
+      "POTTERY"
+    ],
+    "relation": "source : product",
+    "tier": "mid",
+    "explain": "점토는 도자기의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "flax",
+          "linen"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pottery",
+          "clay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mud",
+          "wet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "kiln",
+          "fire"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 640,
+    "question": "CRUDE OIL : GASOLINE",
+    "stem": [
+      "CRUDE OIL",
+      "GASOLINE"
+    ],
+    "relation": "source : product",
+    "tier": "mid",
+    "explain": "원유는 휘발유의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "petroleum",
+          "plastic"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "gasoline",
+          "crude oil"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "well",
+          "drill"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "barrel",
+          "oil"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 641,
+    "question": "HOPS : BEER",
+    "stem": [
+      "HOPS",
+      "BEER"
+    ],
+    "relation": "source : product",
+    "tier": "mid",
+    "explain": "홉은 맥주의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "barley",
+          "ale"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "beer",
+          "hops"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brewer",
+          "brew"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "foam",
+          "head"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 642,
+    "question": "CANE : RUM",
+    "stem": [
+      "CANE",
+      "RUM"
+    ],
+    "relation": "source : product",
+    "tier": "high",
+    "explain": "사탕수수는 럼의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "grape",
+          "brandy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rum",
+          "cane"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "sweet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "juice",
+          "drink"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 643,
+    "question": "MULBERRY : SILK",
+    "stem": [
+      "MULBERRY",
+      "SILK"
+    ],
+    "relation": "source : product",
+    "tier": "high",
+    "explain": "뽕나무(누에가 먹음)는 비단 생산의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "agave",
+          "tequila"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "silk",
+          "mulberry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "leaf",
+          "green"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "worm",
+          "crawl"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 644,
+    "question": "LIMESTONE : CEMENT",
+    "stem": [
+      "LIMESTONE",
+      "CEMENT"
+    ],
+    "relation": "source : product",
+    "tier": "high",
+    "explain": "석회암은 시멘트의 원천 → 원천:생산물 관계.",
+    "options": [
+      {
+        "pair": [
+          "clay",
+          "brick"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cement",
+          "limestone"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rock",
+          "hard"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "quarry",
+          "cut"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 645,
+    "question": "OBOE : WOODWIND",
+    "stem": [
+      "OBOE",
+      "WOODWIND"
+    ],
+    "relation": "example : category",
+    "tier": "high",
+    "explain": "오보에는 목관악기의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "trumpet",
+          "brass"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "woodwind",
+          "oboe"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "music",
+          "sound"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "band",
+          "play"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 646,
+    "question": "GRANITE : ROCK",
+    "stem": [
+      "GRANITE",
+      "ROCK"
+    ],
+    "relation": "example : category",
+    "tier": "std",
+    "explain": "화강암은 암석의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "oak",
+          "tree"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rock",
+          "granite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stone",
+          "hard"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "quarry",
+          "cut"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 647,
+    "question": "VENUS : PLANET",
+    "stem": [
+      "VENUS",
+      "PLANET"
+    ],
+    "relation": "example : category",
+    "tier": "std",
+    "explain": "금성은 행성의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "mars",
+          "planet"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "planet",
+          "venus"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sun",
+          "star"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "orbit",
+          "circle"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 648,
+    "question": "SONNET : POEM",
+    "stem": [
+      "SONNET",
+      "POEM"
+    ],
+    "relation": "example : category",
+    "tier": "mid",
+    "explain": "소네트는 시의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "haiku",
+          "verse"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "poem",
+          "sonnet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "poet",
+          "write"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rhyme",
+          "line"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 649,
+    "question": "CHEDDAR : CHEESE",
+    "stem": [
+      "CHEDDAR",
+      "CHEESE"
+    ],
+    "relation": "example : category",
+    "tier": "std",
+    "explain": "체다는 치즈의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "merlot",
+          "wine"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cheese",
+          "cheddar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "milk",
+          "dairy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cow",
+          "farm"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 650,
+    "question": "BIRCH : TREE",
+    "stem": [
+      "BIRCH",
+      "TREE"
+    ],
+    "relation": "example : category",
+    "tier": "std",
+    "explain": "자작나무는 나무의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "salmon",
+          "fish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tree",
+          "birch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bark",
+          "wood"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "forest",
+          "grove"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 651,
+    "question": "RUBY : GEMSTONE",
+    "stem": [
+      "RUBY",
+      "GEMSTONE"
+    ],
+    "relation": "example : category",
+    "tier": "mid",
+    "explain": "루비는 보석의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "topaz",
+          "gem"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "gemstone",
+          "ruby"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "red",
+          "color"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ring",
+          "wear"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 652,
+    "question": "TANGO : DANCE",
+    "stem": [
+      "TANGO",
+      "DANCE"
+    ],
+    "relation": "example : category",
+    "tier": "std",
+    "explain": "탱고는 춤의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "waltz",
+          "dance"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dance",
+          "tango"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "music",
+          "beat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "step",
+          "move"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 653,
+    "question": "CUMULUS : CLOUD",
+    "stem": [
+      "CUMULUS",
+      "CLOUD"
+    ],
+    "relation": "example : category",
+    "tier": "mid",
+    "explain": "적운은 구름의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "cirrus",
+          "cloud"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cloud",
+          "cumulus"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rain",
+          "wet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sky",
+          "blue"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 654,
+    "question": "MALARIA : DISEASE",
+    "stem": [
+      "MALARIA",
+      "DISEASE"
+    ],
+    "relation": "example : category",
+    "tier": "mid",
+    "explain": "말라리아는 질병의 한 예 → 예:범주 관계.",
+    "options": [
+      {
+        "pair": [
+          "cholera",
+          "illness"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "disease",
+          "malaria"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "germ",
+          "sick"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fever",
+          "heat"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 655,
+    "question": "PREMIERE : FINALE",
+    "stem": [
+      "PREMIERE",
+      "FINALE"
+    ],
+    "relation": "beginning : end",
+    "tier": "mid",
+    "explain": "개막과 피날레는 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "kickoff",
+          "whistle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "finale",
+          "premiere"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "show",
+          "act"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stage",
+          "play"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 656,
+    "question": "SEED : FRUIT",
+    "stem": [
+      "SEED",
+      "FRUIT"
+    ],
+    "relation": "beginning : end",
+    "tier": "std",
+    "explain": "씨앗과 열매는 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "egg",
+          "chicken"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fruit",
+          "seed"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plant",
+          "grow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tree",
+          "tall"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 657,
+    "question": "SUNRISE : TWILIGHT",
+    "stem": [
+      "SUNRISE",
+      "TWILIGHT"
+    ],
+    "relation": "beginning : end",
+    "tier": "mid",
+    "explain": "일출과 황혼은 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "dawn",
+          "dusk"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "twilight",
+          "sunrise"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sun",
+          "sky"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "day",
+          "night"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 658,
+    "question": "INTRODUCTION : CONCLUSION",
+    "stem": [
+      "INTRODUCTION",
+      "CONCLUSION"
+    ],
+    "relation": "beginning : end",
+    "tier": "std",
+    "explain": "서론과 결론은 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "preface",
+          "epilogue"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "conclusion",
+          "introduction"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "essay",
+          "write"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "page",
+          "read"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 659,
+    "question": "INCEPTION : CULMINATION",
+    "stem": [
+      "INCEPTION",
+      "CULMINATION"
+    ],
+    "relation": "beginning : end",
+    "tier": "high",
+    "explain": "발단과 정점은 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "genesis",
+          "climax"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "culmination",
+          "inception"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "idea",
+          "think"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plan",
+          "do"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 660,
+    "question": "LAUNCH : TOUCHDOWN",
+    "stem": [
+      "LAUNCH",
+      "TOUCHDOWN"
+    ],
+    "relation": "beginning : end",
+    "tier": "mid",
+    "explain": "발사와 착륙은 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "takeoff",
+          "landing"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "touchdown",
+          "launch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rocket",
+          "fly"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "space",
+          "star"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 661,
+    "question": "OUTSET : TERMINUS",
+    "stem": [
+      "OUTSET",
+      "TERMINUS"
+    ],
+    "relation": "beginning : end",
+    "tier": "high",
+    "explain": "시초와 종착점은 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "start",
+          "finish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "terminus",
+          "outset"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "road",
+          "drive"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "path",
+          "walk"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 662,
+    "question": "SEEDLING : STUMP",
+    "stem": [
+      "SEEDLING",
+      "STUMP"
+    ],
+    "relation": "beginning : end",
+    "tier": "high",
+    "explain": "묘목과 그루터기는 시작:끝(생애) 관계.",
+    "options": [
+      {
+        "pair": [
+          "sprout",
+          "compost"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "stump",
+          "seedling"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tree",
+          "grow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wood",
+          "cut"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 663,
+    "question": "OVERTURE : CODA",
+    "stem": [
+      "OVERTURE",
+      "CODA"
+    ],
+    "relation": "beginning : end",
+    "tier": "high",
+    "explain": "서곡과 종결부는 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "prelude",
+          "epilogue"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "coda",
+          "overture"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "song",
+          "note"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "music",
+          "play"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 664,
+    "question": "CONCEPTION : DEMISE",
+    "stem": [
+      "CONCEPTION",
+      "DEMISE"
+    ],
+    "relation": "beginning : end",
+    "tier": "high",
+    "explain": "발단과 종말은 시작:끝 관계.",
+    "options": [
+      {
+        "pair": [
+          "birth",
+          "death"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "demise",
+          "conception"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "life",
+          "live"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grow",
+          "age"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 665,
+    "question": "PEDANT : FUSSY",
+    "stem": [
+      "PEDANT",
+      "FUSSY"
+    ],
+    "relation": "person : trait",
+    "tier": "high",
+    "explain": "현학자는 까다로움이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "coward",
+          "fearful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fussy",
+          "pedant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "book",
+          "read"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rule",
+          "strict"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 666,
+    "question": "MISER : FRUGAL",
+    "stem": [
+      "MISER",
+      "FRUGAL"
+    ],
+    "relation": "person : trait",
+    "tier": "mid",
+    "explain": "구두쇠는 인색함이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "zealot",
+          "fervent"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "frugal",
+          "miser"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "coin",
+          "gold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "save",
+          "keep"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 667,
+    "question": "HERMIT : RECLUSIVE",
+    "stem": [
+      "HERMIT",
+      "RECLUSIVE"
+    ],
+    "relation": "person : trait",
+    "tier": "mid",
+    "explain": "은둔자는 칩거함이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "rogue",
+          "deceitful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "reclusive",
+          "hermit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cave",
+          "hide"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "alone",
+          "quiet"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 668,
+    "question": "MAVERICK : UNCONVENTIONAL",
+    "stem": [
+      "MAVERICK",
+      "UNCONVENTIONAL"
+    ],
+    "relation": "person : trait",
+    "tier": "high",
+    "explain": "이단아는 비관습적임이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "pioneer",
+          "daring"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "unconventional",
+          "maverick"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "herd",
+          "follow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rule",
+          "break"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 669,
+    "question": "DESPOT : TYRANNICAL",
+    "stem": [
+      "DESPOT",
+      "TYRANNICAL"
+    ],
+    "relation": "person : trait",
+    "tier": "high",
+    "explain": "폭군은 압제적임이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "ascetic",
+          "austere"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tyrannical",
+          "despot"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crown",
+          "king"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "throne",
+          "sit"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 670,
+    "question": "ORATOR : ELOQUENT",
+    "stem": [
+      "ORATOR",
+      "ELOQUENT"
+    ],
+    "relation": "person : trait",
+    "tier": "high",
+    "explain": "웅변가는 유창함이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "scholar",
+          "erudite"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "eloquent",
+          "orator"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stage",
+          "speak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crowd",
+          "listen"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 671,
+    "question": "CYNIC : DISTRUSTFUL",
+    "stem": [
+      "CYNIC",
+      "DISTRUSTFUL"
+    ],
+    "relation": "person : trait",
+    "tier": "high",
+    "explain": "냉소가는 불신함이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "optimist",
+          "hopeful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "distrustful",
+          "cynic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "frown",
+          "sad"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doubt",
+          "question"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 672,
+    "question": "ASCETIC : ABSTINENT",
+    "stem": [
+      "ASCETIC",
+      "ABSTINENT"
+    ],
+    "relation": "person : trait",
+    "tier": "high",
+    "explain": "금욕가는 절제함이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "hedonist",
+          "indulgent"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "abstinent",
+          "ascetic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "food",
+          "eat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plate",
+          "full"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 673,
+    "question": "MENTOR : GUIDING",
+    "stem": [
+      "MENTOR",
+      "GUIDING"
+    ],
+    "relation": "person : trait",
+    "tier": "std",
+    "explain": "멘토는 인도함이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "traitor",
+          "disloyal"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "guiding",
+          "mentor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "teach",
+          "learn"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "path",
+          "walk"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 674,
+    "question": "PROPHET : VISIONARY",
+    "stem": [
+      "PROPHET",
+      "VISIONARY"
+    ],
+    "relation": "person : trait",
+    "tier": "high",
+    "explain": "예언자는 선견지명이 특징 → 사람:특성 관계.",
+    "options": [
+      {
+        "pair": [
+          "sage",
+          "sagacious"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "visionary",
+          "prophet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "future",
+          "see"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "word",
+          "speak"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 675,
+    "question": "ANCHOR : MOOR",
+    "stem": [
+      "ANCHOR",
+      "MOOR"
+    ],
+    "relation": "object : function",
+    "tier": "mid",
+    "explain": "닻의 기능은 정박시키는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "buoy",
+          "float"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "moor",
+          "anchor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ship",
+          "sail"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sea",
+          "deep"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 676,
+    "question": "LANTERN : ILLUMINATE",
+    "stem": [
+      "LANTERN",
+      "ILLUMINATE"
+    ],
+    "relation": "object : function",
+    "tier": "std",
+    "explain": "랜턴의 기능은 비추는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "fan",
+          "cool"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "illuminate",
+          "lantern"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dark",
+          "night"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flame",
+          "fire"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 677,
+    "question": "KEEL : BALANCE",
+    "stem": [
+      "KEEL",
+      "BALANCE"
+    ],
+    "relation": "object : function",
+    "tier": "high",
+    "explain": "용골의 기능은 균형을 잡는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "rudder",
+          "steer"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "balance",
+          "keel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ship",
+          "boat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "weight",
+          "heavy"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 678,
+    "question": "SHIELD : DEFEND",
+    "stem": [
+      "SHIELD",
+      "DEFEND"
+    ],
+    "relation": "object : function",
+    "tier": "std",
+    "explain": "방패의 기능은 방어하는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "armor",
+          "protect"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "defend",
+          "shield"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sword",
+          "fight"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "knight",
+          "brave"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 679,
+    "question": "VENT : CIRCULATE",
+    "stem": [
+      "VENT",
+      "CIRCULATE"
+    ],
+    "relation": "object : function",
+    "tier": "mid",
+    "explain": "통풍구의 기능은 순환시키는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "pump",
+          "draw"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "circulate",
+          "vent"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "air",
+          "wind"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "room",
+          "space"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 680,
+    "question": "PARACHUTE : DECELERATE",
+    "stem": [
+      "PARACHUTE",
+      "DECELERATE"
+    ],
+    "relation": "object : function",
+    "tier": "mid",
+    "explain": "낙하산의 기능은 감속시키는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "brake",
+          "slow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "decelerate",
+          "parachute"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fall",
+          "drop"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sky",
+          "high"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 681,
+    "question": "STRAINER : SEPARATE",
+    "stem": [
+      "STRAINER",
+      "SEPARATE"
+    ],
+    "relation": "object : function",
+    "tier": "std",
+    "explain": "거름망의 기능은 분리하는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "filter",
+          "purify"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "separate",
+          "strainer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "water",
+          "clean"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dust",
+          "dirt"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 682,
+    "question": "SCAFFOLD : SUPPORT",
+    "stem": [
+      "SCAFFOLD",
+      "SUPPORT"
+    ],
+    "relation": "object : function",
+    "tier": "mid",
+    "explain": "비계의 기능은 지탱하는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "brace",
+          "reinforce"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "support",
+          "scaffold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "build",
+          "tall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "worker",
+          "climb"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 683,
+    "question": "LULLABY : SOOTHE",
+    "stem": [
+      "LULLABY",
+      "SOOTHE"
+    ],
+    "relation": "object : function",
+    "tier": "mid",
+    "explain": "자장가의 기능은 달래는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "anthem",
+          "inspire"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "soothe",
+          "lullaby"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "baby",
+          "sleep"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "song",
+          "sing"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 684,
+    "question": "FENCE : ENCLOSE",
+    "stem": [
+      "FENCE",
+      "ENCLOSE"
+    ],
+    "relation": "object : function",
+    "tier": "std",
+    "explain": "울타리의 기능은 에워싸는 것 → 사물:기능 관계.",
+    "options": [
+      {
+        "pair": [
+          "dam",
+          "contain"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "enclose",
+          "fence"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "yard",
+          "grass"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "post",
+          "wood"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 685,
+    "question": "KNEAD : DOUGH",
+    "stem": [
+      "KNEAD",
+      "DOUGH"
+    ],
+    "relation": "action : object",
+    "tier": "mid",
+    "explain": "반죽하다의 대상은 반죽 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "whittle",
+          "wood"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dough",
+          "knead"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "baker",
+          "bread"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "oven",
+          "bake"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 686,
+    "question": "SHEAR : WOOL",
+    "stem": [
+      "SHEAR",
+      "WOOL"
+    ],
+    "relation": "action : object",
+    "tier": "mid",
+    "explain": "깎다의 대상은 양모 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "harvest",
+          "grain"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wool",
+          "shear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sheep",
+          "lamb"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fleece",
+          "soft"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 687,
+    "question": "FORGE : METAL",
+    "stem": [
+      "FORGE",
+      "METAL"
+    ],
+    "relation": "action : object",
+    "tier": "mid",
+    "explain": "벼리다의 대상은 금속 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "mold",
+          "clay"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "metal",
+          "forge"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smith",
+          "anvil"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fire",
+          "hot"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 688,
+    "question": "PRUNE : HEDGE",
+    "stem": [
+      "PRUNE",
+      "HEDGE"
+    ],
+    "relation": "action : object",
+    "tier": "mid",
+    "explain": "다듬다의 대상은 산울타리 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "mow",
+          "lawn"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hedge",
+          "prune"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "garden",
+          "plant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shears",
+          "cut"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 689,
+    "question": "DECIPHER : CODE",
+    "stem": [
+      "DECIPHER",
+      "CODE"
+    ],
+    "relation": "action : object",
+    "tier": "high",
+    "explain": "해독하다의 대상은 암호 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "translate",
+          "text"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "code",
+          "decipher"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spy",
+          "secret"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "key",
+          "lock"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 690,
+    "question": "IRRIGATE : CROP",
+    "stem": [
+      "IRRIGATE",
+      "CROP"
+    ],
+    "relation": "action : object",
+    "tier": "mid",
+    "explain": "관개하다의 대상은 작물 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "fertilize",
+          "soil"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "crop",
+          "irrigate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "farm",
+          "field"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "water",
+          "wet"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 691,
+    "question": "NAVIGATE : VESSEL",
+    "stem": [
+      "NAVIGATE",
+      "VESSEL"
+    ],
+    "relation": "action : object",
+    "tier": "mid",
+    "explain": "항해하다의 대상은 선박 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "pilot",
+          "aircraft"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "vessel",
+          "navigate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sea",
+          "ocean"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "map",
+          "chart"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 692,
+    "question": "RECITE : POEM",
+    "stem": [
+      "RECITE",
+      "POEM"
+    ],
+    "relation": "action : object",
+    "tier": "std",
+    "explain": "암송하다의 대상은 시 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "sing",
+          "ballad"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "poem",
+          "recite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "poet",
+          "write"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "word",
+          "speak"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 693,
+    "question": "DEMOLISH : BUILDING",
+    "stem": [
+      "DEMOLISH",
+      "BUILDING"
+    ],
+    "relation": "action : object",
+    "tier": "std",
+    "explain": "철거하다의 대상은 건물 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "raze",
+          "structure"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "building",
+          "demolish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "wall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crane",
+          "lift"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 694,
+    "question": "WIELD : SWORD",
+    "stem": [
+      "WIELD",
+      "SWORD"
+    ],
+    "relation": "action : object",
+    "tier": "mid",
+    "explain": "휘두르다의 대상은 검 → 행위:대상 관계.",
+    "options": [
+      {
+        "pair": [
+          "brandish",
+          "weapon"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sword",
+          "wield"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "knight",
+          "armor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blade",
+          "sharp"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 695,
+    "question": "CHIRP : CRICKET",
+    "stem": [
+      "CHIRP",
+      "CRICKET"
+    ],
+    "relation": "sound : animal",
+    "tier": "mid",
+    "explain": "찌르르는 귀뚜라미의 소리 → 소리:동물 관계.",
+    "options": [
+      {
+        "pair": [
+          "croak",
+          "frog"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cricket",
+          "chirp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "insect",
+          "bug"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grass",
+          "green"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 696,
+    "question": "GRUNT : PIG",
+    "stem": [
+      "GRUNT",
+      "PIG"
+    ],
+    "relation": "sound : animal",
+    "tier": "std",
+    "explain": "꿀꿀은 돼지의 소리 → 소리:동물 관계.",
+    "options": [
+      {
+        "pair": [
+          "oink",
+          "hog"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pig",
+          "grunt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "farm",
+          "mud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "snout",
+          "nose"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 697,
+    "question": "BLEAT : GOAT",
+    "stem": [
+      "BLEAT",
+      "GOAT"
+    ],
+    "relation": "sound : animal",
+    "tier": "std",
+    "explain": "매에는 염소의 소리 → 소리:동물 관계.",
+    "options": [
+      {
+        "pair": [
+          "baa",
+          "sheep"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "goat",
+          "bleat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "horn",
+          "head"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hill",
+          "climb"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 698,
+    "question": "CACKLE : HEN",
+    "stem": [
+      "CACKLE",
+      "HEN"
+    ],
+    "relation": "sound : animal",
+    "tier": "mid",
+    "explain": "꼬꼬댁은 암탉의 소리 → 소리:동물 관계.",
+    "options": [
+      {
+        "pair": [
+          "quack",
+          "duck"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hen",
+          "cackle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "egg",
+          "lay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "coop",
+          "pen"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 699,
+    "question": "SQUEAK : MOUSE",
+    "stem": [
+      "SQUEAK",
+      "MOUSE"
+    ],
+    "relation": "sound : animal",
+    "tier": "std",
+    "explain": "찍찍은 쥐의 소리 → 소리:동물 관계.",
+    "options": [
+      {
+        "pair": [
+          "chitter",
+          "squirrel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mouse",
+          "squeak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hole",
+          "hide"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cheese",
+          "eat"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 700,
+    "question": "CAW : CROW",
+    "stem": [
+      "CAW",
+      "CROW"
+    ],
+    "relation": "sound : animal",
+    "tier": "mid",
+    "explain": "까악은 까마귀의 소리 → 소리:동물 관계.",
+    "options": [
+      {
+        "pair": [
+          "hoot",
+          "owl"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "crow",
+          "caw"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wing",
+          "fly"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "black",
+          "dark"
+        ],
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": 701,
+    "question": "SNARL : DOG",
+    "stem": [
+      "SNARL",
+      "DOG"
+    ],
+    "relation": "sound : animal",
+    "tier": "std",
+    "explain": "으르렁은 개의 소리 → 소리:동물 관계.",
+    "options": [
+      {
+        "pair": [
+          "growl",
+          "bear"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dog",
+          "snarl"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bark",
+          "loud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tail",
+          "wag"
+        ],
+        "correct": false
+      }
+    ]
   }
 ]
