@@ -34,6 +34,7 @@ const DEFAULT_STATE = () => ({
   va:{},      // VA: id -> {seen,correct,wrong,streak,status,updated_at}
   rc:{},      // RC: id -> {done,score,total,updated_at}
   daily:{},   // 'YYYY-MM-DD' -> {studied,correct,new_learned,seconds,target,goal_met,updated_at}
+  exams:{},   // 'wk'|'va'|'rc'|'full' -> {best,bestTotal,last,lastTotal,date}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-07-10" },
 });
@@ -41,11 +42,14 @@ const DEFAULT_STATE = () => ({
 function loadLocal(){
   try{ state=JSON.parse(localStorage.getItem(LS.state))||DEFAULT_STATE(); }catch{ state=DEFAULT_STATE(); }
   const d=DEFAULT_STATE();
-  state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{};
+  state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.settings=Object.assign(d.settings, state.settings||{});
 }
 let saveTimer=null;
-function saveLocal(){ clearTimeout(saveTimer); saveTimer=setTimeout(()=>localStorage.setItem(LS.state, JSON.stringify(state)),150); }
+function saveLocal(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); }
+// Write immediately. Mobile browsers freeze timers when the app is backgrounded,
+// so a debounced save can be lost — always flush on hide/pagehide (see wire()).
+function saveNow(){ clearTimeout(saveTimer); try{ localStorage.setItem(LS.state, JSON.stringify(state)); }catch(e){} }
 function flag(k){ return !!state.settings[k]; }
 
 /* ---------- WK card ---------- */
@@ -203,14 +207,14 @@ async function flushPush(){ if(!sb) return;
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",passage:"reading"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",passage:"reading",exam:"home"};
 function go(view){
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -412,21 +416,25 @@ function renderVA(){ const s=vaSession; if(s.idx>=s.items.length) return finishV
   const a=s.items[s.idx];
   $("#vaCount").textContent=`${s.idx+1} / ${s.items.length}`; $("#vaScore").textContent=`${s.score}점`; $("#vaBar").style.width=(s.idx/s.items.length*100)+"%";
   const opts=shuffle(a.options.map((o,i)=>({...o,i})));
+  const last=s.idx>=s.items.length-1;
   $("#vaArea").innerHTML=`<div class="card">
       <div class="ana-q">다음과 같은 관계는?</div>
       <div class="ana-stem">${esc(a.stem[0])} : ${esc(a.stem[1])}</div>
       <div class="choices" id="vaChoices">${opts.map(o=>`<button class="choice" data-c="${o.correct?1:0}">${esc(o.pair[0])} : ${esc(o.pair[1])}</button>`).join("")}</div>
-      <div class="ana-explain hidden" id="vaExplain"></div></div>`;
+      <div class="ana-explain hidden" id="vaExplain"></div>
+      <button class="btn primary hidden" id="vaNext" style="margin-top:14px">${last?"결과 보기 →":"다음 문제 →"}</button>
+    </div>`;
   s.answered=false;
+  $("#vaNext").onclick=()=>{ s.idx++; renderVA(); };
   $$("#vaChoices .choice").forEach(btn=>btn.onclick=()=>{ if(s.answered)return; s.answered=true; const ok=btn.dataset.c==="1";
     $$("#vaChoices .choice").forEach(b=>{ b.disabled=true; if(b.dataset.c==="1") b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
     const v={...getVA(a.id)}; v.seen++; if(ok){v.correct++;v.streak++;} else {v.wrong++;v.streak=0;}
     v.status=v.streak>=2?"mastered":"learning"; setVA(a.id,v);
     if(ok) s.score+=10; bumpDay({studied:1,correct:ok?1:0});
+    $("#vaScore").textContent=`${s.score}점`;
     $("#vaExplain").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b> · 관계: <b>${esc(a.relation||"")}</b><br>${esc(a.explain||"")}`;
     $("#vaExplain").classList.remove("hidden");
-    const next=document.createElement("button"); next.className="btn primary"; next.style.marginTop="12px"; next.textContent="다음 →";
-    next.onclick=()=>{ s.idx++; renderVA(); }; $("#vaArea").appendChild(next); renderHome();
+    $("#vaNext").classList.remove("hidden");
   });
 }
 function finishVA(){ const s=vaSession,total=s.items.length,got=s.score/10,pct=Math.round(got/total*100);
@@ -477,6 +485,170 @@ function submitPassage(){ const {p,answers}=rcCur; let got=0;
   $("#rcResult").scrollIntoView({behavior:"smooth"});
 }
 function nextPassage(){ const i=READING.findIndex(x=>x.id===rcCur.p.id); const nxt=READING[i+1]; if(nxt) openPassage(nxt.id); else { toast("마지막 지문입니다!"); go("reading"); } }
+
+/* ============================================================
+   EXAM — 실전 모의고사 (timed, AFOQT format)
+   ============================================================ */
+let exam=null;
+const EXAM_PRESETS={
+  wk:  {name:"Word Knowledge",      secs:300,  build:()=>buildWK(25),                            label:"25문항 · 5:00"},
+  va:  {name:"Verbal Analogies",    secs:480,  build:()=>buildVA(25),                            label:"25문항 · 8:00"},
+  rc:  {name:"Reading Comprehension",secs:1500, build:()=>buildRC(20),                            label:"20문항 · 25:00"},
+  full:{name:"풀 Verbal 모의고사",   secs:1800, build:()=>[...buildWK(15),...buildVA(15),...buildRC(10)], label:"40문항 · 30:00"},
+};
+// Word Knowledge: choose the word most similar in meaning (real AFOQT WK format)
+function buildWK(n){
+  const pool=WORDS.filter(w=>w.synonyms&&w.synonyms.length);
+  // weight toward high/mid tiers for exam realism, but keep some std
+  const ranked=[...pool].sort((a,b)=>(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)]));
+  const top=shuffle(ranked.slice(0,Math.min(ranked.length, n*12)));
+  const items=[];
+  for(const w of top){
+    if(items.length>=n) break;
+    const correct=w.synonyms[(Math.random()*w.synonyms.length)|0];
+    if(!correct) continue;
+    const wSyn=new Set(w.synonyms.map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
+    const dist=[];
+    for(const o of shuffle(pool)){
+      if(dist.length>=3) break;
+      if(o.id===w.id) continue;
+      const c=o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue;
+      const cl=c.toLowerCase();
+      if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue;
+      dist.push(c);
+    }
+    if(dist.length<3) continue;
+    const options=shuffle([correct,...dist]);
+    items.push({section:"WK",prompt:"다음 단어와 의미가 가장 가까운 것은?",
+      stem:w.word, sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),
+      options, answer:options.indexOf(correct),
+      explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`});
+  }
+  return items;
+}
+function buildVA(n){
+  return shuffle(ANALOGIES).slice(0,n).map(a=>{
+    const opts=shuffle(a.options.map(o=>({t:`${o.pair[0]} : ${o.pair[1]}`,c:!!o.correct})));
+    return {section:"VA",prompt:"다음과 같은 관계를 가진 짝은?",
+      stem:`${a.stem[0]} : ${a.stem[1]}`, sub:"ANALOGY",
+      options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.c),
+      explain:`관계: ${a.relation||""} — ${a.explain||""}`};
+  });
+}
+function buildRC(n){
+  const items=[];
+  for(const p of shuffle(READING)){
+    for(const q of p.questions){
+      if(items.length>=n) break;
+      items.push({section:"RC",prompt:q.q, stem:null, sub:p.topic||"",
+        passageId:p.id, passageTitle:p.title, passageText:p.passage,
+        options:q.options.slice(), answer:q.answer, explain:q.explain||""});
+    }
+    if(items.length>=n) break;
+  }
+  return items;
+}
+function renderExamSetup(){
+  exam=null; stopExamTimer();
+  $("#examSetup").classList.remove("hidden"); $("#examRun").classList.add("hidden"); $("#examResult").classList.add("hidden");
+  const map={wk:"lastWk",va:"lastVa",rc:"lastRc",full:"lastFull"};
+  for(const k in map){ const r=state.exams[k]; const el=$("#"+map[k]);
+    el.textContent=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:EXAM_PRESETS[k].label; }
+}
+function startExam(key){
+  const p=EXAM_PRESETS[key]; if(!p) return;
+  const items=p.build();
+  if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
+  exam={key,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
+        secsLeft:p.secs,total:items.length,submitted:false,timerId:null};
+  // Activate the exam view directly — do NOT call go("exam") here, since that
+  // re-runs renderExamSetup() and would wipe the exam we just built.
+  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
+  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
+  window.scrollTo(0,0);
+  $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
+  startExamTimer(); renderExamQ();
+}
+function fmtTime(s){ s=Math.max(0,s|0); return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
+function startExamTimer(){ stopExamTimer(); updateTimerUI();
+  exam.timerId=setInterval(()=>{ if(!exam) return stopExamTimer(); exam.secsLeft--; updateTimerUI();
+    if(exam.secsLeft<=0) submitExam(true); },1000); }
+function stopExamTimer(){ if(exam&&exam.timerId){ clearInterval(exam.timerId); exam.timerId=null; } }
+function updateTimerUI(){ const t=$("#examTimer"); if(!t||!exam) return; t.textContent=fmtTime(exam.secsLeft); t.classList.toggle("warn",exam.secsLeft<=30); }
+function renderExamQ(){
+  const e=exam; if(!e) return; const it=e.items[e.idx];
+  $("#examCount").textContent=`${e.idx+1} / ${e.total}`;
+  $("#examBar").style.width=(e.idx/e.total*100)+"%";
+  const samePrev=e.idx>0&&e.items[e.idx-1].passageId===it.passageId;
+  const passage=it.section==="RC"?`<details class="exam-passage" ${samePrev?"":"open"}>
+      <summary>📖 ${esc(it.passageTitle||"지문")} (탭하여 펼치기)</summary>
+      <div class="passage">${esc(it.passageText)}</div></details>`:"";
+  const stem=it.stem?`<div class="exam-stem">${esc(it.stem)}</div>`:"";
+  const sub=it.sub?`<div class="exam-sub">${esc(it.sub)}</div>`:"";
+  $("#examArea").innerHTML=`${passage}<div class="card">
+    <span class="exam-sec">${it.section}</span>
+    <div class="exam-prompt">${esc(it.prompt)}</div>${stem}${sub}
+    <div class="choices" id="examChoices">${it.options.map((o,i)=>
+      `<button class="choice ${e.answers[e.idx]===i?"sel":""}" data-i="${i}">${esc(o)}</button>`).join("")}</div></div>`;
+  $$("#examChoices .choice").forEach(btn=>btn.onclick=()=>{
+    e.answers[e.idx]=+btn.dataset.i;
+    $$("#examChoices .choice").forEach(b=>b.classList.toggle("sel",b===btn));
+    refreshExamGrid();
+    if(e.idx<e.total-1){ setTimeout(()=>{ if(exam&&!exam.submitted){ e.idx++; renderExamQ(); } },160); }
+  });
+  $("#examPrev").disabled=e.idx===0;
+  $("#examNext").disabled=e.idx>=e.total-1;
+  renderExamGrid();
+}
+function renderExamGrid(){
+  const e=exam;
+  $("#examGrid").innerHTML=e.items.map((it,i)=>
+    `<button data-i="${i}" class="${e.answers[i]!=null?"answered":""} ${i===e.idx?"cur":""}">${i+1}</button>`).join("");
+  $$("#examGrid button").forEach(b=>b.onclick=()=>{ e.idx=+b.dataset.i; renderExamQ(); });
+}
+function refreshExamGrid(){ const e=exam; const b=$(`#examGrid button[data-i="${e.idx}"]`); if(b) b.classList.add("answered"); }
+function submitExam(auto){
+  const e=exam; if(!e||e.submitted) return;
+  if(!auto){ const un=e.answers.filter(a=>a==null).length;
+    if(un && !confirm(`아직 ${un}문제를 안 풀었어요. 그래도 제출할까요?`)) return; }
+  e.submitted=true; stopExamTimer();
+  let got=0; const bySec={};
+  e.items.forEach((it,i)=>{ const ok=e.answers[i]===it.answer; if(ok)got++;
+    (bySec[it.section]=bySec[it.section]||{got:0,total:0}).total++; if(ok)bySec[it.section].got++; });
+  const total=e.total, pct=Math.round(got/total*100);
+  const used=EXAM_PRESETS[e.key].secs-Math.max(0,e.secsLeft);
+  bumpDay({studied:total,correct:got});
+  const prev=state.exams[e.key]||{best:0,bestTotal:total};
+  state.exams[e.key]={best:Math.max(prev.best||0,got),bestTotal:total,last:got,lastTotal:total,date:todayStr()};
+  saveNow();
+  // render result
+  $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
+  $("#examEmoji").textContent=pct>=85?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
+  $("#examScore").textContent=`${got} / ${total} 정답 (${pct}%)`;
+  const secName={WK:"단어",VA:"유추",RC:"독해"};
+  $("#examBreakDown").innerHTML=Object.keys(bySec).map(k=>
+    `<div class="s"><b>${bySec[k].got}/${bySec[k].total}</b><span>${secName[k]||k}</span></div>`).join("");
+  $("#examTimeUsed").textContent=`소요 시간 ${fmtTime(used)}${e.secsLeft<=0?" · ⏰ 시간 종료":""}`;
+  $("#examReview").innerHTML=""; $("#examReviewBtn").classList.remove("hidden");
+  window.scrollTo(0,0);
+}
+function renderExamReview(){
+  const e=exam; if(!e) return;
+  const secName={WK:"단어",VA:"유추",RC:"독해"};
+  $("#examReview").innerHTML=e.items.map((it,i)=>{
+    const pick=e.answers[i], ok=pick===it.answer;
+    const opts=it.options.map((o,oi)=>{
+      let cls=""; if(oi===it.answer) cls="ok"; else if(oi===pick) cls="no";
+      const mark=oi===it.answer?"✓ ":(oi===pick?"✗ ":"");
+      return `<div class="ro ${cls}">${mark}${esc(o)}</div>`;
+    }).join("");
+    return `<div class="review-q">
+      <div class="rh">${i+1}. ${secName[it.section]||it.section} ${ok?"✅":pick==null?"⬜ 미응답":"❌"}</div>
+      <div style="font-weight:600;margin-bottom:6px">${esc(it.stem||it.prompt)}</div>
+      ${opts}
+      ${it.explain?`<div class="rx">${esc(it.explain)}</div>`:""}</div>`;
+  }).join("");
+}
 
 /* ============================================================
    STATS
@@ -533,10 +705,21 @@ function softRender(){ const a=$(".view.active")?.id;
 function wire(){
   $$("#nav button").forEach(b=>b.onclick=()=>go(b.dataset.go));
   // home
-  $("#btnStart").onclick=startStudy;
+  $("#btnStart").onclick=startStudy; $("#btnExam").onclick=()=>go("exam");
   $("#secWK").onclick=()=>go("vocab"); $("#secVA").onclick=()=>go("analogy"); $("#secRC").onclick=()=>go("reading");
   // vocab hub
   $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
+  $("#vkExam").onclick=()=>startExam("wk");
+  // exam
+  $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
+  $("#examExit").onclick=()=>go("home");
+  $("#examQuit").onclick=()=>{ if(!exam||exam.submitted||confirm("시험을 그만두고 나갈까요? 기록은 저장되지 않아요.")){ stopExamTimer(); exam=null; go("home"); } };
+  $("#examPrev").onclick=()=>{ if(exam&&exam.idx>0){ exam.idx--; renderExamQ(); } };
+  $("#examNext").onclick=()=>{ if(exam&&exam.idx<exam.total-1){ exam.idx++; renderExamQ(); } };
+  $("#examSubmit").onclick=()=>submitExam(false);
+  $("#examReviewBtn").onclick=()=>{ renderExamReview(); $("#examReviewBtn").classList.add("hidden"); $("#examReview").scrollIntoView({behavior:"smooth"}); };
+  $("#examRetry").onclick=()=>{ const k=exam?.key||"wk"; startExam(k); };
+  $("#examDoneHome").onclick=()=>go("home");
   $("#optHighFirst").onchange=e=>{ state.settings.high_first=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   // study
@@ -561,6 +744,10 @@ function wire(){
   $("#newCode").onclick=()=>{ if(confirm("새 동기화 코드를 만들면 이 기기는 새 데이터로 시작합니다. 계속할까요?")){ localStorage.setItem(LS.code,genCode()); location.reload(); } };
   $("#enterCode").onclick=()=>{ const c=prompt("다른 기기와 동기화할 코드를 입력하세요:",syncCode()); if(c&&c.trim()){ localStorage.setItem(LS.code,c.trim()); toast("코드 적용 — 동기화 중…"); location.reload(); } };
   $("#resetAll").onclick=()=>{ if(confirm("이 기기의 학습 기록을 모두 지웁니다. 계속할까요?")){ state=DEFAULT_STATE(); saveLocal(); toast("초기화됨"); $("#settingsSheet").classList.remove("open"); go("home"); } };
+  // Flush pending saves before the app is backgrounded/closed (mobile-safe).
+  document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") saveNow(); });
+  window.addEventListener("pagehide", saveNow);
+  window.addEventListener("beforeunload", saveNow);
 }
 
 /* ============================================================
