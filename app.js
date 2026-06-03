@@ -493,9 +493,17 @@ let exam=null;
 const EXAM_PRESETS={
   wk:  {name:"Word Knowledge",      secs:300,  build:()=>buildWK(25),                            label:"25문항 · 5:00"},
   va:  {name:"Verbal Analogies",    secs:480,  build:()=>buildVA(25),                            label:"25문항 · 8:00"},
-  rc:  {name:"Reading Comprehension",secs:1500, build:()=>buildRC(20),                            label:"20문항 · 25:00"},
-  full:{name:"풀 Verbal 모의고사",   secs:1800, build:()=>[...buildWK(15),...buildVA(15),...buildRC(10)], label:"40문항 · 30:00"},
+  rc:  {name:"Reading Comprehension",secs:1500, build:()=>buildRC(25),                            label:"25문항 · 25:00"},
+  // Full Verbal mock mirrors real AFOQT proportions (WK25 + VA25 + RC25).
+  full:{name:"Verbal 전체 모의고사",  secs:3060, build:()=>[...buildWK(25),...buildVA(25),...buildRC(25)], label:"75문항 · 51:00 (실전)"},
 };
+// Rough, clearly-unofficial mapping from accuracy to an AFOQT-style percentile.
+function estPercentile(acc){
+  const pts=[[0,1],[0.4,8],[0.5,18],[0.55,25],[0.6,33],[0.65,42],[0.7,52],[0.75,62],[0.8,72],[0.85,81],[0.9,89],[0.95,95],[1,99]];
+  for(let i=0;i<pts.length-1;i++){ const [x0,y0]=pts[i],[x1,y1]=pts[i+1];
+    if(acc<=x1){ const t=(acc-x0)/((x1-x0)||1); return Math.round(y0+t*(y1-y0)); } }
+  return 99;
+}
 // Word Knowledge: choose the word most similar in meaning (real AFOQT WK format)
 function buildWK(n){
   const pool=WORDS.filter(w=>w.synonyms&&w.synonyms.length);
@@ -576,10 +584,11 @@ function startExamTimer(){ stopExamTimer(); updateTimerUI();
 function stopExamTimer(){ if(exam&&exam.timerId){ clearInterval(exam.timerId); exam.timerId=null; } }
 function updateTimerUI(){ const t=$("#examTimer"); if(!t||!exam) return; t.textContent=fmtTime(exam.secsLeft); t.classList.toggle("warn",exam.secsLeft<=30); }
 function renderExamQ(){
-  const e=exam; if(!e) return; const it=e.items[e.idx];
+  const e=exam; if(!e) return;
+  e.idx=clamp(e.idx,0,e.total-1); const it=e.items[e.idx];
   $("#examCount").textContent=`${e.idx+1} / ${e.total}`;
   $("#examBar").style.width=(e.idx/e.total*100)+"%";
-  const samePrev=e.idx>0&&e.items[e.idx-1].passageId===it.passageId;
+  const samePrev=e.idx>0&&e.items[e.idx-1]?.passageId===it.passageId;
   const passage=it.section==="RC"?`<details class="exam-passage" ${samePrev?"":"open"}>
       <summary>📖 ${esc(it.passageTitle||"지문")} (탭하여 펼치기)</summary>
       <div class="passage">${esc(it.passageText)}</div></details>`:"";
@@ -594,7 +603,7 @@ function renderExamQ(){
     e.answers[e.idx]=+btn.dataset.i;
     $$("#examChoices .choice").forEach(b=>b.classList.toggle("sel",b===btn));
     refreshExamGrid();
-    if(e.idx<e.total-1){ setTimeout(()=>{ if(exam&&!exam.submitted){ e.idx++; renderExamQ(); } },160); }
+    if(e.idx<e.total-1){ setTimeout(()=>{ if(exam&&!exam.submitted&&exam.idx<exam.total-1){ exam.idx++; renderExamQ(); } },160); }
   });
   $("#examPrev").disabled=e.idx===0;
   $("#examNext").disabled=e.idx>=e.total-1;
@@ -628,6 +637,14 @@ function submitExam(auto){
   const secName={WK:"단어",VA:"유추",RC:"독해"};
   $("#examBreakDown").innerHTML=Object.keys(bySec).map(k=>
     `<div class="s"><b>${bySec[k].got}/${bySec[k].total}</b><span>${secName[k]||k}</span></div>`).join("");
+  // estimated AFOQT-style percentile (unofficial)
+  const acc=got/total, pctile=estPercentile(acc), multi=Object.keys(bySec).length>1;
+  const secLines=Object.keys(bySec).map(k=>`${secName[k]||k} ${Math.round(bySec[k].got/bySec[k].total*100)}%`).join(" · ");
+  const proj=$("#examProjection"); proj.classList.remove("hidden");
+  proj.innerHTML=`<div class="lbl">${e.key==="full"?"예상 AFOQT Verbal 백분위":"예상 백분위"}</div>
+    <div class="big">${pctile}<span style="font-size:16px">th</span></div>
+    <div class="seclist">정답률 ${Math.round(acc*100)}%${multi?` · ${secLines}`:""}</div>
+    <div class="note">※ 비공식 추정치예요. 실제 AFOQT 환산과 다르며, ${e.key==="full"?"전체 모의고사를 여러 번 볼수록":"풀 모의고사로 볼수록"} 정확해집니다.</div>`;
   $("#examTimeUsed").textContent=`소요 시간 ${fmtTime(used)}${e.secsLeft<=0?" · ⏰ 시간 종료":""}`;
   $("#examReview").innerHTML=""; $("#examReviewBtn").classList.remove("hidden");
   window.scrollTo(0,0);
@@ -733,9 +750,11 @@ function wire(){
   $$("#wordFilters .chip").forEach(c=>c.onclick=()=>{ $$("#wordFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); wordFilter=c.dataset.f; renderWords(); });
   // analogy
   $("#vaStart").onclick=()=>startAnalogy(false); $("#vaReview").onclick=()=>startAnalogy(true);
+  $("#vaExam").onclick=()=>startExam("va");
   $("#vaBack").onclick=()=>{ vaSession=null; renderAnalogyHub(); }; $("#vaRetry").onclick=()=>startAnalogy(false); $("#vaHomeBtn").onclick=()=>go("home");
   // reading
   $("#rcBack").onclick=()=>go("reading"); $("#rcToList").onclick=()=>go("reading"); $("#rcNext").onclick=nextPassage;
+  $("#rcExam").onclick=()=>startExam("rc");
   // settings
   $("#btnSettings").onclick=openSettings; $("#closeSettings").onclick=()=>$("#settingsSheet").classList.remove("open");
   $("#settingsSheet").onclick=e=>{ if(e.target.id==="settingsSheet") $("#settingsSheet").classList.remove("open"); };

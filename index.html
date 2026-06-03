@@ -193,6 +193,7 @@
       <div class="card tight stat"><div class="num" id="vaAcc">–</div><div class="lbl">정답률</div></div>
     </div>
     <button class="btn primary" id="vaStart" style="margin-top:16px">▶︎ 유추 연습 시작</button>
+    <button class="btn ghost" id="vaExam" style="margin-top:10px">🎯 유추 시험 (시간측정)</button>
     <button class="btn ghost" id="vaReview" style="margin-top:10px">🔁 틀린 문제 복습</button>
   </div>
   <div id="vaPlay" class="hidden">
@@ -221,6 +222,7 @@
     <div class="card tight stat"><div class="num" id="rcDone">0</div><div class="lbl">완료 지문</div></div>
     <div class="card tight stat"><div class="num" id="rcAccTop">–</div><div class="lbl">정답률</div></div>
   </div>
+  <button class="btn ghost" id="rcExam" style="margin-top:14px">🎯 독해 시험 (시간측정)</button>
   <div class="wlist" id="rcList" style="margin-top:14px"></div>
 </main>
 
@@ -311,6 +313,7 @@
       <div class="big-emoji" id="examEmoji">🎯</div>
       <h2 id="examScore"></h2>
       <div class="exam-scoreline" id="examBreakDown"></div>
+      <div id="examProjection" class="exam-projection hidden"></div>
       <p class="muted" id="examTimeUsed"></p>
       <button class="btn primary" id="examReviewBtn" style="margin-top:8px">📋 문제 해설 보기</button>
       <button class="btn ghost" id="examRetry" style="margin-top:10px">다시 풀기</button>
