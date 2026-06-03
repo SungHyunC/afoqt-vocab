@@ -26,7 +26,7 @@ function toast(msg, ms=1800){ const t=$("#toast"); t.textContent=msg; t.classLis
 /* ============================================================
    STATE
    ============================================================ */
-let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[];
+let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[];
 let state=null, sb=null, realtimeChan=null;
 
 const DEFAULT_STATE = () => ({
@@ -35,6 +35,9 @@ const DEFAULT_STATE = () => ({
   rc:{},      // RC: id -> {done,score,total,updated_at}
   daily:{},   // 'YYYY-MM-DD' -> {studied,correct,new_learned,seconds,target,goal_met,updated_at}
   exams:{},   // 'wk'|'va'|'rc'|'full' -> {best,bestTotal,last,lastTotal,date}
+  wrong:{wk:{},va:{},rc:{}},  // 오답 노트: wk wordId / va anaId / rc "pid:qi" -> 1
+  weak:{vaRel:{},rcType:{},wkTier:{}},  // 약점 분석: category -> {c,w}
+  examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-07-10" },
 });
@@ -43,6 +46,9 @@ function loadLocal(){
   try{ state=JSON.parse(localStorage.getItem(LS.state))||DEFAULT_STATE(); }catch{ state=DEFAULT_STATE(); }
   const d=DEFAULT_STATE();
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
+  state.wrong=Object.assign({wk:{},va:{},rc:{}},state.wrong||{});
+  state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{}},state.weak||{});
+  state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
 }
 let saveTimer=null;
@@ -207,14 +213,14 @@ async function flushPush(){ if(!sb) return;
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",passage:"reading",exam:"home"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",passage:"reading",exam:"home"};
 function go(view){
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -393,6 +399,25 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
 }
 
 /* ============================================================
+   ROOTS (어원 학습)
+   ============================================================ */
+let rootFilter="all", rootSearch="";
+function renderRoots(){
+  const tn={prefix:"접두사",root:"어근",suffix:"접미사"};
+  let list=ROOTS.filter(r=>{
+    if(rootFilter!=="all"&&r.type!==rootFilter) return false;
+    if(rootSearch){ const q=rootSearch.toLowerCase();
+      if(!(r.form.toLowerCase().includes(q)||r.meaning.includes(rootSearch)||r.meaning.toLowerCase().includes(q)||r.examples.some(e=>e.toLowerCase().includes(q)))) return false; }
+    return true; });
+  $("#rootsCount").textContent=`${list.length}개`;
+  $("#rootsList").innerHTML=list.map(r=>`<div class="root-card">
+    <div><span class="rf">${esc(r.form)}</span><span class="rt">${tn[r.type]||r.type}</span></div>
+    <div class="rm">${esc(r.meaning)}</div>
+    <div class="rex">${r.examples.map(e=>`<span>${esc(e)}</span>`).join("")}</div></div>`).join("")
+    ||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
+}
+
+/* ============================================================
    VERBAL ANALOGIES
    ============================================================ */
 function vaStats(){ const v=Object.values(state.va); const seen=v.filter(x=>x.seen>0).length;
@@ -529,32 +554,69 @@ function buildWK(n){
     const options=shuffle([correct,...dist]);
     items.push({section:"WK",prompt:"다음 단어와 의미가 가장 가까운 것은?",
       stem:w.word, sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),
-      options, answer:options.indexOf(correct),
+      options, answer:options.indexOf(correct), wordId:w.id, tier:tierOf(w),
       explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`});
   }
   return items;
 }
-function buildVA(n){
-  return shuffle(ANALOGIES).slice(0,n).map(a=>{
-    const opts=shuffle(a.options.map(o=>({t:`${o.pair[0]} : ${o.pair[1]}`,c:!!o.correct})));
-    return {section:"VA",prompt:"다음과 같은 관계를 가진 짝은?",
-      stem:`${a.stem[0]} : ${a.stem[1]}`, sub:"ANALOGY",
-      options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.c),
-      explain:`관계: ${a.relation||""} — ${a.explain||""}`};
-  });
+function vaItem(a){
+  const opts=shuffle(a.options.map(o=>({t:`${o.pair[0]} : ${o.pair[1]}`,c:!!o.correct})));
+  return {section:"VA",prompt:"다음과 같은 관계를 가진 짝은?",
+    stem:`${a.stem[0]} : ${a.stem[1]}`, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
+    options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.c),
+    explain:`관계: ${a.relation||""} — ${a.explain||""}`};
+}
+function buildVA(n){ return shuffle(ANALOGIES).slice(0,n).map(vaItem); }
+function rcItem(p,qi){
+  const q=p.questions[qi];
+  return {section:"RC",prompt:q.q, stem:null, sub:p.topic||"",
+    passageId:p.id, qIdx:qi, qType:q.type||"detail", passageTitle:p.title, passageText:p.passage,
+    options:q.options.slice(), answer:q.answer, explain:q.explain||""};
 }
 function buildRC(n){
   const items=[];
   for(const p of shuffle(READING)){
-    for(const q of p.questions){
+    for(let qi=0;qi<p.questions.length;qi++){
       if(items.length>=n) break;
-      items.push({section:"RC",prompt:q.q, stem:null, sub:p.topic||"",
-        passageId:p.id, passageTitle:p.title, passageText:p.passage,
-        options:q.options.slice(), answer:q.answer, explain:q.explain||""});
+      items.push(rcItem(p,qi));
     }
     if(items.length>=n) break;
   }
   return items;
+}
+/* ----- 오답 노트(retest) builders ----- */
+function buildWrongWK(){
+  const ids=Object.keys(state.wrong.wk).map(Number);
+  const out=[];
+  for(const wid of shuffle(ids)){ const w=WMAP.get(wid); if(!w||!(w.synonyms&&w.synonyms.length)) continue;
+    const one=buildWKfor(w); if(one) out.push(one); }
+  return out;
+}
+function buildWKfor(w){
+  const pool=WORDS.filter(x=>x.synonyms&&x.synonyms.length);
+  const correct=w.synonyms[(Math.random()*w.synonyms.length)|0]; if(!correct) return null;
+  const wSyn=new Set(w.synonyms.map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
+  const dist=[];
+  for(const o of shuffle(pool)){ if(dist.length>=3) break; if(o.id===w.id) continue;
+    const c=o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue; const cl=c.toLowerCase();
+    if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue; dist.push(c); }
+  if(dist.length<3) return null;
+  const options=shuffle([correct,...dist]);
+  return {section:"WK",prompt:"다음 단어와 의미가 가장 가까운 것은?",stem:w.word,
+    sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),options,answer:options.indexOf(correct),
+    wordId:w.id,tier:tierOf(w),explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`};
+}
+function buildWrongVA(){
+  const ids=Object.keys(state.wrong.va).map(Number);
+  return shuffle(ids).map(id=>ANALOGIES.find(a=>a.id===id)).filter(Boolean).map(vaItem);
+}
+function buildWrongRC(){
+  const out=[];
+  for(const key of shuffle(Object.keys(state.wrong.rc))){
+    const [pid,qi]=key.split(":").map(Number); const p=READING.find(x=>x.id===pid);
+    if(p&&p.questions[qi]) out.push(rcItem(p,qi));
+  }
+  return out;
 }
 function renderExamSetup(){
   exam=null; stopExamTimer();
@@ -562,6 +624,15 @@ function renderExamSetup(){
   const map={wk:"lastWk",va:"lastVa",rc:"lastRc",full:"lastFull"};
   for(const k in map){ const r=state.exams[k]; const el=$("#"+map[k]);
     el.textContent=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:EXAM_PRESETS[k].label; }
+  // wrong-note (오답 노트)
+  const wc=wrongCounts(), secName={wk:"📇 단어",va:"🔗 유추",rc:"📖 독해"};
+  const rows=["wk","va","rc"].filter(k=>wc[k]>0).map(k=>
+    `<button class="exam-preset" data-retest="${k}" style="padding:13px"><div class="ic" style="font-size:20px">${secName[k].split(" ")[0]}</div>
+      <div class="meta"><b>${secName[k].split(" ")[1]} 오답</b><div class="muted">${wc[k]}문제 다시 풀기</div></div><div class="go">›</div></button>`).join("");
+  $("#retestList").innerHTML=rows||`<div class="card center muted" style="padding:14px">아직 틀린 문제가 없어요. 모의고사를 보면 여기 쌓입니다.</div>`;
+  $$("#retestList [data-retest]").forEach(b=>b.onclick=()=>startRetest(b.dataset.retest));
+  const tot=wc.wk+wc.va+wc.rc; $("#retestAll").classList.toggle("hidden",tot===0);
+  $("#retestAll").textContent=`🔁 전체 오답 재시험 (${tot}문제)`;
 }
 function startExam(key){
   const p=EXAM_PRESETS[key]; if(!p) return;
@@ -616,6 +687,40 @@ function renderExamGrid(){
   $$("#examGrid button").forEach(b=>b.onclick=()=>{ e.idx=+b.dataset.i; renderExamQ(); });
 }
 function refreshExamGrid(){ const e=exam; const b=$(`#examGrid button[data-i="${e.idx}"]`); if(b) b.classList.add("answered"); }
+// Record a graded item into the wrong-note and weakness stats.
+function recordResult(it,ok){
+  const W=state.wrong, K=state.weak;
+  const bump=(obj,cat)=>{ const o=obj[cat]||(obj[cat]={c:0,w:0}); if(ok)o.c++; else o.w++; };
+  if(it.section==="WK"&&it.wordId!=null){
+    if(ok) delete W.wk[it.wordId]; else W.wk[it.wordId]=1;
+    bump(K.wkTier, it.tier||"std");
+  } else if(it.section==="VA"&&it.anaId!=null){
+    if(ok) delete W.va[it.anaId]; else W.va[it.anaId]=1;
+    bump(K.vaRel, it.relation||"기타");
+  } else if(it.section==="RC"&&it.passageId!=null){
+    const key=it.passageId+":"+(it.qIdx||0);
+    if(ok) delete W.rc[key]; else W.rc[key]=1;
+    bump(K.rcType, it.qType||"detail");
+  }
+}
+function wrongCounts(){ return {wk:Object.keys(state.wrong.wk).length,va:Object.keys(state.wrong.va).length,rc:Object.keys(state.wrong.rc).length}; }
+function startRetest(kind){
+  let items=[];
+  if(kind==="wk") items=buildWrongWK();
+  else if(kind==="va") items=buildWrongVA();
+  else if(kind==="rc") items=buildWrongRC();
+  else items=[...buildWrongWK(),...buildWrongVA(),...buildWrongRC()];
+  if(items.length<1){ toast("오답이 없어요 👍"); return; }
+  items=items.slice(0,60);
+  const secs=Math.max(120, items.length*25);
+  exam={key:null,name:"오답 재시험",items,idx:0,answers:new Array(items.length).fill(null),
+        secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
+  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
+  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
+  window.scrollTo(0,0);
+  $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
+  startExamTimer(); renderExamQ();
+}
 function submitExam(auto){
   const e=exam; if(!e||e.submitted) return;
   if(!auto){ const un=e.answers.filter(a=>a==null).length;
@@ -623,12 +728,15 @@ function submitExam(auto){
   e.submitted=true; stopExamTimer();
   let got=0; const bySec={};
   e.items.forEach((it,i)=>{ const ok=e.answers[i]===it.answer; if(ok)got++;
-    (bySec[it.section]=bySec[it.section]||{got:0,total:0}).total++; if(ok)bySec[it.section].got++; });
+    (bySec[it.section]=bySec[it.section]||{got:0,total:0}).total++; if(ok)bySec[it.section].got++;
+    recordResult(it,ok); });
   const total=e.total, pct=Math.round(got/total*100);
-  const used=EXAM_PRESETS[e.key].secs-Math.max(0,e.secsLeft);
+  const used=(EXAM_PRESETS[e.key]?EXAM_PRESETS[e.key].secs:e.startSecs||0)-Math.max(0,e.secsLeft);
   bumpDay({studied:total,correct:got});
-  const prev=state.exams[e.key]||{best:0,bestTotal:total};
-  state.exams[e.key]={best:Math.max(prev.best||0,got),bestTotal:total,last:got,lastTotal:total,date:todayStr()};
+  if(e.key){ const prev=state.exams[e.key]||{best:0,bestTotal:total};
+    state.exams[e.key]={best:Math.max(prev.best||0,got),bestTotal:total,last:got,lastTotal:total,date:todayStr()}; }
+  state.examHist.push({key:e.key||"retest",date:todayStr(),got,total,acc:got/total,pctile:estPercentile(got/total),ts:Date.now()});
+  if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
   saveNow();
   // render result
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
@@ -688,6 +796,46 @@ function renderStats(){
   $("#projection").innerHTML=rem===0?`<div class="center"><div class="big-emoji">🏁</div><b>모든 단어 학습 완료!</b><div class="muted">이제 복습으로 마스터하세요.</div></div>`
     :`남은 단어 <b>${rem}</b>개 · 시험까지 <b>${left}</b>일<br>현재 페이스(신규 ${pace}/일)면 <b>약 ${fin}일</b>에 1회독.<br>
       <span style="color:${ok?'var(--ok)':'var(--warn)'}">${ok?'✅ 일정 내 완주 가능!':'⚠️ 하루 신규 단어를 늘리면 더 안전해요.'}</span>`;
+  renderExamTrend(); renderWeakness();
+}
+function renderExamTrend(){
+  const h=state.examHist||[]; const box=$("#examTrend");
+  if(h.length<1){ box.innerHTML=`<div class="center muted" style="padding:8px">아직 기록이 없어요. 모의고사를 보면 정답률 추이가 그려집니다.</div>`; return; }
+  const data=h.slice(-15), W=300,H=120,pad=22;
+  const xs=(i)=>pad+(data.length<=1?W-2*pad:(i/(data.length-1))*(W-2*pad));
+  const ys=(a)=>H-pad-(a*(H-2*pad));
+  const pts=data.map((d,i)=>[xs(i),ys(d.acc)]);
+  const line=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  const dots=pts.map((p,i)=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5" fill="var(--brand2)"/>`).join("");
+  const grid=[0,0.25,0.5,0.75,1].map(g=>`<line x1="${pad}" y1="${ys(g)}" x2="${W-pad}" y2="${ys(g)}" stroke="#ffffff14"/><text x="2" y="${ys(g)+3}" fill="var(--muted)" font-size="8">${Math.round(g*100)}</text>`).join("");
+  const last=data[data.length-1], best=Math.max(...h.map(d=>d.acc));
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet">
+      ${grid}<path d="${line}" fill="none" stroke="var(--brand)" stroke-width="2.5"/>${dots}</svg>
+    <div class="row" style="justify-content:space-around;margin-top:8px;flex-wrap:wrap;gap:8px">
+      <span class="pill">최근 정답률 <b>${Math.round(last.acc*100)}%</b></span>
+      <span class="pill">예상 백분위 <b>${last.pctile}th</b></span>
+      <span class="pill">최고 <b>${Math.round(best*100)}%</b></span>
+      <span class="pill">응시 <b>${h.length}</b>회</span></div>`;
+}
+function renderWeakness(){
+  const box=$("#weakAnalysis");
+  const relName=r=>r, typeName={main_idea:"주제",detail:"세부사항",inference:"추론",vocab_in_context:"문맥 어휘",tone_purpose:"어조/목적"},
+        tierName={high:"빈출(high)",mid:"중요(mid)",std:"일반(std)"};
+  const collect=(obj,namer)=>Object.keys(obj).map(k=>{const o=obj[k],t=o.c+o.w;return{k,name:namer(k),acc:t?o.c/t:0,t,w:o.w};}).filter(x=>x.t>=2);
+  const va=collect(state.weak.vaRel,relName).sort((a,b)=>a.acc-b.acc).slice(0,4);
+  const rc=collect(state.weak.rcType,k=>typeName[k]||k).sort((a,b)=>a.acc-b.acc).slice(0,4);
+  const wk=collect(state.weak.wkTier,k=>tierName[k]||k).sort((a,b)=>a.acc-b.acc);
+  if(!va.length&&!rc.length&&!wk.length){ box.innerHTML=`<div class="center muted" style="padding:8px">모의고사를 풀면 유형별 정답률을 분석해 약점을 알려드려요.</div>`; return; }
+  const bar=x=>{const p=Math.round(x.acc*100),col=p<50?"var(--bad)":p<75?"var(--warn)":"var(--ok)";
+    return `<div style="margin:6px 0"><div class="row" style="justify-content:space-between;font-size:12px"><span>${esc(x.name)}</span><span class="muted">${p}% · ${x.w}틀림</span></div>
+      <div class="progressbar mini"><i style="width:${p}%;background:${col}"></i></div></div>`;}
+  let html="";
+  if(wk.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:2px 0 4px">단어 등급별</div>`+wk.map(bar).join(""); }
+  if(va.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:10px 0 4px">유추 — 약한 관계 유형</div>`+va.map(bar).join(""); }
+  if(rc.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:10px 0 4px">독해 — 약한 문제 유형</div>`+rc.map(bar).join(""); }
+  const worst=[...va,...rc,...wk].sort((a,b)=>a.acc-b.acc)[0];
+  if(worst) html+=`<div class="hintbox" style="margin-top:12px">💡 가장 약한 부분: <b>${esc(worst.name)}</b> (${Math.round(worst.acc*100)}%). 집중 연습을 추천해요.</div>`;
+  box.innerHTML=html;
 }
 
 /* ============================================================
@@ -726,7 +874,10 @@ function wire(){
   $("#secWK").onclick=()=>go("vocab"); $("#secVA").onclick=()=>go("analogy"); $("#secRC").onclick=()=>go("reading");
   // vocab hub
   $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
-  $("#vkExam").onclick=()=>startExam("wk");
+  $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
+  $("#rootsBack").onclick=()=>go("vocab");
+  $("#rootsSearch").oninput=e=>{ rootSearch=e.target.value.trim(); renderRoots(); };
+  $$("#rootsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#rootsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); rootFilter=c.dataset.rf; renderRoots(); });
   // exam
   $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
   $("#examExit").onclick=()=>go("home");
@@ -735,7 +886,8 @@ function wire(){
   $("#examNext").onclick=()=>{ if(exam&&exam.idx<exam.total-1){ exam.idx++; renderExamQ(); } };
   $("#examSubmit").onclick=()=>submitExam(false);
   $("#examReviewBtn").onclick=()=>{ renderExamReview(); $("#examReviewBtn").classList.add("hidden"); $("#examReview").scrollIntoView({behavior:"smooth"}); };
-  $("#examRetry").onclick=()=>{ const k=exam?.key||"wk"; startExam(k); };
+  $("#examRetry").onclick=()=>{ if(exam&&exam.key) startExam(exam.key); else go("exam"); };
+  $("#retestAll").onclick=()=>startRetest("all");
   $("#examDoneHome").onclick=()=>go("home");
   $("#optHighFirst").onchange=e=>{ state.settings.high_first=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
@@ -819,6 +971,7 @@ async function boot(){
     WMAP=new Map(WORDS.map(w=>[w.id,w]));
     ANALOGIES=await loadJSON("./analogies.json")||[];
     READING=await loadJSON("./reading.json")||[];
+    ROOTS=await loadJSON("./roots.json")||[];
     $("#boot").classList.remove("active"); go("home");
     initSync();   // non-blocking: app already usable
     registerSW();

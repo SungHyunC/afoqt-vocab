@@ -94,6 +94,7 @@
   <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (AFOQT 형식 · 시간측정)</button>
   <button class="btn ghost" id="vkQuiz" style="margin-top:10px">🧠 간단 퀴즈</button>
   <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 보기</button>
+  <button class="btn ghost" id="vkRoots" style="margin-top:10px">🔤 어원 학습 (접두사·어근)</button>
 
   <h2 class="section">학습 우선순위</h2>
   <div class="card">
@@ -182,6 +183,21 @@
   <div class="wlist" id="wordList"></div>
 </main>
 
+<!-- ===== ROOTS (어원 학습) ===== -->
+<main id="view-roots" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="rootsBack">← 어휘</button><span>🔤 어원</span><span></span></div>
+  <p class="muted" style="margin:0 0 10px">접두사·어근·접미사를 알면 모르는 단어도 뜻을 추론할 수 있어요. AFOQT 단어 시험에 강력합니다.</p>
+  <input class="search" id="rootsSearch" placeholder="🔎 어원 / 뜻 / 예시 검색…">
+  <div class="filters" id="rootsFilters">
+    <button class="chip on" data-rf="all">전체</button>
+    <button class="chip" data-rf="prefix">접두사</button>
+    <button class="chip" data-rf="root">어근</button>
+    <button class="chip" data-rf="suffix">접미사</button>
+  </div>
+  <div class="muted" id="rootsCount" style="font-size:12px;margin:2px 4px 10px"></div>
+  <div id="rootsList"></div>
+</main>
+
 <!-- ===== ANALOGY (Verbal Analogies) ===== -->
 <main id="view-analogy" class="view">
   <div id="vaHub">
@@ -261,6 +277,12 @@
     <div class="card tight stat"><div class="num" id="sTotalRev">0</div><div class="lbl">누적 복습수</div></div>
   </div>
 
+  <h2 class="section">🎯 모의고사 점수 추이</h2>
+  <div class="card" id="examTrend"></div>
+
+  <h2 class="section">🧩 약점 분석</h2>
+  <div class="card" id="weakAnalysis"></div>
+
   <h2 class="section">예상</h2>
   <div class="card" id="projection"></div>
 </main>
@@ -285,9 +307,14 @@
         <div class="last" id="lastRc"></div></div>
       <div class="go">›</div></button>
     <button class="exam-preset" data-exam="full" style="border-color:var(--brand)"><div class="ic">🏆</div>
-      <div class="meta"><b>풀 Verbal 모의고사</b><div class="muted">단어+유추+독해 한 번에 (실전 종합)</div>
+      <div class="meta"><b>Verbal 전체 모의고사</b><div class="muted">단어+유추+독해 한 번에 (실전 75문항)</div>
         <div class="last" id="lastFull"></div></div>
       <div class="go">›</div></button>
+
+    <h2 class="section">📕 오답 노트</h2>
+    <p class="muted" style="margin:0 0 10px">시험에서 틀린 문제만 모아 다시 풉니다. 맞히면 노트에서 사라져요.</p>
+    <div id="retestList"></div>
+    <button class="btn ghost" id="retestAll" style="margin-top:6px">🔁 전체 오답 재시험</button>
   </div>
 
   <!-- running -->
