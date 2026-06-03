@@ -2774,5 +2774,1517 @@
         "explain": "햇빛이 사라지고 물이 차가워진다는 맥락이므로 frigid는 '몹시 차가운'이라는 의미이다."
       }
     ]
+  },
+  {
+    "id": 54,
+    "title": "The Discovery of DNA's Structure",
+    "topic": "science",
+    "passage": "In 1953, James Watson and Francis Crick proposed that the molecule of heredity, deoxyribonucleic acid, takes the shape of a double helix. Their model resembled a twisted ladder, with two strands winding around each other. The rungs of this ladder are formed by pairs of chemical bases: adenine always pairs with thymine, and guanine always pairs with cytosine. This precise pairing explained how genetic information could be copied accurately when cells divide, since each strand serves as a template for building its partner. Crucially, the breakthrough relied heavily on X-ray images produced by Rosalind Franklin, whose work captured the helical pattern in striking detail. The discovery transformed biology by revealing the physical basis of inheritance, opening the door to fields such as genetic engineering and modern medicine. Today, scientists routinely read the sequence of bases in DNA to diagnose diseases, trace ancestry, and develop targeted treatments. Few scientific insights have reshaped human understanding of life so profoundly, connecting the abstract laws of heredity to a concrete molecular machine inside every living cell.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "Rosalind Franklin deserved more credit than she received",
+          "genetic engineering is the most important field in modern medicine",
+          "cells divide by copying chemical bases in a fixed order",
+          "the discovery of DNA's double helix structure transformed our understanding of heredity"
+        ],
+        "answer": 3,
+        "explain": "지문 전체가 DNA 이중나선 구조의 발견과 그것이 유전 이해에 끼친 영향을 설명하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, adenine always pairs with",
+        "type": "detail",
+        "options": [
+          "guanine",
+          "thymine",
+          "cytosine",
+          "another adenine"
+        ],
+        "answer": 1,
+        "explain": "지문에서 아데닌은 항상 티민과 짝을 이룬다고 명시했으므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the base-pairing rules are important because they",
+        "type": "inference",
+        "options": [
+          "make DNA appear green under X-rays",
+          "allow genetic information to be copied accurately",
+          "prevent cells from ever dividing",
+          "eliminate the need for chromosomes"
+        ],
+        "answer": 1,
+        "explain": "지문은 정확한 염기쌍 결합이 세포 분열 시 유전 정보가 정확히 복제되도록 한다고 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "In this passage, the word \"template\" most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "obstacle",
+          "pattern used to make a copy",
+          "random fragment",
+          "protective shell"
+        ],
+        "answer": 1,
+        "explain": "여기서 template은 짝 가닥을 만드는 데 사용되는 본보기/형판을 의미하므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "title": "The Fall of the Berlin Wall",
+    "topic": "history",
+    "passage": "For nearly three decades, the Berlin Wall stood as the most visible symbol of the Cold War, dividing the German city into a communist East and a democratic West. Erected in 1961 by the East German government, the barrier was meant to stop the flood of citizens fleeing to the West in search of greater freedom and opportunity. Families were separated overnight, and guards were ordered to shoot anyone attempting to cross. By the late 1980s, mounting public pressure and sweeping political reforms across Eastern Europe weakened the grip of communist authorities. On the night of November 9, 1989, a confused announcement by an East German official suggested that the borders were open. Crowds surged toward the checkpoints, and overwhelmed guards eventually stepped aside. Jubilant citizens climbed atop the wall and began chipping away at the concrete with hammers and chisels. The peaceful collapse of the wall accelerated the reunification of Germany, which formally occurred less than a year later, and signaled the approaching end of the Cold War that had shaped global politics for generations.",
+    "questions": [
+      {
+        "q": "The primary purpose of this passage is to",
+        "type": "main_idea",
+        "options": [
+          "describe the construction techniques used to build the wall",
+          "criticize the leaders of East Germany",
+          "recount the significance and fall of the Berlin Wall",
+          "explain the economic policies of the Cold War"
+        ],
+        "answer": 2,
+        "explain": "지문은 베를린 장벽의 의미와 붕괴 과정을 서술하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the wall was originally built in order to",
+        "type": "detail",
+        "options": [
+          "protect East Germany from foreign invasion",
+          "create a tourist attraction for the city",
+          "mark a peaceful boundary agreed by both sides",
+          "stop East Germans from fleeing to the West"
+        ],
+        "answer": 3,
+        "explain": "지문은 장벽이 서방으로 탈출하는 시민을 막기 위해 세워졌다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred that the fall of the wall happened",
+        "type": "inference",
+        "options": [
+          "after a long planned military operation",
+          "because Western armies forced the checkpoints open",
+          "more suddenly than authorities intended, aided by a confused announcement",
+          "only after Germany was already reunified"
+        ],
+        "answer": 2,
+        "explain": "혼란스러운 발표 후 군중이 몰려들고 경비병이 비켜섰다는 점에서 의도보다 갑작스럽게 일어났음을 추론할 수 있으므로 정답은 C이다."
+      },
+      {
+        "q": "The author's tone in describing the citizens at the wall is best described as",
+        "type": "tone_purpose",
+        "options": [
+          "mournful",
+          "indifferent",
+          "sarcastic",
+          "celebratory"
+        ],
+        "answer": 3,
+        "explain": "환호하는 시민들(jubilant)이 장벽 위에 올라가는 장면은 축하의 어조를 나타내므로 정답은 D이다."
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "title": "How Glaciers Shape the Land",
+    "topic": "nature",
+    "passage": "Glaciers are enormous masses of ice that form over centuries as snow accumulates and compresses in cold regions. Although they may appear motionless, glaciers slowly flow downhill under their own immense weight, sometimes advancing only a few centimeters per day. As they move, they act like powerful natural bulldozers, scraping and grinding the rock beneath them. This process, known as glacial erosion, carves deep valleys, sharp ridges, and broad basins into the landscape. When a glacier finally retreats, it leaves behind telltale evidence of its passage. Piles of rock and soil called moraines mark the edges where the ice once stood, while scattered boulders, transported far from their origin, rest on unfamiliar terrain. Many of the world's most dramatic landscapes, including the fjords of Norway and the U-shaped valleys of the Alps, were sculpted by glaciers during past ice ages. Studying these features allows geologists to reconstruct ancient climates and to predict how shrinking glaciers today might reshape coastlines and water supplies in the future.",
+    "questions": [
+      {
+        "q": "The passage is mainly about",
+        "type": "main_idea",
+        "options": [
+          "how snow turns into rain in cold climates",
+          "the ways glaciers move and reshape the landscape",
+          "why Norway has so many tourists",
+          "the dangers of climbing in the Alps"
+        ],
+        "answer": 1,
+        "explain": "지문은 빙하가 움직이며 지형을 형성하는 방식을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, moraines are",
+        "type": "detail",
+        "options": [
+          "deep valleys carved by ice",
+          "rivers formed by melting snow",
+          "piles of rock and soil left at a glacier's edges",
+          "sharp ridges between two peaks"
+        ],
+        "answer": 2,
+        "explain": "지문은 빙퇴석(moraines)이 빙하 가장자리에 남은 암석과 토양 더미라고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "The word \"telltale\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "revealing or indicative",
+          "hidden",
+          "harmful",
+          "imaginary"
+        ],
+        "answer": 0,
+        "explain": "telltale은 무언가를 드러내거나 증거가 되는 것을 뜻하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred that studying glaciers helps scientists",
+        "type": "inference",
+        "options": [
+          "build stronger bulldozers",
+          "stop glaciers from melting entirely",
+          "prove that ice ages never ended",
+          "understand past climates and anticipate future changes"
+        ],
+        "answer": 3,
+        "explain": "지문은 빙하 연구가 고대 기후 재구성과 미래 변화 예측에 도움이 된다고 했으므로 정답은 D이다."
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "title": "The Rise of Electric Vehicles",
+    "topic": "technology",
+    "passage": "Electric vehicles, once a curiosity confined to small niche markets, have surged into the mainstream of the global automobile industry. Unlike traditional cars that burn gasoline in an internal combustion engine, electric vehicles store energy in large rechargeable batteries and drive electric motors. This design produces no tailpipe emissions, making such vehicles attractive to drivers and governments concerned about air pollution and climate change. The most significant advances have come in battery technology, where improvements in energy density allow modern vehicles to travel several hundred kilometers on a single charge. Expanding networks of charging stations have also eased the so-called range anxiety that once deterred potential buyers. Still, challenges remain. Mining the lithium and cobalt needed for batteries raises environmental and ethical concerns, and electricity generated from coal can offset some of the climate benefits. Manufacturers and policymakers continue to invest heavily in cleaner power sources and recycling programs. As production scales up and prices fall, analysts increasingly expect electric vehicles to dominate the roads within a few decades, reshaping not only transportation but the energy systems that support it.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that",
+        "type": "main_idea",
+        "options": [
+          "electric vehicles will never overcome their challenges",
+          "gasoline cars are cheaper than electric ones",
+          "electric vehicles are rapidly entering the mainstream despite remaining obstacles",
+          "battery mining is the biggest threat to the planet"
+        ],
+        "answer": 2,
+        "explain": "지문은 전기차가 과제에도 불구하고 주류로 진입하고 있음을 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, electric vehicles produce no",
+        "type": "detail",
+        "options": [
+          "tailpipe emissions",
+          "noise while driving",
+          "need for charging",
+          "demand for electricity"
+        ],
+        "answer": 0,
+        "explain": "지문은 전기차가 배기관 배출가스를 내지 않는다고 명시했으므로 정답은 A이다."
+      },
+      {
+        "q": "The phrase \"range anxiety\" most likely refers to",
+        "type": "vocab_in_context",
+        "options": [
+          "worry about running out of charge before reaching a station",
+          "fear of driving long distances at high speed",
+          "concern about the price of a vehicle",
+          "stress caused by traffic congestion"
+        ],
+        "answer": 0,
+        "explain": "충전소 확대가 완화시킨 range anxiety는 충전이 떨어질까 하는 걱정을 뜻하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred that the climate benefit of electric vehicles depends partly on",
+        "type": "inference",
+        "options": [
+          "how the electricity used to charge them is generated",
+          "the color of the vehicle",
+          "the number of passengers carried",
+          "the brand of the manufacturer"
+        ],
+        "answer": 0,
+        "explain": "석탄으로 생산된 전기가 기후 이점을 상쇄할 수 있다고 했으므로 전력 생산 방식에 달려 있음을 추론할 수 있어 정답은 A이다."
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "title": "Why People Follow Crowds",
+    "topic": "social science",
+    "passage": "Human beings are deeply influenced by the behavior of those around them, a tendency that social scientists call herd behavior. When individuals are uncertain about the correct course of action, they often look to others for cues, assuming that the group must possess knowledge they lack. This instinct can be useful: imitating successful neighbors helped early humans find food and avoid danger. Yet the same impulse can lead crowds astray. Financial bubbles, for instance, occur when investors rush to buy an asset simply because everyone else is buying, driving prices far above their true worth before the inevitable collapse. Panic in emergencies follows a similar pattern, as people flee in the same direction merely because others are doing so, sometimes ignoring safer exits. Researchers have found that even a small number of confident individuals can steer a much larger group, since most members willingly defer to apparent leaders. Understanding herd behavior helps planners design safer buildings, helps economists anticipate market swings, and reminds each of us to pause and question whether the crowd is truly heading in the right direction.",
+    "questions": [
+      {
+        "q": "The passage is primarily concerned with",
+        "type": "main_idea",
+        "options": [
+          "how and why people tend to follow the behavior of crowds",
+          "the causes of financial bubbles",
+          "the best way to escape an emergency",
+          "the history of early human survival"
+        ],
+        "answer": 0,
+        "explain": "지문은 사람들이 군중을 따르는 이유와 방식을 전반적으로 다루므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, financial bubbles occur when",
+        "type": "detail",
+        "options": [
+          "investors carefully research each asset",
+          "governments lower interest rates",
+          "people buy an asset simply because others are buying it",
+          "prices fall below their true worth"
+        ],
+        "answer": 2,
+        "explain": "지문은 다른 사람들이 사기 때문에 자산을 사들이는 것이 거품을 만든다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred that herd behavior",
+        "type": "inference",
+        "options": [
+          "can be either helpful or harmful depending on the situation",
+          "is always harmful to individuals",
+          "only affects investors",
+          "disappears in large groups"
+        ],
+        "answer": 0,
+        "explain": "지문은 군집 행동이 생존에 유용할 수도, 군중을 잘못 이끌 수도 있다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "The author's main purpose in the final sentence is to",
+        "type": "tone_purpose",
+        "options": [
+          "warn readers never to trust anyone",
+          "praise economists for their predictions",
+          "encourage readers to question whether the crowd is correct",
+          "describe how buildings are constructed"
+        ],
+        "answer": 2,
+        "explain": "마지막 문장은 군중이 옳은 방향인지 멈춰 생각하라고 권하므로 정답은 C이다."
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "title": "The Art of the Mosaic",
+    "topic": "arts",
+    "passage": "A mosaic is a work of art created by assembling small pieces of colored material into a larger image or pattern. These pieces, called tesserae, may be cut from stone, glass, ceramic, or even shell, and are pressed into a bed of wet plaster or cement. Because each fragment reflects light independently, finished mosaics seem to shimmer and shift as the viewer moves, an effect impossible to achieve with paint. The technique flourished in the ancient world, decorating the floors of Roman villas with scenes of hunting, mythology, and daily life. Later, Byzantine artists raised the medium to spiritual heights, covering the walls and domes of churches with glittering gold backgrounds that suggested the radiance of heaven. Creating a mosaic demands patience and planning, for the artist must imagine the whole image while working with countless tiny parts. Mistakes are difficult to correct once the plaster sets. Despite its ancient origins, the art form endures today in public murals, garden ornaments, and contemporary galleries, proving that beauty assembled from fragments can outlast the empires that first perfected it.",
+    "questions": [
+      {
+        "q": "Which of the following best states the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Byzantine churches were more beautiful than Roman villas",
+          "Glass is the best material for making art",
+          "Painting is easier than making mosaics",
+          "Mosaics are an enduring art form made from many small pieces"
+        ],
+        "answer": 3,
+        "explain": "지문은 작은 조각으로 만들어진 모자이크가 오래 지속되는 예술 형식임을 다루므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, the small pieces used in a mosaic are called",
+        "type": "detail",
+        "options": [
+          "frescoes",
+          "moraines",
+          "pigments",
+          "tesserae"
+        ],
+        "answer": 3,
+        "explain": "지문은 모자이크의 작은 조각을 tesserae라고 부른다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred from the passage that making a mosaic requires",
+        "type": "inference",
+        "options": [
+          "very little planning",
+          "only one color of material",
+          "careful planning because mistakes are hard to fix",
+          "modern electric tools"
+        ],
+        "answer": 2,
+        "explain": "회반죽이 굳으면 실수를 고치기 어렵다고 했으므로 신중한 계획이 필요함을 추론할 수 있어 정답은 C이다."
+      },
+      {
+        "q": "The word \"shimmer\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "fade away slowly",
+          "make a loud sound",
+          "shine with a flickering light",
+          "crack under pressure"
+        ],
+        "answer": 2,
+        "explain": "shimmer는 빛이 어른거리며 빛나는 것을 뜻하므로 정답은 C이다."
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "title": "The Geography of the Sahara",
+    "topic": "geography",
+    "passage": "The Sahara, stretching across northern Africa, is the largest hot desert on Earth, covering an area roughly the size of the United States. Contrary to popular imagination, only a fraction of this vast expanse consists of rolling sand dunes. Much of the Sahara is made up of rocky plateaus, gravel plains, and barren mountains, some rising to considerable heights. Rainfall is extremely scarce, and in many areas years may pass without a single drop. Yet the desert is not entirely lifeless. Scattered oases, fed by underground water sources, support clusters of date palms and small communities that have survived in these harsh conditions for centuries. Temperatures swing dramatically, soaring above fifty degrees Celsius during the day and dropping near freezing at night, since the dry air retains little heat after sunset. Remarkably, geological and fossil evidence reveals that the Sahara was once a green and fertile region dotted with lakes and rivers. Shifts in Earth's orbit and climate gradually transformed it into the arid landscape we recognize today, a reminder that even the most permanent-seeming environments are subject to change.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the Sahara is entirely covered in sand dunes",
+          "oases are the only interesting feature of the Sahara",
+          "the Sahara is a varied, harsh desert that was once green",
+          "the Sahara is the same size as the United States"
+        ],
+        "answer": 2,
+        "explain": "지문은 사하라가 다양하고 혹독한 사막이며 한때 푸르렀음을 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, oases in the Sahara are fed by",
+        "type": "detail",
+        "options": [
+          "frequent rainfall",
+          "melting glaciers",
+          "rivers flowing from the sea",
+          "underground water sources"
+        ],
+        "answer": 3,
+        "explain": "지문은 오아시스가 지하 수원에 의해 공급된다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred that the Sahara's nighttime temperatures drop sharply because",
+        "type": "inference",
+        "options": [
+          "the sand reflects all sunlight",
+          "the dry air retains little heat after sunset",
+          "cold ocean winds blow inland",
+          "oases cool the surrounding region"
+        ],
+        "answer": 1,
+        "explain": "지문은 건조한 공기가 일몰 후 열을 거의 보유하지 못한다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "The word \"arid\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "very dry",
+          "fertile",
+          "crowded",
+          "mountainous"
+        ],
+        "answer": 0,
+        "explain": "arid는 매우 건조한 상태를 뜻하므로 정답은 A이다."
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "title": "How Memories Are Stored",
+    "topic": "psychology",
+    "passage": "Memory is not a single faculty but a collection of processes that allow the brain to encode, store, and retrieve information. When we experience an event, sensory details first enter a brief and fragile stage called short-term memory, which can hold only a handful of items for a matter of seconds. Through rehearsal and meaningful association, some of this information is transferred into long-term memory, where it may persist for years. A small structure deep within the brain, the hippocampus, plays a crucial role in converting fleeting impressions into lasting memories. Interestingly, memories are not stored like files in a cabinet, perfectly preserved and unchanging. Each time we recall an event, the brain partially reconstructs it, and details can be altered, added, or lost in the process. This is why eyewitness accounts, though offered in good faith, can be surprisingly unreliable. Sleep also strengthens memory, as the brain replays and consolidates the day's experiences during rest. Understanding these mechanisms not only illuminates how we learn but also offers hope for treating disorders, such as amnesia and dementia, that disrupt the delicate machinery of remembering.",
+    "questions": [
+      {
+        "q": "The passage is mainly about",
+        "type": "main_idea",
+        "options": [
+          "why eyewitnesses lie in court",
+          "how the brain encodes, stores, and reconstructs memories",
+          "the best techniques for studying for exams",
+          "the dangers of sleeping too little"
+        ],
+        "answer": 1,
+        "explain": "지문은 뇌가 기억을 부호화·저장·재구성하는 과정을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the hippocampus helps to",
+        "type": "detail",
+        "options": [
+          "produce sensory details",
+          "convert fleeting impressions into lasting memories",
+          "erase old memories",
+          "control short-term emotions"
+        ],
+        "answer": 1,
+        "explain": "지문은 해마가 순간적 인상을 지속적 기억으로 전환하는 데 핵심 역할을 한다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred that eyewitness accounts may be unreliable because",
+        "type": "inference",
+        "options": [
+          "witnesses deliberately deceive investigators",
+          "the hippocampus is too small to store events",
+          "memories are reconstructed and can change each time they are recalled",
+          "short-term memory lasts for years"
+        ],
+        "answer": 2,
+        "explain": "지문은 기억이 회상할 때마다 재구성되어 변할 수 있어 목격담이 신뢰하기 어렵다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "In this passage, the word \"consolidates\" most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "deletes",
+          "strengthens and makes solid",
+          "confuses",
+          "ignores"
+        ],
+        "answer": 1,
+        "explain": "consolidates는 기억을 강화하고 견고하게 만드는 것을 뜻하므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "title": "The Logic of Opportunity Cost",
+    "topic": "economics",
+    "passage": "Every choice we make carries a hidden price, a principle economists capture with the idea of opportunity cost. Opportunity cost is the value of the next best alternative that must be given up when a decision is made. Because resources such as time, money, and labor are limited, choosing one option always means forgoing another. A student who spends an evening studying, for example, sacrifices the chance to earn money at a part-time job or to relax with friends. A nation that devotes its budget to building highways cannot use those same funds for schools or hospitals. Recognizing opportunity cost encourages clearer thinking, because it forces decision-makers to weigh not just the benefits of a choice but everything that choice quietly eliminates. Businesses apply this reasoning constantly, comparing the potential returns of competing investments before committing their capital. Even decisions that appear free, such as accepting a gift of land, may carry opportunity costs in the form of taxes or maintenance. By making the invisible trade-offs of life visible, the concept helps individuals, companies, and governments allocate their scarce resources more wisely and avoid the illusion that anything is truly without cost.",
+    "questions": [
+      {
+        "q": "Which statement best captures the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Studying is more valuable than working a part-time job",
+          "Governments should always build schools before highways",
+          "Every choice involves giving up the next best alternative",
+          "Gifts of land are never truly free"
+        ],
+        "answer": 2,
+        "explain": "지문은 모든 선택이 차선의 대안을 포기하는 것을 의미한다는 기회비용 개념을 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, opportunity cost is defined as",
+        "type": "detail",
+        "options": [
+          "the value of the next best alternative that must be given up",
+          "the total money spent on a project",
+          "the profit a business expects to earn",
+          "the tax paid on a gift"
+        ],
+        "answer": 0,
+        "explain": "지문은 기회비용을 포기해야 하는 차선의 대안의 가치로 정의하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred that the concept of opportunity cost is useful because it",
+        "type": "inference",
+        "options": [
+          "makes all decisions free of cost",
+          "guarantees that businesses earn profits",
+          "eliminates the need to compare investments",
+          "reveals hidden trade-offs that decisions involve"
+        ],
+        "answer": 3,
+        "explain": "지문은 기회비용이 보이지 않는 선택의 대가를 드러내 더 현명한 결정을 돕는다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The word \"forgoing\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "giving up",
+          "choosing",
+          "buying",
+          "repeating"
+        ],
+        "answer": 0,
+        "explain": "forgoing은 무언가를 포기하는 것을 뜻하므로 정답은 A이다."
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "title": "The Benefits of Regular Exercise",
+    "topic": "health",
+    "passage": "Physical activity is one of the most powerful tools available for protecting and improving health, yet it is often overlooked in favor of medicines and quick fixes. Regular exercise strengthens the heart, allowing it to pump blood more efficiently and lowering the risk of cardiovascular disease. It also helps regulate body weight, builds muscle, and improves the density of bones, which becomes especially important as people age. Beyond these physical benefits, exercise has a profound effect on the mind. During vigorous activity, the brain releases chemicals called endorphins, which can elevate mood and reduce feelings of stress and anxiety. Studies have repeatedly shown that people who exercise regularly tend to sleep better, think more clearly, and report higher levels of overall well-being. Importantly, the benefits do not require punishing workouts or expensive equipment. Even moderate activity, such as a brisk daily walk, can yield measurable improvements in health when practiced consistently. Public health experts therefore encourage people of all ages to build movement into their daily routines, emphasizing that the human body is designed to be active and tends to function best when it is regularly used.",
+    "questions": [
+      {
+        "q": "The primary purpose of this passage is to",
+        "type": "main_idea",
+        "options": [
+          "explain the wide-ranging benefits of regular exercise",
+          "describe the structure of the human heart",
+          "compare different types of expensive equipment",
+          "argue that medicines are useless"
+        ],
+        "answer": 0,
+        "explain": "지문은 규칙적 운동의 다양한 이점을 설명하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, endorphins released during exercise can",
+        "type": "detail",
+        "options": [
+          "increase the risk of heart disease",
+          "weaken the bones",
+          "elevate mood and reduce stress",
+          "cause sleeplessness"
+        ],
+        "answer": 2,
+        "explain": "지문은 운동 중 분비되는 엔도르핀이 기분을 좋게 하고 스트레스를 줄인다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred that significant health benefits",
+        "type": "inference",
+        "options": [
+          "require only the most intense workouts",
+          "can come from moderate, consistent activity",
+          "are impossible without special equipment",
+          "decline as people grow older"
+        ],
+        "answer": 1,
+        "explain": "지문은 빠른 걷기 같은 적당한 활동도 꾸준히 하면 측정 가능한 개선을 가져온다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "The word \"vigorous\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "lazy",
+          "brief",
+          "energetic and intense",
+          "silent"
+        ],
+        "answer": 2,
+        "explain": "vigorous는 활기차고 강도 높은 것을 뜻하므로 정답은 C이다."
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "title": "The Evolution of the Marathon",
+    "topic": "sports",
+    "passage": "The modern marathon traces its name to an ancient legend. According to tradition, a Greek messenger named Pheidippides ran from the battlefield of Marathon to Athens to announce a military victory, then collapsed and died from exhaustion. When the first modern Olympic Games were held in Athens in 1896, organizers introduced a long-distance race to honor this story. The early marathon had no fixed length, varying from one event to another. Only at the 1908 London Olympics did the distance settle at the now-standard 42.195 kilometers, reportedly so the race could begin at Windsor Castle and finish before the royal box in the stadium. For decades the marathon was considered a grueling test reserved for elite athletes. That perception changed dramatically in the late twentieth century, as recreational running surged in popularity and ordinary people began training for the challenge. Today, major marathons in cities such as Boston, New York, and Tokyo attract tens of thousands of participants, from world-class competitors to first-time runners pursuing a personal goal. The race remains a powerful symbol of human endurance, linking a modern athletic spectacle to a story more than two thousand years old.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that",
+        "type": "main_idea",
+        "options": [
+          "Pheidippides was the greatest Greek athlete",
+          "the marathon evolved from an ancient legend into a popular modern event",
+          "the 1908 London Olympics ruined the marathon",
+          "running is dangerous for ordinary people"
+        ],
+        "answer": 1,
+        "explain": "지문은 마라톤이 고대 전설에서 대중적 현대 행사로 발전한 과정을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the marathon's standard distance was fixed at the",
+        "type": "detail",
+        "options": [
+          "1896 Athens Olympics",
+          "first Boston Marathon",
+          "1908 London Olympics",
+          "ancient Battle of Marathon"
+        ],
+        "answer": 2,
+        "explain": "지문은 1908년 런던 올림픽에서 표준 거리가 정해졌다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred that the marathon became more popular among ordinary people because",
+        "type": "inference",
+        "options": [
+          "the distance was shortened",
+          "elite athletes stopped competing",
+          "recreational running surged in popularity and they began training",
+          "cities offered large cash prizes to everyone"
+        ],
+        "answer": 2,
+        "explain": "지문은 레크리에이션 달리기 인기 상승으로 일반인들이 훈련하기 시작했다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "The word \"grueling\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "enjoyable",
+          "brief",
+          "inexpensive",
+          "exhausting and demanding"
+        ],
+        "answer": 3,
+        "explain": "grueling은 매우 힘들고 고된 것을 뜻하므로 정답은 D이다."
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "title": "The Strings of the Violin",
+    "topic": "music",
+    "passage": "The violin, the smallest and highest-pitched member of the string family, is celebrated for its expressive range and singing tone. Its body, carved from carefully chosen wood, acts as a resonating chamber that amplifies the sound produced when its four strings vibrate. A player creates these vibrations by drawing a bow, strung with horsehair, across the strings, or by plucking them with the fingers. By pressing the strings against the fingerboard at different points, the musician shortens the vibrating length and raises the pitch, producing the precise notes of a melody. The instrument's design has changed remarkably little since master craftsmen in seventeenth-century Italy, most famously Antonio Stradivari, perfected its proportions. Their finest instruments are still prized today, valued not only for their history but for a warmth and clarity of sound that modern makers strive to match. Learning the violin demands years of disciplined practice, for the absence of frets means the player must find each note by feel and ear alone. Yet this very difficulty gives the violin its extraordinary flexibility, allowing skilled performers to slide between notes and color each phrase with subtle emotion.",
+    "questions": [
+      {
+        "q": "Which of the following best states the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Antonio Stradivari was the only good violin maker",
+          "The violin is an expressive string instrument whose design has changed little over centuries",
+          "Modern violin makers are better than old ones",
+          "Plucking is the only way to play a violin"
+        ],
+        "answer": 1,
+        "explain": "지문은 바이올린이 표현력이 풍부하며 수세기 동안 디자인이 거의 변하지 않은 현악기임을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, a player raises the pitch of a string by",
+        "type": "detail",
+        "options": [
+          "pressing the string to shorten its vibrating length",
+          "loosening the bow's horsehair",
+          "carving a larger body",
+          "adding more strings"
+        ],
+        "answer": 0,
+        "explain": "지문은 현을 눌러 진동하는 길이를 줄이면 음높이가 올라간다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred that the violin is difficult to learn partly because",
+        "type": "inference",
+        "options": [
+          "it has too many strings",
+          "the bow is made of metal",
+          "its wood is too heavy",
+          "it lacks frets, so notes must be found by feel and ear"
+        ],
+        "answer": 3,
+        "explain": "지문은 프렛이 없어서 연주자가 감각과 귀로만 음을 찾아야 한다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The word \"prized\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "rejected",
+          "forgotten",
+          "ordinary",
+          "highly valued"
+        ],
+        "answer": 3,
+        "explain": "prized는 매우 가치 있게 여겨지는 것을 뜻하므로 정답은 D이다."
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "title": "Symbolism in Classic Literature",
+    "topic": "literature",
+    "passage": "Great works of literature often communicate their deepest meanings not through direct statements but through symbols. A symbol is an object, character, or event that stands for something beyond its literal self, allowing an author to suggest complex ideas with economy and power. In many novels, for instance, a journey represents not merely physical travel but a character's inner growth or moral transformation. Seasons frequently carry symbolic weight, with spring evoking rebirth and winter suggesting death or despair. Even a single recurring image, such as a light glowing in the distance, can come to embody hope, longing, or an unreachable dream. Skilled readers learn to notice these patterns and to ask why an author returns to a particular image again and again. Yet interpretation requires care, for not every detail is symbolic, and forcing meaning onto an ordinary object can distort the text. The richest symbols resist simple translation, holding several meanings at once and inviting readers to engage actively with the work. By rewarding such attention, literary symbolism transforms reading from a passive activity into a dialogue between the writer's imagination and the reader's own experience.",
+    "questions": [
+      {
+        "q": "The passage is mainly concerned with",
+        "type": "main_idea",
+        "options": [
+          "how symbolism conveys deeper meaning in literature",
+          "the lives of famous novelists",
+          "the difference between spring and winter",
+          "why reading should be a passive activity"
+        ],
+        "answer": 0,
+        "explain": "지문은 상징이 문학에서 더 깊은 의미를 전달하는 방식을 다루므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, in literature a journey often represents",
+        "type": "detail",
+        "options": [
+          "the changing of the seasons",
+          "an author's personal travels",
+          "a character's inner growth or moral transformation",
+          "the passage of a single day"
+        ],
+        "answer": 2,
+        "explain": "지문은 여정이 종종 인물의 내적 성장이나 도덕적 변화를 나타낸다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred that interpreting symbols requires care because",
+        "type": "inference",
+        "options": [
+          "all objects in a story are symbolic",
+          "symbols always have a single fixed meaning",
+          "authors rarely use any symbols at all",
+          "forcing meaning onto ordinary details can distort the text"
+        ],
+        "answer": 3,
+        "explain": "지문은 모든 세부가 상징은 아니며 일반 사물에 의미를 강요하면 텍스트를 왜곡할 수 있다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The author's purpose in the final sentence is to",
+        "type": "tone_purpose",
+        "options": [
+          "discourage readers from analyzing books",
+          "emphasize how symbolism makes reading an active, engaging process",
+          "criticize writers who use symbols",
+          "explain how seasons change"
+        ],
+        "answer": 1,
+        "explain": "마지막 문장은 상징이 독서를 능동적이고 참여적인 과정으로 만든다고 강조하므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "title": "The Life Cycle of a Star",
+    "topic": "astronomy",
+    "passage": "Stars, though they appear changeless across a human lifetime, are born, mature, and die over millions or billions of years. A star begins its life within a vast cloud of gas and dust called a nebula. Gravity gradually pulls this material together, and as the core grows denser and hotter, nuclear fusion ignites, fusing hydrogen into helium and releasing tremendous energy. This fusion is what makes a star shine. For most of its life, a star exists in a stable balance, with the outward pressure of fusion holding back the inward crush of gravity. Eventually, however, the star exhausts its hydrogen fuel, and this balance breaks down. What happens next depends on the star's mass. A modest star like our Sun swells into a red giant, then sheds its outer layers and fades into a dense, cooling ember called a white dwarf. A far more massive star ends its life in a catastrophic explosion known as a supernova, sometimes leaving behind a black hole. Remarkably, these stellar deaths scatter heavy elements across space, the very materials from which new stars, planets, and even living beings are eventually formed.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that",
+        "type": "main_idea",
+        "options": [
+          "stars are born, live, and die through predictable stages over vast time",
+          "stars never change once they form",
+          "the Sun will become a black hole",
+          "nebulae are made only of helium"
+        ],
+        "answer": 0,
+        "explain": "지문은 별이 거대한 시간에 걸쳐 단계적으로 태어나고 살고 죽는 과정을 다루므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, what makes a star shine is",
+        "type": "detail",
+        "options": [
+          "the cloud of dust surrounding it",
+          "the pull of gravity alone",
+          "reflected light from other stars",
+          "nuclear fusion of hydrogen into helium"
+        ],
+        "answer": 3,
+        "explain": "지문은 수소를 헬륨으로 융합하는 핵융합이 별을 빛나게 한다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred that the way a star dies depends primarily on",
+        "type": "inference",
+        "options": [
+          "its color",
+          "its distance from Earth",
+          "its mass",
+          "the season in which it formed"
+        ],
+        "answer": 2,
+        "explain": "지문은 다음에 일어나는 일이 별의 질량에 달려 있다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "The word \"catastrophic\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "gentle",
+          "gradual",
+          "invisible",
+          "disastrous and violent"
+        ],
+        "answer": 3,
+        "explain": "catastrophic은 파국적이고 격렬한 것을 뜻하므로 정답은 D이다."
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "title": "The Science of Earthquakes",
+    "topic": "science",
+    "passage": "Earthquakes are among the most sudden and destructive of natural events, yet they arise from slow, relentless forces deep within the Earth. The planet's outer shell is broken into enormous slabs of rock called tectonic plates, which drift atop a layer of hotter, partly molten material. Where these plates meet, they may grind past one another, collide, or pull apart. Friction often locks their edges together, causing stress to accumulate over years or centuries. When the stored energy finally exceeds the strength of the rock, the plates slip abruptly, releasing that energy as seismic waves that ripple outward and shake the ground. The point underground where this rupture begins is called the focus, while the spot directly above it on the surface is the epicenter. Scientists measure the strength of an earthquake using instruments called seismographs, which record the size of the waves. Although researchers can identify regions at high risk by studying fault lines and past activity, predicting the precise time of an earthquake remains beyond current science. For this reason, communities in vulnerable areas focus on preparation, constructing buildings designed to withstand the violent shaking.",
+    "questions": [
+      {
+        "q": "Which of the following best states the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Earthquakes can be predicted to the exact minute",
+          "Seismographs cause earthquakes",
+          "Earthquakes result from the slow buildup and sudden release of energy between tectonic plates",
+          "Buildings can never survive earthquakes"
+        ],
+        "answer": 2,
+        "explain": "지문은 지진이 판 사이 에너지의 느린 축적과 갑작스러운 방출에서 비롯됨을 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the point underground where an earthquake's rupture begins is called the",
+        "type": "detail",
+        "options": [
+          "epicenter",
+          "fault line",
+          "focus",
+          "seismograph"
+        ],
+        "answer": 2,
+        "explain": "지문은 파열이 시작되는 지하 지점을 진원(focus)이라 부른다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred that communities in earthquake zones focus on preparation because",
+        "type": "inference",
+        "options": [
+          "earthquakes never cause damage",
+          "seismographs can stop earthquakes",
+          "tectonic plates have stopped moving",
+          "the exact timing of earthquakes cannot yet be predicted"
+        ],
+        "answer": 3,
+        "explain": "지문은 정확한 지진 시점을 예측할 수 없어 대비에 집중한다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The word \"relentless\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "unceasing and persistent",
+          "gentle",
+          "occasional",
+          "weak"
+        ],
+        "answer": 0,
+        "explain": "relentless는 끊임없고 집요한 것을 뜻하므로 정답은 A이다."
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "title": "The Tang Dynasty Golden Age",
+    "topic": "history",
+    "passage": "The Tang Dynasty, which ruled China from the seventh to the early tenth century, is often remembered as a golden age of culture, commerce, and cosmopolitan exchange. Under stable and capable rulers, the empire expanded its borders and secured the trade routes of the Silk Road, allowing goods, ideas, and people to flow between East and West. The capital, Chang'an, grew into one of the largest cities in the world, home to merchants, scholars, and travelers from distant lands. This openness enriched Chinese society, introducing new foods, musical styles, and religious beliefs. The Tang era is especially celebrated for its poetry, and figures such as Li Bai and Du Fu produced works still studied today for their beauty and emotional depth. Technological and administrative advances flourished as well, including refinements to the civil service examination system, which selected officials based on merit rather than noble birth. Although the dynasty eventually weakened under rebellion and internal strife, its achievements left a lasting imprint. Later Chinese dynasties looked back to the Tang as a model of strength and sophistication, and its influence spread to neighboring cultures throughout East Asia.",
+    "questions": [
+      {
+        "q": "The passage is primarily about",
+        "type": "main_idea",
+        "options": [
+          "the military defeats of the Tang Dynasty",
+          "the poetry of Li Bai alone",
+          "the cultural and commercial achievements that made the Tang a golden age",
+          "the construction of the Silk Road"
+        ],
+        "answer": 2,
+        "explain": "지문은 당나라를 황금기로 만든 문화적·상업적 성취를 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the Tang civil service examination selected officials based on",
+        "type": "detail",
+        "options": [
+          "noble birth",
+          "wealth",
+          "merit",
+          "military rank"
+        ],
+        "answer": 2,
+        "explain": "지문은 과거제가 귀족 출신이 아닌 능력(merit)에 따라 관리를 선발했다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred that the Tang capital of Chang'an was",
+        "type": "inference",
+        "options": [
+          "closed off to foreigners",
+          "a diverse, international center of trade and culture",
+          "smaller than most villages",
+          "located outside China"
+        ],
+        "answer": 1,
+        "explain": "지문은 창안이 먼 나라에서 온 사람들이 모인 거대 도시였다고 했으므로 다양한 국제 중심지였음을 추론할 수 있어 정답은 B이다."
+      },
+      {
+        "q": "The word \"cosmopolitan\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "isolated",
+          "worldly and culturally diverse",
+          "poor",
+          "ancient"
+        ],
+        "answer": 1,
+        "explain": "cosmopolitan은 세계적이고 문화적으로 다양한 것을 뜻하므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "title": "How Bats Use Echolocation",
+    "topic": "nature",
+    "passage": "Many species of bats navigate and hunt in complete darkness using a remarkable ability called echolocation. As it flies, a bat emits a stream of high-pitched sounds, most of them far above the range of human hearing. These sound waves travel outward and bounce off objects in the environment, returning to the bat as echoes. By detecting the tiny differences in timing and intensity between the original calls and the returning echoes, the bat builds a detailed mental picture of its surroundings. This allows it to avoid obstacles, locate flying insects, and judge the size, distance, and even the texture of objects, all without relying on sight. The system is astonishingly precise; some bats can detect an insect as thin as a human hair. To prevent their own loud calls from deafening them, bats briefly contract muscles in their ears at the moment of each emission. Echolocation has fascinated scientists for decades and has even inspired technologies such as sonar, used by ships and submarines to map the ocean floor. The ability reminds us that nature often solves complex problems with elegant strategies refined over millions of years of evolution.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "bats use echolocation to navigate and hunt with great precision",
+          "bats are blind and helpless in the dark",
+          "sonar was invented before echolocation",
+          "insects are too small for bats to catch"
+        ],
+        "answer": 0,
+        "explain": "지문은 박쥐가 반향정위를 이용해 정밀하게 길을 찾고 사냥하는 능력을 다루므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, a bat interprets its surroundings by detecting differences in",
+        "type": "detail",
+        "options": [
+          "timing and intensity of returning echoes",
+          "color and brightness",
+          "temperature and humidity",
+          "wind speed and direction"
+        ],
+        "answer": 0,
+        "explain": "지문은 박쥐가 돌아오는 메아리의 타이밍과 강도 차이를 감지한다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "Why do bats contract muscles in their ears during each call?",
+        "type": "detail",
+        "options": [
+          "to fly faster",
+          "to prevent their own loud calls from deafening them",
+          "to attract insects",
+          "to make their calls louder"
+        ],
+        "answer": 1,
+        "explain": "지문은 박쥐가 자신의 큰 소리에 청각을 잃지 않도록 귀의 근육을 수축시킨다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred that echolocation influenced human technology because",
+        "type": "inference",
+        "options": [
+          "ships avoid using sonar",
+          "submarines cannot detect objects",
+          "it inspired sonar used to map the ocean floor",
+          "humans can hear bat calls easily"
+        ],
+        "answer": 2,
+        "explain": "지문은 반향정위가 해저를 탐사하는 소나 같은 기술에 영감을 주었다고 했으므로 정답은 C이다."
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "title": "The Promise of Quantum Computing",
+    "topic": "technology",
+    "passage": "Quantum computing represents a radical departure from the machines that have powered the digital age. Conventional computers store and process information as bits, each of which must be either a zero or a one. Quantum computers instead use quantum bits, or qubits, which exploit the strange rules of quantum mechanics. Thanks to a property called superposition, a qubit can represent both zero and one simultaneously, and through entanglement, qubits can be linked so that the state of one instantly influences another. These features allow a quantum computer, in principle, to explore many possible solutions at once, performing certain calculations far faster than any classical machine could. Such power could revolutionize fields ranging from drug discovery to cryptography, where breaking codes that now seem unbreakable might become feasible. Yet building a practical quantum computer is extraordinarily difficult. Qubits are fragile, easily disturbed by heat, vibration, or stray radiation, and must often be kept at temperatures colder than deep space. Despite these obstacles, researchers at universities and major corporations are racing to build ever-larger and more stable systems, convinced that quantum computing may one day solve problems forever beyond the reach of ordinary computers.",
+    "questions": [
+      {
+        "q": "Which statement best expresses the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Quantum computing offers great promise but faces serious technical challenges",
+          "Quantum computers have already replaced ordinary computers",
+          "Bits are better than qubits for all tasks",
+          "Cryptography cannot benefit from quantum computers"
+        ],
+        "answer": 0,
+        "explain": "지문은 양자 컴퓨팅의 큰 잠재력과 심각한 기술적 과제를 함께 다루므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, superposition allows a qubit to",
+        "type": "detail",
+        "options": [
+          "represent both zero and one simultaneously",
+          "store only a zero",
+          "stay at room temperature",
+          "never make errors"
+        ],
+        "answer": 0,
+        "explain": "지문은 중첩 덕분에 큐비트가 0과 1을 동시에 나타낼 수 있다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred that qubits are difficult to work with because they",
+        "type": "inference",
+        "options": [
+          "are too large to build",
+          "require no special conditions",
+          "can only represent a one",
+          "are fragile and easily disturbed by their environment"
+        ],
+        "answer": 3,
+        "explain": "지문은 큐비트가 깨지기 쉽고 열·진동·방사선에 쉽게 교란된다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The word \"feasible\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "achievable",
+          "impossible",
+          "forbidden",
+          "expensive"
+        ],
+        "answer": 0,
+        "explain": "feasible은 실현 가능한 것을 뜻하므로 정답은 A이다."
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "title": "The Power of First Impressions",
+    "topic": "psychology",
+    "passage": "Within moments of meeting someone, the human mind forms a swift and often lasting impression. Research suggests that people draw conclusions about a stranger's trustworthiness, competence, and friendliness in a fraction of a second, long before any meaningful conversation occurs. These rapid judgments rely on subtle cues such as facial expression, posture, tone of voice, and clothing. While such snap assessments once helped our ancestors quickly distinguish friend from foe, they can also mislead us in the modern world. A first impression, once formed, tends to be remarkably sticky. Because of a tendency known as confirmation bias, people unconsciously seek out information that supports their initial view while discounting evidence that contradicts it. As a result, a poor first impression can unfairly shadow an otherwise capable individual, while a charming introduction may mask serious flaws. Awareness of this phenomenon carries practical value. Job seekers and public speakers are advised to pay attention to their opening moments, while those who judge others are wise to remain open to revising hasty conclusions. Recognizing how powerfully first impressions shape our perceptions can help us treat both ourselves and others with greater fairness and patience.",
+    "questions": [
+      {
+        "q": "The passage is mainly about",
+        "type": "main_idea",
+        "options": [
+          "how to dress for a job interview",
+          "why ancestors feared strangers",
+          "the importance of long conversations",
+          "how quickly first impressions form and how strongly they influence us"
+        ],
+        "answer": 3,
+        "explain": "지문은 첫인상이 얼마나 빨리 형성되고 우리에게 강하게 영향을 미치는지를 다루므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, confirmation bias causes people to",
+        "type": "detail",
+        "options": [
+          "seek information that supports their initial view and discount contradicting evidence",
+          "ignore their first impressions",
+          "always change their minds quickly",
+          "treat strangers as enemies"
+        ],
+        "answer": 0,
+        "explain": "지문은 확증 편향이 초기 견해를 뒷받침하는 정보를 찾고 반대 증거는 무시하게 한다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred that a poor first impression can be harmful because it",
+        "type": "inference",
+        "options": [
+          "tends to persist and unfairly shadow a capable individual",
+          "always reflects a person's true character",
+          "fades within seconds",
+          "improves over time automatically"
+        ],
+        "answer": 0,
+        "explain": "지문은 나쁜 첫인상이 지속되어 유능한 사람에게 부당하게 그림자를 드리울 수 있다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "The author's purpose in the passage is largely to",
+        "type": "tone_purpose",
+        "options": [
+          "inform readers about first impressions and encourage fairness",
+          "warn readers never to meet new people",
+          "mock those who judge others",
+          "prove that first impressions are always correct"
+        ],
+        "answer": 0,
+        "explain": "글쓴이는 첫인상에 대해 알리고 더 공정하게 대하도록 권하므로 정답은 A이다."
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "title": "The Mechanics of Inflation Targeting",
+    "topic": "economics",
+    "passage": "To keep prices stable, many central banks around the world follow a strategy known as inflation targeting. Under this approach, a central bank publicly announces a specific goal for the inflation rate, often around two percent per year, and adjusts its policies to keep actual inflation close to that figure. Its primary tool is the interest rate it charges to commercial banks. When inflation threatens to rise too high, the central bank raises interest rates, making borrowing more expensive. This tends to cool spending and investment, slowing the economy and easing upward pressure on prices. When inflation falls too low or the economy weakens, the bank lowers rates to encourage borrowing and stimulate activity. Supporters argue that a clear, public target anchors expectations, since businesses and households who trust that prices will remain stable behave in ways that help keep them stable. Critics, however, warn that focusing narrowly on a single number can lead policymakers to overlook other dangers, such as rising unemployment or financial bubbles. Despite this debate, inflation targeting has become one of the most widely adopted frameworks for managing modern economies, reflecting a broad consensus that predictable prices benefit nearly everyone.",
+    "questions": [
+      {
+        "q": "Which of the following best states the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Interest rates should always be kept as low as possible",
+          "Inflation is impossible to control",
+          "Central banks ignore unemployment entirely",
+          "Inflation targeting is a strategy central banks use to keep prices stable"
+        ],
+        "answer": 3,
+        "explain": "지문은 중앙은행이 물가를 안정시키기 위해 사용하는 인플레이션 목표제를 다루므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, when inflation threatens to rise too high, a central bank typically",
+        "type": "detail",
+        "options": [
+          "lowers interest rates",
+          "raises interest rates",
+          "prints more money",
+          "stops announcing its target"
+        ],
+        "answer": 1,
+        "explain": "지문은 인플레이션이 너무 높아질 위험이 있을 때 중앙은행이 금리를 올린다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred that a public inflation target helps stabilize prices because it",
+        "type": "inference",
+        "options": [
+          "forces businesses to lower wages",
+          "anchors the expectations of businesses and households",
+          "eliminates the need for interest rates",
+          "guarantees zero unemployment"
+        ],
+        "answer": 1,
+        "explain": "지문은 공개 목표가 기업과 가계의 기대를 고정시켜 물가 안정에 도움이 된다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "The word \"anchors\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "destroys",
+          "stabilizes or holds steady",
+          "raises",
+          "hides"
+        ],
+        "answer": 1,
+        "explain": "여기서 anchors는 기대를 안정시키고 고정시키는 것을 뜻하므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "title": "Understanding the Common Cold",
+    "topic": "health",
+    "passage": "The common cold is among the most frequent illnesses affecting people of all ages, yet it remains widely misunderstood. Despite its name, a cold is not caused by cold weather but by viruses, most often a group known as rhinoviruses. These viruses spread from person to person through tiny droplets released when an infected individual coughs, sneezes, or even speaks, as well as through contact with contaminated surfaces. Once inside the body, the virus invades the lining of the nose and throat, triggering the familiar symptoms of congestion, sore throat, sneezing, and fatigue. Importantly, many of these symptoms are produced not by the virus itself but by the body's own immune response as it fights the infection. Because colds are caused by viruses rather than bacteria, antibiotics are useless against them, a fact that doctors stress to discourage unnecessary medication. There is no cure for the common cold; treatment focuses on relieving symptoms and allowing the body to recover, usually within a week or two. The best defense remains prevention through frequent handwashing and avoiding close contact with those who are already sick.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that",
+        "type": "main_idea",
+        "options": [
+          "cold weather is the main cause of colds",
+          "the common cold is a viral illness that is often misunderstood",
+          "antibiotics quickly cure the common cold",
+          "colds last for several months"
+        ],
+        "answer": 1,
+        "explain": "지문은 감기가 흔히 오해되는 바이러스성 질환임을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, antibiotics are useless against the common cold because",
+        "type": "detail",
+        "options": [
+          "antibiotics are too expensive",
+          "the cold lasts only one day",
+          "the body cannot absorb them",
+          "the cold is caused by viruses, not bacteria"
+        ],
+        "answer": 3,
+        "explain": "지문은 감기가 세균이 아닌 바이러스로 인한 것이라 항생제가 소용없다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred that many cold symptoms arise from",
+        "type": "inference",
+        "options": [
+          "cold outdoor temperatures",
+          "the body's own immune response to the infection",
+          "the use of antibiotics",
+          "a lack of handwashing alone"
+        ],
+        "answer": 1,
+        "explain": "지문은 많은 증상이 바이러스 자체가 아닌 신체의 면역 반응에서 비롯된다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "The word \"contaminated\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "cleaned",
+          "frozen",
+          "expensive",
+          "tainted with something harmful"
+        ],
+        "answer": 3,
+        "explain": "contaminated는 해로운 것에 오염된 상태를 뜻하므로 정답은 D이다."
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "title": "The Strategy Behind Chess",
+    "topic": "sports",
+    "passage": "Chess, a game played for more than a thousand years, is often described as a battle of minds rather than bodies. Two players command armies of sixteen pieces each, every type moving according to its own distinct rules across a board of sixty-four squares. The ultimate goal is to trap the opponent's king in a position from which it cannot escape, an outcome called checkmate. Although the rules are simple enough to learn in an afternoon, mastering the game can take a lifetime, for the number of possible positions is astronomically large. Skilled players think several moves ahead, anticipating their opponent's responses and weighing long-term plans against immediate threats. Successful strategy often involves controlling the center of the board, developing pieces efficiently, and protecting the king while seeking weaknesses in the enemy's position. The arrival of powerful computers transformed the game, as programs eventually surpassed even the strongest human champions. Yet rather than diminishing chess, these machines deepened human understanding, revealing new ideas and refining old principles. Today chess thrives both as a competitive sport and as an educational tool, prized for the way it sharpens patience, foresight, and disciplined reasoning.",
+    "questions": [
+      {
+        "q": "Which of the following best states the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Computers have made chess obsolete",
+          "Chess pieces all move in the same way",
+          "Chess is a strategic game that is simple to learn but takes a lifetime to master",
+          "Checkmate is impossible to achieve"
+        ],
+        "answer": 2,
+        "explain": "지문은 체스가 배우기는 쉽지만 통달하는 데 평생이 걸리는 전략 게임임을 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the ultimate goal of chess is to",
+        "type": "detail",
+        "options": [
+          "capture all the opponent's pieces",
+          "trap the opponent's king so it cannot escape",
+          "control exactly thirty-two squares",
+          "move faster than the opponent"
+        ],
+        "answer": 1,
+        "explain": "지문은 체스의 궁극적 목표가 상대의 킹을 탈출할 수 없게 가두는 것이라고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred that powerful chess computers",
+        "type": "inference",
+        "options": [
+          "deepened human understanding rather than diminishing the game",
+          "destroyed interest in the game",
+          "made the rules more complicated",
+          "could never beat human champions"
+        ],
+        "answer": 0,
+        "explain": "지문은 컴퓨터가 체스를 약화시키기보다 인간의 이해를 깊게 했다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "The word \"foresight\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "physical strength",
+          "the ability to plan ahead",
+          "good eyesight",
+          "quick anger"
+        ],
+        "answer": 1,
+        "explain": "foresight는 앞을 내다보고 계획하는 능력을 뜻하므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "title": "The Rhythm of the Drum",
+    "topic": "music",
+    "passage": "Among the oldest instruments known to humankind, drums have served as the heartbeat of music across nearly every culture. A drum produces sound when a stretched membrane, traditionally made of animal hide and now often of synthetic material, is struck and set into vibration. The pitch and tone depend on the size of the drum, the tension of the membrane, and the way it is struck. Far more than a source of rhythm, drums have long carried meaning beyond entertainment. In many societies, they accompanied religious ceremonies, marked the rhythm of labor, and even transmitted messages across great distances, with skilled drummers imitating the tones of spoken language. On the battlefield, the steady beat of military drums once coordinated the movements of troops and steadied their nerves. In modern music, the drum kit anchors countless styles, from jazz to rock, providing the underlying pulse that gives a song its energy and drive. Learning to play demands a strong sense of timing and physical coordination, as a drummer must keep steady time while layering complex patterns. Through all its forms, the drum endures as a universal expression of the human impulse to mark time with sound.",
+    "questions": [
+      {
+        "q": "The passage is mainly about",
+        "type": "main_idea",
+        "options": [
+          "why animal hide is better than synthetic material",
+          "the difficulty of joining a rock band",
+          "how military troops marched in ancient times",
+          "the long history and many roles of drums across cultures"
+        ],
+        "answer": 3,
+        "explain": "지문은 여러 문화에 걸친 드럼의 오랜 역사와 다양한 역할을 다루므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, a drum produces sound when",
+        "type": "detail",
+        "options": [
+          "a stretched membrane is struck and vibrates",
+          "a string is plucked",
+          "air is blown across a hole",
+          "two pieces of wood are rubbed together"
+        ],
+        "answer": 0,
+        "explain": "지문은 팽팽한 막을 쳐서 진동시킬 때 드럼이 소리를 낸다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred that drums could transmit messages because",
+        "type": "inference",
+        "options": [
+          "they were extremely loud",
+          "skilled drummers could imitate the tones of spoken language",
+          "every drum sounded identical",
+          "they were carried by messengers on foot"
+        ],
+        "answer": 1,
+        "explain": "지문은 숙련된 드러머가 말소리의 음조를 흉내내어 메시지를 전달했다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "The word \"anchors\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "provides a steady foundation for",
+          "weakens",
+          "hides",
+          "replaces"
+        ],
+        "answer": 0,
+        "explain": "여기서 anchors는 여러 음악 스타일에 든든한 기반을 제공한다는 뜻이므로 정답은 A이다."
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "title": "The Origins of the Novel",
+    "topic": "literature",
+    "passage": "The novel, today the most popular form of literature, is a relatively young art form compared to poetry and drama. Long narrative tales existed in ancient times, but the novel as we understand it, an extended work of prose fiction exploring the inner lives of ordinary characters, emerged gradually over several centuries. Many scholars point to early Japanese and Spanish works as important milestones, but the form flourished most dramatically in eighteenth-century Europe. The growth of a literate middle class, combined with cheaper printing and the spread of lending libraries, created a hungry audience for stories about everyday life. Early novelists experimented with realism, crafting characters whose thoughts, struggles, and moral choices felt believable to readers. Unlike epic poems that celebrated heroes and gods, these new works often focused on common people navigating love, money, and social expectation. As the form matured, novelists explored an ever-widening range of subjects and techniques, from sweeping historical sagas to intimate psychological studies. The novel proved remarkably adaptable, absorbing new influences in every age. Its enduring appeal lies in its unique capacity to immerse readers in another consciousness, offering a private window into lives and worlds far removed from their own.",
+    "questions": [
+      {
+        "q": "Which statement best expresses the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Poetry is superior to the novel",
+          "Lending libraries destroyed interest in reading",
+          "The novel is a relatively young, adaptable form that emerged and flourished over centuries",
+          "Epic poems were the first novels"
+        ],
+        "answer": 2,
+        "explain": "지문은 소설이 비교적 젊고 적응력 있는 형식으로 수세기에 걸쳐 등장하고 번성했음을 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the novel flourished most dramatically in",
+        "type": "detail",
+        "options": [
+          "ancient Rome",
+          "medieval Japan",
+          "modern America",
+          "eighteenth-century Europe"
+        ],
+        "answer": 3,
+        "explain": "지문은 소설이 18세기 유럽에서 가장 극적으로 번성했다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred that the rise of the novel was helped by",
+        "type": "inference",
+        "options": [
+          "the decline of literacy",
+          "the disappearance of lending libraries",
+          "a renewed interest in epic poetry",
+          "a growing literate middle class and cheaper printing"
+        ],
+        "answer": 3,
+        "explain": "지문은 문해력 있는 중산층 증가와 저렴한 인쇄가 소설을 위한 독자층을 만들었다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The word \"immerse\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "to bore",
+          "to fully absorb or involve",
+          "to confuse",
+          "to exclude"
+        ],
+        "answer": 1,
+        "explain": "immerse는 독자를 완전히 몰입시키는 것을 뜻하므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "title": "Comets and Their Tails",
+    "topic": "astronomy",
+    "passage": "Comets are among the most spectacular visitors to our skies, occasionally appearing as bright objects trailing long, glowing tails. A comet is essentially a small body of ice, dust, and rocky material, often described as a dirty snowball, that orbits the Sun along a highly stretched path. For most of its journey, far from the Sun, a comet remains a frozen and invisible lump. As it approaches the Sun, however, the rising heat causes its ices to vaporize, releasing gas and dust that form a glowing cloud around the solid core. The pressure of sunlight and the stream of charged particles flowing from the Sun, known as the solar wind, push this material away from the comet, producing its characteristic tail. Crucially, a comet's tail always points away from the Sun, regardless of the direction the comet is traveling. Some comets return on regular schedules, taking years or even centuries to complete a single orbit, while others pass by only once before vanishing into deep space. For ancient peoples, the sudden appearance of a comet often inspired wonder or dread, interpreted as an omen of great events to come.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "comets are dangerous to Earth",
+          "ancient peoples understood comets scientifically",
+          "all comets return on regular schedules",
+          "comets are icy bodies that develop glowing tails as they near the Sun"
+        ],
+        "answer": 3,
+        "explain": "지문은 혜성이 태양에 가까워지면서 빛나는 꼬리를 형성하는 얼음 천체임을 다루므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, a comet's tail always points",
+        "type": "detail",
+        "options": [
+          "toward the Sun",
+          "in the direction the comet travels",
+          "away from the Sun",
+          "straight down toward Earth"
+        ],
+        "answer": 2,
+        "explain": "지문은 혜성의 꼬리가 진행 방향과 상관없이 항상 태양 반대편을 향한다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred that a comet becomes visible mainly when it",
+        "type": "inference",
+        "options": [
+          "is farthest from the Sun",
+          "approaches the Sun and its ices vaporize",
+          "collides with another comet",
+          "stops orbiting entirely"
+        ],
+        "answer": 1,
+        "explain": "지문은 혜성이 태양에 다가가 얼음이 증발하면서 빛나는 구름을 형성한다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "The word \"vaporize\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "to turn into gas",
+          "to freeze solid",
+          "to grow heavier",
+          "to reflect light"
+        ],
+        "answer": 0,
+        "explain": "vaporize는 기체로 변하는 것을 뜻하므로 정답은 A이다."
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "title": "The Engineering of Suspension Bridges",
+    "topic": "technology",
+    "passage": "Suspension bridges rank among the most graceful and ambitious structures ever built, capable of spanning distances that would defeat other designs. The key to their strength lies in a clever distribution of forces. The roadway, or deck, hangs from a series of vertical cables, which in turn connect to two massive main cables that sweep in a gentle curve between tall towers. These main cables carry the enormous weight of the bridge and its traffic, transferring the load to the towers and then down into deep foundations anchored in the ground or riverbed. At each end, the main cables are secured to huge concrete blocks called anchorages, which resist the powerful pull that would otherwise drag the towers inward. Because the load is shared so efficiently, suspension bridges can cross wide rivers, deep valleys, and busy harbors without requiring supports in the middle, leaving the water below open for ships. Engineers must account for many forces, including wind, temperature changes, and the swaying caused by heavy traffic. A famous early failure, in which a bridge twisted apart in moderate winds, taught designers to study how flexible structures respond to the air, leading to safer and more stable bridges today.",
+    "questions": [
+      {
+        "q": "Which of the following best states the main idea?",
+        "type": "main_idea",
+        "options": [
+          "Suspension bridges are too dangerous to build",
+          "Suspension bridges span great distances through a clever distribution of forces",
+          "Concrete is the only material used in bridges",
+          "Ships cannot pass beneath suspension bridges"
+        ],
+        "answer": 1,
+        "explain": "지문은 현수교가 힘의 영리한 분배를 통해 긴 거리를 잇는다는 점을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the main cables are secured at each end to",
+        "type": "detail",
+        "options": [
+          "huge concrete blocks called anchorages",
+          "the roadway deck",
+          "the vertical cables",
+          "passing ships"
+        ],
+        "answer": 0,
+        "explain": "지문은 주 케이블이 양끝에서 앵커리지라는 거대한 콘크리트 블록에 고정된다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred that suspension bridges are useful for crossing wide rivers because they",
+        "type": "inference",
+        "options": [
+          "require many supports in the middle",
+          "float on the water",
+          "are cheaper than all other bridges",
+          "can span long distances without supports in the middle"
+        ],
+        "answer": 3,
+        "explain": "지문은 현수교가 중간 지지대 없이 넓은 강을 건널 수 있어 배가 지나갈 수 있다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The author mentions the famous early failure mainly to",
+        "type": "tone_purpose",
+        "options": [
+          "discourage the building of bridges",
+          "blame the bridge's designers",
+          "prove that wind is harmless",
+          "show how engineers learned to make bridges safer"
+        ],
+        "answer": 3,
+        "explain": "글쓴이는 초기 실패를 통해 엔지니어들이 더 안전한 다리를 만드는 법을 배웠음을 보여주려 하므로 정답은 D이다."
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "title": "How Languages Change Over Time",
+    "topic": "social science",
+    "passage": "No living language stands still; every spoken tongue is constantly evolving, shaped by the people who use it. New words enter a language to describe new inventions, ideas, and experiences, while older words may fade from use or shift their meanings entirely. Pronunciation drifts gradually from one generation to the next, so subtly that speakers rarely notice the change as it happens. Over centuries, these small shifts accumulate into transformations so vast that an ancient form of a language can become unintelligible to its modern speakers. English offers a striking example. A reader today would struggle to understand the English of a thousand years ago, which looks and sounds almost like a foreign language. Languages also borrow heavily from one another when cultures come into contact through trade, conquest, or migration. Sometimes a single language splits into several distinct ones, as isolated communities develop their own patterns over time, much as Latin gradually gave rise to French, Spanish, and Italian. Far from signaling decay, this constant change reflects the vitality of language as a living tool. Linguists who study these patterns can trace the histories of peoples and reconstruct connections between languages separated by thousands of years.",
+    "questions": [
+      {
+        "q": "The passage is primarily concerned with",
+        "type": "main_idea",
+        "options": [
+          "why English is the hardest language to learn",
+          "the superiority of Latin over modern languages",
+          "how and why languages continually change over time",
+          "the best way to invent new words"
+        ],
+        "answer": 2,
+        "explain": "지문은 언어가 시간이 지나면서 어떻게 그리고 왜 끊임없이 변하는지를 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, Latin gradually gave rise to",
+        "type": "detail",
+        "options": [
+          "English and German",
+          "Japanese and Chinese",
+          "Arabic and Persian",
+          "French, Spanish, and Italian"
+        ],
+        "answer": 3,
+        "explain": "지문은 라틴어가 점차 프랑스어, 스페인어, 이탈리아어를 낳았다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred that a modern English speaker would find English from a thousand years ago",
+        "type": "inference",
+        "options": [
+          "easy to read and understand",
+          "identical to today's English",
+          "difficult to understand, almost like a foreign language",
+          "written entirely in Latin"
+        ],
+        "answer": 2,
+        "explain": "지문은 천 년 전 영어가 외국어처럼 보여 오늘날 독자가 이해하기 어렵다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "The word \"unintelligible\" in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "easily understood",
+          "impossible to understand",
+          "spoken loudly",
+          "written down"
+        ],
+        "answer": 1,
+        "explain": "unintelligible은 이해할 수 없는 것을 뜻하므로 정답은 B이다."
+      }
+    ]
   }
 ]
