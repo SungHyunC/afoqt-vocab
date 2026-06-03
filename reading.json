@@ -705,62 +705,6 @@
   },
   {
     "id": 17,
-    "title": "The Water Cycle",
-    "topic": "science",
-    "passage": "The water cycle, also known as the hydrologic cycle, describes the continuous movement of water on, above, and below the surface of the Earth. Driven primarily by energy from the sun, the cycle begins when heat causes water from oceans, lakes, and rivers to evaporate into the atmosphere as vapor. As this vapor rises and cools, it condenses into tiny droplets that form clouds—a process called condensation. When these droplets combine and grow heavy enough, they fall back to the surface as precipitation in the form of rain, snow, or hail. Some of this water seeps into the ground to replenish underground aquifers, while the rest flows across the land as runoff, eventually returning to the oceans to begin the cycle anew. Because the total amount of water on Earth remains essentially constant, the water you drink today may once have flowed through an ancient river or fallen as rain on a prehistoric forest.",
-    "questions": [
-      {
-        "q": "The passage is primarily concerned with explaining",
-        "options": [
-          "why the sun produces energy",
-          "how water moves continuously through Earth's systems",
-          "the difference between rain and snow",
-          "how aquifers store underground water"
-        ],
-        "answer": 1,
-        "type": "main_idea",
-        "explain": "지문 전체가 물이 증발·응결·강수·유출을 거쳐 순환하는 과정을 설명하므로 정답은 B이다."
-      },
-      {
-        "q": "According to the passage, clouds are formed during the process of",
-        "options": [
-          "evaporation",
-          "condensation",
-          "precipitation",
-          "runoff"
-        ],
-        "answer": 1,
-        "type": "detail",
-        "explain": "지문은 수증기가 식어 작은 물방울로 응결(condensation)되어 구름을 형성한다고 명시한다."
-      },
-      {
-        "q": "As used in the passage, the word \"replenish\" most nearly means",
-        "options": [
-          "to drain completely",
-          "to refill or restore",
-          "to pollute",
-          "to measure"
-        ],
-        "answer": 1,
-        "type": "vocab_in_context",
-        "explain": "지하 대수층을 다시 채운다는 맥락이므로 replenish는 '다시 채우다/보충하다'의 의미이다."
-      },
-      {
-        "q": "It can be inferred from the final sentence that water on Earth is",
-        "options": [
-          "constantly being created",
-          "recycled and reused over long periods",
-          "mostly lost to space",
-          "unsafe to drink"
-        ],
-        "answer": 1,
-        "type": "inference",
-        "explain": "지구의 물 총량이 일정하며 오늘 마신 물이 과거에 존재했을 수 있다는 서술에서 물이 오랜 기간 재사용·순환됨을 추론할 수 있다."
-      }
-    ]
-  },
-  {
-    "id": 18,
     "title": "The Printing Press Revolution",
     "topic": "history",
     "passage": "Before the mid-fifteenth century, books in Europe were copied by hand, a painstaking process that made them rare and extraordinarily expensive. This changed dramatically around 1440, when Johannes Gutenberg, a German goldsmith, developed a printing press that used movable metal type. By arranging individual letters into words and pressing inked type onto paper, Gutenberg could produce identical pages quickly and in large numbers. The effects rippled across the continent. As printed books became cheaper and more plentiful, literacy spread beyond monasteries and universities to ordinary townspeople. New ideas—scientific, religious, and political—traveled faster than ever before, fueling movements such as the Protestant Reformation. Many historians regard Gutenberg's invention as a turning point that helped end the medieval era and usher in the modern age, precisely because it democratized access to knowledge.",
@@ -816,7 +760,7 @@
     ]
   },
   {
-    "id": 19,
+    "id": 18,
     "title": "Coral Reefs and Their Decline",
     "topic": "nature",
     "passage": "Coral reefs are often called the rainforests of the sea because, despite covering less than one percent of the ocean floor, they support roughly a quarter of all marine species. A reef is built by tiny animals called polyps, which secrete calcium carbonate to form hard skeletons that accumulate over thousands of years. Living within the coral tissue are microscopic algae that provide the polyps with food through photosynthesis and give reefs their vivid colors. This partnership, however, is fragile. When ocean temperatures rise even slightly, the stressed coral expels its algae and turns ghostly white—a phenomenon known as bleaching. Without the algae, the coral loses its main food source and may eventually die. Combined with ocean acidification and pollution, rising temperatures have already damaged reefs worldwide, threatening both marine biodiversity and the millions of people who depend on reefs for food and coastal protection.",
@@ -872,7 +816,7 @@
     ]
   },
   {
-    "id": 20,
+    "id": 19,
     "title": "The Rise of Renewable Energy",
     "topic": "technology",
     "passage": "For more than a century, the world's economies have run largely on fossil fuels—coal, oil, and natural gas—whose combustion releases carbon dioxide and other greenhouse gases. In recent decades, however, renewable sources such as solar and wind have grown from costly novelties into competitive mainstream technologies. Advances in manufacturing and engineering have driven the price of solar panels down by roughly ninety percent since 2010, while wind turbines have grown taller and more efficient. Critics once argued that renewables were too unreliable, since the sun does not always shine and the wind does not always blow. Yet improvements in battery storage and smarter electrical grids are steadily addressing this challenge by storing surplus energy for later use. While fossil fuels still supply most of the world's power today, the momentum behind renewables suggests that the global energy landscape is undergoing a profound and lasting transformation.",
@@ -928,7 +872,7 @@
     ]
   },
   {
-    "id": 21,
+    "id": 20,
     "title": "The Power of Sleep",
     "topic": "science",
     "passage": "Sleep may appear to be a passive state in which the body simply rests, but research over the past several decades has revealed that it is anything but idle. During sleep, the brain actively consolidates memories, transferring information learned during the day from temporary storage into more permanent networks. The body, meanwhile, repairs tissues, regulates hormones, and clears waste products that accumulate in the brain during waking hours. Chronic sleep deprivation has been linked to impaired concentration, weakened immunity, and an increased risk of conditions such as heart disease and diabetes. Despite this, many adults routinely sleep far less than the seven to nine hours that experts recommend, often sacrificing rest for work or entertainment. Scientists now warn that treating sleep as optional is a serious mistake, arguing that adequate rest is not a luxury but a biological necessity as fundamental as food and water.",
@@ -984,63 +928,7 @@
     ]
   },
   {
-    "id": 22,
-    "title": "The Silk Road",
-    "topic": "history",
-    "passage": "The Silk Road was not a single paved highway but a vast network of trade routes that linked China to the Mediterranean for more than fifteen hundred years. Caravans of merchants carried silk, spices, porcelain, and precious metals across deserts and mountains, exchanging goods at bustling oasis cities along the way. Yet the routes carried far more than merchandise. Religions such as Buddhism spread westward and eastward along these paths, while technologies, artistic styles, and even diseases traveled with the traders. Few merchants journeyed the entire length of the route; instead, goods passed from hand to hand, growing more valuable with each exchange. When sea routes became cheaper and safer in the age of exploration, the overland Silk Road gradually declined. Still, its legacy endures as one of history's most important examples of how trade can knit distant civilizations together.",
-    "questions": [
-      {
-        "q": "The passage is primarily about",
-        "options": [
-          "the production of silk in China",
-          "the Silk Road as a network connecting distant civilizations",
-          "why deserts are difficult to cross",
-          "the age of sea exploration"
-        ],
-        "answer": 1,
-        "type": "main_idea",
-        "explain": "지문은 실크로드가 먼 문명을 연결한 교역망이었음을 중심으로 설명하므로 정답은 B이다."
-      },
-      {
-        "q": "According to the passage, most merchants on the Silk Road",
-        "options": [
-          "traveled its entire length",
-          "traded goods over only part of the route",
-          "carried only silk",
-          "avoided oasis cities"
-        ],
-        "answer": 1,
-        "type": "detail",
-        "explain": "지문은 대부분의 상인이 전 구간을 다니지 않고 물건이 손에서 손으로 넘겨졌다고 명시한다."
-      },
-      {
-        "q": "It can be inferred that the Silk Road's importance went beyond trade because it",
-        "options": [
-          "was completely paved",
-          "spread religions, technologies, and ideas",
-          "was used only by soldiers",
-          "existed for only a few years"
-        ],
-        "answer": 1,
-        "type": "inference",
-        "explain": "종교·기술·예술이 함께 전파되었다는 서술에서 교역 이상의 문화적 영향이 있었음을 추론할 수 있다."
-      },
-      {
-        "q": "As used in the passage, \"endures\" most nearly means",
-        "options": [
-          "disappears",
-          "lasts or continues",
-          "weakens",
-          "begins"
-        ],
-        "answer": 1,
-        "type": "vocab_in_context",
-        "explain": "그 유산이 지금까지 남아 있다는 맥락이므로 endures는 '지속되다'의 의미이다."
-      }
-    ]
-  },
-  {
-    "id": 23,
+    "id": 21,
     "title": "How Vaccines Work",
     "topic": "science",
     "passage": "A vaccine works by teaching the immune system to recognize and fight a particular pathogen without causing the disease itself. Most vaccines contain a weakened or inactivated form of a virus or bacterium, or merely a harmless piece of it, such as a protein from its surface. When this material enters the body, the immune system responds as if facing a real infection, producing specialized proteins called antibodies and creating memory cells that remain on guard for years. If the person is later exposed to the actual pathogen, these memory cells enable the body to mount a rapid and powerful defense, often stopping the illness before symptoms appear. Because widespread vaccination reduces the number of people who can spread a disease, it also protects those who cannot be vaccinated—a benefit known as herd immunity. Through this mechanism, vaccines have eradicated smallpox and brought diseases such as polio to the brink of elimination.",
@@ -1096,7 +984,7 @@
     ]
   },
   {
-    "id": 24,
+    "id": 22,
     "title": "The Importance of Bees",
     "topic": "nature",
     "passage": "Bees are among the most important pollinators on the planet, quietly performing a service on which much of the world's food supply depends. As a bee moves from flower to flower gathering nectar, grains of pollen cling to its body and are carried to the next bloom, enabling plants to produce fruits and seeds. Roughly a third of the crops humans eat—including apples, almonds, and countless vegetables—rely on this pollination. In recent years, however, beekeepers have reported alarming declines in bee populations, a trend linked to pesticides, habitat loss, parasites, and disease. Scientists warn that a sharp drop in pollinators could reduce harvests and raise food prices around the globe. Efforts to reverse the decline include planting wildflowers, reducing the use of harmful chemicals, and protecting natural habitats. Far from being a mere nuisance at a summer picnic, the humble bee is a cornerstone of healthy ecosystems and human agriculture alike.",
@@ -1152,7 +1040,7 @@
     ]
   },
   {
-    "id": 25,
+    "id": 23,
     "title": "The Origins of the Olympic Games",
     "topic": "history",
     "passage": "The Olympic Games began in ancient Greece nearly three thousand years ago, held every four years in the sacred sanctuary of Olympia in honor of the god Zeus. The earliest recorded games, in 776 BCE, featured a single footrace, but over the centuries the program expanded to include wrestling, boxing, chariot racing, and the pentathlon. Competitors came from city-states across the Greek world, and during the festival a sacred truce was declared so that athletes and spectators could travel safely, even between warring states. Victors were crowned with simple wreaths of olive leaves rather than money, yet the honor they brought to their home cities was immense. The ancient games continued for nearly twelve centuries until they were banned in 393 CE. More than fifteen hundred years later, in 1896, the modern Olympic Games were revived in Athens, reviving an ideal of international competition and peace that still resonates today.",
@@ -1208,7 +1096,7 @@
     ]
   },
   {
-    "id": 26,
+    "id": 24,
     "title": "The Great Barrier Reef",
     "topic": "nature",
     "passage": "Stretching more than two thousand kilometers along the northeastern coast of Australia, the Great Barrier Reef is the largest living structure on Earth—so vast that it can be seen from space. It is not a single reef but a complex of nearly three thousand individual reefs and hundreds of islands, built over millions of years by countless tiny coral polyps. The reef teems with life, providing a habitat for thousands of species of fish, mollusks, sea turtles, and marine mammals. Yet this natural wonder faces mounting threats. Rising sea temperatures have triggered repeated mass bleaching events, while pollution from coastal farms and the growth of crown-of-thorns starfish further stress the corals. Scientists and the Australian government have launched ambitious conservation programs, but many experts caution that the reef's long-term survival ultimately depends on slowing the pace of global climate change.",
@@ -1264,7 +1152,7 @@
     ]
   },
   {
-    "id": 27,
+    "id": 25,
     "title": "The Invention of the Telephone",
     "topic": "history",
     "passage": "In March 1876, Alexander Graham Bell spoke the first words ever transmitted by telephone to his assistant in another room: \"Mr. Watson, come here, I want to see you.\" Bell, a teacher of the deaf fascinated by the mechanics of sound, had been racing several rivals to find a way to send the human voice over a wire using electricity. His success transformed communication forever. Within a few decades, telephone lines crisscrossed cities and connected distant towns, allowing people to converse instantly across great distances for the first time in history. The invention reshaped business, journalism, and daily life, shrinking the world in ways that earlier generations could scarcely have imagined. Although Bell is widely credited as the telephone's inventor, the achievement rested on the work of many scientists who had studied electricity and sound before him, a reminder that great breakthroughs are rarely the product of a single mind.",
@@ -1320,7 +1208,7 @@
     ]
   },
   {
-    "id": 28,
+    "id": 26,
     "title": "Volcanoes and Plate Tectonics",
     "topic": "science",
     "passage": "Volcanoes are among the most dramatic expressions of the powerful forces at work beneath the Earth's surface. The planet's outer shell is broken into massive slabs of rock called tectonic plates, which drift slowly atop a layer of hot, partially molten rock. Most volcanoes form where these plates meet. Where one plate dives beneath another, rock melts and rises as magma, occasionally erupting through the surface; where plates pull apart, molten rock wells up to create new crust. A smaller number of volcanoes, such as those that built the Hawaiian Islands, form over isolated \"hot spots\" deep within a plate. When a volcano erupts, it can release lava, ash, and gases with destructive force, yet the same process enriches surrounding soils and, over geologic time, has shaped continents and created entire island chains. Far from being mere agents of destruction, volcanoes are essential architects of the Earth's ever-changing surface.",
@@ -1376,7 +1264,7 @@
     ]
   },
   {
-    "id": 29,
+    "id": 27,
     "title": "The Benefits of Reading Fiction",
     "topic": "social science",
     "passage": "Reading fiction is often regarded as a pleasant pastime rather than a serious activity, but a growing body of research suggests that losing oneself in a novel may offer surprising psychological benefits. Several studies have found that people who read literary fiction tend to score higher on tests of empathy and social understanding. The explanation, researchers propose, lies in the very nature of storytelling: to follow a narrative, readers must imagine the thoughts, feelings, and motives of characters whose lives differ from their own. In effect, fiction provides a kind of mental rehearsal for understanding real people. Reading has also been linked to reduced stress and improved vocabulary and concentration. While no one claims that a single novel can transform a person, the evidence indicates that the habit of reading stories, far from being idle escapism, may quietly strengthen the very skills that help us navigate a complex social world.",
@@ -1432,7 +1320,7 @@
     ]
   },
   {
-    "id": 30,
+    "id": 28,
     "title": "The Amazon Rainforest",
     "topic": "nature",
     "passage": "The Amazon rainforest, spanning much of South America, is the largest tropical forest on Earth and one of the planet's richest reservoirs of life. A single hectare may contain hundreds of tree species, and scientists estimate that the forest is home to roughly one in ten of all known species. The Amazon also plays a crucial role in regulating the global climate, absorbing enormous quantities of carbon dioxide and producing a significant share of the world's oxygen—reasons it is sometimes called the \"lungs of the planet.\" Yet this vital ecosystem is being cleared at an alarming rate to make way for cattle ranching, agriculture, and logging. Deforestation not only destroys irreplaceable habitats but also releases stored carbon into the atmosphere, accelerating climate change. Protecting the Amazon, conservationists argue, is therefore not merely a regional concern but a global necessity, for its fate is bound up with the health of the entire planet.",
@@ -1488,7 +1376,7 @@
     ]
   },
   {
-    "id": 31,
+    "id": 29,
     "title": "The Discovery of Penicillin",
     "topic": "science",
     "passage": "One of the most important medical discoveries of the twentieth century happened largely by accident. In 1928, the Scottish scientist Alexander Fleming returned from a vacation to find that a mold had contaminated one of his bacterial cultures. Rather than simply discarding the ruined dish, Fleming noticed something remarkable: the bacteria surrounding the mold had been destroyed. The mold, a species of Penicillium, was producing a substance that killed harmful bacteria. Fleming named it penicillin. For years the discovery attracted little attention, and it was only in the early 1940s that other scientists, led by Howard Florey and Ernst Chain, found a way to purify and mass-produce the drug. Their work arrived just in time to save countless lives during the Second World War. Penicillin became the first widely used antibiotic, ushering in a new era of medicine in which once-deadly infections could be routinely cured.",
@@ -1544,7 +1432,7 @@
     ]
   },
   {
-    "id": 32,
+    "id": 30,
     "title": "The Economics of Supply and Demand",
     "topic": "social science",
     "passage": "At the heart of economics lies a deceptively simple idea: the relationship between supply and demand. Demand refers to how much of a good or service consumers are willing to buy, while supply refers to how much producers are willing to sell. Generally, when the price of an item rises, consumers tend to buy less of it, and producers are willing to make more; when the price falls, the opposite occurs. The price at which the quantity buyers want exactly matches the quantity sellers offer is called the equilibrium price. Markets, left to themselves, tend to drift toward this balance. If a sudden frost destroys much of an orange crop, for example, the reduced supply pushes prices upward until demand falls enough to match what remains. Understanding this dynamic helps explain why prices rise and fall and why shortages and surpluses, though sometimes painful, rarely last forever in a functioning market.",
@@ -1600,7 +1488,7 @@
     ]
   },
   {
-    "id": 33,
+    "id": 31,
     "title": "The Northern Lights",
     "topic": "science",
     "passage": "On clear nights in the far north, the sky sometimes erupts into shimmering curtains of green, pink, and violet light known as the aurora borealis, or northern lights. For centuries these displays inspired myths and legends, but their true cause lies in the interaction between the sun and the Earth. The sun constantly streams out charged particles in what is called the solar wind. When these particles reach Earth, most are deflected by the planet's magnetic field, but some are funneled toward the poles. There they collide with gases high in the atmosphere, causing those gases to glow—oxygen producing greens and reds, nitrogen contributing blues and purples. The same phenomenon occurs near the South Pole, where it is called the aurora australis. Because the displays depend on solar activity, they are most frequent and vivid during periods when the sun is especially stormy, making the lights both a beautiful spectacle and a visible sign of our connection to the star at the center of our solar system.",
@@ -1656,7 +1544,7 @@
     ]
   },
   {
-    "id": 34,
+    "id": 32,
     "title": "The History of Writing",
     "topic": "history",
     "passage": "Writing is so woven into modern life that it is easy to forget it was once a revolutionary invention. The earliest known writing systems emerged independently in several ancient civilizations, beginning around 3200 BCE in Mesopotamia, where merchants pressed wedge-shaped marks into clay tablets to record trade. This system, called cuneiform, started as simple pictures but gradually evolved into abstract symbols representing sounds and ideas. Similar developments occurred in ancient Egypt with hieroglyphics and, much later, in China and Mesoamerica. Before writing, knowledge could be preserved only in human memory and passed on by word of mouth, vanishing whenever a generation died without sharing it. Writing changed everything: it allowed laws to be recorded, stories to be preserved, and knowledge to accumulate across centuries. In a very real sense, written language made history itself possible, for it gave humanity a way to speak across the boundary of time.",
@@ -1712,7 +1600,7 @@
     ]
   },
   {
-    "id": 35,
+    "id": 33,
     "title": "Artificial Light and Sleep",
     "topic": "science",
     "passage": "For nearly all of human history, people lived by the rhythm of the sun, rising at dawn and settling into darkness at night. The widespread use of artificial light, beginning with the electric bulb in the late nineteenth century, dramatically altered this ancient pattern. Today, screens and lamps allow activity at any hour, but researchers warn that this convenience comes at a cost. The human body relies on cues of light and darkness to regulate its internal clock, which governs the release of melatonin, a hormone that promotes sleep. Exposure to bright light in the evening—especially the blue light emitted by phones and computers—can suppress melatonin and trick the brain into thinking it is still daytime. The result is difficulty falling asleep and poorer rest. Sleep scientists increasingly recommend dimming lights and avoiding screens before bed, arguing that respecting the body's natural relationship with darkness is essential to healthy sleep in an artificially lit world.",
@@ -1764,6 +1652,1126 @@
         "answer": 1,
         "type": "inference",
         "explain": "잠들기 전 화면을 피하고 조명을 낮추라는 권고에서 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "title": "The Antikythera Mechanism",
+    "topic": "history",
+    "passage": "In 1901, sponge divers exploring a shipwreck off the Greek island of Antikythera recovered a corroded lump of bronze that would puzzle scientists for more than a century. Known today as the Antikythera mechanism, this device dates to roughly the second century BCE and is widely regarded as the world's oldest known analog computer. Beneath its encrusted surface lay an intricate system of at least thirty interlocking bronze gears, engineered with a precision that would not be matched in Europe for over a thousand years. By turning a hand crank, an ancient user could calculate the positions of the sun and moon, predict solar and lunar eclipses, and track the four-year cycle of athletic games such as the Olympics. For decades the corroded fragments resisted interpretation, but modern X-ray imaging finally revealed the hidden inscriptions and gear ratios within. The mechanism's sophistication forced historians to revise their assumptions about ancient technology, demonstrating that Greek craftsmen possessed engineering knowledge far more advanced than anyone had previously imagined.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the Antikythera mechanism reveals that ancient Greek technology was far more advanced than expected",
+          "sponge divers frequently discover valuable ancient artifacts in the Mediterranean",
+          "X-ray imaging is the most important tool in modern archaeology",
+          "ancient Greeks used bronze gears mainly to track athletic competitions"
+        ],
+        "answer": 0,
+        "explain": "지문 전체가 안티키테라 기계의 정교함과 그것이 고대 그리스 기술 수준에 대한 인식을 바꾸었다는 점을 강조하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, the Antikythera mechanism could be used to",
+        "type": "detail",
+        "options": [
+          "measure the temperature of seawater",
+          "predict solar and lunar eclipses",
+          "navigate ships across the open ocean",
+          "record the names of Olympic victors"
+        ],
+        "answer": 1,
+        "explain": "지문에서 이 장치가 일식과 월식을 예측할 수 있었다고 명시하고 있으므로 정답은 B이다."
+      },
+      {
+        "q": "The word 'intricate' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "rusted and damaged",
+          "simple and crude",
+          "elaborately complex",
+          "small and lightweight"
+        ],
+        "answer": 2,
+        "explain": "30개 이상의 맞물린 톱니바퀴로 이루어진 시스템을 묘사하는 맥락이므로 intricate는 '정교하게 복잡한'이라는 의미이다."
+      },
+      {
+        "q": "It can be inferred from the passage that, before this discovery, historians",
+        "type": "inference",
+        "options": [
+          "believed the Greeks had never used bronze in their machines",
+          "had already found several similar devices from the same era",
+          "thought analog computers were invented only in the modern age",
+          "underestimated the engineering capabilities of ancient civilizations"
+        ],
+        "answer": 3,
+        "explain": "지문에서 이 기계가 역사가들이 고대 기술에 대한 가정을 수정하게 만들었다고 했으므로, 그 전에는 고대 문명의 공학 능력을 과소평가했음을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "How the Brain Forms Habits",
+    "topic": "psychology",
+    "passage": "Habits are the brain's way of conserving effort. When we repeat a behavior in a consistent context, neural pathways in a region called the basal ganglia gradually take over, allowing the action to run almost automatically while the conscious mind is freed for other tasks. Psychologists describe this process as a loop with three components: a cue that triggers the behavior, the routine itself, and a reward that reinforces it. Over time, the brain begins to crave the reward as soon as it encounters the cue, making the routine feel nearly involuntary. This efficiency explains why habits, once established, are so difficult to break by willpower alone. Researchers have found, however, that habits can be reshaped rather than erased. By keeping the same cue and reward but deliberately substituting a new routine, a person can redirect an entrenched pattern toward a healthier outcome. Understanding the loop, scientists argue, gives individuals a practical strategy for changing behaviors that once seemed beyond their control.",
+    "questions": [
+      {
+        "q": "The passage is primarily concerned with explaining",
+        "type": "main_idea",
+        "options": [
+          "why willpower is the most reliable way to break a habit",
+          "the anatomy of the basal ganglia in detail",
+          "how habits form in the brain and how they can be changed",
+          "why people should avoid forming any habits at all"
+        ],
+        "answer": 2,
+        "explain": "지문은 습관이 뇌에서 형성되는 과정과 그것을 바꾸는 방법을 중심으로 설명하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the three components of the habit loop are",
+        "type": "detail",
+        "options": [
+          "stimulus, memory, and emotion",
+          "desire, effort, and willpower",
+          "trigger, punishment, and relief",
+          "cue, routine, and reward"
+        ],
+        "answer": 3,
+        "explain": "지문에서 습관 고리는 신호(cue), 루틴(routine), 보상(reward)의 세 요소로 이루어진다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "The passage suggests that the most effective way to change a habit is to",
+        "type": "inference",
+        "options": [
+          "keep the cue and reward but replace the routine with a new one",
+          "eliminate the cue and reward entirely through self-discipline",
+          "avoid all situations in which the habit might occur",
+          "rely solely on willpower to suppress the behavior"
+        ],
+        "answer": 0,
+        "explain": "지문에서 같은 신호와 보상을 유지하되 루틴만 새로운 것으로 대체하면 습관을 재구성할 수 있다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "The word 'entrenched' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "newly formed",
+          "firmly established",
+          "easily forgotten",
+          "physically harmful"
+        ],
+        "answer": 1,
+        "explain": "오래되어 바꾸기 어려운 패턴을 가리키는 맥락이므로 entrenched는 '확고히 자리잡은'이라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "title": "The Transcontinental Railroad",
+    "topic": "history",
+    "passage": "When the final golden spike was driven at Promontory Summit, Utah, on May 10, 1869, the United States was bound together by rail from coast to coast for the first time. The transcontinental railroad linked the existing eastern network to the Pacific, slashing a journey that once took months by wagon or ship to a matter of days. Two companies built it from opposite ends: the Union Pacific laid track westward from Nebraska, while the Central Pacific blasted eastward through the formidable Sierra Nevada mountains. The work was brutal and often deadly, carried out largely by Irish immigrants and thousands of Chinese laborers whose contributions were long overlooked. The completed line transformed the nation. It accelerated westward settlement, enabled goods and raw materials to flow across the continent, and helped knit distant regions into a single economy. Yet the railroad also hastened the displacement of Native American peoples and the destruction of the great bison herds, a reminder that even celebrated achievements carry profound and lasting costs.",
+    "questions": [
+      {
+        "q": "The author's primary purpose in this passage is to",
+        "type": "tone_purpose",
+        "options": [
+          "celebrate the engineers who designed the golden spike",
+          "argue that railroads should never have been built across the West",
+          "compare the Union Pacific and Central Pacific companies' profits",
+          "describe the transcontinental railroad's construction and its mixed consequences"
+        ],
+        "answer": 3,
+        "explain": "지문은 대륙횡단철도의 건설 과정과 긍정적·부정적 결과를 균형 있게 서술하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, the Central Pacific built its track",
+        "type": "detail",
+        "options": [
+          "eastward through the Sierra Nevada mountains",
+          "westward from Nebraska across the plains",
+          "southward along the Pacific coastline",
+          "northward from Mexico toward Utah"
+        ],
+        "answer": 0,
+        "explain": "지문에서 센트럴 퍼시픽은 시에라네바다 산맥을 뚫고 동쪽으로 철도를 건설했다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the railroad was built entirely by a single company from one direction",
+          "the transcontinental railroad transformed the nation while also causing lasting harm",
+          "the golden spike was the most valuable object in American history",
+          "wagon travel remained faster than rail travel after 1869"
+        ],
+        "answer": 1,
+        "explain": "지문은 대륙횡단철도가 국가를 변모시키는 동시에 지속적인 피해도 가져왔다는 점을 중심으로 다루므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the railroad's effect on Native American peoples was",
+        "type": "inference",
+        "options": [
+          "largely beneficial, improving their access to goods",
+          "minimal, since the line avoided their territories",
+          "harmful, contributing to their displacement",
+          "temporary, lasting only during construction"
+        ],
+        "answer": 2,
+        "explain": "지문에서 철도가 아메리카 원주민의 강제 이주와 들소 떼의 파괴를 앞당겼다고 했으므로, 그 영향이 해로웠음을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "title": "The Science of Tides",
+    "topic": "science",
+    "passage": "The steady rise and fall of the ocean along coastlines, known as the tides, is driven chiefly by the gravitational pull of the moon. As the moon orbits the Earth, its gravity tugs on the planet's water, raising a bulge on the side facing the moon. A second bulge forms on the opposite side, where the moon's pull on the Earth itself is slightly stronger than on the distant water. As the Earth rotates beneath these bulges, most coastal locations experience two high tides and two low tides each day. The sun also exerts a tidal force, though less than half that of the closer moon. When the sun, moon, and Earth align during full and new moons, their combined pull produces especially large 'spring' tides; when they form a right angle, the weaker 'neap' tides result. Local geography further shapes these patterns, so that some bays funnel the water into dramatic surges while open coasts see only gentle changes.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "tides are caused mainly by the moon's gravity, with the sun and geography also playing roles",
+          "the sun has a greater influence on tides than the moon does",
+          "every coastline experiences exactly the same tidal pattern",
+          "spring tides are dangerous and should be avoided by sailors"
+        ],
+        "answer": 0,
+        "explain": "지문은 조수가 주로 달의 중력에 의해 발생하며 태양과 지형도 영향을 준다는 점을 설명하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, most coastal locations experience how many high tides each day?",
+        "type": "detail",
+        "options": [
+          "one",
+          "two",
+          "three",
+          "four"
+        ],
+        "answer": 1,
+        "explain": "지문에서 대부분의 해안 지역이 하루에 두 번의 만조를 겪는다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "Based on the passage, especially large spring tides occur when",
+        "type": "inference",
+        "options": [
+          "the sun and moon form a right angle relative to Earth",
+          "the moon is at its farthest point from Earth",
+          "the sun, moon, and Earth are aligned",
+          "local bays funnel water into narrow channels"
+        ],
+        "answer": 2,
+        "explain": "지문에서 태양, 달, 지구가 정렬될 때 결합된 인력으로 큰 사리(spring) 조수가 생긴다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "The word 'exerts' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "removes",
+          "measures",
+          "ignores",
+          "applies"
+        ],
+        "answer": 3,
+        "explain": "태양이 조수를 일으키는 힘을 '가한다'는 맥락이므로 exerts는 '(힘을) 작용하다/가하다'라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "title": "The Library of Alexandria",
+    "topic": "history",
+    "passage": "Founded in Egypt in the third century BCE under the Ptolemaic dynasty, the Library of Alexandria was conceived as a universal repository of human knowledge. Its ambition was breathtaking: to gather a copy of every book in the known world. Agents of the rulers reportedly searched ships docking at the harbor, seizing any scrolls aboard to be copied for the collection. Scholars from across the Mediterranean traveled to study there, and the library became a center of research in mathematics, astronomy, medicine, and literature. It was here that the geographer Eratosthenes calculated the circumference of the Earth with remarkable accuracy. The eventual decline of the library remains shrouded in uncertainty; ancient sources blame fires, political turmoil, and shrinking funding across several centuries rather than a single catastrophic event. Whatever its precise end, the loss of so vast a collection has come to symbolize the fragility of accumulated knowledge and the ease with which the achievements of one age can vanish from the next.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "Eratosthenes was the greatest scholar of the ancient world",
+          "the Library of Alexandria was a remarkable center of knowledge whose loss symbolizes the fragility of learning",
+          "all ancient libraries were destroyed by a single great fire",
+          "the Ptolemaic rulers were primarily interested in seizing ships"
+        ],
+        "answer": 1,
+        "explain": "지문은 알렉산드리아 도서관의 야심과 학문적 중심성, 그리고 그 소실이 지식의 취약성을 상징한다는 점을 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, how did the library acquire many of its scrolls?",
+        "type": "detail",
+        "options": [
+          "by purchasing them from traveling scholars",
+          "by writing entirely new books on site",
+          "by copying scrolls seized from ships in the harbor",
+          "by receiving them as gifts from foreign kings"
+        ],
+        "answer": 2,
+        "explain": "지문에서 항구에 정박한 배의 두루마리를 압수해 복사함으로써 소장품을 확보했다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "The passage indicates that the decline of the library was",
+        "type": "detail",
+        "options": [
+          "the result of a single sudden disaster",
+          "entirely due to a lack of interested scholars",
+          "never recorded by any ancient source",
+          "caused by multiple factors over several centuries"
+        ],
+        "answer": 3,
+        "explain": "지문에서 도서관의 쇠퇴는 단일 사건이 아니라 여러 세기에 걸친 화재, 정치적 혼란, 자금 축소 때문이라고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The word 'shrouded' as used in the phrase 'shrouded in uncertainty' most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "obscured or hidden",
+          "clearly documented",
+          "widely celebrated",
+          "recently discovered"
+        ],
+        "answer": 0,
+        "explain": "도서관의 쇠퇴가 불확실성에 '가려져' 있다는 맥락이므로 shrouded는 '가려진/감춰진'이라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "title": "Octopus Intelligence",
+    "topic": "nature",
+    "passage": "Among invertebrates, the octopus stands out for a level of intelligence that rivals some vertebrates. Unlike mammals, whose neurons are concentrated in a central brain, an octopus distributes roughly two-thirds of its half-billion neurons throughout its eight arms. Each arm can taste, touch, and react to its surroundings with a degree of independence, almost as if the creature thinks with its whole body. In laboratory settings, octopuses have solved puzzles, opened jars to reach food, and even learned by watching others. They are also masters of disguise, able to change the color and texture of their skin in an instant to blend into coral, sand, or rock. Some species use coconut shells and stones as tools, carrying them across the seafloor to assemble protective shelters. What makes this intelligence especially intriguing is that it evolved along a completely separate path from our own, the two lineages having diverged hundreds of millions of years ago. The octopus thus offers a rare glimpse of how a mind utterly unlike ours might work.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "octopuses are the most dangerous predators in the ocean",
+          "all invertebrates are more intelligent than scientists once believed",
+          "octopuses rely entirely on a single central brain like mammals do",
+          "the octopus displays a remarkable intelligence that evolved independently of our own"
+        ],
+        "answer": 3,
+        "explain": "지문은 문어가 인간과 독립적으로 진화한 놀라운 지능을 지녔다는 점을 중심으로 설명하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, roughly two-thirds of an octopus's neurons are located",
+        "type": "detail",
+        "options": [
+          "throughout its eight arms",
+          "in a single central brain",
+          "in its eyes",
+          "in its skin"
+        ],
+        "answer": 0,
+        "explain": "지문에서 문어 뉴런의 약 3분의 2가 여덟 개의 팔 전체에 분산되어 있다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the octopus's intelligence is scientifically interesting mainly because it",
+        "type": "inference",
+        "options": [
+          "allows octopuses to communicate using spoken sounds",
+          "developed along an evolutionary path separate from that of humans",
+          "makes octopuses immune to predators",
+          "is identical to the intelligence of dolphins and apes"
+        ],
+        "answer": 1,
+        "explain": "지문에서 이 지능이 인간과 완전히 다른 별개의 경로로 진화했다는 점이 특히 흥미롭다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, octopuses change the color and texture of their skin in order to",
+        "type": "detail",
+        "options": [
+          "attract mates during the breeding season",
+          "regulate their body temperature",
+          "blend into their surroundings",
+          "signal their location to other octopuses"
+        ],
+        "answer": 2,
+        "explain": "지문에서 문어가 산호, 모래, 바위에 섞여 들기 위해 피부의 색과 질감을 즉시 바꾼다고 명시하므로 정답은 C이다."
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "title": "The Gutenberg Bible and Early Printing",
+    "topic": "arts",
+    "passage": "The Gutenberg Bible, printed in the German city of Mainz around 1455, is celebrated not only as the first major book produced with movable type in Europe but also as a work of striking beauty. Johannes Gutenberg sought to rival the elegance of handwritten manuscripts, and in many respects he succeeded. The pages were carefully laid out in two columns of dense, even text, with wide margins left blank so that artisans could later add decorative initials and ornamentation by hand. Gutenberg developed an oil-based ink that adhered well to metal type and produced a rich, lustrous black far superior to the watery inks used in earlier experiments. Roughly 180 copies were printed, some on paper and a smaller number on luxurious vellum made from calfskin. Fewer than fifty survive today, and they rank among the most valuable books in the world. The Gutenberg Bible thus marks a pivotal moment when a new mechanical craft was bent to the service of artistic tradition, blending innovation with the aesthetic standards of an earlier age.",
+    "questions": [
+      {
+        "q": "The author's primary purpose in this passage is to",
+        "type": "tone_purpose",
+        "options": [
+          "criticize Gutenberg for failing to match handwritten manuscripts",
+          "explain the religious significance of the Bible's text",
+          "describe the Gutenberg Bible as both a technical and an artistic achievement",
+          "argue that vellum copies were superior to paper copies"
+        ],
+        "answer": 2,
+        "explain": "지문은 구텐베르크 성서를 기술적이면서 예술적인 성취로 묘사하는 것이 주목적이므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, why were wide margins left blank on the pages?",
+        "type": "detail",
+        "options": [
+          "to save expensive ink",
+          "to make the book lighter to carry",
+          "because the type would not fit the page",
+          "so that artisans could add decorations by hand"
+        ],
+        "answer": 3,
+        "explain": "지문에서 장인들이 나중에 손으로 장식 머리글자와 장식을 추가할 수 있도록 여백을 비워두었다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "The word 'lustrous' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "shiny and rich",
+          "faded and dull",
+          "thin and watery",
+          "rough and uneven"
+        ],
+        "answer": 0,
+        "explain": "기름 기반 잉크가 만들어낸 풍부한 검은색을 묘사하는 맥락이므로 lustrous는 '윤이 나고 풍부한'이라는 의미이다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the Gutenberg Bible was inferior to handwritten manuscripts in every way",
+          "the Gutenberg Bible combined a new printing technology with the artistic standards of its time",
+          "only vellum copies of the Gutenberg Bible were ever produced",
+          "Gutenberg's ink was the least important part of his work"
+        ],
+        "answer": 1,
+        "explain": "지문은 구텐베르크 성서가 새로운 인쇄 기술과 당대의 예술적 기준을 결합했다는 점을 중심으로 다루므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "title": "The Rings of Saturn",
+    "topic": "science",
+    "passage": "Saturn's rings are among the most recognizable features in the entire solar system, yet they are far stranger than their smooth appearance from afar suggests. Rather than being solid bands, the rings are composed of countless particles of ice and rock, ranging in size from tiny grains of dust to chunks as large as houses. These particles orbit the planet at tremendous speeds, each following its own path according to the laws of gravity. Although the ring system stretches more than 280,000 kilometers across, it is astonishingly thin, in most places only about ten meters thick. Scientists continue to debate how the rings formed. Some propose they are the shattered remains of a moon torn apart by Saturn's gravity, while others suggest they are leftover material that never coalesced into a moon at all. Evidence gathered by spacecraft indicates that the rings may be surprisingly young in cosmic terms, perhaps only a few hundred million years old, and that they are slowly raining down into the planet and may one day disappear entirely.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "Saturn's rings are complex, thin structures whose origin and future remain subjects of study",
+          "Saturn's rings are solid bands of rock surrounding the planet",
+          "Saturn's rings will never change over the lifetime of the solar system",
+          "spacecraft have fully explained how Saturn's rings formed"
+        ],
+        "answer": 0,
+        "explain": "지문은 토성 고리의 복잡한 구성과 얇은 구조, 그리고 기원과 미래에 대한 논쟁을 다루므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, Saturn's rings are made up of",
+        "type": "detail",
+        "options": [
+          "a single solid sheet of ice",
+          "countless particles of ice and rock of varying sizes",
+          "glowing gases similar to a comet's tail",
+          "magnetic dust held in place by Saturn's poles"
+        ],
+        "answer": 1,
+        "explain": "지문에서 고리가 먼지부터 집채만 한 덩어리까지 다양한 크기의 얼음과 암석 입자들로 이루어져 있다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the rings",
+        "type": "inference",
+        "options": [
+          "are permanent and will outlast the planet itself",
+          "are thicker than they are wide",
+          "may not last forever and could eventually vanish",
+          "were definitely formed at the same time as Saturn"
+        ],
+        "answer": 2,
+        "explain": "지문에서 고리가 행성으로 천천히 떨어지고 있어 언젠가 완전히 사라질 수 있다고 했으므로 영원하지 않음을 추론할 수 있다."
+      },
+      {
+        "q": "The word 'coalesced' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "broke apart",
+          "melted away",
+          "sped up",
+          "came together"
+        ],
+        "answer": 3,
+        "explain": "물질이 위성으로 '뭉치지' 못했다는 맥락이므로 coalesced는 '하나로 합쳐지다'라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "title": "The Geography of the Nile",
+    "topic": "geography",
+    "passage": "The Nile, often called the longest river in the world, flows northward for some 6,650 kilometers through northeastern Africa before emptying into the Mediterranean Sea. Its waters are fed by two principal tributaries: the White Nile, which rises in the lakes of the equatorial highlands, and the Blue Nile, which begins in the Ethiopian mountains and contributes the bulk of the river's flow during the rainy season. For thousands of years, the Nile's predictable annual flood deposited a layer of fertile black silt along its banks, allowing agriculture to flourish in an otherwise arid landscape and giving rise to one of history's earliest civilizations. The river remains the lifeblood of the region today, but it has become a source of tension as well. Because the Nile crosses many national borders, decisions made upstream, such as the construction of large dams, can dramatically affect water availability for nations downstream. Managing this shared resource fairly has become one of the most pressing diplomatic challenges in the region.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the Blue Nile is more important than the White Nile",
+          "the Nile is the only river in Africa capable of supporting agriculture",
+          "dams should never be built on rivers that cross national borders",
+          "the Nile has long sustained life in the region but now raises difficult questions of shared management"
+        ],
+        "answer": 3,
+        "explain": "지문은 나일강이 오랫동안 지역의 생명선이었으나 이제 공유 자원 관리라는 어려운 문제를 낳고 있음을 다루므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, the Blue Nile contributes",
+        "type": "detail",
+        "options": [
+          "most of the river's flow during the rainy season",
+          "the river's entire flow throughout the year",
+          "almost none of the river's water",
+          "water only to the equatorial highlands"
+        ],
+        "answer": 0,
+        "explain": "지문에서 청나일이 우기 동안 강 유량의 대부분을 공급한다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the annual flood was important to ancient civilization because it",
+        "type": "inference",
+        "options": [
+          "made river travel faster and easier",
+          "deposited fertile silt that supported farming in a dry region",
+          "cooled the surrounding desert during summer",
+          "prevented invaders from crossing the river"
+        ],
+        "answer": 1,
+        "explain": "지문에서 매년의 범람이 비옥한 검은 토사를 쌓아 건조한 지역에서 농업을 가능하게 했다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "The word 'arid' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "densely forested",
+          "mountainous",
+          "very dry",
+          "frequently flooded"
+        ],
+        "answer": 2,
+        "explain": "농업이 어려운 건조한 경관을 묘사하는 맥락이므로 arid는 '매우 건조한'이라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "title": "The Placebo Effect",
+    "topic": "health",
+    "passage": "One of the most puzzling phenomena in medicine is the placebo effect, in which patients experience real improvement after receiving a treatment that has no active ingredient, such as a sugar pill. Far from being imaginary, these benefits can be measured: patients given placebos have reported reduced pain, eased anxiety, and even relief from the symptoms of certain chronic conditions. Researchers believe the effect arises from the brain's expectations. When a person believes they are being helped, the brain can release natural chemicals, including endorphins, that genuinely alter how the body feels. The ritual of treatment itself, the attentive doctor, the act of swallowing a pill, appears to play a powerful role. This is why clinical trials for new drugs must compare them against placebos; otherwise it would be impossible to know whether a medicine works on its own or merely benefits from the patient's belief. Understanding the placebo effect not only sharpens medical research but also reveals the profound and often underestimated influence of the mind over the body.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "sugar pills are as effective as real medicine for all conditions",
+          "the placebo effect is a real, measurable phenomenon that reveals the mind's influence on the body",
+          "clinical trials are unnecessary when testing new drugs",
+          "patients should never be told they are receiving a placebo"
+        ],
+        "answer": 1,
+        "explain": "지문은 플라세보 효과가 실재하고 측정 가능하며 마음이 몸에 미치는 영향을 드러낸다는 점을 중심으로 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, researchers believe the placebo effect arises from",
+        "type": "detail",
+        "options": [
+          "the chemical ingredients in sugar pills",
+          "errors in measuring patients' symptoms",
+          "the brain's expectations and release of natural chemicals",
+          "the body's resistance to all medicines"
+        ],
+        "answer": 2,
+        "explain": "지문에서 이 효과가 뇌의 기대와 엔도르핀 같은 자연 화학물질 분비에서 비롯된다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "Based on the passage, why must new drugs be tested against placebos?",
+        "type": "inference",
+        "options": [
+          "to make the trials less expensive to run",
+          "to give patients a choice of treatments",
+          "to prove that placebos have no effect at all",
+          "to determine whether a drug works on its own rather than through patient belief"
+        ],
+        "answer": 3,
+        "explain": "지문에서 약이 스스로 효과가 있는지 환자의 믿음 덕분인지 구분하려면 플라세보와 비교해야 한다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The word 'ritual' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "a customary set of actions",
+          "a religious ceremony",
+          "a random accident",
+          "a scientific formula"
+        ],
+        "answer": 0,
+        "explain": "주의 깊은 의사, 알약을 삼키는 행위 등 치료에 따르는 일련의 관례적 행동을 가리키므로 ritual은 '관례적 절차'라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "title": "The Birth of Photography",
+    "topic": "technology",
+    "passage": "For most of human history, capturing a faithful image of the world required the patient hand of an artist. That changed in 1839, when the Frenchman Louis Daguerre announced a process that could fix a permanent image directly from light. His daguerreotype produced astonishingly detailed pictures on a silvered copper plate, though each image was unique and could not be copied. Around the same time, the Englishman William Henry Fox Talbot developed a rival method that created a paper negative, from which any number of positive prints could be made, an approach that ultimately shaped the future of the medium. Early photography demanded long exposure times, sometimes several minutes, which is why subjects in old portraits often appear stiff and unsmiling. As the technology improved, exposures shortened, cameras shrank, and photography spread from professional studios into ordinary homes. By freezing fleeting moments and preserving the faces of the dead, the camera transformed how people remembered the past and understood the world around them.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "Daguerre and Talbot were bitter personal rivals",
+          "early photographs were of poor quality and little value",
+          "the invention and development of photography transformed how people captured and remembered the world",
+          "painting was made obsolete the moment photography appeared"
+        ],
+        "answer": 2,
+        "explain": "지문은 사진술의 발명과 발전이 세상을 기록하고 기억하는 방식을 바꿨다는 점을 중심으로 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the main advantage of Talbot's method over the daguerreotype was that it",
+        "type": "detail",
+        "options": [
+          "produced images on silvered copper plates",
+          "required no light to create an image",
+          "captured images instantly without any exposure time",
+          "allowed multiple prints to be made from a single negative"
+        ],
+        "answer": 3,
+        "explain": "지문에서 톨벗의 방법은 종이 음화에서 여러 장의 양화를 만들 수 있었다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred from the passage that subjects in old portraits often appear stiff because",
+        "type": "inference",
+        "options": [
+          "they had to hold still for long exposure times",
+          "photographers told them not to smile",
+          "the cameras distorted their faces",
+          "they were uncomfortable in professional studios"
+        ],
+        "answer": 0,
+        "explain": "지문에서 초기 사진은 몇 분에 이르는 긴 노출 시간이 필요했기에 인물이 경직되어 보인다고 했으므로 정답은 A이다."
+      },
+      {
+        "q": "The word 'fleeting' as used in the phrase 'freezing fleeting moments' most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "lasting forever",
+          "passing quickly",
+          "carefully staged",
+          "brightly lit"
+        ],
+        "answer": 1,
+        "explain": "카메라가 순간을 포착한다는 맥락에서 fleeting은 '빠르게 지나가는/덧없는'이라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "title": "Inflation and the Value of Money",
+    "topic": "economics",
+    "passage": "Inflation is the gradual rise in the general level of prices across an economy, which means that over time each unit of currency buys fewer goods and services than it once did. A modest amount of inflation is considered normal and even healthy, since it encourages spending and investment rather than hoarding. Problems arise when inflation climbs too high or too unpredictably. Rapid inflation erodes the value of savings, complicates business planning, and can fall hardest on people with fixed incomes whose paychecks do not keep pace with rising costs. Economists point to several causes. Sometimes demand for goods outstrips the available supply, pulling prices upward; at other times, rising production costs, such as more expensive fuel, push prices higher. Central banks attempt to keep inflation within a target range, often by adjusting interest rates: raising rates tends to cool spending and slow price increases, while lowering them can stimulate a sluggish economy. Striking the right balance is one of the most delicate tasks in economic policy.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "inflation reduces the buying power of money and must be carefully managed",
+          "inflation is always harmful and should be eliminated entirely",
+          "central banks have no influence over the rate of inflation",
+          "savings are unaffected by changes in the price level"
+        ],
+        "answer": 0,
+        "explain": "지문은 인플레이션이 화폐의 구매력을 떨어뜨리며 신중히 관리되어야 한다는 점을 다루므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, a modest amount of inflation is considered healthy because it",
+        "type": "detail",
+        "options": [
+          "guarantees that savings will grow",
+          "encourages spending and investment rather than hoarding",
+          "prevents central banks from raising interest rates",
+          "lowers the cost of producing goods"
+        ],
+        "answer": 1,
+        "explain": "지문에서 적당한 인플레이션은 비축보다 소비와 투자를 장려하기에 건강하게 여겨진다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "Based on the passage, raising interest rates is intended to",
+        "type": "inference",
+        "options": [
+          "increase spending and speed up price increases",
+          "raise the incomes of people on fixed pay",
+          "cool spending and slow the rise in prices",
+          "eliminate inflation permanently"
+        ],
+        "answer": 2,
+        "explain": "지문에서 금리를 올리면 소비가 위축되고 물가 상승이 둔화되는 경향이 있다고 했으므로 정답은 C이다."
+      },
+      {
+        "q": "The word 'erodes' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "suddenly increases",
+          "carefully protects",
+          "accurately measures",
+          "gradually wears away"
+        ],
+        "answer": 3,
+        "explain": "급격한 인플레이션이 저축의 가치를 점차 '깎아먹는다'는 맥락이므로 erodes는 '서서히 약화시키다'라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "title": "The Migration of Monarch Butterflies",
+    "topic": "nature",
+    "passage": "Each autumn, millions of monarch butterflies across eastern North America embark on an extraordinary journey, flying as far as four thousand kilometers to a handful of mountain forests in central Mexico. What makes this feat so remarkable is that no single butterfly completes the round trip. The monarchs that fly south in the fall are several generations removed from those that flew north the previous spring, yet they navigate unerringly to the very same groves their ancestors used, clustering by the thousands on the same fir trees. Exactly how they accomplish this remains incompletely understood, though scientists believe the insects rely on a combination of the sun's position and an internal sense of the Earth's magnetic field. The phenomenon is threatened today by the loss of milkweed, the only plant on which monarchs lay their eggs and the sole food of their caterpillars. Conservationists urge the planting of milkweed along the migration route, hoping to preserve one of nature's most astonishing inherited behaviors.",
+    "questions": [
+      {
+        "q": "The author's tone in describing the monarch migration can best be described as",
+        "type": "tone_purpose",
+        "options": [
+          "skeptical and dismissive",
+          "humorous and casual",
+          "indifferent and detached",
+          "admiring and concerned"
+        ],
+        "answer": 3,
+        "explain": "'extraordinary', 'remarkable', 'astonishing' 같은 표현과 멸종 위협에 대한 우려가 함께 나타나므로 어조는 경탄하면서도 염려하는 것이다."
+      },
+      {
+        "q": "According to the passage, what is especially remarkable about the monarchs' journey?",
+        "type": "detail",
+        "options": [
+          "no single butterfly completes the round trip, yet they reach the same groves",
+          "a single butterfly completes the entire round trip",
+          "the butterflies travel only at night",
+          "the migration occurs in the spring rather than the fall"
+        ],
+        "answer": 0,
+        "explain": "지문에서 어떤 나비도 왕복 여정을 완수하지 못하지만 조상이 쓰던 똑같은 숲에 도달한다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the loss of milkweed threatens monarchs because",
+        "type": "inference",
+        "options": [
+          "milkweed provides shelter from winter storms",
+          "monarchs lay eggs only on milkweed and their caterpillars eat only it",
+          "milkweed marks the route the butterflies must follow",
+          "adult monarchs drink nectar exclusively from milkweed"
+        ],
+        "answer": 1,
+        "explain": "지문에서 밀크위드는 모나크가 알을 낳는 유일한 식물이자 애벌레의 유일한 먹이라고 했으므로, 그 손실이 위협이 됨을 추론할 수 있다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "monarch butterflies are the fastest insects in North America",
+          "milkweed is a harmful weed that should be removed from farms",
+          "the multigenerational migration of monarch butterflies is a remarkable but now threatened behavior",
+          "scientists fully understand how monarchs find their way to Mexico"
+        ],
+        "answer": 2,
+        "explain": "지문은 여러 세대에 걸친 모나크 나비의 이주가 놀랍지만 이제 위협받는 행동이라는 점을 중심으로 다루므로 정답은 C이다."
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "title": "The Standardization of Time",
+    "topic": "social science",
+    "passage": "For most of human history, time was a local affair. Each town set its clocks by the sun, so that noon in one community might differ by many minutes from noon in the next. This patchwork caused little trouble when travel was slow, but the arrival of the railroad changed everything. Trains running on schedules drawn from dozens of conflicting local times made accurate timetables nearly impossible and led to dangerous confusion. In 1883, North American railroad companies imposed a system of standardized time zones, dividing the continent into broad bands within which all clocks would agree. The following year, an international conference established a global framework based on the meridian running through Greenwich, England. The change did not come without resistance; some communities resented having their familiar 'sun time' overridden by a distant authority. Yet the practical advantages proved overwhelming. The standardization of time stands as a striking example of how a new technology can reshape something as seemingly natural and unchangeable as the hours of the day.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "railroads were dangerous and should have been regulated more strictly",
+          "the spread of railroads led to the standardization of time despite some resistance",
+          "Greenwich, England, was the most important city in the world",
+          "local sun time was more accurate than standardized time zones"
+        ],
+        "answer": 1,
+        "explain": "지문은 철도의 확산이 저항에도 불구하고 시간의 표준화를 이끌었다는 점을 중심으로 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, why did local time cause problems once railroads appeared?",
+        "type": "detail",
+        "options": [
+          "trains traveled too slowly to keep any schedule",
+          "clocks could not be manufactured accurately at the time",
+          "conflicting local times made accurate timetables nearly impossible",
+          "passengers refused to travel between different towns"
+        ],
+        "answer": 2,
+        "explain": "지문에서 수십 개의 상충하는 지역 시간으로 인해 정확한 시간표 작성이 거의 불가능했다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that some communities resisted standardized time because they",
+        "type": "inference",
+        "options": [
+          "did not own any clocks",
+          "wanted even more time zones",
+          "did not use the railroads at all",
+          "preferred their familiar local sun time"
+        ],
+        "answer": 3,
+        "explain": "지문에서 일부 공동체가 익숙한 '태양 시간'이 먼 권위에 의해 무시되는 것에 분개했다고 했으므로, 익숙한 지역 시간을 선호했음을 추론할 수 있다."
+      },
+      {
+        "q": "The word 'patchwork' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "an irregular mix of differing parts",
+          "a smooth, uniform system",
+          "an official government policy",
+          "a precise scientific measurement"
+        ],
+        "answer": 0,
+        "explain": "각 마을이 제각각 다른 시간을 쓰던 들쭉날쭉한 상황을 가리키므로 patchwork는 '서로 다른 부분이 뒤섞인 것'이라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "title": "The Human Immune System",
+    "topic": "health",
+    "passage": "The human immune system is a remarkable network of cells, tissues, and organs that defends the body against an endless assault of harmful microbes. It operates on two broad levels. The innate immune system provides the first line of defense, responding rapidly but without precision to anything it recognizes as foreign; physical barriers like the skin and general-purpose cells that engulf invaders belong to this category. The adaptive immune system works more slowly but with extraordinary specificity, learning to recognize a particular pathogen and producing tailored antibodies against it. Crucially, the adaptive system also remembers. After defeating an infection, it retains memory cells that allow a faster, stronger response should the same threat return, which is the principle that makes vaccination possible. The system must perform a delicate balancing act, aggressive enough to destroy genuine threats yet restrained enough to spare the body's own tissues. When this balance fails, the consequences can be severe, ranging from autoimmune diseases, in which the body attacks itself, to dangerous overreactions to otherwise harmless substances.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the innate immune system is more important than the adaptive system",
+          "vaccines are the only way the body can fight infection",
+          "the immune system defends the body through two coordinated levels that must remain in balance",
+          "autoimmune diseases are the most common illnesses worldwide"
+        ],
+        "answer": 2,
+        "explain": "지문은 면역계가 두 가지 수준으로 작동하며 균형을 유지해야 한다는 점을 중심으로 설명하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the adaptive immune system differs from the innate system in that it",
+        "type": "detail",
+        "options": [
+          "responds instantly but without precision",
+          "consists only of physical barriers like the skin",
+          "never remembers pathogens it has encountered",
+          "responds more slowly but with great specificity and memory"
+        ],
+        "answer": 3,
+        "explain": "지문에서 적응 면역계는 더 느리지만 특정 병원체를 인식하는 정밀함과 기억 능력을 지닌다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "Based on the passage, vaccination works because the adaptive immune system",
+        "type": "inference",
+        "options": [
+          "retains memory cells that enable a faster response to a familiar pathogen",
+          "destroys all microbes on contact without learning",
+          "permanently strengthens the skin against invaders",
+          "attacks the body's own tissues by mistake"
+        ],
+        "answer": 0,
+        "explain": "지문에서 적응 면역계가 기억 세포를 보유해 같은 위협이 다시 오면 더 빠르고 강하게 반응한다고 했고 이것이 백신의 원리라고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "The word 'restrained' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "completely inactive",
+          "held in check",
+          "extremely aggressive",
+          "easily confused"
+        ],
+        "answer": 1,
+        "explain": "면역계가 자기 조직을 해치지 않을 만큼 절제되어야 한다는 맥락이므로 restrained는 '억제된/자제된'이라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "title": "The Dust Bowl",
+    "topic": "history",
+    "passage": "During the 1930s, the southern Great Plains of the United States were devastated by a series of catastrophic dust storms that came to be known as the Dust Bowl. The disaster was not purely natural. In the decades before, farmers had plowed up millions of acres of native grassland to plant wheat, stripping away the deep-rooted prairie grasses that had long held the soil in place. When a prolonged drought struck, the exposed topsoil dried to powder. Powerful winds then lifted it into towering black clouds that buried farms, darkened skies as far away as the East Coast, and made the simple act of breathing hazardous. Thousands of families, their livelihoods destroyed, abandoned their land and migrated westward in search of work. The catastrophe prompted a lasting change in attitudes toward the land. Government agencies promoted soil-conservation techniques, such as planting trees as windbreaks and rotating crops, in an effort to prevent such a disaster from ever recurring. The Dust Bowl remains a powerful lesson in the consequences of using natural resources without regard for their limits.",
+    "questions": [
+      {
+        "q": "The author's primary purpose in this passage is to",
+        "type": "tone_purpose",
+        "options": [
+          "praise the farmers who plowed the Great Plains",
+          "describe the weather patterns of the 1930s in technical detail",
+          "argue that drought is the only cause of dust storms",
+          "explain the causes and consequences of the Dust Bowl as a lesson about land use"
+        ],
+        "answer": 3,
+        "explain": "지문은 더스트 볼의 원인과 결과를 토지 이용에 대한 교훈으로 설명하는 것이 주목적이므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, a major human cause of the Dust Bowl was",
+        "type": "detail",
+        "options": [
+          "the plowing up of grassland that had held the soil in place",
+          "the planting of too many trees as windbreaks",
+          "the migration of families to the west",
+          "the rotation of crops across the plains"
+        ],
+        "answer": 0,
+        "explain": "지문에서 농부들이 토양을 붙들고 있던 초원을 갈아엎은 것이 주요 원인이라고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the Dust Bowl was caused entirely by natural drought",
+          "the Dust Bowl resulted from poor land use and led to lasting conservation efforts",
+          "farmers in the 1930s were unaffected by the dust storms",
+          "windbreaks and crop rotation made the disaster worse"
+        ],
+        "answer": 1,
+        "explain": "지문은 더스트 볼이 부적절한 토지 이용에서 비롯되었고 지속적인 토양 보존 노력으로 이어졌다는 점을 중심으로 다루므로 정답은 B이다."
+      },
+      {
+        "q": "The word 'hazardous' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "pleasant",
+          "ordinary",
+          "dangerous",
+          "expensive"
+        ],
+        "answer": 2,
+        "explain": "숨 쉬는 것조차 위험하게 만들었다는 맥락이므로 hazardous는 '위험한'이라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "title": "How GPS Works",
+    "topic": "technology",
+    "passage": "The Global Positioning System, or GPS, allows a receiver almost anywhere on Earth to determine its precise location, and it does so using a constellation of satellites orbiting some twenty thousand kilometers overhead. Each satellite continuously broadcasts a signal that includes its exact position and the precise time the signal was sent, according to an extremely accurate atomic clock aboard. A receiver on the ground calculates how long each signal took to arrive, and from that travel time it determines its distance from each satellite. By combining distance measurements from at least four satellites, the receiver can pinpoint its latitude, longitude, and altitude. The accuracy required is so extreme that engineers must account for the effects predicted by Einstein's theory of relativity, since time passes very slightly faster for the orbiting clocks than for clocks on the ground. Without correcting for this tiny difference, navigation errors would accumulate rapidly, throwing positions off by kilometers within a single day. GPS has become so woven into daily life that its underlying sophistication is easy to overlook.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "GPS determines location through precise timing of satellite signals and demands extraordinary accuracy",
+          "GPS satellites are too expensive to be practical",
+          "Einstein's theory of relativity has no practical applications",
+          "GPS receivers must be located within sight of all satellites"
+        ],
+        "answer": 0,
+        "explain": "지문은 GPS가 위성 신호의 정밀한 타이밍으로 위치를 측정하며 극도의 정확성을 요구한다는 점을 다루므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, how does a GPS receiver determine its distance from a satellite?",
+        "type": "detail",
+        "options": [
+          "by measuring the strength of the satellite's signal",
+          "by calculating how long the signal took to arrive",
+          "by counting the number of satellites overhead",
+          "by reading the satellite's altitude directly"
+        ],
+        "answer": 1,
+        "explain": "지문에서 수신기가 각 신호가 도착하는 데 걸린 시간을 계산해 거리를 구한다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, how many satellites must a receiver combine measurements from to pinpoint its position?",
+        "type": "detail",
+        "options": [
+          "at least two",
+          "at least three",
+          "at least four",
+          "at least ten"
+        ],
+        "answer": 2,
+        "explain": "지문에서 최소 네 개의 위성으로부터 거리를 결합해야 위도, 경도, 고도를 정확히 알 수 있다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that ignoring the effects of relativity would",
+        "type": "inference",
+        "options": [
+          "have no measurable impact on GPS accuracy",
+          "make the satellites fall out of orbit",
+          "slow down the satellites' atomic clocks",
+          "cause navigation errors to grow rapidly"
+        ],
+        "answer": 3,
+        "explain": "지문에서 이 작은 차이를 보정하지 않으면 하루 만에 위치 오차가 수 킬로미터에 이른다고 했으므로 정답은 D이다."
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "title": "The Renaissance City of Florence",
+    "topic": "arts",
+    "passage": "In the fourteenth and fifteenth centuries, the Italian city of Florence became the cradle of the Renaissance, a flowering of art, learning, and humanist thought that reshaped European culture. Several conditions made this possible. Florence had grown wealthy through banking and the wool trade, and its prosperous merchants competed to display their status by commissioning paintings, sculptures, and grand buildings. The most influential of these patrons was the Medici family, whose support sustained artists and scholars for generations. Surrounded by the ruins and writings of ancient Rome, Florentine thinkers rediscovered classical ideals of proportion, beauty, and human dignity, and they sought to revive them in their own work. Artists such as Botticelli and the young Michelangelo trained in the city's workshops, while the architect Brunelleschi engineered the soaring dome of its cathedral, a feat of engineering that astonished his contemporaries. The concentration of wealth, talent, and classical inspiration in one compact city produced an explosion of creativity whose influence radiated outward across the entire continent.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the Medici family ruined Florence through excessive spending",
+          "a combination of wealth, patronage, and classical inspiration made Florence the cradle of the Renaissance",
+          "Brunelleschi was the only important figure of the Renaissance",
+          "the Renaissance had little effect beyond the city of Florence"
+        ],
+        "answer": 1,
+        "explain": "지문은 부, 후원, 고전의 영감이 결합되어 피렌체를 르네상스의 요람으로 만들었다는 점을 중심으로 다루므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the Medici family contributed to the Renaissance by",
+        "type": "detail",
+        "options": [
+          "ruling the city as harsh dictators",
+          "destroying the ruins of ancient Rome",
+          "supporting artists and scholars over generations",
+          "banning the study of classical writings"
+        ],
+        "answer": 2,
+        "explain": "지문에서 메디치 가문이 여러 세대에 걸쳐 예술가와 학자들을 후원했다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that Florence's wealthy merchants commissioned art partly to",
+        "type": "inference",
+        "options": [
+          "hide their fortunes from rivals",
+          "discourage other cities from competing",
+          "reduce the influence of the Medici",
+          "display their status and prestige"
+        ],
+        "answer": 3,
+        "explain": "지문에서 번영한 상인들이 지위를 과시하기 위해 작품을 의뢰하며 경쟁했다고 했으므로 정답은 D이다."
+      },
+      {
+        "q": "The word 'radiated' as used in the phrase 'radiated outward' most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "spread out",
+          "disappeared",
+          "stayed in place",
+          "weakened"
+        ],
+        "answer": 0,
+        "explain": "창의성의 영향이 대륙 전역으로 퍼져나갔다는 맥락이므로 radiated는 '사방으로 퍼지다'라는 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "title": "The Roots of Language",
+    "topic": "social science",
+    "passage": "Language is among the most distinctive of human abilities, yet how it first arose remains one of the great unanswered questions of science. Unlike tools or bones, spoken words leave no fossils, so researchers must piece together clues from many fields. Comparative studies of living languages, the anatomy of the human vocal tract, and even the genes involved in speech all offer fragments of evidence. One influential idea holds that language grew gradually out of simpler systems of gestures and calls shared with our primate relatives, becoming steadily more complex over hundreds of thousands of years. Another view proposes that a relatively sudden change in the human brain made full language possible in a comparatively short span. What is clear is that language conferred enormous advantages. It allowed early humans to coordinate hunts, pass on hard-won knowledge, and bind groups together through shared stories and beliefs. Whatever its precise origins, the capacity for language transformed our ancestors from clever animals into beings able to accumulate culture across the generations.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the origin of language is well understood and no longer debated",
+          "language is shared equally by humans and all other primates",
+          "the origin of language remains uncertain, but it gave humans profound advantages",
+          "spoken language leaves clear fossils for scientists to study"
+        ],
+        "answer": 2,
+        "explain": "지문은 언어의 기원이 여전히 불확실하지만 인간에게 막대한 이점을 주었다는 점을 다루므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, why is the origin of language difficult to study?",
+        "type": "detail",
+        "options": [
+          "because no living languages can be compared",
+          "because the human vocal tract has never been examined",
+          "because language arose only very recently",
+          "because spoken words leave no fossils"
+        ],
+        "answer": 3,
+        "explain": "지문에서 말은 화석을 남기지 않기 때문에 여러 분야의 단서를 모아야 한다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "The passage presents the gradual-development and sudden-change ideas in order to",
+        "type": "tone_purpose",
+        "options": [
+          "show that scientists hold differing views about how language arose",
+          "prove that the gradual-development idea is correct",
+          "argue that language did not provide any advantages",
+          "demonstrate that language has no connection to the brain"
+        ],
+        "answer": 0,
+        "explain": "지문은 점진적 발달설과 급격한 변화설을 제시하여 언어 기원에 대한 학자들의 견해가 엇갈린다는 점을 보여주므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that language helped early humans mainly by",
+        "type": "inference",
+        "options": [
+          "allowing them to live entirely alone",
+          "enabling them to coordinate and pass on knowledge across generations",
+          "replacing the need for tools and weapons",
+          "preventing them from forming groups"
+        ],
+        "answer": 1,
+        "explain": "지문에서 언어가 사냥을 조율하고 지식을 전수하며 집단을 결속시켜 세대를 넘어 문화를 축적하게 했다고 했으므로 정답은 B이다."
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "title": "The Deep Ocean Frontier",
+    "topic": "geography",
+    "passage": "Although oceans cover more than seventy percent of our planet's surface, the deep sea remains one of the least explored environments on Earth, less thoroughly mapped than the surface of the Moon. Below about a thousand meters, sunlight vanishes entirely, and the water grows frigid and crushingly heavy, exerting pressures hundreds of times greater than at the surface. For a long time scientists assumed that little could survive in such a hostile realm. Discoveries over the past half-century have overturned that assumption. Submersibles and remotely operated vehicles have revealed thriving communities of strange creatures, many of which generate their own light through a process called bioluminescence. Perhaps most astonishing are the ecosystems clustered around hydrothermal vents, cracks in the seafloor that spew superheated, mineral-rich water. There, in total darkness, bacteria harness chemical energy rather than sunlight to form the base of an entire food web, a process known as chemosynthesis. These findings have expanded our understanding of where and how life can exist, and they continue to hint at how much remains hidden in the planet's last great frontier.",
+    "questions": [
+      {
+        "q": "The main idea of this passage is that",
+        "type": "main_idea",
+        "options": [
+          "the deep ocean is lifeless because sunlight cannot reach it",
+          "the surface of the Moon is better mapped because it is more important",
+          "hydrothermal vents are too dangerous for any organism to survive",
+          "the largely unexplored deep ocean harbors surprising life that has expanded scientific understanding"
+        ],
+        "answer": 3,
+        "explain": "지문은 거의 탐사되지 않은 심해가 놀라운 생명을 품고 있으며 이것이 과학적 이해를 넓혔다는 점을 다루므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, organisms around hydrothermal vents form the base of their food web through",
+        "type": "detail",
+        "options": [
+          "chemosynthesis using chemical energy",
+          "photosynthesis using faint sunlight",
+          "feeding on creatures that sink from the surface",
+          "absorbing heat directly from the vents"
+        ],
+        "answer": 0,
+        "explain": "지문에서 열수 분출구 주변의 박테리아가 햇빛이 아닌 화학 에너지를 이용하는 화학합성으로 먹이사슬의 토대를 이룬다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that, before recent discoveries, scientists believed the deep sea was",
+        "type": "inference",
+        "options": [
+          "teeming with familiar fish species",
+          "largely incapable of supporting life",
+          "warmer than the ocean surface",
+          "fully mapped and well understood"
+        ],
+        "answer": 1,
+        "explain": "지문에서 오랫동안 과학자들이 그런 적대적 환경에서는 거의 아무것도 살 수 없다고 가정했다고 했으므로 정답은 B이다."
+      },
+      {
+        "q": "The word 'frigid' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "brightly lit",
+          "shallow",
+          "extremely cold",
+          "fast-moving"
+        ],
+        "answer": 2,
+        "explain": "햇빛이 사라지고 물이 차가워진다는 맥락이므로 frigid는 '몹시 차가운'이라는 의미이다."
       }
     ]
   }
