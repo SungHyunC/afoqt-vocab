@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "2.6.1";
+const VERSION = "2.7.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -26,7 +26,7 @@ function toast(msg, ms=1800){ const t=$("#toast"); t.textContent=msg; t.classLis
 /* ============================================================
    STATE
    ============================================================ */
-let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[];
+let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], GUIDES={};
 let state=null, sb=null, realtimeChan=null;
 
 const DEFAULT_STATE = () => ({
@@ -213,14 +213,28 @@ async function flushPush(){ if(!sb) return;
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",passage:"reading",exam:"home"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home"};
+let guideCur="wk";
+function openGuide(key){ guideCur=key; go("guide"); }
+function renderGuide(){
+  const g=GUIDES[guideCur];
+  const back={wk:"vocab",va:"analogy",rc:"reading"}[guideCur]||"home";
+  $("#guideBack").onclick=()=>go(back);
+  $("#guideNav").textContent="📘 공부 가이드";
+  if(!g){ $("#guideBody").innerHTML=`<div class="card center muted" style="padding:20px">가이드 준비 중이에요.</div>`; return; }
+  $("#guideBody").innerHTML=
+    `<div class="guide-hero"><h2>${esc(g.title||"공부 가이드")}</h2><div class="fmt">📋 ${esc(g.format||"")}</div></div>`+
+    (g.sections||[]).map(s=>`<div class="guide-sec"><h3>${esc(s.h)}</h3><p>${esc(s.body)}</p></div>`).join("")+
+    ((g.tips&&g.tips.length)?`<div class="guide-tips"><h3>⚡ 빠른 팁</h3><ul>${g.tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:"")+
+    ((g.sources&&g.sources.length)?`<div class="guide-src"><b>참고:</b> ${g.sources.map(esc).join(" · ")}</div>`:"");
+}
 function go(view){
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -367,6 +381,7 @@ let wordFilter="all", wordSearch="";
 function renderWords(){
   let list=WORDS.filter(w=>{ const c=getCard(w.id);
     if(wordFilter==="starred"&&!c.starred) return false;
+    if(wordFilter==="afoqt"&&!w.afoqtCommon) return false;
     if(wordFilter==="high"&&tierOf(w)==="std") return false;
     if(wordFilter==="gre"&&w.source!=="gre-magoosh") return false;
     if(["new","learning","review","mastered"].includes(wordFilter)&&c.status!==wordFilter) return false;
@@ -389,6 +404,7 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   openSheet(`<div class="row" style="justify-content:space-between;align-items:flex-start">
       <h3 style="font-size:26px">${esc(w.word)}</h3><button class="btn sm ghost" id="wstar">${c.starred?'★':'☆'}</button></div>
     <div style="color:var(--brand2);font-size:12px;text-transform:uppercase">${esc(w.pos||"")}${w.source==="gre-magoosh"?" · GRE Magoosh":""}${tierOf(w)==="high"?" · ⭐빈출":""}</div>
+    ${w.afoqtCommon?`<div class="hintbox" style="margin-top:8px;font-size:11px">⭐ AFOQT 빈출 단어 — Quizlet·Barron's·커뮤니티 AFOQT 단어 목록에 등재된 단어입니다.</div>`:""}
     <div style="font-size:20px;font-weight:700;margin-top:10px">${esc(w.kor||"")}</div>
     <div class="muted" style="margin-top:6px;line-height:1.5">${esc(w.def||"")}</div>
     ${w.example?`<div style="font-style:italic;border-left:3px solid var(--brand);padding-left:10px;margin-top:12px;color:#cbd5e1">"${esc(w.example)}"</div>`:""}
@@ -880,6 +896,7 @@ function wire(){
   // vocab hub
   $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
   $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
+  $("#vkGuide").onclick=()=>openGuide("wk"); $("#vaGuide").onclick=()=>openGuide("va"); $("#rcGuide").onclick=()=>openGuide("rc");
   $("#rootsBack").onclick=()=>go("vocab");
   $("#rootsSearch").oninput=e=>{ rootSearch=e.target.value.trim(); renderRoots(); };
   $$("#rootsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#rootsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); rootFilter=c.dataset.rf; renderRoots(); });
@@ -998,6 +1015,7 @@ async function boot(){
     ANALOGIES=await loadJSON("./analogies.json")||[];
     READING=await loadJSON("./reading.json")||[];
     ROOTS=await loadJSON("./roots.json")||[];
+    GUIDES=await loadJSON("./guides.json")||{};
     $("#boot").classList.remove("active"); go("home");
     initSync();   // non-blocking: app already usable
     registerSW();
