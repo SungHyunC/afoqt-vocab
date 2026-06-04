@@ -254,3 +254,14 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .root-card .rm{font-size:14px;margin-top:3px;color:var(--txt)}
 .root-card .rex{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .root-card .rex span{font-size:12px;background:var(--card2);border-radius:8px;padding:3px 9px;color:#cbd5e1}
+.guide-hero{background:linear-gradient(135deg,#6366f122,#06b6d422);border:1px solid var(--brand);border-radius:16px;padding:16px;margin-bottom:14px}
+.guide-hero h2{margin:0 0 6px;font-size:20px}
+.guide-hero .fmt{font-size:13px;color:var(--txt);line-height:1.5}
+.guide-sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.guide-sec h3{margin:0 0 6px;font-size:15px;color:var(--brand2)}
+.guide-sec p{margin:0;font-size:14px;line-height:1.7;color:var(--txt)}
+.guide-tips{background:var(--card2);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.guide-tips h3{margin:0 0 8px;font-size:14px}
+.guide-tips li{font-size:13.5px;line-height:1.7;margin-left:-6px}
+.guide-src{font-size:11px;color:var(--muted);line-height:1.6;margin-top:8px}
+.guide-src b{color:var(--txt)}
