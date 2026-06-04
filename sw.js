@@ -1,5 +1,5 @@
 /* AFOQT Vocab Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v2-9-0";
+const CACHE = "afoqt-v3-0-0";
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
@@ -13,6 +13,8 @@ const ASSETS = [
   "./reading.json",
   "./roots.json",
   "./guides.json",
+  "./aviation.json",
+  "./aviation_terms.json",
   "./icon.svg",
   "./manifest.webmanifest",
 ];

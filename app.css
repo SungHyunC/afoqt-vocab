@@ -221,6 +221,7 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .exam-sec{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.6px;
   color:var(--brand2);border:1px solid var(--brand2);border-radius:6px;padding:1px 7px;margin-bottom:10px}
 .exam-prompt{font-weight:700;font-size:16px;line-height:1.45;margin-bottom:6px}
+.exam-ko{font-size:13px;color:var(--brand2);line-height:1.5;margin:-2px 0 8px}
 .exam-stem{font-size:26px;font-weight:800;text-align:center;letter-spacing:1px;margin:12px 0;color:#fff}
 .exam-sub{text-align:center;color:var(--muted);font-size:12px;margin:-6px 0 12px;text-transform:uppercase;letter-spacing:.5px}
 .exam-passage{background:var(--card2);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:14px}
@@ -265,3 +266,16 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .guide-tips li{font-size:13.5px;line-height:1.7;margin-left:-6px}
 .guide-src{font-size:11px;color:var(--muted);line-height:1.6;margin-top:8px}
 .guide-src b{color:var(--txt)}
+.avterm{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:10px}
+.avterm .t{font-size:17px;font-weight:800;color:#fff}
+.avterm .ko{font-size:14px;font-weight:700;color:var(--brand2);margin-top:2px}
+.avterm .d{font-size:13px;color:var(--txt);margin-top:5px;line-height:1.55}
+.avterm .de{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5}
+.avterm .cat{display:inline-block;font-size:10px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-top:7px}
+.avflash{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 20px;min-height:230px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer}
+.avflash .ft{font-size:30px;font-weight:800;color:#fff}
+.avflash .fc{font-size:12px;color:var(--muted);margin-top:14px}
+.avflash .fko{font-size:22px;font-weight:800;color:var(--brand2);margin-bottom:10px}
+.avflash .fd{font-size:14px;color:var(--txt);line-height:1.6;margin-top:6px}
+.avflash .fde{font-size:13px;color:var(--muted);line-height:1.6;margin-top:8px}

@@ -200,6 +200,45 @@
   <div id="rootsList"></div>
 </main>
 
+<!-- ===== AVIATION (Pilot) ===== -->
+<main id="view-aviation" class="view">
+  <h2 class="section">✈️ Aviation Information (Pilot)</h2>
+  <p class="muted" style="margin:0 0 12px">AFOQT 파일럿 파트의 기초 항공 지식. 문제·용어 모두 한글 병기예요.</p>
+  <div class="grid2">
+    <div class="card tight stat"><div class="num" id="avTerms">0</div><div class="lbl">항공 용어</div></div>
+    <div class="card tight stat"><div class="num" id="avQs">0</div><div class="lbl">문제 수</div></div>
+  </div>
+  <button class="btn primary" id="avFlash" style="margin-top:16px">🃏 용어 플래시카드</button>
+  <button class="btn ghost" id="avGlossary" style="margin-top:10px">📖 용어집 (한글 뜻)</button>
+  <button class="btn ghost" id="avExam" style="margin-top:10px">🎯 항공 시험 (20문항·8분)</button>
+  <button class="btn ghost" id="avGuide" style="margin-top:10px">📘 항공 공부 가이드</button>
+</main>
+
+<!-- ===== AVIATION glossary ===== -->
+<main id="view-avterms" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="avtBack">← 항공</button><span>📖 항공 용어집</span><span></span></div>
+  <input class="search" id="avtSearch" placeholder="🔎 용어 / 한글 뜻 검색…">
+  <div class="filters" id="avtFilters">
+    <button class="chip on" data-af="all">전체</button>
+    <button class="chip" data-af="aerodynamics">공기역학</button>
+    <button class="chip" data-af="control_surfaces">조종면</button>
+    <button class="chip" data-af="instruments">계기</button>
+    <button class="chip" data-af="structure">구조</button>
+    <button class="chip" data-af="airport">공항</button>
+    <button class="chip" data-af="helicopter">헬기</button>
+    <button class="chip" data-af="general">일반</button>
+  </div>
+  <div class="muted" id="avtCount" style="font-size:12px;margin:2px 4px 10px"></div>
+  <div id="avtList"></div>
+</main>
+
+<!-- ===== AVIATION flashcards ===== -->
+<main id="view-avflash" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="avfBack">← 항공</button><span id="avfCount">0 / 0</span><span></span></div>
+  <div class="progressbar" style="margin-bottom:14px"><i id="avfBar"></i></div>
+  <div id="avfArea"></div>
+</main>
+
 <!-- ===== STUDY GUIDE (공부 가이드) ===== -->
 <main id="view-guide" class="view">
   <div class="study-top"><button class="btn sm ghost" id="guideBack">← 뒤로</button><span id="guideNav"></span><span></span></div>
@@ -320,6 +359,10 @@
       <div class="meta"><b>Verbal 전체 모의고사</b><div class="muted">단어+유추+독해 한 번에 (실전 75문항)</div>
         <div class="last" id="lastFull"></div></div>
       <div class="go">›</div></button>
+    <button class="exam-preset" data-exam="av"><div class="ic">✈️</div>
+      <div class="meta"><b>Aviation Information</b><div class="muted">항공 지식 — 문제 한글 병기</div>
+        <div class="last" id="lastAv"></div></div>
+      <div class="go">›</div></button>
 
     <h2 class="section">📕 오답 노트</h2>
     <p class="muted" style="margin:0 0 10px">시험에서 틀린 문제만 모아 다시 풉니다. 맞히면 노트에서 사라져요.</p>
@@ -401,6 +444,7 @@
   <button data-go="vocab"><span class="ic">📇</span>어휘</button>
   <button data-go="analogy"><span class="ic">🔗</span>유추</button>
   <button data-go="reading"><span class="ic">📖</span>독해</button>
+  <button data-go="aviation"><span class="ic">✈️</span>항공</button>
   <button data-go="stats"><span class="ic">📊</span>통계</button>
 </nav>
 
