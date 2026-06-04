@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "2.1.0";
+const VERSION = "2.6.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -915,6 +915,7 @@ function wire(){
   $("#newCode").onclick=()=>{ if(confirm("새 동기화 코드를 만들면 이 기기는 새 데이터로 시작합니다. 계속할까요?")){ localStorage.setItem(LS.code,genCode()); location.reload(); } };
   $("#enterCode").onclick=()=>{ const c=prompt("다른 기기와 동기화할 코드를 입력하세요:",syncCode()); if(c&&c.trim()){ localStorage.setItem(LS.code,c.trim()); toast("코드 적용 — 동기화 중…"); location.reload(); } };
   $("#resetAll").onclick=()=>{ if(confirm("이 기기의 학습 기록을 모두 지웁니다. 계속할까요?")){ state=DEFAULT_STATE(); saveLocal(); toast("초기화됨"); $("#settingsSheet").classList.remove("open"); go("home"); } };
+  $("#forceUpdate").onclick=forceUpdate;
   // Flush pending saves before the app is backgrounded/closed (mobile-safe).
   document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") saveNow(); });
   window.addEventListener("pagehide", saveNow);
@@ -926,12 +927,32 @@ function wire(){
    ============================================================ */
 // Register the service worker and auto-apply updates so users never get stuck
 // on a stale cached version (no need for ?v= cache-busting URLs).
+function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz; }
+// Nuke all caches + service workers and hard-reload — guarantees the latest
+// version, fixing any "I still see the old app" situation. Learning data lives
+// in localStorage, which is NOT touched here.
+async function forceUpdate(){
+  toast("최신 버전을 받는 중…");
+  try{
+    if("serviceWorker" in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r=>r.unregister()));
+    }
+    if(window.caches){ const ks=await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); }
+  }catch(e){ console.warn(e); }
+  // cache-bust the document so the server copy is fetched fresh
+  const u=new URL(location.href); u.searchParams.set("v",Date.now().toString()); location.replace(u.toString());
+}
 function registerSW(){
   if(!("serviceWorker" in navigator)) return;
   let reloaded=false;
-  // When a new SW takes control, reload once to pick up fresh assets.
+  // When a new SW takes control, reload to pick up fresh assets — but never
+  // mid-session (that would feel like getting kicked out). Defer until the
+  // user is back on a hub screen.
   navigator.serviceWorker.addEventListener("controllerchange",()=>{
-    if(reloaded) return; reloaded=true; location.reload();
+    if(reloaded) return;
+    const tryReload=()=>{ if(sessionActive()){ setTimeout(tryReload,4000); return; } reloaded=true; location.reload(); };
+    tryReload();
   });
   navigator.serviceWorker.register("./sw.js").then(reg=>{
     reg.update();                       // check for a newer SW now
