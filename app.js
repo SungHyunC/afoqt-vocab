@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "2.6.0";
+const VERSION = "2.6.1";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -861,8 +861,13 @@ function saveSettings(){ const g=parseInt($("#setGoal").value,10); state.setting
    RENDER orchestration
    ============================================================ */
 function renderAll(){ renderHome(); }
-function softRender(){ const a=$(".view.active")?.id;
+function softRender(){
+  // Never re-render a hub view while a session is in progress — a background
+  // sync echo must not reset the analogy/reading view and kick the user out.
+  if(sessionActive()) return;
+  const a=$(".view.active")?.id;
   ({"view-home":renderHome,"view-vocab":renderVocab,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-stats":renderStats}[a]||(()=>{}))(); }
+window.__softRender=softRender; // test/debug hook
 
 /* ============================================================
    WIRING
