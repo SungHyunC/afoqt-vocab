@@ -1,0 +1,653 @@
+[
+  {
+    "term": "Aileron",
+    "ko": "에일러론 (보조익)",
+    "def": "A hinged control surface on the trailing edge of each wing that controls roll about the longitudinal axis.",
+    "def_ko": "각 날개 뒷전에 달린 조종면으로, 세로축을 중심으로 한 롤(좌우 기울임)을 제어한다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Elevator",
+    "ko": "엘리베이터 (승강타)",
+    "def": "A control surface on the horizontal stabilizer that controls pitch about the lateral axis.",
+    "def_ko": "수평 안정판에 달린 조종면으로, 가로축을 중심으로 한 피치(기수 상하)를 제어한다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Rudder",
+    "ko": "러더 (방향타)",
+    "def": "A control surface on the vertical stabilizer that controls yaw about the vertical axis.",
+    "def_ko": "수직 안정판에 달린 조종면으로, 수직축을 중심으로 한 요(기수 좌우 방향)를 제어한다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Flaps",
+    "ko": "플랩 (고양력장치)",
+    "def": "Movable surfaces on the wing's trailing edge that increase lift and drag for takeoff and landing.",
+    "def_ko": "날개 뒷전에 달린 가동면으로, 이착륙 시 양력과 항력을 증가시킨다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Slats",
+    "ko": "슬랫 (앞전 슬랫)",
+    "def": "Movable surfaces on the wing's leading edge that increase lift at high angles of attack.",
+    "def_ko": "날개 앞전에 달린 가동면으로, 높은 받음각에서 양력을 증가시킨다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Spoilers",
+    "ko": "스포일러 (양력감소장치)",
+    "def": "Panels on the upper wing that disrupt airflow to reduce lift and increase drag.",
+    "def_ko": "날개 윗면의 패널로, 공기 흐름을 방해해 양력을 줄이고 항력을 늘린다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Trim Tab",
+    "ko": "트림 탭 (조종력 보정장치)",
+    "def": "A small adjustable surface on a control surface that relieves control pressure and holds an attitude.",
+    "def_ko": "조종면에 달린 작은 조절판으로, 조종력을 덜어주고 자세를 유지하게 한다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Stabilator",
+    "ko": "스태빌레이터 (전가동 수평미익)",
+    "def": "A one-piece horizontal tail surface that moves as a unit to control pitch.",
+    "def_ko": "하나로 통째로 움직이는 수평 꼬리날개로, 피치를 제어한다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Horizontal Stabilizer",
+    "ko": "수평 안정판",
+    "def": "The fixed horizontal tail surface that provides longitudinal (pitch) stability.",
+    "def_ko": "고정된 수평 꼬리날개로, 세로 방향(피치) 안정성을 제공한다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Vertical Stabilizer",
+    "ko": "수직 안정판",
+    "def": "The fixed vertical tail surface (fin) that provides directional (yaw) stability.",
+    "def_ko": "고정된 수직 꼬리날개로, 방향(요) 안정성을 제공한다.",
+    "category": "control_surfaces"
+  },
+  {
+    "term": "Longitudinal Axis",
+    "ko": "세로축 (종축)",
+    "def": "The axis running nose to tail, about which the aircraft rolls.",
+    "def_ko": "기수에서 꼬리로 이어지는 축으로, 이 축을 중심으로 항공기가 롤한다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Lateral Axis",
+    "ko": "가로축 (횡축)",
+    "def": "The axis running wingtip to wingtip, about which the aircraft pitches.",
+    "def_ko": "한쪽 날개끝에서 반대쪽 날개끝으로 이어지는 축으로, 이 축을 중심으로 항공기가 피치한다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Vertical Axis",
+    "ko": "수직축 (연직축)",
+    "def": "The axis running vertically through the aircraft's center, about which it yaws.",
+    "def_ko": "항공기 중심을 수직으로 관통하는 축으로, 이 축을 중심으로 항공기가 요한다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Pitch",
+    "ko": "피치 (기수 상하 운동)",
+    "def": "The up-and-down movement of the aircraft's nose about the lateral axis.",
+    "def_ko": "가로축을 중심으로 항공기 기수가 위아래로 움직이는 운동이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Roll",
+    "ko": "롤 (좌우 기울임 운동)",
+    "def": "The banking movement of the wings about the longitudinal axis.",
+    "def_ko": "세로축을 중심으로 날개가 좌우로 기우는 운동이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Yaw",
+    "ko": "요 (기수 좌우 방향 운동)",
+    "def": "The side-to-side movement of the aircraft's nose about the vertical axis.",
+    "def_ko": "수직축을 중심으로 항공기 기수가 좌우로 움직이는 운동이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Angle of Attack",
+    "ko": "받음각 (영각)",
+    "def": "The angle between the wing's chord line and the relative wind.",
+    "def_ko": "날개의 시위선과 상대풍 사이의 각도이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Lift",
+    "ko": "양력",
+    "def": "The aerodynamic force that acts upward, perpendicular to the relative wind, supporting the aircraft.",
+    "def_ko": "상대풍에 수직으로 위쪽으로 작용해 항공기를 떠받치는 공기역학적 힘이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Weight",
+    "ko": "중력 (무게)",
+    "def": "The downward force of gravity acting on the aircraft's mass.",
+    "def_ko": "항공기 질량에 작용하는 아래쪽으로의 중력이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Thrust",
+    "ko": "추력",
+    "def": "The forward force produced by the engine and propeller or jet that moves the aircraft ahead.",
+    "def_ko": "엔진과 프로펠러 또는 제트가 만들어 항공기를 앞으로 나아가게 하는 힘이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Drag",
+    "ko": "항력",
+    "def": "The rearward force that resists the aircraft's motion through the air.",
+    "def_ko": "공기 속에서 항공기의 움직임에 저항하는 뒤쪽으로의 힘이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Bernoulli's Principle",
+    "ko": "베르누이의 원리",
+    "def": "The principle that faster-moving air has lower pressure, helping explain how wings generate lift.",
+    "def_ko": "더 빠르게 흐르는 공기는 압력이 더 낮다는 원리로, 날개가 양력을 만드는 원리를 설명한다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Stall",
+    "ko": "실속 (스톨)",
+    "def": "A sudden loss of lift when the angle of attack exceeds the critical angle.",
+    "def_ko": "받음각이 임계각을 초과할 때 양력이 갑자기 사라지는 현상이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Camber",
+    "ko": "캠버 (만곡)",
+    "def": "The curvature of an airfoil from leading edge to trailing edge.",
+    "def_ko": "날개 단면(에어포일)이 앞전에서 뒷전까지 휘어진 정도이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Chord Line",
+    "ko": "시위선 (코드선)",
+    "def": "An imaginary straight line from the leading edge to the trailing edge of an airfoil.",
+    "def_ko": "에어포일의 앞전에서 뒷전까지 이은 가상의 직선이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Relative Wind",
+    "ko": "상대풍",
+    "def": "The direction of airflow relative to the wing, opposite to the aircraft's flight path.",
+    "def_ko": "날개를 기준으로 한 공기 흐름의 방향으로, 항공기 비행 경로의 반대 방향이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Center of Gravity",
+    "ko": "무게 중심 (중심)",
+    "def": "The point at which the aircraft's total weight is considered to be balanced.",
+    "def_ko": "항공기의 전체 무게가 균형을 이룬다고 보는 지점이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Airfoil",
+    "ko": "에어포일 (날개 단면)",
+    "def": "The cross-sectional shape of a wing or blade designed to produce lift.",
+    "def_ko": "양력을 만들도록 설계된 날개나 블레이드의 단면 형상이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Critical Angle of Attack",
+    "ko": "임계 받음각",
+    "def": "The angle of attack beyond which the wing stalls and loses lift.",
+    "def_ko": "이 각도를 넘으면 날개가 실속해 양력을 잃는 받음각이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Dihedral",
+    "ko": "상반각 (다이히드럴)",
+    "def": "The upward angle of the wings from root to tip that improves lateral stability.",
+    "def_ko": "날개가 뿌리에서 끝으로 갈수록 위로 들린 각도로, 가로 안정성을 높인다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Ground Effect",
+    "ko": "지면 효과",
+    "def": "The increase in lift and reduction in drag when flying very close to the ground.",
+    "def_ko": "지면에 매우 가깝게 비행할 때 양력이 늘고 항력이 줄어드는 현상이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Altimeter",
+    "ko": "고도계",
+    "def": "An instrument that shows the aircraft's altitude by measuring atmospheric pressure.",
+    "def_ko": "대기압을 측정해 항공기의 고도를 표시하는 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Airspeed Indicator",
+    "ko": "속도계 (대기속도계)",
+    "def": "An instrument that displays the aircraft's speed through the air using pitot and static pressure.",
+    "def_ko": "피토압과 정압을 이용해 항공기의 대기 속도를 표시하는 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Attitude Indicator",
+    "ko": "자세계 (수평의)",
+    "def": "An instrument that shows the aircraft's pitch and bank relative to the horizon.",
+    "def_ko": "수평선을 기준으로 항공기의 피치와 뱅크(기울기)를 보여주는 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Heading Indicator",
+    "ko": "방위계 (자이로 방향계)",
+    "def": "A gyroscopic instrument that shows the aircraft's magnetic heading.",
+    "def_ko": "자이로를 이용해 항공기의 자기 방위(헤딩)를 보여주는 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Turn Coordinator",
+    "ko": "선회 조정계 (턴 코디네이터)",
+    "def": "An instrument that shows the rate of turn and whether the turn is coordinated.",
+    "def_ko": "선회율과 선회가 균형 잡혀 있는지를 보여주는 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Vertical Speed Indicator",
+    "ko": "승강계 (수직속도계)",
+    "def": "An instrument that shows the rate of climb or descent in feet per minute.",
+    "def_ko": "분당 피트 단위로 상승률 또는 하강률을 보여주는 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Pitot Tube",
+    "ko": "피토관",
+    "def": "A forward-facing tube that measures ram (dynamic) air pressure for the airspeed indicator.",
+    "def_ko": "앞쪽을 향한 관으로, 속도계를 위한 동압(램압)을 측정한다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Static Port",
+    "ko": "정압구 (스태틱 포트)",
+    "def": "A flush opening that senses still ambient air pressure for several instruments.",
+    "def_ko": "기체 표면에 평평하게 난 구멍으로, 여러 계기를 위한 정지 대기압을 감지한다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Magnetic Compass",
+    "ko": "자기 나침반",
+    "def": "A basic instrument that indicates direction relative to Earth's magnetic field.",
+    "def_ko": "지구 자기장을 기준으로 방향을 알려주는 기본 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Tachometer",
+    "ko": "회전계 (타코미터)",
+    "def": "An instrument that displays engine or propeller speed in revolutions per minute (RPM).",
+    "def_ko": "엔진이나 프로펠러의 분당 회전수(RPM)를 표시하는 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "The Six-Pack",
+    "ko": "식스팩 (기본 6계기)",
+    "def": "The standard set of six primary flight instruments arranged in a panel.",
+    "def_ko": "계기판에 배열된 여섯 가지 기본 비행 계기의 표준 묶음이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Pitot-Static System",
+    "ko": "피토-정압 계통",
+    "def": "The system that supplies pitot and static pressure to the airspeed, altimeter, and VSI.",
+    "def_ko": "속도계, 고도계, 승강계에 피토압과 정압을 공급하는 계통이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Gyroscope",
+    "ko": "자이로스코프",
+    "def": "A spinning device whose rigidity in space drives the attitude and heading instruments.",
+    "def_ko": "회전하는 장치로, 공간에서의 강직성을 이용해 자세계와 방위계를 작동시킨다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Manifold Pressure Gauge",
+    "ko": "흡기압력계 (매니폴드 압력계)",
+    "def": "An instrument showing the pressure of air in the engine's intake manifold, indicating power.",
+    "def_ko": "엔진 흡기 매니폴드 내 공기 압력을 보여주어 출력 정도를 나타내는 계기이다.",
+    "category": "instruments"
+  },
+  {
+    "term": "Fuselage",
+    "ko": "동체",
+    "def": "The central body of the aircraft that holds the cockpit, passengers, and cargo.",
+    "def_ko": "조종석, 승객, 화물을 담는 항공기의 중심 몸체이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Empennage",
+    "ko": "미익부 (꼬리날개)",
+    "def": "The tail assembly of an aircraft, including the horizontal and vertical stabilizers.",
+    "def_ko": "수평 안정판과 수직 안정판을 포함한 항공기의 꼬리 부분이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Cockpit",
+    "ko": "조종석 (콕핏)",
+    "def": "The compartment where the pilot sits and operates the aircraft's controls.",
+    "def_ko": "조종사가 앉아 항공기 조종 장치를 다루는 공간이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Landing Gear",
+    "ko": "착륙장치 (랜딩기어)",
+    "def": "The wheels, struts, and supporting structure used for takeoff, landing, and taxiing.",
+    "def_ko": "이륙, 착륙, 지상 활주에 쓰이는 바퀴, 지주, 지지 구조이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Cowling",
+    "ko": "카울링 (엔진 덮개)",
+    "def": "The removable covering around the engine that streamlines airflow and aids cooling.",
+    "def_ko": "엔진 주위를 덮는 탈착식 덮개로, 공기 흐름을 매끄럽게 하고 냉각을 돕는다.",
+    "category": "structure"
+  },
+  {
+    "term": "Nacelle",
+    "ko": "나셀 (엔진 외장)",
+    "def": "A streamlined housing that encloses an engine, usually mounted on a wing or fuselage.",
+    "def_ko": "엔진을 감싸는 유선형 외장으로, 보통 날개나 동체에 장착된다.",
+    "category": "structure"
+  },
+  {
+    "term": "Monocoque",
+    "ko": "모노코크 (응력외피 구조)",
+    "def": "A structural design in which the outer skin carries most of the loads.",
+    "def_ko": "바깥 외피가 대부분의 하중을 담당하는 구조 설계이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Semi-Monocoque",
+    "ko": "세미모노코크 (반응력외피 구조)",
+    "def": "A structure where the skin works with internal frames and stringers to carry loads.",
+    "def_ko": "외피가 내부 골격과 스트링거와 함께 하중을 담당하는 구조이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Wing",
+    "ko": "날개 (주익)",
+    "def": "The primary lifting surface of an aircraft extending from the fuselage.",
+    "def_ko": "동체에서 뻗어나온 항공기의 주된 양력 발생면이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Spar",
+    "ko": "스파 (날개보)",
+    "def": "The main lengthwise structural member of a wing that carries bending loads.",
+    "def_ko": "날개의 길이 방향 주요 구조재로, 굽힘 하중을 담당한다.",
+    "category": "structure"
+  },
+  {
+    "term": "Rib",
+    "ko": "리브 (날개 골격)",
+    "def": "A structural member that gives the wing its airfoil shape and supports the skin.",
+    "def_ko": "날개에 에어포일 형상을 부여하고 외피를 지지하는 구조재이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Leading Edge",
+    "ko": "앞전 (전연)",
+    "def": "The front edge of a wing or airfoil that first meets the oncoming air.",
+    "def_ko": "다가오는 공기를 가장 먼저 맞이하는 날개나 에어포일의 앞쪽 가장자리이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Trailing Edge",
+    "ko": "뒷전 (후연)",
+    "def": "The rear edge of a wing or airfoil where the airflow rejoins.",
+    "def_ko": "공기 흐름이 다시 합쳐지는 날개나 에어포일의 뒤쪽 가장자리이다.",
+    "category": "structure"
+  },
+  {
+    "term": "Bulkhead",
+    "ko": "벌크헤드 (격벽)",
+    "def": "A vertical partition within the fuselage that adds strength and divides sections.",
+    "def_ko": "동체 안의 수직 칸막이로, 강도를 더하고 구획을 나눈다.",
+    "category": "structure"
+  },
+  {
+    "term": "Runway",
+    "ko": "활주로",
+    "def": "A defined paved or unpaved strip used for aircraft takeoff and landing.",
+    "def_ko": "항공기 이착륙에 쓰이는 포장 또는 비포장된 정해진 길이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Taxiway",
+    "ko": "유도로 (택시웨이)",
+    "def": "A path connecting runways with ramps, hangars, and terminals for ground movement.",
+    "def_ko": "활주로와 주기장, 격납고, 터미널을 잇는 지상 이동용 통로이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Traffic Pattern",
+    "ko": "장주 (트래픽 패턴)",
+    "def": "The standard rectangular flight path flown around an airport for landing.",
+    "def_ko": "착륙을 위해 공항 주위를 도는 표준 직사각형 비행 경로이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Downwind Leg",
+    "ko": "다운윈드 (배풍 구간)",
+    "def": "The leg of the traffic pattern flown parallel to the runway, opposite the landing direction.",
+    "def_ko": "장주에서 착륙 방향 반대로 활주로와 나란히 나는 구간이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Base Leg",
+    "ko": "베이스 (기초 구간)",
+    "def": "The leg of the traffic pattern flown perpendicular to the runway before final approach.",
+    "def_ko": "장주에서 최종 접근 직전 활주로에 직각으로 나는 구간이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Final Approach",
+    "ko": "파이널 (최종 접근)",
+    "def": "The last straight leg of the traffic pattern aligned with the runway for landing.",
+    "def_ko": "착륙을 위해 활주로와 정렬해 일직선으로 나는 장주의 마지막 구간이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Windsock",
+    "ko": "풍향 자루 (윈드삭)",
+    "def": "A fabric cone at an airport that shows wind direction and approximate speed.",
+    "def_ko": "공항에 설치된 천 원뿔로, 바람의 방향과 대략적인 세기를 보여준다.",
+    "category": "airport"
+  },
+  {
+    "term": "Control Tower",
+    "ko": "관제탑",
+    "def": "The facility where air traffic controllers direct aircraft on and near the airport.",
+    "def_ko": "관제사가 공항과 그 주변의 항공기를 지휘하는 시설이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Runway Numbering",
+    "ko": "활주로 번호",
+    "def": "Runways are numbered by their magnetic heading rounded to the nearest ten degrees.",
+    "def_ko": "활주로는 그 자기 방위를 가장 가까운 10도 단위로 반올림한 숫자로 번호가 매겨진다.",
+    "category": "airport"
+  },
+  {
+    "term": "Threshold",
+    "ko": "착륙대 시작점 (스레숄드)",
+    "def": "The beginning of the runway portion usable for landing, often marked with stripes.",
+    "def_ko": "착륙에 사용할 수 있는 활주로 부분의 시작점으로, 보통 줄무늬로 표시된다.",
+    "category": "airport"
+  },
+  {
+    "term": "Apron (Ramp)",
+    "ko": "계류장 (램프)",
+    "def": "The paved area where aircraft park, load, unload, refuel, or board passengers.",
+    "def_ko": "항공기가 주기하거나 짐을 싣고 내리고 급유하거나 승객을 태우는 포장 구역이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Crosswind Leg",
+    "ko": "크로스윈드 (측풍 구간)",
+    "def": "The traffic pattern leg flown perpendicular to the departure end of the runway after takeoff.",
+    "def_ko": "이륙 후 활주로 끝에 직각으로 나는 장주 구간이다.",
+    "category": "airport"
+  },
+  {
+    "term": "Main Rotor",
+    "ko": "주 로터 (메인 로터)",
+    "def": "The large overhead rotor that provides a helicopter's lift and thrust.",
+    "def_ko": "헬리콥터에 양력과 추력을 제공하는 머리 위의 큰 회전날개이다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Tail Rotor",
+    "ko": "꼬리 로터 (테일 로터)",
+    "def": "The small rotor at the tail that counteracts main rotor torque and controls yaw.",
+    "def_ko": "꼬리에 달린 작은 로터로, 주 로터의 토크를 상쇄하고 요를 제어한다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Collective",
+    "ko": "콜렉티브 (총피치 레버)",
+    "def": "A helicopter control that changes the pitch of all main rotor blades together to control altitude.",
+    "def_ko": "주 로터 블레이드 전체의 피치를 동시에 바꿔 고도를 제어하는 헬리콥터 조종 장치이다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Cyclic",
+    "ko": "사이클릭 (주기 피치 조종간)",
+    "def": "A helicopter control that tilts the rotor disc to move the helicopter forward, back, or sideways.",
+    "def_ko": "로터 원판을 기울여 헬리콥터를 전후좌우로 움직이게 하는 조종 장치이다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Anti-Torque Pedals",
+    "ko": "안티토크 페달 (방향 페달)",
+    "def": "Foot pedals that control the tail rotor to manage yaw and counter main rotor torque.",
+    "def_ko": "꼬리 로터를 조절해 요를 다루고 주 로터 토크를 상쇄하는 발 페달이다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Autorotation",
+    "ko": "자동회전 (오토로테이션)",
+    "def": "A flight condition where the main rotor turns from airflow alone, allowing a safe engine-out landing.",
+    "def_ko": "공기 흐름만으로 주 로터가 돌아 엔진 정지 시에도 안전하게 착륙하게 하는 비행 상태이다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Rotor Blade",
+    "ko": "로터 블레이드 (회전날개)",
+    "def": "The rotating airfoil of a helicopter rotor that generates lift.",
+    "def_ko": "양력을 만드는 헬리콥터 로터의 회전하는 에어포일이다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Hover",
+    "ko": "호버링 (정지 비행)",
+    "def": "A helicopter flight condition of maintaining a fixed position in the air.",
+    "def_ko": "헬리콥터가 공중에서 고정된 위치를 유지하는 비행 상태이다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Swashplate",
+    "ko": "스와시플레이트 (경사판)",
+    "def": "A mechanism that transfers cyclic and collective inputs to the rotating rotor blades.",
+    "def_ko": "사이클릭과 콜렉티브 입력을 회전하는 로터 블레이드에 전달하는 장치이다.",
+    "category": "helicopter"
+  },
+  {
+    "term": "Propeller",
+    "ko": "프로펠러",
+    "def": "Rotating blades driven by the engine that produce thrust by accelerating air.",
+    "def_ko": "엔진으로 돌아가는 블레이드로, 공기를 가속해 추력을 만든다.",
+    "category": "general"
+  },
+  {
+    "term": "Throttle",
+    "ko": "스로틀 (출력 조절기)",
+    "def": "A control that regulates engine power by adjusting the fuel-air mixture flow.",
+    "def_ko": "연료-공기 혼합기 흐름을 조절해 엔진 출력을 제어하는 장치이다.",
+    "category": "general"
+  },
+  {
+    "term": "Carburetor",
+    "ko": "기화기 (카뷰레터)",
+    "def": "A device that mixes fuel and air in the correct ratio for combustion in the engine.",
+    "def_ko": "엔진 연소를 위해 연료와 공기를 알맞은 비율로 섞는 장치이다.",
+    "category": "general"
+  },
+  {
+    "term": "Magneto",
+    "ko": "마그네토 (점화 발전기)",
+    "def": "An engine-driven device that produces electrical sparks to ignite the fuel-air mixture.",
+    "def_ko": "엔진으로 구동되어 연료-공기 혼합기를 점화할 불꽃을 만드는 장치이다.",
+    "category": "general"
+  },
+  {
+    "term": "Four-Stroke Cycle",
+    "ko": "4행정 사이클",
+    "def": "The engine cycle of intake, compression, power, and exhaust strokes.",
+    "def_ko": "흡입, 압축, 폭발, 배기의 행정으로 이루어진 엔진 작동 주기이다.",
+    "category": "general"
+  },
+  {
+    "term": "Turbine Engine",
+    "ko": "터빈 엔진",
+    "def": "A jet engine that compresses air, burns fuel, and uses expanding gases to spin a turbine for thrust.",
+    "def_ko": "공기를 압축하고 연료를 태워 팽창하는 가스로 터빈을 돌려 추력을 내는 제트 엔진이다.",
+    "category": "general"
+  },
+  {
+    "term": "RPM",
+    "ko": "분당 회전수 (RPM)",
+    "def": "Revolutions per minute, a measure of how fast the engine or propeller is turning.",
+    "def_ko": "분당 회전수로, 엔진이나 프로펠러가 도는 속도를 나타내는 단위이다.",
+    "category": "general"
+  },
+  {
+    "term": "Mixture Control",
+    "ko": "혼합비 조절기 (믹스처)",
+    "def": "A control that adjusts the ratio of fuel to air supplied to the engine.",
+    "def_ko": "엔진에 공급되는 연료와 공기의 비율을 조절하는 장치이다.",
+    "category": "general"
+  },
+  {
+    "term": "Detonation",
+    "ko": "디토네이션 (이상폭발)",
+    "def": "The uncontrolled explosion of the fuel-air mixture that can damage the engine.",
+    "def_ko": "연료-공기 혼합기가 통제되지 않고 폭발해 엔진을 손상시킬 수 있는 현상이다.",
+    "category": "general"
+  },
+  {
+    "term": "Yoke",
+    "ko": "조종간 (요크)",
+    "def": "The control wheel or column the pilot uses to operate the ailerons and elevator.",
+    "def_ko": "조종사가 에일러론과 엘리베이터를 조작하는 데 쓰는 조종 휠 또는 기둥이다.",
+    "category": "general"
+  },
+  {
+    "term": "Coordinated Turn",
+    "ko": "균형 선회 (조화 선회)",
+    "def": "A turn in which aileron and rudder are used together so the aircraft is not slipping or skidding.",
+    "def_ko": "에일러론과 러더를 함께 써서 항공기가 미끄러지지 않게 하는 선회이다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Adverse Yaw",
+    "ko": "역요 (애드버스 요)",
+    "def": "The tendency of the aircraft's nose to yaw opposite the direction of a roll, requiring rudder.",
+    "def_ko": "롤하는 방향과 반대로 기수가 요하려는 경향으로, 러더로 보정해야 한다.",
+    "category": "aerodynamics"
+  },
+  {
+    "term": "Frise Aileron",
+    "ko": "프리즈 에일러론",
+    "def": "An aileron design that reduces adverse yaw by adding drag on the upward-deflected side.",
+    "def_ko": "위로 꺾인 쪽에 항력을 더해 역요를 줄이는 에일러론 설계이다.",
+    "category": "control_surfaces"
+  }
+]

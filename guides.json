@@ -146,5 +146,56 @@
       "https://afoqtguide.com/reading-comprehension/",
       "https://www.test-guide.com/free-afoqt-practice-tests.html"
     ]
+  },
+  "av": {
+    "key": "av",
+    "title": "✈️ Aviation Information 공부 가이드",
+    "format": "20문항을 8분 안에 풀어야 하며(문항당 약 24초), 기초 항공 지식(aviation knowledge)을 묻는 순수 암기형 과목입니다. 미리 아는 만큼 점수가 나오므로 핵심 개념을 묶어서 외우는 것이 전략입니다.",
+    "sections": [
+      {
+        "h": "시험 형식과 시간 배분",
+        "body": "Aviation Information은 20문항·8분으로, 한 문항당 약 24초만 주어집니다. 답을 '아느냐 모르느냐'로 갈리는 지식형 시험이라 계산보다 암기가 중요합니다. 대부분 fixed-wing aircraft(고정익, 일반 비행기) 위주이며 rotary aircraft(회전익, 헬리콥터) 문항도 일부 나옵니다. 이 과목은 PILOT composite(조종사 합산 점수)에 들어가므로 조종 후보생에게 특히 중요합니다."
+      },
+      {
+        "h": "비행의 4가지 힘 (four forces of flight)",
+        "body": "비행기에는 항상 4가지 힘이 작용합니다: lift(양력, 위로 뜨는 힘), weight/gravity(중력, 아래로 끌어내리는 힘), thrust(추력, 엔진이 앞으로 미는 힘), drag(항력, 뒤로 잡아당기는 공기 저항). 등속 수평 비행에서는 lift=weight, thrust=drag로 서로 균형을 이룹니다. lift는 날개(wing)에서 발생하며, angle of attack(받음각, 날개와 공기 흐름이 이루는 각도)이 커지면 양력도 커지지만 너무 커지면 stall(실속, 양력 상실)이 발생합니다."
+      },
+      {
+        "h": "조종면과 3축 (control surfaces & three axes)",
+        "body": "비행기는 3개의 축으로 움직입니다: longitudinal axis(세로축)에서 roll(좌우 기울기), lateral axis(가로축)에서 pitch(기수 상하), vertical axis(수직축)에서 yaw(기수 좌우). 조종면은 ailerons(에일러론, 날개 끝)=roll 담당, elevator(엘리베이터, 수평꼬리날개)=pitch 담당, rudder(러더, 수직꼬리날개)=yaw 담당입니다. flaps(플랩)은 이착륙 시 양력을 늘리고 속도를 줄여 줍니다. '에일러론=roll, 엘리베이터=pitch, 러더=yaw' 세 쌍을 반드시 묶어서 외우세요."
+      },
+      {
+        "h": "비행 계기 'six-pack' (six-pack instruments)",
+        "body": "기본 계기 6종은 다음과 같습니다: airspeed indicator(속도계), attitude indicator(자세계, 수평/뱅크 표시), altimeter(고도계), turn coordinator(선회계), heading indicator(방향지시계, 나침반 방향), vertical speed indicator/VSI(승강계, 상승·하강률). 이 중 airspeed·altimeter·VSI는 pitot-static system(피토-정압 시스템, 공기 압력)으로 작동하고, attitude·heading·turn coordinator는 gyroscopic(자이로) 계기입니다. 배치는 가운데 위 attitude indicator를 중심으로 한 'basic T(기본 T자)' 형태입니다."
+      },
+      {
+        "h": "헬리콥터 기초 (helicopter basics)",
+        "body": "헬리콥터에는 3개의 주 조종장치가 있습니다: collective(컬렉티브, 왼손 레버)는 모든 rotor blade의 피치를 동시에 바꿔 상승·하강을 담당하고, cyclic(사이클릭, 오른손 스틱)은 rotor disk(로터 회전면)를 기울여 전후좌우 이동을 담당합니다. anti-torque pedals(안티토크 페달, 발)은 tail rotor(꼬리 로터)를 조절해 기수 방향(yaw)을 제어하며, 비행기의 rudder 페달과 같은 위치·역할입니다. '컬렉티브=상하, 사이클릭=방향 이동, 페달=기수 회전'으로 묶어 기억하세요."
+      },
+      {
+        "h": "공항 운영·관제와 트래픽 패턴 (airport operations & traffic pattern)",
+        "body": "공항 착륙 시 비행기는 정해진 traffic pattern(장주, 사각형 비행 경로)을 돕니다. 순서는 upwind→crosswind→downwind(활주로와 평행하게 반대 방향 비행)→base(활주로 끝과 직각으로 하강)→final approach(활주로 중심선을 따라 최종 진입). 보통 좌선회(left-hand) 패턴이 표준입니다. 항공기는 가능한 한 맞바람(headwind) 방향으로 이착륙하며, 활주로 번호는 자기 방위(magnetic heading)를 10으로 나눈 값(예: 활주로 27 ≈ 270도 방향)입니다."
+      },
+      {
+        "h": "학습 전략: 개념 묶음 암기",
+        "body": "이 과목은 사전 항공 지식이 점수를 좌우하므로, 낱개가 아니라 '개념 클러스터'로 묶어 외우는 것이 가장 효율적입니다(4가지 힘 한 묶음, 조종면-축 세 쌍, six-pack 6종, 헬기 3조작 등). 영어 용어가 어렵다면 플래시카드로 영어 용어와 한글 기능을 짝지어 반복하세요. 더 깊게 공부하려면 FAA 무료 자료인 Pilot's Handbook of Aeronautical Knowledge나 private pilot ground school 자료가 도움이 됩니다. 8분 제한이 빠듯하므로 모르는 문항은 즉시 찍고 넘어가 시간 손실을 막으세요."
+      }
+    ],
+    "tips": [
+      "문항당 약 24초뿐이니 모르면 즉시 추측(guess)하고 넘어가세요. 오답 감점이 없습니다.",
+      "조종면-축은 항상 세 쌍으로: ailerons=roll, elevator=pitch, rudder=yaw.",
+      "six-pack은 공압(airspeed·altimeter·VSI)과 자이로(attitude·heading·turn coordinator) 두 그룹으로 나눠 외우세요.",
+      "헬기 3조작: collective=상하, cyclic=방향 이동, anti-torque pedals=기수(yaw) 회전.",
+      "트래픽 패턴 순서 upwind-crosswind-downwind-base-final을 통째로 암기하세요.",
+      "영어 용어가 약하면 '영어 단어 ↔ 한글 기능' 플래시카드로 반복 암기하는 것이 가장 빠릅니다."
+    ],
+    "sources": [
+      "https://afoqtguide.com/aviation-information/",
+      "https://www.mometrix.com/academy/afoqt-practice-test/",
+      "https://pilotinstitute.com/six-pack-instruments/",
+      "https://en.wikipedia.org/wiki/Helicopter_flight_controls",
+      "https://en.wikipedia.org/wiki/Airfield_traffic_pattern",
+      "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/helicopter_flying_handbook/hfh_ch03.pdf"
+    ]
   }
 }

@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "2.7.0";
+const VERSION = "3.0.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -26,7 +26,7 @@ function toast(msg, ms=1800){ const t=$("#toast"); t.textContent=msg; t.classLis
 /* ============================================================
    STATE
    ============================================================ */
-let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], GUIDES={};
+let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], GUIDES={}, AVIATION=[], AVTERMS=[];
 let state=null, sb=null, realtimeChan=null;
 
 const DEFAULT_STATE = () => ({
@@ -213,7 +213,7 @@ async function flushPush(){ if(!sb) return;
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -234,7 +234,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -434,6 +434,52 @@ function renderRoots(){
 }
 
 /* ============================================================
+   AVIATION (Pilot — Aviation Information)
+   ============================================================ */
+const AVCAT={aerodynamics:"공기역학",control_surfaces:"조종면",instruments:"계기",structure:"구조",airport:"공항",helicopter:"헬기",general:"일반"};
+function renderAviation(){
+  $("#avTerms").textContent=AVTERMS.length;
+  $("#avQs").textContent=AVIATION.length;
+  $("#avExam").disabled=!AVIATION.length;
+  $("#avFlash").disabled=!AVTERMS.length;
+}
+let avtFilter="all", avtSearch="";
+function renderAvTerms(){
+  let list=AVTERMS.filter(t=>{
+    if(avtFilter!=="all"&&t.category!==avtFilter) return false;
+    if(avtSearch){ const q=avtSearch.toLowerCase();
+      if(!((t.term||"").toLowerCase().includes(q)||(t.ko||"").includes(avtSearch)||(t.def_ko||"").includes(avtSearch)||(t.def||"").toLowerCase().includes(q))) return false; }
+    return true; });
+  $("#avtCount").textContent=`${list.length}개`;
+  $("#avtList").innerHTML=list.map(t=>`<div class="avterm">
+    <div class="t">${esc(t.term)}</div><div class="ko">${esc(t.ko||"")}</div>
+    <div class="d">${esc(t.def_ko||"")}</div><div class="de">${esc(t.def||"")}</div>
+    <span class="cat">${AVCAT[t.category]||t.category}</span></div>`).join("")
+    ||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
+}
+let avf=null;
+function startAvFlash(){
+  if(!AVTERMS.length) return;
+  avf={items:shuffle(AVTERMS),idx:0,flipped:false};
+  renderAvFlash();
+}
+function renderAvFlash(){
+  const s=avf; if(!s) return; const t=s.items[s.idx];
+  $("#avfCount").textContent=`${s.idx+1} / ${s.items.length}`;
+  $("#avfBar").style.width=(s.idx/s.items.length*100)+"%";
+  $("#avfArea").innerHTML=`<div class="avflash" id="avfCard">
+      ${s.flipped
+        ? `<div class="fko">${esc(t.ko||"")}</div><div class="fd">${esc(t.def_ko||"")}</div><div class="fde">${esc(t.def||"")}</div><div class="fc">👆 탭 → 다음</div>`
+        : `<div class="ft">${esc(t.term)}</div><div class="fc">👆 탭하면 뜻 보기</div>`}
+    </div>
+    <div class="exam-nav"><button class="btn ghost" id="avfPrev">← 이전</button><button class="btn primary" id="avfNext">다음 →</button></div>`;
+  $("#avfCard").onclick=()=>{ if(!s.flipped){ s.flipped=true; renderAvFlash(); } else { avfNext(); } };
+  $("#avfNext").onclick=avfNext;
+  $("#avfPrev").onclick=()=>{ if(s.idx>0){ s.idx--; s.flipped=false; renderAvFlash(); } };
+}
+function avfNext(){ const s=avf; if(s.idx<s.items.length-1){ s.idx++; s.flipped=false; renderAvFlash(); } else { toast("용어 카드 끝! 🎉"); go("aviation"); } }
+
+/* ============================================================
    VERBAL ANALOGIES
    ============================================================ */
 function vaStats(){ const v=Object.values(state.va); const seen=v.filter(x=>x.seen>0).length;
@@ -537,7 +583,14 @@ const EXAM_PRESETS={
   rc:  {name:"Reading Comprehension",secs:1500, build:()=>buildRC(25),                            label:"25문항 · 25:00"},
   // Full Verbal mock mirrors real AFOQT proportions (WK25 + VA25 + RC25).
   full:{name:"Verbal 전체 모의고사",  secs:3060, build:()=>[...buildWK(25),...buildVA(25),...buildRC(25)], label:"75문항 · 51:00 (실전)"},
+  av:  {name:"Aviation Information", secs:480,  build:()=>buildAV(20),                            label:"20문항 · 8:00"},
 };
+function buildAV(n){
+  return shuffle(AVIATION).slice(0,n).map(q=>({
+    section:"AV", prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:AVCAT[q.topic]||q.topic||"",
+    avId:q.id, avTopic:q.topic,
+    options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
+}
 // Rough, clearly-unofficial mapping from accuracy to an AFOQT-style percentile.
 function estPercentile(acc){
   const pts=[[0,1],[0.4,8],[0.5,18],[0.55,25],[0.6,33],[0.65,42],[0.7,52],[0.75,62],[0.8,72],[0.85,81],[0.9,89],[0.95,95],[1,99]];
@@ -637,7 +690,7 @@ function buildWrongRC(){
 function renderExamSetup(){
   exam=null; stopExamTimer();
   $("#examSetup").classList.remove("hidden"); $("#examRun").classList.add("hidden"); $("#examResult").classList.add("hidden");
-  const map={wk:"lastWk",va:"lastVa",rc:"lastRc",full:"lastFull"};
+  const map={wk:"lastWk",va:"lastVa",rc:"lastRc",full:"lastFull",av:"lastAv"};
   for(const k in map){ const r=state.exams[k]; const el=$("#"+map[k]);
     el.textContent=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:EXAM_PRESETS[k].label; }
   // wrong-note (오답 노트)
@@ -681,9 +734,10 @@ function renderExamQ(){
       <div class="passage">${esc(it.passageText)}</div></details>`:"";
   const stem=it.stem?`<div class="exam-stem">${esc(it.stem)}</div>`:"";
   const sub=it.sub?`<div class="exam-sub">${esc(it.sub)}</div>`:"";
+  const ko=it.promptKo?`<div class="exam-ko">${esc(it.promptKo)}</div>`:"";
   $("#examArea").innerHTML=`${passage}<div class="card">
     <span class="exam-sec">${it.section}</span>
-    <div class="exam-prompt">${esc(it.prompt)}</div>${stem}${sub}
+    <div class="exam-prompt">${esc(it.prompt)}</div>${ko}${stem}${sub}
     <div class="choices" id="examChoices">${it.options.map((o,i)=>
       `<button class="choice ${e.answers[e.idx]===i?"sel":""}" data-i="${i}">${esc(o)}</button>`).join("")}</div></div>`;
   $$("#examChoices .choice").forEach(btn=>btn.onclick=()=>{
@@ -758,7 +812,7 @@ function submitExam(auto){
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
   $("#examEmoji").textContent=pct>=85?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
   $("#examScore").textContent=`${got} / ${total} 정답 (${pct}%)`;
-  const secName={WK:"단어",VA:"유추",RC:"독해"};
+  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공"};
   $("#examBreakDown").innerHTML=Object.keys(bySec).map(k=>
     `<div class="s"><b>${bySec[k].got}/${bySec[k].total}</b><span>${secName[k]||k}</span></div>`).join("");
   // estimated AFOQT-style percentile (unofficial)
@@ -775,7 +829,7 @@ function submitExam(auto){
 }
 function renderExamReview(){
   const e=exam; if(!e) return;
-  const secName={WK:"단어",VA:"유추",RC:"독해"};
+  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공"};
   $("#examReview").innerHTML=e.items.map((it,i)=>{
     const pick=e.answers[i], ok=pick===it.answer;
     const opts=it.options.map((o,oi)=>{
@@ -863,7 +917,7 @@ function createGeneric(){ const bg=document.createElement("div"); bg.className="
 function closeSheet(){ $("#genericSheet")?.classList.remove("open"); }
 function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#setStart").value=state.settings.start_date; $("#setExam").value=state.settings.exam_date;
   $("#setUrl").value=localStorage.getItem(LS.url)||""; $("#setKey").value=localStorage.getItem(LS.key)||"";
-  $("#syncCodeView").textContent=syncCode(); $("#verLine").textContent=`v${VERSION} · 단어 ${WORDS.length} · 유추 ${ANALOGIES.length} · 독해 ${READING.length}`;
+  $("#syncCodeView").textContent=syncCode(); $("#verLine").textContent=`v${VERSION} · 단어 ${WORDS.length} · 유추 ${ANALOGIES.length} · 독해 ${READING.length} · 항공 ${AVIATION.length}`;
   setSyncDot(sb?"on":(sbUrl()&&sbKey()?"err":"off")); $("#settingsSheet").classList.add("open"); }
 function saveSettings(){ const g=parseInt($("#setGoal").value,10); state.settings.daily_goal=isNaN(g)?0:Math.max(0,g);
   if($("#setStart").value) state.settings.start_date=$("#setStart").value; if($("#setExam").value) state.settings.exam_date=$("#setExam").value;
@@ -897,6 +951,12 @@ function wire(){
   $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
   $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
   $("#vkGuide").onclick=()=>openGuide("wk"); $("#vaGuide").onclick=()=>openGuide("va"); $("#rcGuide").onclick=()=>openGuide("rc");
+  // aviation
+  $("#avFlash").onclick=()=>go("avflash"); $("#avGlossary").onclick=()=>go("avterms");
+  $("#avExam").onclick=()=>startExam("av"); $("#avGuide").onclick=()=>openGuide("av");
+  $("#avtBack").onclick=()=>go("aviation"); $("#avfBack").onclick=()=>go("aviation");
+  $("#avtSearch").oninput=e=>{ avtSearch=e.target.value.trim(); renderAvTerms(); };
+  $$("#avtFilters .chip").forEach(c=>c.onclick=()=>{ $$("#avtFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); avtFilter=c.dataset.af; renderAvTerms(); });
   $("#rootsBack").onclick=()=>go("vocab");
   $("#rootsSearch").oninput=e=>{ rootSearch=e.target.value.trim(); renderRoots(); };
   $$("#rootsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#rootsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); rootFilter=c.dataset.rf; renderRoots(); });
@@ -939,10 +999,18 @@ function wire(){
   $("#resetAll").onclick=()=>{ if(confirm("이 기기의 학습 기록을 모두 지웁니다. 계속할까요?")){ state=DEFAULT_STATE(); saveLocal(); toast("초기화됨"); $("#settingsSheet").classList.remove("open"); go("home"); } };
   $("#forceUpdate").onclick=forceUpdate;
   // Flush pending saves before the app is backgrounded/closed (mobile-safe).
-  document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") saveNow(); });
+  // On returning to the app, refresh the active hub so today's count and the
+  // recommended new-words amount reflect the current day (handles the day
+  // rolling over while the app/PWA was left open in the background).
+  document.addEventListener("visibilitychange",()=>{
+    if(document.visibilityState==="hidden"){ saveNow(); return; }
+    if(!sessionActive()){ if(todayStr()!==lastDay){ lastDay=todayStr(); } softRender(); }
+  });
+  window.addEventListener("focus",()=>{ if(!sessionActive()) softRender(); });
   window.addEventListener("pagehide", saveNow);
   window.addEventListener("beforeunload", saveNow);
 }
+let lastDay=todayStr();
 
 /* ============================================================
    BOOT
@@ -1016,6 +1084,8 @@ async function boot(){
     READING=await loadJSON("./reading.json")||[];
     ROOTS=await loadJSON("./roots.json")||[];
     GUIDES=await loadJSON("./guides.json")||{};
+    AVIATION=await loadJSON("./aviation.json")||[];
+    AVTERMS=await loadJSON("./aviation_terms.json")||[];
     $("#boot").classList.remove("active"); go("home");
     initSync();   // non-blocking: app already usable
     registerSW();
