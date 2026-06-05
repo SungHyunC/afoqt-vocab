@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "3.1.0";
+const VERSION = "3.2.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -215,12 +215,12 @@ async function flushPush(){ if(!sb) return;
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
   const g=GUIDES[guideCur];
-  const back={wk:"vocab",va:"analogy",rc:"reading"}[guideCur]||"home";
+  const back={wk:"vocab",va:"analogy",rc:"reading",av:"aviation",tr:"aviation",bc:"aviation"}[guideCur]||"home";
   $("#guideBack").onclick=()=>go(back);
   $("#guideNav").textContent="📘 공부 가이드";
   if(!g){ $("#guideBody").innerHTML=`<div class="card center muted" style="padding:20px">가이드 준비 중이에요.</div>`; return; }
@@ -491,6 +491,130 @@ function renderAvFlash(){
   $("#avfPrev").onclick=()=>{ if(s.idx>0){ s.idx--; s.flipped=false; renderAvFlash(); } };
 }
 function avfNext(){ const s=avf; if(s.idx<s.items.length-1){ s.idx++; s.flipped=false; renderAvFlash(); } else { toast("용어 카드 끝! 🎉"); go("aviation"); } }
+
+/* ============================================================
+   TABLE READING (Pilot subtest — procedural)
+   ============================================================ */
+let trState=null;
+function startTableReading(){
+  const xs=[]; for(let x=-5;x<=5;x++) xs.push(x);
+  const ys=[]; for(let y=5;y>=-5;y--) ys.push(y);
+  const grid=ys.map(()=>xs.map(()=>10+(Math.random()*90|0)));
+  const N=20, secs=210, qs=[];
+  for(let i=0;i<N;i++){
+    const xi=Math.random()*xs.length|0, yi=Math.random()*ys.length|0, correct=grid[yi][xi];
+    const opts=new Set([correct]); let g=0;
+    while(opts.size<5&&g++<60){ let v;
+      if(Math.random()<0.6){ const ny=clamp(yi+(Math.random()<.5?-1:1),0,ys.length-1), nx=clamp(xi+(Math.random()<.5?-1:1),0,xs.length-1); v=grid[ny][nx]; }
+      else v=10+(Math.random()*90|0); opts.add(v); }
+    while(opts.size<5) opts.add(10+(Math.random()*90|0));
+    qs.push({x:xs[xi],y:ys[yi],correct,options:shuffle([...opts])});
+  }
+  trState={xs,ys,grid,N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
+  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-tablereading").classList.add("active");
+  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
+  $("#trResult").classList.add("hidden"); $("#trTable").innerHTML=trTableHTML();
+  trTimerStart(); renderTRQ();
+}
+function trTableHTML(){ const s=trState;
+  let h='<div class="tr-wrap"><table class="tr-tbl"><thead><tr><th class="tr-corner">Y\\X</th>';
+  s.xs.forEach(x=>h+=`<th>${x}</th>`); h+='</tr></thead><tbody>';
+  s.ys.forEach((y,yi)=>{ h+=`<tr><th>${y}</th>`; s.grid[yi].forEach(v=>h+=`<td>${v}</td>`); h+='</tr>'; });
+  return h+'</tbody></table></div>';
+}
+function trTimerStart(){ trTimerStop(); $("#trTimer").textContent=fmtTime(trState.secsLeft);
+  trState.timer=setInterval(()=>{ if(!trState) return trTimerStop(); trState.secsLeft--; const t=$("#trTimer");
+    if(t){ t.textContent=fmtTime(trState.secsLeft); t.classList.toggle("warn",trState.secsLeft<=15); }
+    if(trState.secsLeft<=0) finishTR(); },1000); }
+function trTimerStop(){ if(trState&&trState.timer){ clearInterval(trState.timer); trState.timer=null; } }
+function renderTRQ(){ const s=trState; if(!s) return; if(s.idx>=s.N) return finishTR();
+  const q=s.qs[s.idx]; s.answered=false;
+  $("#trCount").textContent=`${s.idx+1} / ${s.N}`; $("#trBar").style.width=(s.idx/s.N*100)+"%";
+  $("#trQ").innerHTML=`<div class="tr-q"><div class="tr-coord">X = <b>${q.x}</b> , Y = <b>${q.y}</b> 의 값은?</div>
+    <div class="tr-opts">${q.options.map(o=>`<button data-v="${o}">${o}</button>`).join("")}</div></div>`;
+  $$("#trQ .tr-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
+    const v=+btn.dataset.v, ok=v===q.correct;
+    $$("#trQ .tr-opts button").forEach(b=>{ b.disabled=true; if(+b.dataset.v===q.correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
+    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0});
+    setTimeout(()=>{ if(trState){ s.idx++; renderTRQ(); } }, ok?320:750); });
+}
+function finishTR(){ const s=trState; if(!s) return; trTimerStop();
+  $("#trQ").innerHTML=""; $("#trBar").style.width="100%";
+  const pct=Math.round(s.score/s.N*100);
+  $("#trEmoji").textContent=pct>=85?"🏆":pct>=60?"📊":"📈";
+  $("#trScore").textContent=`${s.score} / ${s.N} 정답 (${pct}%)`;
+  $("#trSub").textContent=`소요 ${fmtTime(s.secs-Math.max(0,s.secsLeft))} · 실제 시험: 40문항 7분`;
+  $("#trResult").classList.remove("hidden");
+}
+
+/* ============================================================
+   BLOCK COUNTING (Pilot subtest — procedural, isometric SVG)
+   ============================================================ */
+let bcState=null;
+function genBlockFigure(){
+  const W=2+(Math.random()*3|0), D=2+(Math.random()*2|0); const set=new Set(), heights={};
+  for(let x=0;x<W;x++)for(let y=0;y<D;y++){ const h=Math.random()*4|0; heights[x+","+y]=h;
+    for(let z=0;z<h;z++) set.add(x+","+y+","+z); }
+  const blocks=[...set].map(s=>s.split(",").map(Number));
+  if(blocks.length<4) return genBlockFigure();
+  // target = a top-of-column block (its top face is visible/labelable)
+  const tops=[]; for(const k in heights){ const h=heights[k]; if(h>0){ const [x,y]=k.split(",").map(Number); tops.push([x,y,h-1]); } }
+  const target=tops[Math.random()*tops.length|0];
+  const [tx,ty,tz]=target;
+  let touch=0; [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]].forEach(([dx,dy,dz])=>{ if(set.has((tx+dx)+","+(ty+dy)+","+(tz+dz))) touch++; });
+  return {blocks,target,touch};
+}
+function bcOptions(correct){ let lo=correct<=2?0:(correct>=4?2:correct-2); const o=[]; for(let k=0;k<5;k++)o.push(lo+k); return o; }
+function bcSVG(fig){
+  const tw=38,th=19,vh=26;
+  const order=[...fig.blocks].sort((a,b)=>((a[0]+a[1])-(b[0]+b[1]))||(a[2]-b[2]));
+  let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9; const cubes=[];
+  order.forEach(([x,y,z])=>{ const sx=(x-y)*(tw/2), sy=(x+y)*(th/2)-z*vh;
+    const top=[[sx,sy],[sx+tw/2,sy+th/2],[sx,sy+th],[sx-tw/2,sy+th/2]];
+    const left=[[sx-tw/2,sy+th/2],[sx,sy+th],[sx,sy+th+vh],[sx-tw/2,sy+th/2+vh]];
+    const right=[[sx,sy+th],[sx+tw/2,sy+th/2],[sx+tw/2,sy+th/2+vh],[sx,sy+th+vh]];
+    [...top,...left,...right].forEach(([px,py])=>{ minX=Math.min(minX,px);maxX=Math.max(maxX,px);minY=Math.min(minY,py);maxY=Math.max(maxY,py); });
+    cubes.push({top,left,right,sx,sy,isT:x===fig.target[0]&&y===fig.target[1]&&z===fig.target[2]}); });
+  const pad=10,ox=-minX+pad,oy=-minY+pad,W=(maxX-minX+pad*2),H=(maxY-minY+pad*2);
+  const P=(pts,fill)=>`<polygon points="${pts.map(([x,y])=>`${(x+ox).toFixed(1)},${(y+oy).toFixed(1)}`).join(" ")}" fill="${fill}" stroke="#0f172a" stroke-width="1.2" stroke-linejoin="round"/>`;
+  let svg=`<svg viewBox="0 0 ${W.toFixed(0)} ${H.toFixed(0)}" xmlns="http://www.w3.org/2000/svg">`;
+  cubes.forEach(c=>{ svg+=P(c.right,"#3f4c63")+P(c.left,"#566481")+P(c.top,c.isT?"#22d3ee":"#93a4bd");
+    if(c.isT) svg+=`<text x="${(c.sx+ox).toFixed(1)}" y="${(c.sy+th/2+oy).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="800" fill="#0f172a">?</text>`; });
+  return svg+'</svg>';
+}
+function startBlockCounting(){
+  const N=10, secs=180, qs=[];
+  for(let i=0;i<N;i++){ const f=genBlockFigure(); qs.push({fig:f,correct:f.touch,options:bcOptions(f.touch)}); }
+  bcState={N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
+  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-blockcounting").classList.add("active");
+  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
+  $("#bcResult").classList.add("hidden"); bcTimerStart(); renderBCQ();
+}
+function bcTimerStart(){ bcTimerStop(); $("#bcTimer").textContent=fmtTime(bcState.secsLeft);
+  bcState.timer=setInterval(()=>{ if(!bcState) return bcTimerStop(); bcState.secsLeft--; const t=$("#bcTimer");
+    if(t){ t.textContent=fmtTime(bcState.secsLeft); t.classList.toggle("warn",bcState.secsLeft<=15); }
+    if(bcState.secsLeft<=0) finishBC(); },1000); }
+function bcTimerStop(){ if(bcState&&bcState.timer){ clearInterval(bcState.timer); bcState.timer=null; } }
+function renderBCQ(){ const s=bcState; if(!s) return; if(s.idx>=s.N) return finishBC();
+  const q=s.qs[s.idx]; s.answered=false;
+  $("#bcCount").textContent=`${s.idx+1} / ${s.N}`; $("#bcBar").style.width=(s.idx/s.N*100)+"%";
+  $("#bcArea").innerHTML=`<div class="bc-fig">${bcSVG(q.fig)}</div>
+    <div class="bc-q"><b>?</b> 블록(청록색)이 <b>닿는</b> 블록은 몇 개?</div>
+    <div class="bc-opts">${q.options.map(o=>`<button data-v="${o}">${o}</button>`).join("")}</div>`;
+  $$("#bcArea .bc-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
+    const v=+btn.dataset.v, ok=v===q.correct;
+    $$("#bcArea .bc-opts button").forEach(b=>{ b.disabled=true; if(+b.dataset.v===q.correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
+    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0});
+    setTimeout(()=>{ if(bcState){ s.idx++; renderBCQ(); } }, ok?600:1100); });
+}
+function finishBC(){ const s=bcState; if(!s) return; bcTimerStop();
+  $("#bcArea").innerHTML=""; $("#bcBar").style.width="100%";
+  const pct=Math.round(s.score/s.N*100);
+  $("#bcEmoji").textContent=pct>=80?"🏆":pct>=50?"🧱":"📈";
+  $("#bcScore").textContent=`${s.score} / ${s.N} 정답 (${pct}%)`;
+  $("#bcSub").textContent=`소요 ${fmtTime(s.secs-Math.max(0,s.secsLeft))} · 실제 시험: 30문항 4.5분 · 대각선은 닿는 게 아니에요`;
+  $("#bcResult").classList.remove("hidden");
+}
 
 /* ============================================================
    VERBAL ANALOGIES
@@ -977,6 +1101,13 @@ function wire(){
   $("#avFlash").onclick=()=>go("avflash"); $("#avGlossary").onclick=()=>go("avterms");
   $("#avExam").onclick=()=>startExam("av"); $("#avGuide").onclick=()=>openGuide("av");
   $("#avtBack").onclick=()=>go("aviation"); $("#avfBack").onclick=()=>go("aviation");
+  $("#trStart").onclick=startTableReading; $("#trGuide").onclick=()=>openGuide("tr");
+  $("#trBack").onclick=()=>{ trTimerStop(); trState=null; go("aviation"); }; $("#trRetry").onclick=startTableReading; $("#trHome").onclick=()=>{ trState=null; go("aviation"); };
+  $("#bcStart").onclick=startBlockCounting; $("#bcGuide").onclick=()=>openGuide("bc");
+  $("#bcBack").onclick=()=>{ bcTimerStop(); bcState=null; go("aviation"); }; $("#bcRetry").onclick=startBlockCounting; $("#bcHome").onclick=()=>{ bcState=null; go("aviation"); };
+  $("#exportProg").onclick=exportProgress;
+  $("#importProg").onclick=()=>$("#importFile").click();
+  $("#importFile").onchange=e=>{ if(e.target.files&&e.target.files[0]) importProgress(e.target.files[0]); e.target.value=""; };
   $("#avtSearch").oninput=e=>{ avtSearch=e.target.value.trim(); renderAvTerms(); };
   $$("#avtFilters .chip").forEach(c=>c.onclick=()=>{ $$("#avtFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); avtFilter=c.dataset.af; renderAvTerms(); });
   $("#rootsBack").onclick=()=>go("vocab");
@@ -1039,10 +1170,32 @@ let lastDay=todayStr();
    ============================================================ */
 // Register the service worker and auto-apply updates so users never get stuck
 // on a stale cached version (no need for ?v= cache-busting URLs).
-function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz; }
+function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz||!!trState||!!bcState; }
 // Nuke all caches + service workers and hard-reload — guarantees the latest
 // version, fixing any "I still see the old app" situation. Learning data lives
 // in localStorage, which is NOT touched here.
+// Backup: download the full local state as a JSON file (offline safety net).
+function exportProgress(){
+  saveNow();
+  const data=JSON.stringify({app:"afoqt-vocab",v:VERSION,code:syncCode(),ts:Date.now(),state},null,2);
+  const url=URL.createObjectURL(new Blob([data],{type:"application/json"}));
+  const a=document.createElement("a"); a.href=url; a.download=`afoqt-backup-${todayStr()}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast("백업 파일을 저장했어요 💾");
+}
+// Restore: load a backup file, replace local state, reload (loadLocal re-normalizes).
+function importProgress(file){
+  const r=new FileReader();
+  r.onload=()=>{ try{
+    const d=JSON.parse(r.result); const st=d.state||d;
+    if(!st||typeof st!=="object"||(!st.cards&&!st.settings&&!st.daily)){ toast("올바른 백업 파일이 아니에요"); return; }
+    if(!confirm("이 백업으로 현재 기기의 진도를 덮어씁니다. 계속할까요?")) return;
+    localStorage.setItem(LS.state, JSON.stringify(st));
+    if(d.code) localStorage.setItem(LS.code, d.code);
+    toast("복원 완료 — 새로고침합니다"); setTimeout(()=>location.reload(),700);
+  }catch(e){ console.error(e); toast("복원 실패: 파일을 읽을 수 없어요"); } };
+  r.readAsText(file);
+}
 async function forceUpdate(){
   toast("최신 버전을 받는 중…");
   try{

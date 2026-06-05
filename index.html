@@ -221,6 +221,39 @@
   <button class="btn ghost" id="avGlossary" style="margin-top:10px">📖 용어집 (한글 뜻)</button>
   <button class="btn ghost" id="avExam" style="margin-top:10px">🎯 항공 시험 (20문항·8분)</button>
   <button class="btn ghost" id="avGuide" style="margin-top:10px">📘 항공 공부 가이드</button>
+
+  <h2 class="section">기타 Pilot 서브테스트</h2>
+  <button class="btn ghost" id="trStart" style="margin-top:6px">📊 Table Reading (표 읽기)</button>
+  <button class="btn ghost" id="trGuide" style="margin-top:10px">📘 Table Reading 가이드</button>
+  <button class="btn ghost" id="bcStart" style="margin-top:10px">🧱 Block Counting (블록 세기)</button>
+  <button class="btn ghost" id="bcGuide" style="margin-top:10px">📘 Block Counting 가이드</button>
+</main>
+
+<!-- ===== TABLE READING ===== -->
+<main id="view-tablereading" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="trBack">← 항공</button><span id="trCount" class="muted" style="font-size:13px">0 / 0</span><span class="exam-timer" id="trTimer">0:00</span></div>
+  <div class="progressbar" style="margin-bottom:12px"><i id="trBar"></i></div>
+  <div id="trTable"></div>
+  <div id="trQ"></div>
+  <div id="trResult" class="card center hidden">
+    <div class="big-emoji" id="trEmoji">📊</div>
+    <h2 id="trScore"></h2><p class="muted" id="trSub"></p>
+    <button class="btn primary" id="trRetry" style="margin-top:8px">다시</button>
+    <button class="btn ghost" id="trHome" style="margin-top:10px">항공으로</button>
+  </div>
+</main>
+
+<!-- ===== BLOCK COUNTING ===== -->
+<main id="view-blockcounting" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="bcBack">← 항공</button><span id="bcCount" class="muted" style="font-size:13px">0 / 0</span><span class="exam-timer" id="bcTimer">0:00</span></div>
+  <div class="progressbar" style="margin-bottom:12px"><i id="bcBar"></i></div>
+  <div id="bcArea"></div>
+  <div id="bcResult" class="card center hidden">
+    <div class="big-emoji" id="bcEmoji">🧱</div>
+    <h2 id="bcScore"></h2><p class="muted" id="bcSub"></p>
+    <button class="btn primary" id="bcRetry" style="margin-top:8px">다시</button>
+    <button class="btn ghost" id="bcHome" style="margin-top:10px">항공으로</button>
+  </div>
 </main>
 
 <!-- ===== AVIATION glossary ===== -->
@@ -441,6 +474,11 @@
     </details>
 
     <button class="btn primary" id="saveSettings" style="margin-top:20px">저장</button>
+    <div class="row" style="gap:8px;margin-top:10px">
+      <button class="btn ghost sm" id="exportProg" style="flex:1">⬇️ 진도 백업</button>
+      <button class="btn ghost sm" id="importProg" style="flex:1">⬆️ 진도 복원</button>
+    </div>
+    <input type="file" id="importFile" accept="application/json,.json" style="display:none">
     <button class="btn ghost" id="forceUpdate" style="margin-top:10px">🔄 강제 업데이트 (최신 버전 받기)</button>
     <button class="btn ghost" id="closeSettings" style="margin-top:10px">닫기</button>
     <button class="btn ghost" id="resetAll" style="margin-top:10px;color:var(--bad)">⚠️ 학습 기록 초기화</button>
