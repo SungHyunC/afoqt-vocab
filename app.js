@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "3.0.0";
+const VERSION = "3.1.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -37,6 +37,7 @@ const DEFAULT_STATE = () => ({
   exams:{},   // 'wk'|'va'|'rc'|'full' -> {best,bestTotal,last,lastTotal,date}
   wrong:{wk:{},va:{},rc:{}},  // 오답 노트: wk wordId / va anaId / rc "pid:qi" -> 1
   weak:{vaRel:{},rcType:{},wkTier:{}},  // 약점 분석: category -> {c,w}
+  wkSeen:{}, avp:{},  // readiness coverage: wordId / aviationId seen in exams
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-07-10" },
@@ -48,6 +49,7 @@ function loadLocal(){
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.wrong=Object.assign({wk:{},va:{},rc:{}},state.wrong||{});
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{}},state.weak||{});
+  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{};
   state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
 }
@@ -248,19 +250,30 @@ function renderHome(){
   const pct=target?clamp(Math.round(today.studied/target*100),0,100):0;
   $("#goalRing").style.setProperty("--p",pct); $("#ringPct").textContent=pct+"%";
   const overall=Math.round(cnt.learned/Math.max(1,WORDS.length)*100);
-  $("#overallBar").style.width=overall+"%";
-  $("#overallLine").textContent=`전체 진도 ${cnt.learned} / ${WORDS.length} (${overall}%)`;
   $("#stStreak").textContent=computeStreak(); $("#stToday").textContent=today.studied; $("#stDue").textContent=dueCards().length;
   $("#recPace").textContent=`신규 ${newPerDay()}/일`;
-  // section bars
-  $("#wkBar").style.width=overall+"%";
-  $("#wkSub").textContent=`어휘 ${cnt.learned}/${WORDS.length}`;
+  // ---- per-section readiness ----
+  const afCount=WORDS.filter(w=>w.afoqtCommon).length||1;
+  const afLearned=WORDS.filter(w=>w.afoqtCommon&&((state.cards[w.id]&&state.cards[w.id].status!=="new")||state.wkSeen[w.id])).length;
+  const wkR=afLearned/afCount;
   const vaSeen=Object.values(state.va).filter(v=>v.seen>0).length;
-  $("#vaBar").style.width=(ANALOGIES.length?Math.round(vaSeen/ANALOGIES.length*100):0)+"%";
+  const vaR=ANALOGIES.length?vaSeen/ANALOGIES.length:0;
+  const rcDone=Object.values(state.rc).filter(v=>v.done||v.seen).length;
+  const rcR=READING.length?rcDone/READING.length:0;
+  const avEx=state.exams.av; const avCov=Object.keys(state.avp).length;
+  const avR=AVIATION.length?avCov/AVIATION.length:0;
+  $("#wkBar").style.width=Math.round(wkR*100)+"%";
+  $("#wkSub").textContent=`빈출 ${afLearned}/${afCount} · 전체 ${cnt.learned}/${WORDS.length}`;
+  $("#vaBar").style.width=Math.round(vaR*100)+"%";
   $("#vaSub").textContent=ANALOGIES.length?`유추 ${vaSeen}/${ANALOGIES.length}`:"준비 중";
-  const rcDone=Object.values(state.rc).filter(v=>v.done).length;
-  $("#rcBar").style.width=(READING.length?Math.round(rcDone/READING.length*100):0)+"%";
+  $("#rcBar").style.width=Math.round(rcR*100)+"%";
   $("#rcSub").textContent=READING.length?`독해 ${rcDone}/${READING.length}`:"준비 중";
+  if($("#avBarH")){ $("#avBarH").style.width=Math.round(avR*100)+"%";
+    $("#avSub").textContent=AVIATION.length?(avEx?`항공 최고 ${avEx.best}/${avEx.bestTotal} · 푼 ${avCov}/${AVIATION.length}`:`항공 ${avCov}/${AVIATION.length} 풀이`):"준비 중"; }
+  // ---- composite AFOQT readiness ----
+  const ready=Math.round((wkR+vaR+rcR+avR)/4*100);
+  $("#overallBar").style.width=ready+"%";
+  $("#overallLine").textContent=`AFOQT 준비도 ${ready}% · 단어 ${Math.round(wkR*100)} / 유추 ${Math.round(vaR*100)} / 독해 ${Math.round(rcR*100)} / 항공 ${Math.round(avR*100)}`;
 }
 
 /* ============================================================
@@ -584,6 +597,8 @@ const EXAM_PRESETS={
   // Full Verbal mock mirrors real AFOQT proportions (WK25 + VA25 + RC25).
   full:{name:"Verbal 전체 모의고사",  secs:3060, build:()=>[...buildWK(25),...buildVA(25),...buildRC(25)], label:"75문항 · 51:00 (실전)"},
   av:  {name:"Aviation Information", secs:480,  build:()=>buildAV(20),                            label:"20문항 · 8:00"},
+  // Balanced daily mixed practice across all four areas (generous timer = low pressure).
+  daily:{name:"오늘의 통합 학습",     secs:1500, build:()=>[...buildWK(8),...buildVA(6),...buildRC(4),...buildAV(4)], label:"전 영역 22문항"},
 };
 function buildAV(n){
   return shuffle(AVIATION).slice(0,n).map(q=>({
@@ -764,13 +779,18 @@ function recordResult(it,ok){
   if(it.section==="WK"&&it.wordId!=null){
     if(ok) delete W.wk[it.wordId]; else W.wk[it.wordId]=1;
     bump(K.wkTier, it.tier||"std");
+    state.wkSeen[it.wordId]=1;                 // coverage for readiness
   } else if(it.section==="VA"&&it.anaId!=null){
     if(ok) delete W.va[it.anaId]; else W.va[it.anaId]=1;
     bump(K.vaRel, it.relation||"기타");
+    const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok)v.correct=(v.correct||0)+1; else v.wrong=(v.wrong||0)+1; setVA(it.anaId,v);
   } else if(it.section==="RC"&&it.passageId!=null){
     const key=it.passageId+":"+(it.qIdx||0);
     if(ok) delete W.rc[key]; else W.rc[key]=1;
     bump(K.rcType, it.qType||"detail");
+    const r={...getRC(it.passageId)}; r.seen=true; setRC(it.passageId,r);  // coverage
+  } else if(it.section==="AV"&&it.avId!=null){
+    state.avp[it.avId]=1;                      // coverage for readiness
   }
 }
 function wrongCounts(){ return {wk:Object.keys(state.wrong.wk).length,va:Object.keys(state.wrong.va).length,rc:Object.keys(state.wrong.rc).length}; }
@@ -946,7 +966,9 @@ function wire(){
   $$("#nav button").forEach(b=>b.onclick=()=>go(b.dataset.go));
   // home
   $("#btnStart").onclick=startStudy; $("#btnExam").onclick=()=>go("exam");
+  $("#btnDaily").onclick=()=>startExam("daily");
   $("#secWK").onclick=()=>go("vocab"); $("#secVA").onclick=()=>go("analogy"); $("#secRC").onclick=()=>go("reading");
+  $("#secAV").onclick=()=>go("aviation");
   // vocab hub
   $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
   $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
