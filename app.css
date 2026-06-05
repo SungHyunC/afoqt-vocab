@@ -279,3 +279,27 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .avflash .fko{font-size:22px;font-weight:800;color:var(--brand2);margin-bottom:10px}
 .avflash .fd{font-size:14px;color:var(--txt);line-height:1.6;margin-top:6px}
 .avflash .fde{font-size:13px;color:var(--muted);line-height:1.6;margin-top:8px}
+/* Table Reading */
+.tr-wrap{overflow:auto;max-height:46vh;border:1px solid var(--line);border-radius:12px;margin-bottom:14px}
+.tr-tbl{border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tr-tbl th,.tr-tbl td{border:1px solid var(--line);padding:5px 7px;text-align:center;min-width:30px}
+.tr-tbl th{background:var(--card2);color:var(--brand2);font-weight:700}
+.tr-tbl thead th,.tr-tbl tr th:first-child{position:sticky;z-index:1}
+.tr-tbl thead th{top:0}.tr-tbl tr th:first-child{left:0}
+.tr-tbl .tr-corner{background:var(--card);color:var(--muted);font-size:10px;top:0;left:0;z-index:2}
+.tr-q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.tr-coord{font-size:24px;font-weight:800;text-align:center;margin-bottom:12px}
+.tr-coord b{color:var(--brand2)}
+.tr-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.tr-opts button{padding:14px 0;border-radius:12px;background:var(--card2);font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.tr-opts button.correct{background:#16a34a33;border:1px solid var(--ok)}
+.tr-opts button.wrong{background:#dc262633;border:1px solid var(--bad)}
+/* Block Counting */
+.bc-fig{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:14px;text-align:center}
+.bc-fig svg{width:100%;max-height:42vh}
+.bc-q{font-weight:700;text-align:center;margin:4px 0 12px}
+.bc-q b{color:var(--brand2);font-size:20px}
+.bc-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.bc-opts button{padding:14px 0;border-radius:12px;background:var(--card2);font-size:18px;font-weight:800}
+.bc-opts button.correct{background:#16a34a33;border:1px solid var(--ok)}
+.bc-opts button.wrong{background:#dc262633;border:1px solid var(--bad)}
