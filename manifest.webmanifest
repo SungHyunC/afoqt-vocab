@@ -1,6 +1,6 @@
 {
-  "name": "AFOQT Vocab Master",
-  "short_name": "AFOQT Vocab",
+  "name": "AFOQT Master",
+  "short_name": "AFOQT Master",
   "description": "AFOQT Verbal 단어 암기 - 간격반복 + 실시간 동기화",
   "start_url": "./index.html",
   "scope": "./",

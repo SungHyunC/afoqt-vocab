@@ -303,3 +303,15 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .bc-opts button{padding:14px 0;border-radius:12px;background:var(--card2);font-size:18px;font-weight:800}
 .bc-opts button.correct{background:#16a34a33;border:1px solid var(--ok)}
 .bc-opts button.wrong{background:#dc262633;border:1px solid var(--bad)}
+/* Instrument Comprehension */
+.ic-instruments{display:flex;gap:16px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.ic-dial{text-align:center}
+.ic-dial svg{width:148px;height:148px}
+.ic-dial .lbl{font-size:11px;color:var(--muted);margin-top:4px}
+.ic-prompt{text-align:center;font-weight:700;margin:2px 0 12px;line-height:1.5}
+.ic-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ic-opts button{background:var(--card2);border:2px solid transparent;border-radius:14px;padding:8px}
+.ic-opts button svg{width:100%;height:84px;display:block}
+.ic-opts button .ol{font-size:11px;color:var(--muted);text-align:center;margin-top:2px}
+.ic-opts button.correct{border-color:var(--ok);background:#16a34a22}
+.ic-opts button.wrong{border-color:var(--bad);background:#dc262622}

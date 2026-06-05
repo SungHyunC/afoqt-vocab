@@ -1,0 +1,982 @@
+[
+  {
+    "id": 1,
+    "topic": "forces",
+    "q": "What is Newton's first law of motion?",
+    "q_ko": "뉴턴의 운동 제1법칙은 무엇인가?",
+    "options": [
+      "Force equals mass times acceleration",
+      "Every action has an equal and opposite reaction",
+      "Energy cannot be created or destroyed",
+      "An object in motion stays in motion unless acted on by a net force"
+    ],
+    "answer": 3,
+    "explain": "제1법칙(관성의 법칙): 외부의 알짜힘(net force)이 작용하지 않으면 정지한 물체는 계속 정지하고, 운동하는 물체는 등속 직선 운동을 계속한다. F=ma는 제2법칙, 작용-반작용은 제3법칙이다."
+  },
+  {
+    "id": 2,
+    "topic": "forces",
+    "q": "According to Newton's second law, if you double the force on an object while keeping mass constant, the acceleration will:",
+    "q_ko": "뉴턴 제2법칙에 따라 질량이 일정할 때 힘을 두 배로 하면 가속도는?",
+    "options": [
+      "Double",
+      "Stay the same",
+      "Be cut in half",
+      "Become zero"
+    ],
+    "answer": 0,
+    "explain": "F=ma 에서 질량 m이 일정하면 가속도 a는 힘 F에 비례한다. 따라서 힘이 2배가 되면 가속도도 2배가 된다."
+  },
+  {
+    "id": 3,
+    "topic": "forces",
+    "q": "A 10 kg object accelerates at 2 m/s². What net force acts on it?",
+    "q_ko": "10 kg 물체가 2 m/s²로 가속한다. 작용하는 알짜힘은?",
+    "options": [
+      "5 N",
+      "20 N",
+      "12 N",
+      "0.2 N"
+    ],
+    "answer": 1,
+    "explain": "F = m × a = 10 kg × 2 m/s² = 20 N. 뉴턴 제2법칙을 직접 적용한다."
+  },
+  {
+    "id": 4,
+    "topic": "forces",
+    "q": "Which is an example of Newton's third law?",
+    "q_ko": "뉴턴 제3법칙의 예는?",
+    "options": [
+      "A book resting on a table",
+      "A car slowing due to friction",
+      "A rocket pushing gas down and being pushed up",
+      "A ball falling because of gravity"
+    ],
+    "answer": 2,
+    "explain": "제3법칙(작용-반작용): 로켓이 가스를 아래로 밀면(작용) 가스가 로켓을 위로 민다(반작용). 두 힘은 크기가 같고 방향이 반대이다."
+  },
+  {
+    "id": 5,
+    "topic": "forces",
+    "q": "What force opposes the motion of two surfaces sliding against each other?",
+    "q_ko": "서로 미끄러지는 두 면의 운동을 방해하는 힘은?",
+    "options": [
+      "Gravity",
+      "Tension",
+      "Friction",
+      "Magnetism"
+    ],
+    "answer": 2,
+    "explain": "마찰력(friction)은 접촉한 두 표면 사이에서 상대 운동을 방해하는 방향으로 작용한다."
+  },
+  {
+    "id": 6,
+    "topic": "forces",
+    "q": "The weight of an object is the result of which force?",
+    "q_ko": "물체의 무게는 어떤 힘의 결과인가?",
+    "options": [
+      "Gravity",
+      "Friction",
+      "Normal force",
+      "Applied force"
+    ],
+    "answer": 0,
+    "explain": "무게(weight)는 중력(gravity)이 질량에 작용한 힘으로, W = m × g 로 계산한다(g≈9.8 m/s²)."
+  },
+  {
+    "id": 7,
+    "topic": "forces",
+    "q": "What is the SI unit of force?",
+    "q_ko": "힘의 SI 단위는?",
+    "options": [
+      "Newton",
+      "Joule",
+      "Watt",
+      "Pascal"
+    ],
+    "answer": 0,
+    "explain": "힘의 SI 단위는 뉴턴(Newton, N)이며 1 N = 1 kg·m/s²이다. Joule은 에너지, Watt는 일률, Pascal은 압력의 단위이다."
+  },
+  {
+    "id": 8,
+    "topic": "forces",
+    "q": "On the Moon, where gravity is weaker, an astronaut's mass compared to Earth is:",
+    "q_ko": "중력이 약한 달에서 우주인의 질량은 지구에서와 비교하면?",
+    "options": [
+      "Smaller",
+      "Larger",
+      "The same",
+      "Zero"
+    ],
+    "answer": 2,
+    "explain": "질량(mass)은 물질의 양으로 장소에 관계없이 일정하다. 변하는 것은 무게(weight)이며, 달에서는 중력이 약해 무게만 작아진다."
+  },
+  {
+    "id": 9,
+    "topic": "forces",
+    "q": "Two equal forces act in opposite directions on an object. The net force is:",
+    "q_ko": "같은 크기의 두 힘이 물체에 반대 방향으로 작용한다. 알짜힘은?",
+    "options": [
+      "Double one force",
+      "Half one force",
+      "Zero",
+      "Equal to one force"
+    ],
+    "answer": 2,
+    "explain": "크기가 같고 방향이 반대인 두 힘은 서로 상쇄되어 알짜힘(net force)이 0이 된다. 이를 평형 상태라 한다."
+  },
+  {
+    "id": 10,
+    "topic": "forces",
+    "q": "Centripetal force on an object moving in a circle points:",
+    "q_ko": "원운동하는 물체에 작용하는 구심력의 방향은?",
+    "options": [
+      "Outward, away from center",
+      "Forward in direction of motion",
+      "Toward the center",
+      "Backward, opposite to motion"
+    ],
+    "answer": 2,
+    "explain": "구심력(centripetal force)은 항상 원의 중심을 향한다. 이 힘이 물체를 원궤도에 머물게 한다."
+  },
+  {
+    "id": 11,
+    "topic": "motion",
+    "q": "What is the difference between speed and velocity?",
+    "q_ko": "속력과 속도의 차이는?",
+    "options": [
+      "They are identical",
+      "Speed includes direction, velocity does not",
+      "Velocity includes direction, speed does not",
+      "Speed is always larger"
+    ],
+    "answer": 2,
+    "explain": "속력(speed)은 크기만 가진 스칼라량이고, 속도(velocity)는 크기와 방향을 모두 가진 벡터량이다."
+  },
+  {
+    "id": 12,
+    "topic": "motion",
+    "q": "A car travels 150 km in 3 hours. What is its average speed?",
+    "q_ko": "자동차가 3시간 동안 150 km를 달렸다. 평균 속력은?",
+    "options": [
+      "45 km/h",
+      "50 km/h",
+      "450 km/h",
+      "30 km/h"
+    ],
+    "answer": 1,
+    "explain": "평균 속력 = 거리 ÷ 시간 = 150 km ÷ 3 h = 50 km/h."
+  },
+  {
+    "id": 13,
+    "topic": "motion",
+    "q": "Acceleration is defined as the rate of change of:",
+    "q_ko": "가속도는 무엇의 변화율로 정의되는가?",
+    "options": [
+      "Velocity",
+      "Distance",
+      "Mass",
+      "Force"
+    ],
+    "answer": 0,
+    "explain": "가속도(acceleration)는 단위 시간당 속도(velocity)의 변화율이다. a = Δv / Δt."
+  },
+  {
+    "id": 14,
+    "topic": "motion",
+    "q": "An object speeds up from 0 to 20 m/s in 5 s. Its acceleration is:",
+    "q_ko": "물체가 5초 동안 0에서 20 m/s로 빨라진다. 가속도는?",
+    "options": [
+      "100 m/s²",
+      "4 m/s²",
+      "0.25 m/s²",
+      "25 m/s²"
+    ],
+    "answer": 1,
+    "explain": "a = Δv / Δt = (20 - 0) m/s ÷ 5 s = 4 m/s²."
+  },
+  {
+    "id": 15,
+    "topic": "motion",
+    "q": "In the absence of air resistance, all objects near Earth fall with the same:",
+    "q_ko": "공기 저항이 없을 때 지표 근처에서 모든 물체가 같은 값을 갖는 것은?",
+    "options": [
+      "Mass",
+      "Weight",
+      "Momentum",
+      "Acceleration"
+    ],
+    "answer": 3,
+    "explain": "공기 저항이 없으면 모든 물체는 질량에 관계없이 같은 중력 가속도(g≈9.8 m/s²)로 낙하한다."
+  },
+  {
+    "id": 16,
+    "topic": "motion",
+    "q": "What does a horizontal line on a distance-time graph indicate?",
+    "q_ko": "거리-시간 그래프에서 수평선은 무엇을 의미하는가?",
+    "options": [
+      "The object is at rest",
+      "Constant speed",
+      "Acceleration",
+      "Negative velocity"
+    ],
+    "answer": 0,
+    "explain": "거리-시간 그래프에서 수평선은 시간이 지나도 거리가 변하지 않음을 뜻하므로 물체가 정지(at rest) 상태임을 나타낸다."
+  },
+  {
+    "id": 17,
+    "topic": "motion",
+    "q": "Momentum of an object is calculated as:",
+    "q_ko": "물체의 운동량은 어떻게 계산하는가?",
+    "options": [
+      "Mass × acceleration",
+      "Force × distance",
+      "Mass × velocity",
+      "Velocity ÷ time"
+    ],
+    "answer": 2,
+    "explain": "운동량(momentum) p = 질량 × 속도 = m × v. 운동량은 벡터량이다."
+  },
+  {
+    "id": 18,
+    "topic": "motion",
+    "q": "A projectile launched horizontally has what horizontal acceleration (ignoring air)?",
+    "q_ko": "수평으로 발사된 발사체의 수평 가속도는(공기 저항 무시)?",
+    "options": [
+      "9.8 m/s²",
+      "Increasing",
+      "Zero",
+      "Equal to gravity"
+    ],
+    "answer": 2,
+    "explain": "공기 저항이 없으면 수평 방향에는 힘이 없으므로 수평 가속도는 0이고 수평 속도는 일정하다. 중력은 수직 방향에만 작용한다."
+  },
+  {
+    "id": 19,
+    "topic": "motion",
+    "q": "Velocity is a vector because it has both magnitude and:",
+    "q_ko": "속도가 벡터인 이유는 크기와 무엇을 함께 갖기 때문인가?",
+    "options": [
+      "Mass",
+      "Direction",
+      "Time",
+      "Energy"
+    ],
+    "answer": 1,
+    "explain": "벡터량은 크기(magnitude)와 방향(direction)을 모두 가진다. 속도는 크기(속력)와 방향을 함께 가지므로 벡터이다."
+  },
+  {
+    "id": 20,
+    "topic": "motion",
+    "q": "If a moving object has zero acceleration, its velocity is:",
+    "q_ko": "운동하는 물체의 가속도가 0이면 속도는?",
+    "options": [
+      "Increasing",
+      "Decreasing",
+      "Zero",
+      "Constant"
+    ],
+    "answer": 3,
+    "explain": "가속도가 0이라는 것은 속도의 변화가 없다는 뜻이므로 속도가 일정(constant)하게 유지된다."
+  },
+  {
+    "id": 21,
+    "topic": "simple_machines",
+    "q": "Which of these is a simple machine?",
+    "q_ko": "다음 중 단순 기계는?",
+    "options": [
+      "Engine",
+      "Battery",
+      "Transformer",
+      "Lever"
+    ],
+    "answer": 3,
+    "explain": "단순 기계(simple machine)에는 지레(lever), 도르래(pulley), 빗면(inclined plane), 바퀴와 축(wheel and axle), 쐐기(wedge), 나사(screw)가 있다. 엔진은 복합 기계이다."
+  },
+  {
+    "id": 22,
+    "topic": "simple_machines",
+    "q": "A ramp used to roll heavy objects up to a height is an example of a(n):",
+    "q_ko": "무거운 물체를 높이까지 굴려 올리는 데 쓰는 경사로는 어떤 단순 기계인가?",
+    "options": [
+      "Inclined plane",
+      "Pulley",
+      "Lever",
+      "Wheel and axle"
+    ],
+    "answer": 0,
+    "explain": "경사로(ramp)는 빗면(inclined plane)이다. 들어 올리는 힘을 줄이는 대신 더 긴 거리를 이동하게 한다."
+  },
+  {
+    "id": 23,
+    "topic": "simple_machines",
+    "q": "A seesaw is an example of which simple machine?",
+    "q_ko": "시소는 어떤 단순 기계의 예인가?",
+    "options": [
+      "Screw",
+      "Wedge",
+      "Pulley",
+      "Lever"
+    ],
+    "answer": 3,
+    "explain": "시소는 받침점(fulcrum)을 중심으로 회전하는 지레(lever)이다."
+  },
+  {
+    "id": 24,
+    "topic": "simple_machines",
+    "q": "What does the mechanical advantage of a machine describe?",
+    "q_ko": "기계의 역학적 이득은 무엇을 나타내는가?",
+    "options": [
+      "How many times it multiplies input force",
+      "How fast it moves",
+      "Its total energy",
+      "Its weight"
+    ],
+    "answer": 0,
+    "explain": "역학적 이득(mechanical advantage)은 기계가 입력한 힘을 몇 배로 키워주는지를 나타낸다. = 출력힘 ÷ 입력힘."
+  },
+  {
+    "id": 25,
+    "topic": "simple_machines",
+    "q": "An axe blade splitting wood works as which simple machine?",
+    "q_ko": "나무를 쪼개는 도끼날은 어떤 단순 기계로 작동하는가?",
+    "options": [
+      "Pulley",
+      "Screw",
+      "Wheel and axle",
+      "Wedge"
+    ],
+    "answer": 3,
+    "explain": "도끼날은 쐐기(wedge)로, 누르는 힘을 옆으로 미는 힘으로 바꾸어 물체를 가른다."
+  },
+  {
+    "id": 26,
+    "topic": "simple_machines",
+    "q": "A single fixed pulley primarily changes the:",
+    "q_ko": "고정 도르래 하나는 주로 무엇을 바꾸는가?",
+    "options": [
+      "Amount of force needed",
+      "Direction of the force",
+      "Energy output",
+      "Mass of the load"
+    ],
+    "answer": 1,
+    "explain": "고정 도르래(fixed pulley)는 힘의 크기는 바꾸지 않고 힘의 방향만 바꾼다(예: 아래로 당겨 위로 올림)."
+  },
+  {
+    "id": 27,
+    "topic": "simple_machines",
+    "q": "A screw can be thought of as which simple machine wrapped around a cylinder?",
+    "q_ko": "나사는 원기둥에 무엇이 감긴 형태로 볼 수 있는가?",
+    "options": [
+      "Inclined plane",
+      "Lever",
+      "Pulley",
+      "Wedge"
+    ],
+    "answer": 0,
+    "explain": "나사(screw)는 빗면(inclined plane)이 원기둥 둘레에 나선형으로 감긴 형태이다."
+  },
+  {
+    "id": 28,
+    "topic": "simple_machines",
+    "q": "Simple machines make work easier but cannot increase the total:",
+    "q_ko": "단순 기계는 일을 쉽게 하지만 무엇을 늘릴 수는 없는가?",
+    "options": [
+      "Force",
+      "Distance",
+      "Work output (energy)",
+      "Speed"
+    ],
+    "answer": 2,
+    "explain": "단순 기계는 힘과 거리를 맞바꿀 뿐, 에너지 보존 때문에 출력되는 일(work)의 총량을 입력보다 늘릴 수 없다(마찰로 오히려 줄어듦)."
+  },
+  {
+    "id": 29,
+    "topic": "simple_machines",
+    "q": "A doorknob is an example of which simple machine?",
+    "q_ko": "문 손잡이는 어떤 단순 기계의 예인가?",
+    "options": [
+      "Wedge",
+      "Pulley",
+      "Screw",
+      "Wheel and axle"
+    ],
+    "answer": 3,
+    "explain": "문 손잡이는 바퀴와 축(wheel and axle)으로, 큰 바퀴(손잡이)를 돌려 작은 축에 큰 회전력을 전달한다."
+  },
+  {
+    "id": 30,
+    "topic": "simple_machines",
+    "q": "Using a longer ramp to reach the same height requires:",
+    "q_ko": "같은 높이에 도달할 때 더 긴 경사로를 쓰면?",
+    "options": [
+      "More force",
+      "The same force",
+      "Less force",
+      "No work"
+    ],
+    "answer": 2,
+    "explain": "빗면이 길수록 경사가 완만해져 필요한 힘은 줄지만 이동 거리가 늘어난다(일의 총량은 비슷)."
+  },
+  {
+    "id": 31,
+    "topic": "energy",
+    "q": "What is the SI unit of energy and work?",
+    "q_ko": "에너지와 일의 SI 단위는?",
+    "options": [
+      "Joule",
+      "Newton",
+      "Watt",
+      "Pascal"
+    ],
+    "answer": 0,
+    "explain": "에너지와 일의 SI 단위는 줄(Joule, J)이다. 1 J = 1 N·m."
+  },
+  {
+    "id": 32,
+    "topic": "energy",
+    "q": "A ball held high above the ground has what kind of energy?",
+    "q_ko": "지면 위 높이 든 공이 가진 에너지는?",
+    "options": [
+      "Gravitational potential energy",
+      "Kinetic energy",
+      "Thermal energy",
+      "Chemical energy"
+    ],
+    "answer": 0,
+    "explain": "높이 든 물체는 중력 위치 에너지(gravitational potential energy)를 가진다. PE = m × g × h."
+  },
+  {
+    "id": 33,
+    "topic": "energy",
+    "q": "Work is done when a force moves an object. Work equals:",
+    "q_ko": "힘이 물체를 움직이면 일을 한다. 일은 무엇과 같은가?",
+    "options": [
+      "Force × distance",
+      "Mass × velocity",
+      "Force ÷ time",
+      "Mass × acceleration"
+    ],
+    "answer": 0,
+    "explain": "일(work) = 힘 × 이동 거리(힘 방향) = F × d. 단위는 줄(J)."
+  },
+  {
+    "id": 34,
+    "topic": "energy",
+    "q": "The law of conservation of energy states that energy:",
+    "q_ko": "에너지 보존 법칙은 에너지가 어떻다고 하는가?",
+    "options": [
+      "Can be created",
+      "Can be destroyed",
+      "Always decreases to zero",
+      "Cannot be created or destroyed, only transformed"
+    ],
+    "answer": 3,
+    "explain": "에너지 보존 법칙: 에너지는 생성되거나 소멸되지 않고 한 형태에서 다른 형태로 전환될 뿐이며 총량은 일정하다."
+  },
+  {
+    "id": 35,
+    "topic": "energy",
+    "q": "Power is defined as:",
+    "q_ko": "일률(power)의 정의는?",
+    "options": [
+      "Force × distance",
+      "Work ÷ time",
+      "Mass × velocity",
+      "Energy × time"
+    ],
+    "answer": 1,
+    "explain": "일률(power) = 일 ÷ 시간 = W / t. SI 단위는 와트(Watt, W), 1 W = 1 J/s."
+  },
+  {
+    "id": 36,
+    "topic": "energy",
+    "q": "As a roller coaster speeds down a hill, its potential energy converts mostly to:",
+    "q_ko": "롤러코스터가 언덕을 내려가며 빨라질 때 위치 에너지는 주로 무엇으로 바뀌는가?",
+    "options": [
+      "Chemical energy",
+      "Kinetic energy",
+      "Nuclear energy",
+      "Sound energy"
+    ],
+    "answer": 1,
+    "explain": "내려갈수록 높이가 줄어 위치 에너지가 감소하고, 속도가 빨라져 운동 에너지(kinetic energy)로 전환된다."
+  },
+  {
+    "id": 37,
+    "topic": "energy",
+    "q": "Kinetic energy depends on an object's mass and its:",
+    "q_ko": "운동 에너지는 물체의 질량과 무엇에 의존하는가?",
+    "options": [
+      "Color",
+      "Temperature",
+      "Speed",
+      "Charge"
+    ],
+    "answer": 2,
+    "explain": "운동 에너지 KE = ½ m v². 질량과 속도(speed)에 의존하며, 속도의 제곱에 비례한다."
+  },
+  {
+    "id": 38,
+    "topic": "energy",
+    "q": "Energy stored in the bonds of food and fuel is called:",
+    "q_ko": "음식과 연료의 결합에 저장된 에너지는?",
+    "options": [
+      "Kinetic energy",
+      "Elastic energy",
+      "Sound energy",
+      "Chemical energy"
+    ],
+    "answer": 3,
+    "explain": "음식·연료의 화학 결합에 저장된 에너지는 화학 에너지(chemical energy)이며, 반응 시 다른 형태로 방출된다."
+  },
+  {
+    "id": 39,
+    "topic": "energy",
+    "q": "A 100 W bulb uses energy at what rate?",
+    "q_ko": "100 W 전구는 어떤 비율로 에너지를 사용하는가?",
+    "options": [
+      "100 joules per hour",
+      "100 newtons per second",
+      "100 watts per joule",
+      "100 joules per second"
+    ],
+    "answer": 3,
+    "explain": "와트(W)는 초당 줄(J/s)이다. 따라서 100 W = 100 J/s, 즉 1초에 100줄을 사용한다."
+  },
+  {
+    "id": 40,
+    "topic": "energy",
+    "q": "A stretched spring stores which form of energy?",
+    "q_ko": "늘어난 용수철은 어떤 형태의 에너지를 저장하는가?",
+    "options": [
+      "Elastic potential",
+      "Thermal",
+      "Nuclear",
+      "Magnetic"
+    ],
+    "answer": 0,
+    "explain": "늘이거나 압축된 용수철은 탄성 위치 에너지(elastic potential energy)를 저장한다."
+  },
+  {
+    "id": 41,
+    "topic": "electricity",
+    "q": "What particle carries a negative electric charge?",
+    "q_ko": "음전하를 띤 입자는?",
+    "options": [
+      "Proton",
+      "Electron",
+      "Neutron",
+      "Photon"
+    ],
+    "answer": 1,
+    "explain": "전자(electron)는 음전하를, 양성자(proton)는 양전하를 띠고, 중성자(neutron)는 전하가 없다."
+  },
+  {
+    "id": 42,
+    "topic": "electricity",
+    "q": "Electric current is the flow of:",
+    "q_ko": "전류는 무엇의 흐름인가?",
+    "options": [
+      "Heat",
+      "Light",
+      "Electric charge",
+      "Sound"
+    ],
+    "answer": 2,
+    "explain": "전류(electric current)는 전하(주로 전자)의 흐름이다. 단위는 암페어(Ampere, A)."
+  },
+  {
+    "id": 43,
+    "topic": "electricity",
+    "q": "Ohm's law states that voltage equals current times:",
+    "q_ko": "옴의 법칙에서 전압은 전류 곱하기 무엇과 같은가?",
+    "options": [
+      "Power",
+      "Resistance",
+      "Charge",
+      "Time"
+    ],
+    "answer": 1,
+    "explain": "옴의 법칙: V = I × R. 전압(V)은 전류(I)와 저항(R)의 곱이다."
+  },
+  {
+    "id": 44,
+    "topic": "electricity",
+    "q": "Two like charges (both positive) will:",
+    "q_ko": "같은 종류의 전하 두 개(둘 다 양전하)는?",
+    "options": [
+      "Repel each other",
+      "Attract each other",
+      "Have no force",
+      "Combine into a neutron"
+    ],
+    "answer": 0,
+    "explain": "같은 부호의 전하는 서로 밀어내고(repel), 다른 부호의 전하는 서로 끌어당긴다(attract)."
+  },
+  {
+    "id": 45,
+    "topic": "electricity",
+    "q": "Which material is the best electrical conductor?",
+    "q_ko": "다음 중 전기를 가장 잘 전도하는 물질은?",
+    "options": [
+      "Copper",
+      "Rubber",
+      "Glass",
+      "Wood"
+    ],
+    "answer": 0,
+    "explain": "구리(copper)는 자유 전자가 많아 전기가 잘 통하는 도체이다. 고무·유리·나무는 부도체(절연체)이다."
+  },
+  {
+    "id": 46,
+    "topic": "electricity",
+    "q": "In a series circuit, if one bulb burns out, the others:",
+    "q_ko": "직렬 회로에서 전구 하나가 끊어지면 나머지는?",
+    "options": [
+      "Stay lit brighter",
+      "Stay the same",
+      "Light up dimmer but stay on",
+      "Also go out"
+    ],
+    "answer": 3,
+    "explain": "직렬 회로(series circuit)는 단일 경로이므로 한 곳이 끊기면 전류가 흐르지 못해 모든 전구가 꺼진다."
+  },
+  {
+    "id": 47,
+    "topic": "electricity",
+    "q": "The SI unit of electrical resistance is the:",
+    "q_ko": "전기 저항의 SI 단위는?",
+    "options": [
+      "Volt",
+      "Ampere",
+      "Watt",
+      "Ohm"
+    ],
+    "answer": 3,
+    "explain": "전기 저항의 단위는 옴(Ohm, Ω)이다. 전압은 볼트(V), 전류는 암페어(A), 일률은 와트(W)."
+  },
+  {
+    "id": 48,
+    "topic": "electricity",
+    "q": "Electrical power in a circuit can be calculated as:",
+    "q_ko": "회로의 전력은 어떻게 계산하는가?",
+    "options": [
+      "Voltage ÷ current",
+      "Resistance × time",
+      "Current ÷ resistance",
+      "Voltage × current"
+    ],
+    "answer": 3,
+    "explain": "전력(power) P = V × I (전압 × 전류). 단위는 와트(W)."
+  },
+  {
+    "id": 49,
+    "topic": "electricity",
+    "q": "A material that strongly resists the flow of electric current is called a(n):",
+    "q_ko": "전류의 흐름을 강하게 방해하는 물질을 무엇이라 하는가?",
+    "options": [
+      "Conductor",
+      "Insulator",
+      "Semiconductor",
+      "Magnet"
+    ],
+    "answer": 1,
+    "explain": "전류를 잘 통하지 않게 하는 물질을 절연체(insulator, 부도체)라 한다. 예: 고무, 유리, 플라스틱."
+  },
+  {
+    "id": 50,
+    "topic": "electricity",
+    "q": "In a parallel circuit, each branch receives the:",
+    "q_ko": "병렬 회로에서 각 가지(branch)가 받는 것은?",
+    "options": [
+      "A fraction of the voltage",
+      "No current",
+      "Reversed current",
+      "Same full voltage"
+    ],
+    "answer": 3,
+    "explain": "병렬 회로(parallel circuit)에서는 각 가지에 같은 전압 전체가 걸리며, 전류는 가지마다 나뉜다."
+  },
+  {
+    "id": 51,
+    "topic": "chemistry",
+    "q": "What are the three common states of matter?",
+    "q_ko": "물질의 흔한 세 가지 상태는?",
+    "options": [
+      "Solid, liquid, gas",
+      "Hot, cold, warm",
+      "Hard, soft, liquid",
+      "Metal, gas, plasma"
+    ],
+    "answer": 0,
+    "explain": "물질의 세 가지 일반적인 상태는 고체(solid), 액체(liquid), 기체(gas)이다(플라스마는 네 번째)."
+  },
+  {
+    "id": 52,
+    "topic": "chemistry",
+    "q": "The smallest unit of an element that retains its properties is a(n):",
+    "q_ko": "원소의 성질을 유지하는 가장 작은 단위는?",
+    "options": [
+      "Molecule",
+      "Cell",
+      "Proton",
+      "Atom"
+    ],
+    "answer": 3,
+    "explain": "원자(atom)는 원소의 성질을 유지하는 가장 작은 단위이다. 원자는 양성자, 중성자, 전자로 이루어진다."
+  },
+  {
+    "id": 53,
+    "topic": "chemistry",
+    "q": "Which subatomic particle is found in the nucleus and has no charge?",
+    "q_ko": "원자핵에 있으며 전하가 없는 입자는?",
+    "options": [
+      "Electron",
+      "Neutron",
+      "Proton",
+      "Ion"
+    ],
+    "answer": 1,
+    "explain": "중성자(neutron)는 원자핵 안에 있고 전하가 없다. 양성자(+)도 핵에 있지만 양전하를 띤다."
+  },
+  {
+    "id": 54,
+    "topic": "chemistry",
+    "q": "The change of a liquid into a gas is called:",
+    "q_ko": "액체가 기체로 변하는 것을 무엇이라 하는가?",
+    "options": [
+      "Freezing",
+      "Condensation",
+      "Sublimation",
+      "Evaporation (vaporization)"
+    ],
+    "answer": 3,
+    "explain": "액체가 기체로 바뀌는 것은 증발/기화(evaporation, vaporization)이다. 응결은 기체→액체, 동결은 액체→고체."
+  },
+  {
+    "id": 55,
+    "topic": "chemistry",
+    "q": "What does the atomic number of an element represent?",
+    "q_ko": "원소의 원자 번호는 무엇을 나타내는가?",
+    "options": [
+      "Number of neutrons",
+      "Total mass",
+      "Number of protons",
+      "Number of molecules"
+    ],
+    "answer": 2,
+    "explain": "원자 번호(atomic number)는 원자핵 속 양성자(proton)의 수를 나타내며, 원소의 종류를 결정한다."
+  },
+  {
+    "id": 56,
+    "topic": "chemistry",
+    "q": "Water (H₂O) is an example of a:",
+    "q_ko": "물(H₂O)은 무엇의 예인가?",
+    "options": [
+      "Compound",
+      "Element",
+      "Mixture",
+      "Pure metal"
+    ],
+    "answer": 0,
+    "explain": "물은 수소와 산소가 화학 결합한 화합물(compound)이다. 원소는 한 종류 원자로만 이루어진다."
+  },
+  {
+    "id": 57,
+    "topic": "chemistry",
+    "q": "In which state of matter do particles have the most freedom to move?",
+    "q_ko": "물질의 어떤 상태에서 입자가 가장 자유롭게 움직이는가?",
+    "options": [
+      "Solid",
+      "Gas",
+      "Liquid",
+      "They move equally in all states"
+    ],
+    "answer": 1,
+    "explain": "기체(gas)에서는 입자 사이 인력이 약하고 간격이 넓어 입자가 가장 자유롭게 움직인다. 고체는 가장 제한적이다."
+  },
+  {
+    "id": 58,
+    "topic": "chemistry",
+    "q": "A solution of salt dissolved in water is an example of a:",
+    "q_ko": "소금이 물에 녹은 용액은 무엇의 예인가?",
+    "options": [
+      "Compound",
+      "Element",
+      "Mixture",
+      "Pure substance with new formula"
+    ],
+    "answer": 2,
+    "explain": "소금물은 두 물질이 화학 결합 없이 섞인 혼합물(mixture)이다. 성분이 본래 성질을 유지하고 분리할 수 있다."
+  },
+  {
+    "id": 59,
+    "topic": "chemistry",
+    "q": "The periodic table arranges elements primarily by increasing:",
+    "q_ko": "주기율표는 원소를 주로 무엇이 증가하는 순서로 배열하는가?",
+    "options": [
+      "Atomic mass only",
+      "Color",
+      "Density",
+      "Atomic number"
+    ],
+    "answer": 3,
+    "explain": "현대 주기율표는 원자 번호(양성자 수)가 증가하는 순서로 원소를 배열한다."
+  },
+  {
+    "id": 60,
+    "topic": "chemistry",
+    "q": "When a substance changes directly from solid to gas, the process is called:",
+    "q_ko": "물질이 고체에서 곧바로 기체로 변하는 과정은?",
+    "options": [
+      "Melting",
+      "Sublimation",
+      "Condensation",
+      "Freezing"
+    ],
+    "answer": 1,
+    "explain": "고체가 액체를 거치지 않고 바로 기체로 변하는 것을 승화(sublimation)라 한다. 예: 드라이아이스."
+  },
+  {
+    "id": 61,
+    "topic": "waves",
+    "q": "Sound waves require what to travel?",
+    "q_ko": "음파가 전달되려면 무엇이 필요한가?",
+    "options": [
+      "A vacuum",
+      "A medium (such as air)",
+      "Light",
+      "Electric current"
+    ],
+    "answer": 1,
+    "explain": "소리는 종파(longitudinal wave)로 매질(air, water, solid 등)이 있어야 전달된다. 진공에서는 소리가 전달되지 않는다."
+  },
+  {
+    "id": 62,
+    "topic": "waves",
+    "q": "The number of wave cycles passing a point per second is the wave's:",
+    "q_ko": "1초에 한 점을 지나는 파동 주기의 수는 파동의 무엇인가?",
+    "options": [
+      "Amplitude",
+      "Wavelength",
+      "Frequency",
+      "Speed"
+    ],
+    "answer": 2,
+    "explain": "진동수(frequency)는 1초당 지나가는 파동의 수이며 단위는 헤르츠(Hz)이다."
+  },
+  {
+    "id": 63,
+    "topic": "waves",
+    "q": "In a wave, amplitude is related to the wave's:",
+    "q_ko": "파동에서 진폭은 무엇과 관련 있는가?",
+    "options": [
+      "Energy/intensity",
+      "Speed",
+      "Direction",
+      "Medium"
+    ],
+    "answer": 0,
+    "explain": "진폭(amplitude)이 클수록 파동이 운반하는 에너지(소리는 크기, 빛은 밝기)가 크다."
+  },
+  {
+    "id": 64,
+    "topic": "waves",
+    "q": "Light travels fastest in:",
+    "q_ko": "빛이 가장 빠르게 진행하는 곳은?",
+    "options": [
+      "Water",
+      "Glass",
+      "A vacuum",
+      "Diamond"
+    ],
+    "answer": 2,
+    "explain": "빛은 진공(vacuum)에서 가장 빠르며 약 3×10⁸ m/s이다. 물·유리·다이아몬드 같은 매질에서는 느려진다."
+  },
+  {
+    "id": 65,
+    "topic": "waves",
+    "q": "The distance between two consecutive crests of a wave is the:",
+    "q_ko": "파동에서 이웃한 두 마루 사이의 거리는?",
+    "options": [
+      "Wavelength",
+      "Amplitude",
+      "Frequency",
+      "Period"
+    ],
+    "answer": 0,
+    "explain": "파장(wavelength)은 이웃한 두 마루(또는 골) 사이의 거리이다."
+  },
+  {
+    "id": 66,
+    "topic": "waves",
+    "q": "A sound with a higher frequency is perceived as having a higher:",
+    "q_ko": "진동수가 높은 소리는 어떤 것이 높게 들리는가?",
+    "options": [
+      "Volume",
+      "Speed",
+      "Pitch",
+      "Echo"
+    ],
+    "answer": 2,
+    "explain": "진동수가 높을수록 음높이(pitch)가 높게 들린다. 소리의 크기(volume)는 진폭과 관련 있다."
+  },
+  {
+    "id": 67,
+    "topic": "heat",
+    "q": "Heat transfer through direct contact between objects is called:",
+    "q_ko": "물체 간 직접 접촉으로 일어나는 열 전달은?",
+    "options": [
+      "Convection",
+      "Conduction",
+      "Radiation",
+      "Insulation"
+    ],
+    "answer": 1,
+    "explain": "전도(conduction)는 물체가 직접 접촉할 때 입자 간 충돌로 열이 전달되는 방식이다."
+  },
+  {
+    "id": 68,
+    "topic": "heat",
+    "q": "Heat transfer by the movement of fluids (liquids or gases) is called:",
+    "q_ko": "유체(액체·기체)의 이동으로 일어나는 열 전달은?",
+    "options": [
+      "Conduction",
+      "Convection",
+      "Radiation",
+      "Reflection"
+    ],
+    "answer": 1,
+    "explain": "대류(convection)는 데워진 유체가 이동하면서 열을 운반하는 방식이다(예: 끓는 물, 난방)."
+  },
+  {
+    "id": 69,
+    "topic": "heat",
+    "q": "Heat from the Sun reaches Earth mainly by:",
+    "q_ko": "태양의 열이 지구에 도달하는 주된 방식은?",
+    "options": [
+      "Conduction",
+      "Radiation",
+      "Convection",
+      "Evaporation"
+    ],
+    "answer": 1,
+    "explain": "태양열은 매질 없는 우주 공간을 지나 복사(radiation, 전자기파)로 지구에 도달한다."
+  },
+  {
+    "id": 70,
+    "topic": "magnetism",
+    "q": "Like poles of two magnets (north-north) will:",
+    "q_ko": "두 자석의 같은 극(N-N)은?",
+    "options": [
+      "Attract",
+      "Repel",
+      "Have no effect",
+      "Become neutral"
+    ],
+    "answer": 1,
+    "explain": "같은 극끼리는 서로 밀어내고(repel), 다른 극(N-S)끼리는 서로 끌어당긴다(attract)."
+  }
+]
