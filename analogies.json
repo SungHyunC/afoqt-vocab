@@ -2674,8 +2674,8 @@
     "options": [
       {
         "pair": [
-          "poor",
-          "destitute"
+          "greedy",
+          "frugal"
         ],
         "correct": false
       },
@@ -3419,8 +3419,8 @@
       },
       {
         "pair": [
-          "gold",
-          "ore"
+          "rice",
+          "husk"
         ],
         "correct": true
       },
@@ -3870,8 +3870,8 @@
       },
       {
         "pair": [
-          "bone",
-          "skeleton"
+          "skeleton",
+          "bone"
         ],
         "correct": false
       },
@@ -4615,8 +4615,8 @@
       },
       {
         "pair": [
-          "church",
-          "prayer"
+          "altar",
+          "candle"
         ],
         "correct": false
       },
