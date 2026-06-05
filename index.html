@@ -6,18 +6,18 @@
 <meta name="theme-color" content="#4f46e5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AFOQT Vocab">
+<meta name="apple-mobile-web-app-title" content="AFOQT Master">
 <link rel="apple-touch-icon" href="./icon.svg">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>AFOQT Vocab Master</title>
+<title>AFOQT Master — 전 과목 대비</title>
 <link rel="stylesheet" href="./app.css">
 </head>
 <body>
 
 <header class="appbar">
   <div>
-    <h1 id="barTitle">AFOQT Vocab Master</h1>
-    <div class="sub" id="bar-sub">Verbal 마스터 · 6/1 → 7/10</div>
+    <h1 id="barTitle">AFOQT Master</h1>
+    <div class="sub" id="bar-sub">전 과목 대비 · 6/1 → 7/10</div>
   </div>
   <div class="row" style="align-items:center;gap:10px">
     <span class="sync-dot off" id="syncDot" title="동기화 상태"></span>
@@ -54,7 +54,7 @@
     <div class="card tight stat"><div class="num" id="stDue">0</div><div class="lbl">복습 대기</div></div>
   </div>
 
-  <h2 class="section">Verbal 섹션</h2>
+  <h2 class="section">🗣 언어 (Verbal)</h2>
   <div class="seccard" id="secWK">
     <div class="ic">📇</div>
     <div class="meta"><b>Word Knowledge</b><div class="muted" id="wkSub">어휘 · 동의어</div>
@@ -74,13 +74,33 @@
     <div class="go">›</div>
   </div>
 
-  <h2 class="section">Pilot 섹션</h2>
+  <h2 class="section">🔢 수리 (Quantitative)</h2>
+  <div class="seccard" id="secAR"><div class="ic">➗</div>
+    <div class="meta"><b>Arithmetic Reasoning</b><div class="muted">문장형 수학 · 25문항·29분</div></div><div class="go">›</div></div>
+  <div class="seccard" id="secMK"><div class="ic">📐</div>
+    <div class="meta"><b>Math Knowledge</b><div class="muted">대수·기하 · 25문항·22분</div></div><div class="go">›</div></div>
+
+  <h2 class="section">✈️ Pilot · 공간</h2>
   <div class="seccard" id="secAV">
-    <div class="ic">✈️</div>
+    <div class="ic">🛩️</div>
     <div class="meta"><b>Aviation Information</b><div class="muted" id="avSub">항공 지식 · 한글 병기</div>
       <div class="progressbar mini"><i id="avBarH"></i></div></div>
     <div class="go">›</div>
   </div>
+  <div class="seccard" id="secTR"><div class="ic">📊</div>
+    <div class="meta"><b>Table Reading</b><div class="muted">표 읽기 · 40문항·7분</div></div><div class="go">›</div></div>
+  <div class="seccard" id="secIC"><div class="ic">🎚️</div>
+    <div class="meta"><b>Instrument Comprehension</b><div class="muted">계기 해석 · 25문항·5분</div></div><div class="go">›</div></div>
+  <div class="seccard" id="secBC"><div class="ic">🧱</div>
+    <div class="meta"><b>Block Counting</b><div class="muted">블록 세기 · 30문항·4.5분</div></div><div class="go">›</div></div>
+
+  <h2 class="section">🔬 기타</h2>
+  <div class="seccard" id="secPS"><div class="ic">🔬</div>
+    <div class="meta"><b>Physical Science</b><div class="muted">고교 물리·화학 · 20문항·10분</div></div><div class="go">›</div></div>
+  <div class="seccard" id="secSJ"><div class="ic">🧭</div>
+    <div class="meta"><b>Situational Judgment</b><div class="muted">리더십·판단 · 16문항·35분</div></div><div class="go">›</div></div>
+  <div class="seccard" id="secSDI"><div class="ic">📝</div>
+    <div class="meta"><b>Self-Description Inventory</b><div class="muted">성격검사(미채점) · 안내</div></div><div class="go">›</div></div>
 
   <div class="card" style="margin-top:16px">
     <div class="row" style="justify-content:space-between;align-items:center">
@@ -225,6 +245,8 @@
   <h2 class="section">기타 Pilot 서브테스트</h2>
   <button class="btn ghost" id="trStart" style="margin-top:6px">📊 Table Reading (표 읽기)</button>
   <button class="btn ghost" id="trGuide" style="margin-top:10px">📘 Table Reading 가이드</button>
+  <button class="btn ghost" id="icStart" style="margin-top:10px">🎚️ Instrument Comprehension (계기 해석)</button>
+  <button class="btn ghost" id="icGuide" style="margin-top:10px">📘 Instrument 가이드</button>
   <button class="btn ghost" id="bcStart" style="margin-top:10px">🧱 Block Counting (블록 세기)</button>
   <button class="btn ghost" id="bcGuide" style="margin-top:10px">📘 Block Counting 가이드</button>
 </main>
@@ -279,6 +301,29 @@
   <div class="study-top"><button class="btn sm ghost" id="avfBack">← 항공</button><span id="avfCount">0 / 0</span><span></span></div>
   <div class="progressbar" style="margin-bottom:14px"><i id="avfBar"></i></div>
   <div id="avfArea"></div>
+</main>
+
+<!-- ===== GENERIC SUBTEST HUB (AR/MK/PS/SJ) ===== -->
+<main id="view-subtest" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="subBack">← 홈</button><span id="subNav"></span><span></span></div>
+  <div class="guide-hero"><h2 id="subTitle"></h2><div class="fmt" id="subFormat"></div></div>
+  <button class="btn primary" id="subExam">🎯 실전 시험 시작 (시간측정)</button>
+  <button class="btn ghost" id="subPractice" style="margin-top:10px">📝 연습 모드 (시간 여유)</button>
+  <button class="btn ghost" id="subGuide" style="margin-top:10px">📘 공부 가이드</button>
+  <div id="subLast" class="muted" style="font-size:12px;text-align:center;margin-top:14px"></div>
+</main>
+
+<!-- ===== INSTRUMENT COMPREHENSION ===== -->
+<main id="view-instrument" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="icBack">← 항공</button><span id="icCount" class="muted" style="font-size:13px">0 / 0</span><span class="exam-timer" id="icTimer">0:00</span></div>
+  <div class="progressbar" style="margin-bottom:12px"><i id="icBar"></i></div>
+  <div id="icArea"></div>
+  <div id="icResult" class="card center hidden">
+    <div class="big-emoji" id="icEmoji">🎚️</div>
+    <h2 id="icScore"></h2><p class="muted" id="icSub"></p>
+    <button class="btn primary" id="icRetry" style="margin-top:8px">다시</button>
+    <button class="btn ghost" id="icHome" style="margin-top:10px">항공으로</button>
+  </div>
 </main>
 
 <!-- ===== STUDY GUIDE (공부 가이드) ===== -->

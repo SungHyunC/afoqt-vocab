@@ -1,12 +1,12 @@
 /* ============================================================
-   AFOQT Vocab Master — app.js (v2.1)
+   AFOQT Master — app.js
    Verbal 전체: Word Knowledge(WK) + Verbal Analogies(VA) + Reading(RC)
    로컬 우선 + Supabase 실시간 동기화, SM-2 SRS, 빈출 tier 페이싱
    ============================================================ */
 (() => {
 "use strict";
 
-const VERSION = "3.2.0";
+const VERSION = "3.3.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -27,6 +27,7 @@ function toast(msg, ms=1800){ const t=$("#toast"); t.textContent=msg; t.classLis
    STATE
    ============================================================ */
 let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], GUIDES={}, AVIATION=[], AVTERMS=[];
+let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
 let state=null, sb=null, realtimeChan=null;
 
 const DEFAULT_STATE = () => ({
@@ -215,12 +216,12 @@ async function flushPush(){ if(!sb) return;
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
   const g=GUIDES[guideCur];
-  const back={wk:"vocab",va:"analogy",rc:"reading",av:"aviation",tr:"aviation",bc:"aviation"}[guideCur]||"home";
+  const back={wk:"vocab",va:"analogy",rc:"reading",av:"aviation",tr:"aviation",bc:"aviation",ic:"aviation",ar:"subtest",mk:"subtest",ps:"subtest",sj:"subtest",sdi:"home"}[guideCur]||"home";
   $("#guideBack").onclick=()=>go(back);
   $("#guideNav").textContent="📘 공부 가이드";
   if(!g){ $("#guideBody").innerHTML=`<div class="card center muted" style="padding:20px">가이드 준비 중이에요.</div>`; return; }
@@ -236,7 +237,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -617,6 +618,125 @@ function finishBC(){ const s=bcState; if(!s) return; bcTimerStop();
 }
 
 /* ============================================================
+   GENERIC SUBTEST HUB (Arithmetic / Math / Physical Science / Situational)
+   ============================================================ */
+let subCur=null;
+const SUBPOOL={ar:()=>ARITH,mk:()=>MATHK,ps:()=>PHYSCI,sj:()=>SITJUD};
+function openSubtest(key){ subCur=key; go("subtest"); }
+function renderSubtest(){
+  const key=subCur, p=EXAM_PRESETS[key], g=GUIDES[key];
+  const pool=(SUBPOOL[key]?SUBPOOL[key]():[])||[]; const ready=pool.length>0;
+  $("#subNav").textContent="과목";
+  $("#subTitle").textContent=p?p.name:key;
+  $("#subFormat").innerHTML="📋 "+esc(ready?((g&&g.format)||(p&&p.label)||""):"콘텐츠 준비 중이에요. 잠시 후 다시 시도하세요.");
+  $("#subExam").disabled=!ready; $("#subPractice").disabled=!ready;
+  const r=state.exams[key];
+  $("#subLast").textContent=ready?(r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal} · 문제 ${pool.length}개`:`문제 ${pool.length}개 · 아직 기록 없음`):"";
+  $("#subExam").onclick=()=>startExam(key);
+  $("#subPractice").onclick=()=>startExam(key,{practice:true});
+  $("#subGuide").onclick=()=>openGuide(key);
+}
+
+/* ============================================================
+   INSTRUMENT COMPREHENSION (Pilot subtest — procedural SVG)
+   ============================================================ */
+let icState=null;
+const IC_BANKS=[-45,-30,0,30,45], IC_PITCH=[-1,0,1];
+// Attitude indicator: background rotates OPPOSITE to aircraft bank; climb pushes the horizon DOWN.
+function attitudeSVG(bank,pitch){
+  const cx=75,cy=75,R=62, py=pitch*16; // climb(+1) -> horizon moves down (+y)
+  const g=`rotate(${-bank} ${cx} ${cy}) translate(0 ${py})`;
+  return `<svg viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+    <defs><clipPath id="aiclip"><circle cx="${cx}" cy="${cy}" r="${R}"/></clipPath></defs>
+    <circle cx="${cx}" cy="${cy}" r="${R+3}" fill="#0b1220" stroke="#334155" stroke-width="3"/>
+    <g clip-path="url(#aiclip)">
+      <g transform="${g}">
+        <rect x="${cx-120}" y="${cy-160}" width="240" height="160" fill="#3b82f6"/>
+        <rect x="${cx-120}" y="${cy}" width="240" height="160" fill="#7c5b34"/>
+        <line x1="${cx-120}" y1="${cy}" x2="${cx+120}" y2="${cy}" stroke="#fff" stroke-width="2"/>
+        ${[-40,-20,20,40].map(p=>`<line x1="${cx-12}" y1="${cy+p}" x2="${cx+12}" y2="${cy+p}" stroke="#fff" stroke-width="1.5"/>`).join("")}
+      </g>
+    </g>
+    <!-- fixed miniature aircraft -->
+    <line x1="${cx-26}" y1="${cy}" x2="${cx-8}" y2="${cy}" stroke="#fbbf24" stroke-width="4"/>
+    <line x1="${cx+8}" y1="${cy}" x2="${cx+26}" y2="${cy}" stroke="#fbbf24" stroke-width="4"/>
+    <circle cx="${cx}" cy="${cy}" r="3" fill="#fbbf24"/>
+    <polygon points="${cx-6},14 ${cx+6},14 ${cx},22" fill="#fbbf24"/>
+  </svg>`;
+}
+function compassSVG(heading){
+  const cx=75,cy=75,R=62; const dirs=[["N",0],["E",90],["S",180],["W",270]];
+  let ticks=""; for(let a=0;a<360;a+=30){ const r1=R-4,r2=R-(a%90===0?14:9); const rad=(a-90)*Math.PI/180;
+    ticks+=`<line x1="${cx+r1*Math.cos(rad)}" y1="${cy+r1*Math.sin(rad)}" x2="${cx+r2*Math.cos(rad)}" y2="${cy+r2*Math.sin(rad)}" stroke="#94a3b8" stroke-width="1.5"/>`; }
+  const lbl=dirs.map(([d,a])=>{ const rad=(a-90-heading)*Math.PI/180, rr=R-24;
+    return `<text x="${cx+rr*Math.cos(rad)}" y="${cy+rr*Math.sin(rad)+4}" text-anchor="middle" font-size="13" font-weight="800" fill="${d==='N'?'#ef4444':'#e2e8f0'}">${d}</text>`; }).join("");
+  return `<svg viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="${cx}" cy="${cy}" r="${R+3}" fill="#0b1220" stroke="#334155" stroke-width="3"/>
+    <g transform="rotate(${-heading} ${cx} ${cy})">${ticks}${lbl}</g>
+    <polygon points="${cx-7},20 ${cx+7},20 ${cx},30" fill="#fbbf24"/>
+    <text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="13" font-weight="800" fill="#22d3ee">${String(Math.round(heading)).padStart(3,"0")}°</text>
+  </svg>`;
+}
+// Rear-view aircraft silhouette: banked (rotate) + climb/dive (nose marker up/down).
+function planeSVG(bank,pitch){
+  const cx=60,cy=45;
+  const nose= pitch>0?`<polygon points="${cx-7},${cy-14} ${cx+7},${cy-14} ${cx},${cy-26}" fill="#22d3ee"/>`
+            : pitch<0?`<polygon points="${cx-7},${cy+14} ${cx+7},${cy+14} ${cx},${cy+26}" fill="#22d3ee"/>`:"";
+  return `<svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+    <g transform="rotate(${bank} ${cx} ${cy})">
+      <line x1="${cx-40}" y1="${cy}" x2="${cx+40}" y2="${cy}" stroke="#cbd5e1" stroke-width="7" stroke-linecap="round"/>
+      <line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy-22}" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+      <line x1="${cx-12}" y1="${cy-22}" x2="${cx+12}" y2="${cy-22}" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="${cx}" cy="${cy}" r="6" fill="#93a4bd"/>
+      ${nose}
+    </g></svg>`;
+}
+function genIC(){
+  const bank=IC_BANKS[Math.random()*IC_BANKS.length|0];
+  const pitch=IC_PITCH[Math.random()*IC_PITCH.length|0];
+  const heading=[0,45,90,135,180,225,270,315][Math.random()*8|0];
+  const correct={bank,pitch};
+  const opts=[correct]; let guard=0;
+  while(opts.length<4&&guard++<60){ const b=IC_BANKS[Math.random()*IC_BANKS.length|0], p=IC_PITCH[Math.random()*IC_PITCH.length|0];
+    if(!opts.some(o=>o.bank===b&&o.pitch===p)) opts.push({bank:b,pitch:p}); }
+  return {bank,pitch,heading,correctIdx:0,options:shuffle(opts)};
+}
+function startInstrument(){
+  const N=12, secs=180, qs=[]; for(let i=0;i<N;i++) qs.push(genIC());
+  icState={N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
+  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-instrument").classList.add("active");
+  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
+  $("#icResult").classList.add("hidden"); icTimerStart(); renderICQ();
+}
+function icTimerStart(){ icTimerStop(); $("#icTimer").textContent=fmtTime(icState.secsLeft);
+  icState.timer=setInterval(()=>{ if(!icState) return icTimerStop(); icState.secsLeft--; const t=$("#icTimer");
+    if(t){ t.textContent=fmtTime(icState.secsLeft); t.classList.toggle("warn",icState.secsLeft<=15); }
+    if(icState.secsLeft<=0) finishIC(); },1000); }
+function icTimerStop(){ if(icState&&icState.timer){ clearInterval(icState.timer); icState.timer=null; } }
+function renderICQ(){ const s=icState; if(!s) return; if(s.idx>=s.N) return finishIC();
+  const q=s.qs[s.idx]; s.answered=false; const correctKey=q.options.findIndex(o=>o.bank===q.bank&&o.pitch===q.pitch);
+  $("#icCount").textContent=`${s.idx+1} / ${s.N}`; $("#icBar").style.width=(s.idx/s.N*100)+"%";
+  $("#icArea").innerHTML=`<div class="ic-instruments">
+      <div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (뱅크·피치)</div></div>
+      <div class="ic-dial">${compassSVG(q.heading)}<div class="lbl">나침반 (기수)</div></div></div>
+    <div class="ic-prompt">계기에 맞는 비행기를 고르세요<br><span class="muted" style="font-size:12px">(자세계의 뱅크 방향과 상승/하강을 보세요)</span></div>
+    <div class="ic-opts">${q.options.map((o,i)=>`<button data-i="${i}">${planeSVG(o.bank,o.pitch)}<div class="ol">${o.bank<0?"좌 "+(-o.bank)+"°":o.bank>0?"우 "+o.bank+"°":"수평"} · ${o.pitch>0?"상승":o.pitch<0?"하강":"수평비행"}</div></button>`).join("")}</div>`;
+  $$("#icArea .ic-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
+    const i=+btn.dataset.i, ok=i===correctKey;
+    $$("#icArea .ic-opts button").forEach((b,bi)=>{ b.disabled=true; if(bi===correctKey) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
+    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0});
+    setTimeout(()=>{ if(icState){ s.idx++; renderICQ(); } }, ok?550:1100); });
+}
+function finishIC(){ const s=icState; if(!s) return; icTimerStop();
+  $("#icArea").innerHTML=""; $("#icBar").style.width="100%";
+  const pct=Math.round(s.score/s.N*100);
+  $("#icEmoji").textContent=pct>=80?"🏆":pct>=50?"🎚️":"📈";
+  $("#icScore").textContent=`${s.score} / ${s.N} 정답 (${pct}%)`;
+  $("#icSub").textContent=`소요 ${fmtTime(s.secs-Math.max(0,s.secsLeft))} · 실제 시험: 25문항 5분`;
+  $("#icResult").classList.remove("hidden");
+}
+
+/* ============================================================
    VERBAL ANALOGIES
    ============================================================ */
 function vaStats(){ const v=Object.values(state.va); const seen=v.filter(x=>x.seen>0).length;
@@ -721,13 +841,31 @@ const EXAM_PRESETS={
   // Full Verbal mock mirrors real AFOQT proportions (WK25 + VA25 + RC25).
   full:{name:"Verbal 전체 모의고사",  secs:3060, build:()=>[...buildWK(25),...buildVA(25),...buildRC(25)], label:"75문항 · 51:00 (실전)"},
   av:  {name:"Aviation Information", secs:480,  build:()=>buildAV(20),                            label:"20문항 · 8:00"},
-  // Balanced daily mixed practice across all four areas (generous timer = low pressure).
+  ar:  {name:"Arithmetic Reasoning",secs:1740, build:()=>buildMCQ(ARITH,"AR",25),                 label:"25문항 · 29:00"},
+  mk:  {name:"Math Knowledge",      secs:1320, build:()=>buildMCQ(MATHK,"MK",25),                 label:"25문항 · 22:00"},
+  ps:  {name:"Physical Science",    secs:600,  build:()=>buildMCQ(PHYSCI,"PS",20),                label:"20문항 · 10:00"},
+  sj:  {name:"Situational Judgment",secs:2100, build:()=>buildSJ(16),                             label:"16문항 · 35:00"},
+  // Balanced daily mixed practice (generous timer = low pressure).
   daily:{name:"오늘의 통합 학습",     secs:1500, build:()=>[...buildWK(8),...buildVA(6),...buildRC(4),...buildAV(4)], label:"전 영역 22문항"},
 };
 function buildAV(n){
   return shuffle(AVIATION).slice(0,n).map(q=>({
     section:"AV", prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:AVCAT[q.topic]||q.topic||"",
     avId:q.id, avTopic:q.topic,
+    options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
+}
+// Generic bilingual MCQ builder (Arithmetic Reasoning / Math Knowledge / Physical Science).
+function buildMCQ(pool,section,n){
+  return shuffle(pool).slice(0,n).map(q=>({
+    section, prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:q.topic||"",
+    options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
+}
+// Situational Judgment: scenario shown as a passage block, single best-answer.
+function buildSJ(n){
+  return shuffle(SITJUD).slice(0,n).map(q=>({
+    section:"SJ", prompt:q.q||"가장 효과적인 행동은?", promptKo:"", stem:null, sub:"리더십·판단",
+    passageId:"sj"+q.id, passageTitle:"상황 (Situation)",
+    passageText:(q.scenario||"")+(q.scenario_ko?("\n\n"+q.scenario_ko):""),
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
 }
 // Rough, clearly-unofficial mapping from accuracy to an AFOQT-style percentile.
@@ -842,12 +980,13 @@ function renderExamSetup(){
   const tot=wc.wk+wc.va+wc.rc; $("#retestAll").classList.toggle("hidden",tot===0);
   $("#retestAll").textContent=`🔁 전체 오답 재시험 (${tot}문제)`;
 }
-function startExam(key){
+function startExam(key,opts){
   const p=EXAM_PRESETS[key]; if(!p) return;
   const items=p.build();
   if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
+  const secs=opts&&opts.practice ? Math.round(p.secs*2.2) : p.secs;
   exam={key,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
-        secsLeft:p.secs,total:items.length,submitted:false,timerId:null};
+        secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
   // Activate the exam view directly — do NOT call go("exam") here, since that
   // re-runs renderExamSetup() and would wipe the exam we just built.
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
@@ -868,7 +1007,7 @@ function renderExamQ(){
   $("#examCount").textContent=`${e.idx+1} / ${e.total}`;
   $("#examBar").style.width=(e.idx/e.total*100)+"%";
   const samePrev=e.idx>0&&e.items[e.idx-1]?.passageId===it.passageId;
-  const passage=it.section==="RC"?`<details class="exam-passage" ${samePrev?"":"open"}>
+  const passage=it.passageText?`<details class="exam-passage" ${samePrev?"":"open"}>
       <summary>📖 ${esc(it.passageTitle||"지문")} (탭하여 펼치기)</summary>
       <div class="passage">${esc(it.passageText)}</div></details>`:"";
   const stem=it.stem?`<div class="exam-stem">${esc(it.stem)}</div>`:"";
@@ -945,7 +1084,7 @@ function submitExam(auto){
     (bySec[it.section]=bySec[it.section]||{got:0,total:0}).total++; if(ok)bySec[it.section].got++;
     recordResult(it,ok); });
   const total=e.total, pct=Math.round(got/total*100);
-  const used=(EXAM_PRESETS[e.key]?EXAM_PRESETS[e.key].secs:e.startSecs||0)-Math.max(0,e.secsLeft);
+  const used=(e.startSecs||(EXAM_PRESETS[e.key]?EXAM_PRESETS[e.key].secs:0))-Math.max(0,e.secsLeft);
   bumpDay({studied:total,correct:got});
   if(e.key){ const prev=state.exams[e.key]||{best:0,bestTotal:total};
     state.exams[e.key]={best:Math.max(prev.best||0,got),bestTotal:total,last:got,lastTotal:total,date:todayStr()}; }
@@ -956,7 +1095,7 @@ function submitExam(auto){
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
   $("#examEmoji").textContent=pct>=85?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
   $("#examScore").textContent=`${got} / ${total} 정답 (${pct}%)`;
-  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공"};
+  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황"};
   $("#examBreakDown").innerHTML=Object.keys(bySec).map(k=>
     `<div class="s"><b>${bySec[k].got}/${bySec[k].total}</b><span>${secName[k]||k}</span></div>`).join("");
   // estimated AFOQT-style percentile (unofficial)
@@ -973,7 +1112,7 @@ function submitExam(auto){
 }
 function renderExamReview(){
   const e=exam; if(!e) return;
-  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공"};
+  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황"};
   $("#examReview").innerHTML=e.items.map((it,i)=>{
     const pick=e.answers[i], ok=pick===it.answer;
     const opts=it.options.map((o,oi)=>{
@@ -1093,6 +1232,15 @@ function wire(){
   $("#btnDaily").onclick=()=>startExam("daily");
   $("#secWK").onclick=()=>go("vocab"); $("#secVA").onclick=()=>go("analogy"); $("#secRC").onclick=()=>go("reading");
   $("#secAV").onclick=()=>go("aviation");
+  $("#secAR").onclick=()=>openSubtest("ar"); $("#secMK").onclick=()=>openSubtest("mk");
+  $("#secPS").onclick=()=>openSubtest("ps"); $("#secSJ").onclick=()=>openSubtest("sj");
+  $("#secTR").onclick=startTableReading; $("#secIC").onclick=startInstrument; $("#secBC").onclick=startBlockCounting;
+  $("#secSDI").onclick=()=>openGuide("sdi");
+  // generic subtest hub
+  $("#subBack").onclick=()=>go("home");
+  // instrument comprehension
+  $("#icStart").onclick=startInstrument; $("#icGuide").onclick=()=>openGuide("ic");
+  $("#icBack").onclick=()=>{ icTimerStop(); icState=null; go("aviation"); }; $("#icRetry").onclick=startInstrument; $("#icHome").onclick=()=>{ icState=null; go("aviation"); };
   // vocab hub
   $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
   $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
@@ -1170,7 +1318,7 @@ let lastDay=todayStr();
    ============================================================ */
 // Register the service worker and auto-apply updates so users never get stuck
 // on a stale cached version (no need for ?v= cache-busting URLs).
-function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz||!!trState||!!bcState; }
+function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz||!!trState||!!bcState||!!icState; }
 // Nuke all caches + service workers and hard-reload — guarantees the latest
 // version, fixing any "I still see the old app" situation. Learning data lives
 // in localStorage, which is NOT touched here.
@@ -1261,6 +1409,10 @@ async function boot(){
     GUIDES=await loadJSON("./guides.json")||{};
     AVIATION=await loadJSON("./aviation.json")||[];
     AVTERMS=await loadJSON("./aviation_terms.json")||[];
+    ARITH=await loadJSON("./arithmetic.json")||[];
+    MATHK=await loadJSON("./mathknowledge.json")||[];
+    PHYSCI=await loadJSON("./physicalscience.json")||[];
+    SITJUD=await loadJSON("./situational.json")||[];
     $("#boot").classList.remove("active"); go("home");
     initSync();   // non-blocking: app already usable
     registerSW();

@@ -1,4 +1,4 @@
-# AFOQT Vocab Master 📇
+# AFOQT Master 📇
 
 AFOQT **Verbal** 단어 암기용 모바일 학습 PWA.
 간격반복(SRS)으로 단어를 외우고, **Supabase 실시간 동기화**로 폰·노트북 어디서나 같은 진도로 공부합니다.

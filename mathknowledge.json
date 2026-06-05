@@ -1,0 +1,1122 @@
+[
+  {
+    "id": 1,
+    "topic": "equations",
+    "q": "If 3x + 5 = 20, what is x?",
+    "q_ko": "3x + 5 = 20일 때, x의 값은?",
+    "options": [
+      "3",
+      "5",
+      "15",
+      "45"
+    ],
+    "answer": 1,
+    "explain": "3x = 20 - 5 = 15. 따라서 x = 15 / 3 = 5."
+  },
+  {
+    "id": 2,
+    "topic": "equations",
+    "q": "If 2x - 7 = 11, what is x?",
+    "q_ko": "2x - 7 = 11일 때, x의 값은?",
+    "options": [
+      "2",
+      "6",
+      "18",
+      "9"
+    ],
+    "answer": 3,
+    "explain": "2x = 11 + 7 = 18. 따라서 x = 18 / 2 = 9."
+  },
+  {
+    "id": 3,
+    "topic": "algebra",
+    "q": "Simplify: 4x + 3x - 2x",
+    "q_ko": "식을 간단히 하시오: 4x + 3x - 2x",
+    "options": [
+      "5x",
+      "9x",
+      "x",
+      "6x"
+    ],
+    "answer": 0,
+    "explain": "동류항을 모으면 (4 + 3 - 2)x = 5x."
+  },
+  {
+    "id": 4,
+    "topic": "algebra",
+    "q": "Expand: (x + 3)(x + 4)",
+    "q_ko": "전개하시오: (x + 3)(x + 4)",
+    "options": [
+      "x^2 + 7x + 12",
+      "x^2 + 12x + 7",
+      "x^2 + 7x + 7",
+      "x^2 + 12"
+    ],
+    "answer": 0,
+    "explain": "(x+3)(x+4) = x^2 + 4x + 3x + 12 = x^2 + 7x + 12."
+  },
+  {
+    "id": 5,
+    "topic": "exponents",
+    "q": "What is 2^5?",
+    "q_ko": "2^5의 값은?",
+    "options": [
+      "10",
+      "16",
+      "25",
+      "32"
+    ],
+    "answer": 3,
+    "explain": "2^5 = 2*2*2*2*2 = 32."
+  },
+  {
+    "id": 6,
+    "topic": "exponents",
+    "q": "Simplify: x^3 * x^4",
+    "q_ko": "간단히 하시오: x^3 * x^4",
+    "options": [
+      "x^7",
+      "x^12",
+      "x^1",
+      "2x^7"
+    ],
+    "answer": 0,
+    "explain": "지수법칙에 따라 같은 밑의 곱은 지수를 더한다: x^(3+4) = x^7."
+  },
+  {
+    "id": 7,
+    "topic": "geometry",
+    "q": "What is the area of a rectangle with length 8 and width 5?",
+    "q_ko": "길이 8, 너비 5인 직사각형의 넓이는?",
+    "options": [
+      "13",
+      "26",
+      "40",
+      "45"
+    ],
+    "answer": 2,
+    "explain": "직사각형 넓이 = 길이 * 너비 = 8 * 5 = 40."
+  },
+  {
+    "id": 8,
+    "topic": "geometry",
+    "q": "What is the perimeter of a square with side length 7?",
+    "q_ko": "한 변의 길이가 7인 정사각형의 둘레는?",
+    "options": [
+      "14",
+      "21",
+      "28",
+      "49"
+    ],
+    "answer": 2,
+    "explain": "정사각형 둘레 = 4 * 변 = 4 * 7 = 28."
+  },
+  {
+    "id": 9,
+    "topic": "geometry",
+    "q": "A right triangle has legs of 3 and 4. What is the hypotenuse?",
+    "q_ko": "직각삼각형의 두 변이 3과 4일 때, 빗변의 길이는?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "12"
+    ],
+    "answer": 0,
+    "explain": "피타고라스 정리: c = sqrt(3^2 + 4^2) = sqrt(9 + 16) = sqrt(25) = 5."
+  },
+  {
+    "id": 10,
+    "topic": "arithmetic",
+    "q": "What is 15% of 200?",
+    "q_ko": "200의 15%는?",
+    "options": [
+      "15",
+      "30",
+      "45",
+      "300"
+    ],
+    "answer": 1,
+    "explain": "0.15 * 200 = 30."
+  },
+  {
+    "id": 11,
+    "topic": "number_properties",
+    "q": "Which of the following is a prime number?",
+    "q_ko": "다음 중 소수는?",
+    "options": [
+      "21",
+      "27",
+      "29",
+      "33"
+    ],
+    "answer": 2,
+    "explain": "29는 1과 자기 자신으로만 나누어진다. 21=3*7, 27=3*9, 33=3*11이므로 소수가 아니다."
+  },
+  {
+    "id": 12,
+    "topic": "arithmetic",
+    "q": "Evaluate: 6 + 2 * 3",
+    "q_ko": "계산하시오: 6 + 2 * 3",
+    "options": [
+      "24",
+      "10",
+      "18",
+      "12"
+    ],
+    "answer": 3,
+    "explain": "연산 순서에 따라 곱셈 먼저: 2*3=6, 그 후 6+6=12. 정답은 12."
+  },
+  {
+    "id": 13,
+    "topic": "inequalities",
+    "q": "Solve for x: x + 4 > 9",
+    "q_ko": "x를 구하시오: x + 4 > 9",
+    "options": [
+      "x > 5",
+      "x > 13",
+      "x < 5",
+      "x > 4"
+    ],
+    "answer": 0,
+    "explain": "양변에서 4를 빼면 x > 9 - 4 = 5."
+  },
+  {
+    "id": 14,
+    "topic": "inequalities",
+    "q": "Solve for x: -2x < 8",
+    "q_ko": "x를 구하시오: -2x < 8",
+    "options": [
+      "x < -4",
+      "x > -4",
+      "x < 4",
+      "x > 4"
+    ],
+    "answer": 1,
+    "explain": "양변을 -2로 나누면 부등호 방향이 바뀐다: x > 8 / (-2) = -4."
+  },
+  {
+    "id": 15,
+    "topic": "equations",
+    "q": "Solve the system: x + y = 10, x - y = 4. What is x?",
+    "q_ko": "연립방정식 x + y = 10, x - y = 4에서 x는?",
+    "options": [
+      "3",
+      "5",
+      "10",
+      "7"
+    ],
+    "answer": 3,
+    "explain": "두 식을 더하면 2x = 14, x = 7. (y = 3)"
+  },
+  {
+    "id": 16,
+    "topic": "algebra",
+    "q": "Factor: x^2 - 9",
+    "q_ko": "인수분해하시오: x^2 - 9",
+    "options": [
+      "(x-3)(x-3)",
+      "(x+3)(x+3)",
+      "(x-3)(x+3)",
+      "(x-9)(x+1)"
+    ],
+    "answer": 2,
+    "explain": "합과 차의 곱 공식: a^2 - b^2 = (a-b)(a+b). 따라서 x^2 - 9 = (x-3)(x+3)."
+  },
+  {
+    "id": 17,
+    "topic": "geometry",
+    "q": "What is the area of a circle with radius 5? (Use pi ≈ 3.14)",
+    "q_ko": "반지름이 5인 원의 넓이는? (pi ≈ 3.14 사용)",
+    "options": [
+      "31.4",
+      "78.5",
+      "15.7",
+      "25"
+    ],
+    "answer": 1,
+    "explain": "원 넓이 = pi * r^2 = 3.14 * 25 = 78.5."
+  },
+  {
+    "id": 18,
+    "topic": "geometry",
+    "q": "What is the circumference of a circle with diameter 10? (Use pi ≈ 3.14)",
+    "q_ko": "지름이 10인 원의 둘레는? (pi ≈ 3.14 사용)",
+    "options": [
+      "15.7",
+      "31.4",
+      "78.5",
+      "62.8"
+    ],
+    "answer": 1,
+    "explain": "원 둘레 = pi * 지름 = 3.14 * 10 = 31.4."
+  },
+  {
+    "id": 19,
+    "topic": "exponents",
+    "q": "What is 3^0?",
+    "q_ko": "3^0의 값은?",
+    "options": [
+      "0",
+      "1",
+      "3",
+      "9"
+    ],
+    "answer": 1,
+    "explain": "0이 아닌 모든 수의 0제곱은 1이다."
+  },
+  {
+    "id": 20,
+    "topic": "exponents",
+    "q": "Simplify: (x^2)^3",
+    "q_ko": "간단히 하시오: (x^2)^3",
+    "options": [
+      "x^5",
+      "x^6",
+      "x^8",
+      "x^9"
+    ],
+    "answer": 1,
+    "explain": "거듭제곱의 거듭제곱은 지수를 곱한다: x^(2*3) = x^6."
+  },
+  {
+    "id": 21,
+    "topic": "arithmetic",
+    "q": "What is 3/4 + 1/8?",
+    "q_ko": "3/4 + 1/8의 값은?",
+    "options": [
+      "4/12",
+      "7/8",
+      "5/8",
+      "1"
+    ],
+    "answer": 1,
+    "explain": "통분: 3/4 = 6/8. 6/8 + 1/8 = 7/8."
+  },
+  {
+    "id": 22,
+    "topic": "number_properties",
+    "q": "What is the greatest common factor (GCF) of 12 and 18?",
+    "q_ko": "12와 18의 최대공약수(GCF)는?",
+    "options": [
+      "2",
+      "3",
+      "36",
+      "6"
+    ],
+    "answer": 3,
+    "explain": "12 = 2^2*3, 18 = 2*3^2. 공통 인수는 2*3 = 6."
+  },
+  {
+    "id": 23,
+    "topic": "number_properties",
+    "q": "What is the least common multiple (LCM) of 4 and 6?",
+    "q_ko": "4와 6의 최소공배수(LCM)는?",
+    "options": [
+      "2",
+      "12",
+      "24",
+      "10"
+    ],
+    "answer": 1,
+    "explain": "4의 배수: 4,8,12... 6의 배수: 6,12... 가장 작은 공배수는 12."
+  },
+  {
+    "id": 24,
+    "topic": "functions",
+    "q": "If f(x) = 2x + 3, what is f(5)?",
+    "q_ko": "f(x) = 2x + 3일 때, f(5)는?",
+    "options": [
+      "10",
+      "13",
+      "8",
+      "25"
+    ],
+    "answer": 1,
+    "explain": "f(5) = 2*5 + 3 = 10 + 3 = 13."
+  },
+  {
+    "id": 25,
+    "topic": "functions",
+    "q": "If f(x) = x^2 - 1, what is f(4)?",
+    "q_ko": "f(x) = x^2 - 1일 때, f(4)는?",
+    "options": [
+      "7",
+      "15",
+      "16",
+      "9"
+    ],
+    "answer": 1,
+    "explain": "f(4) = 4^2 - 1 = 16 - 1 = 15."
+  },
+  {
+    "id": 26,
+    "topic": "algebra",
+    "q": "Simplify: 2(x + 3) + 4x",
+    "q_ko": "간단히 하시오: 2(x + 3) + 4x",
+    "options": [
+      "6x + 6",
+      "6x + 3",
+      "2x + 6",
+      "8x"
+    ],
+    "answer": 0,
+    "explain": "분배: 2x + 6 + 4x = 6x + 6."
+  },
+  {
+    "id": 27,
+    "topic": "equations",
+    "q": "Solve for x: 5x = 2x + 12",
+    "q_ko": "x를 구하시오: 5x = 2x + 12",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "12"
+    ],
+    "answer": 2,
+    "explain": "5x - 2x = 12, 3x = 12, x = 4."
+  },
+  {
+    "id": 28,
+    "topic": "geometry",
+    "q": "The angles of a triangle are 50° and 60°. What is the third angle?",
+    "q_ko": "삼각형의 두 각이 50°와 60°이다. 나머지 한 각은?",
+    "options": [
+      "60°",
+      "70°",
+      "80°",
+      "110°"
+    ],
+    "answer": 1,
+    "explain": "삼각형 내각의 합은 180°. 180 - 50 - 60 = 70°."
+  },
+  {
+    "id": 29,
+    "topic": "geometry",
+    "q": "What is the volume of a cube with side length 4?",
+    "q_ko": "한 변의 길이가 4인 정육면체의 부피는?",
+    "options": [
+      "12",
+      "16",
+      "48",
+      "64"
+    ],
+    "answer": 3,
+    "explain": "정육면체 부피 = 변^3 = 4^3 = 64."
+  },
+  {
+    "id": 30,
+    "topic": "geometry",
+    "q": "Two angles are supplementary. One is 110°. What is the other?",
+    "q_ko": "두 각이 보각 관계이다. 한 각이 110°일 때, 다른 각은?",
+    "options": [
+      "20°",
+      "70°",
+      "90°",
+      "250°"
+    ],
+    "answer": 1,
+    "explain": "보각의 합은 180°. 180 - 110 = 70°."
+  },
+  {
+    "id": 31,
+    "topic": "arithmetic",
+    "q": "What is 0.25 as a fraction in lowest terms?",
+    "q_ko": "0.25를 기약분수로 나타내면?",
+    "options": [
+      "1/2",
+      "1/3",
+      "1/4",
+      "2/5"
+    ],
+    "answer": 2,
+    "explain": "0.25 = 25/100 = 1/4."
+  },
+  {
+    "id": 32,
+    "topic": "arithmetic",
+    "q": "What is the average of 8, 12, and 16?",
+    "q_ko": "8, 12, 16의 평균은?",
+    "options": [
+      "10",
+      "12",
+      "14",
+      "36"
+    ],
+    "answer": 1,
+    "explain": "(8 + 12 + 16) / 3 = 36 / 3 = 12."
+  },
+  {
+    "id": 33,
+    "topic": "number_properties",
+    "q": "How many factors does 12 have?",
+    "q_ko": "12의 약수는 몇 개인가?",
+    "options": [
+      "4",
+      "5",
+      "12",
+      "6"
+    ],
+    "answer": 3,
+    "explain": "12의 약수: 1, 2, 3, 4, 6, 12 → 총 6개."
+  },
+  {
+    "id": 34,
+    "topic": "algebra",
+    "q": "Simplify: (6x^2) / (2x)",
+    "q_ko": "간단히 하시오: (6x^2) / (2x)",
+    "options": [
+      "3x",
+      "3x^2",
+      "4x",
+      "3"
+    ],
+    "answer": 0,
+    "explain": "6/2 = 3, x^2 / x = x. 따라서 3x."
+  },
+  {
+    "id": 35,
+    "topic": "exponents",
+    "q": "What is 5^2 * 5^3?",
+    "q_ko": "5^2 * 5^3의 값은?",
+    "options": [
+      "5^5",
+      "5^6",
+      "25^5",
+      "10^5"
+    ],
+    "answer": 0,
+    "explain": "같은 밑의 곱은 지수를 더한다: 5^(2+3) = 5^5."
+  },
+  {
+    "id": 36,
+    "topic": "exponents",
+    "q": "Simplify: x^6 / x^2",
+    "q_ko": "간단히 하시오: x^6 / x^2",
+    "options": [
+      "x^3",
+      "x^4",
+      "x^8",
+      "x^12"
+    ],
+    "answer": 1,
+    "explain": "같은 밑의 나눗셈은 지수를 뺀다: x^(6-2) = x^4."
+  },
+  {
+    "id": 37,
+    "topic": "equations",
+    "q": "Solve for x: x/3 = 6",
+    "q_ko": "x를 구하시오: x/3 = 6",
+    "options": [
+      "2",
+      "9",
+      "18",
+      "3"
+    ],
+    "answer": 2,
+    "explain": "양변에 3을 곱하면 x = 18."
+  },
+  {
+    "id": 38,
+    "topic": "equations",
+    "q": "Solve for x: 4(x - 2) = 12",
+    "q_ko": "x를 구하시오: 4(x - 2) = 12",
+    "options": [
+      "3",
+      "5",
+      "4",
+      "8"
+    ],
+    "answer": 1,
+    "explain": "양변을 4로 나누면 x - 2 = 3, x = 5."
+  },
+  {
+    "id": 39,
+    "topic": "inequalities",
+    "q": "Solve for x: 3x - 1 >= 8",
+    "q_ko": "x를 구하시오: 3x - 1 >= 8",
+    "options": [
+      "x >= 3",
+      "x >= 9",
+      "x <= 3",
+      "x >= 2"
+    ],
+    "answer": 0,
+    "explain": "3x >= 9, x >= 3."
+  },
+  {
+    "id": 40,
+    "topic": "algebra",
+    "q": "What is the value of |{-7}|?",
+    "q_ko": "|-7|의 값은?",
+    "options": [
+      "-7",
+      "0",
+      "7",
+      "14"
+    ],
+    "answer": 2,
+    "explain": "절댓값은 0으로부터의 거리이므로 |-7| = 7."
+  },
+  {
+    "id": 41,
+    "topic": "algebra",
+    "q": "Solve: |x| = 5",
+    "q_ko": "풀이하시오: |x| = 5",
+    "options": [
+      "x = 5 only",
+      "x = -5 only",
+      "x = 5 or x = -5",
+      "x = 0"
+    ],
+    "answer": 2,
+    "explain": "절댓값이 5인 수는 5와 -5 두 가지이다."
+  },
+  {
+    "id": 42,
+    "topic": "geometry",
+    "q": "What is the area of a triangle with base 10 and height 6?",
+    "q_ko": "밑변 10, 높이 6인 삼각형의 넓이는?",
+    "options": [
+      "16",
+      "60",
+      "8",
+      "30"
+    ],
+    "answer": 3,
+    "explain": "삼각형 넓이 = (1/2) * 밑변 * 높이 = (1/2) * 10 * 6 = 30."
+  },
+  {
+    "id": 43,
+    "topic": "geometry",
+    "q": "What is the volume of a rectangular box 2 by 3 by 5?",
+    "q_ko": "가로 2, 세로 3, 높이 5인 직육면체의 부피는?",
+    "options": [
+      "10",
+      "25",
+      "30",
+      "60"
+    ],
+    "answer": 2,
+    "explain": "직육면체 부피 = 2 * 3 * 5 = 30."
+  },
+  {
+    "id": 44,
+    "topic": "arithmetic",
+    "q": "What is 7 * 8 - 6?",
+    "q_ko": "7 * 8 - 6의 값은?",
+    "options": [
+      "50",
+      "48",
+      "56",
+      "42"
+    ],
+    "answer": 0,
+    "explain": "곱셈 먼저: 7*8 = 56, 그 후 56 - 6 = 50."
+  },
+  {
+    "id": 45,
+    "topic": "arithmetic",
+    "q": "A shirt costs $40 and is discounted 25%. What is the sale price?",
+    "q_ko": "40달러 셔츠를 25% 할인하면 판매 가격은?",
+    "options": [
+      "$10",
+      "$15",
+      "$35",
+      "$30"
+    ],
+    "answer": 3,
+    "explain": "할인액 = 40 * 0.25 = 10. 판매가 = 40 - 10 = 30."
+  },
+  {
+    "id": 46,
+    "topic": "number_properties",
+    "q": "What is the prime factorization of 36?",
+    "q_ko": "36의 소인수분해는?",
+    "options": [
+      "2^2 * 3^2",
+      "2 * 18",
+      "6 * 6",
+      "2^3 * 3"
+    ],
+    "answer": 0,
+    "explain": "36 = 4 * 9 = 2^2 * 3^2."
+  },
+  {
+    "id": 47,
+    "topic": "functions",
+    "q": "If f(x) = 3x - 2, for what x is f(x) = 10?",
+    "q_ko": "f(x) = 3x - 2일 때, f(x) = 10이 되는 x는?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "12"
+    ],
+    "answer": 2,
+    "explain": "3x - 2 = 10, 3x = 12, x = 4."
+  },
+  {
+    "id": 48,
+    "topic": "algebra",
+    "q": "Simplify: 3x - (x - 4)",
+    "q_ko": "간단히 하시오: 3x - (x - 4)",
+    "options": [
+      "2x + 4",
+      "2x - 4",
+      "4x - 4",
+      "2x"
+    ],
+    "answer": 0,
+    "explain": "3x - x + 4 = 2x + 4."
+  },
+  {
+    "id": 49,
+    "topic": "equations",
+    "q": "Solve for x: 2x + 3 = 5x - 9",
+    "q_ko": "x를 구하시오: 2x + 3 = 5x - 9",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "answer": 2,
+    "explain": "3 + 9 = 5x - 2x, 12 = 3x, x = 4."
+  },
+  {
+    "id": 50,
+    "topic": "geometry",
+    "q": "A square has area 49. What is its side length?",
+    "q_ko": "넓이가 49인 정사각형의 한 변의 길이는?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "24.5"
+    ],
+    "answer": 1,
+    "explain": "변 = sqrt(49) = 7."
+  },
+  {
+    "id": 51,
+    "topic": "geometry",
+    "q": "What is the length of the diagonal of a square with side 6? (round)",
+    "q_ko": "한 변이 6인 정사각형의 대각선 길이는? (sqrt 형태)",
+    "options": [
+      "6",
+      "6*sqrt(2)",
+      "12",
+      "sqrt(6)"
+    ],
+    "answer": 1,
+    "explain": "대각선 = sqrt(6^2 + 6^2) = sqrt(72) = 6*sqrt(2)."
+  },
+  {
+    "id": 52,
+    "topic": "exponents",
+    "q": "What is sqrt(64)?",
+    "q_ko": "sqrt(64)의 값은?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "32"
+    ],
+    "answer": 2,
+    "explain": "8 * 8 = 64이므로 sqrt(64) = 8."
+  },
+  {
+    "id": 53,
+    "topic": "exponents",
+    "q": "What is 4^(-1)?",
+    "q_ko": "4^(-1)의 값은?",
+    "options": [
+      "-4",
+      "1/4",
+      "4",
+      "-1/4"
+    ],
+    "answer": 1,
+    "explain": "음의 지수: 4^(-1) = 1/4^1 = 1/4."
+  },
+  {
+    "id": 54,
+    "topic": "arithmetic",
+    "q": "What is 144 / 12?",
+    "q_ko": "144 / 12의 값은?",
+    "options": [
+      "10",
+      "11",
+      "14",
+      "12"
+    ],
+    "answer": 3,
+    "explain": "12 * 12 = 144이므로 144 / 12 = 12."
+  },
+  {
+    "id": 55,
+    "topic": "inequalities",
+    "q": "Solve for x: 2x + 5 < 13",
+    "q_ko": "x를 구하시오: 2x + 5 < 13",
+    "options": [
+      "x < 4",
+      "x < 9",
+      "x > 4",
+      "x < 8"
+    ],
+    "answer": 0,
+    "explain": "2x < 8, x < 4."
+  },
+  {
+    "id": 56,
+    "topic": "number_properties",
+    "q": "Which number is divisible by 9?",
+    "q_ko": "다음 중 9로 나누어떨어지는 수는?",
+    "options": [
+      "345",
+      "453",
+      "459",
+      "464"
+    ],
+    "answer": 2,
+    "explain": "각 자리 합이 9의 배수면 나누어진다. 459 → 4+5+9 = 18, 18은 9의 배수이므로 459가 정답."
+  },
+  {
+    "id": 57,
+    "topic": "algebra",
+    "q": "Expand: (x - 2)^2",
+    "q_ko": "전개하시오: (x - 2)^2",
+    "options": [
+      "x^2 - 4",
+      "x^2 + 4",
+      "x^2 - 4x + 4",
+      "x^2 - 2x + 4"
+    ],
+    "answer": 2,
+    "explain": "(x-2)^2 = x^2 - 2*2*x + 4 = x^2 - 4x + 4."
+  },
+  {
+    "id": 58,
+    "topic": "equations",
+    "q": "Solve x^2 = 36. What are the solutions?",
+    "q_ko": "x^2 = 36을 풀면 해는?",
+    "options": [
+      "x = 6 only",
+      "x = 6 or x = -6",
+      "x = 18",
+      "x = -6 only"
+    ],
+    "answer": 1,
+    "explain": "x = ±sqrt(36) = ±6, 즉 6 또는 -6."
+  },
+  {
+    "id": 59,
+    "topic": "functions",
+    "q": "If f(x) = x^2 + 2x, what is f(-3)?",
+    "q_ko": "f(x) = x^2 + 2x일 때, f(-3)는?",
+    "options": [
+      "3",
+      "-3",
+      "15",
+      "-15"
+    ],
+    "answer": 0,
+    "explain": "f(-3) = (-3)^2 + 2*(-3) = 9 - 6 = 3."
+  },
+  {
+    "id": 60,
+    "topic": "geometry",
+    "q": "A triangle's angles are in ratio 1:2:3. What is the largest angle?",
+    "q_ko": "삼각형의 세 각의 비가 1:2:3이다. 가장 큰 각은?",
+    "options": [
+      "30°",
+      "60°",
+      "120°",
+      "90°"
+    ],
+    "answer": 3,
+    "explain": "비의 합 1+2+3 = 6, 한 부분 = 180/6 = 30°. 가장 큰 각 = 3*30 = 90°."
+  },
+  {
+    "id": 61,
+    "topic": "arithmetic",
+    "q": "What is 2/3 of 90?",
+    "q_ko": "90의 2/3는?",
+    "options": [
+      "30",
+      "45",
+      "60",
+      "135"
+    ],
+    "answer": 2,
+    "explain": "90 / 3 = 30, 30 * 2 = 60."
+  },
+  {
+    "id": 62,
+    "topic": "arithmetic",
+    "q": "Convert 3/5 to a percent.",
+    "q_ko": "3/5를 백분율로 나타내면?",
+    "options": [
+      "35%",
+      "53%",
+      "60%",
+      "65%"
+    ],
+    "answer": 2,
+    "explain": "3/5 = 0.6 = 60%."
+  },
+  {
+    "id": 63,
+    "topic": "number_properties",
+    "q": "What is the sum of the first 5 positive even numbers?",
+    "q_ko": "처음 5개 양의 짝수의 합은?",
+    "options": [
+      "20",
+      "25",
+      "30",
+      "40"
+    ],
+    "answer": 2,
+    "explain": "2+4+6+8+10 = 30."
+  },
+  {
+    "id": 64,
+    "topic": "algebra",
+    "q": "If 3a = 12, what is 5a?",
+    "q_ko": "3a = 12일 때, 5a는?",
+    "options": [
+      "4",
+      "15",
+      "20",
+      "60"
+    ],
+    "answer": 2,
+    "explain": "a = 12/3 = 4, 5a = 5*4 = 20."
+  },
+  {
+    "id": 65,
+    "topic": "exponents",
+    "q": "Simplify: 2^3 + 3^2",
+    "q_ko": "간단히 하시오: 2^3 + 3^2",
+    "options": [
+      "13",
+      "17",
+      "25",
+      "36"
+    ],
+    "answer": 1,
+    "explain": "2^3 = 8, 3^2 = 9, 8 + 9 = 17."
+  },
+  {
+    "id": 66,
+    "topic": "exponents",
+    "q": "What is sqrt(81) + sqrt(16)?",
+    "q_ko": "sqrt(81) + sqrt(16)의 값은?",
+    "options": [
+      "11",
+      "13",
+      "97",
+      "25"
+    ],
+    "answer": 1,
+    "explain": "sqrt(81) = 9, sqrt(16) = 4, 9 + 4 = 13."
+  },
+  {
+    "id": 67,
+    "topic": "equations",
+    "q": "Solve for y: 2x + y = 7 when x = 2",
+    "q_ko": "x = 2일 때 2x + y = 7에서 y를 구하시오",
+    "options": [
+      "1",
+      "3",
+      "5",
+      "11"
+    ],
+    "answer": 1,
+    "explain": "2*2 + y = 7, 4 + y = 7, y = 3."
+  },
+  {
+    "id": 68,
+    "topic": "inequalities",
+    "q": "Solve for x: -3x + 2 > -7",
+    "q_ko": "x를 구하시오: -3x + 2 > -7",
+    "options": [
+      "x < 3",
+      "x > 3",
+      "x < -3",
+      "x > -3"
+    ],
+    "answer": 0,
+    "explain": "-3x > -9, 양변을 -3으로 나누면 부등호가 바뀐다: x < 3."
+  },
+  {
+    "id": 69,
+    "topic": "geometry",
+    "q": "A circle has radius 7. What is its diameter?",
+    "q_ko": "반지름이 7인 원의 지름은?",
+    "options": [
+      "3.5",
+      "7",
+      "14",
+      "49"
+    ],
+    "answer": 2,
+    "explain": "지름 = 2 * 반지름 = 2 * 7 = 14."
+  },
+  {
+    "id": 70,
+    "topic": "geometry",
+    "q": "What is the surface area of a cube with side 3?",
+    "q_ko": "한 변이 3인 정육면체의 겉넓이는?",
+    "options": [
+      "9",
+      "27",
+      "18",
+      "54"
+    ],
+    "answer": 3,
+    "explain": "정육면체 겉넓이 = 6 * 변^2 = 6 * 9 = 54."
+  },
+  {
+    "id": 71,
+    "topic": "arithmetic",
+    "q": "What is 5! (5 factorial)?",
+    "q_ko": "5! (5의 계승)의 값은?",
+    "options": [
+      "20",
+      "60",
+      "120",
+      "25"
+    ],
+    "answer": 2,
+    "explain": "5! = 5*4*3*2*1 = 120."
+  },
+  {
+    "id": 72,
+    "topic": "number_properties",
+    "q": "Which of these is an irrational number?",
+    "q_ko": "다음 중 무리수는?",
+    "options": [
+      "1/2",
+      "0.75",
+      "sqrt(2)",
+      "4"
+    ],
+    "answer": 2,
+    "explain": "sqrt(2)는 분수로 나타낼 수 없는 무한 비순환 소수이므로 무리수이다."
+  },
+  {
+    "id": 73,
+    "topic": "algebra",
+    "q": "Solve for x: (x + 1)/2 = 5",
+    "q_ko": "x를 구하시오: (x + 1)/2 = 5",
+    "options": [
+      "4",
+      "9",
+      "10",
+      "11"
+    ],
+    "answer": 1,
+    "explain": "양변에 2를 곱하면 x + 1 = 10, x = 9."
+  },
+  {
+    "id": 74,
+    "topic": "functions",
+    "q": "If g(x) = 4x, what is g(3) - g(1)?",
+    "q_ko": "g(x) = 4x일 때, g(3) - g(1)은?",
+    "options": [
+      "4",
+      "8",
+      "12",
+      "16"
+    ],
+    "answer": 1,
+    "explain": "g(3) = 12, g(1) = 4, 12 - 4 = 8."
+  },
+  {
+    "id": 75,
+    "topic": "equations",
+    "q": "Solve the system: 2x + y = 8, y = x - 1. What is x?",
+    "q_ko": "연립방정식 2x + y = 8, y = x - 1에서 x는?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": 1,
+    "explain": "대입: 2x + (x - 1) = 8, 3x - 1 = 8, 3x = 9, x = 3."
+  },
+  {
+    "id": 76,
+    "topic": "geometry",
+    "q": "A rectangle has perimeter 24 and length 8. What is its width?",
+    "q_ko": "둘레가 24이고 길이가 8인 직사각형의 너비는?",
+    "options": [
+      "3",
+      "4",
+      "6",
+      "8"
+    ],
+    "answer": 1,
+    "explain": "둘레 = 2(길이+너비), 24 = 2(8+w), 12 = 8+w, w = 4."
+  },
+  {
+    "id": 77,
+    "topic": "exponents",
+    "q": "What is 10^3?",
+    "q_ko": "10^3의 값은?",
+    "options": [
+      "30",
+      "100",
+      "1000",
+      "10000"
+    ],
+    "answer": 2,
+    "explain": "10^3 = 10*10*10 = 1000."
+  },
+  {
+    "id": 78,
+    "topic": "arithmetic",
+    "q": "What is the value of -8 + 3 - (-5)?",
+    "q_ko": "-8 + 3 - (-5)의 값은?",
+    "options": [
+      "0",
+      "-6",
+      "-10",
+      "2"
+    ],
+    "answer": 0,
+    "explain": "-8 + 3 = -5, -5 - (-5) = -5 + 5 = 0."
+  },
+  {
+    "id": 79,
+    "topic": "number_properties",
+    "q": "What is the remainder when 47 is divided by 6?",
+    "q_ko": "47을 6으로 나눈 나머지는?",
+    "options": [
+      "1",
+      "3",
+      "2",
+      "5"
+    ],
+    "answer": 3,
+    "explain": "6 * 7 = 42, 47 - 42 = 5. 나머지는 5."
+  },
+  {
+    "id": 80,
+    "topic": "algebra",
+    "q": "If x = 3 and y = -2, what is x^2 + y^2?",
+    "q_ko": "x = 3, y = -2일 때 x^2 + y^2의 값은?",
+    "options": [
+      "1",
+      "5",
+      "13",
+      "11"
+    ],
+    "answer": 2,
+    "explain": "x^2 = 9, y^2 = (-2)^2 = 4, 9 + 4 = 13."
+  }
+]
