@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#4f46e5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -41,10 +41,11 @@
       </div>
     </div>
     <div class="progressbar"><i id="overallBar"></i></div>
-    <div class="muted" style="font-size:12px;margin-top:6px" id="overallLine">전체 진도</div>
+    <div class="muted" style="font-size:12px;margin-top:6px" id="overallLine">AFOQT 준비도</div>
   </div>
 
-  <button class="btn primary" id="btnStart" style="margin-top:16px;font-size:17px;padding:17px">▶︎ 오늘 학습 시작</button>
+  <button class="btn primary" id="btnDaily" style="margin-top:16px;font-size:17px;padding:17px">📅 오늘의 통합 학습 (전 영역)</button>
+  <button class="btn ghost" id="btnStart" style="margin-top:10px;font-size:16px;padding:15px">📇 단어 플래시카드만</button>
   <button class="btn ghost" id="btnExam" style="margin-top:10px;font-size:16px;padding:15px">🎯 실전 모의고사 (시간 측정)</button>
 
   <div class="grid3" style="margin-top:16px">
@@ -73,6 +74,14 @@
     <div class="go">›</div>
   </div>
 
+  <h2 class="section">Pilot 섹션</h2>
+  <div class="seccard" id="secAV">
+    <div class="ic">✈️</div>
+    <div class="meta"><b>Aviation Information</b><div class="muted" id="avSub">항공 지식 · 한글 병기</div>
+      <div class="progressbar mini"><i id="avBarH"></i></div></div>
+    <div class="go">›</div>
+  </div>
+
   <div class="card" style="margin-top:16px">
     <div class="row" style="justify-content:space-between;align-items:center">
       <div><b>오늘의 권장량</b><div class="muted" style="font-size:12px">7/10까지 다 외우려면</div></div>
@@ -91,8 +100,8 @@
     <div class="card tight stat"><div class="num" id="vkRemain">0</div><div class="lbl">남은 단어</div></div>
   </div>
   <button class="btn primary" id="vkStart" style="margin-top:16px">▶︎ 플래시카드 학습</button>
-  <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (AFOQT 형식 · 시간측정)</button>
-  <button class="btn ghost" id="vkQuiz" style="margin-top:10px">🧠 간단 퀴즈</button>
+  <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
+  <button class="btn ghost" id="vkQuiz" style="margin-top:10px">🧠 빠른 퀴즈 (연습용 · 시간 無)</button>
   <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 보기</button>
   <button class="btn ghost" id="vkRoots" style="margin-top:10px">🔤 어원 학습 (접두사·어근)</button>
   <button class="btn ghost" id="vkGuide" style="margin-top:10px">📘 단어 공부 가이드</button>
