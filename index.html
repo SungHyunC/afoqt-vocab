@@ -42,6 +42,7 @@
     </div>
     <div class="progressbar"><i id="overallBar"></i></div>
     <div class="muted" style="font-size:12px;margin-top:6px" id="overallLine">AFOQT 준비도</div>
+    <div id="verbalEstLine" class="hidden" style="font-size:12px;margin-top:8px;color:var(--brand2);font-weight:700"></div>
   </div>
 
   <button class="btn primary" id="btnDaily" style="margin-top:16px;font-size:17px;padding:17px">📅 오늘의 통합 학습 (전 영역)</button>
@@ -414,7 +415,10 @@
     <div class="card tight stat"><div class="num" id="sTotalRev">0</div><div class="lbl">누적 복습수</div></div>
   </div>
 
-  <h2 class="section">🎯 모의고사 점수 추이</h2>
+  <h2 class="section">🎯 예상 점수 (Composite)</h2>
+  <div class="card" id="compositeEst"></div>
+
+  <h2 class="section">📈 모의고사 점수 추이</h2>
   <div class="card" id="examTrend"></div>
 
   <h2 class="section">🧩 약점 분석</h2>
