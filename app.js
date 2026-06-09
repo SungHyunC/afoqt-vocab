@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "3.6.0";
+const VERSION = "3.7.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -362,12 +362,21 @@ function renderCard(){
       <button class="g-good"  data-q="good">알맞음<small>${fmtIv(predict(id,'good'))}</small></button>
       <button class="g-easy"  data-q="easy">쉬움<small>${fmtIv(predict(id,'easy'))}</small></button>
     </div>`;
-  $("#flashCard").onclick=e=>{ if(e.target.closest("#starBtn")||e.target.closest(".spk"))return; reveal(); };
+  $("#flashCard").onclick=e=>{ if(e.target.closest("#starBtn")||e.target.closest(".spk"))return; flipCard(); };
   $("#starBtn").onclick=e=>{ e.stopPropagation(); toggleStar(id); const on=getCard(id).starred; $("#starBtn").classList.toggle("on",on); $("#starBtn").textContent=on?"★":"☆"; };
   $$("#gradeRow button").forEach(b=>b.onclick=()=>answer(id,b.dataset.q));
   wireSpeakers($("#studyArea"));
 }
-function reveal(){ if(session.revealed) return; session.revealed=true; $("#revealBox").classList.remove("hidden"); $("#tapHint").classList.add("hidden"); $("#gradeRow").classList.remove("hidden"); }
+// Tap toggles the card front↔back so you can keep flipping. Advancing happens
+// only via the grade buttons. Once seen, the grade row stays available.
+function flipCard(){
+  const s=session; if(!s) return; s.revealed=!s.revealed;
+  $("#revealBox").classList.toggle("hidden", !s.revealed);
+  const th=$("#tapHint");
+  if(s.revealed){ s.seen=true; $("#gradeRow").classList.remove("hidden"); if(th){ th.classList.add("hidden"); } }
+  else if(th){ th.classList.remove("hidden"); th.textContent="👆 탭하면 다시 뜻 보기"; }
+}
+function reveal(){ if(session&&!session.revealed) flipCard(); }
 function answer(id,q){ const s=session, wasNew=getCard(id).status==="new"; gradeCard(id,q);
   s.studied++; if(q!=="again") s.correct++;
   bumpDay({studied:1,correct:q!=="again"?1:0,new_learned:wasNew?1:0,seconds:Math.round((Date.now()-(s.cardTs||s.startTs))/1000)}); s.cardTs=Date.now();
