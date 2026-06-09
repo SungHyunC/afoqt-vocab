@@ -79214,5 +79214,3005 @@
     "source": "afoqt-community",
     "tier": "high",
     "afoqtCommon": true
+  },
+  {
+    "word": "AMBIT",
+    "pos": "noun",
+    "kor": "범위, 영역",
+    "def": "The scope, extent, or range of something",
+    "example": "The new regulation falls within the ambit of federal law.",
+    "synonyms": [
+      "scope",
+      "range",
+      "extent",
+      "sphere",
+      "compass"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4258
+  },
+  {
+    "word": "AMORTIZE",
+    "pos": "verb",
+    "kor": "(빚을) 분할 상환하다, 상각하다",
+    "def": "To gradually reduce or pay off a debt through scheduled payments",
+    "example": "They will amortize the loan over thirty years.",
+    "synonyms": [
+      "pay off",
+      "write off",
+      "reduce",
+      "liquidate",
+      "defray"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4259
+  },
+  {
+    "word": "BANEFUL",
+    "pos": "adj",
+    "kor": "해로운, 파멸을 초래하는",
+    "def": "Causing harm, ruin, or destruction",
+    "example": "His baneful influence corrupted the young recruits.",
+    "synonyms": [
+      "harmful",
+      "pernicious",
+      "noxious",
+      "deleterious",
+      "ruinous"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4260
+  },
+  {
+    "word": "BEHOOVE",
+    "pos": "verb",
+    "kor": "~하는 것이 마땅하다, 의무이다",
+    "def": "To be a duty or responsibility for; to be fitting",
+    "example": "It behooves you to study before the exam.",
+    "synonyms": [
+      "befit",
+      "become",
+      "behoove",
+      "be incumbent",
+      "be proper"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4261
+  },
+  {
+    "word": "BENISON",
+    "pos": "noun",
+    "kor": "축복, 은총",
+    "def": "A blessing or benediction",
+    "example": "The priest offered a benison upon the newlyweds.",
+    "synonyms": [
+      "blessing",
+      "benediction",
+      "grace",
+      "invocation",
+      "boon"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4262
+  },
+  {
+    "word": "BEREFT",
+    "pos": "adj",
+    "kor": "빼앗긴, 잃은",
+    "def": "Deprived of or lacking something; desolate from loss",
+    "example": "After the layoffs, she felt utterly bereft of hope.",
+    "synonyms": [
+      "deprived",
+      "devoid",
+      "destitute",
+      "lacking",
+      "bereaved"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4263
+  },
+  {
+    "word": "BESTIAL",
+    "pos": "adj",
+    "kor": "짐승 같은, 야만적인",
+    "def": "Savagely cruel or brutal; resembling a beast",
+    "example": "The prisoners endured bestial treatment.",
+    "synonyms": [
+      "brutal",
+      "savage",
+      "brutish",
+      "feral",
+      "barbarous"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4264
+  },
+  {
+    "word": "BIBULOUS",
+    "pos": "adj",
+    "kor": "술을 좋아하는, 흡수성이 있는",
+    "def": "Excessively fond of drinking alcohol",
+    "example": "The bibulous guest emptied three bottles of wine.",
+    "synonyms": [
+      "drunken",
+      "tippling",
+      "sottish",
+      "intemperate",
+      "inebriate"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4265
+  },
+  {
+    "word": "BLAZON",
+    "pos": "verb",
+    "kor": "과시하다, 널리 알리다",
+    "def": "To display or proclaim conspicuously",
+    "example": "They blazoned the victory across every headline.",
+    "synonyms": [
+      "proclaim",
+      "display",
+      "publicize",
+      "trumpet",
+      "emblazon"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4266
+  },
+  {
+    "word": "BRUIT",
+    "pos": "verb",
+    "kor": "소문을 퍼뜨리다",
+    "def": "To spread a report or rumor widely",
+    "example": "The news was bruited about the entire village.",
+    "synonyms": [
+      "rumor",
+      "spread",
+      "circulate",
+      "broadcast",
+      "report"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4267
+  },
+  {
+    "word": "CADGE",
+    "pos": "verb",
+    "kor": "공짜로 얻다, 졸라서 얻다",
+    "def": "To beg or obtain by sponging off others",
+    "example": "He tried to cadge a cigarette from a stranger.",
+    "synonyms": [
+      "beg",
+      "sponge",
+      "mooch",
+      "scrounge",
+      "wheedle"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4268
+  },
+  {
+    "word": "CANARD",
+    "pos": "noun",
+    "kor": "유언비어, 허위 보도",
+    "def": "A false or unfounded rumor or story",
+    "example": "The report was dismissed as a malicious canard.",
+    "synonyms": [
+      "rumor",
+      "falsehood",
+      "hoax",
+      "fabrication",
+      "fiction"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4269
+  },
+  {
+    "word": "CANTANKEROUS",
+    "pos": "adj",
+    "kor": "심술궂은, 다투기 좋아하는",
+    "def": "Bad-tempered, argumentative, and uncooperative",
+    "example": "The cantankerous old man complained about everything.",
+    "synonyms": [
+      "irritable",
+      "irascible",
+      "quarrelsome",
+      "crabby",
+      "peevish"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4270
+  },
+  {
+    "word": "CARP",
+    "pos": "verb",
+    "kor": "트집을 잡다, 흠을 잡다",
+    "def": "To complain or find fault persistently",
+    "example": "She carped at every small mistake he made.",
+    "synonyms": [
+      "complain",
+      "nitpick",
+      "cavil",
+      "criticize",
+      "quibble"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4271
+  },
+  {
+    "word": "CARRION",
+    "pos": "noun",
+    "kor": "썩은 고기, 시체",
+    "def": "The decaying flesh of dead animals",
+    "example": "Vultures circled above the carrion.",
+    "synonyms": [
+      "carcass",
+      "corpse",
+      "remains",
+      "cadaver",
+      "offal"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4272
+  },
+  {
+    "word": "CATACLYSM",
+    "pos": "noun",
+    "kor": "대재앙, 대변동",
+    "def": "A violent upheaval or catastrophic event",
+    "example": "The flood was a cataclysm that reshaped the region.",
+    "synonyms": [
+      "catastrophe",
+      "disaster",
+      "calamity",
+      "upheaval",
+      "devastation"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4273
+  },
+  {
+    "word": "CATECHIZE",
+    "pos": "verb",
+    "kor": "문답식으로 가르치다, 질문 공세를 펴다",
+    "def": "To instruct or question systematically by interrogation",
+    "example": "The teacher catechized the students on the lesson.",
+    "synonyms": [
+      "interrogate",
+      "question",
+      "quiz",
+      "instruct",
+      "examine"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4274
+  },
+  {
+    "word": "CLAMBER",
+    "pos": "verb",
+    "kor": "기어오르다, 힘겹게 오르다",
+    "def": "To climb awkwardly using hands and feet",
+    "example": "The children clambered over the rocky cliffs.",
+    "synonyms": [
+      "scramble",
+      "climb",
+      "scale",
+      "crawl",
+      "clamber"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4275
+  },
+  {
+    "word": "CLEAVE",
+    "pos": "verb",
+    "kor": "쪼개다; 달라붙다",
+    "def": "To split apart, or alternatively to cling firmly",
+    "example": "The axe cleaved the log in two.",
+    "synonyms": [
+      "split",
+      "sever",
+      "cling",
+      "adhere",
+      "divide"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4276
+  },
+  {
+    "word": "CLOISTERED",
+    "pos": "adj",
+    "kor": "세상과 격리된, 은둔한",
+    "def": "Secluded or sheltered from the outside world",
+    "example": "He led a cloistered life of study and prayer.",
+    "synonyms": [
+      "secluded",
+      "sheltered",
+      "isolated",
+      "sequestered",
+      "insulated"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4277
+  },
+  {
+    "word": "COLLUDE",
+    "pos": "verb",
+    "kor": "공모하다, 결탁하다",
+    "def": "To conspire secretly for a deceitful purpose",
+    "example": "The firms colluded to fix prices illegally.",
+    "synonyms": [
+      "conspire",
+      "connive",
+      "scheme",
+      "plot",
+      "intrigue"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4278
+  },
+  {
+    "word": "COMELY",
+    "pos": "adj",
+    "kor": "아름다운, 보기 좋은",
+    "def": "Pleasing in appearance; attractive",
+    "example": "She was a comely young woman with bright eyes.",
+    "synonyms": [
+      "attractive",
+      "fair",
+      "handsome",
+      "pretty",
+      "becoming"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4279
+  },
+  {
+    "word": "COMESTIBLE",
+    "pos": "noun",
+    "kor": "음식, 식품",
+    "def": "An item of food; something edible",
+    "example": "The pantry was stocked with various comestibles.",
+    "synonyms": [
+      "food",
+      "edible",
+      "provision",
+      "victual",
+      "fare"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4280
+  },
+  {
+    "word": "COMPLICITY",
+    "pos": "noun",
+    "kor": "공모, 연루",
+    "def": "Involvement as an accomplice in wrongdoing",
+    "example": "His silence implied complicity in the crime.",
+    "synonyms": [
+      "collusion",
+      "involvement",
+      "connivance",
+      "conspiracy",
+      "abetment"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4281
+  },
+  {
+    "word": "CONFEDERATE",
+    "pos": "noun",
+    "kor": "공모자, 동맹자",
+    "def": "An ally or accomplice, often in a plot",
+    "example": "His confederate waited outside during the heist.",
+    "synonyms": [
+      "accomplice",
+      "ally",
+      "collaborator",
+      "partner",
+      "conspirator"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4282
+  },
+  {
+    "word": "CONJOIN",
+    "pos": "verb",
+    "kor": "결합하다, 연결하다",
+    "def": "To join together or combine",
+    "example": "The two rivers conjoin near the city.",
+    "synonyms": [
+      "join",
+      "unite",
+      "combine",
+      "merge",
+      "link"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4283
+  },
+  {
+    "word": "CONSTRUE",
+    "pos": "verb",
+    "kor": "해석하다, 이해하다",
+    "def": "To interpret or understand in a particular way",
+    "example": "Her silence was construed as agreement.",
+    "synonyms": [
+      "interpret",
+      "understand",
+      "read",
+      "explain",
+      "parse"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4284
+  },
+  {
+    "word": "CONVERSANT",
+    "pos": "adj",
+    "kor": "정통한, 잘 아는",
+    "def": "Familiar with or knowledgeable about something",
+    "example": "She is conversant with several programming languages.",
+    "synonyms": [
+      "familiar",
+      "acquainted",
+      "versed",
+      "knowledgeable",
+      "proficient"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4285
+  },
+  {
+    "word": "COQUETRY",
+    "pos": "noun",
+    "kor": "교태, 아양",
+    "def": "Flirtatious behavior or charm",
+    "example": "Her coquetry charmed everyone at the party.",
+    "synonyms": [
+      "flirtation",
+      "dalliance",
+      "coyness",
+      "flirting",
+      "teasing"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4286
+  },
+  {
+    "word": "CORNUCOPIA",
+    "pos": "noun",
+    "kor": "풍요, 풍부함",
+    "def": "An abundant supply of good things",
+    "example": "The market offered a cornucopia of fresh produce.",
+    "synonyms": [
+      "abundance",
+      "plenty",
+      "profusion",
+      "wealth",
+      "bounty"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4287
+  },
+  {
+    "word": "CORUSCATE",
+    "pos": "verb",
+    "kor": "번쩍이다, 광채를 내다",
+    "def": "To sparkle or give off flashes of light",
+    "example": "The diamonds coruscated under the bright lights.",
+    "synonyms": [
+      "sparkle",
+      "glitter",
+      "gleam",
+      "scintillate",
+      "shimmer"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4288
+  },
+  {
+    "word": "COTERIE",
+    "pos": "noun",
+    "kor": "패거리, 동아리",
+    "def": "A small exclusive group of people",
+    "example": "A coterie of artists gathered at the cafe.",
+    "synonyms": [
+      "clique",
+      "circle",
+      "set",
+      "group",
+      "cabal"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4289
+  },
+  {
+    "word": "COVENANT",
+    "pos": "noun",
+    "kor": "서약, 계약",
+    "def": "A solemn agreement or binding promise",
+    "example": "They entered into a covenant to protect the land.",
+    "synonyms": [
+      "agreement",
+      "pact",
+      "compact",
+      "pledge",
+      "contract"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4290
+  },
+  {
+    "word": "COZEN",
+    "pos": "verb",
+    "kor": "속이다, 기만하다",
+    "def": "To deceive or cheat by trickery",
+    "example": "The con artist cozened them out of their savings.",
+    "synonyms": [
+      "deceive",
+      "cheat",
+      "swindle",
+      "dupe",
+      "defraud"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4291
+  },
+  {
+    "word": "DEBAUCH",
+    "pos": "verb",
+    "kor": "타락시키다, 방탕하게 하다",
+    "def": "To corrupt morally or lead into dissipation",
+    "example": "The lavish lifestyle debauched the young heir.",
+    "synonyms": [
+      "corrupt",
+      "deprave",
+      "pervert",
+      "seduce",
+      "demoralize"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4292
+  },
+  {
+    "word": "DEFILE",
+    "pos": "verb",
+    "kor": "더럽히다, 모독하다",
+    "def": "To make dirty, corrupt, or violate the sanctity of",
+    "example": "Vandals defiled the sacred monument.",
+    "synonyms": [
+      "desecrate",
+      "contaminate",
+      "pollute",
+      "sully",
+      "profane"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4293
+  },
+  {
+    "word": "DESUETUDE",
+    "pos": "noun",
+    "kor": "폐지, 쓰이지 않음",
+    "def": "A state of disuse or inactivity",
+    "example": "The old custom fell into desuetude over the years.",
+    "synonyms": [
+      "disuse",
+      "obsolescence",
+      "abandonment",
+      "dormancy",
+      "neglect"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4294
+  },
+  {
+    "word": "DETRITUS",
+    "pos": "noun",
+    "kor": "잔해, 부스러기",
+    "def": "Debris or waste material left after destruction",
+    "example": "The storm left detritus scattered across the beach.",
+    "synonyms": [
+      "debris",
+      "rubble",
+      "remains",
+      "waste",
+      "wreckage"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4295
+  },
+  {
+    "word": "DISABUSE",
+    "pos": "verb",
+    "kor": "잘못을 깨우치다, 미몽에서 깨어나게 하다",
+    "def": "To free someone from a mistaken belief",
+    "example": "Let me disabuse you of that false notion.",
+    "synonyms": [
+      "undeceive",
+      "enlighten",
+      "correct",
+      "disillusion",
+      "set right"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4296
+  },
+  {
+    "word": "DISCRETE",
+    "pos": "adj",
+    "kor": "별개의, 분리된",
+    "def": "Individually separate and distinct",
+    "example": "The course is divided into discrete modules.",
+    "synonyms": [
+      "separate",
+      "distinct",
+      "individual",
+      "disconnected",
+      "detached"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4297
+  },
+  {
+    "word": "DOGGEREL",
+    "pos": "noun",
+    "kor": "서툰 시, 익살스러운 운문",
+    "def": "Comic or badly written verse",
+    "example": "He scribbled some doggerel on the birthday card.",
+    "synonyms": [
+      "verse",
+      "rhyme",
+      "jingle",
+      "ditty",
+      "drivel"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4298
+  },
+  {
+    "word": "DOUGHTY",
+    "pos": "adj",
+    "kor": "용감한, 단호한",
+    "def": "Brave, resolute, and determined",
+    "example": "The doughty knight faced the dragon alone.",
+    "synonyms": [
+      "brave",
+      "valiant",
+      "resolute",
+      "intrepid",
+      "courageous"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4299
+  },
+  {
+    "word": "DROSS",
+    "pos": "noun",
+    "kor": "찌꺼기, 쓸모없는 것",
+    "def": "Worthless or trivial matter; waste",
+    "example": "She discarded the dross and kept only the valuables.",
+    "synonyms": [
+      "waste",
+      "refuse",
+      "rubbish",
+      "trash",
+      "detritus"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4300
+  },
+  {
+    "word": "DUDGEON",
+    "pos": "noun",
+    "kor": "분노, 불쾌감",
+    "def": "A feeling of deep resentment or indignation",
+    "example": "He stormed out in high dudgeon.",
+    "synonyms": [
+      "resentment",
+      "indignation",
+      "anger",
+      "umbrage",
+      "pique"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4301
+  },
+  {
+    "word": "ELEGIAC",
+    "pos": "adj",
+    "kor": "애가의, 비가의, 애상적인",
+    "def": "Expressing sorrow or mourning, especially for the past",
+    "example": "The poem had an elegiac tone of loss.",
+    "synonyms": [
+      "mournful",
+      "sorrowful",
+      "plaintive",
+      "melancholy",
+      "lamenting"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4302
+  },
+  {
+    "word": "EMEND",
+    "pos": "verb",
+    "kor": "교정하다, 수정하다",
+    "def": "To correct or improve a text",
+    "example": "The editor emended several errors in the manuscript.",
+    "synonyms": [
+      "correct",
+      "revise",
+      "amend",
+      "edit",
+      "rectify"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4303
+  },
+  {
+    "word": "EMPYREAN",
+    "pos": "adj",
+    "kor": "천상의, 가장 높은 하늘의",
+    "def": "Relating to the highest heaven; celestial",
+    "example": "She gazed up at the empyrean sky.",
+    "synonyms": [
+      "celestial",
+      "heavenly",
+      "ethereal",
+      "sublime",
+      "divine"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4304
+  },
+  {
+    "word": "ENJOIN",
+    "pos": "verb",
+    "kor": "명령하다, 금지하다",
+    "def": "To command or instruct, or to legally prohibit",
+    "example": "The court enjoined the company from polluting.",
+    "synonyms": [
+      "command",
+      "direct",
+      "instruct",
+      "prohibit",
+      "forbid"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4305
+  },
+  {
+    "word": "EPICURE",
+    "pos": "noun",
+    "kor": "미식가, 식도락가",
+    "def": "A person with refined taste in food and wine",
+    "example": "As an epicure, he savored every dish slowly.",
+    "synonyms": [
+      "gourmet",
+      "gastronome",
+      "connoisseur",
+      "gourmand",
+      "bon vivant"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4306
+  },
+  {
+    "word": "EQUIPOISE",
+    "pos": "noun",
+    "kor": "평형, 균형",
+    "def": "A state of equilibrium or balance",
+    "example": "The scales hung in perfect equipoise.",
+    "synonyms": [
+      "balance",
+      "equilibrium",
+      "stability",
+      "poise",
+      "symmetry"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4307
+  },
+  {
+    "word": "ERSATZ",
+    "pos": "adj",
+    "kor": "대용의, 모조의",
+    "def": "Made as an inferior substitute or imitation",
+    "example": "They drank ersatz coffee during the war.",
+    "synonyms": [
+      "artificial",
+      "substitute",
+      "imitation",
+      "synthetic",
+      "fake"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4308
+  },
+  {
+    "word": "ESTIMABLE",
+    "pos": "adj",
+    "kor": "존경할 만한, 평가할 수 있는",
+    "def": "Worthy of great respect or admiration",
+    "example": "She is an estimable scholar in her field.",
+    "synonyms": [
+      "admirable",
+      "respectable",
+      "worthy",
+      "reputable",
+      "honorable"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4309
+  },
+  {
+    "word": "EVINCE",
+    "pos": "verb",
+    "kor": "나타내다, 분명히 보여주다",
+    "def": "To clearly reveal or show a quality",
+    "example": "His writing evinces a deep love of nature.",
+    "synonyms": [
+      "show",
+      "display",
+      "reveal",
+      "manifest",
+      "demonstrate"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4310
+  },
+  {
+    "word": "FALLOW",
+    "pos": "adj",
+    "kor": "휴경의, 묵히는",
+    "def": "Left unplanted, or remaining inactive",
+    "example": "The field lay fallow for a season.",
+    "synonyms": [
+      "uncultivated",
+      "dormant",
+      "idle",
+      "inactive",
+      "unused"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4311
+  },
+  {
+    "word": "FASTNESS",
+    "pos": "noun",
+    "kor": "요새, 성채",
+    "def": "A secure or fortified place; a stronghold",
+    "example": "The rebels retreated to their mountain fastness.",
+    "synonyms": [
+      "stronghold",
+      "fortress",
+      "citadel",
+      "refuge",
+      "bastion"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4312
+  },
+  {
+    "word": "FIAT",
+    "pos": "noun",
+    "kor": "명령, 칙령",
+    "def": "An authoritative or arbitrary decree",
+    "example": "The ruling was imposed by royal fiat.",
+    "synonyms": [
+      "decree",
+      "edict",
+      "order",
+      "command",
+      "dictum"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4313
+  },
+  {
+    "word": "FILCH",
+    "pos": "verb",
+    "kor": "훔치다, 슬쩍하다",
+    "def": "To steal something of small value",
+    "example": "He filched a few coins from the jar.",
+    "synonyms": [
+      "steal",
+      "pilfer",
+      "purloin",
+      "swipe",
+      "pinch"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4314
+  },
+  {
+    "word": "FROWARD",
+    "pos": "adj",
+    "kor": "고집 센, 다루기 힘든",
+    "def": "Stubbornly contrary and disobedient",
+    "example": "The froward child refused every instruction.",
+    "synonyms": [
+      "contrary",
+      "obstinate",
+      "willful",
+      "perverse",
+      "unruly"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4315
+  },
+  {
+    "word": "GAMBOL",
+    "pos": "verb",
+    "kor": "뛰놀다, 까불며 놀다",
+    "def": "To run or skip about playfully",
+    "example": "The lambs gamboled in the meadow.",
+    "synonyms": [
+      "frolic",
+      "cavort",
+      "romp",
+      "caper",
+      "prance"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4316
+  },
+  {
+    "word": "GIBE",
+    "pos": "verb",
+    "kor": "조롱하다, 비웃다",
+    "def": "To make taunting or mocking remarks",
+    "example": "The crowd gibed at the losing team.",
+    "synonyms": [
+      "taunt",
+      "mock",
+      "jeer",
+      "sneer",
+      "ridicule"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4317
+  },
+  {
+    "word": "GOURMAND",
+    "pos": "noun",
+    "kor": "대식가, 미식가",
+    "def": "A person who enjoys eating, often to excess",
+    "example": "The gourmand ordered every dish on the menu.",
+    "synonyms": [
+      "glutton",
+      "epicure",
+      "gastronome",
+      "gourmet",
+      "trencherman"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4318
+  },
+  {
+    "word": "HAUTEUR",
+    "pos": "noun",
+    "kor": "거만, 오만",
+    "def": "Haughty arrogance or superior manner",
+    "example": "Her hauteur alienated the other guests.",
+    "synonyms": [
+      "arrogance",
+      "haughtiness",
+      "pride",
+      "disdain",
+      "superciliousness"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4319
+  },
+  {
+    "word": "HORTATORY",
+    "pos": "adj",
+    "kor": "권고하는, 격려하는",
+    "def": "Urging or strongly encouraging action",
+    "example": "The coach gave a hortatory speech before the game.",
+    "synonyms": [
+      "exhortatory",
+      "encouraging",
+      "inspiring",
+      "urging",
+      "admonitory"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4320
+  },
+  {
+    "word": "HUSBANDRY",
+    "pos": "noun",
+    "kor": "농업, 경영, 절약",
+    "def": "Careful management of resources, especially farming",
+    "example": "Good husbandry kept the farm prosperous.",
+    "synonyms": [
+      "farming",
+      "agriculture",
+      "management",
+      "cultivation",
+      "economy"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4321
+  },
+  {
+    "word": "IMBROGLIO",
+    "pos": "noun",
+    "kor": "복잡한 상황, 분규",
+    "def": "A confused or complicated situation",
+    "example": "The negotiations became a diplomatic imbroglio.",
+    "synonyms": [
+      "entanglement",
+      "predicament",
+      "quagmire",
+      "muddle",
+      "complication"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4322
+  },
+  {
+    "word": "IMMURE",
+    "pos": "verb",
+    "kor": "가두다, 감금하다",
+    "def": "To enclose or imprison within walls",
+    "example": "The monk immured himself in his cell.",
+    "synonyms": [
+      "imprison",
+      "confine",
+      "incarcerate",
+      "cloister",
+      "intern"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4323
+  },
+  {
+    "word": "IMPAIR",
+    "pos": "verb",
+    "kor": "손상시키다, 약화시키다",
+    "def": "To weaken or damage in function or quality",
+    "example": "Lack of sleep can impair your judgment.",
+    "synonyms": [
+      "weaken",
+      "damage",
+      "diminish",
+      "undermine",
+      "hamper"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4324
+  },
+  {
+    "word": "INCONTROVERTIBLE",
+    "pos": "adj",
+    "kor": "논쟁의 여지가 없는, 명백한",
+    "def": "Not able to be denied or disputed",
+    "example": "The DNA provided incontrovertible proof.",
+    "synonyms": [
+      "indisputable",
+      "undeniable",
+      "irrefutable",
+      "unquestionable",
+      "certain"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4325
+  },
+  {
+    "word": "INCULPATE",
+    "pos": "verb",
+    "kor": "죄를 씌우다, 고발하다",
+    "def": "To accuse or incriminate someone",
+    "example": "His testimony inculpated several officials.",
+    "synonyms": [
+      "incriminate",
+      "accuse",
+      "implicate",
+      "blame",
+      "charge"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4326
+  },
+  {
+    "word": "INCURSION",
+    "pos": "noun",
+    "kor": "침입, 급습",
+    "def": "A sudden invasion or raid into territory",
+    "example": "The border incursion alarmed the nation.",
+    "synonyms": [
+      "raid",
+      "invasion",
+      "foray",
+      "attack",
+      "inroad"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4327
+  },
+  {
+    "word": "INVEIGH",
+    "pos": "verb",
+    "kor": "맹렬히 비난하다",
+    "def": "To protest or complain bitterly and vehemently",
+    "example": "She inveighed against the corrupt regime.",
+    "synonyms": [
+      "rail",
+      "fulminate",
+      "protest",
+      "denounce",
+      "decry"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4328
+  },
+  {
+    "word": "KEN",
+    "pos": "noun",
+    "kor": "지식의 범위, 이해",
+    "def": "The range of one's knowledge or understanding",
+    "example": "Such matters lie beyond my ken.",
+    "synonyms": [
+      "knowledge",
+      "understanding",
+      "awareness",
+      "grasp",
+      "comprehension"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4329
+  },
+  {
+    "word": "KISMET",
+    "pos": "noun",
+    "kor": "운명, 숙명",
+    "def": "Destiny or fate",
+    "example": "Their meeting felt like kismet.",
+    "synonyms": [
+      "fate",
+      "destiny",
+      "fortune",
+      "providence",
+      "lot"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4330
+  },
+  {
+    "word": "LAMBASTE",
+    "pos": "verb",
+    "kor": "혹평하다, 맹비난하다",
+    "def": "To criticize harshly or attack verbally",
+    "example": "Critics lambasted the poorly made film.",
+    "synonyms": [
+      "criticize",
+      "censure",
+      "berate",
+      "castigate",
+      "excoriate"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4331
+  },
+  {
+    "word": "LEVIATHAN",
+    "pos": "noun",
+    "kor": "거대한 것, 거물",
+    "def": "Something enormous or extremely powerful",
+    "example": "The corporation became a leviathan of industry.",
+    "synonyms": [
+      "giant",
+      "behemoth",
+      "colossus",
+      "monster",
+      "titan"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4332
+  },
+  {
+    "word": "LUBRICIOUS",
+    "pos": "adj",
+    "kor": "음란한, 미끄러운",
+    "def": "Lewd, lustful, or offensively sexual",
+    "example": "The novel was criticized for its lubricious content.",
+    "synonyms": [
+      "lewd",
+      "lascivious",
+      "lecherous",
+      "salacious",
+      "prurient"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4333
+  },
+  {
+    "word": "LUCRE",
+    "pos": "noun",
+    "kor": "돈, 이득",
+    "def": "Money or profit, often with negative connotation",
+    "example": "He sought fame and filthy lucre.",
+    "synonyms": [
+      "money",
+      "profit",
+      "gain",
+      "wealth",
+      "riches"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4334
+  },
+  {
+    "word": "MAELSTROM",
+    "pos": "noun",
+    "kor": "대혼란, 큰 소용돌이",
+    "def": "A powerful whirlpool or scene of turbulent confusion",
+    "example": "She was caught in a maelstrom of emotions.",
+    "synonyms": [
+      "whirlpool",
+      "turmoil",
+      "chaos",
+      "vortex",
+      "upheaval"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4335
+  },
+  {
+    "word": "MAGNATE",
+    "pos": "noun",
+    "kor": "거물, 유력 인사",
+    "def": "A wealthy and powerful person in business",
+    "example": "The oil magnate funded the new museum.",
+    "synonyms": [
+      "tycoon",
+      "mogul",
+      "baron",
+      "industrialist",
+      "plutocrat"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4336
+  },
+  {
+    "word": "MALINGER",
+    "pos": "verb",
+    "kor": "꾀병을 부리다",
+    "def": "To pretend illness to avoid work or duty",
+    "example": "He malingered to escape his assignments.",
+    "synonyms": [
+      "shirk",
+      "feign illness",
+      "fake",
+      "dodge",
+      "goldbrick"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4337
+  },
+  {
+    "word": "MARAUD",
+    "pos": "verb",
+    "kor": "약탈하다, 습격하다",
+    "def": "To raid and plunder in search of loot",
+    "example": "Bandits marauded the countryside.",
+    "synonyms": [
+      "raid",
+      "plunder",
+      "pillage",
+      "loot",
+      "ravage"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4338
+  },
+  {
+    "word": "MINCE",
+    "pos": "verb",
+    "kor": "잘게 썰다; 점잔 빼며 말하다",
+    "def": "To cut into very small pieces, or to soften one's words",
+    "example": "She did not mince words about the failure.",
+    "synonyms": [
+      "chop",
+      "dice",
+      "cut",
+      "soften",
+      "moderate"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4339
+  },
+  {
+    "word": "MINION",
+    "pos": "noun",
+    "kor": "부하, 앞잡이",
+    "def": "A servile follower or subordinate",
+    "example": "The villain sent his minions to do the work.",
+    "synonyms": [
+      "henchman",
+      "subordinate",
+      "lackey",
+      "underling",
+      "servant"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4340
+  },
+  {
+    "word": "MOUNTEBANK",
+    "pos": "noun",
+    "kor": "사기꾼, 돌팔이",
+    "def": "A charlatan or fraudulent pretender",
+    "example": "The so-called doctor was a mere mountebank.",
+    "synonyms": [
+      "charlatan",
+      "fraud",
+      "quack",
+      "impostor",
+      "swindler"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4341
+  },
+  {
+    "word": "NETTLE",
+    "pos": "verb",
+    "kor": "짜증나게 하다, 화나게 하다",
+    "def": "To irritate or annoy someone",
+    "example": "His constant teasing nettled her.",
+    "synonyms": [
+      "irritate",
+      "annoy",
+      "vex",
+      "provoke",
+      "exasperate"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4342
+  },
+  {
+    "word": "NONPLUS",
+    "pos": "verb",
+    "kor": "어쩔 줄 모르게 하다, 당황시키다",
+    "def": "To leave someone bewildered and unsure how to respond",
+    "example": "The unexpected question nonplussed the speaker.",
+    "synonyms": [
+      "bewilder",
+      "perplex",
+      "confound",
+      "baffle",
+      "disconcert"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4343
+  },
+  {
+    "word": "OBJURGATE",
+    "pos": "verb",
+    "kor": "질책하다, 호되게 꾸짖다",
+    "def": "To scold or rebuke harshly",
+    "example": "The sergeant objurgated the careless recruit.",
+    "synonyms": [
+      "rebuke",
+      "scold",
+      "reprimand",
+      "castigate",
+      "upbraid"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4344
+  },
+  {
+    "word": "OBSEQUY",
+    "pos": "noun",
+    "kor": "장례식, 장례 의식",
+    "def": "A funeral rite or ceremony",
+    "example": "The town gathered for the late mayor's obsequies.",
+    "synonyms": [
+      "funeral",
+      "rites",
+      "ceremony",
+      "memorial",
+      "wake"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4345
+  },
+  {
+    "word": "OSSIFY",
+    "pos": "verb",
+    "kor": "경직되다, 골화되다",
+    "def": "To become rigid or set in one's ways",
+    "example": "Bureaucracies tend to ossify over time.",
+    "synonyms": [
+      "harden",
+      "rigidify",
+      "stiffen",
+      "fossilize",
+      "set"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4346
+  },
+  {
+    "word": "PERUSE",
+    "pos": "verb",
+    "kor": "정독하다, 자세히 읽다",
+    "def": "To read or examine carefully",
+    "example": "She perused the contract before signing.",
+    "synonyms": [
+      "examine",
+      "scrutinize",
+      "study",
+      "read",
+      "inspect"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4347
+  },
+  {
+    "word": "PERVADE",
+    "pos": "verb",
+    "kor": "스며들다, 만연하다",
+    "def": "To spread throughout every part of something",
+    "example": "A sense of dread pervaded the room.",
+    "synonyms": [
+      "permeate",
+      "suffuse",
+      "saturate",
+      "imbue",
+      "infuse"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4348
+  },
+  {
+    "word": "PRATE",
+    "pos": "verb",
+    "kor": "쓸데없이 지껄이다",
+    "def": "To talk foolishly or at tedious length",
+    "example": "He prated on about his vacation for hours.",
+    "synonyms": [
+      "chatter",
+      "babble",
+      "prattle",
+      "blabber",
+      "ramble"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4349
+  },
+  {
+    "word": "PROPITIATE",
+    "pos": "verb",
+    "kor": "달래다, 비위를 맞추다",
+    "def": "To appease or win the favor of someone",
+    "example": "They made offerings to propitiate the gods.",
+    "synonyms": [
+      "appease",
+      "placate",
+      "mollify",
+      "pacify",
+      "conciliate"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4350
+  },
+  {
+    "word": "PUISSANT",
+    "pos": "adj",
+    "kor": "강력한, 세력 있는",
+    "def": "Having great power or influence",
+    "example": "The puissant ruler commanded vast armies.",
+    "synonyms": [
+      "powerful",
+      "mighty",
+      "potent",
+      "strong",
+      "forceful"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4351
+  },
+  {
+    "word": "PURLOIN",
+    "pos": "verb",
+    "kor": "훔치다, 도둑질하다",
+    "def": "To steal, especially in a sneaky manner",
+    "example": "He purloined documents from the office.",
+    "synonyms": [
+      "steal",
+      "filch",
+      "pilfer",
+      "thieve",
+      "appropriate"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4352
+  },
+  {
+    "word": "QUAFF",
+    "pos": "verb",
+    "kor": "꿀꺽꿀꺽 마시다",
+    "def": "To drink heartily or in large gulps",
+    "example": "They quaffed ale at the celebration.",
+    "synonyms": [
+      "gulp",
+      "swig",
+      "guzzle",
+      "imbibe",
+      "drink"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4353
+  },
+  {
+    "word": "RAREFY",
+    "pos": "verb",
+    "kor": "희박하게 하다, 정제하다",
+    "def": "To make less dense or more refined",
+    "example": "High altitude rarefies the air.",
+    "synonyms": [
+      "thin",
+      "refine",
+      "attenuate",
+      "purify",
+      "dilute"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4354
+  },
+  {
+    "word": "RECAPITULATE",
+    "pos": "verb",
+    "kor": "요약하다, 개괄하다",
+    "def": "To summarize the main points",
+    "example": "Let me recapitulate the key arguments.",
+    "synonyms": [
+      "summarize",
+      "recap",
+      "review",
+      "reiterate",
+      "restate"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4355
+  },
+  {
+    "word": "REPRISE",
+    "pos": "noun",
+    "kor": "반복, 재연",
+    "def": "A repetition or recurrence of an earlier piece",
+    "example": "The orchestra played a reprise of the theme.",
+    "synonyms": [
+      "repetition",
+      "recurrence",
+      "return",
+      "repeat",
+      "encore"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4356
+  },
+  {
+    "word": "REPROOF",
+    "pos": "noun",
+    "kor": "질책, 비난",
+    "def": "An expression of blame or disapproval",
+    "example": "She gave him a gentle reproof for being late.",
+    "synonyms": [
+      "rebuke",
+      "reprimand",
+      "reproach",
+      "admonition",
+      "censure"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4357
+  },
+  {
+    "word": "RESPLENDENT",
+    "pos": "adj",
+    "kor": "눈부신, 화려한",
+    "def": "Brilliantly shining and splendid",
+    "example": "The bride looked resplendent in her gown.",
+    "synonyms": [
+      "splendid",
+      "dazzling",
+      "radiant",
+      "glorious",
+      "magnificent"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4358
+  },
+  {
+    "word": "RHAPSODIZE",
+    "pos": "verb",
+    "kor": "열광적으로 말하다",
+    "def": "To speak or write with extravagant enthusiasm",
+    "example": "He rhapsodized about the beauty of the mountains.",
+    "synonyms": [
+      "gush",
+      "enthuse",
+      "wax lyrical",
+      "rave",
+      "extol"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4359
+  },
+  {
+    "word": "RISIBLE",
+    "pos": "adj",
+    "kor": "웃기는, 가소로운",
+    "def": "Provoking laughter; ridiculous",
+    "example": "His excuse was so weak it was risible.",
+    "synonyms": [
+      "laughable",
+      "ridiculous",
+      "ludicrous",
+      "absurd",
+      "comical"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4360
+  },
+  {
+    "word": "ROCOCO",
+    "pos": "adj",
+    "kor": "지나치게 화려한, 로코코 양식의",
+    "def": "Elaborately ornate and excessively decorated",
+    "example": "The palace had a rococo interior of gilded scrolls.",
+    "synonyms": [
+      "ornate",
+      "elaborate",
+      "fancy",
+      "baroque",
+      "florid"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4361
+  },
+  {
+    "word": "ROTUND",
+    "pos": "adj",
+    "kor": "통통한, 둥근",
+    "def": "Round and plump in shape; full-toned",
+    "example": "The rotund chef laughed heartily.",
+    "synonyms": [
+      "plump",
+      "round",
+      "portly",
+      "stout",
+      "corpulent"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4362
+  },
+  {
+    "word": "RUBICUND",
+    "pos": "adj",
+    "kor": "혈색이 좋은, 불그레한",
+    "def": "Having a ruddy, healthy red complexion",
+    "example": "His rubicund cheeks glowed in the cold.",
+    "synonyms": [
+      "ruddy",
+      "flushed",
+      "red",
+      "florid",
+      "rosy"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4363
+  },
+  {
+    "word": "RUSTIC",
+    "pos": "adj",
+    "kor": "시골풍의, 소박한",
+    "def": "Relating to the countryside; simple and unsophisticated",
+    "example": "They stayed in a charming rustic cabin.",
+    "synonyms": [
+      "rural",
+      "country",
+      "pastoral",
+      "simple",
+      "unsophisticated"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4364
+  },
+  {
+    "word": "SCION",
+    "pos": "noun",
+    "kor": "자손, 후예",
+    "def": "A descendant or young member of a family",
+    "example": "He was the scion of a wealthy dynasty.",
+    "synonyms": [
+      "descendant",
+      "heir",
+      "offspring",
+      "progeny",
+      "successor"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4365
+  },
+  {
+    "word": "SEETHE",
+    "pos": "verb",
+    "kor": "끓어오르다, 부글거리다",
+    "def": "To be filled with intense, suppressed anger",
+    "example": "She seethed with rage at the insult.",
+    "synonyms": [
+      "fume",
+      "boil",
+      "simmer",
+      "smolder",
+      "rage"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4366
+  },
+  {
+    "word": "SIMPER",
+    "pos": "verb",
+    "kor": "바보같이 웃다",
+    "def": "To smile in a silly, self-conscious way",
+    "example": "She simpered coyly at the compliment.",
+    "synonyms": [
+      "smirk",
+      "grin",
+      "giggle",
+      "smile",
+      "titter"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4367
+  },
+  {
+    "word": "SKINFLINT",
+    "pos": "noun",
+    "kor": "구두쇠, 노랑이",
+    "def": "A miserly or stingy person",
+    "example": "The skinflint refused to tip the waiter.",
+    "synonyms": [
+      "miser",
+      "cheapskate",
+      "penny-pincher",
+      "scrooge",
+      "tightwad"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4368
+  },
+  {
+    "word": "SLAKE",
+    "pos": "verb",
+    "kor": "해소하다, 충족시키다",
+    "def": "To satisfy or quench a thirst or desire",
+    "example": "He slaked his thirst with cold water.",
+    "synonyms": [
+      "quench",
+      "satisfy",
+      "satiate",
+      "assuage",
+      "gratify"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4369
+  },
+  {
+    "word": "SLUGGARD",
+    "pos": "noun",
+    "kor": "게으름뱅이",
+    "def": "A habitually lazy or idle person",
+    "example": "The sluggard slept until noon every day.",
+    "synonyms": [
+      "idler",
+      "loafer",
+      "laggard",
+      "slacker",
+      "layabout"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4370
+  },
+  {
+    "word": "SONOROUS",
+    "pos": "adj",
+    "kor": "낭랑한, 울려 퍼지는",
+    "def": "Deep, full, and rich in sound",
+    "example": "The actor had a sonorous, commanding voice.",
+    "synonyms": [
+      "resonant",
+      "resounding",
+      "rich",
+      "deep",
+      "full"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4371
+  },
+  {
+    "word": "SPLENETIC",
+    "pos": "adj",
+    "kor": "성마른, 화를 잘 내는",
+    "def": "Bad-tempered, spiteful, or irritable",
+    "example": "His splenetic outbursts drove colleagues away.",
+    "synonyms": [
+      "irritable",
+      "peevish",
+      "testy",
+      "irascible",
+      "petulant"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4372
+  },
+  {
+    "word": "SPORTIVE",
+    "pos": "adj",
+    "kor": "장난기 있는, 명랑한",
+    "def": "Playful and frolicsome",
+    "example": "The sportive kittens chased each other.",
+    "synonyms": [
+      "playful",
+      "frolicsome",
+      "frisky",
+      "lively",
+      "jolly"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4373
+  },
+  {
+    "word": "STINT",
+    "pos": "noun",
+    "kor": "일정 기간의 일; 인색함",
+    "def": "An allotted period of work, or a limitation",
+    "example": "He served a brief stint in the army.",
+    "synonyms": [
+      "spell",
+      "period",
+      "term",
+      "turn",
+      "shift"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4374
+  },
+  {
+    "word": "STIPEND",
+    "pos": "noun",
+    "kor": "봉급, 급여",
+    "def": "A fixed regular sum paid as a salary or allowance",
+    "example": "The intern received a modest monthly stipend.",
+    "synonyms": [
+      "allowance",
+      "salary",
+      "payment",
+      "remuneration",
+      "wage"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4375
+  },
+  {
+    "word": "STRICTURE",
+    "pos": "noun",
+    "kor": "비난, 제한",
+    "def": "A strong criticism or restriction",
+    "example": "The report imposed strictures on spending.",
+    "synonyms": [
+      "criticism",
+      "censure",
+      "restriction",
+      "constraint",
+      "condemnation"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4376
+  },
+  {
+    "word": "SUAVE",
+    "pos": "adj",
+    "kor": "점잖은, 세련된",
+    "def": "Charming, confident, and elegant in manner",
+    "example": "The suave diplomat charmed everyone present.",
+    "synonyms": [
+      "smooth",
+      "urbane",
+      "sophisticated",
+      "polished",
+      "debonair"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4377
+  },
+  {
+    "word": "SUCCOR",
+    "pos": "noun",
+    "kor": "원조, 구호",
+    "def": "Assistance and support in times of hardship",
+    "example": "They brought succor to the flood victims.",
+    "synonyms": [
+      "aid",
+      "help",
+      "relief",
+      "assistance",
+      "support"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4378
+  },
+  {
+    "word": "TAWDRY",
+    "pos": "adj",
+    "kor": "값싸고 번지르르한, 천박한",
+    "def": "Showy but cheap and of poor quality",
+    "example": "She wore tawdry, gaudy jewelry.",
+    "synonyms": [
+      "gaudy",
+      "cheap",
+      "garish",
+      "flashy",
+      "vulgar"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4379
+  },
+  {
+    "word": "TITULAR",
+    "pos": "adj",
+    "kor": "명목상의, 이름뿐인",
+    "def": "Holding a title without real authority",
+    "example": "He was the titular head of the organization.",
+    "synonyms": [
+      "nominal",
+      "in name only",
+      "ceremonial",
+      "figurehead",
+      "ostensible"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4380
+  },
+  {
+    "word": "TORTUOUS",
+    "pos": "adj",
+    "kor": "구불구불한, 복잡한",
+    "def": "Full of twists, turns, or complications",
+    "example": "We drove along a tortuous mountain road.",
+    "synonyms": [
+      "winding",
+      "twisting",
+      "circuitous",
+      "convoluted",
+      "meandering"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4381
+  },
+  {
+    "word": "TOUCHSTONE",
+    "pos": "noun",
+    "kor": "시금석, 기준",
+    "def": "A standard or criterion by which something is judged",
+    "example": "Reliability is the touchstone of good service.",
+    "synonyms": [
+      "standard",
+      "criterion",
+      "benchmark",
+      "yardstick",
+      "measure"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4382
+  },
+  {
+    "word": "TRADUCE",
+    "pos": "verb",
+    "kor": "비방하다, 중상하다",
+    "def": "To speak maliciously and falsely of someone",
+    "example": "His enemies traduced his good name.",
+    "synonyms": [
+      "slander",
+      "defame",
+      "malign",
+      "vilify",
+      "disparage"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4383
+  },
+  {
+    "word": "TRENCHANT",
+    "pos": "adj",
+    "kor": "날카로운, 신랄한",
+    "def": "Vigorously incisive or effective in expression",
+    "example": "She offered a trenchant critique of the policy.",
+    "synonyms": [
+      "incisive",
+      "sharp",
+      "keen",
+      "cutting",
+      "penetrating"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4384
+  },
+  {
+    "word": "TRUCKLE",
+    "pos": "verb",
+    "kor": "아첨하다, 굽실거리다",
+    "def": "To submit servilely or yield obsequiously",
+    "example": "He truckled to his powerful superiors.",
+    "synonyms": [
+      "grovel",
+      "kowtow",
+      "fawn",
+      "cringe",
+      "toady"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4385
+  },
+  {
+    "word": "TRYST",
+    "pos": "noun",
+    "kor": "밀회, 만날 약속",
+    "def": "A secret meeting between lovers",
+    "example": "They arranged a tryst in the garden.",
+    "synonyms": [
+      "rendezvous",
+      "assignation",
+      "meeting",
+      "date",
+      "appointment"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4386
+  },
+  {
+    "word": "TUMID",
+    "pos": "adj",
+    "kor": "부어오른; 과장된",
+    "def": "Swollen, or pompously inflated in style",
+    "example": "His tumid prose obscured the simple point.",
+    "synonyms": [
+      "swollen",
+      "bloated",
+      "turgid",
+      "inflated",
+      "bombastic"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4387
+  },
+  {
+    "word": "TUTELAGE",
+    "pos": "noun",
+    "kor": "지도, 보호, 후견",
+    "def": "Instruction, guidance, or protective care",
+    "example": "She flourished under the tutelage of a master.",
+    "synonyms": [
+      "guidance",
+      "instruction",
+      "tuition",
+      "mentorship",
+      "care"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4388
+  },
+  {
+    "word": "TYRO",
+    "pos": "noun",
+    "kor": "초보자, 풋내기",
+    "def": "A beginner or novice",
+    "example": "As a tyro, he made many rookie mistakes.",
+    "synonyms": [
+      "beginner",
+      "novice",
+      "newcomer",
+      "amateur",
+      "neophyte"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4389
+  },
+  {
+    "word": "UNTOWARD",
+    "pos": "adj",
+    "kor": "뜻밖의, 부적절한",
+    "def": "Unexpected and inappropriate or inconvenient",
+    "example": "Nothing untoward happened during the trip.",
+    "synonyms": [
+      "improper",
+      "unseemly",
+      "unfortunate",
+      "adverse",
+      "inopportune"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4390
+  },
+  {
+    "word": "VARIEGATED",
+    "pos": "adj",
+    "kor": "얼룩덜룩한, 다채로운",
+    "def": "Marked with different colors or varied in character",
+    "example": "The garden was full of variegated foliage.",
+    "synonyms": [
+      "multicolored",
+      "diverse",
+      "varied",
+      "mottled",
+      "motley"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4391
+  },
+  {
+    "word": "VAUNT",
+    "pos": "verb",
+    "kor": "자랑하다, 뽐내다",
+    "def": "To boast about or praise excessively",
+    "example": "He vaunted his achievements at every chance.",
+    "synonyms": [
+      "boast",
+      "brag",
+      "flaunt",
+      "crow",
+      "tout"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4392
+  },
+  {
+    "word": "VENIAL",
+    "pos": "adj",
+    "kor": "용서받을 수 있는, 가벼운",
+    "def": "Forgivable; not seriously wrong",
+    "example": "It was a venial error easily overlooked.",
+    "synonyms": [
+      "forgivable",
+      "pardonable",
+      "minor",
+      "excusable",
+      "trivial"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4393
+  },
+  {
+    "word": "VERDANT",
+    "pos": "adj",
+    "kor": "푸릇푸릇한, 신록의",
+    "def": "Green with lush vegetation",
+    "example": "The verdant hills stretched to the horizon.",
+    "synonyms": [
+      "green",
+      "lush",
+      "leafy",
+      "grassy",
+      "flourishing"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4394
+  },
+  {
+    "word": "VERNAL",
+    "pos": "adj",
+    "kor": "봄의, 봄 같은",
+    "def": "Relating to or occurring in spring",
+    "example": "The vernal breeze carried the scent of blossoms.",
+    "synonyms": [
+      "spring",
+      "springlike",
+      "fresh",
+      "youthful",
+      "new"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4395
+  },
+  {
+    "word": "VICISSITUDE",
+    "pos": "noun",
+    "kor": "변천, 부침",
+    "def": "A change or variation in circumstances",
+    "example": "They endured the vicissitudes of fortune together.",
+    "synonyms": [
+      "change",
+      "fluctuation",
+      "variation",
+      "mutation",
+      "alteration"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4396
+  },
+  {
+    "word": "VIRAGO",
+    "pos": "noun",
+    "kor": "사나운 여자, 잔소리꾼",
+    "def": "A domineering, violent, or bad-tempered woman",
+    "example": "The landlady was a fearsome virago.",
+    "synonyms": [
+      "shrew",
+      "termagant",
+      "harridan",
+      "scold",
+      "fury"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4397
+  },
+  {
+    "word": "WAN",
+    "pos": "adj",
+    "kor": "창백한, 핏기 없는",
+    "def": "Pale and sickly in appearance",
+    "example": "Her wan face revealed her exhaustion.",
+    "synonyms": [
+      "pale",
+      "pallid",
+      "ashen",
+      "sallow",
+      "sickly"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4398
+  },
+  {
+    "word": "WAX",
+    "pos": "verb",
+    "kor": "점점 커지다, 차오르다",
+    "def": "To increase gradually in size or intensity",
+    "example": "The moon waxed toward fullness.",
+    "synonyms": [
+      "increase",
+      "grow",
+      "expand",
+      "enlarge",
+      "swell"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4399
+  },
+  {
+    "word": "WELTER",
+    "pos": "noun",
+    "kor": "혼란, 뒤죽박죽",
+    "def": "A confused mass or jumble",
+    "example": "He was lost in a welter of paperwork.",
+    "synonyms": [
+      "jumble",
+      "muddle",
+      "chaos",
+      "confusion",
+      "tangle"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4400
+  },
+  {
+    "word": "WHEEDLE",
+    "pos": "verb",
+    "kor": "감언이설로 꾀다",
+    "def": "To persuade through flattery or coaxing",
+    "example": "She wheedled an extra day off from her boss.",
+    "synonyms": [
+      "coax",
+      "cajole",
+      "flatter",
+      "inveigle",
+      "entice"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4401
+  },
+  {
+    "word": "WHET",
+    "pos": "verb",
+    "kor": "갈다, 자극하다",
+    "def": "To sharpen, or to stimulate appetite or interest",
+    "example": "The appetizer whetted their appetite.",
+    "synonyms": [
+      "sharpen",
+      "stimulate",
+      "arouse",
+      "kindle",
+      "pique"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4402
+  },
+  {
+    "word": "WINNOW",
+    "pos": "verb",
+    "kor": "골라내다, 추려내다",
+    "def": "To separate the valuable from the worthless",
+    "example": "We must winnow the strong applicants from the weak.",
+    "synonyms": [
+      "sift",
+      "sort",
+      "separate",
+      "filter",
+      "cull"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4403
+  },
+  {
+    "word": "WIZENED",
+    "pos": "adj",
+    "kor": "쪼글쪼글한, 시든",
+    "def": "Shriveled and wrinkled, especially with age",
+    "example": "The wizened old man sat by the fire.",
+    "synonyms": [
+      "shriveled",
+      "wrinkled",
+      "withered",
+      "gnarled",
+      "shrunken"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4404
+  },
+  {
+    "word": "WONT",
+    "pos": "noun",
+    "kor": "습관, 버릇",
+    "def": "A habitual or customary practice",
+    "example": "He rose at dawn, as was his wont.",
+    "synonyms": [
+      "habit",
+      "custom",
+      "practice",
+      "usage",
+      "routine"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4405
+  },
+  {
+    "word": "WRAITH",
+    "pos": "noun",
+    "kor": "유령, 망령",
+    "def": "A ghost or spectral apparition",
+    "example": "A pale wraith seemed to drift through the hall.",
+    "synonyms": [
+      "ghost",
+      "specter",
+      "phantom",
+      "apparition",
+      "spirit"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4406
+  },
+  {
+    "word": "WRY",
+    "pos": "adj",
+    "kor": "비꼬는, 풍자적인",
+    "def": "Showing dry, mocking humor",
+    "example": "He made a wry comment about the situation.",
+    "synonyms": [
+      "ironic",
+      "sardonic",
+      "mocking",
+      "sarcastic",
+      "droll"
+    ],
+    "category": "wk",
+    "analogyRelations": [],
+    "source": "afoqt-community",
+    "tier": "high",
+    "afoqtCommon": true,
+    "id": 4407
   }
 ]
