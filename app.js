@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "3.5.0";
+const VERSION = "3.6.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -22,6 +22,22 @@ const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=(Math.ran
 const sample = (arr,n) => shuffle(arr).slice(0,n);
 const esc = s => String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 function toast(msg, ms=1800){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove("show"), ms); }
+// Text-to-speech (browser built-in). Speaks English words/sentences for pronunciation.
+let _voices=[];
+function loadVoices(){ try{ _voices=window.speechSynthesis? window.speechSynthesis.getVoices():[]; }catch{} }
+function speak(text, ev){
+  if(ev){ ev.stopPropagation&&ev.stopPropagation(); }
+  try{
+    const synth=window.speechSynthesis; if(!synth){ toast("이 브라우저는 음성을 지원하지 않아요"); return; }
+    synth.cancel();
+    const u=new SpeechSynthesisUtterance(String(text)); u.lang="en-US"; u.rate=0.92;
+    if(!_voices.length) loadVoices();
+    const v=_voices.find(x=>/en[-_]US/i.test(x.lang))||_voices.find(x=>/^en/i.test(x.lang)); if(v) u.voice=v;
+    synth.speak(u);
+  }catch(e){}
+}
+const spkBtn=(text)=>`<button class="spk" data-spk="${esc(text)}" aria-label="발음 듣기" title="발음 듣기">🔊</button>`;
+function wireSpeakers(root=document){ $$(".spk[data-spk]",root).forEach(b=>{ if(b._w) return; b._w=1; b.onclick=e=>speak(b.dataset.spk,e); }); }
 
 /* ============================================================
    STATE
@@ -238,7 +254,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -329,12 +345,12 @@ function renderCard(){
   $("#studyArea").innerHTML=`
     <div class="flash" id="flashCard">
       <button class="star-btn ${c.starred?'on':''}" id="starBtn">${c.starred?'★':'☆'}</button>
-      <div class="word">${esc(w.word)}</div>
+      <div class="word-row"><div class="word">${esc(w.word)}</div>${spkBtn(w.word)}</div>
       <div class="pos">${esc(w.pos||"")}${w.source==="gre-magoosh"?" · GRE":""}${tierOf(w)==="high"?" · ⭐빈출":""}</div>
       <div class="reveal hidden" id="revealBox">
         <div class="kor">${esc(w.kor||"")}</div>
         <div class="def">${esc(w.def||"")}</div>
-        ${w.example?`<div class="ex">"${esc(w.example)}"</div>`:""}
+        ${w.example?`<div class="ex">"${esc(w.example)}" ${spkBtn(w.example)}</div>`:""}
         ${syn?`<div class="syn">${syn}</div>`:""}
         ${ana?`<div class="ana">${ana}</div>`:""}
       </div>
@@ -346,9 +362,10 @@ function renderCard(){
       <button class="g-good"  data-q="good">알맞음<small>${fmtIv(predict(id,'good'))}</small></button>
       <button class="g-easy"  data-q="easy">쉬움<small>${fmtIv(predict(id,'easy'))}</small></button>
     </div>`;
-  $("#flashCard").onclick=e=>{ if(e.target.id==="starBtn")return; reveal(); };
+  $("#flashCard").onclick=e=>{ if(e.target.closest("#starBtn")||e.target.closest(".spk"))return; reveal(); };
   $("#starBtn").onclick=e=>{ e.stopPropagation(); toggleStar(id); const on=getCard(id).starred; $("#starBtn").classList.toggle("on",on); $("#starBtn").textContent=on?"★":"☆"; };
   $$("#gradeRow button").forEach(b=>b.onclick=()=>answer(id,b.dataset.q));
+  wireSpeakers($("#studyArea"));
 }
 function reveal(){ if(session.revealed) return; session.revealed=true; $("#revealBox").classList.remove("hidden"); $("#tapHint").classList.add("hidden"); $("#gradeRow").classList.remove("hidden"); }
 function answer(id,q){ const s=session, wasNew=getCard(id).status==="new"; gradeCard(id,q);
@@ -433,16 +450,17 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   const syn=(w.synonyms||[]).map(x=>`<span>${esc(x)}</span>`).join("");
   const ana=(w.analogyRelations||[]).map(esc).join("<br>");
   openSheet(`<div class="row" style="justify-content:space-between;align-items:flex-start">
-      <h3 style="font-size:26px">${esc(w.word)}</h3><button class="btn sm ghost" id="wstar">${c.starred?'★':'☆'}</button></div>
+      <div class="word-row" style="justify-content:flex-start"><h3 style="font-size:26px">${esc(w.word)}</h3>${spkBtn(w.word)}</div><button class="btn sm ghost" id="wstar">${c.starred?'★':'☆'}</button></div>
     <div style="color:var(--brand2);font-size:12px;text-transform:uppercase">${esc(w.pos||"")}${w.source==="gre-magoosh"?" · GRE Magoosh":""}${tierOf(w)==="high"?" · ⭐빈출":""}</div>
     ${w.afoqtCommon?`<div class="hintbox" style="margin-top:8px;font-size:11px">⭐ AFOQT 빈출 단어 — Quizlet·Barron's·커뮤니티 AFOQT 단어 목록에 등재된 단어입니다.</div>`:""}
     <div style="font-size:20px;font-weight:700;margin-top:10px">${esc(w.kor||"")}</div>
     <div class="muted" style="margin-top:6px;line-height:1.5">${esc(w.def||"")}</div>
-    ${w.example?`<div style="font-style:italic;border-left:3px solid var(--brand);padding-left:10px;margin-top:12px;color:#cbd5e1">"${esc(w.example)}"</div>`:""}
+    ${w.example?`<div style="font-style:italic;border-left:3px solid var(--brand);padding-left:10px;margin-top:12px;color:#cbd5e1">"${esc(w.example)}" ${spkBtn(w.example)}</div>`:""}
     ${syn?`<h2 class="section">동의어</h2><div class="syn" style="display:flex;flex-wrap:wrap;gap:6px">${syn}</div>`:""}
     ${ana?`<h2 class="section">유추 관계</h2><div style="font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);line-height:1.7">${ana}</div>`:""}
     <button class="btn ghost" id="wclose" style="margin-top:20px">닫기</button>`);
   $("#wstar").onclick=()=>{ toggleStar(id); showWord(id); renderWords(); }; $("#wclose").onclick=closeSheet;
+  wireSpeakers($("#genericSheetBody"));
 }
 
 /* ============================================================
@@ -1033,7 +1051,9 @@ function renderExamQ(){
   const passage=it.passageText?`<details class="exam-passage" ${samePrev?"":"open"}>
       <summary>📖 ${esc(it.passageTitle||"지문")} (탭하여 펼치기)</summary>
       <div class="passage">${esc(it.passageText)}</div></details>`:"";
-  const stem=it.stem?`<div class="exam-stem">${esc(it.stem)}</div>`:"";
+  const stem=it.stem?(it.section==="WK"
+      ? `<div class="word-row"><div class="exam-stem">${esc(it.stem)}</div>${spkBtn(it.stem)}</div>`
+      : `<div class="exam-stem">${esc(it.stem)}</div>`):"";
   const sub=it.sub?`<div class="exam-sub">${esc(it.sub)}</div>`:"";
   const ko=it.promptKo?`<div class="exam-ko">${esc(it.promptKo)}</div>`:"";
   $("#examArea").innerHTML=`${passage}<div class="card">
@@ -1041,6 +1061,7 @@ function renderExamQ(){
     <div class="exam-prompt">${esc(it.prompt)}</div>${ko}${stem}${sub}
     <div class="choices" id="examChoices">${it.options.map((o,i)=>
       `<button class="choice ${e.answers[e.idx]===i?"sel":""}" data-i="${i}">${esc(o)}</button>`).join("")}</div></div>`;
+  wireSpeakers($("#examArea"));
   $$("#examChoices .choice").forEach(btn=>btn.onclick=()=>{
     e.answers[e.idx]=+btn.dataset.i;
     $$("#examChoices .choice").forEach(b=>b.classList.toggle("sel",b===btn));
@@ -1360,6 +1381,8 @@ function wire(){
   }, 60000);
   window.addEventListener("pagehide", saveNow);
   window.addEventListener("beforeunload", saveNow);
+  // Preload TTS voices (they populate asynchronously in most browsers).
+  if(window.speechSynthesis){ loadVoices(); window.speechSynthesis.onvoiceschanged=loadVoices; }
 }
 let lastDay=todayStr();
 
