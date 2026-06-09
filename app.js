@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "3.3.0";
+const VERSION = "3.4.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -252,7 +252,19 @@ function renderHome(){
   $("#goalRing").style.setProperty("--p",pct); $("#ringPct").textContent=pct+"%";
   const overall=Math.round(cnt.learned/Math.max(1,WORDS.length)*100);
   $("#stStreak").textContent=computeStreak(); $("#stToday").textContent=today.studied; $("#stDue").textContent=dueCards().length;
-  $("#recPace").textContent=`신규 ${newPerDay()}/일`;
+  // ---- daily pacing (recomputed every render, so it auto-updates as days pass) ----
+  const remain=newWordsRemaining(), dleft=daysLeft(), pace=newPerDay(), autop=autoPace();
+  $("#recPace").textContent=`신규 ${pace}/일`;
+  $("#recBasis").textContent=`남은 ${remain}단어 ÷ ${dleft}일 = 하루 ${autop}개`;
+  const note=$("#behindNote");
+  if(remain===0){ note.classList.add("hidden"); }
+  else if(state.settings.daily_goal>0 && state.settings.daily_goal<autop){
+    note.classList.remove("hidden");
+    note.innerHTML=`⚠️ 지금 목표(<b>${state.settings.daily_goal}</b>/일)로는 7/10까지 다 못 외워요. 일정대로면 <b>하루 ${autop}개</b> 필요합니다. (설정에서 목표를 비우면 자동 계산)`;
+  } else if(autop>=120){
+    note.classList.remove("hidden");
+    note.innerHTML=`🔥 밀린 분량이 있어요 — 일정 내 1회독하려면 <b>하루 ${autop}개</b> 페이스예요. 매일 하면 금방 줄어듭니다.`;
+  } else { note.classList.add("hidden"); }
   // ---- per-section readiness ----
   const afCount=WORDS.filter(w=>w.afoqtCommon).length||1;
   const afLearned=WORDS.filter(w=>w.afoqtCommon&&((state.cards[w.id]&&state.cards[w.id].status!=="new")||state.wkSeen[w.id])).length;
@@ -1305,9 +1317,15 @@ function wire(){
   // rolling over while the app/PWA was left open in the background).
   document.addEventListener("visibilitychange",()=>{
     if(document.visibilityState==="hidden"){ saveNow(); return; }
-    if(!sessionActive()){ if(todayStr()!==lastDay){ lastDay=todayStr(); } softRender(); }
+    if(!sessionActive()){ lastDay=todayStr(); softRender(); }
   });
   window.addEventListener("focus",()=>{ if(!sessionActive()) softRender(); });
+  // Day-rollover watcher: if the calendar day changes while the app is left
+  // open, re-render so the recommended daily amount recalculates automatically.
+  setInterval(()=>{
+    if(todayStr()!==lastDay){ lastDay=todayStr(); if(!sessionActive()){ const a=$(".view.active")?.id;
+      if(a==="view-home") renderHome(); else softRender(); } }
+  }, 60000);
   window.addEventListener("pagehide", saveNow);
   window.addEventListener("beforeunload", saveNow);
 }
