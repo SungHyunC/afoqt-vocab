@@ -28739,5 +28739,8205 @@
         "correct": false
       }
     ]
+  },
+  {
+    "id": 702,
+    "question": "BENEVOLENT : CRUEL",
+    "stem": [
+      "BENEVOLENT",
+      "CRUEL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "generous",
+          "stingy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "kind",
+          "gentle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "warm",
+          "cozy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rich",
+          "wealthy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "자비로운 ↔ 잔인한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 703,
+    "question": "CANDID : SECRETIVE",
+    "stem": [
+      "CANDID",
+      "SECRETIVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "frank",
+          "evasive"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "honest",
+          "truthful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "open",
+          "ajar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clear",
+          "lucid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "솔직한 ↔ 비밀스러운, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 704,
+    "question": "LUCID : MURKY",
+    "stem": [
+      "LUCID",
+      "MURKY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "clear",
+          "opaque"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bright",
+          "shiny"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dim",
+          "faint"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "vague",
+          "unclear"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "명료한 ↔ 흐릿한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 705,
+    "question": "PRUDENT : RECKLESS",
+    "stem": [
+      "PRUDENT",
+      "RECKLESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cautious",
+          "rash"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "careful",
+          "wary"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bold",
+          "brave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "safe",
+          "secure"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "신중한 ↔ 무모한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 706,
+    "question": "DOCILE : UNRULY",
+    "stem": [
+      "DOCILE",
+      "UNRULY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "tame",
+          "wild"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calm",
+          "placid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "meek",
+          "timid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "quiet",
+          "silent"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "순종적인 ↔ 제멋대로인, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 707,
+    "question": "FRUGAL : WASTEFUL",
+    "stem": [
+      "FRUGAL",
+      "WASTEFUL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "thrifty",
+          "extravagant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cheap",
+          "stingy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "saving",
+          "frugal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "poor",
+          "broke"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "검소한 ↔ 낭비하는, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 708,
+    "question": "ROBUST : FRAIL",
+    "stem": [
+      "ROBUST",
+      "FRAIL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sturdy",
+          "flimsy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "strong",
+          "mighty"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "weak",
+          "feeble"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hard",
+          "firm"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "튼튼한 ↔ 허약한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 709,
+    "question": "AMPLE : MEAGER",
+    "stem": [
+      "AMPLE",
+      "MEAGER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "plentiful",
+          "scant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "full",
+          "filled"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "big",
+          "large"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rich",
+          "wealthy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "풍부한 ↔ 빈약한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 710,
+    "question": "ELATED : DESPONDENT",
+    "stem": [
+      "ELATED",
+      "DESPONDENT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "joyful",
+          "gloomy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "happy",
+          "glad"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sad",
+          "sorrowful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "serene"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "의기양양한 ↔ 낙담한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 711,
+    "question": "PLIABLE : RIGID",
+    "stem": [
+      "PLIABLE",
+      "RIGID"
+    ],
+    "options": [
+      {
+        "pair": [
+          "flexible",
+          "stiff"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "soft",
+          "supple"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hard",
+          "firm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bendy",
+          "elastic"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "유연한 ↔ 경직된, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 712,
+    "question": "OBSCURE : FAMOUS",
+    "stem": [
+      "OBSCURE",
+      "FAMOUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "unknown",
+          "renowned"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hidden",
+          "veiled"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dark",
+          "dim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "vague",
+          "unclear"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "무명의 ↔ 유명한, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 713,
+    "question": "BARREN : LUSH",
+    "stem": [
+      "BARREN",
+      "LUSH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "arid",
+          "fertile"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dry",
+          "parched"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dead",
+          "lifeless"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "empty",
+          "vacant"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "척박한 ↔ 무성한, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 714,
+    "question": "SOMBER : CHEERFUL",
+    "stem": [
+      "SOMBER",
+      "CHEERFUL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "gloomy",
+          "merry"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dark",
+          "dim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sad",
+          "mournful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grim",
+          "stern"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "침울한 ↔ 쾌활한, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 715,
+    "question": "RAPID : SLUGGISH",
+    "stem": [
+      "RAPID",
+      "SLUGGISH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "swift",
+          "slow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "quick",
+          "fast"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "speedy",
+          "brisk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hasty",
+          "rushed"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "빠른 ↔ 느릿한, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 716,
+    "question": "SCARCE : PLENTIFUL",
+    "stem": [
+      "SCARCE",
+      "PLENTIFUL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rare",
+          "abundant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "few",
+          "several"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "small",
+          "tiny"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "empty",
+          "hollow"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "부족한 ↔ 풍부한, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 717,
+    "question": "MITIGATE : ALLEVIATE",
+    "stem": [
+      "MITIGATE",
+      "ALLEVIATE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lessen",
+          "reduce"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "worsen",
+          "aggravate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "raise",
+          "increase"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "end",
+          "start"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "완화하다 = 경감하다, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 718,
+    "question": "CANDOR : FRANKNESS",
+    "stem": [
+      "CANDOR",
+      "FRANKNESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "honesty",
+          "sincerity"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lies",
+          "deceit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "anger",
+          "rage"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fear",
+          "dread"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "솔직함 = 거리낌없음, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 719,
+    "question": "ENIGMATIC : MYSTERIOUS",
+    "stem": [
+      "ENIGMATIC",
+      "MYSTERIOUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cryptic",
+          "puzzling"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "clear",
+          "obvious"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plain",
+          "simple"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "known",
+          "familiar"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "수수께끼같은 = 신비로운, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 720,
+    "question": "ZENITH : PEAK",
+    "stem": [
+      "ZENITH",
+      "PEAK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "apex",
+          "summit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "base",
+          "bottom"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nadir",
+          "low"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "start",
+          "onset"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "정점 = 절정, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 721,
+    "question": "ABATE : DIMINISH",
+    "stem": [
+      "ABATE",
+      "DIMINISH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "wane",
+          "subside"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "grow",
+          "expand"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rise",
+          "ascend"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "boost",
+          "amplify"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "약해지다 = 줄다, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 722,
+    "question": "LAUDABLE : PRAISEWORTHY",
+    "stem": [
+      "LAUDABLE",
+      "PRAISEWORTHY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "admirable",
+          "commendable"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "shameful",
+          "awful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plain",
+          "dull"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "evil",
+          "wicked"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "칭찬할만한 = 가상한, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 723,
+    "question": "FERVENT : PASSIONATE",
+    "stem": [
+      "FERVENT",
+      "PASSIONATE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ardent",
+          "intense"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cool",
+          "calm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dull",
+          "bland"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "weak",
+          "faint"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "열렬한 = 열정적인, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 724,
+    "question": "CONCEAL : HIDE",
+    "stem": [
+      "CONCEAL",
+      "HIDE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cloak",
+          "mask"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "reveal",
+          "show"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "find",
+          "seek"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "open",
+          "expose"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "숨기다 = 감추다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 725,
+    "question": "BRISK : QUICK",
+    "stem": [
+      "BRISK",
+      "QUICK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lively",
+          "swift"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "slow",
+          "sluggish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dull",
+          "flat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tired",
+          "weary"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "활기찬 = 빠른, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 726,
+    "question": "ABUNDANT : PLENTIFUL",
+    "stem": [
+      "ABUNDANT",
+      "PLENTIFUL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ample",
+          "copious"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scarce",
+          "rare"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "empty",
+          "void"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "few",
+          "scant"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "풍부한 = 많은, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 727,
+    "question": "PERIL : DANGER",
+    "stem": [
+      "PERIL",
+      "DANGER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hazard",
+          "jeopardy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "safety",
+          "security"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "peace"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ease",
+          "comfort"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "위험 = 위해, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 728,
+    "question": "WEARY : TIRED",
+    "stem": [
+      "WEARY",
+      "TIRED"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fatigued",
+          "exhausted"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fresh",
+          "rested"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "eager",
+          "keen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "strong",
+          "fit"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "지친 = 피곤한, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 729,
+    "question": "VACANT : EMPTY",
+    "stem": [
+      "VACANT",
+      "EMPTY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "void",
+          "unoccupied"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "full",
+          "packed"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "busy",
+          "crowded"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rich",
+          "laden"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "비어있는 = 공허한, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 730,
+    "question": "DETEST : HATE",
+    "stem": [
+      "DETEST",
+      "HATE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "loathe",
+          "abhor"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "adore",
+          "love"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "like",
+          "enjoy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "admire",
+          "respect"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "혐오하다 = 미워하다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 731,
+    "question": "STURDY : STRONG",
+    "stem": [
+      "STURDY",
+      "STRONG"
+    ],
+    "options": [
+      {
+        "pair": [
+          "solid",
+          "robust"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "weak",
+          "frail"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soft",
+          "limp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thin",
+          "slight"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "견고한 = 강한, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 732,
+    "question": "TRANQUIL : CALM",
+    "stem": [
+      "TRANQUIL",
+      "CALM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "serene",
+          "placid"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "loud",
+          "noisy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wild",
+          "frantic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tense",
+          "anxious"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "고요한 = 차분한, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 733,
+    "question": "HINGE : DOOR",
+    "stem": [
+      "HINGE",
+      "DOOR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "knob",
+          "drawer"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "door",
+          "wall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lock",
+          "key"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gate",
+          "fence"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part : whole",
+    "explain": "경첩은 문의 부분, 부분:전체.",
+    "tier": "mid"
+  },
+  {
+    "id": 734,
+    "question": "CHAPTER : BOOK",
+    "stem": [
+      "CHAPTER",
+      "BOOK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "act",
+          "play"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "book",
+          "library"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "page",
+          "read"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "word",
+          "speech"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part : whole",
+    "explain": "장은 책의 부분, 부분:전체.",
+    "tier": "mid"
+  },
+  {
+    "id": 735,
+    "question": "BLADE : KNIFE",
+    "stem": [
+      "BLADE",
+      "KNIFE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "tine",
+          "fork"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "knife",
+          "kitchen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cut",
+          "slice"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "handle",
+          "grip"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part : whole",
+    "explain": "칼날은 칼의 부분, 부분:전체.",
+    "tier": "mid"
+  },
+  {
+    "id": 736,
+    "question": "CRUST : PIE",
+    "stem": [
+      "CRUST",
+      "PIE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rind",
+          "melon"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pie",
+          "bakery"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "filling",
+          "sweet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "oven",
+          "bake"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part : whole",
+    "explain": "파이 껍질은 파이의 부분, 부분:전체.",
+    "tier": "mid"
+  },
+  {
+    "id": 737,
+    "question": "COMPOSER : SYMPHONY",
+    "stem": [
+      "COMPOSER",
+      "SYMPHONY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "author",
+          "novel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "symphony",
+          "hear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "music",
+          "note"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "novel",
+          "read"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "작곡가가 만드는 것은 교향곡, 작업자:생산물.",
+    "tier": "high"
+  },
+  {
+    "id": 738,
+    "question": "COBBLER : SHOE",
+    "stem": [
+      "COBBLER",
+      "SHOE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "smith",
+          "sword"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "shoe",
+          "wear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "leather",
+          "cut"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sword",
+          "fight"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "구두장이가 만드는 것은 신발, 작업자:생산물.",
+    "tier": "mid"
+  },
+  {
+    "id": 739,
+    "question": "DRAMATIST : PLAY",
+    "stem": [
+      "DRAMATIST",
+      "PLAY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lyricist",
+          "song"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "play",
+          "watch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stage",
+          "act"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "song",
+          "hum"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "극작가가 만드는 것은 희곡, 작업자:생산물.",
+    "tier": "mid"
+  },
+  {
+    "id": 740,
+    "question": "DISTILLER : WHISKEY",
+    "stem": [
+      "DISTILLER",
+      "WHISKEY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "baker",
+          "cake"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "whiskey",
+          "drink"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grain",
+          "mash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cake",
+          "eat"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "증류업자가 만드는 것은 위스키, 작업자:생산물.",
+    "tier": "mid"
+  },
+  {
+    "id": 741,
+    "question": "PHARMACIST : PHARMACY",
+    "stem": [
+      "PHARMACIST",
+      "PHARMACY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "librarian",
+          "library"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pharmacy",
+          "drug"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "medicine",
+          "pill"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "library",
+          "book"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : workplace",
+    "explain": "약사의 일터는 약국, 작업자:일터.",
+    "tier": "high"
+  },
+  {
+    "id": 742,
+    "question": "PROFESSOR : UNIVERSITY",
+    "stem": [
+      "PROFESSOR",
+      "UNIVERSITY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "nurse",
+          "hospital"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "university",
+          "study"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lecture",
+          "teach"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hospital",
+          "heal"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : workplace",
+    "explain": "교수의 일터는 대학, 작업자:일터.",
+    "tier": "mid"
+  },
+  {
+    "id": 743,
+    "question": "ACTOR : SET",
+    "stem": [
+      "ACTOR",
+      "SET"
+    ],
+    "options": [
+      {
+        "pair": [
+          "clerk",
+          "store"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "set",
+          "film"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "role",
+          "play"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "store",
+          "shop"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : workplace",
+    "explain": "배우의 일터는 촬영장, 작업자:일터.",
+    "tier": "mid"
+  },
+  {
+    "id": 744,
+    "question": "INSULT : ANGER",
+    "stem": [
+      "INSULT",
+      "ANGER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "joke",
+          "laughter"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "anger",
+          "insult"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "praise",
+          "pride"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "laughter",
+          "joke"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause : effect",
+    "explain": "모욕은 분노를 유발, 원인:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 745,
+    "question": "COMPASS : DIRECTION",
+    "stem": [
+      "COMPASS",
+      "DIRECTION"
+    ],
+    "options": [
+      {
+        "pair": [
+          "protractor",
+          "angle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "direction",
+          "compass"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "map",
+          "route"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "angle",
+          "protractor"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument : measurement",
+    "explain": "나침반은 방향을 가리킴, 도구:측정대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 746,
+    "question": "CELLAR : WINE",
+    "stem": [
+      "CELLAR",
+      "WINE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pantry",
+          "food"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wine",
+          "cellar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "barrel",
+          "ale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "food",
+          "pantry"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container : contents",
+    "explain": "저장고에는 와인을 보관, 용기:내용물.",
+    "tier": "mid"
+  },
+  {
+    "id": 747,
+    "question": "BARREL : CRUDE",
+    "stem": [
+      "BARREL",
+      "CRUDE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "canister",
+          "gas"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "crude",
+          "barrel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "jar",
+          "jam"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gas",
+          "canister"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container : contents",
+    "explain": "드럼통에는 원유를 담음, 용기:내용물.",
+    "tier": "mid"
+  },
+  {
+    "id": 748,
+    "question": "ANNOYED : FURIOUS",
+    "stem": [
+      "ANNOYED",
+      "FURIOUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pleased",
+          "ecstatic"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "angry",
+          "annoyed"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "furious",
+          "mad"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "serene"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree",
+    "explain": "짜증남 → 격노, 정도의 강화.",
+    "tier": "high"
+  },
+  {
+    "id": 749,
+    "question": "LIKE : ADORE",
+    "stem": [
+      "LIKE",
+      "ADORE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "dislike",
+          "loathe"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "love",
+          "like"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "adore",
+          "like"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hate",
+          "anger"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree",
+    "explain": "좋아함 → 흠모, 정도의 강화.",
+    "tier": "mid"
+  },
+  {
+    "id": 750,
+    "question": "HUNGRY : STARVING",
+    "stem": [
+      "HUNGRY",
+      "STARVING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "thirsty",
+          "parched"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "full",
+          "sated"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "starving",
+          "hungry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "eat",
+          "feast"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree",
+    "explain": "배고픔 → 굶주림, 정도의 강화.",
+    "tier": "mid"
+  },
+  {
+    "id": 751,
+    "question": "BRIGHT : DAZZLING",
+    "stem": [
+      "BRIGHT",
+      "DAZZLING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "dim",
+          "pitch-black"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "light",
+          "bright"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dazzling",
+          "bright"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dark",
+          "gloomy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree",
+    "explain": "밝음 → 눈부심, 정도의 강화.",
+    "tier": "mid"
+  },
+  {
+    "id": 752,
+    "question": "HEN : EGG",
+    "stem": [
+      "HEN",
+      "EGG"
+    ],
+    "options": [
+      {
+        "pair": [
+          "spider",
+          "web"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "egg",
+          "hen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nest",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "web",
+          "spider"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source : product",
+    "explain": "암탉은 달걀의 원천, 원천:산물.",
+    "tier": "mid"
+  },
+  {
+    "id": 753,
+    "question": "RUBY : GEM",
+    "stem": [
+      "RUBY",
+      "GEM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "granite",
+          "rock"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "gem",
+          "ruby"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "red",
+          "color"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rock",
+          "granite"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "example : category",
+    "explain": "루비는 보석의 한 종류, 예:범주.",
+    "tier": "high"
+  },
+  {
+    "id": 754,
+    "question": "SEDAN : CAR",
+    "stem": [
+      "SEDAN",
+      "CAR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "oak",
+          "tree"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "car",
+          "sedan"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wheel",
+          "part"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tree",
+          "oak"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "example : category",
+    "explain": "세단은 자동차의 한 종류, 예:범주.",
+    "tier": "mid"
+  },
+  {
+    "id": 755,
+    "question": "VIOLA : INSTRUMENT",
+    "stem": [
+      "VIOLA",
+      "INSTRUMENT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hammer",
+          "tool"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "instrument",
+          "viola"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "string",
+          "note"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tool",
+          "hammer"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "example : category",
+    "explain": "비올라는 악기의 한 종류, 예:범주.",
+    "tier": "mid"
+  },
+  {
+    "id": 756,
+    "question": "HAIKU : POEM",
+    "stem": [
+      "HAIKU",
+      "POEM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ballad",
+          "song"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "poem",
+          "haiku"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "line",
+          "stanza"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "song",
+          "ballad"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "example : category",
+    "explain": "하이쿠는 시의 한 종류, 예:범주.",
+    "tier": "mid"
+  },
+  {
+    "id": 757,
+    "question": "GENESIS : TERMINUS",
+    "stem": [
+      "GENESIS",
+      "TERMINUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "birth",
+          "death"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "terminus",
+          "genesis"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "start",
+          "middle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "death",
+          "birth"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "beginning : end",
+    "explain": "기원 ↔ 종착, 시작:끝.",
+    "tier": "high"
+  },
+  {
+    "id": 758,
+    "question": "INFANCY : SENILITY",
+    "stem": [
+      "INFANCY",
+      "SENILITY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "youth",
+          "old age"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "senility",
+          "infancy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "child",
+          "teen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "old age",
+          "youth"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "beginning : end",
+    "explain": "유아기 ↔ 노쇠기, 시작:끝.",
+    "tier": "mid"
+  },
+  {
+    "id": 759,
+    "question": "BRAGGART : BOASTFUL",
+    "stem": [
+      "BRAGGART",
+      "BOASTFUL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "liar",
+          "deceitful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "boastful",
+          "braggart"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hero",
+          "brave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "deceitful",
+          "liar"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person : trait",
+    "explain": "허풍쟁이는 자만함, 사람:특성.",
+    "tier": "mid"
+  },
+  {
+    "id": 760,
+    "question": "GLUTTON : GREEDY",
+    "stem": [
+      "GLUTTON",
+      "GREEDY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pacifist",
+          "peaceful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "greedy",
+          "glutton"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "eater",
+          "full"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "peaceful",
+          "pacifist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person : trait",
+    "explain": "대식가는 탐욕적, 사람:특성.",
+    "tier": "mid"
+  },
+  {
+    "id": 761,
+    "question": "MUFFLER : SILENCE",
+    "stem": [
+      "MUFFLER",
+      "SILENCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "filter",
+          "purify"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "silence",
+          "muffler"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "engine",
+          "run"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "purify",
+          "filter"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "머플러는 소음을 줄임, 물건:기능.",
+    "tier": "high"
+  },
+  {
+    "id": 762,
+    "question": "VALVE : REGULATE",
+    "stem": [
+      "VALVE",
+      "REGULATE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fuse",
+          "protect"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "regulate",
+          "valve"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pipe",
+          "flow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "protect",
+          "fuse"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "밸브는 흐름을 조절, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 763,
+    "question": "BEACON : GUIDE",
+    "stem": [
+      "BEACON",
+      "GUIDE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "compass",
+          "orient"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "guide",
+          "beacon"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "shine"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "orient",
+          "compass"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "등대는 길을 안내, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 764,
+    "question": "SHIELD : PROTECT",
+    "stem": [
+      "SHIELD",
+      "PROTECT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lever",
+          "lift"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "protect",
+          "shield"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "armor",
+          "wear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lift",
+          "lever"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "방패는 보호함, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 765,
+    "question": "LADLE : SCOOP",
+    "stem": [
+      "LADLE",
+      "SCOOP"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sieve",
+          "strain"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scoop",
+          "ladle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pot",
+          "boil"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "strain",
+          "sieve"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "국자는 떠냄, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 766,
+    "question": "READ : BOOK",
+    "stem": [
+      "READ",
+      "BOOK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "drink",
+          "water"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "book",
+          "read"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "write",
+          "pen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "water",
+          "drink"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : object",
+    "explain": "읽는 대상은 책, 행위:대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 767,
+    "question": "SHEAR : SHEEP",
+    "stem": [
+      "SHEAR",
+      "SHEEP"
+    ],
+    "options": [
+      {
+        "pair": [
+          "milk",
+          "cow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sheep",
+          "shear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "trim",
+          "hedge"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cow",
+          "milk"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : object",
+    "explain": "깎는 대상은 양, 행위:대상.",
+    "tier": "high"
+  },
+  {
+    "id": 768,
+    "question": "HURL : JAVELIN",
+    "stem": [
+      "HURL",
+      "JAVELIN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "shoot",
+          "arrow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "javelin",
+          "hurl"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "throw",
+          "toss"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "arrow",
+          "shoot"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : object",
+    "explain": "던지는 대상은 창, 행위:대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 769,
+    "question": "PLUCK : STRING",
+    "stem": [
+      "PLUCK",
+      "STRING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "strum",
+          "guitar"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "string",
+          "pluck"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "play",
+          "tune"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "guitar",
+          "strum"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : object",
+    "explain": "뜯는 대상은 현, 행위:대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 770,
+    "question": "DOVE : PEACE",
+    "stem": [
+      "DOVE",
+      "PEACE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scales",
+          "justice"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "peace",
+          "dove"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bird",
+          "fly"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "justice",
+          "scales"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol : meaning",
+    "explain": "비둘기는 평화의 상징, 상징:의미.",
+    "tier": "high"
+  },
+  {
+    "id": 771,
+    "question": "LAUREL : VICTORY",
+    "stem": [
+      "LAUREL",
+      "VICTORY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "skull",
+          "death"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "victory",
+          "laurel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plant",
+          "grow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "death",
+          "skull"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol : meaning",
+    "explain": "월계관은 승리의 상징, 상징:의미.",
+    "tier": "high"
+  },
+  {
+    "id": 772,
+    "question": "HEART : LOVE",
+    "stem": [
+      "HEART",
+      "LOVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ring",
+          "commitment"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "love",
+          "heart"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "red",
+          "color"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "commitment",
+          "ring"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol : meaning",
+    "explain": "하트는 사랑의 상징, 상징:의미.",
+    "tier": "mid"
+  },
+  {
+    "id": 773,
+    "question": "OLIVE : PEACE",
+    "stem": [
+      "OLIVE",
+      "PEACE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "flag",
+          "nation"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "peace",
+          "olive"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tree",
+          "oil"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nation",
+          "flag"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol : meaning",
+    "explain": "올리브가지는 평화의 상징, 상징:의미.",
+    "tier": "mid"
+  },
+  {
+    "id": 774,
+    "question": "RED : DANGER",
+    "stem": [
+      "RED",
+      "DANGER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "white",
+          "purity"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "danger",
+          "red"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "color",
+          "hue"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "purity",
+          "white"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol : meaning",
+    "explain": "빨강은 위험의 상징, 상징:의미.",
+    "tier": "mid"
+  },
+  {
+    "id": 775,
+    "question": "AWL : PIERCE",
+    "stem": [
+      "AWL",
+      "PIERCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "file",
+          "smooth"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pierce",
+          "awl"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hole",
+          "gap"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smooth",
+          "file"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool : function",
+    "explain": "송곳은 뚫는 데 씀, 도구:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 776,
+    "question": "PAUPER : WEALTH",
+    "stem": [
+      "PAUPER",
+      "WEALTH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "invalid",
+          "strength"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wealth",
+          "pauper"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rich",
+          "money"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "strength",
+          "invalid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person : lacking",
+    "explain": "빈민은 부가 없음, 사람:결여.",
+    "tier": "high"
+  },
+  {
+    "id": 777,
+    "question": "ORPHAN : PARENTS",
+    "stem": [
+      "ORPHAN",
+      "PARENTS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hermit",
+          "company"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "parents",
+          "orphan"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "child",
+          "young"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "company",
+          "hermit"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person : lacking",
+    "explain": "고아는 부모가 없음, 사람:결여.",
+    "tier": "mid"
+  },
+  {
+    "id": 778,
+    "question": "ATHEIST : FAITH",
+    "stem": [
+      "ATHEIST",
+      "FAITH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pacifist",
+          "aggression"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "faith",
+          "atheist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doubt",
+          "belief"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "aggression",
+          "pacifist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person : lacking",
+    "explain": "무신론자는 신앙이 없음, 사람:결여.",
+    "tier": "mid"
+  },
+  {
+    "id": 779,
+    "question": "DESERT : RAIN",
+    "stem": [
+      "DESERT",
+      "RAIN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "void",
+          "matter"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rain",
+          "desert"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sand",
+          "dune"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "matter",
+          "void"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "place : lacking",
+    "explain": "사막은 비가 없음, 장소:결여.",
+    "tier": "mid"
+  },
+  {
+    "id": 780,
+    "question": "EDITOR : REVISE",
+    "stem": [
+      "EDITOR",
+      "REVISE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "auditor",
+          "examine"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "revise",
+          "editor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "text",
+          "read"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "examine",
+          "auditor"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : action",
+    "explain": "편집자는 교정함, 작업자:행위.",
+    "tier": "high"
+  },
+  {
+    "id": 781,
+    "question": "SENTRY : GUARD",
+    "stem": [
+      "SENTRY",
+      "GUARD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "usher",
+          "escort"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "guard",
+          "sentry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "post",
+          "stand"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "escort",
+          "usher"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : action",
+    "explain": "보초는 지킴, 작업자:행위.",
+    "tier": "mid"
+  },
+  {
+    "id": 782,
+    "question": "ARBITER : JUDGE",
+    "stem": [
+      "ARBITER",
+      "JUDGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scout",
+          "explore"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "judge",
+          "arbiter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rule",
+          "law"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "explore",
+          "scout"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : action",
+    "explain": "중재자는 판정함, 작업자:행위.",
+    "tier": "mid"
+  },
+  {
+    "id": 783,
+    "question": "NARRATOR : RECOUNT",
+    "stem": [
+      "NARRATOR",
+      "RECOUNT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "herald",
+          "announce"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "recount",
+          "narrator"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "voice",
+          "speak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "announce",
+          "herald"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : action",
+    "explain": "해설자는 이야기함, 작업자:행위.",
+    "tier": "mid"
+  },
+  {
+    "id": 784,
+    "question": "MARBLE : STATUE",
+    "stem": [
+      "MARBLE",
+      "STATUE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "wax",
+          "candle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "statue",
+          "marble"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stone",
+          "rock"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "candle",
+          "wax"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "material : product",
+    "explain": "대리석으로 조각상을 만듦, 재료:제품.",
+    "tier": "high"
+  },
+  {
+    "id": 785,
+    "question": "LEATHER : BELT",
+    "stem": [
+      "LEATHER",
+      "BELT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cotton",
+          "shirt"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "belt",
+          "leather"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hide",
+          "skin"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shirt",
+          "cotton"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "material : product",
+    "explain": "가죽으로 벨트를 만듦, 재료:제품.",
+    "tier": "mid"
+  },
+  {
+    "id": 786,
+    "question": "IRON : HORSESHOE",
+    "stem": [
+      "IRON",
+      "HORSESHOE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "glass",
+          "window"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "horseshoe",
+          "iron"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "metal",
+          "ore"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "window",
+          "glass"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "material : product",
+    "explain": "철로 편자를 만듦, 재료:제품.",
+    "tier": "mid"
+  },
+  {
+    "id": 787,
+    "question": "ENTOMOLOGIST : INSECTS",
+    "stem": [
+      "ENTOMOLOGIST",
+      "INSECTS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "botanist",
+          "plants"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "insects",
+          "entomologist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bug",
+          "crawl"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plants",
+          "botanist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : subject",
+    "explain": "곤충학자는 곤충을 연구, 학자:대상.",
+    "tier": "high"
+  },
+  {
+    "id": 788,
+    "question": "CARDIOLOGIST : HEART",
+    "stem": [
+      "CARDIOLOGIST",
+      "HEART"
+    ],
+    "options": [
+      {
+        "pair": [
+          "dermatologist",
+          "skin"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heart",
+          "cardiologist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blood",
+          "flow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "skin",
+          "dermatologist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : subject",
+    "explain": "심장전문의는 심장을 다룸, 의사:대상.",
+    "tier": "high"
+  },
+  {
+    "id": 789,
+    "question": "LINGUIST : LANGUAGE",
+    "stem": [
+      "LINGUIST",
+      "LANGUAGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "historian",
+          "past"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "language",
+          "linguist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "word",
+          "grammar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "past",
+          "historian"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : subject",
+    "explain": "언어학자는 언어를 연구, 학자:대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 790,
+    "question": "FLAWLESS : DEFECT",
+    "stem": [
+      "FLAWLESS",
+      "DEFECT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "vacant",
+          "occupant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "defect",
+          "flawless"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "perfect",
+          "pure"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "occupant",
+          "vacant"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "characteristic : lack",
+    "explain": "완벽한 것엔 결함이 없음, 특성:결여.",
+    "tier": "high"
+  },
+  {
+    "id": 791,
+    "question": "STERILE : GERMS",
+    "stem": [
+      "STERILE",
+      "GERMS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "silent",
+          "sound"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "germs",
+          "sterile"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clean",
+          "wash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sound",
+          "silent"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "characteristic : lack",
+    "explain": "무균은 세균이 없음, 특성:결여.",
+    "tier": "mid"
+  },
+  {
+    "id": 792,
+    "question": "INFALLIBLE : ERROR",
+    "stem": [
+      "INFALLIBLE",
+      "ERROR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "immaculate",
+          "stain"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "error",
+          "infallible"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "right",
+          "correct"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stain",
+          "immaculate"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "characteristic : lack",
+    "explain": "무오류는 잘못이 없음, 특성:결여.",
+    "tier": "mid"
+  },
+  {
+    "id": 793,
+    "question": "FORGER : COUNTERFEIT",
+    "stem": [
+      "FORGER",
+      "COUNTERFEIT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "plagiarist",
+          "copy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "counterfeit",
+          "forger"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fraud",
+          "cheat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "copy",
+          "plagiarist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "위조범은 위조품을 만듦, 작업자:생산물.",
+    "tier": "mid"
+  },
+  {
+    "id": 794,
+    "question": "CHOREOGRAPHER : DANCE",
+    "stem": [
+      "CHOREOGRAPHER",
+      "DANCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "screenwriter",
+          "film"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dance",
+          "choreographer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "step",
+          "move"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "film",
+          "screenwriter"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "안무가는 춤을 만듦, 작업자:생산물.",
+    "tier": "mid"
+  },
+  {
+    "id": 795,
+    "question": "ATTACK : DEFEND",
+    "stem": [
+      "ATTACK",
+      "DEFEND"
+    ],
+    "options": [
+      {
+        "pair": [
+          "attract",
+          "repel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "strike",
+          "hit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "guard",
+          "shield"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pull",
+          "draw"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "공격하다 ↔ 방어하다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 796,
+    "question": "BUILD : DEMOLISH",
+    "stem": [
+      "BUILD",
+      "DEMOLISH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "create",
+          "destroy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "erect",
+          "raise"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wreck",
+          "ruin"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "make",
+          "form"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "건설하다 ↔ 철거하다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 797,
+    "question": "ACCELERATE : DECELERATE",
+    "stem": [
+      "ACCELERATE",
+      "DECELERATE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hasten",
+          "slow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "speed",
+          "rush"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brake",
+          "stop"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "quicken",
+          "hurry"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "가속하다 ↔ 감속하다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 798,
+    "question": "ILLUMINATE : DARKEN",
+    "stem": [
+      "ILLUMINATE",
+      "DARKEN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "brighten",
+          "dim"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "shine",
+          "glow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "lamp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shade",
+          "cover"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "밝히다 ↔ 어둡게하다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 799,
+    "question": "ASSEMBLE : DISBAND",
+    "stem": [
+      "ASSEMBLE",
+      "DISBAND"
+    ],
+    "options": [
+      {
+        "pair": [
+          "gather",
+          "scatter"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "collect",
+          "amass"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "group",
+          "unite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "split",
+          "part"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "소집하다 ↔ 해산하다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 800,
+    "question": "PERMIT : FORBID",
+    "stem": [
+      "PERMIT",
+      "FORBID"
+    ],
+    "options": [
+      {
+        "pair": [
+          "allow",
+          "prohibit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "let",
+          "grant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ban",
+          "bar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "block",
+          "stop"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "허락하다 ↔ 금지하다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 801,
+    "question": "STRENGTHEN : WEAKEN",
+    "stem": [
+      "STRENGTHEN",
+      "WEAKEN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fortify",
+          "undermine"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "boost",
+          "bolster"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sap",
+          "drain"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brace",
+          "prop"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "강화하다 ↔ 약화하다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 802,
+    "question": "PROSPER : FAIL",
+    "stem": [
+      "PROSPER",
+      "FAIL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "thrive",
+          "flounder"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "succeed",
+          "win"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flop",
+          "lose"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grow",
+          "bloom"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "번영하다 ↔ 실패하다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 803,
+    "question": "ZEAL : ARDOR",
+    "stem": [
+      "ZEAL",
+      "ARDOR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "vigor",
+          "energy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "apathy",
+          "sloth"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "peace"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doubt",
+          "fear"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "열의 = 열정, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 804,
+    "question": "PARSIMONY : STINGINESS",
+    "stem": [
+      "PARSIMONY",
+      "STINGINESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "thrift",
+          "frugality"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "waste",
+          "excess"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "greed",
+          "want"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gift",
+          "grant"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "인색함 = 구두쇠짓, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 805,
+    "question": "RESILIENCE : TOUGHNESS",
+    "stem": [
+      "RESILIENCE",
+      "TOUGHNESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "grit",
+          "hardiness"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "weakness",
+          "frailty"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rest",
+          "calm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fear",
+          "dread"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "회복력 = 강인함, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 806,
+    "question": "AUDACITY : BOLDNESS",
+    "stem": [
+      "AUDACITY",
+      "BOLDNESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "nerve",
+          "daring"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "timidity",
+          "caution"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ease",
+          "comfort"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doubt",
+          "worry"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "대담함 = 담대함, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 807,
+    "question": "PERIL : HAZARD",
+    "stem": [
+      "PERIL",
+      "HAZARD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "risk",
+          "threat"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "safety",
+          "care"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "rest"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "help",
+          "aid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "위험 = 위해, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 808,
+    "question": "FOE : ADVERSARY",
+    "stem": [
+      "FOE",
+      "ADVERSARY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rival",
+          "opponent"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "ally",
+          "friend"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "peer",
+          "mate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "guide",
+          "helper"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "적 = 맞수, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 809,
+    "question": "ABODE : DWELLING",
+    "stem": [
+      "ABODE",
+      "DWELLING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "residence",
+          "home"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "road",
+          "path"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "yard",
+          "lawn"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gate",
+          "door"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "거주지 = 주거, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 810,
+    "question": "CLAMOR : UPROAR",
+    "stem": [
+      "CLAMOR",
+      "UPROAR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "din",
+          "racket"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hush",
+          "quiet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "peace"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "song",
+          "tune"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "소란 = 야단법석, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 811,
+    "question": "VESTIGE : TRACE",
+    "stem": [
+      "VESTIGE",
+      "TRACE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "remnant",
+          "mark"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "whole",
+          "total"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "start",
+          "onset"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plan",
+          "aim"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "흔적 = 자취, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 812,
+    "question": "PINNACLE : SUMMIT",
+    "stem": [
+      "PINNACLE",
+      "SUMMIT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "apex",
+          "crest"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "base",
+          "foot"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pit",
+          "hole"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "edge",
+          "rim"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "정점 = 정상, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 813,
+    "question": "BARBER : RAZOR",
+    "stem": [
+      "BARBER",
+      "RAZOR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "seamstress",
+          "thimble"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "razor",
+          "shave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hair",
+          "trim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thimble",
+          "seamstress"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : tool",
+    "explain": "이발사가 쓰는 도구는 면도기, 작업자:도구.",
+    "tier": "mid"
+  },
+  {
+    "id": 814,
+    "question": "PHOTOGRAPHER : CAMERA",
+    "stem": [
+      "PHOTOGRAPHER",
+      "CAMERA"
+    ],
+    "options": [
+      {
+        "pair": [
+          "welder",
+          "torch"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "camera",
+          "photo"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lens",
+          "focus"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "torch",
+          "welder"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : tool",
+    "explain": "사진사가 쓰는 도구는 카메라, 작업자:도구.",
+    "tier": "mid"
+  },
+  {
+    "id": 815,
+    "question": "AQUARIUM : FISH",
+    "stem": [
+      "AQUARIUM",
+      "FISH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "aviary",
+          "birds"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fish",
+          "aquarium"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tank",
+          "glass"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "birds",
+          "aviary"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container : contents",
+    "explain": "수족관에는 물고기를 담음, 용기:내용물.",
+    "tier": "mid"
+  },
+  {
+    "id": 816,
+    "question": "ARMORY : WEAPONS",
+    "stem": [
+      "ARMORY",
+      "WEAPONS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "library",
+          "books"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "weapons",
+          "armory"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gun",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "books",
+          "library"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container : contents",
+    "explain": "무기고에는 무기를 보관, 용기:내용물.",
+    "tier": "mid"
+  },
+  {
+    "id": 817,
+    "question": "LARDER : FOOD",
+    "stem": [
+      "LARDER",
+      "FOOD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "magazine",
+          "bullets"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "food",
+          "larder"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shelf",
+          "store"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bullets",
+          "magazine"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container : contents",
+    "explain": "식료품실에는 음식을 보관, 용기:내용물.",
+    "tier": "mid"
+  },
+  {
+    "id": 818,
+    "question": "BICYCLE : PEDAL",
+    "stem": [
+      "BICYCLE",
+      "PEDAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "piano",
+          "key"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pedal",
+          "bicycle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ride",
+          "road"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "key",
+          "piano"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole : part",
+    "explain": "자전거의 부분은 페달, 전체:부분.",
+    "tier": "mid"
+  },
+  {
+    "id": 819,
+    "question": "BOOK : SPINE",
+    "stem": [
+      "BOOK",
+      "SPINE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "clock",
+          "dial"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spine",
+          "book"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "read",
+          "page"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dial",
+          "clock"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole : part",
+    "explain": "책의 부분은 책등, 전체:부분.",
+    "tier": "mid"
+  },
+  {
+    "id": 820,
+    "question": "GUITAR : FRET",
+    "stem": [
+      "GUITAR",
+      "FRET"
+    ],
+    "options": [
+      {
+        "pair": [
+          "violin",
+          "bow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fret",
+          "guitar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "strum",
+          "chord"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bow",
+          "violin"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole : part",
+    "explain": "기타의 부분은 프렛, 전체:부분.",
+    "tier": "mid"
+  },
+  {
+    "id": 821,
+    "question": "PRACTICE : MASTERY",
+    "stem": [
+      "PRACTICE",
+      "MASTERY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "training",
+          "skill"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mastery",
+          "practice"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "talent",
+          "gift"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "skill",
+          "training"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause : effect",
+    "explain": "연습은 숙달을 가져옴, 원인:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 822,
+    "question": "POLLUTION : SMOG",
+    "stem": [
+      "POLLUTION",
+      "SMOG"
+    ],
+    "options": [
+      {
+        "pair": [
+          "smoking",
+          "cancer"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "smog",
+          "pollution"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "air",
+          "sky"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cancer",
+          "smoking"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause : effect",
+    "explain": "오염은 스모그를 유발, 원인:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 823,
+    "question": "WOUND : SCAR",
+    "stem": [
+      "WOUND",
+      "SCAR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "burn",
+          "blister"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scar",
+          "wound"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cut",
+          "bleed"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blister",
+          "burn"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause : effect",
+    "explain": "상처는 흉터를 남김, 원인:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 824,
+    "question": "STREAM : RIVER",
+    "stem": [
+      "STREAM",
+      "RIVER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hill",
+          "mountain"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "river",
+          "stream"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pond",
+          "lake"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mountain",
+          "hill"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree",
+    "explain": "개울 → 강, 규모의 확대.",
+    "tier": "mid"
+  },
+  {
+    "id": 825,
+    "question": "SPARK : BLAZE",
+    "stem": [
+      "SPARK",
+      "BLAZE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ripple",
+          "wave"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "blaze",
+          "spark"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ember",
+          "ash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wave",
+          "ripple"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree",
+    "explain": "불씨 → 화염, 강도의 확대.",
+    "tier": "mid"
+  },
+  {
+    "id": 826,
+    "question": "MINTER : COIN",
+    "stem": [
+      "MINTER",
+      "COIN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "printer",
+          "book"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "coin",
+          "minter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "metal",
+          "melt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "book",
+          "printer"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "조폐공은 동전을 만듦, 작업자:생산물.",
+    "tier": "mid"
+  },
+  {
+    "id": 827,
+    "question": "MOBILE : STATIONARY",
+    "stem": [
+      "MOBILE",
+      "STATIONARY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fluid",
+          "solid"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "moving",
+          "active"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fixed",
+          "set"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loose",
+          "free"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "이동하는 ↔ 고정된, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 828,
+    "question": "OPTIMIST : PESSIMIST",
+    "stem": [
+      "OPTIMIST",
+      "PESSIMIST"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hero",
+          "villain"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dreamer",
+          "hoper"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cynic",
+          "doubter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sage",
+          "fool"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "낙관론자 ↔ 비관론자, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 829,
+    "question": "ASCENT : DESCENT",
+    "stem": [
+      "ASCENT",
+      "DESCENT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rise",
+          "fall"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "climb",
+          "scale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "drop",
+          "dip"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hike",
+          "trek"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "상승 ↔ 하강, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 830,
+    "question": "SUMMIT : BASE",
+    "stem": [
+      "SUMMIT",
+      "BASE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "peak",
+          "valley"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "crest",
+          "ridge"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "foot",
+          "sole"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "top",
+          "crown"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "정상 ↔ 기슭, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 831,
+    "question": "BANISH : EXILE",
+    "stem": [
+      "BANISH",
+      "EXILE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "expel",
+          "oust"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "admit",
+          "accept"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "greet",
+          "welcome"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "invite",
+          "ask"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "추방하다 = 유배보내다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 832,
+    "question": "YEARN : LONG",
+    "stem": [
+      "YEARN",
+      "LONG"
+    ],
+    "options": [
+      {
+        "pair": [
+          "crave",
+          "desire"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "loathe",
+          "hate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "reject",
+          "spurn"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ignore",
+          "shun"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "갈망하다 = 그리워하다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 833,
+    "question": "SHUN : AVOID",
+    "stem": [
+      "SHUN",
+      "AVOID"
+    ],
+    "options": [
+      {
+        "pair": [
+          "evade",
+          "dodge"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "face",
+          "meet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "seek",
+          "find"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "greet",
+          "hail"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "피하다 = 회피하다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 834,
+    "question": "BAFFLE : PUZZLE",
+    "stem": [
+      "BAFFLE",
+      "PUZZLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "perplex",
+          "confuse"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "clarify",
+          "explain"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "solve",
+          "answer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "show",
+          "reveal"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "당황시키다 = 곤혹스럽게하다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 835,
+    "question": "WANE : DECLINE",
+    "stem": [
+      "WANE",
+      "DECLINE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ebb",
+          "dwindle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "grow",
+          "wax"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rise",
+          "soar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "swell",
+          "bulge"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "약해지다 = 쇠퇴하다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 836,
+    "question": "MANOMETER : PRESSURE",
+    "stem": [
+      "MANOMETER",
+      "PRESSURE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ammeter",
+          "current"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pressure",
+          "manometer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dial",
+          "read"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "current",
+          "ammeter"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument : measurement",
+    "explain": "압력계는 압력을 측정, 도구:측정대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 837,
+    "question": "EAGLE : BIRD",
+    "stem": [
+      "EAGLE",
+      "BIRD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "salmon",
+          "fish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bird",
+          "eagle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wing",
+          "fly"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fish",
+          "salmon"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "example : category",
+    "explain": "독수리는 새의 한 종류, 예:범주.",
+    "tier": "std"
+  },
+  {
+    "id": 838,
+    "question": "DEMAGOGUE : MANIPULATIVE",
+    "stem": [
+      "DEMAGOGUE",
+      "MANIPULATIVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sycophant",
+          "fawning"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "manipulative",
+          "demagogue"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "leader",
+          "loud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fawning",
+          "sycophant"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person : trait",
+    "explain": "선동가는 교묘함, 사람:특성.",
+    "tier": "high"
+  },
+  {
+    "id": 839,
+    "question": "STOIC : UNEMOTIONAL",
+    "stem": [
+      "STOIC",
+      "UNEMOTIONAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hedonist",
+          "indulgent"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "unemotional",
+          "stoic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "still"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "indulgent",
+          "hedonist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person : trait",
+    "explain": "금욕주의자는 무덤덤함, 사람:특성.",
+    "tier": "mid"
+  },
+  {
+    "id": 840,
+    "question": "DECK : CARDS",
+    "stem": [
+      "DECK",
+      "CARDS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bouquet",
+          "flowers"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cards",
+          "deck"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "game",
+          "play"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flowers",
+          "bouquet"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group : members",
+    "explain": "한 벌은 카드들의 모음, 집단:구성원.",
+    "tier": "mid"
+  },
+  {
+    "id": 841,
+    "question": "PARACHUTE : DESCEND",
+    "stem": [
+      "PARACHUTE",
+      "DESCEND"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sail",
+          "propel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "descend",
+          "parachute"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "jump",
+          "fall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "propel",
+          "sail"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "낙하산은 천천히 내려오게함, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 842,
+    "question": "HELMET : PROTECT",
+    "stem": [
+      "HELMET",
+      "PROTECT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "muzzle",
+          "restrain"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "protect",
+          "helmet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "head",
+          "wear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "restrain",
+          "muzzle"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "헬멧은 머리를 보호, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 843,
+    "question": "SKULL : DEATH",
+    "stem": [
+      "SKULL",
+      "DEATH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "crown",
+          "royalty"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "death",
+          "skull"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bone",
+          "white"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "royalty",
+          "crown"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol : meaning",
+    "explain": "해골은 죽음의 상징, 상징:의미.",
+    "tier": "mid"
+  },
+  {
+    "id": 844,
+    "question": "ANCHOR : HOPE",
+    "stem": [
+      "ANCHOR",
+      "HOPE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "torch",
+          "liberty"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hope",
+          "anchor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ship",
+          "sea"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "liberty",
+          "torch"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol : meaning",
+    "explain": "닻은 희망의 상징, 상징:의미.",
+    "tier": "mid"
+  },
+  {
+    "id": 845,
+    "question": "SURGEON : OPERATING ROOM",
+    "stem": [
+      "SURGEON",
+      "OPERATING ROOM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "teacher",
+          "school"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "operating room",
+          "surgeon"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "scalpel",
+          "cut"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "school",
+          "teacher"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : workplace",
+    "explain": "외과의의 일터는 수술실, 작업자:일터.",
+    "tier": "mid"
+  },
+  {
+    "id": 846,
+    "question": "BROKER : EXCHANGE",
+    "stem": [
+      "BROKER",
+      "EXCHANGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "teller",
+          "bank"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "exchange",
+          "broker"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stock",
+          "trade"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bank",
+          "teller"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : workplace",
+    "explain": "중개인의 일터는 거래소, 작업자:일터.",
+    "tier": "mid"
+  },
+  {
+    "id": 847,
+    "question": "FRAGILE : SHATTER",
+    "stem": [
+      "FRAGILE",
+      "SHATTER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "flammable",
+          "burn"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "shatter",
+          "fragile"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "glass",
+          "clear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "burn",
+          "flammable"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "characteristic : result",
+    "explain": "깨지기 쉬운 것은 부서짐, 특성:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 848,
+    "question": "ELASTIC : STRETCH",
+    "stem": [
+      "ELASTIC",
+      "STRETCH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "malleable",
+          "bend"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "stretch",
+          "elastic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "band",
+          "tight"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bend",
+          "malleable"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "characteristic : result",
+    "explain": "탄성있는 것은 늘어남, 특성:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 849,
+    "question": "SOLUBLE : DISSOLVE",
+    "stem": [
+      "SOLUBLE",
+      "DISSOLVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "volatile",
+          "evaporate"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dissolve",
+          "soluble"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "salt",
+          "white"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "evaporate",
+          "volatile"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "characteristic : result",
+    "explain": "녹는 것은 용해됨, 특성:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 850,
+    "question": "SOW : CROP",
+    "stem": [
+      "SOW",
+      "CROP"
+    ],
+    "options": [
+      {
+        "pair": [
+          "invest",
+          "profit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "crop",
+          "sow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plant",
+          "dirt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "profit",
+          "invest"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : result",
+    "explain": "씨를 뿌리면 작물이 남, 행위:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 851,
+    "question": "TEACH : KNOWLEDGE",
+    "stem": [
+      "TEACH",
+      "KNOWLEDGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "train",
+          "skill"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "knowledge",
+          "teach"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "class",
+          "room"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "skill",
+          "train"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : result",
+    "explain": "가르치면 지식이 생김, 행위:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 852,
+    "question": "KINDLE : FLAME",
+    "stem": [
+      "KINDLE",
+      "FLAME"
+    ],
+    "options": [
+      {
+        "pair": [
+          "water",
+          "growth"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "flame",
+          "kindle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "match",
+          "strike"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "growth",
+          "water"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : result",
+    "explain": "불을 붙이면 불꽃이 남, 행위:결과.",
+    "tier": "mid"
+  },
+  {
+    "id": 853,
+    "question": "LITERAL : FIGURATIVE",
+    "stem": [
+      "LITERAL",
+      "FIGURATIVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "explicit",
+          "implicit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "plain",
+          "direct"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "vague",
+          "unclear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blunt",
+          "frank"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "문자적인 ↔ 비유적인, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 854,
+    "question": "CONVEX : CONCAVE",
+    "stem": [
+      "CONVEX",
+      "CONCAVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "protruding",
+          "recessed"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "round",
+          "curved"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flat",
+          "level"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bent",
+          "arched"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "볼록한 ↔ 오목한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 855,
+    "question": "TACITURN : TALKATIVE",
+    "stem": [
+      "TACITURN",
+      "TALKATIVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "reticent",
+          "garrulous"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "quiet",
+          "silent"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "still"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shy",
+          "timid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "과묵한 ↔ 수다스러운, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 856,
+    "question": "SQUANDER : CONSERVE",
+    "stem": [
+      "SQUANDER",
+      "CONSERVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "waste",
+          "save"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spend",
+          "buy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lose",
+          "drop"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hoard",
+          "stash"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "낭비하다 ↔ 아끼다, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 857,
+    "question": "EXPLICIT : VAGUE",
+    "stem": [
+      "EXPLICIT",
+      "VAGUE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "clear",
+          "obscure"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "plain",
+          "simple"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bold",
+          "brave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "noisy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "명백한 ↔ 모호한, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 858,
+    "question": "FLOURISH : WITHER",
+    "stem": [
+      "FLOURISH",
+      "WITHER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bloom",
+          "wilt"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "grow",
+          "sprout"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dry",
+          "parch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "die",
+          "perish"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "번성하다 ↔ 시들다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 859,
+    "question": "LAVISH : SPARSE",
+    "stem": [
+      "LAVISH",
+      "SPARSE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "abundant",
+          "scant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rich",
+          "plush"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thin",
+          "slim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bare",
+          "plain"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "풍성한 ↔ 드문, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 860,
+    "question": "MEND : TEAR",
+    "stem": [
+      "MEND",
+      "TEAR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "repair",
+          "break"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fix",
+          "patch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rip",
+          "split"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sew",
+          "stitch"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "고치다 ↔ 찢다, 반의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 861,
+    "question": "ABHOR : DESPISE",
+    "stem": [
+      "ABHOR",
+      "DESPISE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "loathe",
+          "detest"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "admire",
+          "esteem"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cherish",
+          "prize"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "favor",
+          "like"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "혐오하다 = 경멸하다, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 862,
+    "question": "PLACATE : APPEASE",
+    "stem": [
+      "PLACATE",
+      "APPEASE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pacify",
+          "soothe"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "provoke",
+          "incite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "anger",
+          "enrage"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "annoy",
+          "irk"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "달래다 = 진정시키다, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 863,
+    "question": "METICULOUS : THOROUGH",
+    "stem": [
+      "METICULOUS",
+      "THOROUGH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "careful",
+          "precise"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "careless",
+          "sloppy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rash",
+          "hasty"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rough",
+          "crude"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "꼼꼼한 = 철저한, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 864,
+    "question": "PUNGENT : SHARP",
+    "stem": [
+      "PUNGENT",
+      "SHARP"
+    ],
+    "options": [
+      {
+        "pair": [
+          "acrid",
+          "biting"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bland",
+          "mild"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sweet",
+          "sugary"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flat",
+          "dull"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "톡 쏘는 = 강렬한, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 865,
+    "question": "OMINOUS : THREATENING",
+    "stem": [
+      "OMINOUS",
+      "THREATENING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "foreboding",
+          "menacing"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hopeful",
+          "bright"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "peaceful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "safe",
+          "secure"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "불길한 = 위협적인, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 866,
+    "question": "LUMINOUS : GLOWING",
+    "stem": [
+      "LUMINOUS",
+      "GLOWING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "radiant",
+          "bright"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dark",
+          "dim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dull",
+          "faint"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "black",
+          "murky"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "빛나는 = 환한, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 867,
+    "question": "CRAVE : DESIRE",
+    "stem": [
+      "CRAVE",
+      "DESIRE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "yearn",
+          "covet"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "reject",
+          "spurn"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loathe",
+          "hate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shun",
+          "avoid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "갈망하다 = 원하다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 868,
+    "question": "AUTHOR : NOVEL",
+    "stem": [
+      "AUTHOR",
+      "NOVEL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "painter",
+          "portrait"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "novel",
+          "author"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pen",
+          "write"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "portrait",
+          "painter"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "작가가 만드는 것은 소설, 작업자:생산물.",
+    "tier": "std"
+  },
+  {
+    "id": 869,
+    "question": "SHEPHERD : FLOCK",
+    "stem": [
+      "SHEPHERD",
+      "FLOCK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "beekeeper",
+          "hive"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "flock",
+          "shepherd"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "graze"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hive",
+          "beekeeper"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : subject",
+    "explain": "목동은 양떼를 돌봄, 작업자:대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 870,
+    "question": "HIVE : BEES",
+    "stem": [
+      "HIVE",
+      "BEES"
+    ],
+    "options": [
+      {
+        "pair": [
+          "nest",
+          "birds"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bees",
+          "hive"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "honey",
+          "sweet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "birds",
+          "nest"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container : contents",
+    "explain": "벌집에는 벌들이 있음, 용기:내용물.",
+    "tier": "std"
+  },
+  {
+    "id": 871,
+    "question": "STABLE : HORSE",
+    "stem": [
+      "STABLE",
+      "HORSE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "kennel",
+          "dog"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "horse",
+          "stable"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hay",
+          "feed"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dog",
+          "kennel"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container : contents",
+    "explain": "마구간에는 말이 있음, 용기:내용물.",
+    "tier": "mid"
+  },
+  {
+    "id": 872,
+    "question": "FRAME : PICTURE",
+    "stem": [
+      "FRAME",
+      "PICTURE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sheath",
+          "blade"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "picture",
+          "frame"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "art",
+          "hang"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blade",
+          "sheath"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "액자는 그림을 둘러쌈, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 873,
+    "question": "EXTOL : DISPARAGE",
+    "stem": [
+      "EXTOL",
+      "DISPARAGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "praise",
+          "belittle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "laud",
+          "commend"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mock",
+          "jeer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "scorn",
+          "sneer"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "칭송하다 ↔ 깎아내리다, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 874,
+    "question": "INTREPID : COWARDLY",
+    "stem": [
+      "INTREPID",
+      "COWARDLY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fearless",
+          "craven"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bold",
+          "brave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "scared",
+          "afraid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "meek",
+          "timid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "용감한 ↔ 비겁한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 875,
+    "question": "GARRULOUS : RETICENT",
+    "stem": [
+      "GARRULOUS",
+      "RETICENT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "talkative",
+          "quiet"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "loud",
+          "noisy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "shy",
+          "timid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "still"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "수다스러운 ↔ 과묵한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 876,
+    "question": "OBDURATE : YIELDING",
+    "stem": [
+      "OBDURATE",
+      "YIELDING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "stubborn",
+          "compliant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hard",
+          "firm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soft",
+          "weak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rigid",
+          "stiff"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "완고한 ↔ 순응하는, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 877,
+    "question": "PARSIMONIOUS : GENEROUS",
+    "stem": [
+      "PARSIMONIOUS",
+      "GENEROUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "stingy",
+          "lavish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cheap",
+          "mean"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "giving",
+          "kind"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "frugal",
+          "thrifty"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "인색한 ↔ 후한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 878,
+    "question": "LACONIC : LONG-WINDED",
+    "stem": [
+      "LACONIC",
+      "LONG-WINDED"
+    ],
+    "options": [
+      {
+        "pair": [
+          "terse",
+          "verbose"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "brief",
+          "short"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wordy",
+          "rambling"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "quiet",
+          "silent"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "간결한 ↔ 장황한, 반의어.",
+    "tier": "high"
+  },
+  {
+    "id": 879,
+    "question": "PROPENSITY : INCLINATION",
+    "stem": [
+      "PROPENSITY",
+      "INCLINATION"
+    ],
+    "options": [
+      {
+        "pair": [
+          "tendency",
+          "bent"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "aversion",
+          "dislike"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "refusal",
+          "denial"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doubt",
+          "fear"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "경향 = 성향, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 880,
+    "question": "ALACRITY : EAGERNESS",
+    "stem": [
+      "ALACRITY",
+      "EAGERNESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "readiness",
+          "zeal"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "reluctance",
+          "delay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sloth",
+          "laziness"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dread",
+          "fear"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "민첩함/열성 = 기꺼움, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 881,
+    "question": "PERFIDY : TREACHERY",
+    "stem": [
+      "PERFIDY",
+      "TREACHERY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "betrayal",
+          "disloyalty"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "loyalty",
+          "fealty"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "trust",
+          "faith"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "honor",
+          "virtue"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "배신 = 반역, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 882,
+    "question": "RANCOR : BITTERNESS",
+    "stem": [
+      "RANCOR",
+      "BITTERNESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "spite",
+          "resentment"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "goodwill",
+          "favor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "joy",
+          "delight"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "peace"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "원한 = 쓰라림, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 883,
+    "question": "TENACITY : PERSISTENCE",
+    "stem": [
+      "TENACITY",
+      "PERSISTENCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "resolve",
+          "grit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "apathy",
+          "sloth"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doubt",
+          "fear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rest",
+          "ease"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "끈기 = 인내, 동의어.",
+    "tier": "high"
+  },
+  {
+    "id": 884,
+    "question": "OPULENCE : WEALTH",
+    "stem": [
+      "OPULENCE",
+      "WEALTH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "riches",
+          "luxury"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "poverty",
+          "want"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lack",
+          "need"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ruin",
+          "loss"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "호화로움 = 부유함, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 885,
+    "question": "QUELL : SUPPRESS",
+    "stem": [
+      "QUELL",
+      "SUPPRESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "subdue",
+          "crush"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "provoke",
+          "incite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "ignite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "free",
+          "release"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "진압하다 = 억누르다, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 886,
+    "question": "FORTITUDE : COURAGE",
+    "stem": [
+      "FORTITUDE",
+      "COURAGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "valor",
+          "bravery"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fear",
+          "dread"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "panic",
+          "alarm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doubt",
+          "worry"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "불굴 = 용기, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 887,
+    "question": "CALLIGRAPHER : SCRIPT",
+    "stem": [
+      "CALLIGRAPHER",
+      "SCRIPT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "etcher",
+          "engraving"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "script",
+          "calligrapher"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ink",
+          "pen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "engraving",
+          "etcher"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "서예가는 글씨를 씀, 작업자:생산물.",
+    "tier": "high"
+  },
+  {
+    "id": 888,
+    "question": "CHEMIST : COMPOUND",
+    "stem": [
+      "CHEMIST",
+      "COMPOUND"
+    ],
+    "options": [
+      {
+        "pair": [
+          "baker",
+          "pastry"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "compound",
+          "chemist"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lab",
+          "test"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pastry",
+          "baker"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : product",
+    "explain": "화학자는 화합물을 만듦, 작업자:생산물.",
+    "tier": "mid"
+  },
+  {
+    "id": 889,
+    "question": "HARP : PLUCK",
+    "stem": [
+      "HARP",
+      "PLUCK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "drum",
+          "beat"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pluck",
+          "harp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "string",
+          "note"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "beat",
+          "drum"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument : action",
+    "explain": "하프는 뜯어서 연주, 악기:연주법.",
+    "tier": "mid"
+  },
+  {
+    "id": 890,
+    "question": "FLUTE : BLOW",
+    "stem": [
+      "FLUTE",
+      "BLOW"
+    ],
+    "options": [
+      {
+        "pair": [
+          "violin",
+          "bow"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "blow",
+          "flute"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hole",
+          "air"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bow",
+          "violin"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument : action",
+    "explain": "플루트는 불어서 연주, 악기:연주법.",
+    "tier": "mid"
+  },
+  {
+    "id": 891,
+    "question": "CYMBAL : CLASH",
+    "stem": [
+      "CYMBAL",
+      "CLASH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bell",
+          "ring"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "clash",
+          "cymbal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "sound"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ring",
+          "bell"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument : action",
+    "explain": "심벌즈는 부딪쳐 연주, 악기:연주법.",
+    "tier": "mid"
+  },
+  {
+    "id": 892,
+    "question": "PRIDE : LIONS",
+    "stem": [
+      "PRIDE",
+      "LIONS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "gaggle",
+          "geese"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lions",
+          "pride"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "den",
+          "cave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "geese",
+          "gaggle"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group : members",
+    "explain": "무리는 사자들의 모임, 집단:구성원.",
+    "tier": "mid"
+  },
+  {
+    "id": 893,
+    "question": "CARAVAN : CAMELS",
+    "stem": [
+      "CARAVAN",
+      "CAMELS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "convoy",
+          "trucks"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "camels",
+          "caravan"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sand",
+          "dune"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "trucks",
+          "convoy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group : members",
+    "explain": "대상(隊商)은 낙타들의 행렬, 집단:구성원.",
+    "tier": "mid"
+  },
+  {
+    "id": 894,
+    "question": "VENOM : HARM",
+    "stem": [
+      "VENOM",
+      "HARM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "balm",
+          "soothe"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "harm",
+          "venom"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "snake",
+          "bite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soothe",
+          "balm"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "독은 해를 끼침, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 895,
+    "question": "TONIC : INVIGORATE",
+    "stem": [
+      "TONIC",
+      "INVIGORATE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sedative",
+          "calm"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "invigorate",
+          "tonic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "drink",
+          "sip"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "sedative"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object : function",
+    "explain": "강장제는 기운을 북돋움, 물건:기능.",
+    "tier": "mid"
+  },
+  {
+    "id": 896,
+    "question": "MOLT : SNAKE",
+    "stem": [
+      "MOLT",
+      "SNAKE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "shed",
+          "deer"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "snake",
+          "molt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "skin",
+          "scale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "deer",
+          "shed"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : object",
+    "explain": "허물벗는 대상은 뱀, 행위:대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 897,
+    "question": "FORGE : STEEL",
+    "stem": [
+      "FORGE",
+      "STEEL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "temper",
+          "blade"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "steel",
+          "forge"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heat",
+          "melt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blade",
+          "temper"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action : object",
+    "explain": "벼리는 대상은 강철, 행위:대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 898,
+    "question": "CARTOGRAPHY : MAPS",
+    "stem": [
+      "CARTOGRAPHY",
+      "MAPS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "astronomy",
+          "stars"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "maps",
+          "cartography"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "land",
+          "plot"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stars",
+          "astronomy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker : subject",
+    "explain": "지도학은 지도를 다룸, 분야:대상.",
+    "tier": "mid"
+  },
+  {
+    "id": 899,
+    "question": "PARCHED : DROUGHT",
+    "stem": [
+      "PARCHED",
+      "DROUGHT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "flooded",
+          "deluge"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "drought",
+          "parched"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dry",
+          "arid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "deluge",
+          "flooded"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "characteristic : cause",
+    "explain": "바싹 마른 것은 가뭄 탓, 특성:원인.",
+    "tier": "mid"
+  },
+  {
+    "id": 900,
+    "question": "CITADEL : FORTRESS",
+    "stem": [
+      "CITADEL",
+      "FORTRESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bastion",
+          "stronghold"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hut",
+          "shack"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "plain"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "road",
+          "path"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "성채 = 요새, 동의어.",
+    "tier": "mid"
+  },
+  {
+    "id": 901,
+    "question": "VINDICATE : ACQUIT",
+    "stem": [
+      "VINDICATE",
+      "ACQUIT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "absolve",
+          "clear"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "convict",
+          "condemn"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "accuse",
+          "blame"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "charge",
+          "indict"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "무죄를 입증하다 = 방면하다, 동의어.",
+    "tier": "high"
   }
 ]

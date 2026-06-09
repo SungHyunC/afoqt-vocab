@@ -4286,5 +4286,1405 @@
         "explain": "unintelligible은 이해할 수 없는 것을 뜻하므로 정답은 B이다."
       }
     ]
+  },
+  {
+    "id": 81,
+    "title": "The Wonders of Bioluminescence",
+    "topic": "science",
+    "passage": "Bioluminescence is the production and emission of light by living organisms, a phenomenon found across a remarkable range of species from deep-sea fish to fireflies and certain fungi. The light is generated through a chemical reaction in which a molecule called luciferin reacts with oxygen, catalyzed by an enzyme known as luciferase. Unlike the glow of an ordinary light bulb, this process is extraordinarily efficient, releasing almost no heat, which is why it is sometimes described as cold light. Organisms use bioluminescence for a variety of purposes. Some deep-sea creatures dangle glowing lures to attract prey in the perpetual darkness of the ocean floor, while fireflies flash distinctive patterns to attract mates. Certain squid release clouds of luminous fluid to confuse predators, much as an octopus might release ink. Scientists have harnessed these natural systems in the laboratory, inserting luciferase genes into other organisms to study gene activity and disease. Far from being a mere curiosity, bioluminescence has become a valuable tool that illuminates processes invisible to the naked eye.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that bioluminescence is",
+        "type": "main_idea",
+        "options": [
+          "a rare phenomenon found only in deep-sea fish",
+          "an inefficient process that wastes most of its energy as heat",
+          "a widespread and useful form of light produced by living organisms",
+          "primarily a defense mechanism used by squid"
+        ],
+        "answer": 2,
+        "explain": "지문은 생물발광이 다양한 생물에게 나타나며 여러 용도로 쓰이고 과학 연구에도 활용되는 유용한 현상임을 설명하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, bioluminescent light is produced when luciferin reacts with",
+        "type": "detail",
+        "options": [
+          "carbon dioxide",
+          "oxygen, with the help of an enzyme",
+          "heat from the organism's body",
+          "ink released by predators"
+        ],
+        "answer": 1,
+        "explain": "지문에서 루시페린이 효소(루시페라아제)의 촉매 작용으로 산소와 반응하여 빛을 낸다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "The phrase \"cold light\" as used in the passage refers to light that",
+        "type": "vocab_in_context",
+        "options": [
+          "appears blue rather than yellow",
+          "is produced only in cold environments",
+          "can be felt as physically cool to the touch",
+          "is generated with almost no heat"
+        ],
+        "answer": 3,
+        "explain": "지문에서 이 과정이 열을 거의 방출하지 않아 'cold light'라 불린다고 했으므로, 열이 거의 없는 빛을 의미한다."
+      },
+      {
+        "q": "It can be inferred from the passage that luciferase genes are useful to scientists because they",
+        "type": "inference",
+        "options": [
+          "make organisms grow faster in the laboratory",
+          "allow otherwise invisible biological processes to be observed",
+          "eliminate the need for microscopes in research",
+          "produce large amounts of heat for experiments"
+        ],
+        "answer": 1,
+        "explain": "지문에서 과학자들이 루시페라아제 유전자로 유전자 활동과 질병을 연구하고, 발광이 눈에 보이지 않는 과정을 비춘다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "title": "The Construction of the Panama Canal",
+    "topic": "history",
+    "passage": "The Panama Canal, completed in 1914, stands among the greatest engineering achievements of the early twentieth century, dramatically shortening the maritime route between the Atlantic and Pacific Oceans. Before the canal, ships traveling between the coasts of the Americas had to journey around the southern tip of South America, a long and perilous voyage. France first attempted to build a sea-level canal in the 1880s but abandoned the project after disease and financial collapse claimed thousands of lives. The United States took over the effort in 1904, adopting a different design that used a system of locks to raise and lower ships across the mountainous isthmus. Crucial to the project's success was the control of mosquito-borne diseases such as yellow fever and malaria, which had devastated earlier workers. By draining swamps and managing mosquito populations, doctors made large-scale construction possible. When the canal finally opened, it transformed global trade, allowing goods to move between oceans in a fraction of the previous time.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the Panama Canal",
+        "type": "main_idea",
+        "options": [
+          "was built entirely by French engineers",
+          "was an engineering triumph that reshaped global trade",
+          "made the route around South America more popular",
+          "failed to reduce travel time between oceans"
+        ],
+        "answer": 1,
+        "explain": "지문은 파나마 운하가 위대한 공학적 업적이며 세계 무역을 변화시켰음을 강조하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the United States design differed from the French plan by",
+        "type": "detail",
+        "options": [
+          "digging a single sea-level channel",
+          "routing ships around South America",
+          "using a system of locks to raise and lower ships",
+          "avoiding any work in swampy areas"
+        ],
+        "answer": 2,
+        "explain": "지문에서 미국은 갑문(locks) 시스템을 사용해 배를 올리고 내리는 다른 설계를 채택했다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, controlling mosquito populations was important because it",
+        "type": "detail",
+        "options": [
+          "reduced the cost of building the locks",
+          "made large-scale construction possible by limiting disease",
+          "improved the speed of ships through the canal",
+          "allowed France to complete the project"
+        ],
+        "answer": 1,
+        "explain": "지문에서 모기를 통한 질병 통제로 대규모 건설이 가능해졌다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the earlier French failure was due in part to",
+        "type": "inference",
+        "options": [
+          "a lack of interest in connecting the oceans",
+          "the absence of any mountains on the isthmus",
+          "disease and financial difficulties",
+          "opposition from the United States government"
+        ],
+        "answer": 2,
+        "explain": "지문에서 프랑스가 질병과 재정 붕괴로 수천 명의 목숨을 잃고 프로젝트를 포기했다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "title": "The Science of Color Perception",
+    "topic": "science",
+    "passage": "The colors we perceive are not inherent properties of objects themselves but the result of how our eyes and brain interpret light. Visible light consists of a spectrum of wavelengths, and when light strikes an object, some wavelengths are absorbed while others are reflected. The reflected wavelengths reach the retina at the back of the eye, where specialized cells called cones respond to them. Humans typically possess three types of cones, each most sensitive to roughly red, green, or blue light. The brain combines signals from these cones to construct the rich range of hues we experience. Because the process depends on biology, color perception varies among individuals and species. People with color blindness lack one or more functioning cone types, while some animals, such as the mantis shrimp, possess many more, perceiving a far broader palette than humans can imagine. Lighting conditions also influence perception, which is why a shirt may appear one color in sunlight and another under fluorescent bulbs. Color, in short, is a creation of the mind as much as of the world.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that color is",
+        "type": "main_idea",
+        "options": [
+          "a fixed property contained within objects",
+          "determined entirely by the brightness of lighting",
+          "identical for all humans and animals",
+          "constructed by the eye and brain interpreting reflected light"
+        ],
+        "answer": 3,
+        "explain": "지문은 색이 물체 고유의 성질이 아니라 눈과 뇌가 반사된 빛을 해석한 결과임을 강조하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, cones in the retina are responsible for",
+        "type": "detail",
+        "options": [
+          "absorbing all wavelengths of light equally",
+          "producing the light that objects reflect",
+          "responding to reflected wavelengths of light",
+          "blocking blue light from reaching the brain"
+        ],
+        "answer": 2,
+        "explain": "지문에서 원뿔세포가 반사된 파장에 반응한다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the mantis shrimp",
+        "type": "inference",
+        "options": [
+          "is completely color blind",
+          "perceives a wider range of colors than humans",
+          "sees only in black and white",
+          "has the same three cone types as humans"
+        ],
+        "answer": 1,
+        "explain": "지문에서 갯가재가 인간보다 훨씬 많은 원뿔세포를 가지고 더 넓은 색을 인식한다고 했으므로 추론된다."
+      },
+      {
+        "q": "The word \"hues\" as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "shapes",
+          "shadows",
+          "colors",
+          "wavelengths absorbed"
+        ],
+        "answer": 2,
+        "explain": "지문에서 'rich range of hues we experience'는 우리가 경험하는 다양한 색을 의미하므로 hues는 '색조/색'이다."
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "title": "The Legacy of Ancient Rome's Roads",
+    "topic": "history",
+    "passage": "The roads of ancient Rome were among the most impressive engineering accomplishments of the classical world, binding a vast empire together across three continents. At their height, Roman roads stretched for more than four hundred thousand kilometers, of which tens of thousands were paved with stone. Built primarily to move armies swiftly, the roads also accelerated trade, communication, and the spread of ideas. Roman engineers constructed them in layers, beginning with a foundation of large stones, followed by gravel and sand, and topped with carefully fitted paving stones that allowed water to drain away. Many were so well made that they remained in use for centuries after the empire fell, and a few survive today. The famous saying that all roads lead to Rome reflects how the network radiated outward from the capital, with mile markers measuring distances and milestones guiding travelers. By making movement reliable and predictable, Rome's roads helped knit together a diverse population and left a model of infrastructure that influenced engineers for generations.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that Roman roads",
+        "type": "main_idea",
+        "options": [
+          "were used only by armies and never by traders",
+          "were shorter than most modern highways",
+          "were poorly built and quickly fell apart",
+          "were a major engineering achievement that unified and strengthened the empire"
+        ],
+        "answer": 3,
+        "explain": "지문은 로마 도로가 제국을 하나로 묶고 무역과 소통을 촉진한 위대한 공학 업적임을 강조하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, Roman roads were built in layers beginning with",
+        "type": "detail",
+        "options": [
+          "a foundation of large stones",
+          "paving stones on top",
+          "a layer of sand only",
+          "wooden planks"
+        ],
+        "answer": 0,
+        "explain": "지문에서 도로가 큰 돌 기초로 시작해 자갈과 모래, 포장석 순으로 층을 이루며 건설되었다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, the primary purpose for which the roads were originally built was to",
+        "type": "detail",
+        "options": [
+          "move armies swiftly",
+          "encourage tourism",
+          "drain rainwater from cities",
+          "mark the boundaries of the empire"
+        ],
+        "answer": 0,
+        "explain": "지문에서 도로가 주로 군대를 신속히 이동시키기 위해 건설되었다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the durability of Roman roads",
+        "type": "inference",
+        "options": [
+          "was unimportant to the engineers who built them",
+          "allowed some of them to remain useful long after Rome's fall",
+          "prevented water from ever draining off the surface",
+          "made them impossible to repair"
+        ],
+        "answer": 1,
+        "explain": "지문에서 많은 도로가 매우 잘 만들어져 제국 멸망 후에도 수 세기 동안 사용되었다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "title": "How Tornadoes Form",
+    "topic": "nature",
+    "passage": "A tornado is a violently rotating column of air that extends from a thunderstorm to the ground, capable of producing the most intense winds on Earth. Most powerful tornadoes arise from a particular type of storm called a supercell, which contains a deep, persistently rotating updraft known as a mesocyclone. The process begins when winds at different altitudes blow at different speeds and directions, a condition called wind shear. This shear can set a horizontal tube of air spinning, and a strong updraft within the storm can tilt that spinning tube into a vertical position. As the rotating air narrows and intensifies, it may descend toward the surface, forming a visible funnel of condensed water droplets and debris. The central United States, often called Tornado Alley, experiences a high frequency of these storms because warm, moist air from the Gulf of Mexico collides with cool, dry air from the north. Although meteorologists can identify conditions favorable for tornadoes, predicting exactly when and where one will touch down remains a significant scientific challenge.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that tornadoes",
+        "type": "main_idea",
+        "options": [
+          "form through a complex process involving rotating air within storms",
+          "are easy for meteorologists to predict precisely",
+          "occur only over the Gulf of Mexico",
+          "are weaker than ordinary thunderstorm winds"
+        ],
+        "answer": 0,
+        "explain": "지문은 토네이도가 폭풍 내 회전하는 공기로부터 형성되는 복잡한 과정을 설명하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, wind shear refers to",
+        "type": "detail",
+        "options": [
+          "winds at different altitudes blowing at different speeds and directions",
+          "warm air rising rapidly from the ground",
+          "the funnel of debris visible in a tornado",
+          "cool, dry air from the north"
+        ],
+        "answer": 0,
+        "explain": "지문에서 윈드 시어를 서로 다른 고도에서 다른 속도와 방향으로 부는 바람이라고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, Tornado Alley experiences frequent tornadoes because",
+        "type": "detail",
+        "options": [
+          "warm, moist air collides with cool, dry air there",
+          "it has no mountains to block storms",
+          "it is closest to the ocean",
+          "meteorologists cannot predict storms there"
+        ],
+        "answer": 0,
+        "explain": "지문에서 멕시코만의 따뜻하고 습한 공기와 북쪽의 차고 건조한 공기가 충돌하기 때문이라고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that despite scientific advances, tornadoes",
+        "type": "inference",
+        "options": [
+          "can now be prevented entirely",
+          "remain difficult to predict with precision",
+          "never occur within supercells",
+          "are unrelated to wind shear"
+        ],
+        "answer": 1,
+        "explain": "지문 마지막에서 정확히 언제 어디서 토네이도가 발생할지 예측하는 것은 여전히 큰 과제라고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "title": "The Story of the Suez Canal",
+    "topic": "geography",
+    "passage": "The Suez Canal, opened in 1869, is a man-made waterway in Egypt connecting the Mediterranean Sea to the Red Sea, allowing ships to travel between Europe and Asia without circling the entire continent of Africa. Before its construction, vessels carrying goods between the two regions had to undertake the lengthy voyage around the Cape of Good Hope at Africa's southern tip. The canal slashed this journey by thousands of kilometers, transforming the economics of global shipping almost overnight. Unlike the Panama Canal, the Suez Canal has no locks, because the seas it joins are at nearly the same level. Stretching roughly 190 kilometers through desert terrain, it became one of the world's busiest trade routes and a focal point of international politics. Control of the canal has at times sparked diplomatic crises and conflicts, reflecting its enormous strategic value. Even today, a significant share of global trade passes through its waters, and a single ship lodged sideways in the channel can disrupt supply chains across the planet.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the Suez Canal",
+        "type": "main_idea",
+        "options": [
+          "is a natural river in Egypt",
+          "requires a complex system of locks to operate",
+          "is a strategically vital waterway that shortened trade routes between Europe and Asia",
+          "is rarely used by modern ships"
+        ],
+        "answer": 2,
+        "explain": "지문은 수에즈 운하가 유럽과 아시아 간 교역로를 단축한 전략적으로 중요한 수로임을 강조하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, before the canal was built, ships traveling between Europe and Asia had to",
+        "type": "detail",
+        "options": [
+          "pass through the Panama Canal",
+          "sail around the Cape of Good Hope",
+          "cross the desert by land",
+          "use a system of locks"
+        ],
+        "answer": 1,
+        "explain": "지문에서 운하 건설 전에는 아프리카 남단 희망봉을 돌아가야 했다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the Suez Canal has no locks because",
+        "type": "detail",
+        "options": [
+          "the seas it joins are at nearly the same level",
+          "it is too short to require them",
+          "it passes only through desert",
+          "ships are too large to fit through locks"
+        ],
+        "answer": 0,
+        "explain": "지문에서 연결하는 두 바다의 수위가 거의 같아 갑문이 없다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the canal's strategic importance",
+        "type": "inference",
+        "options": [
+          "has made it a source of international tension",
+          "has steadily declined since 1869",
+          "is limited to the country of Egypt",
+          "matters only during wartime"
+        ],
+        "answer": 0,
+        "explain": "지문에서 운하 통제권이 외교 위기와 분쟁을 촉발했다고 했으므로 그 전략적 중요성이 국제적 긴장의 원천임을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "title": "The Marvel of Spider Silk",
+    "topic": "nature",
+    "passage": "Spider silk is one of nature's most extraordinary materials, combining strength, flexibility, and lightness in a way that has long fascinated scientists and engineers. Weight for weight, certain spider silks are stronger than steel and tougher than many synthetic fibers, yet they remain elastic enough to stretch considerably before breaking. A spider produces silk from specialized glands, secreting a liquid protein that hardens as it is drawn out into a thread. Remarkably, a single spider can produce several distinct types of silk, each suited to a particular task. Some threads form the strong frame of a web, others the sticky spirals that capture prey, and still others wrap eggs in protective casings. Because spider silk is biodegradable and biologically compatible, researchers hope to use it in applications ranging from surgical sutures to lightweight body armor. Producing it in large quantities has proven difficult, however, since spiders are territorial and cannot easily be farmed. Scientists are therefore exploring ways to manufacture silk proteins using bacteria, yeast, and even goats engineered to produce them in their milk.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that spider silk is",
+        "type": "main_idea",
+        "options": [
+          "a remarkable material with valuable properties that scientists hope to harness",
+          "a weak material with few practical uses",
+          "produced only to wrap spider eggs",
+          "easily mass-produced by farming spiders"
+        ],
+        "answer": 0,
+        "explain": "지문은 거미줄이 뛰어난 특성을 지닌 놀라운 재료이며 과학자들이 이를 활용하려 한다는 점을 강조하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, a single spider can",
+        "type": "detail",
+        "options": [
+          "produce only one type of silk",
+          "produce several distinct types of silk for different tasks",
+          "make silk stronger than steel only when young",
+          "spin silk without using special glands"
+        ],
+        "answer": 1,
+        "explain": "지문에서 한 마리의 거미가 각기 다른 용도에 맞는 여러 종류의 실을 만들 수 있다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, mass-producing spider silk has been difficult because",
+        "type": "detail",
+        "options": [
+          "spiders produce only tiny amounts of protein",
+          "spider silk is too weak to collect",
+          "the silk dissolves in water",
+          "spiders are territorial and hard to farm"
+        ],
+        "answer": 3,
+        "explain": "지문에서 거미가 영역성이 강해 쉽게 사육할 수 없어 대량 생산이 어렵다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "The word \"elastic\" as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "brittle and stiff",
+          "heavy and dense",
+          "able to stretch and return",
+          "sticky to the touch"
+        ],
+        "answer": 2,
+        "explain": "지문에서 거미줄이 끊어지기 전에 상당히 늘어날 만큼 elastic하다고 했으므로 '늘어나는'의 의미이다."
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "title": "The Mystery of the Voynich Manuscript",
+    "topic": "history",
+    "passage": "The Voynich Manuscript is a mysterious illustrated book written in an unknown script that has baffled scholars, cryptographers, and linguists for over a century. Named after the rare-book dealer who acquired it in 1912, the manuscript dates to the early fifteenth century, as confirmed by radiocarbon analysis of its pages. Its roughly two hundred forty pages are filled with looping text and curious illustrations of unidentifiable plants, astronomical diagrams, and figures bathing in elaborate networks of pipes. Despite enormous effort, no one has convincingly deciphered a single word, and the language, if it is a language at all, resists comparison with any known writing system. Some researchers believe it encodes a real text using a sophisticated cipher, while others suspect it is an elaborate hoax designed to appear meaningful while conveying nothing. A few have proposed that it represents an invented or constructed language. Modern computational analysis has revealed statistical patterns resembling those of natural languages, deepening the puzzle rather than resolving it. To this day, the Voynich Manuscript remains one of the most enduring unsolved mysteries in the history of writing.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the Voynich Manuscript",
+        "type": "main_idea",
+        "options": [
+          "has been fully translated by modern computers",
+          "contains only blank, illustrated pages",
+          "was written in a well-known medieval language",
+          "is a long-unsolved mystery written in an undeciphered script"
+        ],
+        "answer": 3,
+        "explain": "지문은 보이니치 사본이 해독되지 않은 문자로 쓰인 오래된 미스터리임을 강조하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, the manuscript's date was confirmed by",
+        "type": "detail",
+        "options": [
+          "the signature of its author",
+          "radiocarbon analysis of its pages",
+          "comparison with other known books",
+          "the dealer who acquired it in 1912"
+        ],
+        "answer": 1,
+        "explain": "지문에서 방사성 탄소 분석으로 페이지가 15세기 초의 것임이 확인되었다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, some researchers suspect the manuscript may be",
+        "type": "detail",
+        "options": [
+          "an elaborate hoax that conveys no real meaning",
+          "a translation of the Bible",
+          "a printed rather than handwritten book",
+          "a map of medieval Europe"
+        ],
+        "answer": 0,
+        "explain": "지문에서 일부 연구자는 의미 있어 보이지만 아무것도 전달하지 않는 정교한 사기일 수 있다고 의심한다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that computational analysis has",
+        "type": "inference",
+        "options": [
+          "finally solved the manuscript's meaning",
+          "identified all the plants it depicts",
+          "proven the manuscript is a modern forgery",
+          "made the mystery more puzzling rather than less"
+        ],
+        "answer": 3,
+        "explain": "지문에서 컴퓨터 분석이 자연어와 유사한 패턴을 드러내 수수께끼를 해결하기보다 더 깊게 만들었다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "title": "Understanding Compound Interest",
+    "topic": "economics",
+    "passage": "Compound interest is often described as one of the most powerful forces in personal finance, capable of turning modest savings into substantial wealth over time. Unlike simple interest, which is calculated only on the original amount of money invested, compound interest is calculated on both the original sum and the interest that has already accumulated. This means that earnings themselves begin to earn earnings, producing growth that accelerates as time passes. A small difference in the interest rate or the length of the investment period can lead to dramatically different outcomes decades later. For this reason, financial advisors frequently emphasize the importance of starting to save early, since time is the most valuable ingredient in the compounding process. The same principle, however, works against borrowers. When interest compounds on unpaid debt, such as a credit card balance, the amount owed can balloon rapidly, trapping people in cycles of growing obligation. Understanding how compounding works is therefore essential not only for building savings but also for managing debt wisely and avoiding costly financial mistakes.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that compound interest",
+        "type": "main_idea",
+        "options": [
+          "is identical to simple interest in every way",
+          "has no effect on long-term savings",
+          "only benefits people who borrow money",
+          "is a powerful force that can build wealth or worsen debt"
+        ],
+        "answer": 3,
+        "explain": "지문은 복리가 저축을 늘릴 수도, 빚을 키울 수도 있는 강력한 힘임을 설명하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, compound interest differs from simple interest because it is calculated on",
+        "type": "detail",
+        "options": [
+          "only the original amount invested",
+          "the borrower's income",
+          "the interest rate alone",
+          "the original sum plus accumulated interest"
+        ],
+        "answer": 3,
+        "explain": "지문에서 복리는 원금과 이미 누적된 이자 모두에 대해 계산된다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, financial advisors emphasize starting to save early because",
+        "type": "detail",
+        "options": [
+          "interest rates are always higher for young people",
+          "early savers pay less in taxes",
+          "time is the most valuable ingredient in compounding",
+          "simple interest grows faster over time"
+        ],
+        "answer": 2,
+        "explain": "지문에서 복리 과정에서 시간이 가장 귀중한 요소이므로 일찍 저축을 시작하는 것이 중요하다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that an unpaid credit card balance can",
+        "type": "inference",
+        "options": [
+          "grow rapidly as interest compounds",
+          "shrink automatically over time",
+          "never accumulate additional interest",
+          "be ignored without consequence"
+        ],
+        "answer": 0,
+        "explain": "지문에서 미상환 채무에 이자가 복리로 붙으면 빚이 빠르게 불어난다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "title": "The Architecture of Gothic Cathedrals",
+    "topic": "arts",
+    "passage": "Gothic cathedrals, which rose across Europe between the twelfth and sixteenth centuries, represent a daring leap in architectural ambition. Earlier churches built in the Romanesque style relied on thick walls and small windows to support their heavy stone roofs, resulting in dark, fortress-like interiors. Gothic builders sought to do the opposite: to fill their cathedrals with light and to reach toward the heavens. They achieved this through several ingenious innovations. The pointed arch distributed weight more efficiently than the rounded Romanesque arch, allowing for taller structures. The ribbed vault concentrated the roof's weight onto specific points rather than along entire walls. Most striking of all was the flying buttress, an external support that braced the walls from outside, transferring the outward thrust of the roof to the ground. Freed from the burden of supporting the roof alone, the walls could now be opened up with vast expanses of stained glass, flooding the interior with colored light. These soaring structures were not merely places of worship but bold statements of faith, civic pride, and human engineering skill.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that Gothic cathedrals",
+        "type": "main_idea",
+        "options": [
+          "were darker and heavier than Romanesque churches",
+          "abandoned the use of stone entirely",
+          "used architectural innovations to create tall, light-filled structures",
+          "were built without any external supports"
+        ],
+        "answer": 2,
+        "explain": "지문은 고딕 성당이 여러 혁신을 통해 높고 빛으로 가득 찬 건축물을 만들었음을 강조하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the flying buttress functioned by",
+        "type": "detail",
+        "options": [
+          "bracing the walls from outside and transferring the roof's thrust to the ground",
+          "decorating the interior with stained glass",
+          "supporting the roof from directly underneath",
+          "replacing the pointed arch"
+        ],
+        "answer": 0,
+        "explain": "지문에서 공중부벽이 외부에서 벽을 받쳐 지붕의 외향 추력을 지면으로 전달했다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, Romanesque churches were characterized by",
+        "type": "detail",
+        "options": [
+          "flying buttresses and large windows",
+          "thick walls and small windows",
+          "pointed arches and ribbed vaults",
+          "vast expanses of stained glass"
+        ],
+        "answer": 1,
+        "explain": "지문에서 로마네스크 양식의 교회가 두꺼운 벽과 작은 창으로 어두운 내부를 가졌다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the innovations allowed walls to",
+        "type": "inference",
+        "options": [
+          "be opened up for large stained-glass windows",
+          "be made even thicker for stability",
+          "be removed entirely from the structure",
+          "support the entire weight of the roof alone"
+        ],
+        "answer": 0,
+        "explain": "지문에서 지붕 지지 부담에서 벗어난 벽을 넓은 스테인드글라스로 열 수 있게 되었다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "title": "The Role of the Pancreas",
+    "topic": "health",
+    "passage": "The pancreas is a vital organ that performs two distinct yet equally important roles in the human body. Located behind the stomach, this elongated gland functions as part of both the digestive and the endocrine systems. In its digestive role, the pancreas produces enzymes that break down carbohydrates, proteins, and fats, releasing them into the small intestine where food is absorbed. Without these enzymes, the body would struggle to extract nutrients from a meal. In its endocrine role, the pancreas regulates blood sugar by secreting two hormones directly into the bloodstream. Insulin lowers blood sugar by helping cells absorb glucose from the blood, while glucagon raises blood sugar by signaling the liver to release stored glucose. These two hormones work in balance to keep blood sugar within a healthy range. When this delicate system fails, serious illness can result. In diabetes, the body either cannot produce enough insulin or cannot use it effectively, leading to dangerously high blood sugar levels. The pancreas, though often overlooked, is therefore essential to both nutrition and metabolic stability.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the pancreas",
+        "type": "main_idea",
+        "options": [
+          "performs two essential roles in digestion and blood sugar regulation",
+          "is responsible only for digestion",
+          "is a minor organ with little importance",
+          "produces insulin but no digestive enzymes"
+        ],
+        "answer": 0,
+        "explain": "지문은 췌장이 소화와 혈당 조절이라는 두 가지 필수 역할을 한다고 강조하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, insulin lowers blood sugar by",
+        "type": "detail",
+        "options": [
+          "signaling the liver to release glucose",
+          "blocking the production of glucagon",
+          "breaking down proteins in the intestine",
+          "helping cells absorb glucose from the blood"
+        ],
+        "answer": 3,
+        "explain": "지문에서 인슐린이 세포가 혈액에서 포도당을 흡수하도록 도와 혈당을 낮춘다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, diabetes results when the body",
+        "type": "detail",
+        "options": [
+          "produces too many digestive enzymes",
+          "stores no glucose in the liver",
+          "releases too much glucagon at night",
+          "cannot produce or effectively use insulin"
+        ],
+        "answer": 3,
+        "explain": "지문에서 당뇨병은 몸이 인슐린을 충분히 생산하지 못하거나 효과적으로 사용하지 못할 때 발생한다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred from the passage that insulin and glucagon",
+        "type": "inference",
+        "options": [
+          "work in opposite directions to balance blood sugar",
+          "perform exactly the same function",
+          "are produced only during digestion",
+          "are unrelated to blood sugar levels"
+        ],
+        "answer": 0,
+        "explain": "지문에서 인슐린은 혈당을 낮추고 글루카곤은 혈당을 올리며 균형을 이룬다고 했으므로 두 호르몬이 반대로 작용함을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "title": "The Rise of the Mongol Empire",
+    "topic": "history",
+    "passage": "The Mongol Empire, founded in the early thirteenth century by Genghis Khan, grew to become the largest contiguous land empire in history, stretching from the Pacific coast of Asia to the gates of Eastern Europe. United from scattered nomadic tribes, the Mongols owed their astonishing conquests to a combination of military innovation, discipline, and adaptability. Their armies consisted largely of mounted archers capable of firing accurately while riding at full gallop, and they employed sophisticated tactics such as feigned retreats to lure enemies into ambushes. Beyond the battlefield, the Mongols proved skilled administrators who adopted useful institutions from the peoples they conquered. They established a vast communication network of relay stations that allowed messages and goods to travel swiftly across the empire, and they generally tolerated diverse religions and cultures within their domains. This relative stability, sometimes called the Pax Mongolica, encouraged trade and the exchange of ideas across Eurasia along routes such as the Silk Road. Although the empire eventually fragmented into competing realms, its impact on the connections between East and West proved long-lasting.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the Mongol Empire",
+        "type": "main_idea",
+        "options": [
+          "was a small and short-lived kingdom",
+          "relied entirely on naval power",
+          "became a vast empire through military skill and effective administration",
+          "rejected all foreign customs and religions"
+        ],
+        "answer": 2,
+        "explain": "지문은 몽골 제국이 군사적 기량과 효과적인 행정을 통해 거대한 제국이 되었음을 강조하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, one Mongol military tactic was",
+        "type": "detail",
+        "options": [
+          "building large stone fortresses",
+          "relying on heavily armored foot soldiers",
+          "using feigned retreats to lure enemies into ambushes",
+          "avoiding the use of mounted archers"
+        ],
+        "answer": 2,
+        "explain": "지문에서 몽골군이 거짓 후퇴로 적을 매복으로 유인하는 정교한 전술을 사용했다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "The term \"Pax Mongolica\" as used in the passage refers to",
+        "type": "vocab_in_context",
+        "options": [
+          "a famous Mongol general",
+          "a period of relative stability that encouraged trade",
+          "a type of mounted weapon",
+          "the capital city of the empire"
+        ],
+        "answer": 1,
+        "explain": "지문에서 'Pax Mongolica'는 무역과 사상 교류를 촉진한 상대적 안정의 시기를 가리키므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the relay station network",
+        "type": "inference",
+        "options": [
+          "helped the Mongols govern and connect their vast territory",
+          "slowed communication across the empire",
+          "was used only for military attacks",
+          "prevented trade along the Silk Road"
+        ],
+        "answer": 0,
+        "explain": "지문에서 릴레이 역참망이 메시지와 물자를 제국 전역에 신속히 전달했다고 했으므로 광대한 영토를 통치·연결하는 데 도움이 되었음을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "title": "How the Internet Routes Data",
+    "topic": "technology",
+    "passage": "When you send an email or load a web page, the information does not travel as a single, continuous stream. Instead, it is broken into small units called packets, each of which is sent separately across the network and reassembled at its destination. This approach, known as packet switching, is the foundation of how the modern internet functions. Each packet carries not only a piece of the data but also addressing information that tells the network where it is headed. Specialized devices called routers read this addressing information and forward each packet toward its destination, choosing efficient paths through a sprawling web of interconnected networks. Remarkably, packets from the same message may travel different routes and arrive out of order, yet the receiving computer can reassemble them correctly. This design makes the internet resilient: if one path becomes congested or fails, packets can simply be rerouted along another. Originally developed to keep communication functioning even if parts of a network were destroyed, packet switching allows billions of devices worldwide to share a single, flexible system without requiring a dedicated line for every connection.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the internet",
+        "type": "main_idea",
+        "options": [
+          "sends all information as a single continuous stream",
+          "cannot recover when a network path fails",
+          "requires a dedicated line for every connection",
+          "relies on packet switching to move data efficiently and reliably"
+        ],
+        "answer": 3,
+        "explain": "지문은 인터넷이 패킷 교환을 통해 데이터를 효율적이고 안정적으로 전송한다는 점을 강조하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, routers are responsible for",
+        "type": "detail",
+        "options": [
+          "breaking messages into packets",
+          "reassembling packets at the source computer",
+          "reading addressing information and forwarding packets toward their destination",
+          "creating new networks automatically"
+        ],
+        "answer": 2,
+        "explain": "지문에서 라우터가 주소 정보를 읽고 각 패킷을 목적지로 전달한다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, packet switching makes the internet resilient because",
+        "type": "detail",
+        "options": [
+          "packets always travel the same single path",
+          "data is never broken into smaller units",
+          "every connection has its own dedicated line",
+          "packets can be rerouted if one path fails or is congested"
+        ],
+        "answer": 3,
+        "explain": "지문에서 한 경로가 혼잡하거나 실패하면 패킷이 다른 경로로 재라우팅될 수 있어 인터넷이 회복력을 갖는다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred from the passage that packets arriving out of order",
+        "type": "inference",
+        "options": [
+          "make the message impossible to read",
+          "must always travel the same route",
+          "can still be reassembled correctly by the receiving computer",
+          "are discarded by routers"
+        ],
+        "answer": 2,
+        "explain": "지문에서 패킷이 순서가 뒤바뀌어 도착해도 수신 컴퓨터가 올바르게 재조립할 수 있다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "title": "The Court System and Trial by Jury",
+    "topic": "law",
+    "passage": "Trial by jury is a cornerstone of many legal systems, placing the determination of guilt or innocence in the hands of ordinary citizens rather than judges or government officials. In a typical jury trial, a group of people is selected from the community to hear the evidence presented by both the prosecution and the defense. The jury's task is to weigh this evidence and reach a verdict based on the facts, while the judge oversees the proceedings and ensures that the law is properly applied. A central principle is that the accused is presumed innocent until proven guilty, and the burden rests on the prosecution to establish guilt beyond a reasonable doubt. Supporters argue that the jury system protects individuals against the abuse of power, since a panel of citizens may resist pressure that a single official might not. Critics, however, point out that jurors may lack legal expertise, may be swayed by emotion, or may harbor unconscious biases. Despite such concerns, the jury remains a powerful symbol of the idea that justice should reflect the conscience of the community.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that trial by jury",
+        "type": "main_idea",
+        "options": [
+          "gives all power to a single government official",
+          "eliminates the role of the judge entirely",
+          "places the decision of guilt or innocence with ordinary citizens",
+          "always produces fair and accurate verdicts"
+        ],
+        "answer": 2,
+        "explain": "지문은 배심 재판이 유무죄 판단을 일반 시민에게 맡기는 제도임을 강조하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the burden of establishing guilt rests on",
+        "type": "detail",
+        "options": [
+          "the defense",
+          "the accused",
+          "the judge",
+          "the prosecution"
+        ],
+        "answer": 3,
+        "explain": "지문에서 유죄를 합리적 의심을 넘어 입증할 책임이 검찰에 있다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, critics of the jury system argue that jurors",
+        "type": "detail",
+        "options": [
+          "may lack legal expertise or be swayed by emotion",
+          "have too much legal training",
+          "are always government officials",
+          "cannot reach any verdict at all"
+        ],
+        "answer": 0,
+        "explain": "지문에서 비판론자들은 배심원이 법적 전문성이 부족하거나 감정에 좌우될 수 있다고 지적한다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that supporters value the jury system because it",
+        "type": "inference",
+        "options": [
+          "guarantees that experts decide every case",
+          "removes the community from legal decisions",
+          "can serve as a check against the abuse of power",
+          "speeds up trials by avoiding evidence"
+        ],
+        "answer": 2,
+        "explain": "지문에서 시민 배심원단이 한 관리가 굴복할 수 있는 압력에 저항할 수 있어 권력 남용으로부터 개인을 보호한다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "title": "The Decline of Insect Populations",
+    "topic": "environment",
+    "passage": "In recent years, scientists have raised growing alarm over a sharp decline in insect populations across many parts of the world, a trend that some have called an insect apocalypse. Although insects are often dismissed as pests, they play roles that are absolutely essential to the functioning of ecosystems. They pollinate the majority of flowering plants, decompose dead material and recycle nutrients into the soil, and form a critical link in food chains as prey for birds, fish, and other animals. Long-term studies in several regions have documented dramatic reductions in insect numbers and diversity, with some areas reporting losses of more than seventy percent over a few decades. Researchers attribute the decline to a combination of factors, including habitat destruction, intensive agriculture, pesticide use, light pollution, and climate change. The consequences could be severe and far-reaching, since the collapse of insect populations would ripple upward through entire ecosystems, threatening the animals and plants that depend on them. Conservationists urge measures such as reducing pesticide use, restoring natural habitats, and planting diverse vegetation to slow and ideally reverse the alarming trend.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that",
+        "type": "main_idea",
+        "options": [
+          "insects are unimportant pests that should be eliminated",
+          "insect numbers are increasing rapidly worldwide",
+          "declining insect populations threaten ecosystems and require action",
+          "pesticides are the only cause of insect decline"
+        ],
+        "answer": 2,
+        "explain": "지문은 곤충 개체수 감소가 생태계를 위협하며 대책이 필요함을 강조하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, insects contribute to ecosystems by",
+        "type": "detail",
+        "options": [
+          "pollinating plants and recycling nutrients into the soil",
+          "destroying flowering plants",
+          "preventing birds and fish from finding food",
+          "increasing light pollution"
+        ],
+        "answer": 0,
+        "explain": "지문에서 곤충이 식물을 수분하고 죽은 물질을 분해하여 영양분을 토양으로 되돌린다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, the decline in insects is attributed to all of the following EXCEPT",
+        "type": "detail",
+        "options": [
+          "habitat destruction",
+          "pesticide use",
+          "planting diverse vegetation",
+          "climate change"
+        ],
+        "answer": 2,
+        "explain": "다양한 식물 심기는 감소를 늦추기 위한 해결책으로 제시되며, 감소 원인은 서식지 파괴, 살충제, 기후변화 등이다."
+      },
+      {
+        "q": "It can be inferred from the passage that a collapse of insect populations would",
+        "type": "inference",
+        "options": [
+          "have no effect on other species",
+          "improve crop yields worldwide",
+          "ripple upward and harm animals and plants that depend on them",
+          "only affect insects themselves"
+        ],
+        "answer": 2,
+        "explain": "지문에서 곤충 개체군 붕괴가 생태계 전체로 파급되어 그것에 의존하는 동식물을 위협한다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "title": "The Genius of Leonardo da Vinci",
+    "topic": "arts",
+    "passage": "Leonardo da Vinci, who lived from 1452 to 1519, is remembered as one of the most versatile geniuses in human history, embodying the ideal of the Renaissance man whose curiosity spanned countless fields. Though celebrated today chiefly as the painter of the Mona Lisa and The Last Supper, Leonardo regarded himself as much an engineer and scientist as an artist. His notebooks, filled with thousands of pages of drawings and observations written in mirror-image script, reveal a mind that anticipated discoveries centuries ahead of his time. He sketched designs for flying machines, armored vehicles, and diving apparatus, and he dissected human corpses to study anatomy with a precision unrivaled in his era. Leonardo approached art and science as a single unified pursuit, applying his understanding of light, anatomy, and geometry to achieve unprecedented realism in his paintings. Yet he was also notorious for leaving works unfinished, distracted by the next problem that captured his restless imagination. Today his notebooks are studied not only for their scientific insights but as windows into a creative process of extraordinary depth and originality.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that Leonardo da Vinci",
+        "type": "main_idea",
+        "options": [
+          "was a versatile genius who united art and science",
+          "was talented only as a painter",
+          "made no contributions to science or engineering",
+          "completed every project he started"
+        ],
+        "answer": 0,
+        "explain": "지문은 레오나르도가 예술과 과학을 아우른 다재다능한 천재였음을 강조하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, Leonardo's notebooks were written in",
+        "type": "detail",
+        "options": [
+          "Latin verse",
+          "mirror-image script",
+          "ancient Greek",
+          "musical notation"
+        ],
+        "answer": 1,
+        "explain": "지문에서 그의 노트가 거울상 글씨(mirror-image script)로 쓰였다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "The word \"versatile\" as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "unable to finish his work",
+          "famous for a single painting",
+          "skilled in many different fields",
+          "trained only in anatomy"
+        ],
+        "answer": 2,
+        "explain": "지문에서 레오나르도가 수많은 분야를 넘나든 천재로 묘사되므로 versatile은 '다재다능한'을 의미한다."
+      },
+      {
+        "q": "It can be inferred from the passage that Leonardo's tendency to leave works unfinished was related to",
+        "type": "inference",
+        "options": [
+          "a lack of artistic talent",
+          "a shortage of materials",
+          "his inability to draw or paint",
+          "his restless curiosity drawing him to new problems"
+        ],
+        "answer": 3,
+        "explain": "지문에서 그가 다음 문제에 정신이 팔려 작품을 미완성으로 남기곤 했다고 했으므로, 끊임없는 호기심 때문임을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "title": "Why We Yawn",
+    "topic": "psychology",
+    "passage": "Yawning is a behavior so familiar that we rarely stop to wonder why we do it, yet scientists have long struggled to explain its true purpose. For many years, a popular theory held that yawning increases the supply of oxygen to the blood when levels run low, but experiments have largely failed to support this idea. A more recent hypothesis proposes that yawning helps cool the brain. According to this view, the deep intake of air and the stretching of the jaw increase blood flow and bring cooler air into the body, helping to regulate the temperature of the brain when it begins to overheat. Perhaps the most intriguing feature of yawning is its contagiousness. Seeing, hearing, or even reading about another person yawning can trigger a yawn in ourselves. Researchers believe this contagious quality is linked to empathy, since people who score higher on measures of social connection tend to catch yawns more readily, and the effect is stronger among close friends and family than among strangers. Yawning, it seems, is far more complex than the simple sign of boredom it is often assumed to be.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that yawning",
+        "type": "main_idea",
+        "options": [
+          "is fully explained by the need for oxygen",
+          "occurs only when people are bored",
+          "is a more complex behavior than commonly assumed",
+          "has no connection to social behavior"
+        ],
+        "answer": 2,
+        "explain": "지문은 하품이 흔히 생각하는 것보다 훨씬 복잡한 행동임을 강조하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, the brain-cooling hypothesis suggests that yawning",
+        "type": "detail",
+        "options": [
+          "reduces blood flow to the head",
+          "only happens during sleep",
+          "increases the blood's oxygen supply",
+          "brings cooler air into the body and helps regulate brain temperature"
+        ],
+        "answer": 3,
+        "explain": "지문에서 하품이 더 시원한 공기를 들이고 혈류를 늘려 뇌 온도 조절을 돕는다는 가설을 설명하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, contagious yawning is believed to be linked to",
+        "type": "detail",
+        "options": [
+          "boredom",
+          "cold weather",
+          "low oxygen levels",
+          "empathy and social connection"
+        ],
+        "answer": 3,
+        "explain": "지문에서 전염성 하품이 공감 및 사회적 연결과 관련 있다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred from the passage that a person is more likely to catch a yawn from",
+        "type": "inference",
+        "options": [
+          "a complete stranger than a close friend",
+          "a person who is well rested",
+          "someone they cannot see or hear",
+          "a close friend or family member than a stranger"
+        ],
+        "answer": 3,
+        "explain": "지문에서 전염 효과가 낯선 사람보다 가까운 친구와 가족 사이에서 더 강하다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "title": "The Galápagos Islands and Evolution",
+    "topic": "science",
+    "passage": "The Galápagos Islands, an isolated archipelago in the Pacific Ocean about a thousand kilometers off the coast of Ecuador, occupy a special place in the history of science. It was here, during his voyage aboard the HMS Beagle in 1835, that the young naturalist Charles Darwin made observations that would later help shape his theory of evolution by natural selection. Because the islands are volcanic and relatively young, and because they lie far from any mainland, they were colonized by only a limited number of species, which then evolved in isolation. Darwin was especially struck by the finches of the islands, which varied from island to island in the size and shape of their beaks. He came to suspect that these differences reflected adaptations to the particular food sources available on each island, with some beaks suited to crushing seeds and others to probing for insects. The unusual giant tortoises, marine iguanas, and other distinctive creatures further illustrated how isolation could give rise to remarkable diversity. Today the Galápagos remain a living laboratory where scientists continue to study evolution in action.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the Galápagos Islands",
+        "type": "main_idea",
+        "options": [
+          "are home to species found everywhere on Earth",
+          "have never been studied by scientists",
+          "provided observations that helped shape the theory of evolution",
+          "are located near the mainland of Ecuador"
+        ],
+        "answer": 2,
+        "explain": "지문은 갈라파고스 제도가 진화론 형성에 도움이 된 관찰을 제공했음을 강조하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, Darwin was especially struck by the islands' finches because",
+        "type": "detail",
+        "options": [
+          "their beaks varied in size and shape from island to island",
+          "they were all identical across the islands",
+          "they could not survive in isolation",
+          "they had no relationship to food sources"
+        ],
+        "answer": 0,
+        "explain": "지문에서 다윈이 섬마다 부리의 크기와 모양이 다른 핀치들에 특히 주목했다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, the islands were colonized by only a limited number of species because they are",
+        "type": "detail",
+        "options": [
+          "volcanic, young, and far from any mainland",
+          "close to several large continents",
+          "covered entirely in ice",
+          "too warm for most animals"
+        ],
+        "answer": 0,
+        "explain": "지문에서 섬이 화산성이고 비교적 젊으며 본토에서 멀어 제한된 종만 정착했다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that differences in the finches' beaks were",
+        "type": "inference",
+        "options": [
+          "unrelated to their environment",
+          "the same as those of mainland birds",
+          "caused by Darwin's experiments",
+          "adaptations to the food sources available on each island"
+        ],
+        "answer": 3,
+        "explain": "지문에서 부리 차이가 각 섬에서 이용 가능한 먹이원에 대한 적응을 반영한다고 다윈이 의심했다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "title": "The History of the Modern Marathon Medal",
+    "topic": "sports",
+    "passage": "Long-distance running has been part of human culture for thousands of years, but the formal sport has evolved dramatically in recent decades, driven by advances in training, nutrition, and technology. Once the domain of a small number of dedicated athletes, marathon running has become a global phenomenon, with major races in cities around the world drawing tens of thousands of participants ranging from elite professionals to first-time amateurs. One of the most significant changes has been the scientific approach to preparation. Coaches now design training programs based on detailed measurements of heart rate, oxygen consumption, and lactate levels, tailoring workouts to each runner's physiology. Nutrition strategies have likewise grown sophisticated, with runners carefully timing their intake of carbohydrates and fluids to sustain energy over the grueling distance. Footwear has also transformed the sport: modern racing shoes incorporate lightweight foams and embedded carbon-fiber plates designed to return energy with each stride, helping athletes run faster with less effort. These innovations have sparked debate about fairness, as some argue that technology may give certain runners an unfair advantage, prompting governing bodies to set limits on shoe design.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that marathon running",
+        "type": "main_idea",
+        "options": [
+          "has remained unchanged for thousands of years",
+          "has evolved dramatically through advances in training, nutrition, and technology",
+          "is practiced only by elite professionals",
+          "has become less popular in recent decades"
+        ],
+        "answer": 1,
+        "explain": "지문은 마라톤이 훈련, 영양, 기술 발전으로 극적으로 변화했음을 강조하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, modern training programs are based on measurements of",
+        "type": "detail",
+        "options": [
+          "shoe weight and color",
+          "heart rate, oxygen consumption, and lactate levels",
+          "the number of races a runner has completed",
+          "the temperature on race day"
+        ],
+        "answer": 1,
+        "explain": "지문에서 코치들이 심박수, 산소 소비량, 젖산 수치 측정을 토대로 훈련 프로그램을 설계한다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, modern racing shoes are designed to",
+        "type": "detail",
+        "options": [
+          "slow runners down for safety",
+          "return energy with each stride",
+          "add weight for better balance",
+          "eliminate the need for training"
+        ],
+        "answer": 1,
+        "explain": "지문에서 현대 경주화가 매 보폭마다 에너지를 돌려주도록 설계되었다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "It can be inferred from the passage that governing bodies set limits on shoe design because",
+        "type": "inference",
+        "options": [
+          "shoes were too expensive for amateurs",
+          "advanced footwear raised concerns about fairness",
+          "runners preferred older shoe styles",
+          "shoes had no effect on performance"
+        ],
+        "answer": 1,
+        "explain": "지문에서 기술이 일부 선수에게 불공정한 이점을 줄 수 있다는 논쟁이 신발 설계 제한으로 이어졌다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "title": "The Phenomenon of Auroras Explained",
+    "topic": "astronomy",
+    "passage": "The shimmering curtains of colored light that sometimes grace the night skies near Earth's poles are among the most spectacular natural displays on the planet. These auroras arise from the interaction between charged particles streaming from the Sun and the gases in Earth's upper atmosphere. The Sun constantly emits a flow of charged particles known as the solar wind, and during periods of intense solar activity, this stream becomes especially powerful. When these particles reach Earth, most are deflected by the planet's magnetic field, which acts like an invisible shield. Near the poles, however, the magnetic field funnels some particles down into the atmosphere, where they collide with atoms and molecules of oxygen and nitrogen. These collisions excite the gas atoms, which then release energy in the form of light. The color of an aurora depends on which gas is involved and at what altitude the collision occurs: oxygen tends to produce green and red light, while nitrogen contributes blue and purple hues. Because the magnetic field channels particles toward the poles, auroras are seen most often at high latitudes, in regions near the Arctic and Antarctic.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that auroras",
+        "type": "main_idea",
+        "options": [
+          "are caused by moonlight reflecting off clouds",
+          "result from charged solar particles interacting with atmospheric gases near the poles",
+          "appear most often near the equator",
+          "have no connection to the Sun"
+        ],
+        "answer": 1,
+        "explain": "지문은 오로라가 태양에서 온 하전 입자가 극지방 대기 기체와 상호작용하여 생긴다고 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, Earth's magnetic field acts like",
+        "type": "detail",
+        "options": [
+          "a source of solar wind",
+          "a lens that focuses sunlight",
+          "a gas that glows in the atmosphere",
+          "an invisible shield that deflects most charged particles"
+        ],
+        "answer": 3,
+        "explain": "지문에서 지구 자기장이 대부분의 하전 입자를 굴절시키는 보이지 않는 방패처럼 작용한다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, the color of an aurora depends on",
+        "type": "detail",
+        "options": [
+          "which gas is involved and the altitude of the collision",
+          "the phase of the Moon",
+          "the season of the year only",
+          "the strength of Earth's gravity"
+        ],
+        "answer": 0,
+        "explain": "지문에서 오로라의 색은 관련된 기체와 충돌이 일어나는 고도에 따라 달라진다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "It can be inferred from the passage that auroras are seen most often near the poles because",
+        "type": "inference",
+        "options": [
+          "the Sun shines only on the poles",
+          "the magnetic field funnels charged particles toward those regions",
+          "oxygen exists only at high latitudes",
+          "the atmosphere is absent near the equator"
+        ],
+        "answer": 1,
+        "explain": "지문에서 자기장이 입자를 극지방으로 유도하기 때문에 고위도에서 오로라가 가장 자주 보인다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "title": "The Tradition of the Haiku",
+    "topic": "literature",
+    "passage": "The haiku is a form of Japanese poetry renowned for its brevity and its power to evoke a vivid moment in just a few words. In its traditional form, a haiku consists of three lines arranged in a pattern of five, seven, and five syllables, though poets writing in other languages often adapt this structure loosely. Despite its compactness, the haiku is governed by rich conventions. Many classical haiku include a seasonal reference, a word or image that anchors the poem in a particular time of year, such as cherry blossoms for spring or falling leaves for autumn. A skilled haiku also frequently turns on a moment of contrast or sudden insight, juxtaposing two images to create a flash of meaning that the reader completes in the imagination. The seventeenth-century poet Matsuo Bashō elevated the form to high art, using simple natural images to suggest deep emotional and philosophical resonance. The enduring appeal of the haiku lies precisely in what it leaves unsaid, inviting readers to dwell in a single fleeting impression and to find within it a quiet sense of wonder.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the haiku",
+        "type": "main_idea",
+        "options": [
+          "is a brief poetic form that evokes vivid moments through rich conventions",
+          "is a long and elaborate form of poetry",
+          "must always be written in English",
+          "avoids any reference to nature"
+        ],
+        "answer": 0,
+        "explain": "지문은 하이쿠가 풍부한 관습을 통해 생생한 순간을 환기하는 간결한 시 형식임을 강조하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, a traditional haiku follows a syllable pattern of",
+        "type": "detail",
+        "options": [
+          "seven, seven, seven",
+          "five, seven, five",
+          "five, five, five",
+          "three, four, three"
+        ],
+        "answer": 1,
+        "explain": "지문에서 전통적 하이쿠가 5, 7, 5음절 패턴의 세 줄로 구성된다고 명시하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, a seasonal reference in a haiku",
+        "type": "detail",
+        "options": [
+          "replaces the third line entirely",
+          "names the poet who wrote it",
+          "counts the number of syllables",
+          "anchors the poem in a particular time of year"
+        ],
+        "answer": 3,
+        "explain": "지문에서 계절을 가리키는 단어나 이미지가 시를 특정 시기에 고정시킨다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred from the passage that the haiku's appeal comes partly from",
+        "type": "inference",
+        "options": [
+          "what it leaves unsaid, inviting the reader's imagination",
+          "its great length and complexity",
+          "its avoidance of any imagery",
+          "its strict use of rhyme"
+        ],
+        "answer": 0,
+        "explain": "지문에서 하이쿠의 매력이 말하지 않은 부분에 있어 독자의 상상을 불러일으킨다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "title": "The Economics of Comparative Advantage",
+    "topic": "economics",
+    "passage": "Comparative advantage is a foundational concept in economics that explains why nations and individuals benefit from specializing and trading with one another. The idea, developed by the economist David Ricardo in the early nineteenth century, holds that a party should focus on producing the goods for which it has the lowest opportunity cost, even if it is not the most efficient producer overall. Consider two countries, one of which can produce both wheat and cloth more efficiently than the other. It might seem that this more productive country should make everything itself. Yet Ricardo showed that both countries can gain if each specializes in the good it produces relatively more efficiently and then trades for the other. The key insight is that what matters is not absolute productivity but the relative cost of producing one good in terms of another. By concentrating on its area of comparative advantage, each party frees up resources and produces more total output than it could in isolation. This principle remains central to arguments in favor of international trade, although critics note that the benefits are not always distributed evenly within a country.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that comparative advantage",
+        "type": "main_idea",
+        "options": [
+          "explains why countries should never trade",
+          "shows how specialization and trade can benefit all parties",
+          "applies only to wealthy nations",
+          "means the most efficient producer should make everything"
+        ],
+        "answer": 1,
+        "explain": "지문은 비교우위가 특화와 무역을 통해 모든 당사자가 이익을 얻을 수 있음을 설명하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the concept of comparative advantage was developed by",
+        "type": "detail",
+        "options": [
+          "David Ricardo",
+          "Adam Smith",
+          "John Maynard Keynes",
+          "Karl Marx"
+        ],
+        "answer": 0,
+        "explain": "지문에서 비교우위 개념이 경제학자 데이비드 리카도에 의해 발전되었다고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, what matters most in comparative advantage is",
+        "type": "detail",
+        "options": [
+          "absolute productivity",
+          "the total population of a country",
+          "the relative cost of producing one good in terms of another",
+          "the price of labor alone"
+        ],
+        "answer": 2,
+        "explain": "지문에서 중요한 것은 절대적 생산성이 아니라 한 재화를 다른 재화로 환산한 상대적 비용이라고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that critics of free trade emphasize that",
+        "type": "inference",
+        "options": [
+          "trade always harms both countries",
+          "specialization reduces total output",
+          "comparative advantage does not exist",
+          "the benefits of trade may not be distributed evenly within a country"
+        ],
+        "answer": 3,
+        "explain": "지문에서 비판론자들이 이익이 한 나라 안에서 항상 고르게 분배되지는 않는다고 지적한다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "title": "The Domestication of the Dog",
+    "topic": "nature",
+    "passage": "The dog holds the distinction of being the first animal ever domesticated by humans, a partnership that stretches back many thousands of years, long before the rise of agriculture. Genetic studies indicate that dogs descended from ancient wolves, although the exact timing and location of their domestication remain subjects of scientific debate. One widely discussed theory suggests that the process began when certain wolves, bolder or less fearful than others, started scavenging near human camps in search of scraps. Over generations, the animals most tolerant of human presence would have had better access to food and a survival advantage, gradually evolving traits that made them tamer and more cooperative. As the bond deepened, humans came to value dogs for hunting, guarding, herding, and companionship, and they began deliberately breeding them for desired qualities. This selective breeding eventually produced the astonishing variety of breeds seen today, from tiny lapdogs to powerful working animals, all descended from a common wolf ancestor. The story of the dog illustrates how a relationship that may have begun by chance grew into one of the most enduring alliances between humans and another species.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that the dog",
+        "type": "main_idea",
+        "options": [
+          "was domesticated only after the rise of agriculture",
+          "was bred entirely by accident in modern times",
+          "has no genetic relationship to wolves",
+          "was the first animal domesticated by humans and descended from wolves"
+        ],
+        "answer": 3,
+        "explain": "지문은 개가 인간이 처음 길들인 동물이며 늑대에서 유래했음을 강조하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, one theory holds that domestication began when wolves",
+        "type": "detail",
+        "options": [
+          "attacked human camps for food",
+          "began scavenging near human camps for scraps",
+          "were captured and caged by humans",
+          "migrated away from all human settlements"
+        ],
+        "answer": 1,
+        "explain": "지문에서 덜 두려워하는 늑대들이 음식 찌꺼기를 찾아 인간 야영지 근처에서 먹이를 찾기 시작했다는 이론을 소개하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, the wide variety of modern dog breeds resulted from",
+        "type": "detail",
+        "options": [
+          "natural selection in the wild",
+          "interbreeding with modern wolves",
+          "deliberate selective breeding by humans",
+          "changes in climate"
+        ],
+        "answer": 2,
+        "explain": "지문에서 인간의 의도적인 선택 교배가 오늘날의 다양한 품종을 만들어냈다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that wolves tolerant of humans",
+        "type": "inference",
+        "options": [
+          "were less likely to survive",
+          "had a survival advantage through better access to food",
+          "avoided human camps entirely",
+          "never passed on their traits"
+        ],
+        "answer": 1,
+        "explain": "지문에서 인간 존재에 가장 관대한 동물이 먹이에 더 잘 접근해 생존상의 이점을 가졌다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "title": "The Mathematics of Cryptography",
+    "topic": "technology",
+    "passage": "Cryptography, the practice of securing communication so that only intended recipients can read it, has become indispensable in the digital age, protecting everything from online banking to private messages. At the heart of modern cryptography lies a class of mathematical problems that are easy to perform in one direction but extremely difficult to reverse. Consider the task of multiplying two large prime numbers together: this is straightforward for a computer. Yet starting from the resulting product and trying to recover the original two primes, a process called factoring, becomes practically impossible when the numbers are large enough, even for powerful machines. Many widely used encryption systems rely on exactly this asymmetry. They use a publicly shared key to scramble a message and a separate, secret key to unscramble it, so that anyone can send a secure message but only the holder of the private key can read it. The security of these systems rests on the assumption that certain mathematical problems remain hard to solve. This assumption faces a looming challenge, however, for quantum computers may one day be capable of solving such problems far more quickly, forcing cryptographers to develop entirely new methods.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that modern cryptography",
+        "type": "main_idea",
+        "options": [
+          "has no practical use in the digital age",
+          "relies on mathematical problems that are easy in one direction but hard to reverse",
+          "depends only on keeping messages physically locked away",
+          "can be easily broken by any computer"
+        ],
+        "answer": 1,
+        "explain": "지문은 현대 암호학이 한 방향으로는 쉽지만 되돌리기는 어려운 수학 문제에 기반함을 강조하므로 정답은 B이다."
+      },
+      {
+        "q": "According to the passage, factoring refers to",
+        "type": "detail",
+        "options": [
+          "recovering the original primes from their product",
+          "multiplying two large primes together",
+          "sharing a public key with others",
+          "scrambling a message with a secret key"
+        ],
+        "answer": 0,
+        "explain": "지문에서 인수분해(factoring)는 곱셈 결과로부터 원래의 두 소수를 복구하는 과정이라고 명시하므로 정답은 A이다."
+      },
+      {
+        "q": "According to the passage, many encryption systems use",
+        "type": "detail",
+        "options": [
+          "a single key for both scrambling and unscrambling",
+          "only physical locks",
+          "no keys at all",
+          "a public key to scramble and a separate secret key to unscramble"
+        ],
+        "answer": 3,
+        "explain": "지문에서 공개 키로 메시지를 암호화하고 별도의 비밀 키로 복호화한다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "It can be inferred from the passage that quantum computers may",
+        "type": "inference",
+        "options": [
+          "make all encryption permanently unbreakable",
+          "be unable to perform any factoring",
+          "eliminate the need for any cryptography",
+          "threaten current cryptography by solving hard problems quickly"
+        ],
+        "answer": 3,
+        "explain": "지문에서 양자 컴퓨터가 그런 문제를 훨씬 빠르게 풀 수 있어 새로운 암호 방식 개발을 강제할 수 있다고 했으므로 추론된다."
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "title": "The Influence of the Gramophone on Music",
+    "topic": "music",
+    "passage": "Before the invention of sound recording, music existed only in the moment of its performance, heard once and then gone forever unless reproduced live by musicians. The development of the gramophone and related recording technologies in the late nineteenth and early twentieth centuries transformed this reality, allowing sound to be captured and replayed at will. The consequences for musical culture were profound. For the first time, listeners could hear performances by distant or even deceased artists, and music from one region could spread rapidly across the globe. Recording also changed the way musicians worked. Whereas a live concert allowed for spontaneity and small mistakes, a recording could be played countless times, encouraging performers to strive for flawless renditions. The length of early records, limited to only a few minutes per side, even influenced the structure of popular songs, helping to establish the brief format that still dominates much of popular music today. Furthermore, recordings created entirely new industries and made it possible for performers to reach vast audiences and earn income without playing live. In these ways, the ability to capture sound reshaped not only how music was heard but how it was created and sold.",
+    "questions": [
+      {
+        "q": "The main idea of the passage is that sound recording",
+        "type": "main_idea",
+        "options": [
+          "had little effect on how music was made or heard",
+          "made live performance impossible",
+          "transformed musical culture by allowing sound to be captured and replayed",
+          "was used only by deceased artists"
+        ],
+        "answer": 2,
+        "explain": "지문은 녹음 기술이 소리를 포착하고 재생할 수 있게 하여 음악 문화를 변화시켰음을 강조하므로 정답은 C이다."
+      },
+      {
+        "q": "According to the passage, before sound recording, music",
+        "type": "detail",
+        "options": [
+          "could be replayed at will",
+          "was always played flawlessly",
+          "spread rapidly across the globe",
+          "existed only in the moment of its performance"
+        ],
+        "answer": 3,
+        "explain": "지문에서 녹음 이전에는 음악이 연주되는 순간에만 존재했다고 명시하므로 정답은 D이다."
+      },
+      {
+        "q": "According to the passage, the short length of early records influenced",
+        "type": "detail",
+        "options": [
+          "the price of concert tickets",
+          "the number of musicians in a band",
+          "the structure and brief format of popular songs",
+          "the speed of live performances"
+        ],
+        "answer": 2,
+        "explain": "지문에서 초기 음반의 짧은 길이가 대중가요의 짧은 형식을 확립하는 데 영향을 주었다고 명시하므로 정답은 C이다."
+      },
+      {
+        "q": "It can be inferred from the passage that recording encouraged musicians to",
+        "type": "inference",
+        "options": [
+          "embrace spontaneous mistakes in performance",
+          "strive for flawless renditions that could be replayed many times",
+          "stop performing music entirely",
+          "avoid reaching large audiences"
+        ],
+        "answer": 1,
+        "explain": "지문에서 녹음은 여러 번 재생되므로 연주자들이 완벽한 연주를 추구하도록 부추겼다고 했으므로 추론된다."
+      }
+    ]
   }
 ]
