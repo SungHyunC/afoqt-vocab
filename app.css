@@ -315,3 +315,9 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .ic-opts button .ol{font-size:11px;color:var(--muted);text-align:center;margin-top:2px}
 .ic-opts button.correct{border-color:var(--ok);background:#16a34a22}
 .ic-opts button.wrong{border-color:var(--bad);background:#dc262622}
+/* TTS speaker button */
+.spk{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;
+  background:var(--card2);color:var(--brand2);font-size:17px;vertical-align:middle;flex:0 0 auto}
+.spk:active{transform:scale(.92)}
+.spk.big{width:40px;height:40px;font-size:20px}
+.word-row{display:flex;align-items:center;justify-content:center;gap:10px}
