@@ -46,6 +46,7 @@
   </div>
 
   <button class="btn primary" id="btnDaily" style="margin-top:16px;font-size:17px;padding:17px">📅 오늘의 통합 학습 (전 영역)</button>
+  <button class="btn ghost" id="btnCurr" style="margin-top:10px;font-size:16px;padding:15px">🎓 커리큘럼 학습 (기초 → 실전 · 2주 15+ 목표)</button>
   <button class="btn ghost" id="btnStart" style="margin-top:10px;font-size:16px;padding:15px">📇 단어 플래시카드만</button>
   <button class="btn ghost" id="btnExam" style="margin-top:10px;font-size:16px;padding:15px">🎯 실전 모의고사 (시간 측정)</button>
 
@@ -127,6 +128,7 @@
   <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 보기</button>
   <button class="btn ghost" id="vkRoots" style="margin-top:10px">🔤 어원 학습 (접두사·어근)</button>
   <button class="btn ghost" id="vkGuide" style="margin-top:10px">📘 단어 공부 가이드</button>
+  <button class="btn ghost" id="vkCurr" style="margin-top:10px">🎓 커리큘럼 (기초부터)</button>
 
   <h2 class="section">학습 우선순위</h2>
   <div class="card">
@@ -305,6 +307,33 @@
   <div id="avfArea"></div>
 </main>
 
+<!-- ===== CURRICULUM (커리큘럼 학습) ===== -->
+<main id="view-curriculum" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="currBack">← 홈</button><span>🎓 커리큘럼</span><span></span></div>
+  <div class="guide-hero"><h2 style="font-size:18px">기초부터 차근차근 → 실전 졸업</h2>
+    <div class="fmt">각 단계 <b>10문제 중 8개</b> 이상 맞히면 다음 단계가 열려요. 마지막 단계는 <b>실전 시험 15/25</b> — 통과하면 졸업! 🎯 2주 안에 한 트랙씩 끝내는 걸 추천해요.</div></div>
+  <div class="filters" id="currTabs">
+    <button class="chip on" data-ct="va">🔗 유추</button>
+    <button class="chip" data-ct="wk">📇 단어</button>
+    <button class="chip" data-ct="rc">📖 독해</button>
+  </div>
+  <div id="currStages"></div>
+</main>
+
+<!-- ===== CURRICULUM play ===== -->
+<main id="view-currplay" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="cpBack">← 커리큘럼</button><span id="cpCount">0 / 0</span><span id="cpScore">0점</span></div>
+  <div class="progressbar" style="margin-bottom:14px"><i id="cpBar"></i></div>
+  <div id="cpArea"></div>
+  <div id="cpDone" class="card center hidden">
+    <div class="big-emoji" id="cpEmoji">🎓</div>
+    <h2 id="cpResult"></h2>
+    <p class="muted" id="cpSub"></p>
+    <button class="btn primary" id="cpRetry" style="margin-top:8px">다시 도전</button>
+    <button class="btn ghost" id="cpToCurr" style="margin-top:10px">커리큘럼으로</button>
+  </div>
+</main>
+
 <!-- ===== GENERIC SUBTEST HUB (AR/MK/PS/SJ) ===== -->
 <main id="view-subtest" class="view">
   <div class="study-top"><button class="btn sm ghost" id="subBack">← 홈</button><span id="subNav"></span><span></span></div>
@@ -346,6 +375,7 @@
     </div>
     <button class="btn primary" id="vaStart" style="margin-top:16px">▶︎ 유추 연습 시작</button>
     <button class="btn ghost" id="vaGuide" style="margin-top:10px">📘 유추 공부 가이드</button>
+    <button class="btn ghost" id="vaCurr" style="margin-top:10px">🎓 커리큘럼 (관계 분류부터)</button>
     <button class="btn ghost" id="vaExam" style="margin-top:10px">🎯 유추 시험 (시간측정)</button>
     <button class="btn ghost" id="vaReview" style="margin-top:10px">🔁 틀린 문제 복습</button>
   </div>
@@ -376,6 +406,7 @@
     <div class="card tight stat"><div class="num" id="rcAccTop">–</div><div class="lbl">정답률</div></div>
   </div>
   <button class="btn ghost" id="rcGuide" style="margin-top:14px">📘 독해 공부 가이드</button>
+  <button class="btn ghost" id="rcCurr" style="margin-top:10px">🎓 커리큘럼 (주제 찾기부터)</button>
   <button class="btn ghost" id="rcExam" style="margin-top:10px">🎯 독해 시험 (시간측정)</button>
   <div class="wlist" id="rcList" style="margin-top:14px"></div>
 </main>

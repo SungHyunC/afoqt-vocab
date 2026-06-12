@@ -321,3 +321,18 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .spk:active{transform:scale(.92)}
 .spk.big{width:40px;height:40px;font-size:20px}
 .word-row{display:flex;align-items:center;justify-content:center;gap:10px}
+/* Curriculum (커리큘럼 학습) */
+.stage-card{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:10px}
+.stage-card:active{transform:scale(.99)}
+.stage-card .sic{font-size:24px;flex:0 0 auto;width:34px;text-align:center}
+.stage-card .meta{min-width:0;flex:1}
+.stage-card .meta b{font-size:15px}
+.stage-card .meta .muted{font-size:12px;margin-top:2px;line-height:1.45}
+.stage-card .st{font-size:11px;font-weight:700;margin-top:5px}
+.stage-card.locked{opacity:.45}
+.stage-card.passed{border-color:var(--ok)}
+.stage-card.cur{border-color:var(--brand)}
+.cp-hint{display:inline-block;font-size:12px;font-weight:700;color:var(--gold);background:#fbbf2422;
+  border:1px solid #fbbf2466;border-radius:8px;padding:3px 10px;margin-bottom:10px}
+.cp-stem{font-size:26px;font-weight:800;text-align:center;letter-spacing:1px;margin:10px 0 14px;color:#fff}
