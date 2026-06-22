@@ -336,3 +336,15 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .cp-hint{display:inline-block;font-size:12px;font-weight:700;color:var(--gold);background:#fbbf2422;
   border:1px solid #fbbf2466;border-radius:8px;padding:3px 10px;margin-bottom:10px}
 .cp-stem{font-size:26px;font-weight:800;text-align:center;letter-spacing:1px;margin:10px 0 14px;color:#fff}
+/* D-day weekly plan */
+.wp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.wp-dday{font-size:22px;font-weight:800;color:var(--brand2)}
+.wp-phase{font-size:13px;font-weight:700}
+.wp-bar{height:7px;background:#ffffff1a;border-radius:999px;overflow:hidden;margin:8px 0 12px}
+.wp-bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2))}
+.wp-task{display:flex;align-items:center;gap:11px;padding:9px 2px;cursor:pointer;border-top:1px solid var(--line)}
+.wp-task:first-of-type{border-top:none}
+.wp-box{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+.wp-task.on .wp-box{background:var(--ok);border-color:var(--ok)}
+.wp-task .tx{font-size:14px;line-height:1.4}
+.wp-task.on .tx{color:var(--muted);text-decoration:line-through}

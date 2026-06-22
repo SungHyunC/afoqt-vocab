@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.0.0";
+const VERSION = "4.2.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -57,6 +57,7 @@ const DEFAULT_STATE = () => ({
   secAcc:{},  // 예상점수용 과목별 정답 누적: 'WK'|'VA'|... -> {c,w}
   wkSeen:{}, avp:{},  // readiness coverage: wordId / aviationId seen in exams
   curr:{},    // 커리큘럼: track -> {unlocked:int, passed:{si:1}, best:{si:score}}
+  checklist:{},  // 주차별 체크리스트: 'weekKey:phase' -> {taskIdx:1}
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
@@ -68,7 +69,7 @@ function loadLocal(){
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.wrong=Object.assign({wk:{},va:{},rc:{}},state.wrong||{});
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{}},state.weak||{});
-  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{};
+  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{};
   state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
 }
@@ -211,7 +212,7 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr}; }
+  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist}; }
 function mergeMisc(d){
   if(!d) return;
   // exams: keep the higher best per key
@@ -234,6 +235,7 @@ function mergeMisc(d){
   const seen=new Set(state.examHist.map(x=>x.ts));
   (d.examHist||[]).forEach(x=>{ if(!seen.has(x.ts)){ state.examHist.push(x); seen.add(x.ts); } });
   state.examHist.sort((a,b)=>a.ts-b.ts); if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
+  for(const k in (d.checklist||{})){ state.checklist[k]=Object.assign(state.checklist[k]||{}, d.checklist[k]); }
 }
 
 function subscribeRealtime(){
@@ -342,6 +344,34 @@ function renderHome(){
   const vEst=compositeEst(["WK","VA","RC"]), el=$("#verbalEstLine");
   if(el){ if(vEst.pct!=null){ el.classList.remove("hidden"); el.textContent=`🗣 Verbal 예상 백분위 ${vEst.pct}th (정답률 ${Math.round(vEst.acc*100)}%) · 통계 탭에서 상세`; }
     else el.classList.add("hidden"); }
+  renderWeekPlan();
+}
+function weekKey(){ const d=new Date(); const off=(d.getDay()+6)%7; d.setDate(d.getDate()-off); return todayStr(d); }
+function examPhase(){ const d=daysLeft();
+  if(d>35) return {key:"base",name:"기초 다지기",emoji:"🌱",tasks:[
+    "🎓 커리큘럼: 유추 1단계(관계 분류) 통과","📇 빈출 단어 100개 학습(플래시카드)","🔤 어원 10개 익히기",
+    "📖 독해 커리큘럼 1단계(주제 찾기)","📅 통합 학습 3회"]};
+  if(d>21) return {key:"build",name:"실력 쌓기",emoji:"💪",tasks:[
+    "🎓 유추·단어 커리큘럼 졸업 도전","📇 빈출 high(635) 완주","🔗 유추 시험 15+ 달성",
+    "🛩️ 항공/수학 시작","📅 통합 학습 4회"]};
+  if(d>10) return {key:"mock",name:"실전 모드",emoji:"🎯",tasks:[
+    "🎯 전체 모의고사 2회","🧩 약점 과목 집중 보강","📕 오답 노트 재시험",
+    "📊 예상 점수 70%↑ 확인","📅 통합 학습 4회"]};
+  return {key:"final",name:"마무리",emoji:"🔥",tasks:[
+    "📕 오답만 빠르게 복습","🎯 가벼운 모의고사 1회","📊 예상 점수 최종 확인",
+    "😴 컨디션·수면 관리","✅ 시험 준비물·일정 확인"]};
+}
+function renderWeekPlan(){
+  const box=$("#weekPlan"); if(!box) return;
+  const dl=Math.max(0,dayDiff(todayStr(),state.settings.exam_date));
+  const ph=examPhase(), key=weekKey()+":"+ph.key;
+  const ck=state.checklist[key]||(state.checklist[key]={});
+  const done=ph.tasks.filter((_,i)=>ck[i]).length, pct=Math.round(done/ph.tasks.length*100);
+  box.innerHTML=`<div class="wp-head"><div class="wp-phase">${ph.emoji} 이번 주 · ${esc(ph.name)}</div><div class="wp-dday">D-${dl}</div></div>
+    <div class="muted" style="font-size:11px">${done}/${ph.tasks.length} 완료 · 시험까지 ${dl}일</div>
+    <div class="wp-bar"><i style="width:${pct}%"></i></div>
+    ${ph.tasks.map((t,i)=>`<div class="wp-task ${ck[i]?"on":""}" data-i="${i}"><div class="wp-box">${ck[i]?"✓":""}</div><div class="tx">${esc(t)}</div></div>`).join("")}`;
+  $$("#weekPlan .wp-task").forEach(el=>el.onclick=()=>{ const i=+el.dataset.i; if(ck[i]) delete ck[i]; else ck[i]=1; saveLocal(); renderWeekPlan(); });
 }
 
 /* ============================================================
@@ -614,7 +644,7 @@ function renderTRQ(){ const s=trState; if(!s) return; if(s.idx>=s.N) return fini
   $$("#trQ .tr-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
     const v=+btn.dataset.v, ok=v===q.correct;
     $$("#trQ .tr-opts button").forEach(b=>{ b.disabled=true; if(+b.dataset.v===q.correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0});
+    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("TR",ok);
     setTimeout(()=>{ if(trState){ s.idx++; renderTRQ(); } }, ok?320:750); });
 }
 function finishTR(){ const s=trState; if(!s) return; trTimerStop();
@@ -683,7 +713,7 @@ function renderBCQ(){ const s=bcState; if(!s) return; if(s.idx>=s.N) return fini
   $$("#bcArea .bc-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
     const v=+btn.dataset.v, ok=v===q.correct;
     $$("#bcArea .bc-opts button").forEach(b=>{ b.disabled=true; if(+b.dataset.v===q.correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0});
+    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("BC",ok);
     setTimeout(()=>{ if(bcState){ s.idx++; renderBCQ(); } }, ok?600:1100); });
 }
 function finishBC(){ const s=bcState; if(!s) return; bcTimerStop();
@@ -995,7 +1025,7 @@ function renderICQ(){ const s=icState; if(!s) return; if(s.idx>=s.N) return fini
   $$("#icArea .ic-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
     const i=+btn.dataset.i, ok=i===correctKey;
     $$("#icArea .ic-opts button").forEach((b,bi)=>{ b.disabled=true; if(bi===correctKey) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0});
+    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("IC",ok);
     setTimeout(()=>{ if(icState){ s.idx++; renderICQ(); } }, ok?550:1100); });
 }
 function finishIC(){ const s=icState; if(!s) return; icTimerStop();
@@ -1116,6 +1146,8 @@ const EXAM_PRESETS={
   mk:  {name:"Math Knowledge",      secs:1320, build:()=>buildMCQ(MATHK,"MK",25),                 label:"25문항 · 22:00"},
   ps:  {name:"Physical Science",    secs:600,  build:()=>buildMCQ(PHYSCI,"PS",20),                label:"20문항 · 10:00"},
   sj:  {name:"Situational Judgment",secs:2100, build:()=>buildSJ(16),                             label:"16문항 · 35:00"},
+  // Full AFOQT simulation across the MCQ subtests (long — feeds composites).
+  afoqt:{name:"AFOQT 전체 모의고사", secs:2700, build:()=>[...buildWK(12),...buildVA(12),...buildRC(10),...buildMCQ(ARITH,"AR",10),...buildMCQ(MATHK,"MK",10),...buildMCQ(PHYSCI,"PS",8),...buildAV(8)], label:"70문항 · 45:00 (전 과목)"},
   // Balanced daily mixed practice (generous timer = low pressure).
   daily:{name:"오늘의 통합 학습",     secs:1500, build:()=>[...buildWK(8),...buildVA(6),...buildRC(4),...buildAV(4)], label:"전 영역 22문항"},
 };
@@ -1244,7 +1276,7 @@ function buildWrongRC(){
 function renderExamSetup(){
   exam=null; stopExamTimer();
   $("#examSetup").classList.remove("hidden"); $("#examRun").classList.add("hidden"); $("#examResult").classList.add("hidden");
-  const map={wk:"lastWk",va:"lastVa",rc:"lastRc",full:"lastFull",av:"lastAv"};
+  const map={wk:"lastWk",va:"lastVa",rc:"lastRc",full:"lastFull",av:"lastAv",afoqt:"lastAfoqt"};
   for(const k in map){ const r=state.exams[k]; const el=$("#"+map[k]);
     el.textContent=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:EXAM_PRESETS[k].label; }
   // wrong-note (오답 노트)
@@ -1385,10 +1417,17 @@ function submitExam(auto){
   const acc=got/total, pctile=estPercentile(acc), multi=Object.keys(bySec).length>1;
   const secLines=Object.keys(bySec).map(k=>`${secName[k]||k} ${Math.round(bySec[k].got/bySec[k].total*100)}%`).join(" · ");
   const proj=$("#examProjection"); proj.classList.remove("hidden");
-  proj.innerHTML=`<div class="lbl">${e.key==="full"?"예상 AFOQT Verbal 백분위":"예상 백분위"}</div>
-    <div class="big">${pctile}<span style="font-size:16px">th</span></div>
-    <div class="seclist">정답률 ${Math.round(acc*100)}%${multi?` · ${secLines}`:""}</div>
-    <div class="note">※ 비공식 추정치예요. 실제 AFOQT 환산과 다르며, ${e.key==="full"?"전체 모의고사를 여러 번 볼수록":"풀 모의고사로 볼수록"} 정확해집니다.</div>`;
+  if(e.key==="afoqt"){
+    const compLines=COMPOSITES.map(c=>{ const ce=compositeEst(c.codes); return `<div class="row" style="justify-content:space-between"><span>${c.name}</span><b>${ce.pct==null?"–":ce.pct+"th"}</b></div>`; }).join("");
+    proj.innerHTML=`<div class="lbl">예상 AFOQT 합성점수 백분위</div>
+      <div class="seclist" style="text-align:left;margin-top:6px">${compLines}</div>
+      <div class="note">정답률 ${Math.round(acc*100)}% · ${secLines}<br>※ 비공식 추정. 통계 탭에서 누적 합성점수를 확인하세요.</div>`;
+  } else {
+    proj.innerHTML=`<div class="lbl">${e.key==="full"?"예상 AFOQT Verbal 백분위":"예상 백분위"}</div>
+      <div class="big">${pctile}<span style="font-size:16px">th</span></div>
+      <div class="seclist">정답률 ${Math.round(acc*100)}%${multi?` · ${secLines}`:""}</div>
+      <div class="note">※ 비공식 추정치예요. 실제 AFOQT 환산과 다르며, ${e.key==="full"?"전체 모의고사를 여러 번 볼수록":"풀 모의고사로 볼수록"} 정확해집니다.</div>`;
+  }
   $("#examTimeUsed").textContent=`소요 시간 ${fmtTime(used)}${e.secsLeft<=0?" · ⏰ 시간 종료":""}`;
   $("#examReview").innerHTML=""; $("#examReviewBtn").classList.remove("hidden");
   window.scrollTo(0,0);
@@ -1435,23 +1474,28 @@ function renderStats(){
       <span style="color:${ok?'var(--ok)':'var(--warn)'}">${ok?'✅ 일정 내 완주 가능!':'⚠️ 하루 신규 단어를 늘리면 더 안전해요.'}</span>`;
   renderComposite(); renderExamTrend(); renderWeakness();
 }
+const SEC_KO={WK:"단어",VA:"유추",RC:"독해",AR:"산수",MK:"수학",PS:"과학",AV:"항공",TR:"표읽기",BC:"블록",IC:"계기"};
+// Approximate AFOQT composite -> subtest membership (unofficial).
+const COMPOSITES=[
+  {name:"🎓 Academic Aptitude",codes:["WK","VA","RC","AR","MK"]},
+  {name:"🗣 Verbal",codes:["WK","VA","RC"]},
+  {name:"🔢 Quantitative",codes:["AR","MK"]},
+  {name:"✈️ Pilot",codes:["AR","MK","IC","TR","AV","BC"]},
+  {name:"🛰 CSO",codes:["WK","AR","MK","TR","BC","AV"]},
+];
 function renderComposite(){
   const box=$("#compositeEst"); if(!box) return;
-  const secName={WK:"단어",VA:"유추",RC:"독해",AR:"산수",MK:"수학"};
   const accOf=s=>{ const o=state.secAcc[s]; const n=o?(o.c+o.w):0; return n?Math.round(o.c/n*100):null; };
-  const secLine=codes=>codes.map(s=>`${secName[s]} ${accOf(s)==null?"–":accOf(s)+"%"}`).join(" · ");
-  const block=(title,e,codes)=>`<div style="margin-bottom:14px">
+  const secLine=codes=>codes.filter(s=>accOf(s)!=null).map(s=>`${SEC_KO[s]} ${accOf(s)}%`).join(" · ")||"–";
+  const block=(title,e,codes)=>`<div style="margin-bottom:13px">
       <div class="row" style="justify-content:space-between;align-items:baseline">
         <b style="font-size:15px">${title}</b>
-        <span style="font-size:28px;font-weight:800;color:var(--brand2)">${e.pct==null?"–":e.pct+"<small style='font-size:14px'>th</small>"}</span></div>
-      <div class="muted" style="font-size:12px;line-height:1.6;margin-top:2px">${e.acc==null
-        ?"아직 데이터가 부족해요 — 해당 과목 문제를 더 풀면 예측됩니다."
-        :`예상 정답률 ${Math.round(e.acc*100)}% · ${secLine(codes)} · 표본 ${e.n}문항`}</div></div>`;
-  const V=compositeEst(["WK","VA","RC"]), Q=compositeEst(["AR","MK"]), A=compositeEst(["WK","VA","RC","AR","MK"]);
-  box.innerHTML=block("🗣 Verbal 예상 백분위",V,["WK","VA","RC"])
-    +block("🔢 Quantitative 예상 백분위",Q,["AR","MK"])
-    +block("🎓 Academic (V+Q) 예상",A,["WK","VA","RC","AR","MK"])
-    +`<div class="guide-src" style="margin-top:2px">※ 비공식 추정치입니다. 실제 AFOQT 환산표와 다르며, 각 과목을 고루·많이 풀수록 정확해져요. 단어는 '🧠 빠른 퀴즈'나 '단어 시험'을 풀면 반영됩니다.</div>`;
+        <span style="font-size:26px;font-weight:800;color:var(--brand2)">${e.pct==null?"–":e.pct+"<small style='font-size:13px'>th</small>"}</span></div>
+      <div class="muted" style="font-size:11.5px;line-height:1.55;margin-top:2px">${e.acc==null
+        ?"데이터 부족 — 관련 과목을 더 풀면 예측돼요."
+        :`정답률 ${Math.round(e.acc*100)}% · ${secLine(codes)} · 표본 ${e.n}`}</div></div>`;
+  box.innerHTML=COMPOSITES.map(c=>block(c.name,compositeEst(c.codes),c.codes)).join("")
+    +`<div class="guide-src" style="margin-top:2px">※ 비공식 추정치입니다. 합성점수 구성·환산은 실제 AFOQT와 다를 수 있어요. 각 과목(항공·표읽기·블록·계기 포함)을 고루 풀수록 정확해집니다.</div>`;
 }
 function renderExamTrend(){
   const h=state.examHist||[]; const box=$("#examTrend");
