@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.2.0";
+const VERSION = "4.3.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -978,29 +978,29 @@ function compassSVG(heading){
     <text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="13" font-weight="800" fill="#22d3ee">${String(Math.round(heading)).padStart(3,"0")}°</text>
   </svg>`;
 }
-// Rear-view aircraft silhouette: banked (rotate) + climb/dive (nose marker up/down).
+// Recognizable swept-wing jet seen from behind/above (nose points up/away).
+// Bank = rotate the whole jet; pitch = a clear ↑/↓ climb/dive marker.
 function planeSVG(bank,pitch){
-  const cx=60,cy=45;
-  const nose= pitch>0?`<polygon points="${cx-7},${cy-14} ${cx+7},${cy-14} ${cx},${cy-26}" fill="#22d3ee"/>`
-            : pitch<0?`<polygon points="${cx-7},${cy+14} ${cx+7},${cy+14} ${cx},${cy+26}" fill="#22d3ee"/>`:"";
-  return `<svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
-    <g transform="rotate(${bank} ${cx} ${cy})">
-      <line x1="${cx-40}" y1="${cy}" x2="${cx+40}" y2="${cy}" stroke="#cbd5e1" stroke-width="7" stroke-linecap="round"/>
-      <line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy-22}" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
-      <line x1="${cx-12}" y1="${cy-22}" x2="${cx+12}" y2="${cy-22}" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="${cx}" cy="${cy}" r="6" fill="#93a4bd"/>
-      ${nose}
-    </g></svg>`;
+  const cx=60,cy=48;
+  const jet=`
+    <path d="M ${cx} ${cy-22} L ${cx+5} ${cy+6} L ${cx+42} ${cy+18} L ${cx+42} ${cy+12} L ${cx+5} ${cy-2}
+             L ${cx+4} ${cy+18} L ${cx+11} ${cy+24} L ${cx} ${cy+20} L ${cx-11} ${cy+24} L ${cx-4} ${cy+18}
+             L ${cx-5} ${cy-2} L ${cx-42} ${cy+12} L ${cx-42} ${cy+18} L ${cx-5} ${cy+6} Z"
+          fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" stroke-linejoin="round"/>
+    <circle cx="${cx}" cy="${cy-16}" r="3.5" fill="#7c8aa3"/>`;
+  const arrow= pitch>0?`<g><text x="${cx}" y="20" text-anchor="middle" font-size="15" font-weight="800" fill="#22d3ee">▲ 상승</text></g>`
+             : pitch<0?`<g><text x="${cx}" y="20" text-anchor="middle" font-size="15" font-weight="800" fill="#f59e0b">▼ 하강</text></g>`
+             : `<text x="${cx}" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#94a3b8">— 수평</text>`;
+  return `<svg viewBox="0 0 120 96" xmlns="http://www.w3.org/2000/svg">${arrow}<g transform="rotate(${bank} ${cx} ${cy})">${jet}</g></svg>`;
 }
 function genIC(){
   const bank=IC_BANKS[Math.random()*IC_BANKS.length|0];
   const pitch=IC_PITCH[Math.random()*IC_PITCH.length|0];
-  const heading=[0,45,90,135,180,225,270,315][Math.random()*8|0];
   const correct={bank,pitch};
   const opts=[correct]; let guard=0;
   while(opts.length<4&&guard++<60){ const b=IC_BANKS[Math.random()*IC_BANKS.length|0], p=IC_PITCH[Math.random()*IC_PITCH.length|0];
     if(!opts.some(o=>o.bank===b&&o.pitch===p)) opts.push({bank:b,pitch:p}); }
-  return {bank,pitch,heading,correctIdx:0,options:shuffle(opts)};
+  return {bank,pitch,options:shuffle(opts)};
 }
 function startInstrument(){
   const N=12, secs=180, qs=[]; for(let i=0;i<N;i++) qs.push(genIC());
@@ -1018,10 +1018,10 @@ function renderICQ(){ const s=icState; if(!s) return; if(s.idx>=s.N) return fini
   const q=s.qs[s.idx]; s.answered=false; const correctKey=q.options.findIndex(o=>o.bank===q.bank&&o.pitch===q.pitch);
   $("#icCount").textContent=`${s.idx+1} / ${s.N}`; $("#icBar").style.width=(s.idx/s.N*100)+"%";
   $("#icArea").innerHTML=`<div class="ic-instruments">
-      <div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (뱅크·피치)</div></div>
-      <div class="ic-dial">${compassSVG(q.heading)}<div class="lbl">나침반 (기수)</div></div></div>
-    <div class="ic-prompt">계기에 맞는 비행기를 고르세요<br><span class="muted" style="font-size:12px">(자세계의 뱅크 방향과 상승/하강을 보세요)</span></div>
-    <div class="ic-opts">${q.options.map((o,i)=>`<button data-i="${i}">${planeSVG(o.bank,o.pitch)}<div class="ol">${o.bank<0?"좌 "+(-o.bank)+"°":o.bank>0?"우 "+o.bank+"°":"수평"} · ${o.pitch>0?"상승":o.pitch<0?"하강":"수평비행"}</div></button>`).join("")}</div>`;
+      <div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (Attitude Indicator)</div></div></div>
+    <div class="ic-prompt">자세계를 보고 <b>같은 자세</b>의 비행기를 고르세요
+      <br><span class="muted" style="font-size:12px">기울어진 정도·방향(뱅크)과 수평선 위치(상승/하강)를 확인하세요</span></div>
+    <div class="ic-opts">${q.options.map((o,i)=>`<button data-i="${i}">${planeSVG(o.bank,o.pitch)}<div class="ol">${o.bank<0?"왼쪽 "+(-o.bank)+"° 뱅크":o.bank>0?"오른쪽 "+o.bank+"° 뱅크":"수평"} · ${o.pitch>0?"상승":o.pitch<0?"하강":"수평비행"}</div></button>`).join("")}</div>`;
   $$("#icArea .ic-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
     const i=+btn.dataset.i, ok=i===correctKey;
     $$("#icArea .ic-opts button").forEach((b,bi)=>{ b.disabled=true; if(bi===correctKey) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
