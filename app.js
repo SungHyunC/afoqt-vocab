@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "3.9.0";
+const VERSION = "4.0.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -73,7 +73,7 @@ function loadLocal(){
   state.settings=Object.assign(d.settings, state.settings||{});
 }
 let saveTimer=null;
-function saveLocal(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); }
+function saveLocal(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); if(sb) queuePush("app_state"); }
 // Write immediately. Mobile browsers freeze timers when the app is backgrounded,
 // so a debounced save can be lost — always flush on hide/pagehide (see wire()).
 function saveNow(){ clearTimeout(saveTimer); try{ localStorage.setItem(LS.state, JSON.stringify(state)); }catch(e){} }
@@ -182,16 +182,18 @@ async function initSync(){
 async function pullAll(){
   if(!sb) return; const code=syncCode();
   try{
-    const [vs,vp,dl,st]=await Promise.all([
+    const [vs,vp,dl,st,as]=await Promise.all([
       sb.from("vocab_state").select("*").eq("user_key",code),
       sb.from("verbal_progress").select("*").eq("user_key",code),
       sb.from("daily_log").select("*").eq("user_key",code),
       sb.from("settings").select("*").eq("user_key",code).maybeSingle(),
+      sb.from("app_state").select("*").eq("user_key",code).maybeSingle(),
     ]);
     if(vs.data) vs.data.forEach(mergeCard);
     if(vp.data) vp.data.forEach(mergeVerbal);
     if(dl.data) dl.data.forEach(mergeDaily);
     if(st.data) mergeSettings(st.data);
+    if(as.data&&as.data.data) mergeMisc(as.data.data);
     saveLocal(); renderAll();
   }catch(e){ console.error("pull fail",e); setSyncDot("err"); }
 }
@@ -205,6 +207,34 @@ function mergeDaily(r){ const cur=state.daily[r.day];
 function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.daily_goal;
   if(r.start_date) state.settings.start_date=r.start_date; if(r.exam_date) state.settings.exam_date=r.exam_date;
   if(r.data){ if(r.data.high_first!=null) state.settings.high_first=r.data.high_first; if(r.data.high_only!=null) state.settings.high_only=r.data.high_only; } }
+// The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
+// coverage, exam history, curriculum) synced as one JSON blob, field-merged so
+// neither device clobbers the other.
+function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
+  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr}; }
+function mergeMisc(d){
+  if(!d) return;
+  // exams: keep the higher best per key
+  for(const k in (d.exams||{})){ const r=d.exams[k],c=state.exams[k];
+    if(!c||(r.best||0)>(c.best||0)) state.exams[k]={...c,...r}; }
+  // curr: max unlocked, union passed, max best per stage
+  for(const t in (d.curr||{})){ const r=d.curr[t]; const c=state.curr[t]||(state.curr[t]={unlocked:0,passed:{},best:{}});
+    c.unlocked=Math.max(c.unlocked||0,r.unlocked||0);
+    Object.assign(c.passed,r.passed||{});
+    for(const s in (r.best||{})) c.best[s]=Math.max(c.best[s]||0,r.best[s]||0); }
+  // counters: keep the side with more samples (avoids double-count on re-sync)
+  const richer=(a,b)=>((b?.c||0)+(b?.w||0))>((a?.c||0)+(a?.w||0));
+  for(const k in (d.secAcc||{})){ if(richer(state.secAcc[k],d.secAcc[k])) state.secAcc[k]=d.secAcc[k]; }
+  ["vaRel","rcType","wkTier"].forEach(g=>{ const rg=(d.weak||{})[g]||{}; const cg=state.weak[g]||(state.weak[g]={});
+    for(const k in rg){ if(richer(cg[k],rg[k])) cg[k]=rg[k]; } });
+  // sets: union
+  ["wkSeen","avp"].forEach(key=>{ Object.assign(state[key], d[key]||{}); });
+  ["wk","va","rc"].forEach(g=>{ Object.assign(state.wrong[g], (d.wrong||{})[g]||{}); });
+  // exam history: union by ts, keep last 200
+  const seen=new Set(state.examHist.map(x=>x.ts));
+  (d.examHist||[]).forEach(x=>{ if(!seen.has(x.ts)){ state.examHist.push(x); seen.add(x.ts); } });
+  state.examHist.sort((a,b)=>a.ts-b.ts); if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
+}
 
 function subscribeRealtime(){
   if(!sb) return; if(realtimeChan) sb.removeChannel(realtimeChan); const code=syncCode();
@@ -213,11 +243,13 @@ function subscribeRealtime(){
     .on("postgres_changes",{event:"*",schema:"public",table:"verbal_progress",filter:`user_key=eq.${code}`},p=>{ if(p.new){mergeVerbal(p.new);saveLocal();softRender();}})
     .on("postgres_changes",{event:"*",schema:"public",table:"daily_log",filter:`user_key=eq.${code}`},p=>{ if(p.new){mergeDaily(p.new);saveLocal();softRender();}})
     .on("postgres_changes",{event:"*",schema:"public",table:"settings",filter:`user_key=eq.${code}`},p=>{ if(p.new){mergeSettings(p.new);saveLocal();softRender();}})
+    .on("postgres_changes",{event:"*",schema:"public",table:"app_state",filter:`user_key=eq.${code}`},p=>{ if(p.new&&p.new.data){mergeMisc(p.new.data);saveLocal();softRender();}})
     .subscribe();
 }
-const pushQ={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map(),settings:null};
+const pushQ={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map(),settings:null,app_state:null};
 let pushTimer=null;
 function queuePush(table,row){ if(!sb) return; const code=syncCode();
+  if(table==="app_state"){ pushQ.app_state={user_key:code,data:miscBlob(),updated_at:nowISO()}; clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,1200); return; }
   if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,updated_at:row.updated_at});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at});
@@ -229,6 +261,7 @@ async function flushPush(){ if(!sb) return;
     if(pushQ.verbal_progress.size){ const r=[...pushQ.verbal_progress.values()]; pushQ.verbal_progress.clear(); await sb.from("verbal_progress").upsert(r,{onConflict:"user_key,kind,item_id"}); }
     if(pushQ.daily_log.size){ const r=[...pushQ.daily_log.values()]; pushQ.daily_log.clear(); await sb.from("daily_log").upsert(r,{onConflict:"user_key,day"}); }
     if(pushQ.settings){ const r=pushQ.settings; pushQ.settings=null; await sb.from("settings").upsert(r,{onConflict:"user_key"}); }
+    if(pushQ.app_state){ const r=pushQ.app_state; pushQ.app_state=null; await sb.from("app_state").upsert(r,{onConflict:"user_key"}); }
   }catch(e){ console.error("push fail",e); setSyncDot("err"); } }
 
 /* ============================================================
