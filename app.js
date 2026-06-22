@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.3.0";
+const VERSION = "4.4.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -306,18 +306,30 @@ function renderHome(){
   const overall=Math.round(cnt.learned/Math.max(1,WORDS.length)*100);
   $("#stStreak").textContent=computeStreak(); $("#stToday").textContent=today.studied; $("#stDue").textContent=dueCards().length;
   // ---- daily pacing (recomputed every render, so it auto-updates as days pass) ----
+  const rawDays=dayDiff(todayStr(),state.settings.exam_date);
   const remain=newWordsRemaining(), dleft=daysLeft(), pace=newPerDay(), autop=autoPace();
-  $("#recPace").textContent=`신규 ${pace}/일`;
-  $("#recBasis").textContent=`남은 ${remain}단어 ÷ ${dleft}일 = 하루 ${autop}개`;
   const note=$("#behindNote");
-  if(remain===0){ note.classList.add("hidden"); }
-  else if(state.settings.daily_goal>0 && state.settings.daily_goal<autop){
+  if(rawDays<0){
+    // Exam date is in the past — almost always a stale saved date. Make it obvious.
+    $("#recPace").textContent="신규 –";
+    $("#recBasis").textContent="⚠️ 시험 목표일이 지났어요";
     note.classList.remove("hidden");
-    note.innerHTML=`⚠️ 지금 목표(<b>${state.settings.daily_goal}</b>/일)로는 시험까지 다 못 외워요. 일정대로면 <b>하루 ${autop}개</b> 필요합니다. (설정에서 목표를 비우면 자동 계산)`;
-  } else if(autop>=120){
-    note.classList.remove("hidden");
-    note.innerHTML=`🔥 밀린 분량이 있어요 — 일정 내 1회독하려면 <b>하루 ${autop}개</b> 페이스예요. 매일 하면 금방 줄어듭니다.`;
-  } else { note.classList.add("hidden"); }
+    note.innerHTML=`⚙️ <b>설정 → 시험 목표일</b>을 실제 응시일(예: 2026-08-05)로 바꿔주세요. 그러면 권장량이 다시 계산됩니다.`;
+  } else {
+    $("#recPace").textContent=`신규 ${pace}/일`;
+    $("#recBasis").textContent=`남은 ${remain}단어 ÷ ${dleft}일 = 하루 ${autop}개`;
+    if(remain===0){ note.classList.add("hidden"); }
+    else if(state.settings.daily_goal>0 && state.settings.daily_goal<autop){
+      note.classList.remove("hidden");
+      note.innerHTML=`⚠️ 직접 설정한 목표(<b>${state.settings.daily_goal}</b>/일)로는 시험까지 다 못 외워요. 일정대로면 <b>하루 ${autop}개</b> 필요해요. (설정에서 목표를 비우면 자동 계산)`;
+    } else if(state.settings.daily_goal>0){
+      note.classList.remove("hidden");
+      note.innerHTML=`ℹ️ 지금은 <b>직접 설정한 목표 ${state.settings.daily_goal}/일</b>로 고정돼 있어요(자동 계산값: 하루 ${autop}개). 설정에서 목표를 비우면 날짜에 맞춰 자동으로 바뀝니다.`;
+    } else if(autop>=120){
+      note.classList.remove("hidden");
+      note.innerHTML=`🔥 밀린 분량이 있어요 — 일정 내 1회독하려면 <b>하루 ${autop}개</b> 페이스예요. 매일 하면 금방 줄어듭니다.`;
+    } else { note.classList.add("hidden"); }
+  }
   // ---- per-section readiness ----
   const afCount=WORDS.filter(w=>w.afoqtCommon).length||1;
   const afLearned=WORDS.filter(w=>w.afoqtCommon&&((state.cards[w.id]&&state.cards[w.id].status!=="new")||state.wkSeen[w.id])).length;
