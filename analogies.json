@@ -33589,7 +33589,7 @@
       {
         "pair": [
           "violin",
-          "bow"
+          "string"
         ],
         "correct": true
       },
@@ -36813,7 +36813,7 @@
         "correct": false
       }
     ],
-    "relation": "worker : subject",
+    "relation": "field : subject",
     "explain": "지도학은 지도를 다룸, 분야:대상.",
     "tier": "mid"
   },
