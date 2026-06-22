@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.0.0";
+const VERSION = "4.1.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -57,6 +57,7 @@ const DEFAULT_STATE = () => ({
   secAcc:{},  // 예상점수용 과목별 정답 누적: 'WK'|'VA'|... -> {c,w}
   wkSeen:{}, avp:{},  // readiness coverage: wordId / aviationId seen in exams
   curr:{},    // 커리큘럼: track -> {unlocked:int, passed:{si:1}, best:{si:score}}
+  checklist:{},  // 주차별 체크리스트: 'weekKey:phase' -> {taskIdx:1}
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
@@ -68,7 +69,7 @@ function loadLocal(){
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.wrong=Object.assign({wk:{},va:{},rc:{}},state.wrong||{});
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{}},state.weak||{});
-  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{};
+  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{};
   state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
 }
@@ -211,7 +212,7 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr}; }
+  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist}; }
 function mergeMisc(d){
   if(!d) return;
   // exams: keep the higher best per key
@@ -234,6 +235,7 @@ function mergeMisc(d){
   const seen=new Set(state.examHist.map(x=>x.ts));
   (d.examHist||[]).forEach(x=>{ if(!seen.has(x.ts)){ state.examHist.push(x); seen.add(x.ts); } });
   state.examHist.sort((a,b)=>a.ts-b.ts); if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
+  for(const k in (d.checklist||{})){ state.checklist[k]=Object.assign(state.checklist[k]||{}, d.checklist[k]); }
 }
 
 function subscribeRealtime(){
@@ -342,6 +344,34 @@ function renderHome(){
   const vEst=compositeEst(["WK","VA","RC"]), el=$("#verbalEstLine");
   if(el){ if(vEst.pct!=null){ el.classList.remove("hidden"); el.textContent=`🗣 Verbal 예상 백분위 ${vEst.pct}th (정답률 ${Math.round(vEst.acc*100)}%) · 통계 탭에서 상세`; }
     else el.classList.add("hidden"); }
+  renderWeekPlan();
+}
+function weekKey(){ const d=new Date(); const off=(d.getDay()+6)%7; d.setDate(d.getDate()-off); return todayStr(d); }
+function examPhase(){ const d=daysLeft();
+  if(d>35) return {key:"base",name:"기초 다지기",emoji:"🌱",tasks:[
+    "🎓 커리큘럼: 유추 1단계(관계 분류) 통과","📇 빈출 단어 100개 학습(플래시카드)","🔤 어원 10개 익히기",
+    "📖 독해 커리큘럼 1단계(주제 찾기)","📅 통합 학습 3회"]};
+  if(d>21) return {key:"build",name:"실력 쌓기",emoji:"💪",tasks:[
+    "🎓 유추·단어 커리큘럼 졸업 도전","📇 빈출 high(635) 완주","🔗 유추 시험 15+ 달성",
+    "🛩️ 항공/수학 시작","📅 통합 학습 4회"]};
+  if(d>10) return {key:"mock",name:"실전 모드",emoji:"🎯",tasks:[
+    "🎯 전체 모의고사 2회","🧩 약점 과목 집중 보강","📕 오답 노트 재시험",
+    "📊 예상 점수 70%↑ 확인","📅 통합 학습 4회"]};
+  return {key:"final",name:"마무리",emoji:"🔥",tasks:[
+    "📕 오답만 빠르게 복습","🎯 가벼운 모의고사 1회","📊 예상 점수 최종 확인",
+    "😴 컨디션·수면 관리","✅ 시험 준비물·일정 확인"]};
+}
+function renderWeekPlan(){
+  const box=$("#weekPlan"); if(!box) return;
+  const dl=Math.max(0,dayDiff(todayStr(),state.settings.exam_date));
+  const ph=examPhase(), key=weekKey()+":"+ph.key;
+  const ck=state.checklist[key]||(state.checklist[key]={});
+  const done=ph.tasks.filter((_,i)=>ck[i]).length, pct=Math.round(done/ph.tasks.length*100);
+  box.innerHTML=`<div class="wp-head"><div class="wp-phase">${ph.emoji} 이번 주 · ${esc(ph.name)}</div><div class="wp-dday">D-${dl}</div></div>
+    <div class="muted" style="font-size:11px">${done}/${ph.tasks.length} 완료 · 시험까지 ${dl}일</div>
+    <div class="wp-bar"><i style="width:${pct}%"></i></div>
+    ${ph.tasks.map((t,i)=>`<div class="wp-task ${ck[i]?"on":""}" data-i="${i}"><div class="wp-box">${ck[i]?"✓":""}</div><div class="tx">${esc(t)}</div></div>`).join("")}`;
+  $$("#weekPlan .wp-task").forEach(el=>el.onclick=()=>{ const i=+el.dataset.i; if(ck[i]) delete ck[i]; else ck[i]=1; saveLocal(); renderWeekPlan(); });
 }
 
 /* ============================================================
