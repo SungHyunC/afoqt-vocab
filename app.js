@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "3.8.0";
+const VERSION = "3.9.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -59,7 +59,7 @@ const DEFAULT_STATE = () => ({
   curr:{},    // 커리큘럼: track -> {unlocked:int, passed:{si:1}, best:{si:score}}
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
-             start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-07-10" },
+             start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
 });
 
 function loadLocal(){
@@ -278,7 +278,7 @@ function renderHome(){
   if(remain===0){ note.classList.add("hidden"); }
   else if(state.settings.daily_goal>0 && state.settings.daily_goal<autop){
     note.classList.remove("hidden");
-    note.innerHTML=`⚠️ 지금 목표(<b>${state.settings.daily_goal}</b>/일)로는 7/10까지 다 못 외워요. 일정대로면 <b>하루 ${autop}개</b> 필요합니다. (설정에서 목표를 비우면 자동 계산)`;
+    note.innerHTML=`⚠️ 지금 목표(<b>${state.settings.daily_goal}</b>/일)로는 시험까지 다 못 외워요. 일정대로면 <b>하루 ${autop}개</b> 필요합니다. (설정에서 목표를 비우면 자동 계산)`;
   } else if(autop>=120){
     note.classList.remove("hidden");
     note.innerHTML=`🔥 밀린 분량이 있어요 — 일정 내 1회독하려면 <b>하루 ${autop}개</b> 페이스예요. 매일 하면 금방 줄어듭니다.`;
@@ -1387,6 +1387,7 @@ function renderStats(){
   let cor=0,stu=0; for(const k in state.daily){ cor+=state.daily[k].correct; stu+=state.daily[k].studied; }
   $("#sAcc").textContent=stu?Math.round(cor/stu*100)+"%":"–";
   const start=parseDate(state.settings.start_date), exam=parseDate(state.settings.exam_date);
+  const ct=$("#calTitle"); if(ct){ const [,sm,sd]=state.settings.start_date.split("-"), [,em,ed]=state.settings.exam_date.split("-"); ct.textContent=`학습 달력 (${+sm}/${+sd} – ${+em}/${+ed})`; }
   $("#calHead").innerHTML=["일","월","화","수","목","금","토"].map(d=>`<div class="dow">${d}</div>`).join("");
   let cells=""; for(let i=0;i<start.getDay();i++) cells+=`<div class="d" style="background:none"></div>`;
   for(let d=new Date(start); d<=exam; d.setDate(d.getDate()+1)){ const key=todayStr(d),rec=state.daily[key]; let cls="d";

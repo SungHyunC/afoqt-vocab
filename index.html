@@ -17,7 +17,7 @@
 <header class="appbar">
   <div>
     <h1 id="barTitle">AFOQT Master</h1>
-    <div class="sub" id="bar-sub">전 과목 대비 · 6/1 → 7/10</div>
+    <div class="sub" id="bar-sub">전 과목 대비 · 목표 8월 초</div>
   </div>
   <div class="row" style="align-items:center;gap:10px">
     <span class="sync-dot off" id="syncDot" title="동기화 상태"></span>
@@ -34,7 +34,7 @@
       <div>
         <div class="muted" style="font-size:13px;opacity:.9">시험까지</div>
         <div class="days"><span id="daysLeft">–</span> <small>일</small></div>
-        <div class="goal-line" id="examLine">목표일 7/10</div>
+        <div class="goal-line" id="examLine">목표일 8/3</div>
       </div>
       <div class="ring" id="goalRing" style="--p:0">
         <div class="v"><b id="ringPct">0%</b><span>오늘 목표</span></div>
@@ -46,7 +46,7 @@
   </div>
 
   <button class="btn primary" id="btnDaily" style="margin-top:16px;font-size:17px;padding:17px">📅 오늘의 통합 학습 (전 영역)</button>
-  <button class="btn ghost" id="btnCurr" style="margin-top:10px;font-size:16px;padding:15px">🎓 커리큘럼 학습 (기초 → 실전 · 2주 15+ 목표)</button>
+  <button class="btn ghost" id="btnCurr" style="margin-top:10px;font-size:16px;padding:15px">🎓 커리큘럼 학습 (기초 → 실전 · 15+ 목표)</button>
   <button class="btn ghost" id="btnStart" style="margin-top:10px;font-size:16px;padding:15px">📇 단어 플래시카드만</button>
   <button class="btn ghost" id="btnExam" style="margin-top:10px;font-size:16px;padding:15px">🎯 실전 모의고사 (시간 측정)</button>
 
@@ -426,7 +426,7 @@
 
 <!-- ===== STATS ===== -->
 <main id="view-stats" class="view">
-  <h2 class="section">학습 달력 (6/1 – 7/10)</h2>
+  <h2 class="section" id="calTitle">학습 달력</h2>
   <div class="card">
     <div class="cal" id="calHead"></div>
     <div class="cal" id="calGrid" style="margin-top:5px"></div>
