@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.7.0";
+const VERSION = "4.8.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -400,13 +400,23 @@ function renderVocab(){
    STUDY (flashcards)
    ============================================================ */
 let session=null;
+function snapSession(){ if(session) state.session={queue:session.queue.slice(),idx:session.idx,plan:session.plan,studied:session.studied,correct:session.correct,day:todayStr()}; }
 function startStudy(){
+  // Resume an unfinished session (don't restart from scratch when you re-enter).
+  const sv=state.session;
+  if(sv&&sv.day===todayStr()&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
+    session={queue:sv.queue.slice(),idx:sv.idx,plan:sv.plan,studied:sv.studied,correct:sv.correct,revealed:false,startTs:Date.now()};
+    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); toast("이어서 학습합니다 ▶");
+    return;
+  }
   const due=dueCards(), news=newCardIds(newPerDay());
   let queue=[...due,...news];
   if(!queue.length) queue=newCardIds(newPerDay());
   if(!queue.length){ toast("오늘 학습할 카드가 없어요! 🎉"); go("home"); return; }
   session={queue,idx:0,plan:queue.length,studied:0,correct:0,revealed:false,startTs:Date.now()};
-  const d=getDay(); if(!d.target){ d.target=queue.length; saveLocal(); }
+  snapSession();
+  const d=getDay(); if(!d.target){ d.target=queue.length; }
+  saveLocal();
   go("study"); $("#studyDone").classList.add("hidden"); renderCard();
 }
 function renderCard(){
@@ -457,14 +467,14 @@ function answer(id,q){ const s=session, wasNew=getCard(id).status==="new"; grade
   s.studied++; if(q!=="again") s.correct++;
   bumpDay({studied:1,correct:q!=="again"?1:0,new_learned:wasNew?1:0,seconds:Math.round((Date.now()-(s.cardTs||s.startTs))/1000)}); s.cardTs=Date.now();
   if(q==="again"){ const w=s.queue.splice(s.idx,1)[0]; s.queue.splice(Math.min(s.idx+3,s.queue.length),0,w); } else s.idx++;
-  renderHome(); renderCard(); }
+  snapSession(); saveLocal(); renderHome(); renderCard(); }
 function finishStudy(){ const s=session, secs=Math.round((Date.now()-s.startTs)/1000);
   $("#studyArea").innerHTML=""; $("#studyBar").style.width="100%"; $("#studyCount").textContent=`${s.plan} / ${s.plan}`;
   const acc=s.studied?Math.round(s.correct/s.studied*100):0;
   $("#doneSub").textContent=`${s.studied}개 학습 · 정답 ${acc}% · ${Math.round(secs/60)}분`;
   $("#studyDone").classList.remove("hidden");
   $("#doneMore").classList.toggle("hidden", dueCards().length===0 && newCardIds(1).length===0);
-  if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; }
+  if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); }
 
 /* ============================================================
    QUIZ (WK)
