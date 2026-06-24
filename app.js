@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.4.0";
+const VERSION = "4.5.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -53,7 +53,7 @@ const DEFAULT_STATE = () => ({
   daily:{},   // 'YYYY-MM-DD' -> {studied,correct,new_learned,seconds,target,goal_met,updated_at}
   exams:{},   // 'wk'|'va'|'rc'|'full' -> {best,bestTotal,last,lastTotal,date}
   wrong:{wk:{},va:{},rc:{}},  // 오답 노트: wk wordId / va anaId / rc "pid:qi" -> 1
-  weak:{vaRel:{},rcType:{},wkTier:{}},  // 약점 분석: category -> {c,w}
+  weak:{vaRel:{},rcType:{},wkTier:{},topic:{}},  // 약점 분석: category -> {c,w}
   secAcc:{},  // 예상점수용 과목별 정답 누적: 'WK'|'VA'|... -> {c,w}
   wkSeen:{}, avp:{},  // readiness coverage: wordId / aviationId seen in exams
   curr:{},    // 커리큘럼: track -> {unlocked:int, passed:{si:1}, best:{si:score}}
@@ -68,7 +68,7 @@ function loadLocal(){
   const d=DEFAULT_STATE();
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.wrong=Object.assign({wk:{},va:{},rc:{}},state.wrong||{});
-  state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{}},state.weak||{});
+  state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{},topic:{}},state.weak||{});
   state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{};
   state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
@@ -226,7 +226,7 @@ function mergeMisc(d){
   // counters: keep the side with more samples (avoids double-count on re-sync)
   const richer=(a,b)=>((b?.c||0)+(b?.w||0))>((a?.c||0)+(a?.w||0));
   for(const k in (d.secAcc||{})){ if(richer(state.secAcc[k],d.secAcc[k])) state.secAcc[k]=d.secAcc[k]; }
-  ["vaRel","rcType","wkTier"].forEach(g=>{ const rg=(d.weak||{})[g]||{}; const cg=state.weak[g]||(state.weak[g]={});
+  ["vaRel","rcType","wkTier","topic"].forEach(g=>{ const rg=(d.weak||{})[g]||{}; const cg=state.weak[g]||(state.weak[g]={});
     for(const k in rg){ if(richer(cg[k],rg[k])) cg[k]=rg[k]; } });
   // sets: union
   ["wkSeen","avp"].forEach(key=>{ Object.assign(state[key], d[key]||{}); });
@@ -269,7 +269,7 @@ async function flushPush(){ if(!sb) return;
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -290,7 +290,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -497,7 +497,9 @@ function renderQuiz(){ const q=quiz; if(q.idx>=q.items.length) return finishQuiz
   q.answered=false;
   $$("#choices .choice").forEach(btn=>btn.onclick=()=>{ if(q.answered)return; q.answered=true; const ok=btn.textContent===correct;
     $$("#choices .choice").forEach(b=>{ b.disabled=true; if(b.textContent===correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) q.score+=10; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok); renderHome();
+    if(ok) q.score+=10; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+      { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+      renderHome();
     setTimeout(()=>{ q.idx++; renderQuiz(); }, ok?550:1100); });
 }
 function finishQuiz(){ const q=quiz,total=q.items.length,got=q.score/10,pct=Math.round(got/total*100);
@@ -1366,6 +1368,9 @@ function recordResult(it,ok){
   const W=state.wrong, K=state.weak;
   recordSecAcc(it.section, ok);
   const bump=(obj,cat)=>{ const o=obj[cat]||(obj[cat]={c:0,w:0}); if(ok)o.c++; else o.w++; };
+  // per-topic weakness for the topic-based MCQ subtests
+  const topic=(it.section==="AV"?it.avTopic:it.sub)||"";
+  if(["AR","MK","PS","AV"].includes(it.section)&&topic) bump(K.topic||(K.topic={}), it.section+":"+topic);
   if(it.section==="WK"&&it.wordId!=null){
     if(ok) delete W.wk[it.wordId]; else W.wk[it.wordId]=1;
     bump(K.wkTier, it.tier||"std");
@@ -1495,6 +1500,60 @@ const COMPOSITES=[
   {name:"✈️ Pilot",codes:["AR","MK","IC","TR","AV","BC"]},
   {name:"🛰 CSO",codes:["WK","AR","MK","TR","BC","AV"]},
 ];
+/* ============================================================
+   WEAKNESS REPORT (약점 리포트 — 푼 문제 기반 분석 + 바로 연습)
+   ============================================================ */
+const SUBTESTS=[
+  {code:"WK",name:"단어 (Word Knowledge)",go:()=>startExam("wk")},
+  {code:"VA",name:"유추 (Verbal Analogies)",go:()=>startExam("va")},
+  {code:"RC",name:"독해 (Reading)",go:()=>startExam("rc")},
+  {code:"AR",name:"산수 (Arithmetic)",go:()=>openSubtest("ar")},
+  {code:"MK",name:"수학 (Math Knowledge)",go:()=>openSubtest("mk")},
+  {code:"PS",name:"과학 (Physical Science)",go:()=>openSubtest("ps")},
+  {code:"AV",name:"항공 (Aviation)",go:()=>startExam("av")},
+  {code:"TR",name:"표 읽기 (Table Reading)",go:()=>startTableReading()},
+  {code:"BC",name:"블록 세기 (Block Counting)",go:()=>startBlockCounting()},
+  {code:"IC",name:"계기 (Instrument Comp.)",go:()=>startInstrument()},
+];
+const RC_TYPE_KO={main_idea:"주제",detail:"세부사항",inference:"추론",vocab_in_context:"문맥 어휘",tone_purpose:"어조/목적"};
+const WK_TIER_KO={high:"빈출(high)",mid:"중요(mid)",std:"일반(std)"};
+function accPct(o){ const n=(o?.c||0)+(o?.w||0); return n?Math.round((o.c/n)*100):null; }
+function repBar(label,o){ const p=accPct(o); const n=(o?.c||0)+(o?.w||0); const col=p<50?"var(--bad)":p<75?"var(--warn)":"var(--ok)";
+  return `<div class="rep-row"><div class="lab"><span>${esc(label)}</span><span class="muted">${p}% · ${o.w||0}틀림/${n}</span></div>
+    <div class="progressbar mini"><i style="width:${p}%;background:${col}"></i></div></div>`; }
+function openReport(){ go("report"); }
+function renderReport(){
+  const box=$("#repBody"); if(!box) return;
+  const subs=SUBTESTS.map(s=>({...s,o:state.secAcc[s.code]})).filter(s=>((s.o?.c||0)+(s.o?.w||0))>=3)
+    .map(s=>({...s,acc:accPct(s.o),n:(s.o.c||0)+(s.o.w||0)})).sort((a,b)=>a.acc-b.acc);
+  if(!subs.length){ box.innerHTML=`<div class="card rep-empty">아직 분석할 데이터가 부족해요.<br>퀴즈·시험·커리큘럼을 조금 풀면 약점을 분석해 드릴게요.<br><button class="btn primary" id="repGoDaily" style="max-width:240px;margin:14px auto 0">📅 오늘의 통합 학습 시작</button></div>`;
+    $("#repGoDaily")&&($("#repGoDaily").onclick=()=>startExam("daily")); return; }
+  const worst=subs[0];
+  const wkBlock=()=>{ const arr=Object.entries(state.weak.wkTier).map(([k,o])=>({k,o,n:o.c+o.w})).filter(x=>x.n>=2);
+    return arr.length?`<div class="rep-sub">📇 단어 — 등급별</div>${arr.map(x=>repBar(WK_TIER_KO[x.k]||x.k,x.o)).join("")}`:""; };
+  const vaBlock=()=>{ const arr=Object.entries(state.weak.vaRel).map(([k,o])=>({k,o,a:accPct(o),n:o.c+o.w})).filter(x=>x.n>=2).sort((a,b)=>a.a-b.a).slice(0,5);
+    return arr.length?`<div class="rep-sub">🔗 유추 — 약한 관계 유형</div>${arr.map(x=>repBar(x.k,x.o)).join("")}`:""; };
+  const rcBlock=()=>{ const arr=Object.entries(state.weak.rcType).map(([k,o])=>({k,o,a:accPct(o),n:o.c+o.w})).filter(x=>x.n>=2).sort((a,b)=>a.a-b.a);
+    return arr.length?`<div class="rep-sub">📖 독해 — 약한 문제 유형</div>${arr.map(x=>repBar(RC_TYPE_KO[x.k]||x.k,x.o)).join("")}`:""; };
+  const topicBySec={}; for(const [k,o] of Object.entries(state.weak.topic||{})){ const i=k.indexOf(":"); const sec=k.slice(0,i),t=k.slice(i+1); (topicBySec[sec]=topicBySec[sec]||[]).push({t,o,a:accPct(o),n:o.c+o.w}); }
+  const secKoName={AR:"산수",MK:"수학",PS:"과학",AV:"항공"};
+  const topicBlocks=Object.keys(topicBySec).map(sec=>{ const arr=topicBySec[sec].filter(x=>x.n>=2).sort((a,b)=>a.a-b.a).slice(0,4);
+    return arr.length?`<div class="rep-sub">${secKoName[sec]||sec} — 약한 주제</div>${arr.map(x=>repBar(x.t,x.o)).join("")}`:""; }).join("");
+  const wc=wrongCounts(), wtot=wc.wk+wc.va+wc.rc;
+  const recs=subs.slice(0,3).map(s=>`<div class="rep-rec"><div class="meta"><b>${esc(s.name)}</b><div class="muted">정답률 ${s.acc}% · ${s.n}문항</div></div><button class="btn primary" data-rec="${s.code}">연습</button></div>`).join("")
+    +(wtot?`<div class="rep-rec"><div class="meta"><b>📕 오답 노트</b><div class="muted">틀린 ${wtot}문제 다시 풀기</div></div><button class="btn primary" id="repRetest">재시험</button></div>`:"");
+  box.innerHTML=`<div class="rep-hero"><div style="font-size:12px;color:var(--brand2);font-weight:700">가장 약한 영역</div>
+      <div class="big">${esc(worst.name)} · ${worst.acc}%</div>
+      <div class="muted" style="font-size:12px;margin-top:4px">${worst.n}문항 기준 · 아래 "연습"으로 바로 보강하세요</div></div>
+    <div class="rep-sub">📊 과목별 정답률 (약한 순)</div>
+    ${subs.map(s=>repBar(s.name,s.o)).join("")}
+    ${wkBlock()}${vaBlock()}${rcBlock()}${topicBlocks}
+    <h2 class="section">💡 추천 — 바로 연습</h2>
+    ${recs}
+    <div class="guide-src" style="margin-top:6px">※ 푼 문제(퀴즈·시험·커리큘럼)를 종합한 분석이에요. 많이 풀수록 정확해집니다.</div>`;
+  $$('#repBody [data-rec]').forEach(b=>b.onclick=()=>{ const s=SUBTESTS.find(x=>x.code===b.dataset.rec); if(s) s.go(); });
+  $("#repRetest")&&($("#repRetest").onclick=()=>startRetest("all"));
+}
 function renderComposite(){
   const box=$("#compositeEst"); if(!box) return;
   const accOf=s=>{ const o=state.secAcc[s]; const n=o?(o.c+o.w):0; return n?Math.round(o.c/n*100):null; };
@@ -1591,6 +1650,7 @@ function wire(){
   $("#btnCurr").onclick=()=>openCurriculum();
   $("#vkCurr").onclick=()=>openCurriculum("wk"); $("#vaCurr").onclick=()=>openCurriculum("va"); $("#rcCurr").onclick=()=>openCurriculum("rc");
   $("#currBack").onclick=()=>go("home");
+  $("#repBack").onclick=()=>go("stats"); $("#btnReport")&&($("#btnReport").onclick=openReport); $("#repOpen")&&($("#repOpen").onclick=openReport);
   $$("#currTabs .chip").forEach(c=>c.onclick=()=>{ curTrack=c.dataset.ct; renderCurriculum(); });
   $("#cpBack").onclick=()=>{ curSes=null; go("curriculum"); };
   $("#cpRetry").onclick=()=>{ const t=curSes?.t??curTrack, si=curSes?.si??0; curSes=null; startCurrStage(t,si); };
