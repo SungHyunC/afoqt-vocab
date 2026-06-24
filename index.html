@@ -49,6 +49,7 @@
   <button class="btn ghost" id="btnCurr" style="margin-top:10px;font-size:16px;padding:15px">🎓 커리큘럼 학습 (기초 → 실전 · 15+ 목표)</button>
   <button class="btn ghost" id="btnStart" style="margin-top:10px;font-size:16px;padding:15px">📇 단어 플래시카드만</button>
   <button class="btn ghost" id="btnExam" style="margin-top:10px;font-size:16px;padding:15px">🎯 실전 모의고사 (시간 측정)</button>
+  <button class="btn ghost" id="btnReport" style="margin-top:10px;font-size:16px;padding:15px">🔍 내 약점 리포트</button>
 
   <div class="grid3" style="margin-top:16px">
     <div class="card tight stat"><div class="num" id="stStreak">0</div><div class="lbl">🔥 스트릭</div></div>
@@ -359,6 +360,12 @@
   </div>
 </main>
 
+<!-- ===== WEAKNESS REPORT (약점 리포트) ===== -->
+<main id="view-report" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="repBack">← 뒤로</button><span>🔍 약점 리포트</span><span></span></div>
+  <div id="repBody"></div>
+</main>
+
 <!-- ===== STUDY GUIDE (공부 가이드) ===== -->
 <main id="view-guide" class="view">
   <div class="study-top"><button class="btn sm ghost" id="guideBack">← 뒤로</button><span id="guideNav"></span><span></span></div>
@@ -456,6 +463,7 @@
 
   <h2 class="section">🧩 약점 분석</h2>
   <div class="card" id="weakAnalysis"></div>
+  <button class="btn primary" id="repOpen" style="margin-top:12px">🔍 내 약점 리포트 (바로 연습)</button>
 
   <h2 class="section">예상</h2>
   <div class="card" id="projection"></div>
