@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.6.0";
+const VERSION = "4.7.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -475,8 +475,10 @@ function poolFor(scope){
   if(scope==="high") return WORDS.filter(w=>tierOf(w)!=="std").map(w=>w.id);
   if(scope==="starred") return WORDS.filter(w=>getCard(w.id).starred).map(w=>w.id);
   if(scope==="due") return dueCards();
+  if(scope==="today") return WORDS.filter(w=>{const c=state.cards[w.id];return c&&c.status!=="new"&&c.updated_at&&todayStr(new Date(c.updated_at))===todayStr();}).map(w=>w.id);
   return WORDS.filter(w=>{const c=state.cards[w.id];return c&&c.status!=="new";}).map(w=>w.id);
 }
+function startQuizScope(scope){ go("quiz"); $("#quizScope").value=scope; $("#quizStart").classList.remove("hidden"); $("#quizDone").classList.add("hidden"); $("#quizArea").innerHTML=""; startQuiz(); }
 function startQuiz(){ const scope=$("#quizScope").value,type=$("#quizType").value; let pool=poolFor(scope);
   if(pool.length<4){ toast("문제 낼 단어가 부족해요. 학습하거나 범위를 넓혀보세요."); return; }
   quiz={items:sample(pool,Math.min(10,pool.length)),idx:0,score:0,type,answered:false};
@@ -1711,6 +1713,7 @@ function wire(){
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   // study
   $("#studyBack").onclick=()=>{ session=null; go("vocab"); }; $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=startStudy;
+  $("#doneQuiz").onclick=()=>{ if(poolFor("today").length<4){ toast("오늘 학습한 단어가 4개 이상이면 퀴즈를 볼 수 있어요"); return; } session=null; startQuizScope("today"); };
   // quiz
   $("#quizBack").onclick=()=>go("vocab"); $("#quizGo").onclick=startQuiz;
   $("#quizRetry").onclick=()=>{ $("#quizDone").classList.add("hidden"); $("#quizStart").classList.remove("hidden"); $("#quizArea").innerHTML=""; };
