@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.5.0";
+const VERSION = "4.6.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -799,14 +799,24 @@ function buildVACurrStage(withHint,n){
   });
   return out;
 }
+// Meaning key = the English gloss in parens (e.g. "이전의 (before)" -> "before"),
+// so prefixes that share a meaning (ante-/pre-, anti-/contra-/ob-, ...) never
+// appear as two different-looking options for the same question.
+function rootKey(m){ const g=/\(([^)]+)\)/.exec(m||""); return (g?g[1]:(m||"")).trim().toLowerCase(); }
 function buildWKRootsQ(n){
   if(ROOTS.length<8) return [];
-  return shuffle(ROOTS).slice(0,n).map(r=>{
-    const others=sample(ROOTS.filter(x=>x.form!==r.form),3).map(x=>x.meaning);
-    const opts=shuffle([r.meaning,...others]);
-    return {prompt:"이 어원(접두사·어근)의 뜻은?",stem:r.form,options:opts,answer:opts.indexOf(r.meaning),
-      explain:`${r.form} = ${r.meaning} · 예: ${(r.examples||[]).slice(0,3).join(", ")}`};
-  });
+  const out=[];
+  for(const r of shuffle(ROOTS)){
+    if(out.length>=n) break;
+    const ck=rootKey(r.meaning), used=new Set([ck]), dist=[];
+    for(const x of shuffle(ROOTS)){ if(dist.length>=3) break; if(x.form===r.form) continue;
+      const k=rootKey(x.meaning); if(used.has(k)) continue; used.add(k); dist.push(x.meaning); }
+    if(dist.length<3) continue;
+    const opts=shuffle([r.meaning,...dist]);
+    out.push({prompt:"이 어원(접두사·어근)의 뜻은?",stem:r.form,options:opts,answer:opts.indexOf(r.meaning),
+      explain:`${r.form} = ${r.meaning} · 예: ${(r.examples||[]).slice(0,3).join(", ")}`});
+  }
+  return out;
 }
 function buildWKSynCurr(n){
   const pool=WORDS.filter(w=>w.afoqtCommon&&w.synonyms&&w.synonyms.length);
