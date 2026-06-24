@@ -156,7 +156,8 @@
     <div class="big-emoji">🎉</div>
     <h2 id="doneTitle">세션 완료!</h2>
     <p class="muted" id="doneSub"></p>
-    <button class="btn primary" id="doneHome" style="margin-top:10px">홈으로</button>
+    <button class="btn primary" id="doneQuiz" style="margin-top:10px">🧠 오늘 배운 단어 퀴즈</button>
+    <button class="btn ghost" id="doneHome" style="margin-top:10px">홈으로</button>
     <button class="btn ghost" id="doneMore" style="margin-top:10px">계속 학습</button>
   </div>
 </main>
@@ -176,6 +177,7 @@
     <p class="muted">학습한 단어로 10문제 객관식</p>
     <div class="field"><label>출제 범위</label>
       <select id="quizScope">
+        <option value="today">📅 오늘 학습한 단어</option>
         <option value="learned">학습한 단어</option>
         <option value="high">⭐ 빈출 단어</option>
         <option value="due">복습 대기 단어</option>
