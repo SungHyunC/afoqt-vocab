@@ -477,30 +477,64 @@
   <div id="examSetup">
     <div class="study-top"><button class="btn sm ghost" id="examExit">← 홈</button><span></span><span></span></div>
     <h2 class="section" style="margin-top:0">🎯 실전 모의고사</h2>
-    <p class="muted" style="margin:0 0 14px">실제 AFOQT Verbal 형식 · 시간을 재고 한 번에 풉니다. 다 풀면 채점·해설을 보여줘요.</p>
+    <p class="muted" style="margin:0 0 14px">시간을 재고 한 번에 풉니다. 다 풀면 채점·해설·예상 백분위를 보여줘요.</p>
+
+    <h3 class="exam-group">🏆 전과목 통합</h3>
+    <button class="exam-preset" data-exam="afoqt" style="border-color:var(--gold)"><div class="ic">🏆</div>
+      <div class="meta"><b>AFOQT 전체 모의고사</b><div class="muted">전 과목(과학·상황 제외) 한 번에 — 끝나면 합성점수 예측</div>
+        <div class="last"></div></div>
+      <div class="go">›</div></button>
+
+    <h3 class="exam-group">🧩 섹터별 (합성점수)</h3>
+    <button class="exam-preset" data-exam="secVerbal" style="border-color:var(--brand)"><div class="ic">🗣</div>
+      <div class="meta"><b>Verbal 섹터</b><div class="muted">단어 + 유추 + 독해</div>
+        <div class="last"></div></div>
+      <div class="go">›</div></button>
+    <button class="exam-preset" data-exam="secQuant" style="border-color:var(--brand)"><div class="ic">🔢</div>
+      <div class="meta"><b>Quantitative 섹터</b><div class="muted">산수 추론 + 수학 지식</div>
+        <div class="last"></div></div>
+      <div class="go">›</div></button>
+    <button class="exam-preset" data-exam="secPilot" style="border-color:var(--brand)"><div class="ic">✈️</div>
+      <div class="meta"><b>Pilot 섹터</b><div class="muted">산수·수학 + 표읽기·계기·블록 + 항공</div>
+        <div class="last"></div></div>
+      <div class="go">›</div></button>
+
+    <h3 class="exam-group">📚 과목별 (세션별)</h3>
     <button class="exam-preset" data-exam="wk"><div class="ic">📇</div>
       <div class="meta"><b>Word Knowledge</b><div class="muted">단어 — 의미가 가장 가까운 것 고르기</div>
-        <div class="last" id="lastWk"></div></div>
+        <div class="last"></div></div>
       <div class="go">›</div></button>
     <button class="exam-preset" data-exam="va"><div class="ic">🔗</div>
       <div class="meta"><b>Verbal Analogies</b><div class="muted">유추 — 같은 관계의 짝 고르기</div>
-        <div class="last" id="lastVa"></div></div>
+        <div class="last"></div></div>
       <div class="go">›</div></button>
     <button class="exam-preset" data-exam="rc"><div class="ic">📖</div>
       <div class="meta"><b>Reading Comprehension</b><div class="muted">독해 — 지문 읽고 문제 풀기</div>
-        <div class="last" id="lastRc"></div></div>
+        <div class="last"></div></div>
       <div class="go">›</div></button>
-    <button class="exam-preset" data-exam="full" style="border-color:var(--brand)"><div class="ic">🏆</div>
-      <div class="meta"><b>Verbal 전체 모의고사</b><div class="muted">단어+유추+독해 한 번에 (실전 75문항)</div>
-        <div class="last" id="lastFull"></div></div>
+    <button class="exam-preset" data-exam="ar"><div class="ic">➗</div>
+      <div class="meta"><b>Arithmetic Reasoning</b><div class="muted">산수 추론 — 문장형 문제 (한글 병기)</div>
+        <div class="last"></div></div>
       <div class="go">›</div></button>
-    <button class="exam-preset" data-exam="av"><div class="ic">✈️</div>
+    <button class="exam-preset" data-exam="mk"><div class="ic">📐</div>
+      <div class="meta"><b>Math Knowledge</b><div class="muted">수학 지식 — 대수·기하 (한글 병기)</div>
+        <div class="last"></div></div>
+      <div class="go">›</div></button>
+    <button class="exam-preset" data-exam="av"><div class="ic">🛩️</div>
       <div class="meta"><b>Aviation Information</b><div class="muted">항공 지식 — 문제 한글 병기</div>
-        <div class="last" id="lastAv"></div></div>
+        <div class="last"></div></div>
       <div class="go">›</div></button>
-    <button class="exam-preset" data-exam="afoqt" style="border-color:var(--gold)"><div class="ic">🏆</div>
-      <div class="meta"><b>AFOQT 전체 모의고사</b><div class="muted">전 과목 70문항 — 끝나면 합성점수 예측</div>
-        <div class="last" id="lastAfoqt"></div></div>
+    <button class="exam-preset" data-exam="tr"><div class="ic">📊</div>
+      <div class="meta"><b>Table Reading</b><div class="muted">표 읽기 — X·Y 좌표 값 찾기</div>
+        <div class="last"></div></div>
+      <div class="go">›</div></button>
+    <button class="exam-preset" data-exam="ic"><div class="ic">🎚️</div>
+      <div class="meta"><b>Instrument Comprehension</b><div class="muted">계기 해석 — 자세계 보고 비행기 고르기</div>
+        <div class="last"></div></div>
+      <div class="go">›</div></button>
+    <button class="exam-preset" data-exam="bc"><div class="ic">🧱</div>
+      <div class="meta"><b>Block Counting</b><div class="muted">블록 세기 — 닿는 블록 개수</div>
+        <div class="last"></div></div>
       <div class="go">›</div></button>
 
     <h2 class="section">📕 오답 노트</h2>

@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.9.0";
+const VERSION = "4.10.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1191,21 +1191,45 @@ function nextPassage(){ const i=READING.findIndex(x=>x.id===rcCur.p.id); const n
    EXAM — 실전 모의고사 (timed, AFOQT format)
    ============================================================ */
 let exam=null;
+// One builder per AFOQT subtest code — lets presets be composed from (code,count) specs.
+const SECBUILD={ WK:n=>buildWK(n), VA:n=>buildVA(n), RC:n=>buildRC(n),
+  AR:n=>buildMCQ(ARITH,"AR",n), MK:n=>buildMCQ(MATHK,"MK",n), PS:n=>buildMCQ(PHYSCI,"PS",n),
+  AV:n=>buildAV(n), SJ:n=>buildSJ(n), TR:n=>buildTR(n), IC:n=>buildIC(n), BC:n=>buildBC(n) };
+// Realistic seconds-per-question per subtest (from official AFOQT time ÷ count),
+// so every preset's timer/label stays consistent with its section mix.
+const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:11, IC:12, BC:9, PS:30, SJ:131 };
+// Build a preset from a list of [sectionCode, count] specs; derives timer + label.
+function composeMock(name,specs,tag){
+  const secs=specs.reduce((s,[c,n])=>s+SECRATE[c]*n,0);
+  const qn=specs.reduce((s,[,n])=>s+n,0);
+  return {name,secs,specs,build:()=>specs.flatMap(([c,n])=>SECBUILD[c](n)),
+    label:`${qn}문항 · ${fmtTime(secs)}${tag?" · "+tag:""}`};
+}
 const EXAM_PRESETS={
-  wk:  {name:"Word Knowledge",      secs:300,  build:()=>buildWK(25),                            label:"25문항 · 5:00"},
-  va:  {name:"Verbal Analogies",    secs:480,  build:()=>buildVA(25),                            label:"25문항 · 8:00"},
-  rc:  {name:"Reading Comprehension",secs:1500, build:()=>buildRC(25),                            label:"25문항 · 25:00"},
-  // Full Verbal mock mirrors real AFOQT proportions (WK25 + VA25 + RC25).
-  full:{name:"Verbal 전체 모의고사",  secs:3060, build:()=>[...buildWK(25),...buildVA(25),...buildRC(25)], label:"75문항 · 51:00 (실전)"},
-  av:  {name:"Aviation Information", secs:480,  build:()=>buildAV(20),                            label:"20문항 · 8:00"},
-  ar:  {name:"Arithmetic Reasoning",secs:1740, build:()=>buildMCQ(ARITH,"AR",25),                 label:"25문항 · 29:00"},
-  mk:  {name:"Math Knowledge",      secs:1320, build:()=>buildMCQ(MATHK,"MK",25),                 label:"25문항 · 22:00"},
-  ps:  {name:"Physical Science",    secs:600,  build:()=>buildMCQ(PHYSCI,"PS",20),                label:"20문항 · 10:00"},
-  sj:  {name:"Situational Judgment",secs:2100, build:()=>buildSJ(16),                             label:"16문항 · 35:00"},
-  // Full AFOQT simulation across the MCQ subtests (long — feeds composites).
-  afoqt:{name:"AFOQT 전체 모의고사", secs:2700, build:()=>[...buildWK(12),...buildVA(12),...buildRC(10),...buildMCQ(ARITH,"AR",10),...buildMCQ(MATHK,"MK",10),...buildMCQ(PHYSCI,"PS",8),...buildAV(8)], label:"70문항 · 45:00 (전 과목)"},
-  // Balanced daily mixed practice (generous timer = low pressure).
-  daily:{name:"오늘의 통합 학습",     secs:1500, build:()=>[...buildWK(8),...buildVA(6),...buildRC(4),...buildAV(4)], label:"전 영역 22문항"},
+  // ── 전과목 통합 (full AFOQT simulation — excludes Physical Science & Situational Judgment) ──
+  afoqt: composeMock("AFOQT 전체 모의고사",
+    [["WK",12],["VA",12],["RC",10],["AR",10],["MK",10],["AV",8],["TR",10],["IC",8],["BC",8]], "전 과목"),
+  // ── 섹터별 (composite-focused mocks) ──
+  secVerbal: composeMock("Verbal 섹터",       [["WK",12],["VA",12],["RC",12]],            "Verbal"),
+  secQuant:  composeMock("Quantitative 섹터", [["AR",12],["MK",12]],                       "Quant"),
+  secPilot:  composeMock("Pilot 섹터",        [["AR",8],["MK",8],["TR",10],["IC",8],["AV",8],["BC",8]], "Pilot"),
+  // ── 세션별 (individual subtests, real counts) ──
+  wk: composeMock("Word Knowledge",          [["WK",25]]),
+  va: composeMock("Verbal Analogies",        [["VA",25]]),
+  rc: composeMock("Reading Comprehension",   [["RC",25]]),
+  ar: composeMock("Arithmetic Reasoning",    [["AR",25]]),
+  mk: composeMock("Math Knowledge",          [["MK",25]]),
+  av: composeMock("Aviation Information",     [["AV",20]]),
+  tr: composeMock("Table Reading",           [["TR",40]]),
+  ic: composeMock("Instrument Comprehension",[["IC",25]]),
+  bc: composeMock("Block Counting",          [["BC",30]]),
+  // ── kept for the Subtest hub (not shown in the exam-screen groups) ──
+  ps: composeMock("Physical Science",        [["PS",20]]),
+  sj: composeMock("Situational Judgment",    [["SJ",16]]),
+  // ── legacy Verbal-only full mock (kept for old history keys / quick links) ──
+  full: composeMock("Verbal 전체 모의고사",   [["WK",25],["VA",25],["RC",25]], "Verbal 실전"),
+  // ── balanced daily mixed practice (generous timer = low pressure) ──
+  daily:{name:"오늘의 통합 학습", secs:1500, build:()=>[...buildWK(8),...buildVA(6),...buildRC(4),...buildAV(4)], label:"전 영역 22문항"},
 };
 function buildAV(n){
   return shuffle(AVIATION).slice(0,n).map(q=>({
@@ -1226,6 +1250,57 @@ function buildSJ(n){
     passageId:"sj"+q.id, passageTitle:"상황 (Situation)",
     passageText:(q.scenario||"")+(q.scenario_ko?("\n\n"+q.scenario_ko):""),
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
+}
+// ── Visual subtests as exam items (figure + MCQ), so they slot into the linear runner ──
+// Table Reading: one shared grid; each item is an (X,Y) lookup with the table as its figure.
+function buildTR(n){
+  const xs=[]; for(let x=-5;x<=5;x++) xs.push(x);
+  const ys=[]; for(let y=5;y>=-5;y--) ys.push(y);
+  const grid=ys.map(()=>xs.map(()=>10+(Math.random()*90|0)));
+  let h='<div class="tr-wrap"><table class="tr-tbl"><thead><tr><th class="tr-corner">Y\\X</th>';
+  xs.forEach(x=>h+=`<th>${x}</th>`); h+='</tr></thead><tbody>';
+  ys.forEach((y,yi)=>{ h+=`<tr><th>${y}</th>`; grid[yi].forEach(v=>h+=`<td>${v}</td>`); h+='</tr>'; });
+  const tableHTML=h+'</tbody></table></div>';
+  const items=[];
+  for(let i=0;i<n;i++){
+    const xi=Math.random()*xs.length|0, yi=Math.random()*ys.length|0, correct=grid[yi][xi];
+    const opts=new Set([correct]); let g=0;
+    while(opts.size<5&&g++<60){ let v;
+      if(Math.random()<0.6){ const ny=clamp(yi+(Math.random()<.5?-1:1),0,ys.length-1), nx=clamp(xi+(Math.random()<.5?-1:1),0,xs.length-1); v=grid[ny][nx]; }
+      else v=10+(Math.random()*90|0); opts.add(v); }
+    while(opts.size<5) opts.add(10+(Math.random()*90|0));
+    const options=shuffle([...opts]).map(String);
+    items.push({section:"TR", prompt:`X = ${xs[xi]} , Y = ${ys[yi]} 의 값은?`, sub:"표 읽기", figureHTML:tableHTML,
+      options, answer:options.indexOf(String(correct)),
+      explain:`X=${xs[xi]} 열, Y=${ys[yi]} 행이 만나는 칸의 값은 ${correct}.`});
+  }
+  return items;
+}
+// Block Counting: procedural isometric figure as the item's figure; options are counts.
+function buildBC(n){
+  const items=[];
+  for(let i=0;i<n;i++){ const f=genBlockFigure(); const correct=f.touch;
+    const options=bcOptions(correct).map(String);
+    items.push({section:"BC", prompt:"청록색 ? 블록에 닿는 블록은 몇 개인가요?", sub:"블록 세기",
+      figureHTML:`<div class="bc-fig">${bcSVG(f)}</div>`,
+      options, answer:options.indexOf(String(correct)),
+      explain:`상·하·좌·우·앞·뒤로 맞닿은 면만 셉니다(대각선 제외) → ${correct}개.`});
+  }
+  return items;
+}
+// Instrument Comprehension: attitude dial as figure; plane silhouettes as picture options.
+function buildIC(n){
+  const items=[];
+  for(let i=0;i<n;i++){ const q=genIC();
+    const correctKey=q.options.findIndex(o=>o.bank===q.bank&&o.pitch===q.pitch);
+    const lbl=o=>`${o.bank<0?"왼쪽 "+(-o.bank)+"°":o.bank>0?"오른쪽 "+o.bank+"°":"수평"} · ${o.pitch>0?"상승":o.pitch<0?"하강":"수평비행"}`;
+    const optionsHTML=q.options.map(o=>`${planeSVG(o.bank,o.pitch)}<div class="ol">${lbl(o)}</div>`);
+    items.push({section:"IC", prompt:"자세계(Attitude Indicator)를 보고 같은 자세의 비행기를 고르세요", sub:"계기 해석",
+      figureHTML:`<div class="ic-instruments"><div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (Attitude)</div></div></div>`,
+      options:q.options.map(lbl), optionsHTML, answer:correctKey,
+      explain:`정답: ${lbl(q.options[correctKey])}. 뱅크=기울어진 방향, 피치=수평선 위치(상승/하강).`});
+  }
+  return items;
 }
 // Predicted composite percentile from accumulated per-subtest accuracy.
 function compositeEst(codes){
@@ -1332,9 +1407,10 @@ function buildWrongRC(){
 function renderExamSetup(){
   exam=null; stopExamTimer();
   $("#examSetup").classList.remove("hidden"); $("#examRun").classList.add("hidden"); $("#examResult").classList.add("hidden");
-  const map={wk:"lastWk",va:"lastVa",rc:"lastRc",full:"lastFull",av:"lastAv",afoqt:"lastAfoqt"};
-  for(const k in map){ const r=state.exams[k]; const el=$("#"+map[k]);
-    el.textContent=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:EXAM_PRESETS[k].label; }
+  $$("#examSetup .exam-preset").forEach(btn=>{
+    const k=btn.dataset.exam, r=state.exams[k], el=btn.querySelector(".last"); if(!el) return;
+    el.textContent=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`
+      :(EXAM_PRESETS[k]?EXAM_PRESETS[k].label:""); });
   // wrong-note (오답 노트)
   const wc=wrongCounts(), secName={wk:"📇 단어",va:"🔗 유추",rc:"📖 독해"};
   const rows=["wk","va","rc"].filter(k=>wc[k]>0).map(k=>
@@ -1380,11 +1456,17 @@ function renderExamQ(){
       : `<div class="exam-stem">${esc(it.stem)}</div>`):"";
   const sub=it.sub?`<div class="exam-sub">${esc(it.sub)}</div>`:"";
   const ko=it.promptKo?`<div class="exam-ko">${esc(it.promptKo)}</div>`:"";
+  // Visual subtests (Table Reading / Instrument / Block Counting) carry a pre-built
+  // figure (table or SVG) and, for Instrument, picture options rendered via optionsHTML.
+  const figure=it.figureHTML?`<div class="exam-figure">${it.figureHTML}</div>`:"";
+  const choicesHTML=it.options.map((o,i)=>{
+    const inner=it.optionsHTML?it.optionsHTML[i]:esc(o);
+    return `<button class="choice ${it.optionsHTML?"choice-fig":""} ${e.answers[e.idx]===i?"sel":""}" data-i="${i}">${inner}</button>`;
+  }).join("");
   $("#examArea").innerHTML=`${passage}<div class="card">
     <span class="exam-sec">${it.section}</span>
-    <div class="exam-prompt">${esc(it.prompt)}</div>${ko}${stem}${sub}
-    <div class="choices" id="examChoices">${it.options.map((o,i)=>
-      `<button class="choice ${e.answers[e.idx]===i?"sel":""}" data-i="${i}">${esc(o)}</button>`).join("")}</div></div>`;
+    <div class="exam-prompt">${esc(it.prompt)}</div>${ko}${stem}${sub}${figure}
+    <div class="choices ${it.optionsHTML?"choices-fig":""}" id="examChoices">${choicesHTML}</div></div>`;
   wireSpeakers($("#examArea"));
   $$("#examChoices .choice").forEach(btn=>btn.onclick=()=>{
     e.answers[e.idx]=+btn.dataset.i;
@@ -1469,7 +1551,7 @@ function submitExam(auto){
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
   $("#examEmoji").textContent=pct>=85?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
   $("#examScore").textContent=`${got} / ${total} 정답 (${pct}%)`;
-  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황"};
+  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
   $("#examBreakDown").innerHTML=Object.keys(bySec).map(k=>
     `<div class="s"><b>${bySec[k].got}/${bySec[k].total}</b><span>${secName[k]||k}</span></div>`).join("");
   // estimated AFOQT-style percentile (unofficial)
@@ -1493,7 +1575,7 @@ function submitExam(auto){
 }
 function renderExamReview(){
   const e=exam; if(!e) return;
-  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황"};
+  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
   $("#examReview").innerHTML=e.items.map((it,i)=>{
     const pick=e.answers[i], ok=pick===it.answer;
     const opts=it.options.map((o,oi)=>{
