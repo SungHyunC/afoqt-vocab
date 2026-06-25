@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.11.0";
+const VERSION = "4.11.1";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1212,7 +1212,7 @@ const EXAM_PRESETS={
   // ── 섹터별 (composite-focused mocks) ──
   secVerbal: composeMock("Verbal 섹터",       [["WK",12],["VA",12],["RC",12]],            "Verbal"),
   secQuant:  composeMock("Quantitative 섹터", [["AR",12],["MK",12]],                       "Quant"),
-  secPilot:  composeMock("Pilot 섹터",        [["AR",8],["MK",8],["TR",10],["IC",8],["AV",8]], "Pilot"),
+  secPilot:  composeMock("Pilot 섹터",        [["AV",8],["TR",10],["IC",8],["BC",8]], "Pilot"),
   // ── 세션별 (individual subtests, real counts) ──
   wk: composeMock("Word Knowledge",          [["WK",25]]),
   va: composeMock("Verbal Analogies",        [["VA",25]]),
@@ -1654,15 +1654,15 @@ const COMPOSITES=[
   {name:"🎓 Academic Aptitude",codes:["WK","VA","RC","AR","MK"]},
   {name:"🗣 Verbal",codes:["WK","VA","RC"]},
   {name:"🔢 Quantitative",codes:["AR","MK"]},
-  // Official AFOQT Pilot composite excludes Block Counting (that's a CSO/ABM input).
-  {name:"✈️ Pilot",codes:["AR","MK","IC","TR","AV"]},
+  // Pilot composite = Aviation + Block Counting + Table Reading + Instrument.
+  {name:"✈️ Pilot",codes:["AV","BC","TR","IC"]},
   {name:"🛰 CSO",codes:["WK","AR","MK","TR","BC","AV"]},
 ];
 // Sector mocks → which composite to show on their result screen.
 const SECTOR_COMPOSITE={
   secVerbal:{name:"🗣 Verbal",codes:["WK","VA","RC"]},
   secQuant:{name:"🔢 Quantitative",codes:["AR","MK"]},
-  secPilot:{name:"✈️ Pilot",codes:["AR","MK","IC","TR","AV"]},
+  secPilot:{name:"✈️ Pilot",codes:["AV","BC","TR","IC"]},
 };
 /* ============================================================
    WEAKNESS REPORT (약점 리포트 — 푼 문제 기반 분석 + 바로 연습)
