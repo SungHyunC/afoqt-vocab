@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.11.1";
+const VERSION = "4.11.2";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -316,8 +316,11 @@ function renderHome(){
     note.classList.remove("hidden");
     note.innerHTML=`⚙️ <b>설정 → 시험 목표일</b>을 실제 응시일(예: 2026-08-05)로 바꿔주세요. 그러면 권장량이 다시 계산됩니다.`;
   } else {
-    $("#recPace").textContent=`신규 ${pace}/일`;
-    $("#recBasis").textContent=`남은 ${remain}단어 ÷ ${dleft}일 = 하루 ${autop}개`;
+    // Today's real load = due reviews + new. The home headline used to show only
+    // "new", which made the study session (reviews+new) look mysteriously doubled.
+    const dueN=dueCards().length, newN=Math.min(pace,remain), todayN=dueN+newN;
+    $("#recPace").textContent=`오늘 ${todayN}개`;
+    $("#recBasis").textContent=`복습 ${dueN} + 신규 ${newN} · 신규 페이스 ${autop}/일 (남은 ${remain}÷${dleft}일)`;
     if(remain===0){ note.classList.add("hidden"); }
     else if(state.settings.daily_goal>0 && state.settings.daily_goal<autop){
       note.classList.remove("hidden");
@@ -426,6 +429,9 @@ function startStudy(){
   const d=getDay(); if(!d.target){ d.target=queue.length; }
   snapSession(); saveLocal();
   go("study"); $("#studyDone").classList.add("hidden"); renderCard();
+  // Make the session size self-explanatory (reviews + new, not a doubled bug).
+  const revCount=queue.length-newSet.size;
+  toast(`오늘 ${queue.length}개 — 복습 ${revCount} · 신규 ${newSet.size}`, 2600);
 }
 function renderCard(){
   const s=session; if(s.idx>=s.queue.length) return finishStudy();
