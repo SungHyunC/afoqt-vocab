@@ -1678,5 +1678,845 @@
     ],
     "answer": 3,
     "explain": "IFR(Instrument Flight Rules)은 계기에 의존해 비행하는 계기 비행 규칙이다."
+  },
+  {
+    "id": 121,
+    "topic": "bernoulli",
+    "q": "According to Bernoulli's principle, air flowing faster over the curved upper surface of a wing experiences which change compared to the slower air beneath?",
+    "q_ko": "베르누이 원리에 따르면, 날개 윗면의 곡면을 따라 더 빠르게 흐르는 공기는 아랫면의 느린 공기에 비해 어떤 변화를 겪는가?",
+    "options": [
+      "Higher static pressure",
+      "Lower static pressure",
+      "Higher air density",
+      "No change in pressure"
+    ],
+    "answer": 1,
+    "explain": "베르누이 원리에 따르면 유체의 속도가 증가하면 정압(static pressure)이 감소한다. 따라서 날개 윗면의 빠른 공기는 정압이 낮아지고, 이 압력 차이가 양력을 만든다."
+  },
+  {
+    "id": 122,
+    "topic": "control_surfaces",
+    "q": "A pilot moves the control yoke to the right. Which aileron deflects downward, and what is the immediate result?",
+    "q_ko": "조종사가 조종간을 오른쪽으로 움직였다. 어느 에일러론이 아래로 내려가며, 그 즉각적인 결과는 무엇인가?",
+    "options": [
+      "The right aileron goes down, lifting the right wing",
+      "The left aileron goes down, lifting the left wing",
+      "The right aileron goes down, lifting the left wing",
+      "The left aileron goes down, lifting the right wing"
+    ],
+    "answer": 1,
+    "explain": "조종간을 오른쪽으로 하면 오른쪽 에일러론은 위로, 왼쪽 에일러론은 아래로 움직인다. 아래로 내려간 왼쪽 에일러론이 양력을 증가시켜 왼쪽 날개를 들어올리고, 항공기는 오른쪽으로 롤(roll)한다."
+  },
+  {
+    "id": 123,
+    "topic": "stability",
+    "q": "An aircraft that, after a gust pitches its nose up, tends to return toward its original pitch attitude without pilot input is said to have what characteristic?",
+    "q_ko": "돌풍으로 기수가 올라간 뒤 조종사 입력 없이 원래의 피치 자세로 되돌아가려는 항공기는 어떤 특성을 가졌다고 하는가?",
+    "options": [
+      "Negative static stability",
+      "Neutral static stability",
+      "Positive static stability",
+      "Dynamic instability"
+    ],
+    "answer": 2,
+    "explain": "교란 후 원래 상태로 되돌아가려는 초기 경향은 양(positive)의 정적 안정성이다. 중립은 새 자세를 유지, 음은 더 벗어난다."
+  },
+  {
+    "id": 124,
+    "topic": "instruments",
+    "q": "Which flight instrument is the primary source of pitch and bank information and presents a miniature aircraft against an artificial horizon?",
+    "q_ko": "피치와 뱅크 정보의 주요 출처이며 인공 수평선에 대비된 소형 항공기 모형을 표시하는 비행 계기는?",
+    "options": [
+      "Heading indicator",
+      "Attitude indicator",
+      "Vertical speed indicator",
+      "Turn coordinator"
+    ],
+    "answer": 1,
+    "explain": "자세계(attitude indicator)는 인공 수평선에 대한 소형 항공기 기호로 피치와 뱅크를 동시에 보여준다."
+  },
+  {
+    "id": 125,
+    "topic": "weather",
+    "q": "What atmospheric condition is most directly indicated when the temperature and dew point are very close together?",
+    "q_ko": "기온과 이슬점이 매우 가까울 때 가장 직접적으로 나타나는 대기 상태는?",
+    "options": [
+      "High likelihood of fog or low clouds",
+      "Strong surface winds",
+      "Rising barometric pressure",
+      "Clear skies and good visibility"
+    ],
+    "answer": 0,
+    "explain": "기온과 이슬점이 가까우면 공기가 포화에 가까워 안개나 낮은 구름이 형성될 가능성이 높다."
+  },
+  {
+    "id": 126,
+    "topic": "helicopter",
+    "q": "In a helicopter, the tendency of the fuselage to rotate opposite to the main rotor is counteracted primarily by what?",
+    "q_ko": "헬리콥터에서 동체가 메인 로터와 반대로 회전하려는 경향은 주로 무엇으로 상쇄되는가?",
+    "options": [
+      "The cyclic control",
+      "The collective control",
+      "The tail rotor",
+      "The swashplate tilt"
+    ],
+    "answer": 2,
+    "explain": "뉴턴의 작용-반작용으로 동체가 메인 로터와 반대로 돌려는 토크가 생기며, 테일 로터가 반대 추력을 만들어 이를 상쇄한다."
+  },
+  {
+    "id": 127,
+    "topic": "forces",
+    "q": "In straight-and-level unaccelerated flight, lift equals weight and thrust equals what?",
+    "q_ko": "수평 등속 비행에서 양력은 무게와 같고, 추력은 무엇과 같은가?",
+    "options": [
+      "Lift",
+      "Drag",
+      "Weight",
+      "Zero"
+    ],
+    "answer": 1,
+    "explain": "등속 수평 비행에서는 네 힘이 평형을 이룬다. 양력=무게, 추력=항력이다."
+  },
+  {
+    "id": 128,
+    "topic": "aerodynamics",
+    "q": "What happens to the stalling angle of attack of a given wing as airspeed changes?",
+    "q_ko": "속도가 변할 때 주어진 날개의 실속 받음각은 어떻게 되는가?",
+    "options": [
+      "It increases with airspeed",
+      "It decreases with airspeed",
+      "It remains essentially constant",
+      "It varies with altitude only"
+    ],
+    "answer": 2,
+    "explain": "실속은 특정 임계 받음각(critical angle of attack)에서 발생하며, 이 각도는 속도와 거의 무관하게 일정하다. 어떤 속도에서도 임계 받음각을 초과하면 실속한다."
+  },
+  {
+    "id": 129,
+    "topic": "engines",
+    "q": "In a four-stroke reciprocating aircraft engine, in which stroke is the fuel-air mixture ignited by the spark plug?",
+    "q_ko": "4행정 왕복 항공기 엔진에서 연료-공기 혼합기가 점화 플러그에 의해 점화되는 행정은?",
+    "options": [
+      "Intake stroke",
+      "Compression stroke (near top)",
+      "Exhaust stroke",
+      "Combustion begins during the intake stroke"
+    ],
+    "answer": 1,
+    "explain": "흡입-압축-폭발-배기 순서에서 압축 행정 끝(상사점 부근)에 점화가 일어나 동력 행정으로 이어진다."
+  },
+  {
+    "id": 130,
+    "topic": "airport_markings",
+    "q": "On a runway, the large white number '27' painted at the threshold indicates the runway is aligned with a magnetic heading of approximately:",
+    "q_ko": "활주로 끝에 페인트된 큰 흰색 숫자 '27'은 활주로가 약 어느 자기 방위와 정렬되어 있음을 나타내는가?",
+    "options": [
+      "27 degrees",
+      "207 degrees",
+      "270 degrees",
+      "027 degrees"
+    ],
+    "answer": 2,
+    "explain": "활주로 번호는 자기 방위의 첫 두 자리를 반올림한 값이다. '27'은 약 270도(서쪽)를 의미한다."
+  },
+  {
+    "id": 131,
+    "topic": "navigation",
+    "q": "An aircraft holds a true airspeed of 150 knots and encounters a direct 30-knot headwind. What is its groundspeed?",
+    "q_ko": "항공기가 진대기속도 150노트로 비행 중 정면에서 30노트의 맞바람을 만났다. 대지속도는?",
+    "options": [
+      "180 knots",
+      "150 knots",
+      "120 knots",
+      "135 knots"
+    ],
+    "answer": 2,
+    "explain": "맞바람은 대지속도를 줄인다. 150 − 30 = 120노트."
+  },
+  {
+    "id": 132,
+    "topic": "traffic_pattern",
+    "q": "In a standard (left-hand) traffic pattern, which leg is flown parallel to the landing runway in the direction opposite to landing?",
+    "q_ko": "표준(좌선회) 장주 패턴에서 착륙 방향과 반대로 활주로와 평행하게 비행하는 구간은?",
+    "options": [
+      "Base leg",
+      "Final approach",
+      "Downwind leg",
+      "Crosswind leg"
+    ],
+    "answer": 2,
+    "explain": "다운윈드(downwind) 구간은 활주로와 평행하게, 착륙 방향과 반대 방향으로 비행한다. 이후 베이스를 거쳐 최종 접근으로 선회한다."
+  },
+  {
+    "id": 133,
+    "topic": "control_surfaces",
+    "q": "The rudder, mounted on the vertical stabilizer, primarily controls movement about which axis?",
+    "q_ko": "수직 안정판에 장착된 방향타(rudder)는 주로 어느 축에 대한 운동을 제어하는가?",
+    "options": [
+      "Longitudinal axis (roll)",
+      "Lateral axis (pitch)",
+      "Vertical axis (yaw)",
+      "No axis; it only trims"
+    ],
+    "answer": 2,
+    "explain": "방향타는 수직축에 대한 요(yaw) 운동을 제어한다. 에일러론은 롤(세로축), 엘리베이터는 피치(가로축)를 담당한다."
+  },
+  {
+    "id": 134,
+    "topic": "fixed_wing_parts",
+    "q": "What is the primary function of wing flaps when extended for landing?",
+    "q_ko": "착륙을 위해 펼친 날개 플랩의 주요 기능은?",
+    "options": [
+      "Increase lift and drag, allowing lower approach speeds",
+      "Decrease both lift and drag",
+      "Increase speed by reducing drag",
+      "Provide directional (yaw) control"
+    ],
+    "answer": 0,
+    "explain": "플랩은 날개의 캠버와 면적을 늘려 양력과 항력을 모두 증가시킨다. 이로써 더 낮은 속도에서 비행이 가능해 착륙 접근 속도를 낮춘다."
+  },
+  {
+    "id": 135,
+    "topic": "airspace",
+    "q": "A pilot operating under VFR must generally maintain a minimum visibility and remain a specified distance from clouds. The main purpose of these cloud clearance rules is to:",
+    "q_ko": "VFR로 운항하는 조종사는 일반적으로 최소 시정을 유지하고 구름으로부터 정해진 거리를 유지해야 한다. 이 구름 회피 규정의 주된 목적은?",
+    "options": [
+      "Reduce engine icing",
+      "Allow time to see and avoid other traffic",
+      "Improve radio reception",
+      "Conserve fuel"
+    ],
+    "answer": 1,
+    "explain": "VFR 시정 및 구름 회피 규정은 조종사가 다른 항공기를 보고 회피(see-and-avoid)할 충분한 시간을 확보하도록 하는 데 목적이 있다."
+  },
+  {
+    "id": 136,
+    "topic": "propulsion",
+    "q": "A turbojet engine produces thrust primarily by:",
+    "q_ko": "터보제트 엔진은 주로 어떻게 추력을 생산하는가?",
+    "options": [
+      "Spinning a large propeller",
+      "Accelerating a mass of air rearward at high velocity",
+      "Burning fuel in an external combustion chamber",
+      "Reducing the weight of the aircraft"
+    ],
+    "answer": 1,
+    "explain": "터보제트는 공기를 흡입·압축·연소시킨 뒤 고속으로 뒤로 분사하며, 그 반작용으로 추력을 얻는다(뉴턴 제3법칙)."
+  },
+  {
+    "id": 137,
+    "topic": "aerodynamics",
+    "q": "Induced drag, the drag created as a byproduct of lift, is greatest under which condition?",
+    "q_ko": "양력의 부산물로 생기는 유도항력(induced drag)이 가장 큰 조건은?",
+    "options": [
+      "High airspeed, low angle of attack",
+      "Low airspeed, high angle of attack",
+      "Cruise speed with flaps retracted",
+      "High altitude at high speed"
+    ],
+    "answer": 1,
+    "explain": "유도항력은 양력 발생에 따른 와류(wingtip vortices)에서 비롯되며, 저속·고받음각(예: 이륙·착륙)에서 가장 크다. 속도가 빠를수록 유도항력은 감소한다."
+  },
+  {
+    "id": 138,
+    "topic": "instruments",
+    "q": "The heading indicator (directional gyro) can drift over time and is typically reset in flight by reference to which instrument?",
+    "q_ko": "방향 지시계(directional gyro)는 시간이 지나면 표류할 수 있어, 비행 중 보통 어느 계기를 기준으로 재설정하는가?",
+    "options": [
+      "The altimeter",
+      "The magnetic compass",
+      "The vertical speed indicator",
+      "The airspeed indicator"
+    ],
+    "answer": 1,
+    "explain": "자이로식 방향 지시계는 기계적 표류가 있어 직선 등속 비행 중 자기 나침반(magnetic compass)을 기준으로 주기적으로 재설정한다."
+  },
+  {
+    "id": 139,
+    "topic": "weight_balance",
+    "q": "If an aircraft is loaded so that its center of gravity is well forward of the approved limit, the most likely effect is:",
+    "q_ko": "항공기가 무게중심이 허용 한계보다 훨씬 앞쪽에 오도록 적재되면 가장 가능성 있는 영향은?",
+    "options": [
+      "Excessively nose-heavy with reduced elevator authority to flare",
+      "Tail-heavy and prone to spinning",
+      "No effect as long as total weight is within limits",
+      "Increased cruise speed"
+    ],
+    "answer": 0,
+    "explain": "무게중심이 너무 앞쪽이면 기수가 무거워지고, 착륙 플레어 시 기수를 들어올릴 엘리베이터 효율(권한)이 부족해질 수 있다."
+  },
+  {
+    "id": 140,
+    "topic": "faa_basics",
+    "q": "Class B airspace, typically surrounding the busiest airports, generally requires which of the following before entry?",
+    "q_ko": "가장 혼잡한 공항을 둘러싸는 Class B 공역에 진입하려면 일반적으로 다음 중 무엇이 필요한가?",
+    "options": [
+      "No clearance, only a position report",
+      "An explicit ATC clearance to enter",
+      "VFR conditions only with no radio",
+      "Filing an instrument flight plan in all cases"
+    ],
+    "answer": 1,
+    "explain": "Class B 공역은 가장 혼잡한 공항 주변에 설정되며, 진입 전 관제(ATC)의 명시적 진입 허가(clearance)를 받아야 한다."
+  },
+  {
+    "id": 141,
+    "topic": "control_surfaces",
+    "q": "A pilot pushes the left rudder pedal forward. Which control surface deflects, and which way does the aircraft's nose move?",
+    "q_ko": "조종사가 왼쪽 러더 페달을 앞으로 밟는다. 어떤 조종면이 움직이며 기수는 어느 방향으로 향하는가?",
+    "options": [
+      "The rudder deflects left and the nose yaws left",
+      "The rudder deflects right and the nose yaws right",
+      "The elevator deflects up and the nose pitches up",
+      "The left aileron deflects up and the aircraft rolls left"
+    ],
+    "answer": 0,
+    "explain": "러더는 수직 안정판 뒤에 있는 조종면으로 요(yaw)를 제어한다. 왼쪽 페달을 밟으면 러더가 왼쪽으로 꺾이고, 공기력이 꼬리를 오른쪽으로 밀어 기수가 왼쪽으로 돈다."
+  },
+  {
+    "id": 142,
+    "topic": "aerodynamics_aoa",
+    "q": "As the angle of attack of a wing is increased beyond the critical angle, what happens to lift?",
+    "q_ko": "날개의 받음각이 임계각을 초과하여 증가하면 양력에는 어떤 일이 일어나는가?",
+    "options": [
+      "Lift continues to increase steadily",
+      "Lift suddenly decreases because the airflow separates (stall)",
+      "Lift stays exactly constant",
+      "Lift converts entirely into thrust"
+    ],
+    "answer": 1,
+    "explain": "임계 받음각을 넘으면 날개 윗면에서 공기 흐름이 박리(separation)되어 실속(stall)이 발생하고 양력이 급격히 감소한다."
+  },
+  {
+    "id": 143,
+    "topic": "bernoulli",
+    "q": "According to Bernoulli's principle, the faster airflow over the curved upper surface of a wing results in:",
+    "q_ko": "베르누이 원리에 따르면, 날개 윗면의 곡면 위로 더 빠르게 흐르는 공기는 어떤 결과를 가져오는가?",
+    "options": [
+      "Higher pressure above the wing",
+      "Lower pressure above the wing",
+      "Equal pressure above and below",
+      "Increased air density above the wing"
+    ],
+    "answer": 1,
+    "explain": "베르누이 원리에 의하면 유속이 빠를수록 정압이 낮아진다. 날개 윗면의 빠른 흐름은 낮은 압력을, 아랫면의 느린 흐름은 높은 압력을 만들어 양력이 위로 발생한다."
+  },
+  {
+    "id": 144,
+    "topic": "four_forces",
+    "q": "In straight-and-level unaccelerated flight, which statement about the four forces is correct?",
+    "q_ko": "등속 수평직선 비행에서 네 가지 힘에 대한 설명으로 옳은 것은?",
+    "options": [
+      "Thrust exceeds drag and lift exceeds weight",
+      "Lift equals weight and thrust equals drag",
+      "Weight exceeds lift and drag exceeds thrust",
+      "All four forces are zero"
+    ],
+    "answer": 1,
+    "explain": "등속 수평 비행에서는 모든 힘이 평형을 이룬다. 양력=중력, 추력=항력이 되어 가속도가 0이 된다."
+  },
+  {
+    "id": 145,
+    "topic": "helicopter",
+    "q": "In a helicopter, what is the primary purpose of the tail rotor on a single-main-rotor design?",
+    "q_ko": "단일 메인로터 헬리콥터에서 테일로터의 주된 목적은 무엇인가?",
+    "options": [
+      "To provide most of the lift",
+      "To counteract the torque of the main rotor and control yaw",
+      "To increase forward airspeed directly",
+      "To brake the main rotor during landing"
+    ],
+    "answer": 1,
+    "explain": "메인로터가 한 방향으로 회전하면 뉴턴 제3법칙에 의해 동체가 반대로 돌려는 토크가 생긴다. 테일로터는 이 토크를 상쇄하고 기수 방향(요)을 제어한다."
+  },
+  {
+    "id": 146,
+    "topic": "stability",
+    "q": "An aircraft that tends to return to its original pitch attitude after a disturbance without pilot input is said to have:",
+    "q_ko": "교란을 받은 후 조종사 입력 없이 원래의 피치 자세로 돌아가려는 항공기는 어떤 특성을 가졌다고 하는가?",
+    "options": [
+      "Positive longitudinal static stability",
+      "Negative directional stability",
+      "Neutral lateral stability",
+      "Adverse yaw"
+    ],
+    "answer": 0,
+    "explain": "피치 축(세로축 운동)에서 교란 후 스스로 원자세로 복귀하려는 성질을 양(positive)의 세로 정안정성이라 한다."
+  },
+  {
+    "id": 147,
+    "topic": "instruments",
+    "q": "Which flight instrument provides pitch and bank information by displaying a miniature aircraft relative to a horizon line?",
+    "q_ko": "수평선에 대한 소형 항공기 모형을 표시하여 피치와 뱅크 정보를 제공하는 계기는 무엇인가?",
+    "options": [
+      "Altimeter",
+      "Attitude indicator",
+      "Magnetic compass",
+      "Vertical speed indicator"
+    ],
+    "answer": 1,
+    "explain": "자세계(attitude indicator, 인공수평의)는 자이로를 이용해 수평선 기준으로 항공기의 피치와 뱅크 자세를 보여준다."
+  },
+  {
+    "id": 148,
+    "topic": "airspeed",
+    "q": "The pitot-static system measures airspeed primarily by comparing:",
+    "q_ko": "피토-정압 시스템은 주로 무엇을 비교하여 대기속도를 측정하는가?",
+    "options": [
+      "Engine RPM and manifold pressure",
+      "Ram (dynamic) air pressure against static air pressure",
+      "Outside air temperature and cabin temperature",
+      "Magnetic heading and true heading"
+    ],
+    "answer": 1,
+    "explain": "대기속도계는 피토관이 받는 전압(동압+정압)과 정압포트의 정압을 비교한다. 그 차이인 동압이 속도로 환산된다."
+  },
+  {
+    "id": 149,
+    "topic": "airspace",
+    "q": "On a sectional chart, controlled airspace surrounding a busy airport that resembles an upside-down wedding cake is typically:",
+    "q_ko": "섹셔널 차트에서 분주한 공항을 둘러싸며 뒤집힌 웨딩케이크 모양을 한 관제공역은 일반적으로 무엇인가?",
+    "options": [
+      "Class A airspace",
+      "Class B airspace",
+      "Class G airspace",
+      "A military operations area"
+    ],
+    "answer": 1,
+    "explain": "클래스 B 공역은 대형 혼잡 공항 주위에 여러 층의 원으로 구성되어 위에서 보면 뒤집힌 웨딩케이크 형태를 띤다."
+  },
+  {
+    "id": 150,
+    "topic": "airport_markings",
+    "q": "A solid white line marking on a runway just before the threshold, with a series of longitudinal stripes resembling a piano keyboard, indicates the:",
+    "q_ko": "활주로 임계점 직전에 피아노 건반처럼 길게 늘어선 줄무늬 표시는 무엇을 나타내는가?",
+    "options": [
+      "Closed runway",
+      "Displaced threshold",
+      "Runway threshold (the beginning of usable runway)",
+      "Taxiway hold line"
+    ],
+    "answer": 2,
+    "explain": "활주로 시작점(threshold)은 피아노 건반 모양의 세로 줄무늬로 표시하며, 착륙에 사용할 수 있는 활주로의 시작을 나타낸다."
+  },
+  {
+    "id": 151,
+    "topic": "traffic_pattern",
+    "q": "In a standard traffic pattern, the leg flown parallel to the landing runway in the direction opposite to landing is called the:",
+    "q_ko": "표준 장주(traffic pattern)에서 착륙 방향과 반대로 활주로와 평행하게 나는 구간을 무엇이라 하는가?",
+    "options": [
+      "Final approach",
+      "Downwind leg",
+      "Base leg",
+      "Upwind leg"
+    ],
+    "answer": 1,
+    "explain": "다운윈드(downwind) 구간은 활주로와 평행하면서 착륙 방향과 반대로 비행하는 부분이다. 이후 base를 거쳐 final로 진입한다."
+  },
+  {
+    "id": 152,
+    "topic": "weather",
+    "q": "Which cloud type is most associated with thunderstorms, turbulence, and possible hail?",
+    "q_ko": "뇌우, 난류, 우박 가능성과 가장 관련이 깊은 구름은 무엇인가?",
+    "options": [
+      "Cirrus",
+      "Stratus",
+      "Cumulonimbus",
+      "Altostratus"
+    ],
+    "answer": 2,
+    "explain": "적란운(cumulonimbus)은 강한 상승기류로 수직 발달하며 뇌우, 심한 난류, 우박, 돌풍을 동반하는 위험 기상의 대표적 구름이다."
+  },
+  {
+    "id": 153,
+    "topic": "propulsion",
+    "q": "In a four-stroke reciprocating aircraft engine, the correct order of the strokes is:",
+    "q_ko": "4행정 왕복 항공기 엔진에서 행정의 올바른 순서는?",
+    "options": [
+      "Intake, compression, power, exhaust",
+      "Compression, intake, exhaust, power",
+      "Power, exhaust, intake, compression",
+      "Exhaust, power, compression, intake"
+    ],
+    "answer": 0,
+    "explain": "4행정 사이클의 순서는 흡입(intake)-압축(compression)-폭발/팽창(power)-배기(exhaust)이다. '흡-압-폭-배'로 기억한다."
+  },
+  {
+    "id": 154,
+    "topic": "adverse_yaw",
+    "q": "When a pilot rolls into a right turn using ailerons alone, the nose initially tends to yaw left. This effect is known as:",
+    "q_ko": "조종사가 에일러론만으로 우선회를 시작할 때 기수가 처음에 왼쪽으로 돌려는 현상을 무엇이라 하는가?",
+    "options": [
+      "Adverse yaw",
+      "Dutch roll",
+      "P-factor",
+      "Ground effect"
+    ],
+    "answer": 0,
+    "explain": "올라가는 에일러론 쪽(안쪽) 날개보다 내려가는 에일러론 쪽(바깥쪽) 날개의 항력이 커서 기수가 선회 반대방향으로 돌려 한다. 이를 역요(adverse yaw)라 하며 러더로 보정한다."
+  },
+  {
+    "id": 155,
+    "topic": "navigation",
+    "q": "A VOR navigation station provides an aircraft with information about its:",
+    "q_ko": "VOR 항법 시설은 항공기에 무엇에 대한 정보를 제공하는가?",
+    "options": [
+      "Distance remaining to the destination in nautical miles",
+      "Magnetic bearing (radial) to or from the station",
+      "Exact altitude above sea level",
+      "Outside air temperature"
+    ],
+    "answer": 1,
+    "explain": "VOR은 전방향 무선표지로, 항공기가 시설에 대해 어느 방위선(radial) 상에 있는지 자방위 정보를 제공한다. 거리는 DME가 제공한다."
+  },
+  {
+    "id": 156,
+    "topic": "ground_effect",
+    "q": "Ground effect, which can cause an aircraft to 'float' during landing, is caused primarily by:",
+    "q_ko": "착륙 시 항공기가 '뜨는' 느낌을 주는 지면효과의 주된 원인은 무엇인가?",
+    "options": [
+      "Increased engine thrust near the ground",
+      "Reduction of induced drag due to interference with wingtip vortices near the surface",
+      "A sudden increase in air density at low altitude",
+      "The pilot raising the flaps"
+    ],
+    "answer": 1,
+    "explain": "지면 가까이에서는 날개 끝 와류와 유도 흐름이 지면에 의해 방해받아 유도항력이 감소하고 유효 양력이 증가한다. 이 때문에 항공기가 둥둥 떠가는 느낌이 든다."
+  },
+  {
+    "id": 157,
+    "topic": "fixed_wing_parts",
+    "q": "On a fixed-wing aircraft, high-lift devices extended from the trailing edge of the wing to increase lift and drag for landing are called:",
+    "q_ko": "고정익 항공기에서 착륙 시 양력과 항력을 증가시키기 위해 날개 뒷전에서 펴는 고양력 장치를 무엇이라 하는가?",
+    "options": [
+      "Spoilers",
+      "Flaps",
+      "Winglets",
+      "Slats"
+    ],
+    "answer": 1,
+    "explain": "플랩(flap)은 날개 뒷전에 위치한 고양력 장치로, 펼치면 날개 면적과 캠버가 증가해 저속에서도 큰 양력을 내며 항력도 늘어 착륙에 유리하다. 슬랫은 앞전 장치이다."
+  },
+  {
+    "id": 158,
+    "topic": "engines",
+    "q": "Compared to a piston-propeller engine, a turbofan jet engine produces thrust mainly by:",
+    "q_ko": "피스톤-프로펠러 엔진과 비교할 때, 터보팬 제트엔진은 주로 어떻게 추력을 발생시키는가?",
+    "options": [
+      "Spinning a propeller in front of the aircraft only",
+      "Accelerating a large mass of air rearward through the engine",
+      "Burning fuel to inflate a balloon",
+      "Using compressed springs to push air"
+    ],
+    "answer": 1,
+    "explain": "제트(터보팬) 엔진은 공기를 흡입·압축·연소시켜 뒤로 빠르게 밀어내며, 그 반작용으로 추력을 얻는다. 터보팬은 대형 팬으로 많은 공기를 가속한다."
+  },
+  {
+    "id": 159,
+    "topic": "load_factor",
+    "q": "During a coordinated level turn, as the bank angle increases, the load factor (G-force) on the aircraft:",
+    "q_ko": "균형 잡힌 수평 선회 중 뱅크 각이 커지면 항공기에 작용하는 하중계수(G)는?",
+    "options": [
+      "Decreases below 1 G",
+      "Remains exactly 1 G",
+      "Increases above 1 G",
+      "Drops to zero"
+    ],
+    "answer": 2,
+    "explain": "수평 선회에서 고도를 유지하려면 양력의 수직 성분이 중력과 같아야 하므로 총 양력을 늘려야 한다. 뱅크가 커질수록 필요한 양력과 하중계수가 1G보다 커진다."
+  },
+  {
+    "id": 160,
+    "topic": "faa_basics",
+    "q": "In the United States, the federal agency responsible for regulating civil aviation, including pilot certification and airspace, is the:",
+    "q_ko": "미국에서 조종사 자격 및 공역을 포함한 민간 항공을 규제하는 연방 기관은 무엇인가?",
+    "options": [
+      "NTSB",
+      "FAA",
+      "NASA",
+      "TSA"
+    ],
+    "answer": 1,
+    "explain": "FAA(연방항공청)는 미국 민간 항공을 규제하며 조종사 자격, 항공기 인증, 공역 관리를 담당한다. NTSB는 사고 조사, TSA는 보안을 맡는다."
+  },
+  {
+    "id": 161,
+    "topic": "angle_of_attack",
+    "q": "The angle of attack is best defined as the angle between the wing's chord line and which reference?",
+    "q_ko": "받음각(영각)은 날개의 시위선(chord line)과 어떤 기준선 사이의 각도로 가장 잘 정의됩니까?",
+    "options": [
+      "The relative wind",
+      "The horizon",
+      "The longitudinal axis of the aircraft",
+      "The aircraft's flight path over the ground"
+    ],
+    "answer": 0,
+    "explain": "받음각은 날개의 시위선과 상대풍(relative wind) 사이의 각도이다. 지평선이나 기체 종축이 아니라 공기가 날개에 부딪히는 방향을 기준으로 한다."
+  },
+  {
+    "id": 162,
+    "topic": "engines",
+    "q": "In a turbofan engine, most of the thrust at low airspeeds is produced by which component?",
+    "q_ko": "터보팬 엔진에서 저속 비행 시 추력의 대부분은 어느 구성요소에서 생성됩니까?",
+    "options": [
+      "The large bypass fan",
+      "The high-pressure turbine",
+      "The combustion chamber exhaust core",
+      "The afterburner"
+    ],
+    "answer": 0,
+    "explain": "고바이패스 터보팬은 대형 팬이 다량의 공기를 코어 주위로 우회시켜 추력의 대부분을 만든다. 이 때문에 연료 효율이 높고 저속에서 효과적이다."
+  },
+  {
+    "id": 163,
+    "topic": "stability",
+    "q": "An aircraft that, after being disturbed, initially returns toward its original attitude is said to have what kind of static stability?",
+    "q_ko": "외란을 받은 후 처음에 원래 자세로 되돌아가려는 경향을 보이는 항공기는 어떤 정적 안정성을 가진다고 합니까?",
+    "options": [
+      "Positive static stability",
+      "Negative static stability",
+      "Neutral static stability",
+      "Negative dynamic stability"
+    ],
+    "answer": 0,
+    "explain": "교란 직후 원래 상태로 돌아가려는 초기 경향을 보이면 양(positive)의 정적 안정성이다. 정적 안정성은 '처음의 반응 경향'을, 동적 안정성은 시간에 따른 진동의 감쇠 여부를 다룬다."
+  },
+  {
+    "id": 164,
+    "topic": "helicopter",
+    "q": "In a helicopter, raising the collective pitch lever does what to all the main rotor blades?",
+    "q_ko": "헬리콥터에서 컬렉티브(collective) 피치 레버를 올리면 모든 메인 로터 블레이드에 어떤 변화가 생깁니까?",
+    "options": [
+      "Increases the pitch angle of all blades equally",
+      "Increases the pitch of only the advancing blade",
+      "Tilts the rotor disc forward",
+      "Changes the tail rotor pitch"
+    ],
+    "answer": 0,
+    "explain": "컬렉티브는 모든 블레이드의 피치를 동시에 같은 양만큼 변화시켜 총 양력(상승/하강)을 조절한다. 개별 블레이드를 따로 바꾸는 것은 사이클릭(cyclic)이다."
+  },
+  {
+    "id": 165,
+    "topic": "control_surfaces",
+    "q": "Trim tabs are primarily used to do what for the pilot?",
+    "q_ko": "트림 탭(trim tab)은 주로 조종사에게 어떤 역할을 합니까?",
+    "options": [
+      "Relieve continuous control pressure to hold an attitude",
+      "Increase the maximum bank angle",
+      "Act as primary roll control",
+      "Deploy as speed brakes"
+    ],
+    "answer": 0,
+    "explain": "트림 탭은 조종면을 미세 조정하여 조종사가 일정한 자세를 유지하기 위해 계속 힘을 가하지 않아도 되게 한다. 즉 조종간 압력을 덜어 주는 역할을 한다."
+  },
+  {
+    "id": 166,
+    "topic": "airspeed",
+    "q": "As an aircraft climbs to higher altitude at a constant indicated airspeed, its true airspeed generally does what?",
+    "q_ko": "항공기가 일정한 지시대기속도(IAS)로 고고도로 상승하면 진대기속도(TAS)는 일반적으로 어떻게 됩니까?",
+    "options": [
+      "Increases",
+      "Decreases",
+      "Stays exactly the same",
+      "Drops to zero"
+    ],
+    "answer": 0,
+    "explain": "고도가 높아지면 공기 밀도가 낮아져 같은 IAS라도 실제로 더 빠르게 움직여야 한다. 따라서 진대기속도(TAS)는 고도와 함께 증가한다."
+  },
+  {
+    "id": 167,
+    "topic": "airport_markings",
+    "q": "On a runway, the displaced threshold is marked by arrows leading up to a solid line. Aircraft may use the area before the displaced threshold for which operation?",
+    "q_ko": "활주로에서 변위된 활주로 시단(displaced threshold)은 실선까지 이어지는 화살표로 표시됩니다. 변위 시단 이전 구역은 어떤 운용에 사용할 수 있습니까?",
+    "options": [
+      "Taxi, takeoff, and landing rollout, but not as a touchdown point for landing",
+      "Touchdown for all landings",
+      "No operations of any kind",
+      "Only helicopter hover taxi"
+    ],
+    "answer": 0,
+    "explain": "변위 시단 이전 구역은 활주(택싱), 이륙, 착륙 후 활주에는 쓸 수 있으나 착륙 접지점으로는 사용할 수 없다. 화살표는 그 한계를 표시한다."
+  },
+  {
+    "id": 168,
+    "topic": "weather",
+    "q": "Which cloud type is most associated with thunderstorms, turbulence, and hail?",
+    "q_ko": "뇌우, 난류, 우박과 가장 관련이 깊은 구름 유형은 무엇입니까?",
+    "options": [
+      "Cumulonimbus",
+      "Cirrus",
+      "Stratus",
+      "Altostratus"
+    ],
+    "answer": 0,
+    "explain": "적란운(cumulonimbus)은 수직으로 크게 발달한 구름으로 뇌우, 강한 난류, 우박, 다운버스트를 동반한다. 권운, 층운 등은 보통 안정된 날씨와 관련된다."
+  },
+  {
+    "id": 169,
+    "topic": "instruments",
+    "q": "The turn coordinator gives the pilot information about which two things?",
+    "q_ko": "선회 조정계(turn coordinator)는 조종사에게 어떤 두 가지 정보를 줍니까?",
+    "options": [
+      "Rate of roll/turn and quality (coordination) of the turn",
+      "Altitude and vertical speed",
+      "Airspeed and heading",
+      "Pitch attitude and bank only"
+    ],
+    "answer": 0,
+    "explain": "선회 조정계는 롤/선회율(rate)과 함께 볼(미끄럼/슬립 표시)로 선회의 균형(coordination) 상태를 보여 준다. 고도나 속도 정보는 제공하지 않는다."
+  },
+  {
+    "id": 170,
+    "topic": "navigation",
+    "q": "A VOR navigation station provides the pilot with what primary information?",
+    "q_ko": "VOR 항법 시설은 조종사에게 어떤 기본 정보를 제공합니까?",
+    "options": [
+      "Magnetic bearing (radial) to or from the station",
+      "Exact distance to the station",
+      "Groundspeed only",
+      "Outside air temperature"
+    ],
+    "answer": 0,
+    "explain": "VOR은 시설을 기준으로 한 자방위(라디얼) 정보를 제공한다. 거리 정보는 별도의 DME 장비가 필요하며 VOR 자체는 거리를 주지 않는다."
+  },
+  {
+    "id": 171,
+    "topic": "lift_equation",
+    "q": "According to the lift equation, if airspeed (velocity) doubles while other factors stay constant, lift increases by approximately what factor?",
+    "q_ko": "양력 방정식에 따르면 다른 요소가 일정할 때 대기속도(속도)가 두 배가 되면 양력은 대략 몇 배 증가합니까?",
+    "options": [
+      "4 times",
+      "2 times",
+      "8 times",
+      "Unchanged"
+    ],
+    "answer": 0,
+    "explain": "양력은 속도의 제곱에 비례한다. 속도가 2배가 되면 양력은 2의 제곱인 약 4배가 된다."
+  },
+  {
+    "id": 172,
+    "topic": "traffic_pattern",
+    "q": "In a standard left-hand traffic pattern, the leg flown perpendicular to the landing runway just before turning onto final is called what?",
+    "q_ko": "표준 좌선회 교통 패턴에서 최종 접근(final)으로 들어가기 직전 착륙 활주로에 직각으로 비행하는 구간을 무엇이라고 합니까?",
+    "options": [
+      "Base leg",
+      "Downwind leg",
+      "Crosswind leg",
+      "Upwind leg"
+    ],
+    "answer": 0,
+    "explain": "최종 접근 직전, 활주로에 직각으로 비행하는 구간이 베이스(base leg)이다. 다운윈드는 활주로와 평행한 역방향 구간, 크로스윈드는 이륙 직후 직각 구간이다."
+  },
+  {
+    "id": 173,
+    "topic": "axes",
+    "q": "Rotation about the lateral axis of an aircraft is called what, and is controlled primarily by which surface?",
+    "q_ko": "항공기의 가로축(lateral axis)을 중심으로 한 회전을 무엇이라 하며, 주로 어떤 조종면으로 제어합니까?",
+    "options": [
+      "Pitch, controlled by the elevator",
+      "Roll, controlled by the ailerons",
+      "Yaw, controlled by the rudder",
+      "Pitch, controlled by the rudder"
+    ],
+    "answer": 0,
+    "explain": "가로축(날개 끝에서 끝으로 지나는 축) 중심의 회전은 피치(pitch)이며, 수평 꼬리날개의 엘리베이터로 제어한다."
+  },
+  {
+    "id": 174,
+    "topic": "drag",
+    "q": "Induced drag is a byproduct of lift and is greatest under which condition?",
+    "q_ko": "유도항력(induced drag)은 양력의 부산물이며 어떤 조건에서 가장 큽니까?",
+    "options": [
+      "At low airspeed and high angle of attack",
+      "At high airspeed and low angle of attack",
+      "Only in level cruise",
+      "When the engine is off"
+    ],
+    "answer": 0,
+    "explain": "유도항력은 양력 생성에 따른 날개 끝 와류 때문에 생기며, 저속·고받음각(예: 이착륙, 상승)에서 가장 크다. 속도가 빠를수록 유도항력은 줄고 형상항력이 커진다."
+  },
+  {
+    "id": 175,
+    "topic": "airspace",
+    "q": "Class B airspace is generally established around what kind of location?",
+    "q_ko": "B등급(Class B) 공역은 일반적으로 어떤 장소를 중심으로 설정됩니까?",
+    "options": [
+      "The nation's busiest major airports",
+      "Small uncontrolled grass strips",
+      "Remote military bombing ranges",
+      "Open ocean far from land"
+    ],
+    "answer": 0,
+    "explain": "Class B 공역은 가장 혼잡한 주요 공항(대도시 허브) 주위에 설정되어 교통량을 관리한다. 진입에는 관제 허가가 필요하다."
+  },
+  {
+    "id": 176,
+    "topic": "propeller",
+    "q": "A constant-speed propeller maintains a selected RPM by automatically adjusting what?",
+    "q_ko": "정속 프로펠러(constant-speed propeller)는 선택된 RPM을 유지하기 위해 자동으로 무엇을 조절합니까?",
+    "options": [
+      "The blade pitch angle",
+      "The number of blades",
+      "The fuel octane",
+      "The wing flap setting"
+    ],
+    "answer": 0,
+    "explain": "정속 프로펠러는 거버너가 블레이드의 피치 각도를 자동으로 바꿔 부하 변화에도 일정한 RPM을 유지한다. 부하가 늘면 피치를 낮추고, 줄면 피치를 높인다."
+  },
+  {
+    "id": 177,
+    "topic": "weight_balance",
+    "q": "If an aircraft is loaded so that its center of gravity is too far aft (rearward), what handling tendency typically results?",
+    "q_ko": "항공기의 무게중심(CG)이 너무 뒤쪽에 위치하도록 적재되면 일반적으로 어떤 조종 특성이 나타납니까?",
+    "options": [
+      "Reduced longitudinal stability and a tendency to pitch up",
+      "Excessive nose-heaviness",
+      "Inability to leave the ground",
+      "Improved stall recovery"
+    ],
+    "answer": 0,
+    "explain": "CG가 너무 후방이면 세로 안정성이 줄고 기수가 들리려는(pitch-up) 경향이 커져 실속 회복이 어려워질 수 있다. CG가 너무 앞이면 기수가 무거워진다."
+  },
+  {
+    "id": 178,
+    "topic": "bernoulli",
+    "q": "Bernoulli's principle helps explain wing lift by relating an increase in airflow speed over the upper surface to what?",
+    "q_ko": "베르누이 원리는 날개 윗면의 공기 흐름 속도 증가를 무엇과 연관 지어 양력을 설명합니까?",
+    "options": [
+      "A decrease in static pressure on the upper surface",
+      "An increase in static pressure on the upper surface",
+      "A rise in air temperature only",
+      "No change in pressure at all"
+    ],
+    "answer": 0,
+    "explain": "베르누이 원리에 따르면 흐름 속도가 빨라지면 정압이 낮아진다. 날개 윗면에서 빠른 흐름으로 압력이 낮아지고, 아랫면의 상대적으로 높은 압력과의 차이가 양력을 만든다."
+  },
+  {
+    "id": 179,
+    "topic": "rotary_torque",
+    "q": "On a single main rotor helicopter, the tail rotor's main purpose is to do what?",
+    "q_ko": "단일 메인 로터 헬리콥터에서 테일 로터(꼬리 로터)의 주된 목적은 무엇입니까?",
+    "options": [
+      "Counteract the torque of the main rotor and control yaw",
+      "Provide most of the lift",
+      "Slow the aircraft during landing",
+      "Power the main rotor"
+    ],
+    "answer": 0,
+    "explain": "메인 로터가 한 방향으로 돌면 기체는 반대 방향으로 돌려는 토크를 받는다. 테일 로터는 이 토크를 상쇄하고 안티토크 페달로 기수 방향(요)을 제어한다."
+  },
+  {
+    "id": 180,
+    "topic": "faa_basics",
+    "q": "Before flight, the pilot in command is ultimately responsible for which of the following?",
+    "q_ko": "비행 전에 기장(PIC)은 다음 중 무엇에 대해 최종 책임을 집니까?",
+    "options": [
+      "Determining that the aircraft is airworthy for the flight",
+      "Filing the airline's quarterly taxes",
+      "Manufacturing replacement parts",
+      "Setting national airspace regulations"
+    ],
+    "answer": 0,
+    "explain": "기장은 비행 전 항공기가 해당 비행에 감항성(airworthy)이 있는지 판단하고 안전한 운항을 보장할 최종 책임을 진다. 이는 FAA 규정의 기본 원칙이다."
   }
 ]

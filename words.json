@@ -82214,5 +82214,26 @@
     "tier": "high",
     "afoqtCommon": true,
     "id": 4407
+  },
+  {
+    "id": 4408,
+    "word": "FACTIOUS",
+    "pos": "adj",
+    "kor": "당파적인, 분열을 일으키는",
+    "def": "producing or marked by internal dissension within a group",
+    "example": "The factious committee split into rival camps over the budget.",
+    "synonyms": [
+      "divisive",
+      "contentious",
+      "quarrelsome",
+      "dissident"
+    ],
+    "category": "wk",
+    "analogyRelations": [
+      "factious:harmonious (antonym)"
+    ],
+    "source": "afoqt-gen",
+    "tier": "high",
+    "afoqtCommon": false
   }
 ]

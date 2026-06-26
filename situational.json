@@ -628,5 +628,509 @@
     ],
     "answer": 0,
     "explain": "정답은 0번(A)입니다. 개선안을 제안하고 의견을 모아 시범 적용한 뒤 효과가 입증되면 시행하는 것은(는) 신중하면서도 발전을 추구하는 리더십입니다. 나머지 보기, 즉 현상 유지는 향상 기회를 놓치고, 즉각 강제는 검증과 합의를 건너뛰며, 자기만 바꾸는 것은 일관성 없는 혼란을 만듭니다."
+  },
+  {
+    "id": 46,
+    "scenario": "During a pre-flight inspection, an airman on your team notices a minor hydraulic leak but says the aircraft has flown fine with it for weeks. The flight is scheduled to depart in ten minutes, and your commander is eager to keep the mission on time.",
+    "scenario_ko": "비행 전 점검 중 팀의 한 공군병이 사소한 유압 누출을 발견했지만 몇 주 동안 문제없이 비행했다고 말합니다. 비행은 10분 후 출발 예정이며, 지휘관은 임무를 정시에 진행하고 싶어 합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Approve the flight since the leak has not caused problems before",
+      "Ground the aircraft, document the leak, and have maintenance inspect it before flight",
+      "Quietly tell the airman to keep the leak off the record to avoid delay",
+      "Let the pilot decide whether the leak is acceptable"
+    ],
+    "answer": 1,
+    "explain": "안전은 임무 일정보다 우선이며 정비 결함은 절차에 따라 점검·문서화되어야 한다(정답 1). 과거에 괜찮았다는 이유로 승인하거나(0), 은폐하거나(2), 책임을 회피해 조종사에게 떠넘기는 것(3)은 안전 원칙과 책임 원칙에 어긋난다."
+  },
+  {
+    "id": 47,
+    "scenario": "You overhear two of your subordinates arguing loudly in the hallway about who failed to complete a shared report. Other personnel are starting to stare, and the dispute is escalating.",
+    "scenario_ko": "공유 보고서를 누가 완성하지 못했는지를 두고 두 부하가 복도에서 큰 소리로 다투는 것을 듣게 됩니다. 다른 인원들이 쳐다보기 시작하고 갈등이 격화되고 있습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Publicly reprimand both of them on the spot to restore order",
+      "Ignore it and let them resolve the conflict themselves",
+      "Move them to a private space, calm the situation, and hear both sides separately",
+      "Side with whichever subordinate you trust more"
+    ],
+    "answer": 2,
+    "explain": "갈등은 사적인 공간에서 침착하게 양측의 입장을 들어 해결해야 한다(정답 2). 공개 질책(0)은 모욕적이고, 방치(1)는 갈등을 키우며, 선입견으로 한쪽 편을 드는 것(3)은 공정성을 잃는다."
+  },
+  {
+    "id": 48,
+    "scenario": "After a briefing, you realize you gave your team incorrect coordinates that could waste hours of work if acted upon. Correcting yourself means admitting a mistake in front of the unit.",
+    "scenario_ko": "브리핑 후, 당신이 팀에게 잘못된 좌표를 전달했고 그대로 실행되면 수 시간의 작업이 낭비될 수 있다는 것을 깨닫습니다. 정정하려면 부대 앞에서 실수를 인정해야 합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Immediately correct the error and provide the right coordinates to the team",
+      "Wait to see if anyone notices before saying anything",
+      "Blame the outdated source data for the mistake",
+      "Quietly fix it only for the people you trust most"
+    ],
+    "answer": 0,
+    "explain": "즉시 실수를 인정하고 정확한 정보를 전체에 전달하는 것이 책임감 있는 행동이다(정답 0). 누가 알아챌지 기다리거나(1), 책임을 자료 탓으로 돌리거나(2), 일부에게만 알리는 것(3)은 임무와 신뢰를 해친다."
+  },
+  {
+    "id": 49,
+    "scenario": "A respected senior NCO gives your team an instruction that you believe violates a safety regulation. The NCO outranks you in experience but you are the officer in charge of the task.",
+    "scenario_ko": "존경받는 선임 부사관이 당신 팀에 안전 규정을 위반한다고 판단되는 지시를 내립니다. 그 부사관은 경험에서 당신보다 앞서지만, 해당 임무의 책임 장교는 당신입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Follow the instruction because the NCO has more experience",
+      "Refuse loudly in front of the team to assert your authority",
+      "Respectfully raise your safety concern with the NCO privately and verify the regulation before proceeding",
+      "Carry out the task but file a complaint afterward"
+    ],
+    "answer": 2,
+    "explain": "안전 우려는 사적으로 정중히 제기하고 규정을 확인한 뒤 진행해야 한다(정답 2). 경험만 믿고 따르거나(0) 사후 불만 제기(3)는 위험을 방치하고, 팀 앞 공개 거부(1)는 화합을 해친다."
+  },
+  {
+    "id": 50,
+    "scenario": "One of your most reliable airmen has been arriving late and seeming distracted for the past week, which is unlike them. Their performance on critical tasks is beginning to slip.",
+    "scenario_ko": "가장 믿음직한 공군병 중 한 명이 지난 한 주 동안 평소와 달리 지각하고 산만해 보입니다. 중요한 임무에서의 수행 능력도 떨어지기 시작합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Issue a formal written reprimand for the tardiness",
+      "Speak with the airman privately to understand what is going on and offer support",
+      "Reassign all their important tasks to someone else",
+      "Announce in formation that lateness will not be tolerated"
+    ],
+    "answer": 1,
+    "explain": "평소와 다른 행동의 원인을 사적으로 파악하고 지원하는 것이 가장 효과적이다(정답 1). 곧바로 징계(0)나 공개 경고(3)는 원인을 무시하고, 업무 전부 재배정(2)은 신뢰받던 인원을 소외시킨다."
+  },
+  {
+    "id": 51,
+    "scenario": "Your team is behind schedule on a project, and a peer officer suggests cutting a required quality-control step to meet the deadline. The shortcut would likely go unnoticed by leadership.",
+    "scenario_ko": "팀의 프로젝트가 일정보다 뒤처져 있고, 동료 장교가 마감을 맞추기 위해 필수 품질 검사 단계를 생략하자고 제안합니다. 이 편법은 상부에 발각되지 않을 가능성이 큽니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Agree to skip the step since it likely won't be caught",
+      "Keep the quality-control step and inform leadership the deadline may slip",
+      "Skip the step but document it secretly in case of problems",
+      "Let the peer officer make the call alone"
+    ],
+    "answer": 1,
+    "explain": "품질·안전 절차를 유지하고 일정 지연 가능성을 상부에 보고하는 것이 정직하고 책임감 있는 선택이다(정답 1). 발각 가능성으로 편법을 정당화하거나(0,2) 결정을 떠넘기는 것(3)은 무결성을 저버린다."
+  },
+  {
+    "id": 52,
+    "scenario": "During a joint exercise, a member of another unit makes a derogatory comment about one of your airmen's background. Your airman looks upset but stays silent.",
+    "scenario_ko": "합동 훈련 중 다른 부대의 한 인원이 당신 부하의 출신 배경에 대해 모욕적인 발언을 합니다. 당신의 부하는 화가 나 보이지만 침묵하고 있습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Ignore it since it came from outside your unit",
+      "Address the comment professionally, make clear it is unacceptable, and support your airman",
+      "Tell your airman to toughen up and move on",
+      "Retaliate with a comment about the other unit"
+    ],
+    "answer": 1,
+    "explain": "부적절한 발언을 전문가답게 지적해 용납되지 않음을 분명히 하고 부하를 지지해야 한다(정답 1). 타 부대 소속이라 무시하거나(0), 부하를 탓하거나(2), 보복(3)하는 것은 리더십과 존중 원칙에 반한다."
+  },
+  {
+    "id": 53,
+    "scenario": "You discover that a budget report you submitted contained an error that overstated available funds by a significant amount. Several decisions are about to be made based on that report.",
+    "scenario_ko": "당신이 제출한 예산 보고서에 가용 자금을 상당히 부풀린 오류가 있었음을 발견합니다. 그 보고서를 근거로 곧 여러 결정이 내려질 예정입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Notify your supervisor immediately and submit a corrected report",
+      "Wait until after the decisions are made to avoid embarrassment",
+      "Adjust future reports to gradually offset the error",
+      "Delete the original report and hope no one references it"
+    ],
+    "answer": 0,
+    "explain": "즉시 상관에게 알리고 정정 보고서를 제출하는 것이 책임 있는 조치다(정답 0). 결정 이후로 미루거나(1), 슬쩍 상쇄하거나(2), 삭제로 은폐하는 것(3)은 잘못된 결정을 초래하고 무결성을 훼손한다."
+  },
+  {
+    "id": 54,
+    "scenario": "A new airman freezes up and makes a procedural mistake during a high-pressure drill, drawing frustrated sighs from teammates. The drill can be safely paused.",
+    "scenario_ko": "신참 공군병이 압박이 큰 훈련 중 얼어붙어 절차상 실수를 저지르고, 동료들은 답답해하며 한숨을 쉽니다. 훈련은 안전하게 중단할 수 있습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Single the airman out and explain everything they did wrong in front of the group",
+      "Pause the drill, calmly reset, and coach the airman through the step",
+      "Let the teammates' frustration teach the airman a lesson",
+      "Remove the airman from the drill permanently"
+    ],
+    "answer": 1,
+    "explain": "훈련을 멈추고 침착하게 재정비한 뒤 단계를 코칭하는 것이 학습과 사기에 가장 효과적이다(정답 1). 공개 지적(0), 동료 압박에 방치(2), 영구 배제(3)는 신참을 위축시키고 성장을 막는다."
+  },
+  {
+    "id": 55,
+    "scenario": "Two qualified airmen both want the same prestigious training slot, and only one can go. Both have performed well, and each feels they deserve it more.",
+    "scenario_ko": "두 명의 자격을 갖춘 공군병이 모두 권위 있는 교육 자리를 원하지만 한 명만 갈 수 있습니다. 둘 다 우수한 성과를 냈고, 각자 자신이 더 자격이 있다고 느낍니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Choose the one you personally like more",
+      "Apply clear, objective criteria, explain the decision, and discuss development paths for the other",
+      "Let the two airmen fight it out and pick the winner",
+      "Postpone the decision indefinitely to avoid conflict"
+    ],
+    "answer": 1,
+    "explain": "객관적 기준을 적용해 결정하고 그 이유를 설명하며 탈락자의 성장 경로를 논의하는 것이 공정하다(정답 1). 개인적 호감(0), 경쟁 방치(2), 무기한 보류(3)는 공정성과 사기를 해친다."
+  },
+  {
+    "id": 56,
+    "scenario": "Your supervisor assigns you a task with instructions that you find genuinely confusing, and you are unsure how to proceed. The deadline is tomorrow morning.",
+    "scenario_ko": "상관이 당신에게 임무를 맡겼는데 지시 내용이 정말로 혼란스럽고 어떻게 진행해야 할지 확신이 서지 않습니다. 마감은 내일 아침입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Guess at what was meant and complete the task your own way",
+      "Ask your supervisor specific clarifying questions as soon as possible",
+      "Wait until the deadline and explain you didn't understand",
+      "Complete only the parts you understand and skip the rest"
+    ],
+    "answer": 1,
+    "explain": "가능한 한 빨리 상관에게 구체적으로 확인 질문을 하는 것이 가장 효과적이다(정답 1). 추측해 진행하거나(0), 마감까지 미루거나(2), 일부만 처리하는 것(3)은 임무 실패 위험을 키운다."
+  },
+  {
+    "id": 57,
+    "scenario": "While reviewing logs, you find that a friend and fellow officer signed off on equipment checks that were never actually performed. They ask you to overlook it just this once.",
+    "scenario_ko": "기록을 검토하던 중, 친구이자 동료 장교가 실제로 수행되지 않은 장비 점검을 완료한 것으로 서명한 사실을 발견합니다. 그는 이번 한 번만 눈감아 달라고 부탁합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Overlook it because they are a friend and promised it won't happen again",
+      "Report the falsified records through the proper channels",
+      "Confront them but agree to keep it private if they fix it themselves",
+      "Sign off on the remaining checks to help them catch up"
+    ],
+    "answer": 1,
+    "explain": "허위 기록은 안전과 직결되므로 정식 절차를 통해 보고해야 한다(정답 1). 우정 때문에 묵인하거나(0,2), 함께 허위 서명에 가담하는 것(3)은 무결성과 안전을 심각하게 훼손한다."
+  },
+  {
+    "id": 58,
+    "scenario": "In a planning meeting, a senior officer presents a plan with a flaw you are fairly certain will cause problems during execution. The room seems ready to approve it.",
+    "scenario_ko": "기획 회의에서 선임 장교가 실행 중 문제를 일으킬 것이라고 당신이 꽤 확신하는 결함이 있는 계획을 제시합니다. 회의실은 그 계획을 승인할 분위기입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Stay silent to avoid challenging a senior officer",
+      "Respectfully raise your specific concern with supporting reasoning before approval",
+      "Approve now and point out the flaw only if it fails",
+      "Email everyone afterward saying you disagreed"
+    ],
+    "answer": 1,
+    "explain": "승인 전에 근거를 들어 정중하게 구체적 우려를 제기하는 것이 임무 성공에 기여한다(정답 1). 침묵하거나(0), 실패를 기다리거나(2), 사후 이메일(3)은 문제를 막을 기회를 놓친다."
+  },
+  {
+    "id": 59,
+    "scenario": "Your team just completed a difficult mission successfully, and your commander praises you personally for the result. Much of the success was due to an airman who solved a critical problem.",
+    "scenario_ko": "당신의 팀이 어려운 임무를 성공적으로 마쳤고, 지휘관이 그 결과에 대해 당신을 개인적으로 칭찬합니다. 성공의 상당 부분은 결정적 문제를 해결한 한 공군병 덕분이었습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Accept the praise to strengthen your own standing",
+      "Acknowledge the airman's key contribution and ensure they receive credit",
+      "Stay quiet to avoid diminishing your commander's praise",
+      "Mention the airman only if your commander asks who helped"
+    ],
+    "answer": 1,
+    "explain": "공로를 세운 부하의 기여를 인정하고 합당한 인정을 받게 하는 것이 좋은 리더십이다(정답 1). 공을 가로채거나(0), 침묵하거나(2), 물어볼 때만 언급하는 것(3)은 부하의 신뢰와 사기를 떨어뜨린다."
+  },
+  {
+    "id": 60,
+    "scenario": "During a deployment, supplies run short and your team must share limited rations. One airman is hoarding extra portions while others go without.",
+    "scenario_ko": "파병 중 보급품이 부족해 당신의 팀은 한정된 식량을 나눠야 합니다. 한 공군병이 여분을 쌓아두는 동안 다른 인원들은 부족함을 겪고 있습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Take extra portions yourself before they run out",
+      "Address the hoarding privately, then enforce fair distribution for everyone",
+      "Publicly shame the airman in front of the team",
+      "Ignore it to avoid conflict during a stressful time"
+    ],
+    "answer": 1,
+    "explain": "쌓아두는 행동을 사적으로 지적한 뒤 모두에게 공정한 분배를 시행하는 것이 옳다(정답 1). 자기 몫을 먼저 챙기거나(0), 공개 망신(2), 방치(3)는 공정성·화합·리더십 원칙에 어긋난다."
+  },
+  {
+    "id": 61,
+    "scenario": "A subordinate comes to you privately and reports that a coworker has been making them uncomfortable with repeated unwanted comments. They are nervous about formal reporting.",
+    "scenario_ko": "한 부하가 사적으로 찾아와, 한 동료가 반복적인 불쾌한 발언으로 자신을 불편하게 만들어 왔다고 보고합니다. 그는 정식 신고를 부담스러워합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Tell them to handle it directly with the coworker themselves",
+      "Take the report seriously, explain their options, and follow the proper reporting procedures",
+      "Promise to keep it completely off the record",
+      "Dismiss it as a personality clash"
+    ],
+    "answer": 1,
+    "explain": "보고를 진지하게 받아들이고 선택지를 설명하며 정식 신고 절차를 따르는 것이 책임 있는 대응이다(정답 1). 당사자끼리 해결하라고 떠넘기거나(0), 무조건 비밀 약속(2), 성격 차이로 치부(3)는 부하 보호 의무를 저버린다."
+  },
+  {
+    "id": 62,
+    "scenario": "You are leading a night operation when weather conditions deteriorate faster than forecast, raising real safety risks. The objective is nearly complete and turning back means losing the mission's progress.",
+    "scenario_ko": "야간 작전을 지휘하던 중 기상 조건이 예보보다 빠르게 악화되어 실질적인 안전 위험이 커집니다. 목표는 거의 달성 직전이고, 회항하면 임무의 진척을 잃게 됩니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Push through quickly to finish before conditions worsen",
+      "Assess the risk against criteria and prioritize personnel safety, halting if the risk is unacceptable",
+      "Let each team member decide individually whether to continue",
+      "Continue but turn off communications to avoid being ordered to abort"
+    ],
+    "answer": 1,
+    "explain": "위험을 기준에 따라 평가하고 인원 안전을 최우선으로 삼아 위험이 과도하면 중단하는 것이 옳다(정답 1). 무리한 강행(0), 개별 판단 방치(2), 통신 차단(3)은 안전과 지휘 통제를 위협한다."
+  },
+  {
+    "id": 63,
+    "scenario": "A capable airman consistently completes tasks well but refuses to follow the standard procedure, instead using their own method. So far nothing has gone wrong, but others are starting to copy the workaround.",
+    "scenario_ko": "유능한 한 공군병이 임무를 늘 잘 완수하지만 표준 절차를 따르지 않고 자기만의 방식을 사용합니다. 지금까지는 문제가 없었으나 다른 인원들이 그 편법을 따라 하기 시작합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Allow it since the airman gets good results",
+      "Discuss it privately, explain why the standard procedure matters, and evaluate their method through proper channels",
+      "Punish the airman publicly to deter others",
+      "Quietly adopt the workaround as the new unofficial standard"
+    ],
+    "answer": 1,
+    "explain": "사적으로 대화해 표준 절차의 중요성을 설명하고 새 방식은 정식 절차로 평가하는 것이 균형 잡힌 리더십이다(정답 1). 결과만 보고 방치(0)나 공개 처벌(2)은 극단적이고, 검증 없는 편법 채택(3)은 표준화와 안전을 위협한다."
+  },
+  {
+    "id": 64,
+    "scenario": "During a pre-flight inspection, an experienced crew chief signs off on a panel you suspect was not properly secured. He is senior to you in time-in-service but you are the responsible officer for the launch. The aircraft is scheduled to depart in twenty minutes.",
+    "scenario_ko": "비행 전 점검 중, 당신보다 복무 기간이 긴 노련한 정비반장이 제대로 고정되지 않았다고 의심되는 패널에 서명을 합니다. 그는 복무 기간상 선임이지만, 발진의 책임 장교는 당신입니다. 항공기는 20분 후 출발 예정입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Defer to the crew chief's experience and let the launch proceed on schedule",
+      "Halt the launch, have the panel re-inspected, and document your safety concern",
+      "Quietly note your concern in a report but allow the aircraft to depart",
+      "Ask another junior officer whether you are overreacting before deciding"
+    ],
+    "answer": 1,
+    "explain": "안전 의심이 있을 때는 임무 일정보다 안전이 우선이므로 발진을 중지하고 재점검·기록하는 것이 최선이다. 선임의 경험에 무조건 따르는 것(0)이나 그냥 보내는 것(2)은 책임 장교로서 안전 책임을 방기하는 것이다. 다른 사람에게 과민반응인지 묻는 것(3)은 결정을 미루고 시간을 낭비한다."
+  },
+  {
+    "id": 65,
+    "scenario": "A respected NCO in your section makes a sarcastic remark about a new policy in front of several junior Airmen during a morning briefing. The comment gets a few laughs but undermines guidance you just delivered. The briefing is nearly over.",
+    "scenario_ko": "당신 부서의 존경받는 부사관이 아침 브리핑 중 여러 하급 병사 앞에서 새 정책에 대해 비꼬는 발언을 합니다. 그 발언은 몇 번의 웃음을 자아내지만 당신이 방금 전달한 지침을 약화시킵니다. 브리핑은 거의 끝나갑니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Publicly reprimand the NCO immediately so the Airmen see consequences",
+      "Finish the briefing, then speak with the NCO privately about the remark",
+      "Ignore it to avoid appearing thin-skinned in front of the team",
+      "Make a sarcastic comment back to even the score"
+    ],
+    "answer": 1,
+    "explain": "공개적으로 망신을 주면 부사관의 권위와 팀 신뢰가 손상되므로, 브리핑을 마친 뒤 사적으로 대화하는 것이 최선이다. 즉시 공개 질책(0)은 관계를 악화시키고, 무시(2)는 권위 훼손을 방치하며, 똑같이 비꼬는 것(3)은 지도자로서의 품위를 잃는다."
+  },
+  {
+    "id": 66,
+    "scenario": "You discover that a budget report you submitted last week contained an error that overstated your unit's spending. No one has noticed yet, and correcting it will require an awkward conversation with your supervisor. The fiscal review is in three days.",
+    "scenario_ko": "당신이 지난주 제출한 예산 보고서에 부대 지출을 과다 계상한 오류가 있음을 발견합니다. 아직 아무도 알아채지 못했고, 정정하려면 상관과의 곤란한 대화가 필요합니다. 회계 검토는 사흘 후입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Wait to see if anyone notices before saying anything",
+      "Inform your supervisor promptly and submit a corrected report",
+      "Quietly change the figures without telling anyone",
+      "Blame the error on the accounting software in your explanation"
+    ],
+    "answer": 1,
+    "explain": "오류를 즉시 상관에게 보고하고 정정 보고서를 제출하는 것이 책임감과 진실성의 원칙에 부합한다. 발각될 때까지 기다리거나(0) 몰래 수정(2)하는 것은 책임 회피이며, 소프트웨어 탓으로 돌리는 것(3)은 책임을 전가하는 것이다."
+  },
+  {
+    "id": 67,
+    "scenario": "Two Airmen on your team have stopped speaking to each other after a disagreement, and their silence is slowing a project with a tight deadline. Each has privately complained to you about the other. The deadline is at the end of the week.",
+    "scenario_ko": "당신 팀의 두 병사가 의견 충돌 후 서로 말을 하지 않게 되었고, 그 침묵이 촉박한 마감의 프로젝트를 지연시키고 있습니다. 각자 당신에게 따로 상대방에 대해 불평했습니다. 마감은 이번 주말입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Reassign one of them so they no longer have to work together",
+      "Bring them together to address the conflict and refocus on the shared task",
+      "Tell them to act professionally and figure it out themselves",
+      "Side with the Airman whose complaint seems more justified"
+    ],
+    "answer": 1,
+    "explain": "두 사람을 함께 불러 갈등을 직접 다루고 공동 목표에 다시 집중시키는 것이 갈등 해결과 팀워크 원칙에 맞다. 재배치(0)는 근본 문제를 회피하고, 알아서 하라는 것(2)은 방임이며, 한쪽 편을 드는 것(3)은 갈등을 심화시킨다."
+  },
+  {
+    "id": 68,
+    "scenario": "Your commander gives you a tasking that you believe conflicts with a standing safety regulation. You are not completely certain, and the commander is busy and seems impatient. The task is to begin within the hour.",
+    "scenario_ko": "지휘관이 당신에게 기존 안전 규정과 충돌한다고 생각되는 임무를 부여합니다. 완전히 확신하지는 못하며, 지휘관은 바쁘고 조급해 보입니다. 임무는 한 시간 내에 시작해야 합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Carry out the tasking as ordered since the commander outranks you",
+      "Respectfully raise the specific regulation with the commander before proceeding",
+      "Refuse the tasking outright and report the commander to higher headquarters",
+      "Begin the task and mention the regulation only if a problem arises"
+    ],
+    "answer": 1,
+    "explain": "구체적 규정을 들어 지휘관에게 정중히 우려를 제기한 뒤 진행하는 것이 적절한 절차이자 안전 우선 원칙이다. 무조건 수행(0)은 안전 위반 가능성을 방치하고, 즉각 거부·상부 보고(2)는 지휘계통을 건너뛰는 과잉 대응이며, 문제가 생긴 뒤 언급(3)은 예방 기회를 놓친다."
+  },
+  {
+    "id": 69,
+    "scenario": "At a unit social event, you overhear a fellow junior officer making a demeaning joke about a colleague's ethnic background. A few people laugh uncomfortably. You are off duty but in uniform.",
+    "scenario_ko": "부대 친목 행사에서 동료 위관 장교가 한 동료의 민족적 배경에 대해 비하하는 농담을 하는 것을 우연히 듣습니다. 몇몇 사람이 불편하게 웃습니다. 당신은 비번이지만 군복을 입고 있습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Laugh along to keep the mood light and avoid confrontation",
+      "Calmly tell the officer the remark is inappropriate and steer the conversation",
+      "Report the officer to the commander first thing the next morning",
+      "Walk away and pretend you did not hear it"
+    ],
+    "answer": 1,
+    "explain": "차분하게 부적절함을 지적하고 대화를 전환하는 것이 즉각적이고 적절한 대응이다. 함께 웃는 것(0)은 행동을 묵인하고, 우선 다음 날 보고(2)는 현장 개입을 놓치며 비례적이지 않고, 자리를 뜨는 것(3)은 묵인에 가깝다. 반복되거나 심각하면 이후 보고를 고려할 수 있다."
+  },
+  {
+    "id": 70,
+    "scenario": "You are leading a team on a time-sensitive maintenance task when a junior Airman points out a flaw in your plan. Other team members are watching to see how you respond. The deadline is approaching.",
+    "scenario_ko": "당신이 시간에 쫓기는 정비 작업에서 팀을 이끌고 있을 때, 한 하급 병사가 당신 계획의 결함을 지적합니다. 다른 팀원들이 당신이 어떻게 반응하는지 지켜보고 있습니다. 마감이 다가옵니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Dismiss the concern to maintain your authority and stay on schedule",
+      "Acknowledge the point, evaluate it quickly, and adjust the plan if warranted",
+      "Tell the Airman to discuss it later after the task is finished",
+      "Ask the Airman to take over since they think they know better"
+    ],
+    "answer": 1,
+    "explain": "지적을 인정하고 빠르게 평가하여 타당하면 계획을 수정하는 것이 효과적 리더십이다. 묵살(0)은 좋은 정보를 버리고 권위주의적이며, 나중에 논의(2)는 임무 위험을 방치하고, 비꼬듯 떠넘기는 것(3)은 비전문적이다."
+  },
+  {
+    "id": 71,
+    "scenario": "A close friend and fellow officer asks you to sign off on his training records, telling you he completed a required course but the paperwork was lost. You have no documentation confirming he finished it. Certification is due tomorrow.",
+    "scenario_ko": "가까운 친구이자 동료 장교가 자신의 훈련 기록에 서명해 달라고 부탁하며, 필수 과정을 이수했지만 서류가 분실되었다고 말합니다. 당신에게는 그가 이수했음을 확인할 증빙이 없습니다. 인증 기한은 내일입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Sign the records because you trust your friend's word",
+      "Decline to sign without documentation and help him obtain proper verification",
+      "Sign now and tell him to find the paperwork afterward",
+      "Sign but add a note that you are not sure he completed it"
+    ],
+    "answer": 1,
+    "explain": "증빙 없이 서명을 거절하고 적절한 검증을 받도록 돕는 것이 진실성과 규정 준수의 원칙이다. 친구를 믿고 서명(0)하거나 일단 서명 후 찾으라는 것(2)은 허위 기록 작성이며, 불확실하다는 단서를 단 서명(3)도 결국 무효한 인증을 발급하는 것이다."
+  },
+  {
+    "id": 72,
+    "scenario": "You notice a subordinate has been arriving late and seeming distracted for the past two weeks, which is out of character for him. His performance has begun to slip. You have a full schedule today.",
+    "scenario_ko": "한 부하가 지난 2주간 지각하고 산만해 보이는데, 이는 그답지 않은 모습입니다. 그의 업무 성과가 떨어지기 시작했습니다. 당신은 오늘 일정이 빡빡합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Issue a formal counseling for tardiness to correct the behavior quickly",
+      "Make time to speak with him privately to understand what is going on",
+      "Wait several more weeks to see if the pattern continues",
+      "Mention it casually in front of the team as a reminder about punctuality"
+    ],
+    "answer": 1,
+    "explain": "시간을 내어 사적으로 대화하며 원인을 파악하는 것이 배려 있는 리더십이다. 평소와 다른 변화는 개인적 어려움의 신호일 수 있다. 즉각 공식 징계(0)는 원인을 무시하고, 몇 주 더 방치(2)는 문제를 키우며, 팀 앞 언급(3)은 그에게 망신을 준다."
+  },
+  {
+    "id": 73,
+    "scenario": "During a joint exercise, an officer from another unit publicly blames your team for a delay that was actually caused by his own people. Senior leaders are present and watching. Tensions are rising.",
+    "scenario_ko": "합동 훈련 중, 다른 부대의 장교가 사실은 자기 부대원들이 일으킨 지연을 당신 팀 탓으로 공개적으로 돌립니다. 상급 지휘관들이 자리에 있으며 지켜보고 있습니다. 긴장이 고조되고 있습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Publicly call out his unit for causing the delay to set the record straight",
+      "Stay composed, state the facts briefly, and propose moving forward",
+      "Say nothing and let the false blame stand to avoid a scene",
+      "Complain to the senior leaders about him after the exercise"
+    ],
+    "answer": 1,
+    "explain": "침착함을 유지하고 사실을 간략히 진술한 뒤 앞으로 나아가자고 제안하는 것이 품위와 임무 중심 태도를 보여준다. 맞공개 비난(0)은 갈등을 키우고, 침묵(2)은 부당한 비난을 방치하며, 사후 불평(3)은 현장에서 사실을 바로잡을 기회를 놓친다."
+  },
+  {
+    "id": 74,
+    "scenario": "You are about to brief a senior leader when you realize the data your analyst prepared has a significant inconsistency. The analyst is confident the numbers are right, but you are not. The brief starts in ten minutes.",
+    "scenario_ko": "고위 지휘관에게 브리핑하기 직전, 분석관이 준비한 데이터에 상당한 불일치가 있음을 알아챕니다. 분석관은 수치가 맞다고 확신하지만 당신은 확신하지 못합니다. 브리핑은 10분 후 시작됩니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Present the data as-is and let the analyst defend it if questioned",
+      "Flag the inconsistency to the leader and offer to verify before presenting conclusions",
+      "Quietly change the numbers to what you think is correct",
+      "Cancel the brief entirely and reschedule for another day"
+    ],
+    "answer": 1,
+    "explain": "불일치를 지휘관에게 알리고 결론 제시 전 검증을 제안하는 것이 정직하고 책임감 있는 대응이다. 그대로 발표(0)는 잘못된 정보로 의사결정을 위협하고, 임의로 수정(2)은 검증 없이 또 다른 오류 위험이 있으며, 전면 취소(3)는 과잉 대응으로 지휘관의 시간을 낭비한다."
+  },
+  {
+    "id": 75,
+    "scenario": "A member of your team confides that she is being subjected to repeated unwanted comments by a peer, but she begs you not to report it because she fears retaliation. You know your responsibilities regarding such reports. She is visibly distressed.",
+    "scenario_ko": "팀원 한 명이 동료로부터 반복적으로 원치 않는 발언을 듣고 있다고 털어놓지만, 보복을 두려워하여 신고하지 말아 달라고 간청합니다. 당신은 그러한 신고에 관한 자신의 책무를 알고 있습니다. 그녀는 눈에 띄게 괴로워합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Agree to keep it confidential to honor her wishes",
+      "Acknowledge her concern, explain your reporting duty, and connect her with proper resources",
+      "Confront the peer yourself without involving anyone else",
+      "Tell her to come back if it happens again before doing anything"
+    ],
+    "answer": 1,
+    "explain": "그녀의 감정을 인정하되 신고 의무를 설명하고 적절한 지원 자원과 연결해 주는 것이 규정과 부하 보호 원칙에 부합한다. 비밀 유지 약속(0)은 의무 위반이고, 직접 대질(2)은 절차를 무시하며 상황을 악화시킬 수 있고, 재발 시 다시 오라는 것(3)은 책임 회피다."
+  },
+  {
+    "id": 76,
+    "scenario": "Your supervisor assigns you a project but provides vague guidance, and you interpret the requirements differently than a peer working a related task. Proceeding on the wrong assumption could waste days of work. Your supervisor is currently in meetings.",
+    "scenario_ko": "상관이 당신에게 프로젝트를 맡겼지만 지침이 모호하고, 당신은 관련 업무를 하는 동료와 요구사항을 다르게 해석합니다. 잘못된 가정으로 진행하면 며칠의 작업이 낭비될 수 있습니다. 상관은 현재 회의 중입니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Proceed with your own interpretation to avoid losing time",
+      "Send a concise message requesting clarification and align with your peer in the meantime",
+      "Wait idly until the supervisor is free to explain everything",
+      "Follow your peer's interpretation since two people should not both be wrong"
+    ],
+    "answer": 1,
+    "explain": "간결한 확인 요청을 보내고 그 사이 동료와 조율하는 것이 시간 낭비를 막으면서 진행을 유지하는 효과적 방법이다. 자기 해석대로 진행(0)은 며칠 낭비 위험이 있고, 무작정 대기(3은 0의 변형)나 동료 해석을 무조건 따르는 것(3)도 검증 없이 위험을 떠안는다. 가만히 기다리는 것(2)은 시간을 낭비한다."
+  },
+  {
+    "id": 77,
+    "scenario": "You catch a high-performing member of your team taking a small shortcut that violates a technical procedure but saves significant time. He argues the procedure is outdated and everyone bends it. No incident has occurred yet.",
+    "scenario_ko": "당신은 팀의 우수한 구성원이 기술 절차를 위반하지만 상당한 시간을 절약하는 작은 편법을 쓰는 것을 발견합니다. 그는 그 절차가 시대에 뒤떨어졌고 모두가 어긴다고 주장합니다. 아직 사고는 발생하지 않았습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Allow it since he is your best performer and nothing has gone wrong",
+      "Direct him to follow the procedure and pursue an official change if it is truly outdated",
+      "Look the other way but tell him to be careful",
+      "Quietly adopt the shortcut yourself since it saves time"
+    ],
+    "answer": 1,
+    "explain": "절차를 준수하도록 지시하고, 정말 낡았다면 공식 절차로 개정을 추진하게 하는 것이 규율과 안전, 그리고 합리적 개선을 모두 충족한다. 우수자라서 허용(0)이나 눈감아 주기(2)는 위험한 선례를 만들고, 스스로 편법 채택(2,3)은 위반을 확산시킨다."
+  },
+  {
+    "id": 78,
+    "scenario": "While reviewing a colleague's completed work that will go out under your shared section's name, you find a mistake that makes the section look bad but is the colleague's responsibility. He is senior to you and sensitive to criticism. The product is due to leave soon.",
+    "scenario_ko": "당신과 부서 이름으로 함께 나갈 동료의 완성된 작업물을 검토하던 중, 부서를 안 좋아 보이게 만들지만 그 동료의 책임인 실수를 발견합니다. 그는 당신보다 선임이고 비판에 민감합니다. 그 산출물은 곧 나가야 합니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Let it go out to avoid an awkward conversation with a senior colleague",
+      "Discreetly point out the mistake to him so he can correct it before it goes out",
+      "Fix it yourself silently without telling him",
+      "Report the mistake to your supervisor instead of telling the colleague"
+    ],
+    "answer": 1,
+    "explain": "신중하게 동료에게 실수를 알려 그가 직접 수정하도록 하는 것이 존중과 부서 품질을 모두 지키는 방법이다. 그냥 내보내기(0)는 부서에 해를 끼치고, 말없이 직접 수정(2)은 그의 작업을 무단으로 바꾸며 신뢰를 해칠 수 있고, 동료를 건너뛰고 상관에게 보고(3)는 불필요하게 일을 키운다."
+  },
+  {
+    "id": 79,
+    "scenario": "During deployment, supplies are short and your team is exhausted after several long shifts. Morale is dropping and one Airman openly questions whether the mission is worth it. The next critical task is still hours away.",
+    "scenario_ko": "파병 중 보급이 부족하고 팀은 여러 차례의 긴 교대 근무로 지쳐 있습니다. 사기가 떨어지고 있으며 한 병사가 이 임무가 그럴 가치가 있는지 공공연히 의문을 제기합니다. 다음 중요 임무는 아직 몇 시간 남았습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Order the Airman to stop complaining and remind everyone of discipline",
+      "Acknowledge the hardship, reconnect the team to the mission's purpose, and manage rest",
+      "Tell the team you also doubt the mission to show solidarity",
+      "Ignore the comment and push the team straight into more work"
+    ],
+    "answer": 1,
+    "explain": "고충을 인정하고 임무의 목적을 다시 연결하며 휴식을 관리하는 것이 사기와 임무 수행을 모두 지키는 리더십이다. 불평 금지 명령(0)은 근본 문제를 무시하고, 함께 의심을 표하는 것(2)은 사기를 더 무너뜨리며, 무시하고 더 일을 밀어붙이는 것(3)은 탈진과 안전 위험을 키운다."
+  },
+  {
+    "id": 80,
+    "scenario": "A peer officer asks you to cover for him by saying he was at a required meeting when he actually left early for personal reasons. He has covered for you in the past and reminds you of it. Your supervisor may ask about attendance.",
+    "scenario_ko": "동료 장교가 자신이 개인 사정으로 일찍 떠났는데도 필수 회의에 있었다고 말해 당신이 자신을 감싸 달라고 부탁합니다. 그는 과거에 당신을 감싸 준 적이 있다며 그 점을 상기시킵니다. 상관이 출석에 대해 물어볼 수도 있습니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Cover for him since he has helped you before",
+      "Decline to lie and encourage him to be honest with the supervisor himself",
+      "Stay vague and hope the subject never comes up",
+      "Tell the supervisor about his absence before being asked"
+    ],
+    "answer": 1,
+    "explain": "거짓말을 거절하고 그가 스스로 상관에게 정직하게 말하도록 권하는 것이 진실성을 지키면서 동료를 올바른 길로 이끄는 방법이다. 감싸 주기(0)는 거짓에 가담하는 것이고, 애매하게 넘기기(2)는 기만을 방조하며, 묻기도 전에 고자질하는 것(3)은 동료에게 먼저 바로잡을 기회를 주지 않는 불필요한 행동이다."
+  },
+  {
+    "id": 81,
+    "scenario": "You are placed in charge of a small team that includes an Airman who applied for your position and was passed over. He is technically skilled but has been cool and minimally cooperative since you took over. An important team task is beginning.",
+    "scenario_ko": "당신은 당신의 자리에 지원했다가 탈락한 병사를 포함한 소규모 팀을 맡게 됩니다. 그는 기술적으로 유능하지만 당신이 부임한 이후로 냉랭하고 최소한의 협조만 합니다. 중요한 팀 임무가 시작됩니다.",
+    "q": "What is the MOST effective action?",
+    "options": [
+      "Keep your distance and rely on the rest of the team to avoid friction",
+      "Meet with him privately to acknowledge his skills and clarify expectations and goals",
+      "Assign him the least important duties so his attitude cannot affect the mission",
+      "Warn him that his cooperation will be reflected in his evaluation"
+    ],
+    "answer": 1,
+    "explain": "사적으로 만나 그의 역량을 인정하고 기대와 목표를 명확히 하는 것이 관계 회복과 팀 통합의 출발점이다. 거리를 두는 것(0)은 분열을 방치하고, 사소한 업무만 주는 것(2)은 인재를 낭비하며 적대감을 키우고, 평가로 위협하는 것(3)은 신뢰를 쌓기 전에 관계를 더 악화시킨다."
   }
 ]

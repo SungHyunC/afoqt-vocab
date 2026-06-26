@@ -36939,5 +36939,1276 @@
     "relation": "synonym",
     "explain": "무죄를 입증하다 = 방면하다, 동의어.",
     "tier": "high"
+  },
+  {
+    "id": 902,
+    "question": "FRUGAL : THRIFTY",
+    "stem": [
+      "FRUGAL",
+      "THRIFTY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "candid",
+          "frank"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "humble",
+          "arrogant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rapid",
+          "gradual"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bitter",
+          "sweet"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "FRUGAL과 THRIFTY는 '검소한'이라는 뜻의 동의어입니다. candid와 frank도 '솔직한'이라는 동의어로 같은 관계입니다. 나머지는 반의어 쌍입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 903,
+    "question": "BARREN : FERTILE",
+    "stem": [
+      "BARREN",
+      "FERTILE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scarce",
+          "abundant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tidy",
+          "neat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "vast",
+          "huge"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "damp",
+          "moist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "BARREN(불모의)과 FERTILE(비옥한)은 반의어입니다. scarce(부족한)와 abundant(풍부한)도 반의어로 같은 관계입니다. 나머지는 동의어 쌍입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 904,
+    "question": "BOUQUET : FLOWER",
+    "stem": [
+      "BOUQUET",
+      "FLOWER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fleet",
+          "ship"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "page",
+          "book"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "petal",
+          "rose"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wheel",
+          "car"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "BOUQUET(꽃다발)는 여러 FLOWER(꽃)로 이루어진 전체입니다. fleet(함대)도 여러 ship(배)으로 이루어진 전체이므로 whole:part 관계입니다. 나머지는 부분:전체로 순서가 뒤바뀐 쌍입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 905,
+    "question": "CHISEL : SCULPTOR",
+    "stem": [
+      "CHISEL",
+      "SCULPTOR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scalpel",
+          "surgeon"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bread",
+          "baker"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wood",
+          "carpenter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "farmer"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:worker",
+    "explain": "CHISEL(끌)은 SCULPTOR(조각가)가 사용하는 도구입니다. scalpel(메스)도 surgeon(외과의사)이 쓰는 도구이므로 tool:worker 관계입니다. 나머지는 재료나 산물, 장소 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 906,
+    "question": "GEMSTONE : RUBY",
+    "stem": [
+      "GEMSTONE",
+      "RUBY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "reptile",
+          "lizard"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "flock",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "maple",
+          "tree"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "paint",
+          "color"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "RUBY(루비)는 GEMSTONE(보석)의 한 예입니다. lizard(도마뱀)도 reptile(파충류)의 한 예이므로 category:example 관계입니다. 나머지는 예:범주로 순서가 뒤바뀌었거나 다른 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 907,
+    "question": "VINE : WINE",
+    "stem": [
+      "VINE",
+      "WINE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bee",
+          "honey"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bottle",
+          "liquid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cup",
+          "coffee"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "river",
+          "fish"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "VINE(포도나무)은 WINE(포도주)의 원천입니다. bee(벌)도 honey(꿀)의 원천이므로 source:product 관계입니다. 나머지는 용기나 서식지 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 908,
+    "question": "WALLET : CASH",
+    "stem": [
+      "WALLET",
+      "CASH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pantry",
+          "food"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lock",
+          "key"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "road",
+          "car"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lamp",
+          "light"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "WALLET(지갑)은 CASH(현금)를 담는 용기입니다. pantry(식료품 저장실)도 food(음식)를 담으므로 container:contents 관계입니다. 나머지는 담는 관계가 아닙니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 909,
+    "question": "COURTROOM : TRIAL",
+    "stem": [
+      "COURTROOM",
+      "TRIAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "theater",
+          "performance"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "kitchen",
+          "chef"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "garden",
+          "fence"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "library",
+          "reader"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "place:activity",
+    "explain": "COURTROOM(법정)은 TRIAL(재판)이 이루어지는 장소입니다. theater(극장)도 performance(공연)가 이루어지는 장소이므로 place:activity 관계입니다. 나머지는 장소:사람이나 사물 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 910,
+    "question": "ARCHIPELAGO : ISLAND",
+    "stem": [
+      "ARCHIPELAGO",
+      "ISLAND"
+    ],
+    "options": [
+      {
+        "pair": [
+          "constellation",
+          "star"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "branch",
+          "trunk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "wall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thread",
+          "quilt"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "ARCHIPELAGO(군도)는 여러 ISLAND(섬)로 이루어진 전체입니다. constellation(별자리)도 여러 star(별)로 이루어진 전체이므로 whole:part 관계입니다. 나머지는 부분:전체로 순서가 뒤바뀐 쌍입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 911,
+    "question": "BATON : CONDUCTOR",
+    "stem": [
+      "BATON",
+      "CONDUCTOR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "whistle",
+          "referee"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lecture",
+          "professor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clay",
+          "potter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "studio",
+          "artist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:worker",
+    "explain": "BATON(지휘봉)은 CONDUCTOR(지휘자)가 쓰는 도구입니다. whistle(호루라기)도 referee(심판)가 쓰는 도구이므로 tool:worker 관계입니다. 나머지는 산물, 재료, 장소 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 912,
+    "question": "INSTRUMENT : OBOE",
+    "stem": [
+      "INSTRUMENT",
+      "OBOE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mammal",
+          "whale"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sparrow",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fleet",
+          "vessel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mineral",
+          "quartz"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "OBOE(오보에)는 INSTRUMENT(악기)의 한 예입니다. whale(고래)도 mammal(포유류)의 한 예이므로 category:example 관계입니다. sparrow:bird는 예:범주로 순서가 뒤바뀌었고, fleet:vessel은 전체:부분입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 913,
+    "question": "QUARRY : MARBLE",
+    "stem": [
+      "QUARRY",
+      "MARBLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mine",
+          "coal"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sculptor",
+          "statue"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crate",
+          "apple"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lake",
+          "wave"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "QUARRY(채석장)는 MARBLE(대리석)을 얻는 원천입니다. mine(광산)도 coal(석탄)을 얻는 원천이므로 source:product 관계입니다. sculptor:statue는 worker:product, 나머지는 용기나 부분 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 914,
+    "question": "FORGE : SMITHING",
+    "stem": [
+      "FORGE",
+      "SMITHING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "arena",
+          "competition"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "museum",
+          "curator"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "orchard",
+          "ladder"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clinic",
+          "nurse"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "place:activity",
+    "explain": "FORGE(대장간)는 SMITHING(대장일)이 이루어지는 장소입니다. arena(경기장)도 competition(경기)이 이루어지는 장소이므로 place:activity 관계입니다. 나머지는 장소:사람이나 사물 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 915,
+    "question": "OLIVE BRANCH : TRUCE",
+    "stem": [
+      "OLIVE BRANCH",
+      "TRUCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "skull",
+          "danger"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "candle",
+          "wax"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "acorn",
+          "oak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clock",
+          "time"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "OLIVE BRANCH(올리브 가지)는 TRUCE(휴전, 화해)를 상징합니다. skull(해골)도 danger(위험)를 상징하므로 symbol:meaning 관계입니다. clock:time은 측정 관계이고, 나머지는 재료나 성장 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 916,
+    "question": "SCARCE : ABUNDANT",
+    "stem": [
+      "SCARCE",
+      "ABUNDANT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fragile",
+          "sturdy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tidy",
+          "neat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rapid",
+          "swift"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clever",
+          "smart"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "SCARCE와 ABUNDANT는 반의어이다. fragile(부서지기 쉬운)과 sturdy(튼튼한)도 반의어 관계로 정답이며, 나머지는 동의어 쌍이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 917,
+    "question": "PLANET : MARS",
+    "stem": [
+      "PLANET",
+      "MARS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "metal",
+          "copper"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "ocean",
+          "wave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "country",
+          "capital"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "herd",
+          "cattle"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "MARS(화성)는 PLANET(행성)의 한 예이다. copper(구리)는 metal(금속)의 예이므로 범주-예시로 정답이다. 나머지는 범주-예시 관계가 아니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 918,
+    "question": "PEN : WRITER",
+    "stem": [
+      "PEN",
+      "WRITER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "brush",
+          "painter"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "stage",
+          "actor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "song",
+          "singer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "court",
+          "judge"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:worker",
+    "explain": "PEN(펜)은 WRITER(작가)의 도구이다. brush(붓)는 painter(화가)의 도구이므로 정답이다. 나머지는 장소나 산물이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 919,
+    "question": "BOOK : CHAPTER",
+    "stem": [
+      "BOOK",
+      "CHAPTER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "symphony",
+          "movement"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "paragraph",
+          "essay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thread",
+          "cloth"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "author",
+          "novel"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "BOOK(책)은 CHAPTER(장)로 나뉜다. symphony(교향곡)는 movement(악장)로 나뉘므로 전체-부분으로 정답이다. paragraph-essay는 순서가 뒤바뀌었다.",
+    "tier": "high"
+  },
+  {
+    "id": 920,
+    "question": "COWARD : BRAVE",
+    "stem": [
+      "COWARD",
+      "BRAVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "miser",
+          "generous"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scholar",
+          "learned"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "athlete",
+          "fit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "genius",
+          "clever"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "COWARD(겁쟁이)는 BRAVE(용감한)와 어울리지 않는 반대 특성이다. miser(구두쇠)는 generous(관대한)와 반대이므로 정답이다. 나머지는 일치하는 특성이다.",
+    "tier": "high"
+  },
+  {
+    "id": 921,
+    "question": "PARCHED : DRY",
+    "stem": [
+      "PARCHED",
+      "DRY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "famished",
+          "hungry"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calm",
+          "frantic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "humble",
+          "proud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bold",
+          "timid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "PARCHED는 매우 DRY한 상태로 동의어 관계이다. famished(굶주린)는 매우 hungry한 상태로 동의어이므로 정답이다. 나머지는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 922,
+    "question": "BAKERY : PASTRIES",
+    "stem": [
+      "BAKERY",
+      "PASTRIES"
+    ],
+    "options": [
+      {
+        "pair": [
+          "orchard",
+          "fruit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "recipe",
+          "cake"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "oven",
+          "heat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "chef",
+          "apron"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "BAKERY(제과점)는 PASTRIES(페이스트리)를 만들어 내는 곳이다. orchard(과수원)는 fruit(과일)을 내므로 산출처-산물로 정답이다. 나머지는 그 관계가 아니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 923,
+    "question": "PRIMATE : GORILLA",
+    "stem": [
+      "PRIMATE",
+      "GORILLA"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rodent",
+          "squirrel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mammal",
+          "reptile"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "herd",
+          "cattle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "zoo",
+          "cage"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "gorilla(고릴라)는 primate(영장류)의 한 예다. squirrel(다람쥐)도 rodent(설치류)의 한 예다.",
+    "tier": "high"
+  },
+  {
+    "id": 924,
+    "question": "CANDID : FORTHRIGHT",
+    "stem": [
+      "CANDID",
+      "FORTHRIGHT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "weary",
+          "exhausted"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bold",
+          "timid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sour",
+          "sweet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hollow",
+          "solid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "candid와 forthright는 '솔직한'을 뜻하는 동의어다. weary와 exhausted도 '지친'을 뜻하는 동의어다.",
+    "tier": "high"
+  },
+  {
+    "id": 925,
+    "question": "HOUSE : ROOM",
+    "stem": [
+      "HOUSE",
+      "ROOM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ship",
+          "deck"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "roof",
+          "attic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "village",
+          "city"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "door",
+          "key"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "house(집)는 전체이고 room(방)은 그 부분이다. ship(배)도 전체이고 deck(갑판)은 그 부분이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 926,
+    "question": "GEMSTONE : EMERALD",
+    "stem": [
+      "GEMSTONE",
+      "EMERALD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "instrument",
+          "violin"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "jewelry",
+          "ring"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "color",
+          "green"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "miner",
+          "gold"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "emerald(에메랄드)는 gemstone(보석)의 한 예다. violin(바이올린)도 instrument(악기)의 한 예다.",
+    "tier": "high"
+  },
+  {
+    "id": 927,
+    "question": "GYM : EXERCISE",
+    "stem": [
+      "GYM",
+      "EXERCISE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "laboratory",
+          "experiment"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "garden",
+          "fence"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "museum",
+          "painting"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bank",
+          "teller"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "place:activity",
+    "explain": "gym(체육관)은 exercise(운동)를 하는 장소다. laboratory(실험실)도 experiment(실험)를 하는 장소다.",
+    "tier": "mid"
+  },
+  {
+    "id": 928,
+    "question": "VACANT : OCCUPIED",
+    "stem": [
+      "VACANT",
+      "OCCUPIED"
+    ],
+    "options": [
+      {
+        "pair": [
+          "barren",
+          "fertile"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "empty",
+          "hollow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "narrow",
+          "slim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dark",
+          "dim"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "vacant(빈)과 occupied(찬)은 반의어이다. barren(불모의)과 fertile(비옥한)도 반의어로 같은 관계다.",
+    "tier": "mid"
+  },
+  {
+    "id": 929,
+    "question": "INSTRUMENT : VIOLIN",
+    "stem": [
+      "INSTRUMENT",
+      "VIOLIN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "metal",
+          "copper"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "string",
+          "bow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "music",
+          "sound"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "orchestra",
+          "stage"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "violin(바이올린)은 instrument(악기)의 한 예이다. copper(구리)도 metal(금속)의 한 예이므로 범주:예시 관계다.",
+    "tier": "mid"
+  },
+  {
+    "id": 930,
+    "question": "KEYBOARD : KEY",
+    "stem": [
+      "KEYBOARD",
+      "KEY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "necklace",
+          "bead"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mouse",
+          "screen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "chain",
+          "lock"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "letter",
+          "word"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "keyboard(자판)는 key(키)들로 이루어진다. necklace(목걸이)도 bead(구슬)들로 이루어지므로 전체:부분 관계다.",
+    "tier": "mid"
+  },
+  {
+    "id": 931,
+    "question": "BRUSH : PAINTER",
+    "stem": [
+      "BRUSH",
+      "PAINTER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "whisk",
+          "cook"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "canvas",
+          "gallery"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pen",
+          "ink"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "mason"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:worker",
+    "explain": "brush(붓)는 painter(화가)의 도구이다. whisk(거품기)도 cook(요리사)의 도구로 도구:사용자 관계다.",
+    "tier": "mid"
+  },
+  {
+    "id": 932,
+    "question": "SCALES : JUSTICE",
+    "stem": [
+      "SCALES",
+      "JUSTICE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "crown",
+          "royalty"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "torch",
+          "handle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "judge",
+          "robe"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "anchor",
+          "ship"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "scales(저울)는 justice(정의)를 상징한다. crown(왕관)도 royalty(왕권)를 상징하므로 상징:의미 관계다.",
+    "tier": "high"
   }
 ]

@@ -1118,5 +1118,761 @@
     ],
     "answer": 2,
     "explain": "x^2 = 9, y^2 = (-2)^2 = 4, 9 + 4 = 13."
+  },
+  {
+    "id": 81,
+    "topic": "linear_equations",
+    "q": "If 3(x - 4) = 2x + 5, what is the value of x?",
+    "q_ko": "3(x - 4) = 2x + 5일 때, x의 값은 얼마인가?",
+    "options": [
+      "17",
+      "7",
+      "-7",
+      "13"
+    ],
+    "answer": 0,
+    "explain": "3x - 12 = 2x + 5. 양변에서 2x를 빼면 x - 12 = 5, 따라서 x = 17."
+  },
+  {
+    "id": 82,
+    "topic": "quadratics",
+    "q": "The roots of x^2 - 6x + 8 = 0 differ by how much?",
+    "q_ko": "x^2 - 6x + 8 = 0의 두 근의 차이는 얼마인가?",
+    "options": [
+      "1",
+      "2",
+      "4",
+      "6"
+    ],
+    "answer": 1,
+    "explain": "인수분해하면 (x - 2)(x - 4) = 0이므로 근은 2와 4. 차이는 4 - 2 = 2."
+  },
+  {
+    "id": 83,
+    "topic": "inequalities",
+    "q": "For which values of x is -2x + 7 > 1 true?",
+    "q_ko": "어떤 x 값에서 -2x + 7 > 1이 참인가?",
+    "options": [
+      "x > 3",
+      "x < 3",
+      "x > -3",
+      "x < -3"
+    ],
+    "answer": 1,
+    "explain": "-2x > -6. 음수로 나누면 부등호가 뒤집혀 x < 3."
+  },
+  {
+    "id": 84,
+    "topic": "exponents",
+    "q": "Simplify (2^3 · 2^5) / 2^4.",
+    "q_ko": "(2^3 · 2^5) / 2^4를 간단히 하라.",
+    "options": [
+      "8",
+      "16",
+      "32",
+      "64"
+    ],
+    "answer": 1,
+    "explain": "분자는 2^(3+5) = 2^8. 나누면 2^(8-4) = 2^4 = 16."
+  },
+  {
+    "id": 85,
+    "topic": "radicals",
+    "q": "Simplify √50 + √18.",
+    "q_ko": "√50 + √18을 간단히 하라.",
+    "options": [
+      "8√2",
+      "5√2",
+      "√68",
+      "13√2"
+    ],
+    "answer": 0,
+    "explain": "√50 = 5√2, √18 = 3√2. 합은 (5+3)√2 = 8√2."
+  },
+  {
+    "id": 86,
+    "topic": "polynomials",
+    "q": "What is the remainder when x^2 + 3x - 5 is divided by (x - 2)?",
+    "q_ko": "x^2 + 3x - 5를 (x - 2)로 나눌 때 나머지는 얼마인가?",
+    "options": [
+      "3",
+      "5",
+      "-5",
+      "9"
+    ],
+    "answer": 1,
+    "explain": "나머지 정리에 의해 x = 2 대입: 4 + 6 - 5 = 5."
+  },
+  {
+    "id": 87,
+    "topic": "factoring",
+    "q": "Factor completely: 3x^2 - 12.",
+    "q_ko": "3x^2 - 12를 완전히 인수분해하라.",
+    "options": [
+      "3(x - 4)(x + 1)",
+      "3(x - 2)(x + 2)",
+      "(3x - 6)(x + 2)",
+      "3(x^2 - 4)"
+    ],
+    "answer": 1,
+    "explain": "공통 인수 3을 빼면 3(x^2 - 4) = 3(x - 2)(x + 2)로 완전 인수분해."
+  },
+  {
+    "id": 88,
+    "topic": "systems_of_equations",
+    "q": "If x + y = 10 and x - y = 4, what is xy?",
+    "q_ko": "x + y = 10이고 x - y = 4일 때, xy는 얼마인가?",
+    "options": [
+      "21",
+      "24",
+      "16",
+      "12"
+    ],
+    "answer": 0,
+    "explain": "두 식을 더하면 2x = 14, x = 7. 그러면 y = 3. xy = 7·3 = 21."
+  },
+  {
+    "id": 89,
+    "topic": "absolute_value",
+    "q": "How many solutions does |2x - 1| = 5 have?",
+    "q_ko": "|2x - 1| = 5는 몇 개의 해를 갖는가?",
+    "options": [
+      "0",
+      "1",
+      "2",
+      "Infinitely many"
+    ],
+    "answer": 2,
+    "explain": "2x - 1 = 5 또는 2x - 1 = -5. 각각 x = 3, x = -2로 두 개의 해."
+  },
+  {
+    "id": 90,
+    "topic": "sequences_series",
+    "q": "In an arithmetic sequence the 1st term is 5 and the 4th term is 20. What is the common difference?",
+    "q_ko": "등차수열에서 첫째항이 5이고 넷째항이 20일 때, 공차는 얼마인가?",
+    "options": [
+      "3",
+      "5",
+      "15",
+      "4"
+    ],
+    "answer": 1,
+    "explain": "4번째 항 = 첫째항 + 3d이므로 20 = 5 + 3d, 3d = 15, d = 5."
+  },
+  {
+    "id": 91,
+    "topic": "coordinate_geometry",
+    "q": "What is the slope of the line through points (-1, 2) and (3, -6)?",
+    "q_ko": "점 (-1, 2)와 (3, -6)을 지나는 직선의 기울기는 얼마인가?",
+    "options": [
+      "-2",
+      "2",
+      "-1/2",
+      "1/2"
+    ],
+    "answer": 0,
+    "explain": "기울기 = (-6 - 2)/(3 - (-1)) = -8/4 = -2."
+  },
+  {
+    "id": 92,
+    "topic": "circles",
+    "q": "A circle has equation (x - 2)^2 + (y + 3)^2 = 16. What is its radius?",
+    "q_ko": "원의 방정식이 (x - 2)^2 + (y + 3)^2 = 16일 때, 반지름은 얼마인가?",
+    "options": [
+      "16",
+      "8",
+      "4",
+      "2"
+    ],
+    "answer": 2,
+    "explain": "표준형에서 r^2 = 16이므로 r = 4."
+  },
+  {
+    "id": 93,
+    "topic": "logarithms",
+    "q": "If log_2(x) = 5, what is x?",
+    "q_ko": "log_2(x) = 5일 때, x는 얼마인가?",
+    "options": [
+      "10",
+      "25",
+      "32",
+      "16"
+    ],
+    "answer": 2,
+    "explain": "log_2(x) = 5는 x = 2^5 = 32를 의미한다."
+  },
+  {
+    "id": 94,
+    "topic": "triangles",
+    "q": "A right triangle has legs of length 9 and 12. What is the length of the hypotenuse?",
+    "q_ko": "직각삼각형의 두 변의 길이가 9와 12일 때, 빗변의 길이는 얼마인가?",
+    "options": [
+      "13",
+      "15",
+      "21",
+      "18"
+    ],
+    "answer": 1,
+    "explain": "빗변 = √(9^2 + 12^2) = √(81 + 144) = √225 = 15."
+  },
+  {
+    "id": 95,
+    "topic": "quadratics",
+    "q": "What is the sum of the solutions of 2x^2 - 10x + 8 = 0?",
+    "q_ko": "2x^2 - 10x + 8 = 0의 해들의 합은 얼마인가?",
+    "options": [
+      "5",
+      "4",
+      "-5",
+      "10"
+    ],
+    "answer": 0,
+    "explain": "근의 합 = -b/a = -(-10)/2 = 5."
+  },
+  {
+    "id": 96,
+    "topic": "exponents",
+    "q": "Express (1/27)^(2/3) as a fraction.",
+    "q_ko": "(1/27)^(2/3)을 분수로 나타내라.",
+    "options": [
+      "1/9",
+      "1/3",
+      "1/6",
+      "9"
+    ],
+    "answer": 0,
+    "explain": "(1/27)^(1/3) = 1/3, 이를 제곱하면 (1/3)^2 = 1/9."
+  },
+  {
+    "id": 97,
+    "topic": "functions",
+    "q": "If g(x) = 2x + 1 and h(x) = x - 3, what is g(h(5))?",
+    "q_ko": "g(x) = 2x + 1이고 h(x) = x - 3일 때, g(h(5))는 얼마인가?",
+    "options": [
+      "5",
+      "7",
+      "9",
+      "11"
+    ],
+    "answer": 0,
+    "explain": "h(5) = 5 - 3 = 2. 그러면 g(2) = 2·2 + 1 = 5."
+  },
+  {
+    "id": 98,
+    "topic": "coordinate_geometry",
+    "q": "What is the distance between the points (1, -2) and (5, 1)?",
+    "q_ko": "점 (1, -2)와 (5, 1) 사이의 거리는 얼마인가?",
+    "options": [
+      "5",
+      "7",
+      "√7",
+      "25"
+    ],
+    "answer": 0,
+    "explain": "거리 = √((5-1)^2 + (1-(-2))^2) = √(16 + 9) = √25 = 5."
+  },
+  {
+    "id": 99,
+    "topic": "polynomials",
+    "q": "What is the coefficient of x in the expansion of (x + 3)(x - 5)?",
+    "q_ko": "(x + 3)(x - 5)를 전개했을 때 x의 계수는 얼마인가?",
+    "options": [
+      "-2",
+      "-15",
+      "2",
+      "8"
+    ],
+    "answer": 0,
+    "explain": "(x + 3)(x - 5) = x^2 - 5x + 3x - 15 = x^2 - 2x - 15. x의 계수는 -2."
+  },
+  {
+    "id": 100,
+    "topic": "quadratics",
+    "q": "The product of the roots of x² - 7x + 12 = 0 is:",
+    "q_ko": "x² - 7x + 12 = 0의 두 근의 곱은?",
+    "options": [
+      "7",
+      "12",
+      "-12",
+      "-7"
+    ],
+    "answer": 1,
+    "explain": "근과 계수의 관계에서 두 근의 곱은 상수항/최고차항 = 12/1 = 12. (근은 3과 4.)"
+  },
+  {
+    "id": 101,
+    "topic": "inequalities",
+    "q": "Which value of x satisfies -2x + 3 > 11?",
+    "q_ko": "-2x + 3 > 11을 만족하는 x의 값은?",
+    "options": [
+      "-5",
+      "-4",
+      "-3",
+      "4"
+    ],
+    "answer": 0,
+    "explain": "-2x > 8. 음수로 나누면 부등호가 뒤집혀 x < -4. 따라서 x = -5만 만족."
+  },
+  {
+    "id": 102,
+    "topic": "exponents",
+    "q": "Simplify: (2³ · 2⁴) / 2⁵.",
+    "q_ko": "(2³ · 2⁴) / 2⁵를 간단히 하면?",
+    "options": [
+      "2",
+      "4",
+      "8",
+      "16"
+    ],
+    "answer": 1,
+    "explain": "지수법칙: 2^(3+4-5) = 2² = 4."
+  },
+  {
+    "id": 103,
+    "topic": "polynomials",
+    "q": "What is the remainder when x³ + 2x² - 5 is divided by (x - 2)?",
+    "q_ko": "x³ + 2x² - 5를 (x - 2)로 나눈 나머지는?",
+    "options": [
+      "3",
+      "11",
+      "13",
+      "19"
+    ],
+    "answer": 1,
+    "explain": "나머지 정리: x = 2 대입. 8 + 8 - 5 = 11."
+  },
+  {
+    "id": 104,
+    "topic": "factoring",
+    "q": "Factor completely: 3x² - 12.",
+    "q_ko": "3x² - 12를 완전히 인수분해하면?",
+    "options": [
+      "3(x² - 4)",
+      "3(x - 2)(x + 2)",
+      "(3x - 4)(x + 3)",
+      "3(x - 4)(x + 1)"
+    ],
+    "answer": 1,
+    "explain": "공통인수 3을 묶으면 3(x² - 4), x² - 4는 제곱의 차이라 (x-2)(x+2). 따라서 3(x-2)(x+2)."
+  },
+  {
+    "id": 105,
+    "topic": "systems",
+    "q": "Solve the system: x + y = 10 and x - y = 4. What is x?",
+    "q_ko": "연립방정식 x + y = 10, x - y = 4를 풀 때 x의 값은?",
+    "options": [
+      "3",
+      "6",
+      "7",
+      "5"
+    ],
+    "answer": 2,
+    "explain": "두 식을 더하면 2x = 14, 따라서 x = 7. (y = 3.)"
+  },
+  {
+    "id": 106,
+    "topic": "absolute_value",
+    "q": "How many solutions does |2x - 1| = 5 have, and what are they?",
+    "q_ko": "|2x - 1| = 5의 해의 개수와 값은?",
+    "options": [
+      "One: x = 3",
+      "Two: x = 3 and x = -2",
+      "Two: x = 2 and x = -3",
+      "One: x = -2"
+    ],
+    "answer": 1,
+    "explain": "2x - 1 = 5이면 x = 3, 2x - 1 = -5이면 2x = -4, x = -2. 따라서 두 해."
+  },
+  {
+    "id": 107,
+    "topic": "functions",
+    "q": "If f(x) = x² - 3x, what is f(-2)?",
+    "q_ko": "f(x) = x² - 3x일 때, f(-2)의 값은?",
+    "options": [
+      "-2",
+      "2",
+      "10",
+      "-10"
+    ],
+    "answer": 2,
+    "explain": "(-2)² - 3(-2) = 4 + 6 = 10."
+  },
+  {
+    "id": 108,
+    "topic": "sequences",
+    "q": "In an arithmetic sequence with first term 5 and common difference 3, what is the 8th term?",
+    "q_ko": "첫째항이 5이고 공차가 3인 등차수열에서 제8항은?",
+    "options": [
+      "24",
+      "26",
+      "29",
+      "31"
+    ],
+    "answer": 1,
+    "explain": "aₙ = a₁ + (n-1)d = 5 + 7·3 = 5 + 21 = 26."
+  },
+  {
+    "id": 109,
+    "topic": "series",
+    "q": "What is the sum of the first 6 terms of the geometric series 2, 4, 8, ...?",
+    "q_ko": "등비수열 2, 4, 8, ...의 첫 6항의 합은?",
+    "options": [
+      "62",
+      "126",
+      "128",
+      "124"
+    ],
+    "answer": 1,
+    "explain": "Sₙ = a(rⁿ - 1)/(r - 1) = 2(2⁶ - 1)/(2 - 1) = 2(63) = 126."
+  },
+  {
+    "id": 110,
+    "topic": "coordinate_geometry",
+    "q": "What is the midpoint of the segment joining (-3, 5) and (7, -1)?",
+    "q_ko": "(-3, 5)와 (7, -1)을 잇는 선분의 중점은?",
+    "options": [
+      "(2, 2)",
+      "(4, 4)",
+      "(2, 3)",
+      "(5, 2)"
+    ],
+    "answer": 0,
+    "explain": "중점 = ((-3+7)/2, (5+(-1))/2) = (2, 2)."
+  },
+  {
+    "id": 111,
+    "topic": "coordinate_geometry",
+    "q": "A line passes through (1, 2) and (4, 11). What is its slope?",
+    "q_ko": "(1, 2)와 (4, 11)을 지나는 직선의 기울기는?",
+    "options": [
+      "2",
+      "3",
+      "9/5",
+      "13/5"
+    ],
+    "answer": 1,
+    "explain": "기울기 = (11 - 2)/(4 - 1) = 9/3 = 3."
+  },
+  {
+    "id": 112,
+    "topic": "circles",
+    "q": "A circle has equation (x - 2)² + (y + 3)² = 25. What is its radius?",
+    "q_ko": "원의 방정식이 (x - 2)² + (y + 3)² = 25일 때 반지름은?",
+    "options": [
+      "25",
+      "12.5",
+      "5",
+      "±5"
+    ],
+    "answer": 2,
+    "explain": "표준형에서 r² = 25이므로 r = 5."
+  },
+  {
+    "id": 113,
+    "topic": "triangles",
+    "q": "In a right triangle, the legs are 9 and 12. What is the hypotenuse?",
+    "q_ko": "직각삼각형의 두 변(직각을 낀)이 9와 12일 때 빗변의 길이는?",
+    "options": [
+      "15",
+      "21",
+      "144",
+      "13"
+    ],
+    "answer": 0,
+    "explain": "√(9² + 12²) = √(81 + 144) = √225 = 15."
+  },
+  {
+    "id": 114,
+    "topic": "logarithms",
+    "q": "If log₂(x) = 5, what is x?",
+    "q_ko": "log₂(x) = 5일 때 x의 값은?",
+    "options": [
+      "10",
+      "25",
+      "32",
+      "64"
+    ],
+    "answer": 2,
+    "explain": "log₂(x) = 5이면 x = 2⁵ = 32."
+  },
+  {
+    "id": 115,
+    "topic": "exponents",
+    "q": "Solve for x: 3^(x+1) = 81.",
+    "q_ko": "3^(x+1) = 81을 만족하는 x의 값은?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "27"
+    ],
+    "answer": 1,
+    "explain": "81 = 3⁴이므로 x + 1 = 4, 따라서 x = 3."
+  },
+  {
+    "id": 116,
+    "topic": "quadratics",
+    "q": "The vertex of the parabola y = x² - 6x + 5 has x-coordinate:",
+    "q_ko": "포물선 y = x² - 6x + 5의 꼭짓점의 x좌표는?",
+    "options": [
+      "-3",
+      "3",
+      "6",
+      "-6"
+    ],
+    "answer": 1,
+    "explain": "꼭짓점의 x좌표 = -b/(2a) = -(-6)/(2·1) = 3."
+  },
+  {
+    "id": 117,
+    "topic": "geometry_area",
+    "q": "A rectangle has a perimeter of 30 and a length that is twice its width. What is its area?",
+    "q_ko": "둘레가 30이고 길이가 너비의 두 배인 직사각형의 넓이는?",
+    "options": [
+      "50",
+      "100",
+      "45",
+      "36"
+    ],
+    "answer": 0,
+    "explain": "2(L + W) = 30이고 L = 2W. 2(2W + W) = 6W = 30이므로 W = 5, L = 10. 넓이 = 50."
+  },
+  {
+    "id": 118,
+    "topic": "linear_equations",
+    "q": "If 5(x - 2) = 3x + 4, what is the value of x?",
+    "q_ko": "5(x - 2) = 3x + 4일 때 x의 값은?",
+    "options": [
+      "3",
+      "5",
+      "7",
+      "9"
+    ],
+    "answer": 2,
+    "explain": "5x - 10 = 3x + 4 이므로 2x = 14, x = 7."
+  },
+  {
+    "id": 119,
+    "topic": "quadratics",
+    "q": "What is the sum of the roots of x^2 - 9x + 14 = 0?",
+    "q_ko": "x^2 - 9x + 14 = 0의 두 근의 합은?",
+    "options": [
+      "5",
+      "7",
+      "9",
+      "14"
+    ],
+    "answer": 2,
+    "explain": "근과 계수의 관계에서 합은 -(-9)/1 = 9. (근은 2와 7로 합이 9)."
+  },
+  {
+    "id": 120,
+    "topic": "inequalities",
+    "q": "Which values of x satisfy -3 < 2x - 5 ≤ 7?",
+    "q_ko": "-3 < 2x - 5 ≤ 7을 만족하는 x의 범위는?",
+    "options": [
+      "1 < x ≤ 6",
+      "-1 < x ≤ 6",
+      "1 ≤ x < 6",
+      "-4 < x ≤ 1"
+    ],
+    "answer": 0,
+    "explain": "각 변에 5를 더하면 2 < 2x ≤ 12, 2로 나누면 1 < x ≤ 6."
+  },
+  {
+    "id": 121,
+    "topic": "exponents",
+    "q": "Simplify (2x^3)^2 · x^{-4}.",
+    "q_ko": "(2x^3)^2 · x^{-4}을 간단히 하면?",
+    "options": [
+      "2x^2",
+      "4x^2",
+      "2x^{10}",
+      "4x^{-1}"
+    ],
+    "answer": 1,
+    "explain": "(2x^3)^2 = 4x^6, 여기에 x^{-4}를 곱하면 4x^{6-4} = 4x^2."
+  },
+  {
+    "id": 122,
+    "topic": "polynomials",
+    "q": "What is the remainder when x^3 - 4x + 6 is divided by (x - 2)?",
+    "q_ko": "x^3 - 4x + 6을 (x - 2)로 나눈 나머지는?",
+    "options": [
+      "2",
+      "4",
+      "6",
+      "8"
+    ],
+    "answer": 2,
+    "explain": "나머지 정리에 의해 x = 2 대입: 8 - 8 + 6 = 6."
+  },
+  {
+    "id": 123,
+    "topic": "systems_of_equations",
+    "q": "If 2x + y = 11 and x - y = 1, what is x · y?",
+    "q_ko": "2x + y = 11이고 x - y = 1일 때 x · y의 값은?",
+    "options": [
+      "12",
+      "15",
+      "18",
+      "20"
+    ],
+    "answer": 0,
+    "explain": "두 식을 더하면 3x = 12, x = 4, y = 3. 따라서 xy = 12."
+  },
+  {
+    "id": 124,
+    "topic": "absolute_value",
+    "q": "How many solutions does |2x - 1| = 7 have, and what are they?",
+    "q_ko": "|2x - 1| = 7의 해는 몇 개이며 무엇인가?",
+    "options": [
+      "x = 4 only",
+      "x = -3 only",
+      "x = 4 or x = -3",
+      "x = 3 or x = -4"
+    ],
+    "answer": 2,
+    "explain": "2x - 1 = 7이면 x = 4, 2x - 1 = -7이면 x = -3. 두 개의 해."
+  },
+  {
+    "id": 125,
+    "topic": "functions",
+    "q": "If f(x) = x^2 - 3x, what is f(f(2))?",
+    "q_ko": "f(x) = x^2 - 3x일 때 f(f(2))의 값은?",
+    "options": [
+      "-2",
+      "4",
+      "10",
+      "18"
+    ],
+    "answer": 2,
+    "explain": "f(2) = 4 - 6 = -2. f(-2) = 4 + 6 = 10."
+  },
+  {
+    "id": 126,
+    "topic": "sequences_series",
+    "q": "In an arithmetic sequence with first term 4 and common difference 5, what is the 10th term?",
+    "q_ko": "첫째항이 4이고 공차가 5인 등차수열의 제10항은?",
+    "options": [
+      "45",
+      "49",
+      "50",
+      "54"
+    ],
+    "answer": 1,
+    "explain": "a_n = 4 + (n-1)·5. a_10 = 4 + 9·5 = 4 + 45 = 49."
+  },
+  {
+    "id": 127,
+    "topic": "geometric_series",
+    "q": "What is the sum of the infinite geometric series 8 + 4 + 2 + 1 + ...?",
+    "q_ko": "무한등비급수 8 + 4 + 2 + 1 + ...의 합은?",
+    "options": [
+      "14",
+      "15",
+      "16",
+      "18"
+    ],
+    "answer": 2,
+    "explain": "첫째항 8, 공비 1/2. 합 = 8/(1 - 1/2) = 8/(1/2) = 16."
+  },
+  {
+    "id": 128,
+    "topic": "coordinate_geometry",
+    "q": "What is the slope of a line perpendicular to the line through (1, 2) and (5, 10)?",
+    "q_ko": "(1, 2)와 (5, 10)을 지나는 직선에 수직인 직선의 기울기는?",
+    "options": [
+      "-1/2",
+      "2",
+      "-2",
+      "1/2"
+    ],
+    "answer": 0,
+    "explain": "원래 기울기 = (10-2)/(5-1) = 8/4 = 2. 수직선의 기울기는 음의 역수 -1/2."
+  },
+  {
+    "id": 129,
+    "topic": "coordinate_geometry",
+    "q": "What is the midpoint of the segment joining (-3, 7) and (5, -1)?",
+    "q_ko": "(-3, 7)과 (5, -1)을 잇는 선분의 중점은?",
+    "options": [
+      "(1, 3)",
+      "(2, 6)",
+      "(1, 4)",
+      "(8, -8)"
+    ],
+    "answer": 0,
+    "explain": "중점 = ((-3+5)/2, (7+(-1))/2) = (1, 3)."
+  },
+  {
+    "id": 130,
+    "topic": "circles",
+    "q": "A circle has equation (x - 2)^2 + (y + 3)^2 = 25. What is its circumference?",
+    "q_ko": "원의 방정식이 (x - 2)^2 + (y + 3)^2 = 25일 때 둘레는?",
+    "options": [
+      "5π",
+      "10π",
+      "25π",
+      "50π"
+    ],
+    "answer": 1,
+    "explain": "반지름 r = √25 = 5. 둘레 = 2πr = 10π."
+  },
+  {
+    "id": 131,
+    "topic": "triangles",
+    "q": "Two angles of a triangle measure 47° and 68°. What is the measure of the third angle?",
+    "q_ko": "삼각형의 두 각이 47°와 68°일 때 세 번째 각의 크기는?",
+    "options": [
+      "55°",
+      "65°",
+      "75°",
+      "115°"
+    ],
+    "answer": 1,
+    "explain": "삼각형 내각의 합은 180°. 180 - 47 - 68 = 65°."
+  },
+  {
+    "id": 132,
+    "topic": "logarithms",
+    "q": "If log_2(x) = 5, what is the value of x?",
+    "q_ko": "log_2(x) = 5일 때 x의 값은?",
+    "options": [
+      "10",
+      "25",
+      "32",
+      "64"
+    ],
+    "answer": 2,
+    "explain": "log_2(x) = 5이면 x = 2^5 = 32."
+  },
+  {
+    "id": 133,
+    "topic": "logarithms",
+    "q": "What is the value of log_3(81) - log_3(3)?",
+    "q_ko": "log_3(81) - log_3(3)의 값은?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "27"
+    ],
+    "answer": 1,
+    "explain": "log_3(81) = 4 (81 = 3^4), log_3(3) = 1. 4 - 1 = 3."
+  },
+  {
+    "id": 134,
+    "topic": "quadratic_vertex",
+    "q": "What is the minimum value of f(x) = x^2 - 6x + 11?",
+    "q_ko": "f(x) = x^2 - 6x + 11의 최솟값은?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "11"
+    ],
+    "answer": 1,
+    "explain": "완전제곱: x^2 - 6x + 11 = (x - 3)^2 + 2. 최솟값은 x = 3일 때 2."
   }
 ]
