@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.13.0";
+const VERSION = "4.14.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -633,12 +633,15 @@ function renderRootCoach(){
       <div class="rc-hook">💡 ${esc(s.hook||"")}</div>
       <div class="rc-words">${(s.words||[]).map(w=>`<span>${esc(w)}</span>`).join("")}</div></div>`;
   } else if(s.kind==="worked"){
+    // Guided but interactive: show the root breakdown as scaffolding, let the user
+    // pick first, then reveal the answer + full reasoning (not pre-solved).
     html=`<div class="rc-card rc-worked">
       <div class="rc-tag">✍️ 같이 풀어보기</div>
-      <div class="rc-word">${esc(s.word)}${s.gloss?` <span class="rc-gloss">${esc(s.gloss)}</span>`:""}</div>
+      <div class="rc-word">${esc(s.word)}</div>
+      <div class="rc-q">아래 어근 단서로 뜻을 추론해 골라봐</div>
       <div class="rc-break">${(s.breakdown||[]).map(b=>`<div class="rc-piece">🧩 ${esc(b)}</div>`).join("")}</div>
-      <div class="rc-opts">${s.options.map((o,i)=>`<div class="rc-opt ${i===s.answer?"ok":""}">${i===s.answer?"✅ ":""}${esc(o)}</div>`).join("")}</div>
-      <div class="rc-reason">${s.reason||""}</div></div>`;
+      <div class="rc-opts" id="coachOpts">${s.options.map((o,i)=>`<button class="rc-pick" data-i="${i}">${esc(o)}</button>`).join("")}</div>
+      <div class="rc-explain hidden" id="coachExplain"></div></div>`;
   } else if(s.kind==="practice"){
     html=`<div class="rc-card rc-practice">
       <div class="rc-tag">🥷 직접 풀기</div>
@@ -650,15 +653,17 @@ function renderRootCoach(){
       <div class="rc-explain hidden" id="coachExplain"></div></div>`;
   }
   $("#coachArea").innerHTML=html;
-  if(s.kind==="practice"){
-    $("#coachHint").onclick=()=>$("#coachHintBox").classList.toggle("hidden");
+  if(s.kind==="practice"||s.kind==="worked"){
+    if($("#coachHint")) $("#coachHint").onclick=()=>$("#coachHintBox").classList.toggle("hidden");
     $$("#coachOpts .rc-pick").forEach(b=>b.onclick=()=>{
       const i=+b.dataset.i, ok=i===s.answer;
       $$("#coachOpts .rc-pick").forEach((x,xi)=>{ x.disabled=true;
         if(xi===s.answer) x.classList.add("ok"); else if(xi===i) x.classList.add("no"); });
-      $("#coachHintBox").classList.remove("hidden");
+      if($("#coachHintBox")) $("#coachHintBox").classList.remove("hidden");
       const ex=$("#coachExplain"); ex.classList.remove("hidden");
-      ex.innerHTML=`<b>${ok?"⭕ 정답!":"❌ 아쉬워"}</b> ${esc(s.explain||"")}`;
+      // worked steps reveal gloss + full reasoning; practice steps reveal the short explain
+      const body = s.kind==="worked" ? `${s.gloss?`<b>${esc(s.gloss)}</b> · `:""}${s.reason||""}` : esc(s.explain||"");
+      ex.innerHTML=`<b>${ok?"⭕ 정답!":"❌ 아쉬워"}</b> ${body}`;
     });
   }
   $("#coachPrev").disabled=coachStep===0;

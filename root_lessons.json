@@ -1,114 +1,1169 @@
 [
-  { "kind":"teach", "icon":"🎯", "title":"왜 어근으로 푸는가",
-    "body":"AFOQT Word Knowledge는 4지선다야. <b>단어 뜻을 정확히 몰라도</b> 어근(접두사·어근·접미사)을 알면 보기를 2개로 좁힐 수 있어. 100% 확신이 아니어도, 4개 중 2개로 줄이면 찍어도 정답률이 25%→50%로 뛴다. 이 코스는 그 '좁히는 기술'을 가르쳐줄게." },
-  { "kind":"teach", "icon":"🪓", "title":"1단계 — 단어를 조각내라",
-    "body":"긴 단어일수록 조각이 보여. 예: <b>BENE·VOL·ENT</b>. 머릿속에서 단어를 접두사 / 어근 / 접미사로 잘라봐. 모르는 단어를 만나면 먼저 '아는 조각이 있나?' 부터 찾는 습관을 들이는 게 핵심이야." },
-  { "kind":"teach", "icon":"🧭", "title":"2단계 — 조각의 '방향'을 떠올려라",
-    "body":"각 조각이 <b>긍정인지 부정인지</b>, 무슨 분야인지만 떠올려도 충분할 때가 많아. bene-(좋은)가 보이면 '긍정 단어구나', mal-(나쁜)이 보이면 '부정 단어구나'. 정확한 뜻이 아니라 <b>방향(±)</b> 만으로도 보기 절반이 날아간다." },
-  { "kind":"teach", "icon":"✂️", "title":"3단계 — 정반대부터 소거하라",
-    "body":"단어가 '긍정'이라고 판단되면, 보기 중 명백히 '부정'인 것부터 지워. 그렇게 2개로 좁힌 뒤, 남은 어근 단서로 최종 선택. 이제 테마별로 핵심 어근을 배우고, 바로 실전 예시로 '이렇게 좁히는' 걸 보여줄게. ▶ 로 넘겨봐." },
-
-  { "kind":"theme", "icon":"⚖️", "title":"테마 1 · 좋음 ↔ 나쁨",
-    "body":"가장 강력한 한 쌍. 이 4개만 알아도 긍정/부정 판별이 즉시 돼서 보기 절반이 날아가." },
-  { "kind":"root", "form":"bene-, bon-", "meaning":"좋은, 잘 (good/well)", "hook":"'베네핏(benefit)=이득' 떠올리면 끝. 좋은 거.", "words":["benefit","benevolent","benign","bonus"] },
-  { "kind":"root", "form":"mal-, male-", "meaning":"나쁜, 잘못 (bad/ill)", "hook":"'말썽'의 말~ mal~. 나쁜 거.", "words":["malice","malevolent","malfunction","malady"] },
-  { "kind":"root", "form":"eu-", "meaning":"좋은, 편안한 (good/pleasant)", "hook":"euphoria(행복감), eulogy(찬사). eu=긍정.", "words":["euphoria","eulogy","euphemism","euphonious"] },
-  { "kind":"root", "form":"dys-, dis-(나쁜)", "meaning":"나쁜, 비정상 (bad/abnormal)", "hook":"dysfunction(기능장애). dys=고장난.", "words":["dysfunction","dystopia","dyslexia"] },
-  { "kind":"worked", "word":"BENEVOLENT", "gloss":"자비로운, 인자한",
-    "breakdown":["bene = 좋은 / 잘", "vol = 뜻·의지 (volition)", "-ent = ~한 (형용사)"],
-    "options":["malicious","kind","careless","ancient"], "answer":1,
-    "reason":"'좋은 의지를 가진' → 친절한. 보기에서 malicious는 mal-(나쁜)이라 <b>정반대 → 즉시 소거</b>. careless·ancient는 좋고나쁨과 무관. 남는 긍정 단어는 <b>kind</b> 하나. 뜻을 몰라도 정답이 나온다." },
-
-  { "kind":"theme", "icon":"🗣️", "title":"테마 2 · 말하다 · 소리",
-    "body":"'말/소리'와 관련된 어근. 보기에서 '말·표현·소리' 계열을 골라내는 데 쓴다." },
-  { "kind":"root", "form":"loqu-, locu-", "meaning":"말하다 (speak)", "hook":"eloquent(달변). loqu 보이면 '말'.", "words":["loquacious","eloquent","elocution","colloquial"] },
-  { "kind":"root", "form":"dict-, dic-", "meaning":"말하다, 가리키다 (say/tell)", "hook":"dictionary, dictate. dict=말.", "words":["dictate","predict","contradict","benediction"] },
-  { "kind":"root", "form":"voc-, vok-", "meaning":"부르다, 목소리 (call/voice)", "hook":"vocal, voice. voc=목소리.", "words":["vocal","advocate","provoke","evoke"] },
-  { "kind":"root", "form":"phon-", "meaning":"소리 (sound)", "hook":"phone, symphony. phon=소리.", "words":["phonetics","symphony","cacophony","euphony"] },
-  { "kind":"worked", "word":"LOQUACIOUS", "gloss":"수다스러운",
-    "breakdown":["loqu = 말하다", "-acious = ~을 잘하는 / ~한 경향의"],
-    "options":["silent","talkative","lazy","honest"], "answer":1,
-    "reason":"'말을 잘/많이 하는' → 수다스러운. silent는 <b>정반대 → 소거</b>. lazy·honest는 '말'과 무관해서 약함. '말' 계열인 <b>talkative</b>가 정답." },
-
-  { "kind":"theme", "icon":"🧭", "title":"테마 3 · 방향 · 둘레",
-    "body":"위치·이동의 접두사. 단어의 '움직임 방향'을 잡아준다." },
-  { "kind":"root", "form":"circum-", "meaning":"둘레, 빙 돌아 (around)", "hook":"circle(원). circum=빙 둘러.", "words":["circumvent","circumference","circumspect","circumnavigate"] },
-  { "kind":"root", "form":"trans-", "meaning":"가로질러, 너머 (across/beyond)", "hook":"transport, transfer. trans=건너.", "words":["transport","transparent","transcend","transient"] },
-  { "kind":"root", "form":"sub-", "meaning":"아래, 하위 (under/below)", "hook":"submarine(잠수함). sub=아래.", "words":["submerge","subtle","subordinate","subvert"] },
-  { "kind":"root", "form":"inter-", "meaning":"사이, 서로 (between/among)", "hook":"internet, interact. inter=사이.", "words":["intervene","interrupt","intermittent","interject"] },
-  { "kind":"root", "form":"ab-, abs-", "meaning":"~로부터 떨어져 (away from)", "hook":"absent(부재). ab=멀어지다.", "words":["abstain","abduct","aberrant","abscond"] },
-  { "kind":"worked", "word":"CIRCUMVENT", "gloss":"우회하다, 피하다",
-    "breakdown":["circum = 빙 둘러 / 돌아", "vent = 오다·가다 (come/go)"],
-    "options":["confront","avoid","destroy","repeat"], "answer":1,
-    "reason":"'빙 돌아서 가다' → 정면으로 안 가고 <b>피해 가다</b>. confront(정면 대결)는 정반대 → 소거. '돌아간다'는 방향 단서로 destroy·repeat도 약함. 정답 <b>avoid</b>." },
-
-  { "kind":"theme", "icon":"📏", "title":"테마 4 · 크기 · 양 · 전부",
-    "body":"규모를 나타내는 어근. '큼/작음/전부/하나'를 잡아준다." },
-  { "kind":"root", "form":"magn-, magni-", "meaning":"큰, 위대한 (great/large)", "hook":"magnify(확대). magn=크다.", "words":["magnify","magnificent","magnanimous","magnitude"] },
-  { "kind":"root", "form":"micro-", "meaning":"작은 (small)", "hook":"microscope. micro=미세.", "words":["microscope","microcosm","microbe"] },
-  { "kind":"root", "form":"omni-", "meaning":"모든, 전부 (all)", "hook":"omni=올(all). 전부.", "words":["omniscient","omnipotent","omnivorous","omnipresent"] },
-  { "kind":"root", "form":"multi-", "meaning":"많은, 여러 (many)", "hook":"multiple. multi=다수.", "words":["multitude","multiple","multifaceted"] },
-  { "kind":"root", "form":"mono-", "meaning":"하나의 (one/single)", "hook":"monorail. mono=하나.", "words":["monotonous","monologue","monopoly"] },
-  { "kind":"worked", "word":"MAGNANIMOUS", "gloss":"도량이 큰, 관대한",
-    "breakdown":["magn = 큰 / 위대한", "anim = 마음·영혼 (mind/soul)", "-ous = ~한"],
-    "options":["petty","generous","tiny","fearful"], "answer":1,
-    "reason":"'마음이 큰' → 관대한. petty(쩨쩨한)는 <b>정반대 → 소거</b>. tiny는 magn(큰)과 모순 → 소거. 남는 건 <b>generous</b>." },
-
-  { "kind":"theme", "icon":"🚫", "title":"테마 5 · 반대 · 부정",
-    "body":"이게 보이면 단어 의미를 통째로 뒤집어라. 긍정↔부정이 갈리는 결정타." },
-  { "kind":"root", "form":"a-, an-", "meaning":"없는, 아닌 (without/not)", "hook":"atypical(비전형). a=무(無).", "words":["apathy","atheist","anonymous","amoral"] },
-  { "kind":"root", "form":"anti-", "meaning":"반대, 대항 (against)", "hook":"antiwar. anti=반대.", "words":["antipathy","antidote","antagonist","antithesis"] },
-  { "kind":"root", "form":"contra-, counter-", "meaning":"반대, 거슬러 (against/opposite)", "hook":"contrary. contra=거꾸로.", "words":["contradict","contrary","counteract","contravene"] },
-  { "kind":"root", "form":"dis-, dif-", "meaning":"분리, 부정 (apart/not)", "hook":"disagree. dis=안/분리.", "words":["dissent","disperse","discord","dispel"] },
-  { "kind":"caution", "icon":"⚠️", "title":"함정 — in-/im-는 두 얼굴",
-    "body":"in-/im-은 ① <b>'아닌(not)'</b> (incredible=못 믿을) 일 수도, ② <b>'안으로(into)'</b> (include=포함) 일 수도 있어. 헷갈리면 단어의 나머지 조각과 보기 분위기로 판단해. 대부분 형용사 앞이면 '아닌(not)'일 확률이 높다." },
-  { "kind":"worked", "word":"ANTIPATHY", "gloss":"반감, 혐오",
-    "breakdown":["anti = 반대 / 대항", "path = 감정·느낌 (feeling)", "-y = 명사"],
-    "options":["affection","hostility","curiosity","fatigue"], "answer":1,
-    "reason":"'반대 감정' → 싫어하는 마음. affection(애정)은 <b>정반대 → 소거</b>. anti(반대)+path(감정)이라 curiosity·fatigue는 '감정의 적대'와 안 맞아. 정답 <b>hostility</b>." },
-
-  { "kind":"theme", "icon":"❤️", "title":"테마 6 · 생명 · 마음 · 사람",
-    "body":"사람·감정 관련 단어를 풀 때 강력한 어근들." },
-  { "kind":"root", "form":"viv-, vit-", "meaning":"생명, 살다 (life/live)", "hook":"vital(필수의), survive. viv=생명.", "words":["vivacious","vivid","revive","vital"] },
-  { "kind":"root", "form":"anim-", "meaning":"마음, 생기 (mind/spirit)", "hook":"animal, animation. anim=생기.", "words":["animated","animosity","magnanimous","unanimous"] },
-  { "kind":"root", "form":"path-", "meaning":"감정, 고통 (feeling/suffering)", "hook":"sympathy(공감). path=감정.", "words":["empathy","apathy","pathetic","antipathy"] },
-  { "kind":"root", "form":"phil-", "meaning":"사랑, 좋아함 (love)", "hook":"philosophy(지혜 사랑). phil=사랑.", "words":["philanthropy","philosophy","bibliophile"] },
-  { "kind":"root", "form":"anthrop-", "meaning":"인간 (human)", "hook":"anthropology(인류학). anthrop=인간.", "words":["anthropology","philanthropy","misanthrope"] },
-  { "kind":"worked", "word":"VIVACIOUS", "gloss":"활기 넘치는",
-    "breakdown":["viv = 생명 / 살아있는", "-acious = ~한 경향의"],
-    "options":["dull","lively","cruel","wealthy"], "answer":1,
-    "reason":"'생명력 가득한' → 활발한. dull(따분한)은 <b>정반대 → 소거</b>. cruel·wealthy는 '생명/활기'와 무관. 정답 <b>lively</b>." },
-
-  { "kind":"theme", "icon":"👁️", "title":"테마 7 · 보다 · 믿다 · 만들다",
-    "body":"동사형 단어에 자주 박혀 있는 핵심 어근. 행동의 의미를 잡아준다." },
-  { "kind":"root", "form":"spec-, spect-", "meaning":"보다 (look/see)", "hook":"spectator(관중). spec=보다.", "words":["inspect","circumspect","skeptical","conspicuous"] },
-  { "kind":"root", "form":"cred-", "meaning":"믿다 (believe/trust)", "hook":"credit(신용). cred=믿음.", "words":["credible","incredulous","credentials","credulous"] },
-  { "kind":"root", "form":"fac-, fic-, fect-", "meaning":"만들다, 하다 (make/do)", "hook":"factory(공장). fac=만들다.", "words":["beneficial","proficient","efficient","manufacture"] },
-  { "kind":"root", "form":"scrib-, script-", "meaning":"쓰다 (write)", "hook":"script(대본). scrib=쓰다.", "words":["describe","inscribe","prescribe","manuscript"] },
-  { "kind":"root", "form":"duc-, duct-", "meaning":"이끌다 (lead)", "hook":"conduct(이끌다). duc=인도.", "words":["conduct","induce","abduct","deduce"] },
-  { "kind":"worked", "word":"INCREDULOUS", "gloss":"의심하는, 못 믿겠다는",
-    "breakdown":["in = 아닌 (not)", "cred = 믿다 (believe)", "-ous = ~한"],
-    "options":["trusting","skeptical","generous","weary"], "answer":1,
-    "reason":"in(아닌)+cred(믿다) → '안 믿는'. trusting(잘 믿는)은 <b>정반대 → 소거</b>. generous·weary는 '믿음'과 무관. 정답 <b>skeptical</b>(회의적인)." },
-
-  { "kind":"teach", "icon":"🥷", "title":"이제 네 차례",
-    "body":"배운 어근으로 직접 좁혀볼 차례야. 모르는 단어처럼 대하고, <b>먼저 어근 조각을 찾고 → 정반대를 지우고 → 고르기.</b> 막히면 '💡 어근 힌트'를 눌러. 가볍게 5문제 가보자." },
-  { "kind":"practice", "word":"MALEVOLENT", "gloss":"악의 있는",
-    "hint":"mal = 나쁜 + vol = 뜻·의지", "options":["generous","hostile","timid","wealthy"], "answer":1,
-    "explain":"mal(나쁜)+vol(의지) → '나쁜 마음의' → 적대적인. generous는 정반대라 먼저 소거. 정답 hostile." },
-  { "kind":"practice", "word":"BENEDICTION", "gloss":"축복(의 말)",
-    "hint":"bene = 좋은 + dict = 말하다", "options":["curse","blessing","question","warning"], "answer":1,
-    "explain":"bene(좋은)+dict(말) → '좋은 말' → 축복. curse(저주)는 정반대 → 소거. 정답 blessing." },
-  { "kind":"practice", "word":"OMNISCIENT", "gloss":"전지(全知)의",
-    "hint":"omni = 모든 + sci = 알다", "options":["powerful","all-knowing","invisible","ancient"], "answer":1,
-    "explain":"omni(모든)+sci(알다) → '모든 걸 아는'. powerful은 '힘'이지 '앎'이 아님. 정답 all-knowing." },
-  { "kind":"practice", "word":"CIRCUMSPECT", "gloss":"신중한",
-    "hint":"circum = 빙 둘러 + spect = 보다", "options":["reckless","cautious","cheerful","loud"], "answer":1,
-    "explain":"circum(둘러)+spect(보다) → '주위를 살피는' → 신중한. reckless(무모한)는 정반대 → 소거. 정답 cautious." },
-  { "kind":"practice", "word":"INTERMITTENT", "gloss":"간헐적인",
-    "hint":"inter = 사이 + mit = 보내다 (끊겼다 이어짐)", "options":["constant","sporadic","rapid","silent"], "answer":1,
-    "explain":"inter(사이)로 끊김 → 띄엄띄엄. constant(끊임없는)는 정반대 → 소거. 정답 sporadic(산발적인)." },
-
-  { "kind":"teach", "icon":"🏁", "title":"정리 — 시험장에서 이렇게",
-    "body":"① 모르는 단어? 당황 말고 <b>조각내기</b>. ② 아는 어근으로 <b>±방향</b> 잡기. ③ <b>정반대 보기부터 소거</b> → 2개로 좁히기. ④ 남은 어근 단서로 결정, 그래도 모르면 찍어 — 이미 확률 50%야. 매일 단어 복습에 어근 5개씩 얹으면 1~2주 뒤엔 처음 보는 단어도 절반은 추론된다. 화이팅! 🔥" }
+  {
+    "kind": "teach",
+    "icon": "🎯",
+    "title": "왜 어근으로 푸는가",
+    "body": "AFOQT Word Knowledge는 4지선다야. <b>단어 뜻을 정확히 몰라도</b> 어근(접두사·어근·접미사)을 알면 보기를 2개로 좁힐 수 있어. 100% 확신이 아니어도, 4개 중 2개로 줄이면 찍어도 정답률이 25%→50%로 뛴다. 이 코스는 그 '좁히는 기술'을 가르쳐줄게."
+  },
+  {
+    "kind": "teach",
+    "icon": "🪓",
+    "title": "1단계 — 단어를 조각내라",
+    "body": "긴 단어일수록 조각이 보여. 예: <b>BENE·VOL·ENT</b>. 머릿속에서 단어를 접두사 / 어근 / 접미사로 잘라봐. 모르는 단어를 만나면 먼저 '아는 조각이 있나?' 부터 찾는 습관을 들이는 게 핵심이야."
+  },
+  {
+    "kind": "teach",
+    "icon": "🧭",
+    "title": "2단계 — 조각의 '방향'을 떠올려라",
+    "body": "각 조각이 <b>긍정인지 부정인지</b>, 무슨 분야인지만 떠올려도 충분할 때가 많아. bene-(좋은)가 보이면 '긍정 단어구나', mal-(나쁜)이 보이면 '부정 단어구나'. 정확한 뜻이 아니라 <b>방향(±)</b> 만으로도 보기 절반이 날아간다."
+  },
+  {
+    "kind": "teach",
+    "icon": "✂️",
+    "title": "3단계 — 정반대부터 소거하라",
+    "body": "단어가 '긍정'이라고 판단되면, 보기 중 명백히 '부정'인 것부터 지워. 그렇게 2개로 좁힌 뒤, 남은 어근 단서로 최종 선택. 이제 테마별로 핵심 어근을 배우고, 바로 실전 예시로 '이렇게 좁히는' 걸 보여줄게. ▶ 로 넘겨봐."
+  },
+  {
+    "kind": "theme",
+    "icon": "⚖️",
+    "title": "테마 1 · 좋음 ↔ 나쁨",
+    "body": "가장 강력한 한 쌍. 이 4개만 알아도 긍정/부정 판별이 즉시 돼서 보기 절반이 날아가."
+  },
+  {
+    "kind": "root",
+    "form": "bene-, bon-",
+    "meaning": "좋은, 잘 (good/well)",
+    "hook": "'베네핏(benefit)=이득' 떠올리면 끝. 좋은 거.",
+    "words": [
+      "benefit",
+      "benevolent",
+      "benign",
+      "bonus"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "mal-, male-",
+    "meaning": "나쁜, 잘못 (bad/ill)",
+    "hook": "'말썽'의 말~ mal~. 나쁜 거.",
+    "words": [
+      "malice",
+      "malevolent",
+      "malfunction",
+      "malady"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "eu-",
+    "meaning": "좋은, 편안한 (good/pleasant)",
+    "hook": "euphoria(행복감), eulogy(찬사). eu=긍정.",
+    "words": [
+      "euphoria",
+      "eulogy",
+      "euphemism",
+      "euphonious"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "dys-, dis-(나쁜)",
+    "meaning": "나쁜, 비정상 (bad/abnormal)",
+    "hook": "dysfunction(기능장애). dys=고장난.",
+    "words": [
+      "dysfunction",
+      "dystopia",
+      "dyslexia"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "BENEVOLENT",
+    "gloss": "자비로운, 인자한",
+    "breakdown": [
+      "bene = 좋은 / 잘",
+      "vol = 뜻·의지 (volition)",
+      "-ent = ~한 (형용사)"
+    ],
+    "options": [
+      "malicious",
+      "kind",
+      "careless",
+      "ancient"
+    ],
+    "answer": 1,
+    "reason": "'좋은 의지를 가진' → 친절한. 보기에서 malicious는 mal-(나쁜)이라 <b>정반대 → 즉시 소거</b>. careless·ancient는 좋고나쁨과 무관. 남는 긍정 단어는 <b>kind</b> 하나. 뜻을 몰라도 정답이 나온다."
+  },
+  {
+    "kind": "theme",
+    "icon": "🗣️",
+    "title": "테마 2 · 말하다 · 소리",
+    "body": "'말/소리'와 관련된 어근. 보기에서 '말·표현·소리' 계열을 골라내는 데 쓴다."
+  },
+  {
+    "kind": "root",
+    "form": "loqu-, locu-",
+    "meaning": "말하다 (speak)",
+    "hook": "eloquent(달변). loqu 보이면 '말'.",
+    "words": [
+      "loquacious",
+      "eloquent",
+      "elocution",
+      "colloquial"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "dict-, dic-",
+    "meaning": "말하다, 가리키다 (say/tell)",
+    "hook": "dictionary, dictate. dict=말.",
+    "words": [
+      "dictate",
+      "predict",
+      "contradict",
+      "benediction"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "voc-, vok-",
+    "meaning": "부르다, 목소리 (call/voice)",
+    "hook": "vocal, voice. voc=목소리.",
+    "words": [
+      "vocal",
+      "advocate",
+      "provoke",
+      "evoke"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "phon-",
+    "meaning": "소리 (sound)",
+    "hook": "phone, symphony. phon=소리.",
+    "words": [
+      "phonetics",
+      "symphony",
+      "cacophony",
+      "euphony"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "LOQUACIOUS",
+    "gloss": "수다스러운",
+    "breakdown": [
+      "loqu = 말하다",
+      "-acious = ~을 잘하는 / ~한 경향의"
+    ],
+    "options": [
+      "silent",
+      "talkative",
+      "lazy",
+      "honest"
+    ],
+    "answer": 1,
+    "reason": "'말을 잘/많이 하는' → 수다스러운. silent는 <b>정반대 → 소거</b>. lazy·honest는 '말'과 무관해서 약함. '말' 계열인 <b>talkative</b>가 정답."
+  },
+  {
+    "kind": "theme",
+    "icon": "🧭",
+    "title": "테마 3 · 방향 · 둘레",
+    "body": "위치·이동의 접두사. 단어의 '움직임 방향'을 잡아준다."
+  },
+  {
+    "kind": "root",
+    "form": "circum-",
+    "meaning": "둘레, 빙 돌아 (around)",
+    "hook": "circle(원). circum=빙 둘러.",
+    "words": [
+      "circumvent",
+      "circumference",
+      "circumspect",
+      "circumnavigate"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "trans-",
+    "meaning": "가로질러, 너머 (across/beyond)",
+    "hook": "transport, transfer. trans=건너.",
+    "words": [
+      "transport",
+      "transparent",
+      "transcend",
+      "transient"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "sub-",
+    "meaning": "아래, 하위 (under/below)",
+    "hook": "submarine(잠수함). sub=아래.",
+    "words": [
+      "submerge",
+      "subtle",
+      "subordinate",
+      "subvert"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "inter-",
+    "meaning": "사이, 서로 (between/among)",
+    "hook": "internet, interact. inter=사이.",
+    "words": [
+      "intervene",
+      "interrupt",
+      "intermittent",
+      "interject"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "ab-, abs-",
+    "meaning": "~로부터 떨어져 (away from)",
+    "hook": "absent(부재). ab=멀어지다.",
+    "words": [
+      "abstain",
+      "abduct",
+      "aberrant",
+      "abscond"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "CIRCUMVENT",
+    "gloss": "우회하다, 피하다",
+    "breakdown": [
+      "circum = 빙 둘러 / 돌아",
+      "vent = 오다·가다 (come/go)"
+    ],
+    "options": [
+      "confront",
+      "avoid",
+      "destroy",
+      "repeat"
+    ],
+    "answer": 1,
+    "reason": "'빙 돌아서 가다' → 정면으로 안 가고 <b>피해 가다</b>. confront(정면 대결)는 정반대 → 소거. '돌아간다'는 방향 단서로 destroy·repeat도 약함. 정답 <b>avoid</b>."
+  },
+  {
+    "kind": "theme",
+    "icon": "📏",
+    "title": "테마 4 · 크기 · 양 · 전부",
+    "body": "규모를 나타내는 어근. '큼/작음/전부/하나'를 잡아준다."
+  },
+  {
+    "kind": "root",
+    "form": "magn-, magni-",
+    "meaning": "큰, 위대한 (great/large)",
+    "hook": "magnify(확대). magn=크다.",
+    "words": [
+      "magnify",
+      "magnificent",
+      "magnanimous",
+      "magnitude"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "micro-",
+    "meaning": "작은 (small)",
+    "hook": "microscope. micro=미세.",
+    "words": [
+      "microscope",
+      "microcosm",
+      "microbe"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "omni-",
+    "meaning": "모든, 전부 (all)",
+    "hook": "omni=올(all). 전부.",
+    "words": [
+      "omniscient",
+      "omnipotent",
+      "omnivorous",
+      "omnipresent"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "multi-",
+    "meaning": "많은, 여러 (many)",
+    "hook": "multiple. multi=다수.",
+    "words": [
+      "multitude",
+      "multiple",
+      "multifaceted"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "mono-",
+    "meaning": "하나의 (one/single)",
+    "hook": "monorail. mono=하나.",
+    "words": [
+      "monotonous",
+      "monologue",
+      "monopoly"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "MAGNANIMOUS",
+    "gloss": "도량이 큰, 관대한",
+    "breakdown": [
+      "magn = 큰 / 위대한",
+      "anim = 마음·영혼 (mind/soul)",
+      "-ous = ~한"
+    ],
+    "options": [
+      "petty",
+      "generous",
+      "tiny",
+      "fearful"
+    ],
+    "answer": 1,
+    "reason": "'마음이 큰' → 관대한. petty(쩨쩨한)는 <b>정반대 → 소거</b>. tiny는 magn(큰)과 모순 → 소거. 남는 건 <b>generous</b>."
+  },
+  {
+    "kind": "theme",
+    "icon": "🚫",
+    "title": "테마 5 · 반대 · 부정",
+    "body": "이게 보이면 단어 의미를 통째로 뒤집어라. 긍정↔부정이 갈리는 결정타."
+  },
+  {
+    "kind": "root",
+    "form": "a-, an-",
+    "meaning": "없는, 아닌 (without/not)",
+    "hook": "atypical(비전형). a=무(無).",
+    "words": [
+      "apathy",
+      "atheist",
+      "anonymous",
+      "amoral"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "anti-",
+    "meaning": "반대, 대항 (against)",
+    "hook": "antiwar. anti=반대.",
+    "words": [
+      "antipathy",
+      "antidote",
+      "antagonist",
+      "antithesis"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "contra-, counter-",
+    "meaning": "반대, 거슬러 (against/opposite)",
+    "hook": "contrary. contra=거꾸로.",
+    "words": [
+      "contradict",
+      "contrary",
+      "counteract",
+      "contravene"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "dis-, dif-",
+    "meaning": "분리, 부정 (apart/not)",
+    "hook": "disagree. dis=안/분리.",
+    "words": [
+      "dissent",
+      "disperse",
+      "discord",
+      "dispel"
+    ]
+  },
+  {
+    "kind": "caution",
+    "icon": "⚠️",
+    "title": "함정 — in-/im-는 두 얼굴",
+    "body": "in-/im-은 ① <b>'아닌(not)'</b> (incredible=못 믿을) 일 수도, ② <b>'안으로(into)'</b> (include=포함) 일 수도 있어. 헷갈리면 단어의 나머지 조각과 보기 분위기로 판단해. 대부분 형용사 앞이면 '아닌(not)'일 확률이 높다."
+  },
+  {
+    "kind": "worked",
+    "word": "ANTIPATHY",
+    "gloss": "반감, 혐오",
+    "breakdown": [
+      "anti = 반대 / 대항",
+      "path = 감정·느낌 (feeling)",
+      "-y = 명사"
+    ],
+    "options": [
+      "affection",
+      "hostility",
+      "curiosity",
+      "fatigue"
+    ],
+    "answer": 1,
+    "reason": "'반대 감정' → 싫어하는 마음. affection(애정)은 <b>정반대 → 소거</b>. anti(반대)+path(감정)이라 curiosity·fatigue는 '감정의 적대'와 안 맞아. 정답 <b>hostility</b>."
+  },
+  {
+    "kind": "theme",
+    "icon": "❤️",
+    "title": "테마 6 · 생명 · 마음 · 사람",
+    "body": "사람·감정 관련 단어를 풀 때 강력한 어근들."
+  },
+  {
+    "kind": "root",
+    "form": "viv-, vit-",
+    "meaning": "생명, 살다 (life/live)",
+    "hook": "vital(필수의), survive. viv=생명.",
+    "words": [
+      "vivacious",
+      "vivid",
+      "revive",
+      "vital"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "anim-",
+    "meaning": "마음, 생기 (mind/spirit)",
+    "hook": "animal, animation. anim=생기.",
+    "words": [
+      "animated",
+      "animosity",
+      "magnanimous",
+      "unanimous"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "path-",
+    "meaning": "감정, 고통 (feeling/suffering)",
+    "hook": "sympathy(공감). path=감정.",
+    "words": [
+      "empathy",
+      "apathy",
+      "pathetic",
+      "antipathy"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "phil-",
+    "meaning": "사랑, 좋아함 (love)",
+    "hook": "philosophy(지혜 사랑). phil=사랑.",
+    "words": [
+      "philanthropy",
+      "philosophy",
+      "bibliophile"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "anthrop-",
+    "meaning": "인간 (human)",
+    "hook": "anthropology(인류학). anthrop=인간.",
+    "words": [
+      "anthropology",
+      "philanthropy",
+      "misanthrope"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "VIVACIOUS",
+    "gloss": "활기 넘치는",
+    "breakdown": [
+      "viv = 생명 / 살아있는",
+      "-acious = ~한 경향의"
+    ],
+    "options": [
+      "dull",
+      "lively",
+      "cruel",
+      "wealthy"
+    ],
+    "answer": 1,
+    "reason": "'생명력 가득한' → 활발한. dull(따분한)은 <b>정반대 → 소거</b>. cruel·wealthy는 '생명/활기'와 무관. 정답 <b>lively</b>."
+  },
+  {
+    "kind": "theme",
+    "icon": "👁️",
+    "title": "테마 7 · 보다 · 믿다 · 만들다",
+    "body": "동사형 단어에 자주 박혀 있는 핵심 어근. 행동의 의미를 잡아준다."
+  },
+  {
+    "kind": "root",
+    "form": "spec-, spect-",
+    "meaning": "보다 (look/see)",
+    "hook": "spectator(관중). spec=보다.",
+    "words": [
+      "inspect",
+      "circumspect",
+      "skeptical",
+      "conspicuous"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "cred-",
+    "meaning": "믿다 (believe/trust)",
+    "hook": "credit(신용). cred=믿음.",
+    "words": [
+      "credible",
+      "incredulous",
+      "credentials",
+      "credulous"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "fac-, fic-, fect-",
+    "meaning": "만들다, 하다 (make/do)",
+    "hook": "factory(공장). fac=만들다.",
+    "words": [
+      "beneficial",
+      "proficient",
+      "efficient",
+      "manufacture"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "scrib-, script-",
+    "meaning": "쓰다 (write)",
+    "hook": "script(대본). scrib=쓰다.",
+    "words": [
+      "describe",
+      "inscribe",
+      "prescribe",
+      "manuscript"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "duc-, duct-",
+    "meaning": "이끌다 (lead)",
+    "hook": "conduct(이끌다). duc=인도.",
+    "words": [
+      "conduct",
+      "induce",
+      "abduct",
+      "deduce"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "INCREDULOUS",
+    "gloss": "의심하는, 못 믿겠다는",
+    "breakdown": [
+      "in = 아닌 (not)",
+      "cred = 믿다 (believe)",
+      "-ous = ~한"
+    ],
+    "options": [
+      "trusting",
+      "skeptical",
+      "generous",
+      "weary"
+    ],
+    "answer": 1,
+    "reason": "in(아닌)+cred(믿다) → '안 믿는'. trusting(잘 믿는)은 <b>정반대 → 소거</b>. generous·weary는 '믿음'과 무관. 정답 <b>skeptical</b>(회의적인)."
+  },
+  {
+    "kind": "theme",
+    "icon": "⏩",
+    "title": "테마 8 · 접두사 더 (시간·방향·정도)",
+    "body": "앞에서 배운 것 외에도 자주 나오는 접두사들. 단어 앞을 보면 '언제·어디로·얼마나'가 잡힌다."
+  },
+  {
+    "kind": "root",
+    "form": "pre-",
+    "meaning": "미리, 앞 (before)",
+    "hook": "preview(미리 보기). pre=먼저.",
+    "words": [
+      "predict",
+      "prevent",
+      "premature",
+      "precede"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "post-",
+    "meaning": "뒤, 후 (after)",
+    "hook": "postpone(미루다). post=나중.",
+    "words": [
+      "postpone",
+      "posthumous",
+      "postscript"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "re-",
+    "meaning": "다시, 뒤로 (again/back)",
+    "hook": "repeat(반복). re=다시.",
+    "words": [
+      "revise",
+      "recede",
+      "reiterate",
+      "resilient"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "de-",
+    "meaning": "아래로, 제거 (down/away)",
+    "hook": "descend(내려가다). de=아래/없앰.",
+    "words": [
+      "deduct",
+      "deflate",
+      "deplete",
+      "demote"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "ex-, e-",
+    "meaning": "밖으로 (out)",
+    "hook": "exit(출구). ex=밖.",
+    "words": [
+      "exclude",
+      "exhale",
+      "evade",
+      "extract"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "pro-",
+    "meaning": "앞으로, 찬성 (forward/for)",
+    "hook": "proceed(나아가다). pro=앞/지지.",
+    "words": [
+      "propel",
+      "promote",
+      "proponent",
+      "prolific"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "com-, con-, co-",
+    "meaning": "함께 (together/with)",
+    "hook": "connect(연결). con=같이.",
+    "words": [
+      "collaborate",
+      "converge",
+      "coherent",
+      "congregate"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "super-, sur-",
+    "meaning": "위, 초과 (above/beyond)",
+    "hook": "superior(우월). super=위.",
+    "words": [
+      "surpass",
+      "surplus",
+      "superfluous",
+      "supersede"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "mis-",
+    "meaning": "잘못 (wrong/badly)",
+    "hook": "mistake(실수). mis=잘못.",
+    "words": [
+      "mislead",
+      "misinterpret",
+      "misnomer"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "SUPERFLUOUS",
+    "gloss": "불필요한, 남아도는",
+    "breakdown": [
+      "super = 위 / 넘치게",
+      "flu = 흐르다 (flow)",
+      "-ous = ~한"
+    ],
+    "options": [
+      "essential",
+      "excessive",
+      "hidden",
+      "fragile"
+    ],
+    "answer": 1,
+    "reason": "'넘쳐 흐르는' → 필요 이상의. essential(필수의)은 정반대 → 소거. super(초과) 단서로 hidden·fragile도 약함. 정답 <b>excessive</b>."
+  },
+  {
+    "kind": "theme",
+    "icon": "🔧",
+    "title": "테마 9 · 핵심 어근 더 (동작)",
+    "body": "동사에 자주 박히는 '동작' 어근. 단어가 무슨 '행동'인지 잡아준다."
+  },
+  {
+    "kind": "root",
+    "form": "ten-, tain-",
+    "meaning": "잡다, 유지 (hold)",
+    "hook": "retain(보유). ten=쥐다.",
+    "words": [
+      "retain",
+      "tenacious",
+      "sustain",
+      "tenable"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "tract-",
+    "meaning": "끌다 (pull/drag)",
+    "hook": "tractor(끄는 기계). tract=당김.",
+    "words": [
+      "attract",
+      "retract",
+      "protract",
+      "intractable"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "ject-",
+    "meaning": "던지다 (throw)",
+    "hook": "eject(튕겨내다). ject=던짐.",
+    "words": [
+      "reject",
+      "inject",
+      "conjecture",
+      "abject"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "mit-, miss-",
+    "meaning": "보내다 (send)",
+    "hook": "mission(파견). mit=보냄.",
+    "words": [
+      "transmit",
+      "emit",
+      "remit",
+      "intermittent"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "pon-, pos-",
+    "meaning": "놓다, 두다 (place/put)",
+    "hook": "position(위치). pos=놓다.",
+    "words": [
+      "compose",
+      "postpone",
+      "deposit",
+      "juxtapose"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "vert-, vers-",
+    "meaning": "돌다, 향하다 (turn)",
+    "hook": "reverse(뒤집다). vert=돌림.",
+    "words": [
+      "convert",
+      "avert",
+      "versatile",
+      "inadvertent"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "cap-, cept-",
+    "meaning": "잡다, 받다 (take/seize)",
+    "hook": "capture(붙잡다). cap=쥠.",
+    "words": [
+      "intercept",
+      "susceptible",
+      "captivate",
+      "reception"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "fer-",
+    "meaning": "나르다, 가져오다 (carry/bring)",
+    "hook": "transfer(옮기다). fer=운반.",
+    "words": [
+      "transfer",
+      "infer",
+      "proliferate",
+      "vociferous"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "ver-",
+    "meaning": "진실 (truth)",
+    "hook": "verify(확인). ver=참.",
+    "words": [
+      "verify",
+      "veracity",
+      "verdict",
+      "aver"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "TENACIOUS",
+    "gloss": "끈질긴, 집요한",
+    "breakdown": [
+      "ten = 잡다 / 놓지 않다",
+      "-acious = ~을 잘하는 / ~한 경향의"
+    ],
+    "options": [
+      "yielding",
+      "persistent",
+      "careless",
+      "timid"
+    ],
+    "answer": 1,
+    "reason": "'꽉 붙잡고 안 놓는' → 끈질긴. yielding(쉽게 굽히는)은 정반대 → 소거. '잡다' 단서로 careless·timid도 약함. 정답 <b>persistent</b>."
+  },
+  {
+    "kind": "theme",
+    "icon": "🔚",
+    "title": "테마 10 · 접미사 — 끝을 보면 '품사'가 보인다",
+    "body": "접미사는 뜻보다 <b>품사(명사·동사·형용사)</b>와 뉘앙스를 알려줘. 문제에서 '형용사를 고르라'는 느낌이면, 보기 중 품사가 안 맞는 걸 소거할 수 있어."
+  },
+  {
+    "kind": "root",
+    "form": "-ous, -ious",
+    "meaning": "~한, ~로 가득한 (형용사)",
+    "hook": "형용사 신호. dangerous, curious.",
+    "words": [
+      "gracious",
+      "perilous",
+      "tenacious",
+      "spurious"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "-able, -ible",
+    "meaning": "~할 수 있는 (형용사)",
+    "hook": "가능 형용사. flexible, durable.",
+    "words": [
+      "inevitable",
+      "plausible",
+      "malleable",
+      "tenable"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "-ize, -fy",
+    "meaning": "~하게 만들다 (동사)",
+    "hook": "동사 신호. modernize, clarify.",
+    "words": [
+      "alienate",
+      "amplify",
+      "galvanize",
+      "pacify"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "-ment, -tion, -ity",
+    "meaning": "~함, ~상태 (명사)",
+    "hook": "명사 신호. movement, creation, clarity.",
+    "words": [
+      "resentment",
+      "cohesion",
+      "integrity",
+      "tenacity"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "-ist, -logy, -ism",
+    "meaning": "사람 / 학문 / 주의 (명사)",
+    "hook": "biologist, biology, optimism.",
+    "words": [
+      "pragmatist",
+      "anthropology",
+      "skepticism"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "-escent",
+    "meaning": "~되어 가는 (형용사)",
+    "hook": "점점 ~해지는. adolescent.",
+    "words": [
+      "luminescent",
+      "obsolescent",
+      "convalescent"
+    ]
+  },
+  {
+    "kind": "root",
+    "form": "-less",
+    "meaning": "~이 없는 (형용사, 부정!)",
+    "hook": "없음 → 부정 신호. fearless.",
+    "words": [
+      "relentless",
+      "reckless",
+      "peerless",
+      "listless"
+    ]
+  },
+  {
+    "kind": "worked",
+    "word": "RELENTLESS",
+    "gloss": "끊임없는, 가차 없는",
+    "breakdown": [
+      "relent = 누그러지다",
+      "-less = ~이 없는 (부정)"
+    ],
+    "options": [
+      "merciful",
+      "unceasing",
+      "gentle",
+      "brief"
+    ],
+    "answer": 1,
+    "reason": "'누그러짐이 없는' → 멈추지 않는. -less(없는)가 'relent(누그러짐)'을 부정 → merciful·gentle은 정반대라 소거. 정답 <b>unceasing</b>."
+  },
+  {
+    "kind": "teach",
+    "icon": "💪",
+    "title": "실전 추가 — 더 풀어보자",
+    "body": "새로 배운 접두사·어근·접미사로 더 좁혀보자. 똑같이 <b>조각내고 → 정반대 지우고 → 고르기</b>. 막히면 힌트!"
+  },
+  {
+    "kind": "teach",
+    "icon": "🥷",
+    "title": "이제 네 차례",
+    "body": "배운 어근으로 직접 좁혀볼 차례야. 모르는 단어처럼 대하고, <b>먼저 어근 조각을 찾고 → 정반대를 지우고 → 고르기.</b> 막히면 '💡 어근 힌트'를 눌러. 가볍게 5문제 가보자."
+  },
+  {
+    "kind": "practice",
+    "word": "MALEVOLENT",
+    "gloss": "악의 있는",
+    "hint": "mal = 나쁜 + vol = 뜻·의지",
+    "options": [
+      "generous",
+      "hostile",
+      "timid",
+      "wealthy"
+    ],
+    "answer": 1,
+    "explain": "mal(나쁜)+vol(의지) → '나쁜 마음의' → 적대적인. generous는 정반대라 먼저 소거. 정답 hostile."
+  },
+  {
+    "kind": "practice",
+    "word": "BENEDICTION",
+    "gloss": "축복(의 말)",
+    "hint": "bene = 좋은 + dict = 말하다",
+    "options": [
+      "curse",
+      "blessing",
+      "question",
+      "warning"
+    ],
+    "answer": 1,
+    "explain": "bene(좋은)+dict(말) → '좋은 말' → 축복. curse(저주)는 정반대 → 소거. 정답 blessing."
+  },
+  {
+    "kind": "practice",
+    "word": "OMNISCIENT",
+    "gloss": "전지(全知)의",
+    "hint": "omni = 모든 + sci = 알다",
+    "options": [
+      "powerful",
+      "all-knowing",
+      "invisible",
+      "ancient"
+    ],
+    "answer": 1,
+    "explain": "omni(모든)+sci(알다) → '모든 걸 아는'. powerful은 '힘'이지 '앎'이 아님. 정답 all-knowing."
+  },
+  {
+    "kind": "practice",
+    "word": "CIRCUMSPECT",
+    "gloss": "신중한",
+    "hint": "circum = 빙 둘러 + spect = 보다",
+    "options": [
+      "reckless",
+      "cautious",
+      "cheerful",
+      "loud"
+    ],
+    "answer": 1,
+    "explain": "circum(둘러)+spect(보다) → '주위를 살피는' → 신중한. reckless(무모한)는 정반대 → 소거. 정답 cautious."
+  },
+  {
+    "kind": "practice",
+    "word": "INTERMITTENT",
+    "gloss": "간헐적인",
+    "hint": "inter = 사이 + mit = 보내다 (끊겼다 이어짐)",
+    "options": [
+      "constant",
+      "sporadic",
+      "rapid",
+      "silent"
+    ],
+    "answer": 1,
+    "explain": "inter(사이)로 끊김 → 띄엄띄엄. constant(끊임없는)는 정반대 → 소거. 정답 sporadic(산발적인)."
+  },
+  {
+    "kind": "practice",
+    "word": "INTROSPECTIVE",
+    "gloss": "내성적인, 자기 성찰적인",
+    "hint": "intro = 안으로 + spect = 보다",
+    "options": [
+      "outgoing",
+      "self-examining",
+      "aggressive",
+      "wealthy"
+    ],
+    "answer": 1,
+    "explain": "intro(안)+spect(보다) → '자기 안을 들여다보는'. outgoing(외향적)은 정반대 → 소거. 정답 self-examining."
+  },
+  {
+    "kind": "practice",
+    "word": "PROLIFERATE",
+    "gloss": "급증하다, 증식하다",
+    "hint": "pro = 앞으로/많이 + fer = 나르다/낳다",
+    "options": [
+      "dwindle",
+      "multiply",
+      "conceal",
+      "delay"
+    ],
+    "answer": 1,
+    "explain": "pro(많이)+fer(낳다) → 마구 퍼지다. dwindle(줄다)은 정반대 → 소거. 정답 multiply."
+  },
+  {
+    "kind": "practice",
+    "word": "AVERT",
+    "gloss": "피하다, 돌리다",
+    "hint": "a(=ab, 멀리) + vert = 돌리다",
+    "options": [
+      "cause",
+      "prevent",
+      "reveal",
+      "repeat"
+    ],
+    "answer": 1,
+    "explain": "멀리(ab)+돌리다(vert) → 비켜 가게 하다 → 막다. cause(일으키다)는 정반대 → 소거. 정답 prevent."
+  },
+  {
+    "kind": "practice",
+    "word": "VERACITY",
+    "gloss": "진실성",
+    "hint": "ver = 진실 + -ity = 명사(성질)",
+    "options": [
+      "falsehood",
+      "truthfulness",
+      "speed",
+      "cruelty"
+    ],
+    "answer": 1,
+    "explain": "ver(진실)+ity(성질) → 진실함. falsehood(거짓)는 정반대 → 소거. 정답 truthfulness."
+  },
+  {
+    "kind": "practice",
+    "word": "MISANTHROPE",
+    "gloss": "인간 혐오자",
+    "hint": "mis = 싫어함/잘못 + anthrop = 인간",
+    "options": [
+      "humanitarian",
+      "people-hater",
+      "leader",
+      "scholar"
+    ],
+    "answer": 1,
+    "explain": "mis(혐오)+anthrop(인간) → 사람을 싫어하는 이. humanitarian(박애주의자)은 정반대 → 소거. 정답 people-hater."
+  },
+  {
+    "kind": "practice",
+    "word": "INTRACTABLE",
+    "gloss": "다루기 힘든, 고집 센",
+    "hint": "in = 아닌 + tract = 끌다 + -able = 가능",
+    "options": [
+      "manageable",
+      "unruly",
+      "cheerful",
+      "tiny"
+    ],
+    "answer": 1,
+    "explain": "in(아닌)+tract(끌다)+able → '끌고 갈 수 없는' → 말 안 듣는. manageable(다루기 쉬운)은 정반대 → 소거. 정답 unruly."
+  },
+  {
+    "kind": "practice",
+    "word": "CONVERGE",
+    "gloss": "한데 모이다",
+    "hint": "con = 함께 + verg = 기울다/향하다",
+    "options": [
+      "scatter",
+      "meet",
+      "fall",
+      "melt"
+    ],
+    "answer": 1,
+    "explain": "con(함께)+verge(향하다) → 한 점으로 모이다. scatter(흩어지다)는 정반대 → 소거. 정답 meet."
+  },
+  {
+    "kind": "practice",
+    "word": "SURPASS",
+    "gloss": "능가하다",
+    "hint": "sur = 위/넘어 + pass = 지나가다",
+    "options": [
+      "lag behind",
+      "exceed",
+      "equal",
+      "avoid"
+    ],
+    "answer": 1,
+    "explain": "sur(넘어)+pass(가다) → 넘어서다. lag behind(뒤처지다)는 정반대 → 소거. 정답 exceed."
+  },
+  {
+    "kind": "practice",
+    "word": "DEPLETE",
+    "gloss": "고갈시키다",
+    "hint": "de = 아래/제거 + plet = 채우다",
+    "options": [
+      "replenish",
+      "exhaust",
+      "strengthen",
+      "hide"
+    ],
+    "answer": 1,
+    "explain": "de(제거)+plete(채움) → 다 써서 비우다. replenish(다시 채우다)는 정반대 → 소거. 정답 exhaust."
+  },
+  {
+    "kind": "practice",
+    "word": "LUMINESCENT",
+    "gloss": "빛을 내는",
+    "hint": "lumin = 빛 + -escent = ~되어 가는",
+    "options": [
+      "dark",
+      "glowing",
+      "silent",
+      "heavy"
+    ],
+    "answer": 1,
+    "explain": "lumin(빛)+escent → 빛나는. dark(어두운)은 정반대 → 소거. 정답 glowing."
+  },
+  {
+    "kind": "teach",
+    "icon": "🏁",
+    "title": "정리 — 시험장에서 이렇게",
+    "body": "① 모르는 단어? 당황 말고 <b>조각내기</b>. ② 아는 어근으로 <b>±방향</b> 잡기. ③ <b>정반대 보기부터 소거</b> → 2개로 좁히기. ④ 남은 어근 단서로 결정, 그래도 모르면 찍어 — 이미 확률 50%야. 매일 단어 복습에 어근 5개씩 얹으면 1~2주 뒤엔 처음 보는 단어도 절반은 추론된다. 화이팅! 🔥"
+  }
 ]
