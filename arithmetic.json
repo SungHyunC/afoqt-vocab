@@ -1118,5 +1118,803 @@
     ],
     "answer": 3,
     "explain": "50/10=5분/km."
+  },
+  {
+    "id": 81,
+    "topic": "ratios",
+    "q": "A landscaping crew mixes grass seed and fertilizer in a 5:3 ratio by weight. If a 64-pound bag of the mixture is prepared, how many pounds of fertilizer does it contain?",
+    "q_ko": "조경 작업반이 잔디 씨앗과 비료를 무게 기준 5:3 비율로 섞는다. 64파운드짜리 혼합물 한 봉지를 만든다면, 그 안에 비료는 몇 파운드가 들어 있는가?",
+    "options": [
+      "24 pounds",
+      "30 pounds",
+      "40 pounds",
+      "21 pounds"
+    ],
+    "answer": 0,
+    "explain": "전체 비율은 5+3=8. 한 부분은 64÷8=8파운드. 비료는 3부분이므로 3×8=24파운드."
+  },
+  {
+    "id": 82,
+    "topic": "proportions",
+    "q": "A blueprint uses a scale where 2 centimeters represents 5 meters of actual length. If a hallway measures 14 centimeters on the blueprint, what is its actual length?",
+    "q_ko": "설계도는 2센티미터가 실제 길이 5미터를 나타내는 축척을 쓴다. 복도가 설계도에서 14센티미터라면 실제 길이는 얼마인가?",
+    "options": [
+      "28 meters",
+      "35 meters",
+      "17.5 meters",
+      "40 meters"
+    ],
+    "answer": 1,
+    "explain": "비례식: 2cm/5m = 14cm/x. x = 14×5÷2 = 35미터."
+  },
+  {
+    "id": 83,
+    "topic": "percentages",
+    "q": "A jacket's price was raised by 20% and later the new price was reduced by 20%. If the final price is $96, what was the original price?",
+    "q_ko": "재킷 가격이 20% 인상되었다가, 그 새 가격이 다시 20% 인하되었다. 최종 가격이 96달러라면 원래 가격은 얼마였는가?",
+    "options": [
+      "$96",
+      "$100",
+      "$120",
+      "$80"
+    ],
+    "answer": 1,
+    "explain": "원가 P에 대해 1.2×0.8P = 0.96P = 96. P = 96÷0.96 = 100달러."
+  },
+  {
+    "id": 84,
+    "topic": "distance_rate_time",
+    "q": "A cyclist rides 12 miles uphill at 8 miles per hour, then returns down the same route at 24 miles per hour. What is her average speed for the entire round trip?",
+    "q_ko": "한 자전거 타는 사람이 12마일 오르막을 시속 8마일로 가고, 같은 길을 내리막으로 시속 24마일로 돌아온다. 왕복 전체의 평균 속력은 얼마인가?",
+    "options": [
+      "16 mph",
+      "12 mph",
+      "18 mph",
+      "14 mph"
+    ],
+    "answer": 1,
+    "explain": "오르막 시간=12/8=1.5시간, 내리막=12/24=0.5시간. 총 거리 24마일, 총 시간 2시간. 평균=24/2=12mph."
+  },
+  {
+    "id": 85,
+    "topic": "mixtures",
+    "q": "How many liters of pure water must be added to 6 liters of a 30% salt solution to dilute it to a 20% salt solution?",
+    "q_ko": "30% 소금 용액 6리터를 20% 소금 용액으로 희석하려면 순수한 물을 몇 리터 넣어야 하는가?",
+    "options": [
+      "2 liters",
+      "3 liters",
+      "4 liters",
+      "1.5 liters"
+    ],
+    "answer": 1,
+    "explain": "소금량=0.30×6=1.8리터(불변). 최종 농도 0.20=1.8/(6+x). 6+x=9, x=3리터."
+  },
+  {
+    "id": 86,
+    "topic": "work_rate",
+    "q": "One pump can fill a tank in 6 hours and a second pump can fill it in 4 hours. Working together, how long will they take to fill the tank?",
+    "q_ko": "한 펌프는 탱크를 6시간에 채우고 다른 펌프는 4시간에 채운다. 함께 작동하면 탱크를 채우는 데 얼마나 걸리는가?",
+    "options": [
+      "2.4 hours",
+      "5 hours",
+      "2 hours",
+      "3 hours"
+    ],
+    "answer": 0,
+    "explain": "합산 속도=1/6+1/4=2/12+3/12=5/12 탱크/시간. 시간=12/5=2.4시간."
+  },
+  {
+    "id": 87,
+    "topic": "averages",
+    "q": "After six tests a student has an average score of 82. What score must she earn on the seventh test to raise her average to exactly 84?",
+    "q_ko": "여섯 번의 시험 후 한 학생의 평균 점수가 82점이다. 평균을 정확히 84점으로 올리려면 일곱 번째 시험에서 몇 점을 받아야 하는가?",
+    "options": [
+      "86",
+      "90",
+      "96",
+      "94"
+    ],
+    "answer": 2,
+    "explain": "현재 총점=6×82=492. 7과목 평균 84면 총점=7×84=588. 필요 점수=588−492=96."
+  },
+  {
+    "id": 88,
+    "topic": "simple_interest",
+    "q": "A sum of $2,500 is invested at 6% simple annual interest. What is the total amount in the account after 4 years?",
+    "q_ko": "2,500달러를 연 6% 단리로 투자한다. 4년 후 계좌의 총액은 얼마인가?",
+    "options": [
+      "$3,100",
+      "$600",
+      "$2,600",
+      "$3,000"
+    ],
+    "answer": 0,
+    "explain": "이자=2500×0.06×4=600달러. 총액=2500+600=3,100달러."
+  },
+  {
+    "id": 89,
+    "topic": "compound_interest",
+    "q": "$4,000 is deposited at 10% annual interest compounded yearly. What is the balance after 2 years?",
+    "q_ko": "4,000달러를 연 10% 연복리로 예치한다. 2년 후 잔액은 얼마인가?",
+    "options": [
+      "$4,800",
+      "$4,840",
+      "$4,400",
+      "$4,820"
+    ],
+    "answer": 1,
+    "explain": "1년 후=4000×1.1=4400. 2년 후=4400×1.1=4840달러."
+  },
+  {
+    "id": 90,
+    "topic": "number_properties",
+    "q": "The sum of three consecutive even integers is 78. What is the largest of the three integers?",
+    "q_ko": "연속된 세 짝수의 합이 78이다. 세 정수 중 가장 큰 수는 무엇인가?",
+    "options": [
+      "24",
+      "26",
+      "28",
+      "30"
+    ],
+    "answer": 2,
+    "explain": "세 수를 n, n+2, n+4. 합=3n+6=78, n=24. 세 수는 24, 26, 28이고 가장 큰 수는 28."
+  },
+  {
+    "id": 91,
+    "topic": "age_problems",
+    "q": "A mother is currently three times as old as her daughter. In 12 years she will be twice as old as her daughter. How old is the daughter now?",
+    "q_ko": "어머니는 현재 딸 나이의 세 배이다. 12년 후에는 딸 나이의 두 배가 된다. 딸은 지금 몇 살인가?",
+    "options": [
+      "10",
+      "12",
+      "14",
+      "16"
+    ],
+    "answer": 1,
+    "explain": "딸=d, 어머니=3d. 12년 후: 3d+12=2(d+12)=2d+24. d=12살."
+  },
+  {
+    "id": 92,
+    "topic": "unit_conversion",
+    "q": "A water tank holds 15 cubic feet. Given that 1 cubic foot is about 7.5 gallons, approximately how many gallons does the tank hold?",
+    "q_ko": "물탱크는 15세제곱피트를 담는다. 1세제곱피트가 약 7.5갤런일 때, 탱크는 약 몇 갤런을 담는가?",
+    "options": [
+      "112.5 gallons",
+      "105 gallons",
+      "2 gallons",
+      "75 gallons"
+    ],
+    "answer": 0,
+    "explain": "15×7.5=112.5갤런."
+  },
+  {
+    "id": 93,
+    "topic": "basic_probability",
+    "q": "A jar contains 4 red, 5 blue, and 3 green marbles. If one marble is drawn at random, what is the probability that it is NOT blue?",
+    "q_ko": "항아리에 빨강 4개, 파랑 5개, 초록 3개의 구슬이 있다. 무작위로 한 개를 뽑을 때 파랑이 아닐 확률은 얼마인가?",
+    "options": [
+      "5/12",
+      "7/12",
+      "1/2",
+      "3/12"
+    ],
+    "answer": 1,
+    "explain": "전체=12, 파랑 아님=4+3=7. 확률=7/12."
+  },
+  {
+    "id": 94,
+    "topic": "area_perimeter",
+    "q": "A rectangular garden has a perimeter of 54 meters. If its length is twice its width, what is the area of the garden?",
+    "q_ko": "직사각형 정원의 둘레가 54미터이다. 길이가 너비의 두 배라면 정원의 넓이는 얼마인가?",
+    "options": [
+      "162 square meters",
+      "81 square meters",
+      "324 square meters",
+      "180 square meters"
+    ],
+    "answer": 0,
+    "explain": "너비=w, 길이=2w. 둘레=2(w+2w)=6w=54, w=9. 길이=18. 넓이=9×18=162."
+  },
+  {
+    "id": 95,
+    "topic": "percentages",
+    "q": "In a survey, 35% of respondents preferred tea and the remaining 260 people preferred coffee. How many people were surveyed in total?",
+    "q_ko": "한 설문에서 응답자의 35%가 차를 선호했고 나머지 260명이 커피를 선호했다. 설문에 참여한 사람은 총 몇 명인가?",
+    "options": [
+      "400",
+      "350",
+      "450",
+      "742"
+    ],
+    "answer": 0,
+    "explain": "커피 선호=65%=260명. 전체=260÷0.65=400명."
+  },
+  {
+    "id": 96,
+    "topic": "ratios",
+    "q": "In a parking lot the ratio of cars to trucks is 7:2. If there are 35 more cars than trucks, how many vehicles are in the lot altogether?",
+    "q_ko": "주차장에서 승용차와 트럭의 비는 7:2이다. 승용차가 트럭보다 35대 많다면 주차장에는 모두 몇 대가 있는가?",
+    "options": [
+      "63",
+      "81",
+      "45",
+      "72"
+    ],
+    "answer": 0,
+    "explain": "차이=7−2=5부분=35, 한 부분=7. 전체=9부분=9×7=63대."
+  },
+  {
+    "id": 97,
+    "topic": "distance_rate_time",
+    "q": "Two trains leave the same station at the same time traveling in opposite directions, one at 55 mph and the other at 65 mph. After how many hours will they be 360 miles apart?",
+    "q_ko": "두 기차가 같은 역에서 동시에 반대 방향으로 출발하는데, 하나는 시속 55마일, 다른 하나는 시속 65마일이다. 몇 시간 후에 360마일 떨어지는가?",
+    "options": [
+      "3 hours",
+      "4 hours",
+      "2.5 hours",
+      "6 hours"
+    ],
+    "answer": 0,
+    "explain": "멀어지는 속도=55+65=120mph. 시간=360÷120=3시간."
+  },
+  {
+    "id": 98,
+    "topic": "averages",
+    "q": "The average weight of 5 boxes is 18 kilograms. When a sixth box is added, the average drops to 17 kilograms. What is the weight of the sixth box?",
+    "q_ko": "상자 5개의 평균 무게는 18킬로그램이다. 여섯 번째 상자를 추가하니 평균이 17킬로그램으로 떨어졌다. 여섯 번째 상자의 무게는 얼마인가?",
+    "options": [
+      "12 kg",
+      "11 kg",
+      "10 kg",
+      "17 kg"
+    ],
+    "answer": 0,
+    "explain": "5개 총=90kg. 6개 총=6×17=102kg. 여섯 번째=102−90=12kg."
+  },
+  {
+    "id": 99,
+    "topic": "proportions",
+    "q": "If 3 machines can produce 450 parts in 5 hours, how many parts can 5 machines produce in 8 hours at the same rate?",
+    "q_ko": "기계 3대가 5시간에 부품 450개를 생산한다면, 같은 속도로 기계 5대는 8시간에 부품 몇 개를 생산할 수 있는가?",
+    "options": [
+      "1,200",
+      "1,000",
+      "960",
+      "750"
+    ],
+    "answer": 0,
+    "explain": "기계 1대 1시간당=450/(3×5)=30개. 5대×8시간=40 기계-시간. 40×30=1,200개."
+  },
+  {
+    "id": 100,
+    "topic": "number_properties",
+    "q": "What is the smallest positive integer that is divisible by both 8 and 12?",
+    "q_ko": "8과 12로 모두 나누어떨어지는 가장 작은 양의 정수는 무엇인가?",
+    "options": [
+      "24",
+      "48",
+      "96",
+      "16"
+    ],
+    "answer": 0,
+    "explain": "8=2^3, 12=2^2×3. 최소공배수=2^3×3=24."
+  },
+  {
+    "id": 101,
+    "topic": "ratios",
+    "q": "A nursery mixes potting soil and sand in a 5:3 ratio by weight. If a batch contains 18 kilograms of sand, what is the total weight of the batch?",
+    "q_ko": "한 묘목장이 분갈이 흙과 모래를 무게 기준 5:3 비율로 섞는다. 한 배치에 모래가 18kg 들어 있다면, 그 배치의 총 무게는 얼마인가?",
+    "options": [
+      "30 kg",
+      "42 kg",
+      "48 kg",
+      "54 kg"
+    ],
+    "answer": 2,
+    "explain": "모래 3단위 = 18kg이므로 1단위 = 6kg. 총 단위는 5+3=8, 따라서 8×6=48kg. (5단위만 계산하면 30kg, 6단위면 36kg 등은 오답.)"
+  },
+  {
+    "id": 102,
+    "topic": "proportions",
+    "q": "A blueprint uses a scale where 2 centimeters represents 5 meters of actual length. A hallway is drawn 14 centimeters long on the blueprint. What is its actual length?",
+    "q_ko": "한 도면은 2cm가 실제 5m를 나타내는 축척을 쓴다. 복도가 도면에서 14cm로 그려져 있다. 실제 길이는 얼마인가?",
+    "options": [
+      "28 m",
+      "35 m",
+      "17.5 m",
+      "70 m"
+    ],
+    "answer": 1,
+    "explain": "2cm:5m 비례. 14cm는 2의 7배이므로 실제는 5×7=35m. (단순히 14×2.5는 맞지만 2.5×14=35로 동일.)"
+  },
+  {
+    "id": 103,
+    "topic": "percentages",
+    "q": "A laptop's price was raised by 20%, then later reduced by 25% from the increased price. If the original price was $800, what is the final price?",
+    "q_ko": "노트북 가격이 20% 인상된 뒤, 인상된 가격에서 다시 25% 인하되었다. 원래 가격이 800달러였다면 최종 가격은 얼마인가?",
+    "options": [
+      "$720",
+      "$760",
+      "$780",
+      "$800"
+    ],
+    "answer": 0,
+    "explain": "800×1.20=960, 960×0.75=720달러. (인상과 인하가 상쇄되어 800으로 보이는 것이 흔한 함정.)"
+  },
+  {
+    "id": 104,
+    "topic": "distance_rate_time",
+    "q": "A drone flies out to a site at 30 km/h and returns along the same route at 20 km/h. What is its average speed for the entire round trip?",
+    "q_ko": "드론이 어떤 지점까지 30km/h로 날아갔다가 같은 경로를 20km/h로 돌아온다. 왕복 전체의 평균 속력은 얼마인가?",
+    "options": [
+      "24 km/h",
+      "25 km/h",
+      "26 km/h",
+      "50 km/h"
+    ],
+    "answer": 0,
+    "explain": "왕복 평균 속력은 조화평균: 2×30×20/(30+20)=1200/50=24km/h. (단순 산술평균 25km/h가 흔한 오답.)"
+  },
+  {
+    "id": 105,
+    "topic": "mixtures",
+    "q": "How many liters of pure water must be added to 12 liters of a 30% acid solution to dilute it to a 20% acid solution?",
+    "q_ko": "30% 산 용액 12리터를 20% 산 용액으로 희석하려면 순수한 물을 몇 리터 넣어야 하는가?",
+    "options": [
+      "4 liters",
+      "6 liters",
+      "8 liters",
+      "10 liters"
+    ],
+    "answer": 1,
+    "explain": "산의 양은 12×0.30=3.6L로 일정. 최종 용액을 V라 하면 3.6/V=0.20 → V=18L. 추가한 물=18−12=6L."
+  },
+  {
+    "id": 106,
+    "topic": "work_rate",
+    "q": "Pipe A can fill a tank in 6 hours and pipe B in 4 hours. If both pipes are opened together, how long does it take to fill the tank?",
+    "q_ko": "파이프 A는 탱크를 6시간에, 파이프 B는 4시간에 채운다. 두 파이프를 동시에 열면 탱크를 채우는 데 얼마나 걸리는가?",
+    "options": [
+      "2.4 hours",
+      "2.5 hours",
+      "5 hours",
+      "10 hours"
+    ],
+    "answer": 0,
+    "explain": "합쳐진 속도=1/6+1/4=2/12+3/12=5/12 탱크/시간. 걸리는 시간=12/5=2.4시간."
+  },
+  {
+    "id": 107,
+    "topic": "averages",
+    "q": "The average of five numbers is 42. When a sixth number is added, the average becomes 45. What is the sixth number?",
+    "q_ko": "다섯 수의 평균이 42이다. 여섯 번째 수를 더하니 평균이 45가 되었다. 여섯 번째 수는 얼마인가?",
+    "options": [
+      "48",
+      "57",
+      "60",
+      "63"
+    ],
+    "answer": 2,
+    "explain": "처음 합=5×42=210, 새 합=6×45=270. 여섯 번째 수=270−210=60. (단순히 45나 48로 오답하기 쉽다.)"
+  },
+  {
+    "id": 108,
+    "topic": "simple_interest",
+    "q": "A sum of $2,500 is invested at 6% simple interest per year. What is the total amount (principal plus interest) after 4 years?",
+    "q_ko": "2,500달러를 연 6% 단리로 투자한다. 4년 후 총액(원금+이자)은 얼마인가?",
+    "options": [
+      "$600",
+      "$2,900",
+      "$3,100",
+      "$3,160"
+    ],
+    "answer": 2,
+    "explain": "이자=2500×0.06×4=600달러. 총액=2500+600=3100달러. (600은 이자만, 함정.)"
+  },
+  {
+    "id": 109,
+    "topic": "compound_interest",
+    "q": "$1,000 is deposited at 10% annual interest compounded yearly. What is the balance after 2 years?",
+    "q_ko": "1,000달러를 연 10% 복리로 예금한다. 2년 후 잔액은 얼마인가?",
+    "options": [
+      "$1,200",
+      "$1,210",
+      "$1,100",
+      "$1,221"
+    ],
+    "answer": 1,
+    "explain": "1000×1.10=1100, 1100×1.10=1210달러. (단리로 계산하면 1200, 함정.)"
+  },
+  {
+    "id": 110,
+    "topic": "number_properties",
+    "q": "The sum of three consecutive even integers is 90. What is the largest of the three integers?",
+    "q_ko": "연속된 세 짝수의 합이 90이다. 세 정수 중 가장 큰 것은 무엇인가?",
+    "options": [
+      "28",
+      "30",
+      "32",
+      "34"
+    ],
+    "answer": 2,
+    "explain": "세 짝수를 n, n+2, n+4라 하면 3n+6=90 → n=28. 가장 큰 수는 28+4=32. (중간값 30을 답으로 고르기 쉽다.)"
+  },
+  {
+    "id": 111,
+    "topic": "unit_conversion",
+    "q": "A water tank holds 90 gallons. If 1 gallon is approximately 3.8 liters, about how many liters does the tank hold?",
+    "q_ko": "물탱크가 90갤런을 담는다. 1갤런이 약 3.8리터라면, 탱크는 약 몇 리터를 담는가?",
+    "options": [
+      "236 liters",
+      "270 liters",
+      "342 liters",
+      "380 liters"
+    ],
+    "answer": 2,
+    "explain": "90×3.8=342리터. (90÷3.8≈23.7로 나누면 오답.)"
+  },
+  {
+    "id": 112,
+    "topic": "probability",
+    "q": "A bag contains 4 red, 5 blue, and 3 green marbles. If one marble is drawn at random, what is the probability it is NOT blue?",
+    "q_ko": "주머니에 빨강 4개, 파랑 5개, 초록 3개의 구슬이 있다. 무작위로 하나를 뽑을 때 파랑이 아닐 확률은 얼마인가?",
+    "options": [
+      "5/12",
+      "7/12",
+      "1/2",
+      "3/4"
+    ],
+    "answer": 1,
+    "explain": "전체 12개 중 파랑이 아닌 것은 4+3=7개. 확률=7/12. (파랑일 확률 5/12와 혼동 주의.)"
+  },
+  {
+    "id": 113,
+    "topic": "area_perimeter",
+    "q": "A rectangular garden has a perimeter of 60 meters. If its length is twice its width, what is its area?",
+    "q_ko": "직사각형 정원의 둘레가 60m이다. 길이가 너비의 2배라면 면적은 얼마인가?",
+    "options": [
+      "100 m²",
+      "150 m²",
+      "200 m²",
+      "400 m²"
+    ],
+    "answer": 2,
+    "explain": "너비 w, 길이 2w. 둘레 2(w+2w)=6w=60 → w=10, 길이=20. 면적=10×20=200m²."
+  },
+  {
+    "id": 114,
+    "topic": "percentages",
+    "q": "In a survey, 480 people responded, which represented 60% of those invited. How many people were invited?",
+    "q_ko": "한 설문에서 480명이 응답했으며, 이는 초대된 사람의 60%였다. 초대된 사람은 몇 명인가?",
+    "options": [
+      "288",
+      "640",
+      "720",
+      "800"
+    ],
+    "answer": 3,
+    "explain": "초대 인원을 x라 하면 0.60x=480 → x=480/0.6=800. (480×0.6=288은 거꾸로 계산한 오답.)"
+  },
+  {
+    "id": 115,
+    "topic": "ratios",
+    "q": "A recipe for 4 servings uses 3 cups of flour. To make 10 servings using the same recipe, how many cups of flour are needed?",
+    "q_ko": "4인분 레시피에 밀가루 3컵이 들어간다. 같은 레시피로 10인분을 만들려면 밀가루가 몇 컵 필요한가?",
+    "options": [
+      "6 cups",
+      "7 cups",
+      "7.5 cups",
+      "8 cups"
+    ],
+    "answer": 2,
+    "explain": "비례: 3/4 = x/10 → x=30/4=7.5컵."
+  },
+  {
+    "id": 116,
+    "topic": "distance_rate_time",
+    "q": "Two trains leave the same station traveling in opposite directions. One travels at 55 mph and the other at 65 mph. After how many hours will they be 360 miles apart?",
+    "q_ko": "두 기차가 같은 역에서 반대 방향으로 출발한다. 하나는 시속 55마일, 다른 하나는 시속 65마일이다. 몇 시간 후 두 기차가 360마일 떨어지는가?",
+    "options": [
+      "2 hours",
+      "3 hours",
+      "4 hours",
+      "6 hours"
+    ],
+    "answer": 1,
+    "explain": "멀어지는 속도=55+65=120mph. 시간=360/120=3시간."
+  },
+  {
+    "id": 117,
+    "topic": "mixtures",
+    "q": "A grocer mixes nuts costing $8 per pound with nuts costing $5 per pound to make 30 pounds of a mix worth $6 per pound. How many pounds of the $8 nuts are used?",
+    "q_ko": "한 식료품상이 파운드당 8달러인 견과와 5달러인 견과를 섞어 파운드당 6달러짜리 혼합물 30파운드를 만든다. 8달러 견과는 몇 파운드 들어가는가?",
+    "options": [
+      "10 pounds",
+      "12 pounds",
+      "15 pounds",
+      "20 pounds"
+    ],
+    "answer": 0,
+    "explain": "8달러 x파운드, 5달러 (30−x)파운드. 8x+5(30−x)=6×30=180 → 3x+150=180 → x=10파운드."
+  },
+  {
+    "id": 118,
+    "topic": "work_rate",
+    "q": "If 6 workers can build a wall in 10 days, how many days would it take 4 workers to build the same wall, assuming they work at the same rate?",
+    "q_ko": "일꾼 6명이 벽을 10일에 쌓을 수 있다. 같은 속도로 일한다면 4명이 같은 벽을 쌓는 데 며칠 걸리는가?",
+    "options": [
+      "6.7 days",
+      "12 days",
+      "15 days",
+      "18 days"
+    ],
+    "answer": 2,
+    "explain": "총 작업량=6×10=60 일·명. 4명이면 60/4=15일. (반비례 관계.)"
+  },
+  {
+    "id": 119,
+    "topic": "ratios",
+    "q": "A trail mix is made with peanuts, raisins, and chocolate chips in a ratio of 5:3:2 by weight. If a batch contains 240 grams of raisins, how many grams of chocolate chips are in the batch?",
+    "q_ko": "트레일 믹스가 땅콩, 건포도, 초콜릿 칩을 무게 기준 5:3:2 비율로 섞어 만들어진다. 한 배치에 건포도가 240그램 들어 있다면, 그 배치에는 초콜릿 칩이 몇 그램 들어 있는가?",
+    "options": [
+      "120 grams",
+      "160 grams",
+      "144 grams",
+      "400 grams"
+    ],
+    "answer": 1,
+    "explain": "건포도 3단위가 240g이므로 1단위 = 240/3 = 80g. 초콜릿 칩은 2단위 = 2 x 80 = 160g. 정답은 160 grams (인덱스 1)."
+  },
+  {
+    "id": 120,
+    "topic": "proportions",
+    "q": "A map uses a scale where 2 centimeters represents 15 kilometers. Two cities are 8.4 centimeters apart on the map. What is the actual distance between them?",
+    "q_ko": "어떤 지도는 2센티미터가 15킬로미터를 나타내는 축척을 사용한다. 두 도시가 지도상에서 8.4센티미터 떨어져 있다. 두 도시 사이의 실제 거리는 얼마인가?",
+    "options": [
+      "52.5 km",
+      "63 km",
+      "42 km",
+      "70 km"
+    ],
+    "answer": 1,
+    "explain": "1cm당 15/2 = 7.5km. 8.4cm x 7.5 = 63km. 정답은 63 km (인덱스 1)."
+  },
+  {
+    "id": 121,
+    "topic": "percentages",
+    "q": "A jacket is marked up 60% above its cost, then sold during a sale at 25% off the marked price. If the cost was $80, what was the final sale price?",
+    "q_ko": "재킷이 원가보다 60% 인상되어 표시 가격이 정해진 후, 세일 때 표시 가격에서 25% 할인되어 판매된다. 원가가 80달러였다면 최종 판매 가격은 얼마인가?",
+    "options": [
+      "$96",
+      "$104",
+      "$108",
+      "$92"
+    ],
+    "answer": 0,
+    "explain": "표시 가격 = 80 x 1.60 = 128달러. 25% 할인 = 128 x 0.75 = 96달러. 정답은 $96 (인덱스 0)."
+  },
+  {
+    "id": 122,
+    "topic": "distance_rate_time",
+    "q": "A cyclist rides for 2 hours at 18 km/h, then rests, then rides 30 km more at 15 km/h. What was the cyclist's average speed for the entire time spent riding (excluding the rest)?",
+    "q_ko": "한 자전거 타는 사람이 2시간 동안 시속 18km로 달린 후 쉬고, 그다음 시속 15km로 30km를 더 달린다. 휴식 시간을 제외한 전체 주행 시간 동안의 평균 속력은 얼마인가?",
+    "options": [
+      "16.5 km/h",
+      "16.75 km/h",
+      "16.8 km/h",
+      "17 km/h"
+    ],
+    "answer": 0,
+    "explain": "첫 구간: 거리 36km, 시간 2h. 둘째 구간: 30km, 시간 30/15 = 2h. 총 거리 66km, 총 시간 4h. 평균 = 66/4 = 16.5km/h. 정답은 16.5 km/h (인덱스 0)."
+  },
+  {
+    "id": 123,
+    "topic": "mixtures",
+    "q": "A chemist has 6 liters of a 20% acid solution. How many liters of pure water must be added to dilute it to a 15% acid solution?",
+    "q_ko": "한 화학자가 20% 산 용액 6리터를 가지고 있다. 이를 15% 산 용액으로 희석하려면 순수한 물을 몇 리터 추가해야 하는가?",
+    "options": [
+      "1.5 liters",
+      "2 liters",
+      "3 liters",
+      "2.5 liters"
+    ],
+    "answer": 1,
+    "explain": "산의 양 = 6 x 0.20 = 1.2L (변하지 않음). 최종 부피를 V라 하면 1.2/V = 0.15, V = 8L. 추가할 물 = 8 - 6 = 2L. 정답은 2 liters (인덱스 1)."
+  },
+  {
+    "id": 124,
+    "topic": "work_rate",
+    "q": "Pump A can fill a tank in 4 hours and pump B can fill the same tank in 6 hours. If both pumps work together, how long will it take to fill the tank?",
+    "q_ko": "펌프 A는 탱크를 4시간 만에 채울 수 있고 펌프 B는 같은 탱크를 6시간 만에 채울 수 있다. 두 펌프가 함께 작동하면 탱크를 채우는 데 얼마나 걸리는가?",
+    "options": [
+      "2 hours",
+      "2.4 hours",
+      "2.5 hours",
+      "5 hours"
+    ],
+    "answer": 1,
+    "explain": "합쳐진 속도 = 1/4 + 1/6 = 3/12 + 2/12 = 5/12 탱크/시간. 시간 = 12/5 = 2.4시간. 정답은 2.4 hours (인덱스 1)."
+  },
+  {
+    "id": 125,
+    "topic": "compound_interest",
+    "q": "$2,000 is invested at 10% annual interest compounded annually. What is the total value after 2 years?",
+    "q_ko": "2,000달러가 연 10% 이자로 연복리 투자된다. 2년 후 총 가치는 얼마인가?",
+    "options": [
+      "$2,400",
+      "$2,420",
+      "$2,200",
+      "$2,410"
+    ],
+    "answer": 1,
+    "explain": "2000 x 1.10 = 2200, 2200 x 1.10 = 2420달러. 정답은 $2,420 (인덱스 1)."
+  },
+  {
+    "id": 126,
+    "topic": "simple_interest",
+    "q": "A loan of $1,500 is taken at simple interest. After 3 years, the total amount owed is $1,770. What was the annual interest rate?",
+    "q_ko": "1,500달러의 대출을 단리로 받는다. 3년 후 갚아야 할 총액은 1,770달러이다. 연 이자율은 얼마였는가?",
+    "options": [
+      "5%",
+      "6%",
+      "18%",
+      "4.5%"
+    ],
+    "answer": 1,
+    "explain": "이자 = 1770 - 1500 = 270달러. 단리 270 = 1500 x r x 3, r = 270/4500 = 0.06 = 6%. 정답은 6% (인덱스 1)."
+  },
+  {
+    "id": 127,
+    "topic": "number_properties",
+    "q": "What is the smallest positive integer that is divisible by both 12 and 18 and is also a perfect square?",
+    "q_ko": "12와 18로 모두 나누어떨어지면서 완전제곱수이기도 한 가장 작은 양의 정수는 무엇인가?",
+    "options": [
+      "36",
+      "72",
+      "144",
+      "324"
+    ],
+    "answer": 0,
+    "explain": "12와 18의 최소공배수 = 36 = 2^2 x 3^2. 36은 12와 18로 모두 나누어떨어지고 36 = 6^2 이므로 완전제곱수이다. 따라서 가장 작은 값은 36. 정답은 36 (인덱스 0)."
+  },
+  {
+    "id": 128,
+    "topic": "age_problems",
+    "q": "A father is currently three times as old as his son. In 12 years, he will be twice as old as his son. How old is the son now?",
+    "q_ko": "아버지의 현재 나이는 아들의 세 배이다. 12년 후에는 아들의 두 배가 된다. 아들의 현재 나이는 몇 살인가?",
+    "options": [
+      "10",
+      "12",
+      "14",
+      "18"
+    ],
+    "answer": 1,
+    "explain": "아들 나이 s, 아버지 3s. 12년 후: 3s+12 = 2(s+12) = 2s+24, s = 12. 정답은 12 (인덱스 1)."
+  },
+  {
+    "id": 129,
+    "topic": "unit_conversion",
+    "q": "A water tank holds 15 cubic feet. Given that 1 cubic foot is approximately 7.48 gallons, about how many gallons does the tank hold?",
+    "q_ko": "물탱크의 용량은 15세제곱피트이다. 1세제곱피트가 약 7.48갤런일 때, 이 탱크는 약 몇 갤런을 담을 수 있는가?",
+    "options": [
+      "약 112 gallons",
+      "약 105 gallons",
+      "약 120 gallons",
+      "약 98 gallons"
+    ],
+    "answer": 0,
+    "explain": "15 x 7.48 = 112.2갤런, 약 112갤런. 정답은 약 112 gallons (인덱스 0)."
+  },
+  {
+    "id": 130,
+    "topic": "probability",
+    "q": "A drawer contains 4 red socks and 6 blue socks. If two socks are drawn at random without replacement, what is the probability that both are red?",
+    "q_ko": "서랍에 빨간 양말 4개와 파란 양말 6개가 있다. 두 양말을 무작위로 다시 넣지 않고 뽑을 때, 둘 다 빨간색일 확률은 얼마인가?",
+    "options": [
+      "2/15",
+      "4/25",
+      "1/5",
+      "2/9"
+    ],
+    "answer": 0,
+    "explain": "첫 빨강 4/10, 둘째 빨강 3/9. 곱 = (4/10)(3/9) = 12/90 = 2/15. 정답은 2/15 (인덱스 0)."
+  },
+  {
+    "id": 131,
+    "topic": "area_word_problem",
+    "q": "A rectangular garden is 18 meters long and 12 meters wide. A uniform path 1 meter wide is built inside along all four edges. What is the area of the path?",
+    "q_ko": "직사각형 정원의 길이는 18미터, 폭은 12미터이다. 모든 네 변을 따라 안쪽으로 폭 1미터의 균일한 길이 만들어진다. 그 길의 넓이는 얼마인가?",
+    "options": [
+      "56 square meters",
+      "60 square meters",
+      "216 square meters",
+      "58 square meters"
+    ],
+    "answer": 0,
+    "explain": "전체 넓이 = 18 x 12 = 216. 안쪽 직사각형 = (18-2) x (12-2) = 16 x 10 = 160. 길 넓이 = 216 - 160 = 56제곱미터. 정답은 56 square meters (인덱스 0)."
+  },
+  {
+    "id": 132,
+    "topic": "percentages",
+    "q": "In a class, 40% of the students play a sport and 25% of those who play a sport also play an instrument. If 6 students both play a sport and an instrument, how many students are in the class?",
+    "q_ko": "한 학급에서 학생의 40%가 운동을 하고, 운동을 하는 학생의 25%가 악기도 연주한다. 운동과 악기를 모두 하는 학생이 6명이라면, 학급에는 학생이 몇 명 있는가?",
+    "options": [
+      "48",
+      "60",
+      "72",
+      "100"
+    ],
+    "answer": 1,
+    "explain": "운동하고 악기도 하는 비율 = 0.40 x 0.25 = 0.10 = 10%. 전체의 10%가 6명이므로 전체 = 60명. 정답은 60 (인덱스 1)."
+  },
+  {
+    "id": 133,
+    "topic": "distance_rate_time",
+    "q": "Two trains leave the same station traveling in opposite directions. One travels at 70 km/h and the other at 50 km/h. After how many hours will they be 360 km apart?",
+    "q_ko": "두 기차가 같은 역에서 반대 방향으로 출발한다. 하나는 시속 70km로, 다른 하나는 시속 50km로 달린다. 몇 시간 후에 둘은 360km 떨어지게 되는가?",
+    "options": [
+      "2 hours",
+      "2.5 hours",
+      "3 hours",
+      "4 hours"
+    ],
+    "answer": 2,
+    "explain": "상대 속도 = 70 + 50 = 120km/h. 시간 = 360/120 = 3시간. 정답은 3 hours (인덱스 2)."
+  },
+  {
+    "id": 134,
+    "topic": "ratios",
+    "q": "In a parking lot, the ratio of cars to motorcycles is 7:2. If there are 45 more cars than motorcycles, how many vehicles are in the lot altogether?",
+    "q_ko": "주차장에서 자동차와 오토바이의 비율은 7:2이다. 자동차가 오토바이보다 45대 더 많다면, 주차장에 있는 차량은 모두 몇 대인가?",
+    "options": [
+      "63",
+      "81",
+      "90",
+      "99"
+    ],
+    "answer": 1,
+    "explain": "차이 7-2 = 5단위 = 45대이므로 1단위 = 9대. 총 단위 = 7+2 = 9단위 x 9 = 81대. 정답은 81 (인덱스 1)."
+  },
+  {
+    "id": 135,
+    "topic": "mixtures",
+    "q": "Coffee A costs $12 per pound and coffee B costs $8 per pound. How many pounds of coffee A should be mixed with 10 pounds of coffee B to make a blend costing $9 per pound?",
+    "q_ko": "커피 A는 파운드당 12달러, 커피 B는 파운드당 8달러이다. 파운드당 9달러인 혼합물을 만들려면 커피 B 10파운드에 커피 A를 몇 파운드 섞어야 하는가?",
+    "options": [
+      "2.5 pounds",
+      "3.33 pounds",
+      "4 pounds",
+      "5 pounds"
+    ],
+    "answer": 1,
+    "explain": "A를 x파운드라 하면 (12x + 8 x 10)/(x + 10) = 9. 12x + 80 = 9x + 90, 3x = 10, x = 3.33파운드. 정답은 3.33 pounds (인덱스 1)."
+  },
+  {
+    "id": 136,
+    "topic": "number_properties",
+    "q": "The sum of three consecutive even integers is 90. What is the product of the smallest and largest of these integers?",
+    "q_ko": "연속된 세 짝수의 합이 90이다. 이 정수들 중 가장 작은 것과 가장 큰 것의 곱은 얼마인가?",
+    "options": [
+      "896",
+      "960",
+      "924",
+      "868"
+    ],
+    "answer": 0,
+    "explain": "중간 수 = 90/3 = 30. 세 수는 28, 30, 32. 가장 작은 것과 큰 것의 곱 = 28 x 32 = 896. 정답은 896 (인덱스 0)."
+  },
+  {
+    "id": 137,
+    "topic": "perimeter_word_problem",
+    "q": "A rectangular field has a perimeter of 100 meters. Its length is 10 meters more than its width. What is the area of the field?",
+    "q_ko": "직사각형 밭의 둘레는 100미터이다. 길이는 폭보다 10미터 더 길다. 밭의 넓이는 얼마인가?",
+    "options": [
+      "525 square meters",
+      "600 square meters",
+      "625 square meters",
+      "550 square meters"
+    ],
+    "answer": 1,
+    "explain": "2(L+W) = 100이므로 L+W = 50. L = W+10이므로 2W+10 = 50, W = 20, L = 30. 넓이 = 30 x 20 = 600제곱미터. 정답은 600 square meters (인덱스 1)."
   }
 ]

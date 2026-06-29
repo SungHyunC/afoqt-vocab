@@ -5686,5 +5686,1125 @@
         "explain": "지문에서 녹음은 여러 번 재생되므로 연주자들이 완벽한 연주를 추구하도록 부추겼다고 했으므로 추론된다."
       }
     ]
+  },
+  {
+    "id": 106,
+    "title": "How Tardigrades Survive",
+    "topic": "science",
+    "passage": "Tardigrades, often called water bears, are microscopic animals barely half a millimeter long, yet they endure conditions that would destroy almost any other organism. When their watery habitat dries out, a tardigrade curls into a compact ball called a tun and slows its metabolism to nearly nothing. In this dormant state it can withstand boiling heat, freezing cold, intense radiation, and even the vacuum of space. The secret lies partly in special proteins that replace lost water and form a glassy matrix, cushioning the creature's delicate cell structures until moisture returns. Once rehydrated, the tardigrade may revive within minutes, walking away as though nothing had happened. Researchers study these proteins hoping to preserve vaccines and human tissues without refrigeration, which could transform medicine in regions lacking reliable electricity. Although tardigrades are remarkably tough, they are not truly immortal; in their active, hydrated state they are as vulnerable as any small animal to predators and starvation. Their resilience appears only when extreme conditions trigger the protective shutdown that has helped them survive for over five hundred million years.",
+    "questions": [
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Tardigrades are the largest microscopic animals",
+          "Tardigrades survive extreme conditions through a protective dormant state that interests researchers",
+          "Tardigrades cannot survive without constant refrigeration",
+          "Tardigrades are immortal creatures that never die"
+        ],
+        "answer": 1,
+        "explain": "지문은 완보동물이 휴면 상태(tun)로 극한 환경을 견디며 그 단백질이 연구 대상이 된다는 점을 전체적으로 설명한다."
+      },
+      {
+        "q": "According to the passage, what role do the special proteins play?",
+        "type": "detail",
+        "options": [
+          "They make the tardigrade grow larger",
+          "They replace lost water and form a glassy matrix protecting cells",
+          "They allow the tardigrade to swim faster",
+          "They attract moisture from the air"
+        ],
+        "answer": 1,
+        "explain": "지문은 단백질이 잃은 물을 대체하고 유리질 매트릭스를 형성해 세포 구조를 보호한다고 명시한다."
+      },
+      {
+        "q": "What can be inferred about tardigrades in their hydrated state?",
+        "type": "inference",
+        "options": [
+          "They are invincible against all threats",
+          "They remain dormant most of the time",
+          "They face ordinary dangers like predators and starvation",
+          "They cannot move at all"
+        ],
+        "answer": 2,
+        "explain": "지문은 수분이 있는 활동 상태에서는 다른 작은 동물처럼 포식자와 굶주림에 취약하다고 한다."
+      },
+      {
+        "q": "Why do researchers study tardigrade proteins?",
+        "type": "detail",
+        "options": [
+          "To create new species of water bears",
+          "To preserve vaccines and tissues without refrigeration",
+          "To make animals grow faster",
+          "To study space travel for humans"
+        ],
+        "answer": 1,
+        "explain": "지문은 연구자들이 냉장 없이 백신과 인체 조직을 보존하기 위해 이 단백질을 연구한다고 설명한다."
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "title": "The Library of Alexandria",
+    "topic": "history",
+    "passage": "In the ancient port city of Alexandria, founded by Alexander the Great, scholars built one of the most ambitious institutions of the classical world: a great library devoted to collecting all the knowledge then known. Rulers of Egypt reportedly ordered that any scroll found aboard ships docking in the harbor be copied, with the copy returned to the owner and the original kept for the library's shelves. Mathematicians, astronomers, and physicians traveled there to study and debate, and the collection may have held hundreds of thousands of scrolls. The library was less a single building than a research community, supported by royal funds that freed thinkers to pursue ideas without earning a living elsewhere. Its eventual decline was gradual rather than sudden; wars, shrinking budgets, and shifting political loyalties slowly drained its resources over generations. Although popular legend blames a single dramatic fire for its loss, historians today emphasize this slow erosion. The library's true legacy lies not in any surviving structure but in the model it offered: a place where gathering, copying, and questioning knowledge became a shared public enterprise.",
+    "questions": [
+      {
+        "q": "What does the passage suggest about the library's decline?",
+        "type": "inference",
+        "options": [
+          "It was destroyed instantly by one famous fire",
+          "It happened gradually due to several factors over time",
+          "It was never actually significant",
+          "It was caused by a single ruler's decree"
+        ],
+        "answer": 1,
+        "explain": "지문은 쇠퇴가 갑작스러운 화재가 아니라 전쟁, 예산 축소, 정치적 변화로 여러 세대에 걸쳐 점진적으로 일어났다고 한다."
+      },
+      {
+        "q": "How did the library reportedly acquire many of its scrolls?",
+        "type": "detail",
+        "options": [
+          "By purchasing them at fixed prices",
+          "By copying scrolls found on ships and keeping the originals",
+          "By forcing scholars to donate their own work",
+          "By trading them with other libraries"
+        ],
+        "answer": 1,
+        "explain": "지문은 항구에 정박한 배의 두루마리를 복사해 사본은 돌려주고 원본은 보관했다고 명시한다."
+      },
+      {
+        "q": "As used in the passage, the word 'erosion' most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "sudden explosion",
+          "gradual wearing away",
+          "rapid expansion",
+          "careful preservation"
+        ],
+        "answer": 1,
+        "explain": "'slow erosion'은 자원이 서서히 줄어드는 점진적 소멸을 의미하므로 '서서히 닳아 없어짐'이 가장 가깝다."
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "title": "The Berlin Airlift",
+    "topic": "military",
+    "passage": "In June 1948, the Soviet Union blocked all road, rail, and canal routes into the western sectors of Berlin, hoping to force the Western Allies to abandon the city. More than two million residents suddenly faced the loss of food, coal, and medicine. Rather than retreat or risk armed confrontation, American and British commanders chose an audacious alternative: they would supply the entire population by air. For nearly a year, cargo planes landed in Berlin around the clock, sometimes only minutes apart, carrying everything from flour to winter fuel. Pilots flew narrow air corridors in all weather, and ground crews unloaded each aircraft with stopwatch precision so the planes could return for another load. At its peak the operation delivered more supplies by air than had previously reached the city by surface routes. The blockade was finally lifted in May 1949, an outcome widely seen as a defeat for Soviet pressure. The airlift demonstrated that determination and careful logistics could overcome a blockade without firing a shot, and it strengthened ties between the Western powers and the people of Berlin.",
+    "questions": [
+      {
+        "q": "What was the Allies' response to the Soviet blockade?",
+        "type": "detail",
+        "options": [
+          "They attacked Soviet forces directly",
+          "They abandoned the western sectors of Berlin",
+          "They supplied the city entirely by air",
+          "They negotiated an immediate surrender"
+        ],
+        "answer": 2,
+        "explain": "지문은 연합군이 후퇴나 무력 충돌 대신 도시 전체를 공중으로 보급하는 방안을 택했다고 한다."
+      },
+      {
+        "q": "What is the author's main purpose in the passage?",
+        "type": "tone_purpose",
+        "options": [
+          "To criticize the inefficiency of cargo planes",
+          "To describe how the airlift overcame the blockade without combat",
+          "To argue that Berlin should have been abandoned",
+          "To explain how to fly in bad weather"
+        ],
+        "answer": 1,
+        "explain": "지문의 핵심 목적은 공수작전이 전투 없이 봉쇄를 극복한 과정을 설명하는 것이다."
+      },
+      {
+        "q": "What can be inferred about the operation's logistics?",
+        "type": "inference",
+        "options": [
+          "They were careless and disorganized",
+          "They required precise timing and coordination",
+          "They depended on Soviet cooperation",
+          "They were impossible to sustain for more than a week"
+        ],
+        "answer": 1,
+        "explain": "착륙 간격이 몇 분에 불과하고 지상 요원이 정밀하게 하역했다는 점에서 정밀한 타이밍과 조율이 필요했음을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "title": "How GPS Knows Where You Are",
+    "topic": "technology",
+    "passage": "When a phone displays your location on a map, it is quietly performing a feat of physics involving distant satellites and extraordinarily precise clocks. The Global Positioning System relies on a constellation of satellites orbiting thousands of kilometers above Earth, each broadcasting a signal stamped with the exact time it was sent. A receiver on the ground compares that timestamp with its own clock to calculate how long the signal took to arrive, and because the signal travels at the speed of light, this delay reveals the distance to the satellite. By measuring distances to at least four satellites at once, the receiver can pinpoint its position in three dimensions. The system is so sensitive to timing that engineers must account for the predictions of relativity: clocks aboard the fast-moving satellites tick at a slightly different rate than clocks on the ground. Without correcting for this tiny difference, positions would drift by kilometers within a day. Far from being a mere convenience, GPS now underpins everything from aviation and shipping to the timing signals that keep financial networks synchronized across the world.",
+    "questions": [
+      {
+        "q": "How does a GPS receiver determine its distance to a satellite?",
+        "type": "detail",
+        "options": [
+          "By measuring the brightness of the satellite",
+          "By calculating how long the timed signal took to arrive",
+          "By counting the number of satellites overhead",
+          "By measuring the satellite's weight"
+        ],
+        "answer": 1,
+        "explain": "지문은 수신기가 신호가 도착하는 데 걸린 시간을 계산하고 빛의 속도로 거리를 산출한다고 설명한다."
+      },
+      {
+        "q": "Why must engineers account for relativity?",
+        "type": "detail",
+        "options": [
+          "Because satellites move too slowly",
+          "Because satellite clocks tick at a slightly different rate than ground clocks",
+          "Because the speed of light changes daily",
+          "Because receivers have no clocks"
+        ],
+        "answer": 1,
+        "explain": "지문은 빠르게 움직이는 위성의 시계가 지상 시계와 약간 다른 속도로 작동하므로 보정이 필요하다고 한다."
+      },
+      {
+        "q": "What can be inferred about the importance of precise timing in GPS?",
+        "type": "inference",
+        "options": [
+          "Timing errors have no real effect",
+          "Even tiny timing errors can cause large position errors",
+          "Timing matters only for ships",
+          "GPS does not depend on clocks"
+        ],
+        "answer": 1,
+        "explain": "보정하지 않으면 하루 만에 위치가 수 킬로미터 어긋난다는 서술에서 작은 시간 오차가 큰 위치 오차를 낳음을 추론할 수 있다."
+      },
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "GPS is only useful for phones",
+          "GPS uses satellite signals and precise timing, including relativity, to locate receivers",
+          "Satellites are too far away to be useful",
+          "Financial networks do not use GPS"
+        ],
+        "answer": 1,
+        "explain": "지문은 위성 신호와 정밀한 시간 측정, 상대성 보정을 통해 위치를 정하는 GPS의 작동 원리를 전반적으로 설명한다."
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "title": "Why Cities Keep Growing",
+    "topic": "social",
+    "passage": "For most of human history, the vast majority of people lived in the countryside, scattered across farms and small villages. Today, more than half the world's population lives in cities, and that share continues to climb. Sociologists point to a cluster of reasons rather than any single cause. Cities concentrate jobs, schools, hospitals, and cultural life, drawing people who hope for wider opportunities than rural areas can offer. They also benefit from what economists call agglomeration: when many workers and businesses gather in one place, ideas spread faster, specialized services appear, and productivity tends to rise. Yet rapid urban growth brings strains as well. Housing can grow scarce and expensive, traffic clogs streets, and informal settlements may spring up faster than governments can provide clean water or sewers. Planners increasingly argue that the question is not whether cities will grow but how to guide that growth wisely. Decisions about transit lines, parks, and affordable housing made today will shape whether tomorrow's expanding cities become engines of shared prosperity or places of deepening inequality.",
+    "questions": [
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Cities offer no advantages over rural life",
+          "Urban growth is driven by many factors and must be guided wisely",
+          "Everyone will soon return to the countryside",
+          "Agglomeration always lowers productivity"
+        ],
+        "answer": 1,
+        "explain": "지문은 도시 성장의 여러 원인과 그에 따른 부담, 그리고 성장을 현명하게 이끌어야 한다는 점을 종합적으로 다룬다."
+      },
+      {
+        "q": "According to the passage, what does 'agglomeration' refer to?",
+        "type": "vocab_in_context",
+        "options": [
+          "The decline of rural villages",
+          "The gathering of workers and businesses that raises productivity",
+          "The construction of highways",
+          "The shortage of housing in cities"
+        ],
+        "answer": 1,
+        "explain": "지문은 agglomeration을 많은 노동자와 기업이 한곳에 모여 생산성이 오르는 현상으로 설명한다."
+      },
+      {
+        "q": "What does the passage imply about future city growth?",
+        "type": "inference",
+        "options": [
+          "It can be stopped entirely by planners",
+          "Its outcomes depend on present planning decisions",
+          "It will automatically reduce inequality",
+          "It has no effect on water or sewer systems"
+        ],
+        "answer": 1,
+        "explain": "지문은 오늘 내리는 교통, 공원, 주거 결정이 미래 도시의 결과를 좌우한다고 하여 현재 계획에 달려 있음을 시사한다."
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "title": "The Idea Behind Insurance",
+    "topic": "economics",
+    "passage": "Insurance rests on a simple but powerful idea: many people facing the same risk can protect one another by sharing the cost of misfortune. Each participant pays a modest, predictable amount called a premium into a common pool. When disaster strikes one member, whether a house fire or a sudden illness, money is drawn from the pool to cover the loss. Because such events are unpredictable for any single person yet fairly steady across a large group, insurers can estimate how often claims will occur and set premiums accordingly. This pooling transforms a rare but devastating expense into a small, manageable one for everyone. The system depends on careful balance. If premiums are set too low, the pool runs dry; if too high, customers leave. Insurers also guard against people who buy coverage only when they already expect trouble, a tendency that can unbalance the pool. Despite these challenges, insurance has allowed farmers to plant without fearing ruin from a single storm, and merchants to ship goods across dangerous seas. By spreading risk widely, it makes bold undertakings possible that no individual could safely attempt alone.",
+    "questions": [
+      {
+        "q": "What is the central principle of insurance described in the passage?",
+        "type": "main_idea",
+        "options": [
+          "People should avoid all risky activities",
+          "Many people share the cost of misfortune through a common pool",
+          "Premiums should always be as high as possible",
+          "Only the wealthy can benefit from insurance"
+        ],
+        "answer": 1,
+        "explain": "지문은 같은 위험에 처한 많은 사람이 공동 기금으로 불행의 비용을 나누는 것이 핵심 원리라고 설명한다."
+      },
+      {
+        "q": "Why can insurers estimate how often claims will occur?",
+        "type": "detail",
+        "options": [
+          "Because events are predictable for each individual",
+          "Because such events are fairly steady across a large group",
+          "Because they never pay any claims",
+          "Because premiums never change"
+        ],
+        "answer": 1,
+        "explain": "지문은 사건이 개인에게는 예측 불가하지만 큰 집단 전체로는 꽤 일정해 청구 빈도를 추정할 수 있다고 한다."
+      },
+      {
+        "q": "What can be inferred about setting premiums?",
+        "type": "inference",
+        "options": [
+          "The exact amount does not matter",
+          "Premiums must be balanced—neither too low nor too high",
+          "Higher premiums always benefit customers",
+          "Premiums should be eliminated entirely"
+        ],
+        "answer": 1,
+        "explain": "보험료가 너무 낮으면 기금이 고갈되고 너무 높으면 고객이 떠난다는 서술에서 균형이 필요함을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "title": "Restoring the Salt Marsh",
+    "topic": "environment",
+    "passage": "Along many coastlines, salt marshes form a muddy fringe where land meets sea, flooded twice daily by the tides. For decades these wetlands were dismissed as wasteland and drained for farms, harbors, and housing. Scientists now recognize them as among the most valuable ecosystems on Earth. The dense grasses of a healthy marsh trap sediment and slow incoming waves, shielding inland communities from storm surges far more cheaply than concrete walls. Their waterlogged soils bury carbon for centuries, helping to offset greenhouse emissions. The tangled roots also serve as nurseries where young fish and shellfish shelter before moving to open water. Recognizing these benefits, conservation groups have begun restoring damaged marshes by breaching old dikes and letting the tides flow back in. Recovery is rarely instant; it can take years for grasses to spread and for fish populations to rebound, and not every project succeeds. Still, where restoration takes hold, the returns are striking. A restored marsh can protect property, store carbon, and revive fisheries all at once, offering a rare case in which environmental health and human interests clearly reinforce each other.",
+    "questions": [
+      {
+        "q": "What is the author's main purpose?",
+        "type": "tone_purpose",
+        "options": [
+          "To argue that marshes are worthless wasteland",
+          "To highlight the value of salt marshes and the case for restoring them",
+          "To explain how to build concrete sea walls",
+          "To discourage all coastal development"
+        ],
+        "answer": 1,
+        "explain": "지문의 목적은 염습지의 가치를 강조하고 복원의 타당성을 제시하는 데 있다."
+      },
+      {
+        "q": "According to the passage, how do salt marshes help nearby communities during storms?",
+        "type": "detail",
+        "options": [
+          "By raising the water temperature",
+          "By trapping sediment and slowing waves to reduce storm surges",
+          "By blocking all fishing activity",
+          "By draining water away from the sea"
+        ],
+        "answer": 1,
+        "explain": "지문은 빽빽한 풀이 퇴적물을 가두고 파도를 늦춰 폭풍 해일로부터 내륙 지역을 보호한다고 한다."
+      },
+      {
+        "q": "What can be inferred about marsh restoration projects?",
+        "type": "inference",
+        "options": [
+          "They always succeed immediately",
+          "They take time and are not guaranteed to work",
+          "They harm fisheries permanently",
+          "They require concrete walls to function"
+        ],
+        "answer": 1,
+        "explain": "회복이 즉각적이지 않고 수년이 걸리며 모든 프로젝트가 성공하는 것은 아니라는 서술에서 시간과 불확실성을 추론할 수 있다."
+      },
+      {
+        "q": "The word 'offset' in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "increase",
+          "counterbalance",
+          "ignore",
+          "measure"
+        ],
+        "answer": 1,
+        "explain": "탄소를 묻어 온실가스 배출을 'offset'한다는 맥락에서 '상쇄하다'가 가장 적절하다."
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "title": "The Quiet Persistence of Marie Tharp",
+    "topic": "biography",
+    "passage": "When Marie Tharp began her career in the mid-twentieth century, women were often barred from research ships, so she worked ashore, translating raw ocean-depth measurements into maps. Day after day she plotted soundings collected from across the Atlantic, slowly assembling a picture of the seafloor that no one had ever seen whole. As her maps took shape, Tharp noticed a deep valley running down the center of the underwater mountain range, a rift that hinted the seafloor itself was splitting apart. Her colleague at first dismissed the idea as too radical, calling it mere conjecture. Tharp, confident in her careful work, kept refining the evidence until the pattern became undeniable. Her maps eventually offered crucial support for the theory of plate tectonics, transforming how scientists understood the planet. For years her contributions received little public credit, overshadowed by colleagues who presented the findings. Only later did the wider world recognize that the woman who never sailed on the expeditions had charted the hidden landscape that reshaped earth science. Tharp's story shows how patient, meticulous work can quietly overturn established assumptions.",
+    "questions": [
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Marie Tharp preferred fieldwork on ships",
+          "Marie Tharp's careful seafloor mapping helped overturn scientific assumptions despite limited recognition",
+          "Plate tectonics was disproven by Tharp's maps",
+          "Tharp's colleagues did all the important work"
+        ],
+        "answer": 1,
+        "explain": "지문은 타프가 육상에서 정밀한 해저 지도를 만들어 통념을 뒤집는 데 기여했으나 인정은 늦었다는 점을 전체적으로 전한다."
+      },
+      {
+        "q": "Why did Marie Tharp work ashore rather than on research ships?",
+        "type": "detail",
+        "options": [
+          "She disliked the ocean",
+          "Women were often barred from research ships at the time",
+          "She was not qualified to collect data",
+          "Ships had no room for mapmakers"
+        ],
+        "answer": 1,
+        "explain": "지문은 당시 여성이 연구선에 오르는 것이 종종 금지되어 그녀가 육상에서 일했다고 밝힌다."
+      },
+      {
+        "q": "The word 'conjecture' as used in the passage most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "proven fact",
+          "unsupported guess",
+          "official map",
+          "careful measurement"
+        ],
+        "answer": 1,
+        "explain": "동료가 그녀의 생각을 너무 급진적이라며 'mere conjecture'라 일축한 맥락에서 '근거 없는 추측'이 가장 가깝다."
+      },
+      {
+        "q": "What can be inferred about Tharp's character from the passage?",
+        "type": "inference",
+        "options": [
+          "She gave up easily under criticism",
+          "She was persistent and trusted her careful evidence",
+          "She had no interest in accuracy",
+          "She avoided difficult problems"
+        ],
+        "answer": 1,
+        "explain": "동료의 일축에도 증거를 계속 다듬어 패턴을 입증했다는 서술에서 끈기 있고 자기 작업을 신뢰하는 성격을 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "title": "How Lichens Survive",
+    "topic": "science",
+    "passage": "A lichen is not a single organism but a partnership. It forms when a fungus and an alga, and sometimes a cyanobacterium, live together so closely that they behave as one body. The fungus builds a protective structure and gathers moisture and minerals, while the alga uses sunlight to make sugars that feed the whole arrangement. Because each partner supplies what the other lacks, lichens can colonize bare rock, frozen tundra, and desert crusts where few plants take hold. They grow slowly, often less than a millimeter a year, yet some patches are estimated to be thousands of years old. This durability has a cost: lichens absorb water and gases directly through their surfaces, with no roots or protective skin to filter what enters. As a result, they readily take up pollutants from the air. Scientists exploit this sensitivity by surveying lichen communities near cities and factories. Where certain species thin out or vanish, the data point to rising levels of sulfur dioxide or heavy metals, making these quiet organisms reliable, inexpensive monitors of environmental health.",
+    "questions": [
+      {
+        "q": "Which statement best expresses the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Lichens are fungi that have evolved the ability to photosynthesize on their own.",
+          "Lichens are partnerships whose unusual biology makes them both hardy and useful as pollution indicators.",
+          "Lichens grow so slowly that they are of little interest to scientists.",
+          "Lichens compete with plants for space on rocks and in deserts."
+        ],
+        "answer": 1,
+        "explain": "지문은 지의류가 균류와 조류의 '동반자 관계'이며, 그 생물학적 특성 덕분에 강인하면서도 오염 지표로 유용하다고 전체적으로 설명한다."
+      },
+      {
+        "q": "According to the passage, why are lichens able to take up pollutants so easily?",
+        "type": "detail",
+        "options": [
+          "They have deep roots that draw chemicals from the soil.",
+          "They absorb water and gases directly through their surfaces without a protective skin.",
+          "They actively seek out polluted areas to feed.",
+          "They store sulfur dioxide to use as a nutrient."
+        ],
+        "answer": 1,
+        "explain": "지문은 지의류가 뿌리나 보호 피부 없이 표면을 통해 물과 기체를 직접 흡수하기 때문에 오염물질도 쉽게 흡수한다고 명시한다."
+      },
+      {
+        "q": "What can be inferred about an area where pollution-sensitive lichen species have disappeared?",
+        "type": "inference",
+        "options": [
+          "The area likely has poor air quality with elevated pollutants.",
+          "The area must be a frozen tundra.",
+          "The area has unusually clean air.",
+          "The lichens were eaten by animals."
+        ],
+        "answer": 0,
+        "explain": "지문에 따르면 특정 종이 줄거나 사라지면 이산화황이나 중금속 농도 상승을 가리키므로, 그 지역의 대기 질이 나쁠 가능성이 높다고 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "title": "The Pony Express",
+    "topic": "history",
+    "passage": "In April 1860, a private company launched the Pony Express, a relay of horseback riders carrying mail across nearly two thousand miles between Missouri and California. Before this service, a letter could take weeks to cross the continent by stagecoach or ship. The Express promised delivery in about ten days. To achieve such speed, the company built a chain of stations roughly ten miles apart, where a rider could swap an exhausted horse for a fresh one in under two minutes. Riders were chosen for being light and fearless; advertisements reportedly favored young, wiry men willing to risk danger. Yet the venture was brief. It operated for only eighteen months, and its owners lost money the entire time, largely because the cost of horses, stations, and wages far exceeded the postage collected. What finally ended it was technology. In October 1861, crews completed the transcontinental telegraph, allowing messages to cross the country in minutes rather than days. The Pony Express closed almost immediately, remembered less for profit than for the daring image it left behind.",
+    "questions": [
+      {
+        "q": "What was the primary reason the Pony Express stopped operating?",
+        "type": "detail",
+        "options": [
+          "Riders refused to continue the dangerous work.",
+          "The completion of the transcontinental telegraph made it obsolete.",
+          "The stations were destroyed in a storm.",
+          "California no longer wanted mail from the East."
+        ],
+        "answer": 1,
+        "explain": "지문은 1861년 대륙횡단 전신이 완성되어 메시지가 며칠이 아닌 몇 분 만에 전달되자 포니 익스프레스가 거의 즉시 문을 닫았다고 밝힌다."
+      },
+      {
+        "q": "Which conclusion is best supported by the passage?",
+        "type": "inference",
+        "options": [
+          "The Pony Express was financially successful throughout its operation.",
+          "The Pony Express is remembered more for its bold image than for being a profitable business.",
+          "Stagecoaches were faster than the Pony Express.",
+          "The telegraph took longer than ten days to deliver messages."
+        ],
+        "answer": 1,
+        "explain": "지문은 회사가 운영 내내 손해를 봤으며 이익보다 대담한 이미지로 기억된다고 서술하므로, 수익보다 이미지로 기억된다는 결론이 가장 타당하다."
+      },
+      {
+        "q": "How long did the Pony Express operate?",
+        "type": "detail",
+        "options": [
+          "About ten days",
+          "About eighteen months",
+          "About ten years",
+          "About two thousand days"
+        ],
+        "answer": 1,
+        "explain": "지문은 이 서비스가 단 18개월간 운영되었다고 명시한다."
+      },
+      {
+        "q": "As used in the passage, the word 'wiry' most nearly means",
+        "type": "vocab_in_context",
+        "options": [
+          "wealthy and well-connected",
+          "lean and physically tough",
+          "tall and heavy",
+          "experienced and elderly"
+        ],
+        "answer": 1,
+        "explain": "지문은 가볍고 두려움 없는 라이더를 선호했다고 했고 'young, wiry men'이라 했으므로 'wiry'는 마르고 단단한, 다부진을 뜻한다."
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "title": "Radar Over Britain",
+    "topic": "military",
+    "passage": "In the late 1930s, British scientists raced to perfect a defensive system that would soon prove decisive. Known then as Radio Direction Finding, it used radio waves bounced off distant aircraft to reveal their range and bearing long before they could be seen or heard. The military built a coastal chain of tall transmitter towers, each sweeping the sky and feeding readings to central rooms where operators plotted incoming formations on large maps. The value of the system lay not only in detection but in coordination. Commanders could now direct a limited number of fighter squadrons to exactly where they were needed, instead of wasting them on constant patrols. During the Battle of Britain in 1940, this advantage helped a smaller defending force meet wave after wave of attacking bombers with surprising efficiency. Crucially, the radar stations were linked by telephone to observers, plotters, and airfields, forming an early integrated network. Historians often note that the technology mattered less in isolation than as part of this command system, which turned scattered warnings into swift, organized action.",
+    "questions": [
+      {
+        "q": "What does the passage suggest was the most important contribution of the radar system?",
+        "type": "main_idea",
+        "options": [
+          "It allowed Britain to build more bombers than its enemies.",
+          "It enabled early detection combined with coordinated direction of limited fighter forces.",
+          "It replaced the need for any human operators.",
+          "It made coastal towers unnecessary."
+        ],
+        "answer": 1,
+        "explain": "지문은 이 시스템의 가치가 탐지뿐 아니라 제한된 전투기 부대를 필요한 곳으로 조율하는 데 있었다고 강조한다."
+      },
+      {
+        "q": "Why does the passage emphasize the telephone links between stations, observers, and airfields?",
+        "type": "tone_purpose",
+        "options": [
+          "To show that the radar towers were poorly built.",
+          "To illustrate that the technology worked best as part of an integrated command network.",
+          "To argue that telephones were more important than radar.",
+          "To explain why patrols increased during the battle."
+        ],
+        "answer": 1,
+        "explain": "지문은 기술이 단독보다 명령 체계의 일부로서 흩어진 경보를 신속하고 조직적인 행동으로 바꿨다는 점을 강조하기 위해 전화 연결을 언급한다."
+      },
+      {
+        "q": "Before radar, how were fighter squadrons reportedly used, according to the passage?",
+        "type": "detail",
+        "options": [
+          "They were directed precisely to incoming aircraft.",
+          "They were wasted on constant patrols.",
+          "They were kept entirely on the ground.",
+          "They were sent only at night."
+        ],
+        "answer": 1,
+        "explain": "지문은 레이더 덕분에 지휘관들이 끊임없는 순찰로 전투기를 낭비하는 대신 정확히 필요한 곳으로 보낼 수 있었다고 서술한다."
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "title": "Why Passwords Persist",
+    "topic": "technology",
+    "passage": "Despite decades of warnings about their weaknesses, passwords remain the most common way people prove their identity online. Security experts have long criticized them: users pick predictable words, reuse the same secret across many sites, and fall prey to scams that trick them into typing credentials into fake pages. Newer methods promise improvement. Hardware keys, fingerprint scanners, and one-time codes sent to phones all reduce certain risks. Yet none has fully displaced the humble password, and the reasons are as much social as technical. Passwords cost nothing to issue, work on nearly any device, and require no special equipment. A small website can adopt them instantly, whereas distributing physical keys to millions of users is expensive and slow. Familiarity also matters; people understand passwords, even badly chosen ones, far better than newer schemes. Many organizations therefore layer extra checks on top of passwords rather than abandoning them. The likely future is not the sudden death of the password but its gradual demotion, surviving as one factor among several rather than the lone gatekeeper it has long been.",
+    "questions": [
+      {
+        "q": "Which statement best captures the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Passwords have already been replaced by fingerprint scanners.",
+          "Passwords endure because of practical advantages and will likely become one factor among several rather than disappear.",
+          "Passwords are perfectly secure and need no improvement.",
+          "Hardware keys are too dangerous for ordinary users."
+        ],
+        "answer": 1,
+        "explain": "지문은 비밀번호가 실용적 이점 때문에 살아남았고, 사라지기보다 여러 요소 중 하나로 점차 강등될 것이라고 결론짓는다."
+      },
+      {
+        "q": "According to the passage, why have alternatives like hardware keys not fully replaced passwords?",
+        "type": "detail",
+        "options": [
+          "They are illegal in most countries.",
+          "Distributing them is expensive and slow, and passwords are free and familiar.",
+          "They offer no security improvement at all.",
+          "They work only on a single brand of phone."
+        ],
+        "answer": 1,
+        "explain": "지문은 수백만 사용자에게 물리적 키를 배포하는 것이 비싸고 느린 반면 비밀번호는 무료이고 익숙하다고 설명한다."
+      },
+      {
+        "q": "What can be inferred about how many organizations currently handle password weaknesses?",
+        "type": "inference",
+        "options": [
+          "They eliminate passwords entirely.",
+          "They add extra verification steps on top of passwords.",
+          "They forbid the use of phones for codes.",
+          "They ignore the problem completely."
+        ],
+        "answer": 1,
+        "explain": "지문은 많은 조직이 비밀번호를 버리기보다 그 위에 추가 확인 절차를 덧붙인다고 명시하므로 이를 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "title": "The Bystander Effect",
+    "topic": "psychology",
+    "passage": "When someone collapses on a crowded street, common sense suggests that more onlookers mean a better chance of help. Research in social psychology often finds the opposite. In a series of experiments, individuals were placed in situations that seemed to require assistance, sometimes alone and sometimes surrounded by others. People who believed they were the only witness tended to act quickly. Those who thought several others were present were slower to respond, and many did nothing at all. Two explanations are usually offered. The first is a diffusion of responsibility: when many could help, each person feels less personally obligated, assuming someone else will step in. The second is social influence; people look to the reactions of those around them to judge whether a situation is truly an emergency, and if everyone appears calm, each concludes there is no need to act. Understanding these patterns has practical value. Safety trainers now advise victims to address one specific person directly, pointing and giving a clear instruction. Naming an individual cuts through the crowd's shared hesitation and assigns responsibility that no one can quietly pass along.",
+    "questions": [
+      {
+        "q": "What is the main point the passage makes about crowds and helping behavior?",
+        "type": "main_idea",
+        "options": [
+          "Larger crowds always provide faster help.",
+          "The presence of many onlookers can actually reduce the speed and likelihood of help.",
+          "People never help strangers in any situation.",
+          "Emergencies rarely occur in public places."
+        ],
+        "answer": 1,
+        "explain": "지문은 많은 방관자의 존재가 오히려 도움의 속도와 가능성을 낮출 수 있다고 핵심적으로 주장한다."
+      },
+      {
+        "q": "According to the passage, what is 'diffusion of responsibility'?",
+        "type": "detail",
+        "options": [
+          "The belief that an emergency is fake.",
+          "The feeling that one is less personally obligated to help when others could also act.",
+          "The tendency to help only close friends.",
+          "The spreading of news about an accident."
+        ],
+        "answer": 1,
+        "explain": "지문은 책임 분산을 '많은 사람이 도울 수 있을 때 각자가 개인적 의무를 덜 느끼는 것'으로 정의한다."
+      },
+      {
+        "q": "Why do safety trainers advise victims to point at one specific person?",
+        "type": "inference",
+        "options": [
+          "Because that person is usually a trained doctor.",
+          "Because naming an individual assigns responsibility that cannot be passed to others.",
+          "Because crowds dislike being addressed.",
+          "Because it frightens the rest of the onlookers away."
+        ],
+        "answer": 1,
+        "explain": "지문은 특정 개인을 지목하면 누구도 조용히 떠넘길 수 없는 책임을 부여해 군중의 망설임을 끊는다고 설명한다."
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "title": "The Cost of Free Shipping",
+    "topic": "economics",
+    "passage": "Many online shoppers have come to expect delivery at no charge, and retailers compete to offer it. Yet shipping is never truly free; someone pays for the trucks, fuel, and labor that move a package from warehouse to doorstep. The question is how those costs are hidden. Some sellers fold the expense into the product price, quietly raising the listed amount so the bottom line covers delivery. Others set a minimum order, encouraging customers to add items they had not planned to buy in order to qualify. A third approach ties free shipping to membership programs, where an annual fee spread across many orders makes each delivery feel costless even though it is not. Economists note that these tactics work partly because of how people perceive prices. A single visible shipping charge feels like a penalty and can drive shoppers to abandon their carts, while the same money buried in a higher price provokes little resistance. The lesson is not that free shipping is a trick, but that convenience has a price, even when that price is carefully arranged to stay out of sight.",
+    "questions": [
+      {
+        "q": "Which sentence best states the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Free shipping always loses money for retailers.",
+          "Shipping costs are real but are hidden in various ways that shape how shoppers perceive prices.",
+          "Online shopping is cheaper than visiting physical stores.",
+          "Membership programs are the only honest way to charge for delivery."
+        ],
+        "answer": 1,
+        "explain": "지문은 배송비가 실재하지만 여러 방식으로 숨겨지며, 그것이 소비자의 가격 인식에 영향을 준다는 점을 중심 내용으로 다룬다."
+      },
+      {
+        "q": "According to the passage, why might a separate shipping charge cause shoppers to abandon their carts?",
+        "type": "detail",
+        "options": [
+          "Because it is always larger than the product price.",
+          "Because a visible charge feels like a penalty, while the same cost hidden in a higher price provokes little resistance.",
+          "Because shipping charges are illegal in some places.",
+          "Because shoppers cannot afford any delivery at all."
+        ],
+        "answer": 1,
+        "explain": "지문은 눈에 보이는 배송비는 벌금처럼 느껴져 장바구니를 포기하게 하지만, 같은 돈이 더 높은 가격에 숨으면 저항이 적다고 설명한다."
+      },
+      {
+        "q": "What can be inferred about a retailer that sets a minimum order for free shipping?",
+        "type": "inference",
+        "options": [
+          "It hopes customers will buy more than they originally intended.",
+          "It plans to lose money on every order.",
+          "It does not actually charge for any products.",
+          "It refuses to ship to distant locations."
+        ],
+        "answer": 0,
+        "explain": "지문은 최소 주문액 방식이 자격을 갖추려고 계획에 없던 물건을 추가하도록 유도한다고 했으므로, 소비자가 더 사기를 바란다고 추론할 수 있다."
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "title": "Restoring the Beaver",
+    "topic": "environment",
+    "passage": "For centuries, beavers were trapped nearly to extinction across much of Europe and North America, prized for their fur. Their disappearance changed landscapes in ways few people noticed at the time. Without beavers building dams, streams ran straight and fast, cutting deep channels and rushing water away after every storm. Recently, ecologists have begun reintroducing beavers, and the results have surprised even supporters. The dams these animals build slow the flow of water, spreading it across wide, shallow ponds and soggy meadows. This stored water seeps into the ground, recharging supplies that feed wells and keep streams flowing through dry months. The ponds also trap sediment and create rich habitat for fish, birds, and amphibians. In several regions, areas with beaver dams suffered less damage during floods, because the wetlands absorbed surges that would otherwise have torn through towns. Not everyone welcomes the animals; flooded fields and blocked culverts can frustrate landowners. Still, a growing number of communities now see beavers less as pests than as low-cost engineers whose instinct to dam quietly performs work that would cost millions to replicate.",
+    "questions": [
+      {
+        "q": "What is the central idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Beavers should be trapped again for their valuable fur.",
+          "Reintroducing beavers can restore wetlands and provide benefits like water storage and flood reduction.",
+          "Beavers cause more harm than any other animal.",
+          "Streams are healthier when they run straight and fast."
+        ],
+        "answer": 1,
+        "explain": "지문은 비버를 다시 도입하면 습지를 복원하고 물 저장과 홍수 완화 같은 이익을 준다는 점을 중심 내용으로 제시한다."
+      },
+      {
+        "q": "According to the passage, how do beaver dams help during floods?",
+        "type": "detail",
+        "options": [
+          "They speed water away from towns.",
+          "The wetlands they create absorb surges that would otherwise damage towns.",
+          "They block rivers so no water can flow.",
+          "They make streams run deeper and faster."
+        ],
+        "answer": 1,
+        "explain": "지문은 비버 댐이 만든 습지가 마을을 휩쓸 물의 급증을 흡수해 홍수 피해를 줄였다고 설명한다."
+      },
+      {
+        "q": "The phrase 'low-cost engineers' is used to suggest that beavers",
+        "type": "vocab_in_context",
+        "options": [
+          "are paid small wages for their work.",
+          "naturally perform expensive ecological work for free.",
+          "design buildings for human towns.",
+          "are too cheap to be effective."
+        ],
+        "answer": 1,
+        "explain": "지문은 비버의 댐 짓는 본능이 수백만 달러가 들 작업을 조용히 수행한다고 했으므로, '저비용 엔지니어'는 값비싼 생태 작업을 공짜로 한다는 의미다."
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "title": "The Mapmaker Marie Tharp",
+    "topic": "biography",
+    "passage": "Marie Tharp spent much of her career turning columns of numbers into a picture of a world no one had ever seen. Trained in geology at a time when few women entered the field, she joined a research group studying the ocean floor in the mid-twentieth century. Ships crossed the Atlantic dragging instruments that measured depth, returning with long tables of soundings. Tharp converted these figures into detailed profiles of the seabed, and as she worked, a striking feature emerged: a deep valley running down the center of a vast underwater mountain range. She argued that this rift was evidence the seafloor was splitting apart. At first her interpretation was dismissed by colleagues, including one who called it 'girl talk.' Yet the pattern held across profile after profile, and additional data on earthquakes lined up neatly with the valley she had traced. Her maps, eventually published, helped persuade a skeptical scientific community that the continents move. Tharp received little public credit during the years her work mattered most, but later generations recognized her quiet drawings as a turning point in how we understand the planet.",
+    "questions": [
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Marie Tharp invented the instruments used to measure ocean depth.",
+          "Marie Tharp's maps of the seafloor revealed evidence that helped confirm the continents move.",
+          "Marie Tharp preferred working on land rather than studying the ocean.",
+          "Marie Tharp received great public fame early in her career."
+        ],
+        "answer": 1,
+        "explain": "지문은 타프의 해저 지도가 대륙 이동을 입증하는 데 도움이 된 증거를 드러냈다는 점을 중심으로 다룬다."
+      },
+      {
+        "q": "What feature did Tharp identify in her seafloor profiles?",
+        "type": "detail",
+        "options": [
+          "A flat plain with no mountains.",
+          "A deep valley running down the center of an underwater mountain range.",
+          "A series of volcanic islands above the water.",
+          "A coral reef circling the Atlantic."
+        ],
+        "answer": 1,
+        "explain": "지문은 타프가 거대한 해저 산맥 중앙을 따라 흐르는 깊은 골짜기를 발견했다고 명시한다."
+      },
+      {
+        "q": "What can be inferred about how Tharp's ideas were initially received?",
+        "type": "inference",
+        "options": [
+          "They were immediately accepted by all scientists.",
+          "They were doubted at first but later supported by additional data.",
+          "They were ignored and never tested.",
+          "They were proven completely wrong."
+        ],
+        "answer": 1,
+        "explain": "지문은 동료들이 처음엔 그녀의 해석을 무시했으나 지진 자료가 골짜기와 일치하며 결국 설득력을 얻었다고 서술하므로 이를 추론할 수 있다."
+      },
+      {
+        "q": "The author's attitude toward Marie Tharp can best be described as",
+        "type": "tone_purpose",
+        "options": [
+          "dismissive and critical",
+          "respectful and appreciative",
+          "indifferent and neutral",
+          "amused and mocking"
+        ],
+        "answer": 1,
+        "explain": "지문은 그녀의 작업을 행성 이해의 전환점으로 평가하고 부당한 무시를 언급하며 존중하고 높이 평가하는 태도를 보인다."
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "title": "The Deep-Sea Glow",
+    "topic": "science",
+    "passage": "More than two-thirds of the animals living in the open ocean produce their own light, a phenomenon called bioluminescence. Unlike the warm glow of an electric bulb, this light is cold: nearly all the energy released by the chemical reaction becomes light rather than heat. The reaction depends on a molecule called luciferin, which an enzyme oxidizes to release a flash of blue or green. Marine creatures put this ability to surprisingly varied uses. Some squid release glowing clouds to confuse predators, much as an octopus releases ink. Certain fish carry colonies of luminous bacteria in special pouches, switching the light on or off by covering it with a flap of skin. Others use precisely timed pulses to attract mates in the darkness. Because seawater absorbs red light quickly but lets blue travel far, most ocean light is blue. Researchers studying these signals must therefore design instruments sensitive to a narrow band of color, a constraint that has quietly shaped decades of deep-sea exploration.",
+    "questions": [
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Bioluminescence is rare among ocean animals",
+          "Many ocean animals make their own light and use it in varied ways",
+          "Squid are the only animals that glow",
+          "Seawater blocks all colors of light equally"
+        ],
+        "answer": 1,
+        "explain": "지문은 바다 동물 다수가 스스로 빛을 내며 그 빛을 다양하게 활용한다는 점을 설명한다."
+      },
+      {
+        "q": "According to the passage, why is most ocean light blue?",
+        "type": "detail",
+        "options": [
+          "Blue luciferin is the only kind",
+          "Seawater absorbs red quickly but lets blue travel far",
+          "Predators cannot see blue",
+          "Bacteria only produce blue"
+        ],
+        "answer": 1,
+        "explain": "본문은 바닷물이 빨간빛을 빨리 흡수하고 파란빛은 멀리 전달하기 때문이라고 명시한다."
+      },
+      {
+        "q": "It can be inferred that researchers' instruments are tuned to blue-green light because",
+        "type": "inference",
+        "options": [
+          "that is the color most ocean signals use",
+          "blue is easiest to manufacture",
+          "red instruments are too expensive",
+          "animals dislike other colors"
+        ],
+        "answer": 0,
+        "explain": "바다 신호가 대부분 파란빛이므로 좁은 색 대역에 민감한 기기를 설계해야 한다고 했다."
+      },
+      {
+        "q": "The phrase 'this light is cold' in the passage means that the light",
+        "type": "vocab_in_context",
+        "options": [
+          "feels chilly to the touch",
+          "releases almost no heat",
+          "appears only in cold water",
+          "is dim and faint"
+        ],
+        "answer": 1,
+        "explain": "바로 뒤에서 에너지 대부분이 열이 아니라 빛이 된다고 설명하므로 '열이 거의 없다'는 뜻이다."
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "title": "The Cartographer of the Nile",
+    "topic": "history",
+    "passage": "In the second century, a scholar named Claudius Ptolemy compiled a guide to drawing the known world onto a flat surface. Working in Alexandria, he gathered the reports of merchants, sailors, and soldiers, then assigned coordinates of latitude and longitude to thousands of places. His great innovation was not a single map but a method: he proposed mathematical rules for projecting a curved Earth onto a flat sheet without distorting it beyond recognition. For centuries his coordinates guided travelers, even though many were wildly inaccurate, because he had trusted secondhand accounts of distant lands he never visited. When his work was rediscovered in Renaissance Europe, it sparked a wave of new maps, and printers raced to publish editions. Ironically, Ptolemy's mistaken estimate of the Earth's size encouraged explorers to believe Asia lay closer to Europe than it truly was. Thus an ancient error, preserved through careful copying, helped push ships westward across an ocean its author never imagined.",
+    "questions": [
+      {
+        "q": "What was Ptolemy's principal contribution, according to the passage?",
+        "type": "main_idea",
+        "options": [
+          "He sailed to every place he mapped",
+          "He developed a method for projecting a round Earth onto flat sheets",
+          "He invented latitude and longitude",
+          "He correctly measured the Earth's size"
+        ],
+        "answer": 1,
+        "explain": "본문은 그의 핵심 혁신이 둥근 지구를 평면에 투영하는 수학적 방법이었다고 말한다."
+      },
+      {
+        "q": "Why were many of Ptolemy's coordinates inaccurate?",
+        "type": "detail",
+        "options": [
+          "He used broken instruments",
+          "He relied on secondhand accounts of places he never visited",
+          "He copied a rival's maps",
+          "He measured only at night"
+        ],
+        "answer": 1,
+        "explain": "그가 직접 가보지 않은 먼 땅에 대한 전언을 신뢰했기 때문이라고 명시되어 있다."
+      },
+      {
+        "q": "What is ironic about Ptolemy's error regarding the Earth's size?",
+        "type": "inference",
+        "options": [
+          "It made his maps more accurate",
+          "A mistake helped encourage westward voyages he never imagined",
+          "It proved Asia was unreachable",
+          "It was corrected in his own lifetime"
+        ],
+        "answer": 1,
+        "explain": "지구 크기를 작게 본 오류가 탐험가들이 서쪽으로 항해하도록 부추겼다는 아이러니를 지문이 강조한다."
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "title": "The Quiet Revolution of the Shipping Container",
+    "topic": "technology",
+    "passage": "Before the late 1950s, loading a cargo ship was slow, costly, and chaotic. Dockworkers handled barrels, crates, and sacks one item at a time, and a vessel might sit in port for a week. A trucking entrepreneur named Malcolm McLean wondered why the whole truck trailer could not simply be lifted aboard. From that question grew the standardized steel shipping container, a plain metal box of fixed dimensions that could move seamlessly between ship, train, and truck. The genius lay less in the box itself than in the agreement to make every box the same. Once ports, railways, and shippers adopted identical sizes, cranes could stack and transfer containers with astonishing speed, and the cost of moving goods plummeted. Cheaper transport made it practical to manufacture parts in one country and assemble them in another, knitting together a global economy. Today the humble container is so ordinary that few travelers notice the stacks at any port, yet this unremarkable box reshaped where and how the world makes nearly everything.",
+    "questions": [
+      {
+        "q": "According to the passage, where did the real genius of the container lie?",
+        "type": "detail",
+        "options": [
+          "In the strength of the steel",
+          "In the agreement to standardize every box's size",
+          "In McLean's trucking company",
+          "In faster ships"
+        ],
+        "answer": 1,
+        "explain": "본문은 천재성이 상자 자체보다 모든 상자를 같은 규격으로 만들기로 한 합의에 있었다고 한다."
+      },
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Dockworkers preferred barrels to boxes",
+          "A standardized container quietly transformed global trade",
+          "Shipping has always been efficient",
+          "McLean failed to change shipping"
+        ],
+        "answer": 1,
+        "explain": "지문은 표준화된 컨테이너가 조용히 세계 무역을 바꿨다는 것이 핵심이다."
+      },
+      {
+        "q": "It can be inferred that the container made global manufacturing networks possible because",
+        "type": "inference",
+        "options": [
+          "it made transport cheap enough to spread production across countries",
+          "it forced all factories into one nation",
+          "it eliminated the need for ships",
+          "it raised shipping costs sharply"
+        ],
+        "answer": 0,
+        "explain": "운송비가 급락해 여러 나라에 생산을 분산하는 것이 실용적이 되었다고 본문이 설명한다."
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "title": "Why Crowds Are Sometimes Wise",
+    "topic": "social",
+    "passage": "In 1906, a statistician attending a country fair watched hundreds of people guess the weight of an ox. No single villager knew the answer, and the individual guesses ranged widely. Yet when he averaged all the guesses, the result fell within one pound of the ox's true weight. This surprising accuracy, later called the wisdom of crowds, occurs only under specific conditions. The guessers must be diverse, so their errors point in different directions and cancel out. They must also judge independently, without copying their neighbors, because shared influence makes the whole group lean the same wrong way. Finally, there must be some means of combining the answers, such as averaging. When any of these conditions fails, the crowd can grow foolish rather than wise: panics, fads, and bubbles all arise when people imitate one another instead of judging for themselves. The lesson is subtle. A group is not magically smart; it is smart only when its members think apart and pool the results.",
+    "questions": [
+      {
+        "q": "What is the central claim of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Crowds are always smarter than individuals",
+          "Crowds are wise only under specific conditions",
+          "Averaging guesses never works",
+          "Imitation makes crowds wise"
+        ],
+        "answer": 1,
+        "explain": "지문의 핵심은 군중이 특정 조건이 충족될 때만 현명하다는 것이다."
+      },
+      {
+        "q": "According to the passage, which condition prevents the crowd from leaning the same wrong way?",
+        "type": "detail",
+        "options": [
+          "Everyone copying a leader",
+          "Members judging independently",
+          "Excluding diverse opinions",
+          "Avoiding any averaging"
+        ],
+        "answer": 1,
+        "explain": "서로 베끼지 않고 독립적으로 판단해야 집단이 같은 오류로 기울지 않는다고 했다."
+      },
+      {
+        "q": "From the passage, it can be inferred that financial bubbles occur when",
+        "type": "inference",
+        "options": [
+          "people judge independently",
+          "people imitate one another instead of thinking for themselves",
+          "guesses are averaged carefully",
+          "crowds remain diverse"
+        ],
+        "answer": 1,
+        "explain": "패닉, 유행, 거품은 사람들이 스스로 판단하지 않고 서로 모방할 때 생긴다고 본문이 밝힌다."
+      },
+      {
+        "q": "The author's tone in the final two sentences is best described as",
+        "type": "tone_purpose",
+        "options": [
+          "scornful",
+          "measured and instructive",
+          "fearful",
+          "indifferent"
+        ],
+        "answer": 1,
+        "explain": "마지막 두 문장은 교훈을 차분히 정리해 설명하는 신중하고 교훈적인 어조다."
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "title": "The Paradox of Thrift",
+    "topic": "economics",
+    "passage": "Saving money is usually praised as prudent, and for a single household it almost always is. Spend less than you earn, and your savings cushion you against hard times. Yet economists point to a curious puzzle that appears when everyone saves at once. If all households suddenly cut spending to build savings, the shops they would have patronized see falling sales. Those shops then order fewer goods, factories trim production, and workers lose income. With less income, people can save even less than before, and total savings may actually shrink. This is the paradox of thrift: behavior that is sensible for one person can be harmful when adopted by all simultaneously. The puzzle matters most during downturns, when fear spreads and many people tighten their belts together. Some economists argue this is precisely when governments should spend, stepping in to replace the demand that anxious households withdraw. Others worry such spending merely delays a needed adjustment. The debate, decades old, remains unsettled because the economy rarely repeats itself exactly.",
+    "questions": [
+      {
+        "q": "What does the 'paradox of thrift' describe?",
+        "type": "main_idea",
+        "options": [
+          "Saving is always harmful",
+          "Behavior sensible for one person can harm everyone if all do it at once",
+          "Households should never save",
+          "Governments should never spend"
+        ],
+        "answer": 1,
+        "explain": "절약의 역설은 개인에게 합리적인 행동이 모두가 동시에 하면 해로울 수 있다는 것이다."
+      },
+      {
+        "q": "According to the passage, what happens first when all households cut spending?",
+        "type": "detail",
+        "options": [
+          "Factories hire more workers",
+          "Shops see falling sales",
+          "Savings immediately grow",
+          "Wages rise"
+        ],
+        "answer": 1,
+        "explain": "모두가 지출을 줄이면 가게들의 매출이 떨어지는 일이 먼저 일어난다고 했다."
+      },
+      {
+        "q": "It can be inferred that the paradox is most dangerous when",
+        "type": "inference",
+        "options": [
+          "the economy is booming",
+          "fear leads many people to cut spending together",
+          "only one household saves",
+          "factories expand"
+        ],
+        "answer": 1,
+        "explain": "공포가 퍼져 많은 이가 함께 허리띠를 졸라매는 침체기에 이 역설이 가장 문제된다고 명시한다."
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "title": "Bringing Back the Beaver",
+    "topic": "environment",
+    "passage": "For most of the twentieth century, beavers were treated as nuisances. Trappers had nearly wiped them out, and the few that remained were often removed for flooding fields and blocking culverts. Recently, however, ecologists have begun to see the animal as an ally. A beaver dam slows a rushing stream, spreading water across a valley floor. The resulting wetland stores water during dry spells, filters out pollutants, and creates habitat for fish, frogs, and birds. In regions prone to wildfire, the moist green strips around beaver ponds can act as natural firebreaks, refusing to burn even when surrounding forest is scorched. Some land managers now deliberately relocate beavers into damaged watersheds, a practice once unthinkable. The animals rebuild in weeks what engineers would spend years and fortunes to construct. There are trade-offs, of course: a beaver cannot read property lines, and its ponds may flood a road or a pasture. Yet a growing number of scientists argue that learning to live alongside this stubborn engineer is cheaper and wiser than fighting it.",
+    "questions": [
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Beavers should be trapped to extinction",
+          "Beavers, once seen as pests, are now valued for restoring watersheds",
+          "Beaver dams cause only harm",
+          "Engineers build better dams than beavers"
+        ],
+        "answer": 1,
+        "explain": "지문은 한때 해로운 동물로 여겨진 비버가 이제 수계 복원에 가치 있는 존재로 재평가된다는 것이 핵심이다."
+      },
+      {
+        "q": "According to the passage, how can beaver ponds help during wildfires?",
+        "type": "detail",
+        "options": [
+          "They spread the flames",
+          "Their moist green strips can act as firebreaks",
+          "They dry out the forest",
+          "They attract lightning"
+        ],
+        "answer": 1,
+        "explain": "비버 연못 주변의 촉촉한 녹지대가 천연 방화선 역할을 한다고 본문이 설명한다."
+      },
+      {
+        "q": "The phrase 'a beaver cannot read property lines' is used to suggest that",
+        "type": "inference",
+        "options": [
+          "beavers are intelligent surveyors",
+          "beavers may flood land regardless of human boundaries",
+          "beavers avoid roads carefully",
+          "beavers respect pastures"
+        ],
+        "answer": 1,
+        "explain": "비버가 인간의 경계와 무관하게 도로나 목초지를 물에 잠기게 할 수 있음을 비유적으로 나타낸다."
+      },
+      {
+        "q": "The author's overall attitude toward beavers is best described as",
+        "type": "tone_purpose",
+        "options": [
+          "hostile",
+          "cautiously appreciative",
+          "indifferent",
+          "alarmed"
+        ],
+        "answer": 1,
+        "explain": "단점을 인정하면서도 비버와 공존하는 편이 현명하다고 보는 신중하지만 호의적인 태도다."
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "title": "The Mathematician Who Coded by Hand",
+    "topic": "biography",
+    "passage": "Long before electronic computers existed, Ada Lovelace imagined what they might one day do. The daughter of a famous poet, she was steered toward mathematics by a mother who feared she might inherit her father's restless temperament. In the 1840s, Lovelace studied the plans for a mechanical calculating engine designed by her friend Charles Babbage, a machine never fully built in their lifetimes. Translating a French article about the engine, she added notes longer than the original text. In them she described, step by step, how the machine could compute a complicated sequence of numbers, a procedure many historians regard as the first published algorithm intended for a machine. More striking still, she speculated that such a device might someday manipulate symbols other than numbers, perhaps even composing music, if the rules were expressed correctly. Babbage thought mainly of arithmetic; Lovelace glimpsed something broader. She did not live to see her vision realized, dying at thirty-six, yet her notes anticipated ideas that would not flower for another century.",
+    "questions": [
+      {
+        "q": "What is the main idea of the passage?",
+        "type": "main_idea",
+        "options": [
+          "Lovelace built the first computer",
+          "Lovelace foresaw broad uses of computing long before machines existed",
+          "Babbage wrote the first algorithm",
+          "Lovelace disliked mathematics"
+        ],
+        "answer": 1,
+        "explain": "지문은 기계가 존재하기 전에 러브레이스가 컴퓨팅의 넓은 가능성을 내다봤다는 점을 핵심으로 한다."
+      },
+      {
+        "q": "According to the passage, how did Lovelace's vision differ from Babbage's?",
+        "type": "detail",
+        "options": [
+          "She cared only about poetry",
+          "She imagined the machine handling symbols beyond numbers, even music",
+          "She rejected the engine entirely",
+          "She thought only of arithmetic"
+        ],
+        "answer": 1,
+        "explain": "배비지는 주로 산술을 생각했지만 러브레이스는 숫자 외 기호, 심지어 음악까지 다룰 수 있다고 상상했다."
+      },
+      {
+        "q": "It can be inferred that Lovelace's notes were significant because",
+        "type": "inference",
+        "options": [
+          "they were shorter than the original article",
+          "they anticipated ideas realized only a century later",
+          "they described how to build the machine cheaply",
+          "they proved Babbage wrong about mathematics"
+        ],
+        "answer": 1,
+        "explain": "그녀의 주석이 한 세기 뒤에야 꽃피울 개념을 앞서 예견했다고 본문이 밝힌다."
+      }
+    ]
   }
 ]

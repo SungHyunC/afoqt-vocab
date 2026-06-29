@@ -36939,5 +36939,9394 @@
     "relation": "synonym",
     "explain": "무죄를 입증하다 = 방면하다, 동의어.",
     "tier": "high"
+  },
+  {
+    "id": 902,
+    "question": "FRUGAL : THRIFTY",
+    "stem": [
+      "FRUGAL",
+      "THRIFTY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "candid",
+          "frank"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "humble",
+          "arrogant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rapid",
+          "gradual"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bitter",
+          "sweet"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "FRUGAL과 THRIFTY는 '검소한'이라는 뜻의 동의어입니다. candid와 frank도 '솔직한'이라는 동의어로 같은 관계입니다. 나머지는 반의어 쌍입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 903,
+    "question": "BARREN : FERTILE",
+    "stem": [
+      "BARREN",
+      "FERTILE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scarce",
+          "abundant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tidy",
+          "neat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "vast",
+          "huge"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "damp",
+          "moist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "BARREN(불모의)과 FERTILE(비옥한)은 반의어입니다. scarce(부족한)와 abundant(풍부한)도 반의어로 같은 관계입니다. 나머지는 동의어 쌍입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 904,
+    "question": "BOUQUET : FLOWER",
+    "stem": [
+      "BOUQUET",
+      "FLOWER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fleet",
+          "ship"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "page",
+          "book"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "petal",
+          "rose"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wheel",
+          "car"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "BOUQUET(꽃다발)는 여러 FLOWER(꽃)로 이루어진 전체입니다. fleet(함대)도 여러 ship(배)으로 이루어진 전체이므로 whole:part 관계입니다. 나머지는 부분:전체로 순서가 뒤바뀐 쌍입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 905,
+    "question": "CHISEL : SCULPTOR",
+    "stem": [
+      "CHISEL",
+      "SCULPTOR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scalpel",
+          "surgeon"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bread",
+          "baker"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wood",
+          "carpenter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "field",
+          "farmer"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:worker",
+    "explain": "CHISEL(끌)은 SCULPTOR(조각가)가 사용하는 도구입니다. scalpel(메스)도 surgeon(외과의사)이 쓰는 도구이므로 tool:worker 관계입니다. 나머지는 재료나 산물, 장소 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 906,
+    "question": "GEMSTONE : RUBY",
+    "stem": [
+      "GEMSTONE",
+      "RUBY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "reptile",
+          "lizard"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "flock",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "maple",
+          "tree"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "paint",
+          "color"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "RUBY(루비)는 GEMSTONE(보석)의 한 예입니다. lizard(도마뱀)도 reptile(파충류)의 한 예이므로 category:example 관계입니다. 나머지는 예:범주로 순서가 뒤바뀌었거나 다른 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 907,
+    "question": "VINE : WINE",
+    "stem": [
+      "VINE",
+      "WINE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bee",
+          "honey"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bottle",
+          "liquid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cup",
+          "coffee"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "river",
+          "fish"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "VINE(포도나무)은 WINE(포도주)의 원천입니다. bee(벌)도 honey(꿀)의 원천이므로 source:product 관계입니다. 나머지는 용기나 서식지 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 908,
+    "question": "WALLET : CASH",
+    "stem": [
+      "WALLET",
+      "CASH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pantry",
+          "food"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lock",
+          "key"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "road",
+          "car"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lamp",
+          "light"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "WALLET(지갑)은 CASH(현금)를 담는 용기입니다. pantry(식료품 저장실)도 food(음식)를 담으므로 container:contents 관계입니다. 나머지는 담는 관계가 아닙니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 909,
+    "question": "COURTROOM : TRIAL",
+    "stem": [
+      "COURTROOM",
+      "TRIAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "theater",
+          "performance"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "kitchen",
+          "chef"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "garden",
+          "fence"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "library",
+          "reader"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "place:activity",
+    "explain": "COURTROOM(법정)은 TRIAL(재판)이 이루어지는 장소입니다. theater(극장)도 performance(공연)가 이루어지는 장소이므로 place:activity 관계입니다. 나머지는 장소:사람이나 사물 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 910,
+    "question": "ARCHIPELAGO : ISLAND",
+    "stem": [
+      "ARCHIPELAGO",
+      "ISLAND"
+    ],
+    "options": [
+      {
+        "pair": [
+          "constellation",
+          "star"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "branch",
+          "trunk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "wall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thread",
+          "quilt"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "ARCHIPELAGO(군도)는 여러 ISLAND(섬)로 이루어진 전체입니다. constellation(별자리)도 여러 star(별)로 이루어진 전체이므로 whole:part 관계입니다. 나머지는 부분:전체로 순서가 뒤바뀐 쌍입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 911,
+    "question": "BATON : CONDUCTOR",
+    "stem": [
+      "BATON",
+      "CONDUCTOR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "whistle",
+          "referee"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lecture",
+          "professor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clay",
+          "potter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "studio",
+          "artist"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:worker",
+    "explain": "BATON(지휘봉)은 CONDUCTOR(지휘자)가 쓰는 도구입니다. whistle(호루라기)도 referee(심판)가 쓰는 도구이므로 tool:worker 관계입니다. 나머지는 산물, 재료, 장소 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 912,
+    "question": "INSTRUMENT : OBOE",
+    "stem": [
+      "INSTRUMENT",
+      "OBOE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mammal",
+          "whale"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sparrow",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fleet",
+          "vessel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mineral",
+          "quartz"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "OBOE(오보에)는 INSTRUMENT(악기)의 한 예입니다. whale(고래)도 mammal(포유류)의 한 예이므로 category:example 관계입니다. sparrow:bird는 예:범주로 순서가 뒤바뀌었고, fleet:vessel은 전체:부분입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 913,
+    "question": "QUARRY : MARBLE",
+    "stem": [
+      "QUARRY",
+      "MARBLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mine",
+          "coal"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sculptor",
+          "statue"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "crate",
+          "apple"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lake",
+          "wave"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "QUARRY(채석장)는 MARBLE(대리석)을 얻는 원천입니다. mine(광산)도 coal(석탄)을 얻는 원천이므로 source:product 관계입니다. sculptor:statue는 worker:product, 나머지는 용기나 부분 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 914,
+    "question": "FORGE : SMITHING",
+    "stem": [
+      "FORGE",
+      "SMITHING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "arena",
+          "competition"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "museum",
+          "curator"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "orchard",
+          "ladder"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clinic",
+          "nurse"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "place:activity",
+    "explain": "FORGE(대장간)는 SMITHING(대장일)이 이루어지는 장소입니다. arena(경기장)도 competition(경기)이 이루어지는 장소이므로 place:activity 관계입니다. 나머지는 장소:사람이나 사물 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 915,
+    "question": "OLIVE BRANCH : TRUCE",
+    "stem": [
+      "OLIVE BRANCH",
+      "TRUCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "skull",
+          "danger"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "candle",
+          "wax"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "acorn",
+          "oak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clock",
+          "time"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "OLIVE BRANCH(올리브 가지)는 TRUCE(휴전, 화해)를 상징합니다. skull(해골)도 danger(위험)를 상징하므로 symbol:meaning 관계입니다. clock:time은 측정 관계이고, 나머지는 재료나 성장 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 916,
+    "question": "SCARCE : ABUNDANT",
+    "stem": [
+      "SCARCE",
+      "ABUNDANT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fragile",
+          "sturdy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tidy",
+          "neat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rapid",
+          "swift"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clever",
+          "smart"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "SCARCE와 ABUNDANT는 반의어이다. fragile(부서지기 쉬운)과 sturdy(튼튼한)도 반의어 관계로 정답이며, 나머지는 동의어 쌍이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 917,
+    "question": "PLANET : MARS",
+    "stem": [
+      "PLANET",
+      "MARS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "metal",
+          "copper"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "ocean",
+          "wave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "country",
+          "capital"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "herd",
+          "cattle"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "MARS(화성)는 PLANET(행성)의 한 예이다. copper(구리)는 metal(금속)의 예이므로 범주-예시로 정답이다. 나머지는 범주-예시 관계가 아니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 918,
+    "question": "PEN : WRITER",
+    "stem": [
+      "PEN",
+      "WRITER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "brush",
+          "painter"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "stage",
+          "actor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "song",
+          "singer"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "court",
+          "judge"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:worker",
+    "explain": "PEN(펜)은 WRITER(작가)의 도구이다. brush(붓)는 painter(화가)의 도구이므로 정답이다. 나머지는 장소나 산물이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 919,
+    "question": "BOOK : CHAPTER",
+    "stem": [
+      "BOOK",
+      "CHAPTER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "symphony",
+          "movement"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "paragraph",
+          "essay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thread",
+          "cloth"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "author",
+          "novel"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "BOOK(책)은 CHAPTER(장)로 나뉜다. symphony(교향곡)는 movement(악장)로 나뉘므로 전체-부분으로 정답이다. paragraph-essay는 순서가 뒤바뀌었다.",
+    "tier": "high"
+  },
+  {
+    "id": 920,
+    "question": "COWARD : BRAVE",
+    "stem": [
+      "COWARD",
+      "BRAVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "miser",
+          "generous"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scholar",
+          "learned"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "athlete",
+          "fit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "genius",
+          "clever"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "COWARD(겁쟁이)는 BRAVE(용감한)와 어울리지 않는 반대 특성이다. miser(구두쇠)는 generous(관대한)와 반대이므로 정답이다. 나머지는 일치하는 특성이다.",
+    "tier": "high"
+  },
+  {
+    "id": 921,
+    "question": "PARCHED : DRY",
+    "stem": [
+      "PARCHED",
+      "DRY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "famished",
+          "hungry"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calm",
+          "frantic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "humble",
+          "proud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bold",
+          "timid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "PARCHED는 매우 DRY한 상태로 동의어 관계이다. famished(굶주린)는 매우 hungry한 상태로 동의어이므로 정답이다. 나머지는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 922,
+    "question": "BAKERY : PASTRIES",
+    "stem": [
+      "BAKERY",
+      "PASTRIES"
+    ],
+    "options": [
+      {
+        "pair": [
+          "orchard",
+          "fruit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "recipe",
+          "cake"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "oven",
+          "heat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "chef",
+          "apron"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "BAKERY(제과점)는 PASTRIES(페이스트리)를 만들어 내는 곳이다. orchard(과수원)는 fruit(과일)을 내므로 산출처-산물로 정답이다. 나머지는 그 관계가 아니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 923,
+    "question": "PRIMATE : GORILLA",
+    "stem": [
+      "PRIMATE",
+      "GORILLA"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rodent",
+          "squirrel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mammal",
+          "reptile"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "herd",
+          "cattle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "zoo",
+          "cage"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "gorilla(고릴라)는 primate(영장류)의 한 예다. squirrel(다람쥐)도 rodent(설치류)의 한 예다.",
+    "tier": "high"
+  },
+  {
+    "id": 924,
+    "question": "CANDID : FORTHRIGHT",
+    "stem": [
+      "CANDID",
+      "FORTHRIGHT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "weary",
+          "exhausted"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bold",
+          "timid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sour",
+          "sweet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hollow",
+          "solid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "candid와 forthright는 '솔직한'을 뜻하는 동의어다. weary와 exhausted도 '지친'을 뜻하는 동의어다.",
+    "tier": "high"
+  },
+  {
+    "id": 925,
+    "question": "HOUSE : ROOM",
+    "stem": [
+      "HOUSE",
+      "ROOM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ship",
+          "deck"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "roof",
+          "attic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "village",
+          "city"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "door",
+          "key"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "house(집)는 전체이고 room(방)은 그 부분이다. ship(배)도 전체이고 deck(갑판)은 그 부분이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 926,
+    "question": "GEMSTONE : EMERALD",
+    "stem": [
+      "GEMSTONE",
+      "EMERALD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "instrument",
+          "violin"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "jewelry",
+          "ring"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "color",
+          "green"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "miner",
+          "gold"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "emerald(에메랄드)는 gemstone(보석)의 한 예다. violin(바이올린)도 instrument(악기)의 한 예다.",
+    "tier": "high"
+  },
+  {
+    "id": 927,
+    "question": "GYM : EXERCISE",
+    "stem": [
+      "GYM",
+      "EXERCISE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "laboratory",
+          "experiment"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "garden",
+          "fence"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "museum",
+          "painting"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bank",
+          "teller"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "place:activity",
+    "explain": "gym(체육관)은 exercise(운동)를 하는 장소다. laboratory(실험실)도 experiment(실험)를 하는 장소다.",
+    "tier": "mid"
+  },
+  {
+    "id": 928,
+    "question": "VACANT : OCCUPIED",
+    "stem": [
+      "VACANT",
+      "OCCUPIED"
+    ],
+    "options": [
+      {
+        "pair": [
+          "barren",
+          "fertile"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "empty",
+          "hollow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "narrow",
+          "slim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dark",
+          "dim"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "vacant(빈)과 occupied(찬)은 반의어이다. barren(불모의)과 fertile(비옥한)도 반의어로 같은 관계다.",
+    "tier": "mid"
+  },
+  {
+    "id": 929,
+    "question": "INSTRUMENT : VIOLIN",
+    "stem": [
+      "INSTRUMENT",
+      "VIOLIN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "metal",
+          "copper"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "string",
+          "bow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "music",
+          "sound"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "orchestra",
+          "stage"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "violin(바이올린)은 instrument(악기)의 한 예이다. copper(구리)도 metal(금속)의 한 예이므로 범주:예시 관계다.",
+    "tier": "mid"
+  },
+  {
+    "id": 930,
+    "question": "KEYBOARD : KEY",
+    "stem": [
+      "KEYBOARD",
+      "KEY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "necklace",
+          "bead"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mouse",
+          "screen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "chain",
+          "lock"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "letter",
+          "word"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "keyboard(자판)는 key(키)들로 이루어진다. necklace(목걸이)도 bead(구슬)들로 이루어지므로 전체:부분 관계다.",
+    "tier": "mid"
+  },
+  {
+    "id": 931,
+    "question": "BRUSH : PAINTER",
+    "stem": [
+      "BRUSH",
+      "PAINTER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "whisk",
+          "cook"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "canvas",
+          "gallery"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pen",
+          "ink"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "mason"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:worker",
+    "explain": "brush(붓)는 painter(화가)의 도구이다. whisk(거품기)도 cook(요리사)의 도구로 도구:사용자 관계다.",
+    "tier": "mid"
+  },
+  {
+    "id": 932,
+    "question": "SCALES : JUSTICE",
+    "stem": [
+      "SCALES",
+      "JUSTICE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "crown",
+          "royalty"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "torch",
+          "handle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "judge",
+          "robe"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "anchor",
+          "ship"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "scales(저울)는 justice(정의)를 상징한다. crown(왕관)도 royalty(왕권)를 상징하므로 상징:의미 관계다.",
+    "tier": "high"
+  },
+  {
+    "id": 933,
+    "question": "AID : ASSIST",
+    "stem": [
+      "AID",
+      "ASSIST"
+    ],
+    "options": [
+      {
+        "pair": [
+          "help",
+          "hinder"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "repair",
+          "mend"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "seed",
+          "plant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nurse",
+          "patient"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "AID와 ASSIST는 '돕다'라는 같은 의미의 동의어입니다. repair와 mend도 '수리하다'라는 동의어 관계로 일치합니다. help:hinder는 반의어, 나머지는 다른 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 934,
+    "question": "FOE : ENEMY",
+    "stem": [
+      "FOE",
+      "ENEMY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ally",
+          "partner"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "friend",
+          "stranger"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "king",
+          "crown"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soldier",
+          "war"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "FOE와 ENEMY는 '적'을 뜻하는 동의어입니다. ally와 partner도 '동료, 협력자'라는 동의어로 일치합니다. friend:stranger는 반의어입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 935,
+    "question": "GLAD : PLEASED",
+    "stem": [
+      "GLAD",
+      "PLEASED"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bitter",
+          "sweet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "weary",
+          "fatigued"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lamp",
+          "light"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smile",
+          "frown"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "GLAD와 PLEASED는 '기쁜'을 뜻하는 동의어입니다. weary와 fatigued도 '지친'이라는 동의어로 일치합니다. 나머지는 반의어이거나 다른 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 936,
+    "question": "SWIFT : FAST",
+    "stem": [
+      "SWIFT",
+      "FAST"
+    ],
+    "options": [
+      {
+        "pair": [
+          "nimble",
+          "agile"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heavy",
+          "light"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "engine",
+          "car"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "snail",
+          "slow"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "SWIFT와 FAST는 '빠른'을 뜻하는 동의어입니다. nimble과 agile도 '민첩한'이라는 동의어로 일치합니다. heavy:light는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 937,
+    "question": "WANE : DIMINISH",
+    "stem": [
+      "WANE",
+      "DIMINISH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "surge",
+          "increase"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rise",
+          "fall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "moon",
+          "night"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tide",
+          "ocean"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "WANE와 DIMINISH는 '줄어들다'를 뜻하는 동의어입니다. surge와 increase도 '증가하다'라는 동의어로 일치합니다. rise:fall은 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 938,
+    "question": "VEX : ANNOY",
+    "stem": [
+      "VEX",
+      "ANNOY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "soothe",
+          "irritate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "baffle",
+          "confuse"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bee",
+          "sting"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "peace"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "VEX와 ANNOY는 '짜증나게 하다'를 뜻하는 동의어입니다. baffle과 confuse도 '혼란시키다'라는 동의어로 일치합니다. soothe:irritate는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 939,
+    "question": "DOCILE : OBEDIENT",
+    "stem": [
+      "DOCILE",
+      "OBEDIENT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "defiant",
+          "compliant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sturdy",
+          "robust"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dog",
+          "leash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wild",
+          "tame"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "DOCILE과 OBEDIENT는 '순종적인'을 뜻하는 동의어입니다. sturdy와 robust도 '튼튼한'이라는 동의어로 일치합니다. defiant:compliant와 wild:tame은 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 940,
+    "question": "MEAGER : SCANT",
+    "stem": [
+      "MEAGER",
+      "SCANT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "plentiful",
+          "sparse"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "vast",
+          "immense"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "crumb",
+          "loaf"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thin",
+          "fat"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "MEAGER와 SCANT는 '빈약한, 부족한'을 뜻하는 동의어입니다. vast와 immense도 '광대한'이라는 동의어로 일치합니다. 나머지는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 941,
+    "question": "WEALTHY : RICH",
+    "stem": [
+      "WEALTHY",
+      "RICH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "jovial",
+          "merry"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calm",
+          "furious"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bank",
+          "money"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rich",
+          "poor"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "WEALTHY와 RICH는 '부유한'을 뜻하는 동의어입니다. jovial과 merry도 '쾌활한'이라는 동의어로 일치합니다. calm:furious와 rich:poor는 반의어이며, bank:money는 다른 관계입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 942,
+    "question": "STERN : STRICT",
+    "stem": [
+      "STERN",
+      "STRICT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lenient",
+          "harsh"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "grave",
+          "serious"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "teacher",
+          "rule"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soft",
+          "hard"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "STERN과 STRICT는 '엄격한'을 뜻하는 동의어입니다. grave와 serious도 '심각한, 진지한'이라는 동의어로 일치합니다. lenient:harsh는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 943,
+    "question": "FANCY : ELABORATE",
+    "stem": [
+      "FANCY",
+      "ELABORATE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "plain",
+          "ornate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "intricate",
+          "complex"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dress",
+          "party"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "simple",
+          "fancy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "FANCY와 ELABORATE는 '정교한, 화려한'을 뜻하는 동의어입니다. intricate와 complex도 '복잡한'이라는 동의어로 일치합니다. plain:ornate는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 944,
+    "question": "BRISK : ENERGETIC",
+    "stem": [
+      "BRISK",
+      "ENERGETIC"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sluggish",
+          "lively"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "alert",
+          "vigilant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wind",
+          "cold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lazy",
+          "active"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "BRISK와 ENERGETIC은 '활기찬'을 뜻하는 동의어입니다. alert와 vigilant도 '경계하는'이라는 동의어로 일치합니다. sluggish:lively, lazy:active는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 945,
+    "question": "GRIM : BLEAK",
+    "stem": [
+      "GRIM",
+      "BLEAK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cheerful",
+          "gloomy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dismal",
+          "dreary"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sun",
+          "shade"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bright",
+          "dark"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "GRIM과 BLEAK은 '암울한'을 뜻하는 동의어입니다. dismal과 dreary도 '음울한'이라는 동의어로 일치합니다. 나머지는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 946,
+    "question": "NIMBLE : DEFT",
+    "stem": [
+      "NIMBLE",
+      "DEFT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "clumsy",
+          "skillful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "adept",
+          "proficient"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hand",
+          "glove"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "awkward",
+          "graceful"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "NIMBLE과 DEFT는 '솜씨 좋은, 민첩한'을 뜻하는 동의어입니다. adept와 proficient도 '능숙한'이라는 동의어로 일치합니다. 나머지는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 947,
+    "question": "QUELL : SUBDUE",
+    "stem": [
+      "QUELL",
+      "SUBDUE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "incite",
+          "calm"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thwart",
+          "foil"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "riot",
+          "crowd"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "arouse",
+          "quiet"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "QUELL과 SUBDUE는 '진압하다'를 뜻하는 동의어입니다. thwart와 foil도 '좌절시키다'라는 동의어로 일치합니다. incite:calm은 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 948,
+    "question": "COARSE : ROUGH",
+    "stem": [
+      "COARSE",
+      "ROUGH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "smooth",
+          "jagged"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rugged",
+          "craggy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sand",
+          "paper"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soft",
+          "harsh"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "COARSE와 ROUGH는 '거친'을 뜻하는 동의어입니다. rugged와 craggy도 '울퉁불퉁한'이라는 동의어로 일치합니다. 나머지는 반의어입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 949,
+    "question": "WARY : CAUTIOUS",
+    "stem": [
+      "WARY",
+      "CAUTIOUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "heedless",
+          "careful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "leery",
+          "guarded"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "guard",
+          "gate"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bold",
+          "timid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "WARY와 CAUTIOUS는 '경계하는, 조심스러운'을 뜻하는 동의어입니다. leery와 guarded도 '경계하는'이라는 동의어로 일치합니다. heedless:careful, bold:timid는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 950,
+    "question": "ABANDON : DESERT",
+    "stem": [
+      "ABANDON",
+      "DESERT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "retain",
+          "leave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "forsake",
+          "relinquish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "soldier",
+          "post"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "keep",
+          "release"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "ABANDON과 DESERT는 '버리다, 떠나다'를 뜻하는 동의어입니다. forsake와 relinquish도 '포기하다'라는 동의어로 일치합니다. 나머지는 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 951,
+    "question": "COMPLY : CONFORM",
+    "stem": [
+      "COMPLY",
+      "CONFORM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rebel",
+          "obey"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "adhere",
+          "abide"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "law",
+          "citizen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "defy",
+          "submit"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "COMPLY와 CONFORM은 '따르다, 순응하다'를 뜻하는 동의어입니다. adhere와 abide도 '준수하다'라는 동의어로 일치합니다. rebel:obey, defy:submit은 반의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 952,
+    "question": "NOVICE : BEGINNER",
+    "stem": [
+      "NOVICE",
+      "BEGINNER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "expert",
+          "amateur"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rookie",
+          "newcomer"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "student",
+          "school"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "master",
+          "pupil"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "synonym",
+    "explain": "NOVICE와 BEGINNER는 '초보자'를 뜻하는 동의어입니다. rookie와 newcomer도 '신참'이라는 동의어로 일치합니다. expert:amateur, master:pupil은 반의어입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 953,
+    "question": "PROUD : HUMBLE",
+    "stem": [
+      "PROUD",
+      "HUMBLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "arrogant",
+          "conceited"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bold",
+          "meek"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "medal",
+          "winner"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tall",
+          "high"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "PROUD와 HUMBLE은 '오만한'과 '겸손한'의 반의어입니다. bold와 meek도 '대담한'과 '온순한'의 반의어로 일치합니다. arrogant:conceited는 동의어입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 954,
+    "question": "SCATTER : GATHER",
+    "stem": [
+      "SCATTER",
+      "GATHER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "collect",
+          "amass"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "disperse",
+          "assemble"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "seed",
+          "field"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spread",
+          "strew"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "SCATTER와 GATHER는 '흩뜨리다'와 '모으다'의 반의어입니다. disperse와 assemble도 '흩어지다'와 '모이다'의 반의어로 일치합니다. collect:amass, spread:strew는 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 955,
+    "question": "REVEAL : CONCEAL",
+    "stem": [
+      "REVEAL",
+      "CONCEAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "expose",
+          "hide"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "show",
+          "display"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mask",
+          "face"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "uncover",
+          "disclose"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "REVEAL과 CONCEAL은 '드러내다'와 '숨기다'의 반의어입니다. expose와 hide도 같은 반의어로 일치합니다. show:display, uncover:disclose는 동의어입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 956,
+    "question": "SAVAGE : GENTLE",
+    "stem": [
+      "SAVAGE",
+      "GENTLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "fierce",
+          "brutal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ferocious",
+          "tame"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "beast",
+          "jungle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mild",
+          "tender"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "SAVAGE와 GENTLE은 '사나운'과 '온순한'의 반의어입니다. ferocious와 tame도 같은 반의어로 일치합니다. fierce:brutal, mild:tender는 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 957,
+    "question": "BLUNT : SHARP",
+    "stem": [
+      "BLUNT",
+      "SHARP"
+    ],
+    "options": [
+      {
+        "pair": [
+          "dull",
+          "keen"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "edge",
+          "blade"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pointed",
+          "acute"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "flat",
+          "level"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "BLUNT와 SHARP는 '무딘'과 '날카로운'의 반의어입니다. dull과 keen도 같은 반의어로 일치합니다. pointed:acute, flat:level은 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 958,
+    "question": "VALID : VOID",
+    "stem": [
+      "VALID",
+      "VOID"
+    ],
+    "options": [
+      {
+        "pair": [
+          "legal",
+          "lawful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "binding",
+          "null"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "contract",
+          "signature"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sound",
+          "valid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "VALID와 VOID는 '유효한'과 '무효한'의 반의어입니다. binding과 null도 '구속력 있는'과 '무효한'의 반의어로 일치합니다. legal:lawful은 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 959,
+    "question": "BOLD : COWARDLY",
+    "stem": [
+      "BOLD",
+      "COWARDLY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "daring",
+          "fearful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "brave",
+          "gallant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lion",
+          "den"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "valiant",
+          "heroic"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "BOLD와 COWARDLY는 '대담한'과 '겁많은'의 반의어입니다. daring과 fearful도 같은 반의어로 일치합니다. brave:gallant, valiant:heroic은 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 960,
+    "question": "PROFIT : LOSS",
+    "stem": [
+      "PROFIT",
+      "LOSS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "gain",
+          "deficit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "revenue",
+          "income"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ledger",
+          "account"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "earnings",
+          "wages"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "PROFIT과 LOSS는 '이익'과 '손실'의 반의어입니다. gain과 deficit도 '이득'과 '적자'의 반의어로 일치합니다. revenue:income, earnings:wages는 동의어입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 961,
+    "question": "FLEXIBLE : STIFF",
+    "stem": [
+      "FLEXIBLE",
+      "STIFF"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pliant",
+          "supple"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "limber",
+          "rigid"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rubber",
+          "band"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "firm",
+          "hard"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "FLEXIBLE과 STIFF는 '유연한'과 '뻣뻣한'의 반의어입니다. limber와 rigid도 같은 반의어로 일치합니다. pliant:supple, firm:hard는 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 962,
+    "question": "TURBULENT : SERENE",
+    "stem": [
+      "TURBULENT",
+      "SERENE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "chaotic",
+          "stormy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "agitated",
+          "placid"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wave",
+          "sea"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "tranquil"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "TURBULENT과 SERENE는 '격동의'와 '고요한'의 반의어입니다. agitated와 placid도 같은 반의어로 일치합니다. chaotic:stormy, calm:tranquil은 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 963,
+    "question": "GENUINE : FAKE",
+    "stem": [
+      "GENUINE",
+      "FAKE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "authentic",
+          "counterfeit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "real",
+          "actual"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "coin",
+          "stamp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "true",
+          "valid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "GENUINE과 FAKE는 '진짜의'와 '가짜의'의 반의어입니다. authentic과 counterfeit도 같은 반의어로 일치합니다. real:actual, true:valid는 동의어입니다.",
+    "tier": "mid"
+  },
+  {
+    "id": 964,
+    "question": "TIGHTEN : LOOSEN",
+    "stem": [
+      "TIGHTEN",
+      "LOOSEN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "clench",
+          "fasten"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "constrict",
+          "slacken"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bolt",
+          "wrench"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "secure",
+          "fix"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "TIGHTEN과 LOOSEN은 '조이다'와 '풀다'의 반의어입니다. constrict와 slacken도 같은 반의어로 일치합니다. clench:fasten, secure:fix는 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 965,
+    "question": "PRAISE : SCOLD",
+    "stem": [
+      "PRAISE",
+      "SCOLD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "commend",
+          "reproach"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "applaud",
+          "laud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "coach",
+          "player"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "honor",
+          "esteem"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "antonym",
+    "explain": "PRAISE와 SCOLD는 '칭찬하다'와 '꾸짖다'의 반의어입니다. commend와 reproach도 같은 반의어로 일치합니다. applaud:laud, honor:esteem은 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 966,
+    "question": "WARM : SCALDING",
+    "stem": [
+      "WARM",
+      "SCALDING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cool",
+          "freezing"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hot",
+          "heated"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "stove",
+          "heat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mild",
+          "pleasant"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree/intensity",
+    "explain": "WARM에서 SCALDING은 온도가 강해지는 정도의 차이입니다. cool에서 freezing도 차가움이 극단으로 강해지는 정도 관계로 일치합니다. hot:heated는 동의어, 나머지는 다른 관계입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 967,
+    "question": "BREEZE : TEMPEST",
+    "stem": [
+      "BREEZE",
+      "TEMPEST"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ripple",
+          "tidal wave"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "storm",
+          "cyclone"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wind",
+          "sail"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gust",
+          "draft"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree/intensity",
+    "explain": "BREEZE에서 TEMPEST는 약한 바람이 극단적 폭풍으로 강해지는 정도 관계입니다. ripple에서 tidal wave도 작은 물결이 거대한 해일로 강해지는 정도로 일치합니다. gust:draft는 거의 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 968,
+    "question": "TROUBLED : DISTRAUGHT",
+    "stem": [
+      "TROUBLED",
+      "DISTRAUGHT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "upset",
+          "disturbed"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "annoyed",
+          "enraged"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mind",
+          "worry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "content"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree/intensity",
+    "explain": "TROUBLED에서 DISTRAUGHT는 괴로움이 극심해지는 정도 관계입니다. annoyed에서 enraged도 짜증이 격노로 강해지는 정도로 일치합니다. upset:disturbed는 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 969,
+    "question": "CHILLY : FRIGID",
+    "stem": [
+      "CHILLY",
+      "FRIGID"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cool",
+          "crisp"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "warm",
+          "sweltering"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "ice",
+          "snow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "damp",
+          "wet"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree/intensity",
+    "explain": "CHILLY에서 FRIGID는 추위가 극심해지는 정도 관계입니다. warm에서 sweltering도 따뜻함이 푹푹 찌는 더위로 강해지는 정도로 일치합니다. cool:crisp는 동의어에 가깝습니다.",
+    "tier": "high"
+  },
+  {
+    "id": 970,
+    "question": "GRIN : LAUGH",
+    "stem": [
+      "GRIN",
+      "LAUGH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sniffle",
+          "sob"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "smile",
+          "beam"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mouth",
+          "face"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "joy",
+          "mirth"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree/intensity",
+    "explain": "GRIN에서 LAUGH는 기쁨의 표현이 강해지는 정도 관계입니다. sniffle에서 sob도 우는 정도가 흐느낌에서 통곡으로 강해지는 관계로 일치합니다. joy:mirth는 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 971,
+    "question": "TAP : POUND",
+    "stem": [
+      "TAP",
+      "POUND"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sip",
+          "gulp"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hit",
+          "strike"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hammer",
+          "nail"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "knock",
+          "rap"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "degree/intensity",
+    "explain": "TAP에서 POUND는 두드림의 강도가 세지는 정도 관계입니다. sip에서 gulp도 마시는 양과 강도가 한 모금에서 벌컥으로 세지는 정도로 일치합니다. hit:strike, knock:rap은 동의어입니다.",
+    "tier": "high"
+  },
+  {
+    "id": 972,
+    "question": "NIB : PEN",
+    "stem": [
+      "NIB",
+      "PEN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lens",
+          "telescope"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sloth",
+          "slow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "water",
+          "ice"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sprint",
+          "run"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "닙(펜촉)은 펜의 한 부분이다. 렌즈는 망원경의 한 부분이므로 부분:전체 관계가 같다. 나머지는 속성, 변형, 정도 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 973,
+    "question": "CORK : BOTTLE",
+    "stem": [
+      "CORK",
+      "BOTTLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "trigger",
+          "gun"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fast",
+          "slow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bake",
+          "cook"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "honey",
+          "bee"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "코르크는 병의 한 부분(마개)이다. 방아쇠는 총의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 종류, 생산 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 974,
+    "question": "HANDLE : MUG",
+    "stem": [
+      "HANDLE",
+      "MUG"
+    ],
+    "options": [
+      {
+        "pair": [
+          "zipper",
+          "jacket"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "loud",
+          "quiet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rain",
+          "cloud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cotton",
+          "fabric"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "손잡이는 머그잔의 한 부분이다. 지퍼는 재킷의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 975,
+    "question": "LACE : SHOE",
+    "stem": [
+      "LACE",
+      "SHOE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "buckle",
+          "belt"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dim",
+          "bright"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "seed",
+          "tree"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wood",
+          "table"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "끈은 신발의 한 부분이다. 버클은 벨트의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 발달, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 976,
+    "question": "SPOUT : KETTLE",
+    "stem": [
+      "SPOUT",
+      "KETTLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "barrel",
+          "rifle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "thick",
+          "thin"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clay",
+          "pot"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "주둥이는 주전자의 한 부분이다. 총신은 소총의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 977,
+    "question": "RIM : WHEEL",
+    "stem": [
+      "RIM",
+      "WHEEL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sole",
+          "boot"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calm",
+          "frantic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heat",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "glass",
+          "window"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "림(테두리)은 바퀴의 한 부분이다. 밑창은 부츠의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 속성, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 978,
+    "question": "CUFF : SLEEVE",
+    "stem": [
+      "CUFF",
+      "SLEEVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "brim",
+          "hat"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wet",
+          "dry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "study",
+          "knowledge"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "steel",
+          "beam"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "커프스는 소매의 한 부분이다. 챙은 모자의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 979,
+    "question": "YOKE : OXCART",
+    "stem": [
+      "YOKE",
+      "OXCART"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hilt",
+          "dagger"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scarce",
+          "ample"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "friction",
+          "wear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bronze",
+          "statue"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "멍에는 소달구지의 한 부분이다. 칼자루는 단검의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 980,
+    "question": "FILAMENT : BULB",
+    "stem": [
+      "FILAMENT",
+      "BULB"
+    ],
+    "options": [
+      {
+        "pair": [
+          "spring",
+          "mattress"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bold",
+          "timid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rain",
+          "puddle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "silk",
+          "scarf"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "필라멘트는 전구의 한 부분이다. 스프링은 매트리스의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 981,
+    "question": "PROW : VESSEL",
+    "stem": [
+      "PROW",
+      "VESSEL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "turret",
+          "castle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lavish",
+          "austere"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heat",
+          "melt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "marble",
+          "column"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "이물(뱃머리)은 배의 한 부분이다. 망루는 성의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 982,
+    "question": "CHASSIS : AUTOMOBILE",
+    "stem": [
+      "CHASSIS",
+      "AUTOMOBILE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "skeleton",
+          "body"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "quiet",
+          "raucous"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "drought",
+          "famine"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "leather",
+          "saddle"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "섀시는 자동차의 한 부분(골격)이다. 골격은 신체의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 983,
+    "question": "GABLE : ROOF",
+    "stem": [
+      "GABLE",
+      "ROOF"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lobe",
+          "ear"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scarce",
+          "plentiful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "overwork",
+          "fatigue"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "granite",
+          "slab"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "박공은 지붕의 한 부분이다. 귓불은 귀의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 984,
+    "question": "ENGINE : LOCOMOTIVE",
+    "stem": [
+      "ENGINE",
+      "LOCOMOTIVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pedal",
+          "bicycle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bright",
+          "gloomy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "flame"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "copper",
+          "wire"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "part:whole",
+    "explain": "엔진은 기관차의 한 부분이다. 페달은 자전거의 한 부분이므로 부분:전체 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 985,
+    "question": "BRACELET : CHARM",
+    "stem": [
+      "BRACELET",
+      "CHARM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "necklace",
+          "pendant"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "loud",
+          "faint"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heat",
+          "expansion"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wool",
+          "sweater"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "팔찌는 전체이고 참(장식)은 그 한 부분이다. 목걸이는 전체이고 펜던트는 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 986,
+    "question": "GUITAR : SOUNDHOLE",
+    "stem": [
+      "GUITAR",
+      "SOUNDHOLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "violin",
+          "scroll"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "thrifty",
+          "wasteful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "practice",
+          "skill"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pine",
+          "plank"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "기타는 전체이고 사운드홀은 그 부분이다. 바이올린은 전체이고 스크롤(머리)은 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 987,
+    "question": "CASTLE : MOAT",
+    "stem": [
+      "CASTLE",
+      "MOAT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "house",
+          "foundation"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dim",
+          "radiant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fatigue",
+          "mistake"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "chimney"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "성은 전체이고 해자는 그 한 부분이다. 집은 전체이고 토대는 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 988,
+    "question": "BICYCLE : SPOKE",
+    "stem": [
+      "BICYCLE",
+      "SPOKE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "umbrella",
+          "rib"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scarce",
+          "abundant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "blaze"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nylon",
+          "tent"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "자전거는 전체이고 살은 그 한 부분이다. 우산은 전체이고 우산살은 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 989,
+    "question": "VIOLIN : BRIDGE",
+    "stem": [
+      "VIOLIN",
+      "BRIDGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "clock",
+          "hand"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calm",
+          "turbulent"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "neglect",
+          "decay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "maple",
+          "neck"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "바이올린은 전체이고 브리지(받침대)는 그 부분이다. 시계는 전체이고 바늘은 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 990,
+    "question": "STAIRCASE : BANISTER",
+    "stem": [
+      "STAIRCASE",
+      "BANISTER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bridge",
+          "railing"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "humble",
+          "arrogant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heat",
+          "fatigue"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "oak",
+          "plank"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "계단은 전체이고 난간은 그 한 부분이다. 다리는 전체이고 난간은 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 991,
+    "question": "SADDLE : POMMEL",
+    "stem": [
+      "SADDLE",
+      "POMMEL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "door",
+          "hinge"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "meek",
+          "brazen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "ignition"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "leather",
+          "strap"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "안장은 전체이고 앞머리(포멜)는 그 부분이다. 문은 전체이고 경첩은 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 992,
+    "question": "GLACIER : CREVASSE",
+    "stem": [
+      "GLACIER",
+      "CREVASSE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "volcano",
+          "crater"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lush",
+          "barren"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "erosion",
+          "gully"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ice",
+          "floe"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "빙하는 전체이고 크레바스(틈)는 그 한 부분이다. 화산은 전체이고 분화구는 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 993,
+    "question": "PLANT : STAMEN",
+    "stem": [
+      "PLANT",
+      "STAMEN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "flower",
+          "sepal"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "docile",
+          "wild"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sunlight",
+          "growth"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fiber",
+          "stem"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "식물(꽃)은 전체이고 수술은 그 부분이다. 꽃은 전체이고 꽃받침은 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 994,
+    "question": "SKELETON : VERTEBRA",
+    "stem": [
+      "SKELETON",
+      "VERTEBRA"
+    ],
+    "options": [
+      {
+        "pair": [
+          "chain",
+          "link"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sturdy",
+          "flimsy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "impact",
+          "fracture"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bone",
+          "rib"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "whole:part",
+    "explain": "골격은 전체이고 척추뼈는 그 부분이다. 사슬은 전체이고 고리는 그 부분이므로 전체:부분 관계가 같다. 나머지는 반의어, 인과 관계 등으로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 995,
+    "question": "COVEN : WITCHES",
+    "stem": [
+      "COVEN",
+      "WITCHES"
+    ],
+    "options": [
+      {
+        "pair": [
+          "panel",
+          "experts"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "candid",
+          "evasive"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smoke",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "timber",
+          "beam"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "마녀 집회는 마녀들로 이루어진 집단이다. 패널은 전문가들로 이루어진 집단이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 996,
+    "question": "COLONY : ANTS",
+    "stem": [
+      "COLONY",
+      "ANTS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "herd",
+          "bison"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "frugal",
+          "lavish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heat",
+          "blister"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clay",
+          "tile"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "군락은 개미들로 이루어진 집단이다. 무리는 들소들로 이루어진 집단이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 997,
+    "question": "BATTERY : ARTILLERY",
+    "stem": [
+      "BATTERY",
+      "ARTILLERY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "squadron",
+          "aircraft"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bold",
+          "meek"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "steel",
+          "barrel"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "포대는 대포들로 이루어진 집단이다. 비행대대는 항공기들로 이루어진 집단이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 998,
+    "question": "COMMITTEE : MEMBERS",
+    "stem": [
+      "COMMITTEE",
+      "MEMBERS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "choir",
+          "singers"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scarce",
+          "ample"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rain",
+          "mud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brick",
+          "wall"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "위원회는 위원들로 이루어진 집단이다. 합창단은 가수들로 이루어진 집단이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 999,
+    "question": "COVEY : QUAIL",
+    "stem": [
+      "COVEY",
+      "QUAIL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pod",
+          "whales"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bright",
+          "murky"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "friction",
+          "heat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wool",
+          "yarn"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "코비는 메추라기들로 이루어진 무리이다. 포드는 고래들로 이루어진 무리이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1000,
+    "question": "CABINET : MINISTERS",
+    "stem": [
+      "CABINET",
+      "MINISTERS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "faculty",
+          "professors"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calm",
+          "frantic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "drought",
+          "crop failure"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cotton",
+          "thread"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "내각은 장관들로 이루어진 집단이다. 교수진은 교수들로 이루어진 집단이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1001,
+    "question": "BROOD : CHICKS",
+    "stem": [
+      "BROOD",
+      "CHICKS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "litter",
+          "puppies"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "loud",
+          "hushed"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "blaze"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bronze",
+          "coin"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "브루드는 병아리들로 이루어진 한배의 무리이다. 리터는 강아지들로 이루어진 한배의 무리이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1002,
+    "question": "PARLIAMENT : OWLS",
+    "stem": [
+      "PARLIAMENT",
+      "OWLS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "murder",
+          "crows"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "docile",
+          "unruly"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heat",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "marble",
+          "pillar"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "팔러먼트는 올빼미들로 이루어진 무리를 일컫는 집합명사이다. 머더는 까마귀들로 이루어진 무리이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1003,
+    "question": "REGIMENT : SOLDIERS",
+    "stem": [
+      "REGIMENT",
+      "SOLDIERS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "crew",
+          "sailors"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "vacant",
+          "crowded"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "neglect",
+          "ruin"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "iron",
+          "blade"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "연대는 군인들로 이루어진 집단이다. 선원단은 선원들로 이루어진 집단이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1004,
+    "question": "TROVE : TREASURES",
+    "stem": [
+      "TROVE",
+      "TREASURES"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bundle",
+          "sticks"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "thrifty",
+          "prodigal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "humidity",
+          "rust"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "glass",
+          "bead"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "group:members",
+    "explain": "트로브는 보물들로 이루어진 더미이다. 다발은 막대들로 이루어진 묶음이므로 집단:구성원 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1005,
+    "question": "PANTRY : PRESERVES",
+    "stem": [
+      "PANTRY",
+      "PRESERVES"
+    ],
+    "options": [
+      {
+        "pair": [
+          "toolbox",
+          "wrenches"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lucid",
+          "murky"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tin",
+          "can"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "식료품 저장실은 잼 같은 보존식품을 담는 용기이다. 공구함은 렌치를 담는 용기이므로 용기:내용물 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1006,
+    "question": "CHEST : DOUBLOONS",
+    "stem": [
+      "CHEST",
+      "DOUBLOONS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "coffer",
+          "bullion"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "meager",
+          "ample"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fatigue",
+          "collapse"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wood",
+          "crate"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "궤짝은 더블룬(금화)을 담는 용기이다. 금고는 금괴를 담는 용기이므로 용기:내용물 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1007,
+    "question": "FLASK : BRANDY",
+    "stem": [
+      "FLASK",
+      "BRANDY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "jug",
+          "cider"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "dim",
+          "dazzling"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "ignite"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pewter",
+          "mug"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "플라스크는 브랜디를 담는 용기이다. 주전자는 사이다를 담는 용기이므로 용기:내용물 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1008,
+    "question": "HAMPER : LAUNDRY",
+    "stem": [
+      "HAMPER",
+      "LAUNDRY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bin",
+          "recyclables"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "robust",
+          "frail"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "overwork",
+          "burnout"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wicker",
+          "basket"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "빨래 바구니는 세탁물을 담는 용기이다. 통은 재활용품을 담는 용기이므로 용기:내용물 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1009,
+    "question": "SCABBARD : BLADE",
+    "stem": [
+      "SCABBARD",
+      "BLADE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sheath",
+          "dagger"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "candid",
+          "cagey"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "blaze"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "brass",
+          "hilt"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "칼집은 칼날을 담는 용기이다. 시스(가죽 칼집)는 단검을 담는 용기이므로 용기:내용물 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1010,
+    "question": "INKWELL : INK",
+    "stem": [
+      "INKWELL",
+      "INK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "censer",
+          "incense"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scarce",
+          "plentiful"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "friction",
+          "heat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ceramic",
+          "bowl"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "잉크병은 잉크를 담는 용기이다. 향로는 향을 담는 용기이므로 용기:내용물 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1011,
+    "question": "SATCHEL : TEXTBOOKS",
+    "stem": [
+      "SATCHEL",
+      "TEXTBOOKS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "quiver",
+          "darts"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lush",
+          "barren"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "neglect",
+          "decay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "canvas",
+          "bag"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "가방은 교과서를 담는 용기이다. 화살통은 다트를 담는 용기이므로 용기:내용물 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1012,
+    "question": "CALDRON : BROTH",
+    "stem": [
+      "CALDRON",
+      "BROTH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "tureen",
+          "soup"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "bold",
+          "craven"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spark",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "iron",
+          "pot"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "container:contents",
+    "explain": "큰 솥은 육수를 담는 용기이다. 수프 그릇은 수프를 담는 용기이므로 용기:내용물 관계가 같다. 나머지는 반의어, 인과, 재료 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1013,
+    "question": "VACCINE : IMMUNITY",
+    "stem": [
+      "VACCINE",
+      "IMMUNITY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "medicine",
+          "cure"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "doctor",
+          "clinic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wing",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "quiet"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause:effect",
+    "explain": "백신은 면역을 유발하는 원인이고 면역은 결과이다. 약은 치료를 유발하므로 같은 원인:결과 관계이다. 의사:병원은 일터, 날개:새는 부분:전체, 시끄럽다:조용하다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1014,
+    "question": "SUNLIGHT : WARMTH",
+    "stem": [
+      "SUNLIGHT",
+      "WARMTH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "exercise",
+          "sweat"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mason",
+          "brick"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fin",
+          "fish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tall",
+          "short"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause:effect",
+    "explain": "햇빛은 따뜻함을 일으키는 원인이고 따뜻함은 결과이다. 운동은 땀을 일으키므로 같은 원인:결과 관계이다. 석공:벽돌은 작업자:생산물, 지느러미:물고기는 부분:전체, 크다:작다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1015,
+    "question": "POISON : DEATH",
+    "stem": [
+      "POISON",
+      "DEATH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "famine",
+          "starvation"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "jeweler",
+          "ring"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "handle",
+          "cup"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wet",
+          "dry"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause:effect",
+    "explain": "독은 죽음을 일으키는 원인이고 죽음은 결과이다. 기근은 굶주림을 일으키므로 같은 원인:결과 관계이다. 보석세공사:반지는 작업자:생산물, 손잡이:컵은 부분:전체, 젖다:마르다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1016,
+    "question": "VENOM : PARALYSIS",
+    "stem": [
+      "VENOM",
+      "PARALYSIS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "heat",
+          "expansion"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "potter",
+          "kiln"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "roof",
+          "house"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "near",
+          "far"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause:effect",
+    "explain": "독액은 마비를 일으키는 원인이고 마비는 결과이다. 열은 팽창을 일으키므로 같은 원인:결과 관계이다. 도공:가마는 작업자:일터, 지붕:집은 부분:전체, 가깝다:멀다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1017,
+    "question": "INFECTION : FEVER",
+    "stem": [
+      "INFECTION",
+      "FEVER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "allergen",
+          "rash"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sculptor",
+          "studio"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lid",
+          "jar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soft",
+          "hard"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause:effect",
+    "explain": "감염은 열을 일으키는 원인이고 열은 결과이다. 알레르겐은 발진을 일으키므로 같은 원인:결과 관계이다. 조각가:작업실은 작업자:일터, 뚜껑:병은 부분:전체, 부드럽다:딱딱하다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1018,
+    "question": "COLLISION : DAMAGE",
+    "stem": [
+      "COLLISION",
+      "DAMAGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rust",
+          "corrosion"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "weaver",
+          "loom"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sail",
+          "boat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "open",
+          "closed"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause:effect",
+    "explain": "충돌은 손상을 일으키는 원인이고 손상은 결과이다. 녹은 부식을 일으키므로 같은 원인:결과 관계이다. 직조공:베틀은 작업자:도구, 돛:배는 부분:전체, 열린:닫힌은 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1019,
+    "question": "LAUGHTER : JOY",
+    "stem": [
+      "LAUGHTER",
+      "JOY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "yawn",
+          "boredom"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "chef",
+          "stove"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "blade",
+          "fan"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "heavy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "effect:cause",
+    "explain": "웃음은 기쁨을 드러내는 결과이고 하품은 지루함을 드러내는 결과이므로 같은 결과:원인 관계이다. 요리사:난로는 작업자:도구, 칼날:선풍기는 부분:전체, 가볍다:무겁다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1020,
+    "question": "FATIGUE : DROWSINESS",
+    "stem": [
+      "FATIGUE",
+      "DROWSINESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "caffeine",
+          "alertness"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "baker",
+          "oven"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nib",
+          "pen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "full",
+          "empty"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "cause:effect",
+    "explain": "피로는 졸림을 일으키는 원인이고 졸림은 결과이다. 카페인은 각성을 일으키므로 같은 원인:결과 관계이다. 제빵사:오븐은 작업자:도구, 펜촉:펜은 부분:전체, 가득:비어는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1021,
+    "question": "WELDER : SEAM",
+    "stem": [
+      "WELDER",
+      "SEAM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mason",
+          "wall"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fungus",
+          "decay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sailor",
+          "harbor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plump",
+          "thin"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "용접공은 용접 이음매를 만들고 석공은 벽을 만들므로 같은 작업자:생산물 관계이다. 곰팡이:부패는 원인:결과, 선원:항구는 작업자:일터, 통통하다:마르다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1022,
+    "question": "BAKER : PASTRY",
+    "stem": [
+      "BAKER",
+      "PASTRY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cooper",
+          "barrel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spark",
+          "fire"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clerk",
+          "counter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dull",
+          "sharp"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "제빵사는 페이스트리를 만들고 통 제작자는 통을 만들므로 같은 작업자:생산물 관계이다. 불꽃:불은 원인:결과, 점원:계산대는 작업자:일터, 무디다:날카롭다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1023,
+    "question": "BLACKSMITH : NAIL",
+    "stem": [
+      "BLACKSMITH",
+      "NAIL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "potter",
+          "jug"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "humidity",
+          "mildew"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "miner",
+          "quarry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wide",
+          "narrow"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "대장장이는 못을 만들고 도공은 주전자를 만들므로 같은 작업자:생산물 관계이다. 습기:곰팡이는 원인:결과, 광부:채석장은 작업자:일터, 넓다:좁다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1024,
+    "question": "MILLINER : HAT",
+    "stem": [
+      "MILLINER",
+      "HAT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "glassblower",
+          "vase"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "overwork",
+          "fatigue"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "teacher",
+          "school"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loose",
+          "tight"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "모자 장인은 모자를 만들고 유리 부는 직공은 꽃병을 만들므로 같은 작업자:생산물 관계이다. 과로:피로는 원인:결과, 교사:학교는 작업자:일터, 헐겁다:꽉끼다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1025,
+    "question": "MASON : ARCH",
+    "stem": [
+      "MASON",
+      "ARCH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "carpenter",
+          "cabinet"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "friction",
+          "heat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "judge",
+          "bench"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "empty",
+          "full"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "석공은 아치를 만들고 목수는 캐비닛을 만들므로 같은 작업자:생산물 관계이다. 마찰:열은 원인:결과, 판사:법대는 작업자:일터, 비다:차다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1026,
+    "question": "SMITH : HORSESHOE",
+    "stem": [
+      "SMITH",
+      "HORSESHOE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "baker",
+          "loaf"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rain",
+          "puddle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nurse",
+          "ward"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fast",
+          "slow"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "대장장이는 편자를 만들고 제빵사는 빵 덩어리를 만들므로 같은 작업자:생산물 관계이다. 비:웅덩이는 원인:결과, 간호사:병동은 작업자:일터, 빠르다:느리다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1027,
+    "question": "DRAFTSMAN : SKETCH",
+    "stem": [
+      "DRAFTSMAN",
+      "SKETCH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scribe",
+          "manuscript"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spark",
+          "blaze"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pilot",
+          "hangar"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "deep",
+          "shallow"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "제도공은 스케치를 만들고 필경사는 사본을 만들므로 같은 작업자:생산물 관계이다. 불꽃:화염은 원인:결과, 조종사:격납고는 작업자:일터, 깊다:얕다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1028,
+    "question": "COBBLER : SANDAL",
+    "stem": [
+      "COBBLER",
+      "SANDAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "tailor",
+          "gown"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heat",
+          "blister"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "miner",
+          "shaft"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bright",
+          "dark"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "구두장이는 샌들을 만들고 재단사는 가운을 만들므로 같은 작업자:생산물 관계이다. 열:물집은 원인:결과, 광부:갱도는 작업자:일터, 밝다:어둡다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1029,
+    "question": "POET : VERSE",
+    "stem": [
+      "POET",
+      "VERSE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lyricist",
+          "ballad"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "smoke",
+          "cough"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "monk",
+          "abbey"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thick",
+          "thin"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:product",
+    "explain": "시인은 운문을 만들고 작사가는 발라드를 만들므로 같은 작업자:생산물 관계이다. 연기:기침은 원인:결과, 수도사:수도원은 작업자:일터, 두껍다:얇다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1030,
+    "question": "SURGEON : SUTURE",
+    "stem": [
+      "SURGEON",
+      "SUTURE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "chemist",
+          "gel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pressure",
+          "leak"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "banker",
+          "branch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "frantic"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:tool",
+    "explain": "외과의는 봉합사를 도구로 사용하고 화학자는 겔을 도구로 사용하므로 같은 작업자:도구 관계이다. 압력:누출은 원인:결과, 은행원:지점은 작업자:일터, 차분:광란은 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1031,
+    "question": "CARPENTER : SAW",
+    "stem": [
+      "CARPENTER",
+      "SAW"
+    ],
+    "options": [
+      {
+        "pair": [
+          "gardener",
+          "hoe"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spark",
+          "ember"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "actor",
+          "backstage"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hot",
+          "frozen"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:tool",
+    "explain": "목수는 톱을 도구로 사용하고 정원사는 괭이를 도구로 사용하므로 같은 작업자:도구 관계이다. 불꽃:잉걸불은 원인:결과, 배우:무대 뒤는 작업자:일터, 뜨겁다:얼다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1032,
+    "question": "PAINTER : EASEL",
+    "stem": [
+      "PAINTER",
+      "EASEL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "weaver",
+          "shuttle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rain",
+          "mud"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cook",
+          "galley"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "dim"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:tool",
+    "explain": "화가는 이젤을 도구로 쓰고 직조공은 북(셔틀)을 도구로 쓰므로 같은 작업자:도구 관계이다. 비:진흙은 원인:결과, 요리사:선상주방은 작업자:일터, 밝다:어둑하다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1033,
+    "question": "TAILOR : SHEARS",
+    "stem": [
+      "TAILOR",
+      "SHEARS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mason",
+          "trowel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wind",
+          "dune"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "teacher",
+          "faculty"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wet",
+          "arid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:tool",
+    "explain": "재단사는 큰 가위를 도구로 쓰고 석공은 흙손을 도구로 쓰므로 같은 작업자:도구 관계이다. 바람:모래언덕은 원인:결과, 교사:교무실은 작업자:일터, 젖다:건조하다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1034,
+    "question": "BUTCHER : KNIFE",
+    "stem": [
+      "BUTCHER",
+      "KNIFE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "barber",
+          "comb"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "frost",
+          "crack"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sailor",
+          "deck"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sweet",
+          "sour"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:tool",
+    "explain": "정육점 주인은 칼을 도구로 쓰고 이발사는 빗을 도구로 쓰므로 같은 작업자:도구 관계이다. 서리:균열은 원인:결과, 선원:갑판은 작업자:일터, 달다:시다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1035,
+    "question": "DENTIST : FORCEPS",
+    "stem": [
+      "DENTIST",
+      "FORCEPS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "plumber",
+          "wrench"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heat",
+          "melt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "chef",
+          "pantry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soft",
+          "rigid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:tool",
+    "explain": "치과의사는 집게를 도구로 쓰고 배관공은 렌치를 도구로 쓰므로 같은 작업자:도구 관계이다. 열:녹다는 원인:결과, 요리사:식료품실은 작업자:일터, 부드럽다:뻣뻣하다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1036,
+    "question": "SHOEMAKER : LAST",
+    "stem": [
+      "SHOEMAKER",
+      "LAST"
+    ],
+    "options": [
+      {
+        "pair": [
+          "printer",
+          "press"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "damp",
+          "mold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doctor",
+          "ward"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "near",
+          "distant"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:tool",
+    "explain": "제화공은 신발골(last)을 도구로 쓰고 인쇄공은 인쇄기를 도구로 쓰므로 같은 작업자:도구 관계이다. 습기:곰팡이는 원인:결과, 의사:병동은 작업자:일터, 가깝다:멀다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1037,
+    "question": "ETCHER : STYLUS",
+    "stem": [
+      "ETCHER",
+      "STYLUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "calligrapher",
+          "quill"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "thaw",
+          "flood"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "miner",
+          "tunnel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "faint"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:tool",
+    "explain": "부식 판화가는 첨필을 도구로 쓰고 서예가는 깃펜을 도구로 쓰므로 같은 작업자:도구 관계이다. 해빙:홍수는 원인:결과, 광부:터널은 작업자:일터, 시끄럽다:희미하다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1038,
+    "question": "WAITER : RESTAURANT",
+    "stem": [
+      "WAITER",
+      "RESTAURANT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "teller",
+          "bank"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spark",
+          "glow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "potter",
+          "clay"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dry",
+          "humid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:workplace",
+    "explain": "웨이터는 식당에서 일하고 은행원은 은행에서 일하므로 같은 작업자:일터 관계이다. 불꽃:빛남은 원인:결과, 도공:점토는 작업자:재료, 건조:습함은 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1039,
+    "question": "PHARMACIST : DRUGSTORE",
+    "stem": [
+      "PHARMACIST",
+      "DRUGSTORE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "chef",
+          "kitchen"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heat",
+          "sunburn"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smith",
+          "anvil"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wide",
+          "slim"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:workplace",
+    "explain": "약사는 약국에서 일하고 요리사는 주방에서 일하므로 같은 작업자:일터 관계이다. 열:화상은 원인:결과, 대장장이:모루는 작업자:도구, 넓다:날씬하다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1040,
+    "question": "JANITOR : SCHOOL",
+    "stem": [
+      "JANITOR",
+      "SCHOOL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pilot",
+          "airline"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rust",
+          "hole"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "weaver",
+          "yarn"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hard",
+          "tender"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:workplace",
+    "explain": "수위는 학교에서 일하고 조종사는 항공사에서 일하므로 같은 작업자:일터 관계이다. 녹:구멍은 원인:결과, 직조공:실은 작업자:재료, 딱딱하다:연하다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1041,
+    "question": "LIFEGUARD : POOL",
+    "stem": [
+      "LIFEGUARD",
+      "POOL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "surgeon",
+          "theater"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spark",
+          "flare"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mason",
+          "chisel"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "stormy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:workplace",
+    "explain": "안전요원은 수영장에서 일하고 외과의는 수술실(operating theater)에서 일하므로 같은 작업자:일터 관계이다. 불꽃:섬광은 원인:결과, 석공:끌은 작업자:도구, 잔잔하다:폭풍치다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1042,
+    "question": "CASHIER : SUPERMARKET",
+    "stem": [
+      "CASHIER",
+      "SUPERMARKET"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lecturer",
+          "auditorium"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "drought",
+          "wilt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cobbler",
+          "awl"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bright",
+          "gloomy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:workplace",
+    "explain": "계산원은 슈퍼마켓에서 일하고 강사는 강당에서 일하므로 같은 작업자:일터 관계이다. 가뭄:시들다는 원인:결과, 구두장이:송곳은 작업자:도구, 밝다:음침하다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1043,
+    "question": "RECEPTIONIST : LOBBY",
+    "stem": [
+      "RECEPTIONIST",
+      "LOBBY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bartender",
+          "pub"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heat",
+          "steam"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sculptor",
+          "mallet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thick",
+          "sparse"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:workplace",
+    "explain": "접수원은 로비에서 일하고 바텐더는 술집에서 일하므로 같은 작업자:일터 관계이다. 열:증기는 원인:결과, 조각가:나무망치는 작업자:도구, 빽빽하다:성기다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1044,
+    "question": "PROFESSOR : CAMPUS",
+    "stem": [
+      "PROFESSOR",
+      "CAMPUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "miner",
+          "colliery"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spark",
+          "conflagration"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tailor",
+          "bodkin"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "frozen",
+          "molten"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "worker:workplace",
+    "explain": "교수는 캠퍼스에서 일하고 광부는 탄광에서 일하므로 같은 작업자:일터 관계이다. 불꽃:대화재는 원인:결과, 재단사:송곳바늘은 작업자:도구, 얼다:녹다는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1045,
+    "question": "FLEECE : SWEATER",
+    "stem": [
+      "FLEECE",
+      "SWEATER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "timber",
+          "beam"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spark",
+          "smoke"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cook",
+          "skillet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "agile",
+          "clumsy"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "양털(fleece)은 스웨터의 원료이고 목재는 들보의 원료이므로 같은 원료:생산물 관계이다. 불꽃:연기는 원인:결과, 요리사:프라이팬은 작업자:도구, 민첩:서툴다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1046,
+    "question": "BARLEY : WHISKEY",
+    "stem": [
+      "BARLEY",
+      "WHISKEY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "corn",
+          "bourbon"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "drought",
+          "dust"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "judge",
+          "chamber"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bold",
+          "timid"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "보리는 위스키의 원료이고 옥수수는 버번의 원료이므로 같은 원료:생산물 관계이다. 가뭄:먼지는 원인:결과, 판사:집무실은 작업자:일터, 대담:소심은 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1047,
+    "question": "BEESWAX : CANDLE",
+    "stem": [
+      "BEESWAX",
+      "CANDLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "latex",
+          "glove"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heat",
+          "drought"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smith",
+          "tongs"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clear",
+          "murky"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "밀랍은 양초의 원료이고 라텍스는 장갑의 원료이므로 같은 원료:생산물 관계이다. 열:가뭄은 원인:결과, 대장장이:집게는 작업자:도구, 맑다:탁하다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1048,
+    "question": "PULP : CARDBOARD",
+    "stem": [
+      "PULP",
+      "CARDBOARD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ore",
+          "ingot"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fog",
+          "crash"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "nurse",
+          "clinic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "meek",
+          "bold"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "펄프는 판지의 원료이고 광석은 주괴(ingot)의 원료이므로 같은 원료:생산물 관계이다. 안개:충돌은 원인:결과, 간호사:진료소는 작업자:일터, 온순:대담은 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1049,
+    "question": "COCONUT : OIL",
+    "stem": [
+      "COCONUT",
+      "OIL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "soybean",
+          "tofu"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spark",
+          "scorch"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mason",
+          "quarry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "plush",
+          "coarse"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "코코넛은 기름의 원료이고 콩은 두부의 원료이므로 같은 원료:생산물 관계이다. 불꽃:그을림은 원인:결과, 석공:채석장은 작업자:일터, 푹신:거칠다는 반의어이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1050,
+    "question": "REED : BASKET",
+    "stem": [
+      "REED",
+      "BASKET"
+    ],
+    "options": [
+      {
+        "pair": [
+          "straw",
+          "mat"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "rain",
+          "landslide"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "doctor",
+          "surgery"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "lavish",
+          "frugal"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "source:product",
+    "explain": "갈대는 바구니의 원료이고 짚은 매트의 원료이므로 같은 원료:생산물 관계이다. 비:산사태는 원인:결과, 의사:수술실은 작업자:일터, 사치:검소는 반의어이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1051,
+    "question": "SHEATH : DAGGER",
+    "stem": [
+      "SHEATH",
+      "DAGGER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scabbard",
+          "blade"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cub",
+          "bear"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bright",
+          "dim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "robin",
+          "bird"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "칼집(sheath)의 기능은 단검(dagger)을 보관·보호하는 것이다. scabbard(칼집)도 blade(칼날)를 담아 보호하므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1052,
+    "question": "CRADLE : INFANT",
+    "stem": [
+      "CRADLE",
+      "INFANT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pen",
+          "livestock"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "kitten",
+          "cat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "quiet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "maple",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "요람(cradle)은 아기(infant)를 담아 재우는 기능을 한다. 우리(pen)도 가축(livestock)을 가두어 두는 기능을 하므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1053,
+    "question": "BRIDLE : HORSE",
+    "stem": [
+      "BRIDLE",
+      "HORSE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "leash",
+          "dog"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lamb",
+          "sheep"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dawn",
+          "dusk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "trout",
+          "fish"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "굴레(bridle)는 말(horse)을 통제하고 이끄는 기능을 한다. 목줄(leash)도 개(dog)를 통제하는 기능을 하므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1054,
+    "question": "BEACON : SHIP",
+    "stem": [
+      "BEACON",
+      "SHIP"
+    ],
+    "options": [
+      {
+        "pair": [
+          "signpost",
+          "traveler"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calf",
+          "cow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wet",
+          "dry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "oak",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "등대(beacon)는 배(ship)를 안내하는 기능을 한다. 이정표(signpost)도 여행자(traveler)를 안내하므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1055,
+    "question": "GIRDER : BRIDGE",
+    "stem": [
+      "GIRDER",
+      "BRIDGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "beam",
+          "ceiling"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "foal",
+          "mare"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fast",
+          "slow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rose",
+          "flower"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "대들보(girder)는 다리(bridge)를 지탱하는 기능을 한다. 들보(beam)도 천장(ceiling)을 지탱하므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1056,
+    "question": "AWNING : WINDOW",
+    "stem": [
+      "AWNING",
+      "WINDOW"
+    ],
+    "options": [
+      {
+        "pair": [
+          "canopy",
+          "bed"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "puppy",
+          "wolf"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "high",
+          "low"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "salmon",
+          "fish"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "차양(awning)은 창문(window)을 햇빛·비로부터 가려주는 기능을 한다. 천개(canopy)도 침대(bed)를 덮어 가려주므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1057,
+    "question": "TOURNIQUET : ARTERY",
+    "stem": [
+      "TOURNIQUET",
+      "ARTERY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "dam",
+          "river"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "chick",
+          "hen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "open",
+          "closed"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "pine",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "지혈대(tourniquet)는 동맥(artery)의 흐름을 막는 기능을 한다. 댐(dam)도 강(river)의 흐름을 막으므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1058,
+    "question": "VISOR : EYES",
+    "stem": [
+      "VISOR",
+      "EYES"
+    ],
+    "options": [
+      {
+        "pair": [
+          "earplug",
+          "ears"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "joey",
+          "kangaroo"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hot",
+          "cold"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cedar",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "차양막(visor)은 눈(eyes)을 빛으로부터 보호하는 기능을 한다. 귀마개(earplug)도 귀(ears)를 소음으로부터 보호하므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1059,
+    "question": "PEDESTAL : STATUE",
+    "stem": [
+      "PEDESTAL",
+      "STATUE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "easel",
+          "painting"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "gosling",
+          "goose"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wide",
+          "narrow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "birch",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "받침대(pedestal)는 조각상(statue)을 떠받쳐 전시하는 기능을 한다. 이젤(easel)도 그림(painting)을 받쳐 전시하므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1060,
+    "question": "BUOY : SWIMMER",
+    "stem": [
+      "BUOY",
+      "SWIMMER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "railing",
+          "climber"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cygnet",
+          "swan"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "light",
+          "dark"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "elm",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "부표(buoy)는 수영하는 사람(swimmer)을 떠받쳐 지탱하는 기능을 한다. 난간(railing)도 오르는 사람(climber)을 지탱하므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1061,
+    "question": "AUGER : HOLE",
+    "stem": [
+      "AUGER",
+      "HOLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "plane",
+          "shaving"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "leveret",
+          "hare"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "smooth",
+          "rough"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "ash",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "오거(auger)라는 도구는 구멍(hole)을 뚫는 기능을 한다. 대패(plane)도 깎아 대팻밥(shaving)을 만들며 깎는 기능을 하므로 같은 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1062,
+    "question": "RASP : WOOD",
+    "stem": [
+      "RASP",
+      "WOOD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "grater",
+          "cheese"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fawn",
+          "doe"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "early",
+          "late"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spruce",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "줄(rasp)이라는 도구는 나무(wood)를 갈아 깎는 기능을 한다. 강판(grater)도 치즈(cheese)를 갈아내므로 같은 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1063,
+    "question": "TONGS : COAL",
+    "stem": [
+      "TONGS",
+      "COAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "tweezers",
+          "splinter"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "piglet",
+          "sow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "near",
+          "far"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "willow",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "집게(tongs)라는 도구는 석탄(coal)을 집어 옮기는 기능을 한다. 핀셋(tweezers)도 가시(splinter)를 집어내므로 같은 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1064,
+    "question": "PLUMB LINE : VERTICAL",
+    "stem": [
+      "PLUMB LINE",
+      "VERTICAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "spirit level",
+          "horizontal"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "kit",
+          "fox"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "soft",
+          "hard"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fir",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "다림추(plumb line)는 수직(vertical)을 맞추는 기능의 도구다. 수평기(spirit level)도 수평(horizontal)을 맞추므로 같은 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1065,
+    "question": "SPADE : SOIL",
+    "stem": [
+      "SPADE",
+      "SOIL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scythe",
+          "grass"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "whelp",
+          "wolf"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thick",
+          "thin"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "beech",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "가래(spade)는 흙(soil)을 파는 기능의 도구다. 큰낫(scythe)도 풀(grass)을 베므로 둘 다 도구가 대상을 작업하는 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1066,
+    "question": "BELLOWS : AIR",
+    "stem": [
+      "BELLOWS",
+      "AIR"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pump",
+          "water"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calf",
+          "bull"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "empty",
+          "full"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "alder",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "풀무(bellows)는 공기(air)를 불어 보내는 기능의 도구다. 펌프(pump)도 물(water)을 밀어 보내므로 같은 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1067,
+    "question": "SOLDERING IRON : METAL",
+    "stem": [
+      "SOLDERING IRON",
+      "METAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "welder",
+          "steel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "duckling",
+          "drake"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "clean",
+          "dirty"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "aspen",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "인두(soldering iron)는 금속(metal)을 녹여 접합하는 기능의 도구다. 용접기(welder)도 강철(steel)을 녹여 접합하므로 같은 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1068,
+    "question": "SQUEEGEE : GLASS",
+    "stem": [
+      "SQUEEGEE",
+      "GLASS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mop",
+          "floor"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lamb",
+          "ewe"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "open",
+          "shut"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "poplar",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "고무 와이퍼(squeegee)는 유리(glass)를 닦아내는 기능의 도구다. 대걸레(mop)도 바닥(floor)을 닦으므로 같은 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1069,
+    "question": "CHISEL : STONE",
+    "stem": [
+      "CHISEL",
+      "STONE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "lathe",
+          "timber"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "eaglet",
+          "eagle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bright",
+          "murky"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hazel",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "tool:function",
+    "explain": "끌(chisel)은 돌(stone)을 깎아 다듬는 기능의 도구다. 선반(lathe)도 목재(timber)를 깎아 가공하므로 같은 tool:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1070,
+    "question": "GAUGE : THICKNESS",
+    "stem": [
+      "GAUGE",
+      "THICKNESS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "scale",
+          "weight"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pup",
+          "seal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "faint"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sumac",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "게이지(gauge)는 두께(thickness)를 측정하는 도구다. 저울(scale)도 무게(weight)를 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1071,
+    "question": "SPECTROMETER : WAVELENGTH",
+    "stem": [
+      "SPECTROMETER",
+      "WAVELENGTH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ohmmeter",
+          "resistance"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "calf",
+          "moose"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rich",
+          "poor"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "holly",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "분광계(spectrometer)는 파장(wavelength)을 측정한다. 저항계(ohmmeter)도 저항(resistance)을 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1072,
+    "question": "DOSIMETER : RADIATION",
+    "stem": [
+      "DOSIMETER",
+      "RADIATION"
+    ],
+    "options": [
+      {
+        "pair": [
+          "decibel meter",
+          "sound"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "kit",
+          "ferret"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tall",
+          "short"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "yew",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "선량계(dosimeter)는 방사선(radiation)을 측정한다. 소음계(decibel meter)도 소리(sound)를 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1073,
+    "question": "HYDROMETER : DENSITY",
+    "stem": [
+      "HYDROMETER",
+      "DENSITY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "viscometer",
+          "viscosity"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "foal",
+          "stallion"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wet",
+          "arid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "laurel",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "비중계(hydrometer)는 액체의 밀도(density)를 측정한다. 점도계(viscometer)도 점도(viscosity)를 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1074,
+    "question": "ANEMOMETER : WIND",
+    "stem": [
+      "ANEMOMETER",
+      "WIND"
+    ],
+    "options": [
+      {
+        "pair": [
+          "rain gauge",
+          "rainfall"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "cub",
+          "tiger"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "stormy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "myrtle",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "풍속계(anemometer)는 바람(wind)을 측정한다. 우량계(rain gauge)도 강우(rainfall)를 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1075,
+    "question": "GONIOMETER : ANGLE",
+    "stem": [
+      "GONIOMETER",
+      "ANGLE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "tape measure",
+          "length"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "squab",
+          "pigeon"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fresh",
+          "stale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "privet",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "각도계(goniometer)는 각도(angle)를 측정한다. 줄자(tape measure)도 길이(length)를 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1076,
+    "question": "CLINOMETER : SLOPE",
+    "stem": [
+      "CLINOMETER",
+      "SLOPE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "depth gauge",
+          "depth"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "poult",
+          "turkey"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sweet",
+          "sour"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "broom",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "경사계(clinometer)는 기울기(slope)를 측정한다. 수심계(depth gauge)도 깊이(depth)를 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1077,
+    "question": "LUX METER : ILLUMINANCE",
+    "stem": [
+      "LUX METER",
+      "ILLUMINANCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "flowmeter",
+          "flow rate"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fledgling",
+          "robin"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bold",
+          "timid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "heather",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "조도계(lux meter)는 조도(illuminance)를 측정한다. 유량계(flowmeter)도 유량(flow rate)을 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1078,
+    "question": "PYROMETER : TEMPERATURE",
+    "stem": [
+      "PYROMETER",
+      "TEMPERATURE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "ammeter",
+          "current"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "kid",
+          "nanny"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "new",
+          "ancient"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bramble",
+          "shrub"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "instrument:measurement",
+    "explain": "고온계(pyrometer)는 온도(temperature)를 측정한다. 전류계(ammeter)도 전류(current)를 측정하므로 같은 instrument:measurement 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1079,
+    "question": "PLOW : FURROW",
+    "stem": [
+      "PLOW",
+      "FURROW"
+    ],
+    "options": [
+      {
+        "pair": [
+          "dredge",
+          "channel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "spider",
+          "insect"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loose",
+          "tight"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "quartz",
+          "mineral"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "쟁기(plow)는 고랑(furrow)을 만들어 흙을 파는 기능을 한다. 준설기(dredge)도 수로(channel)를 파내는 기능을 하므로 같은 object:function 관계다. 나머지는 분류 오류, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1080,
+    "question": "WHITTLE : WOOD",
+    "stem": [
+      "WHITTLE",
+      "WOOD"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mold",
+          "clay"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "robin",
+          "sparrow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "happy",
+          "glum"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "granite",
+          "rock"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "깎다(whittle)라는 행위의 대상은 나무(wood)다. 빚다(mold)의 대상도 점토(clay)이므로 같은 action:object 관계다. 나머지는 동등 관계, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1081,
+    "question": "HOIST : SAIL",
+    "stem": [
+      "HOIST",
+      "SAIL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "raise",
+          "flag"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wolf",
+          "dog"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sharp",
+          "blunt"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "copper",
+          "metal"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "올리다(hoist)라는 행위의 전형적 대상은 돛(sail)이다. 게양하다(raise)의 대상도 깃발(flag)이므로 같은 action:object 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1082,
+    "question": "FORGE : HORSESHOE",
+    "stem": [
+      "FORGE",
+      "HORSESHOE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "weave",
+          "basket"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lion",
+          "cat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thick",
+          "slim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "jade",
+          "gem"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "단조하다(forge)라는 행위로 편자(horseshoe)를 만든다. 엮다(weave)라는 행위로 바구니(basket)를 만들므로 같은 action:object(제작) 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1083,
+    "question": "BREW : COFFEE",
+    "stem": [
+      "BREW",
+      "COFFEE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bake",
+          "bread"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "whale",
+          "mammal"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fast",
+          "sluggish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "oboe",
+          "woodwind"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "끓여 우리다(brew)라는 행위의 대상은 커피(coffee)다. 굽다(bake)의 대상도 빵(bread)이므로 같은 action:object 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1084,
+    "question": "HARVEST : CROP",
+    "stem": [
+      "HARVEST",
+      "CROP"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mine",
+          "ore"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "shark",
+          "fish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bright",
+          "faint"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tulip",
+          "flower"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "수확하다(harvest)라는 행위의 대상은 작물(crop)이다. 채굴하다(mine)의 대상도 광석(ore)이므로 같은 action:object 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1085,
+    "question": "SHUFFLE : CARDS",
+    "stem": [
+      "SHUFFLE",
+      "CARDS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "stack",
+          "crates"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "eagle",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "frantic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "basil",
+          "herb"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "섞다(shuffle)라는 행위의 대상은 카드(cards)다. 쌓다(stack)의 대상도 상자(crates)이므로 같은 action:object 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1086,
+    "question": "THATCH : ROOF",
+    "stem": [
+      "THATCH",
+      "ROOF"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pave",
+          "road"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "hawk",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wide",
+          "slim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "maple",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "이엉을 얹다(thatch)라는 행위의 대상은 지붕(roof)이다. 포장하다(pave)의 대상도 도로(road)이므로 같은 action:object 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1087,
+    "question": "SADDLE : MOUNT",
+    "stem": [
+      "SADDLE",
+      "MOUNT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "harness",
+          "ox"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "minnow",
+          "fish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "mute"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "onyx",
+          "stone"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "안장을 얹다(saddle)라는 행위의 대상은 탈것/말(mount)이다. 마구를 채우다(harness)의 대상도 소(ox)이므로 같은 action:object 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1088,
+    "question": "FURL : BANNER",
+    "stem": [
+      "FURL",
+      "BANNER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "coil",
+          "rope"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heron",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fresh",
+          "rancid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "topaz",
+          "gem"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "말다/접다(furl)라는 행위의 대상은 깃발(banner)이다. 감다(coil)의 대상도 밧줄(rope)이므로 같은 action:object 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1089,
+    "question": "WINNOW : GRAIN",
+    "stem": [
+      "WINNOW",
+      "GRAIN"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sift",
+          "flour"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "finch",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hot",
+          "frigid"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "slate",
+          "rock"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "action:object",
+    "explain": "키질하다(winnow)라는 행위의 대상은 곡물(grain)이다. 체로 치다(sift)의 대상도 밀가루(flour)이므로 같은 action:object 관계다. 나머지는 종류, 반의어, 종류 관계로 다르다.",
+    "tier": "high"
+  },
+  {
+    "id": 1090,
+    "question": "GASKET : LEAK",
+    "stem": [
+      "GASKET",
+      "LEAK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "seal",
+          "draft"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "kit",
+          "badger"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "near",
+          "distant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "basalt",
+          "rock"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "object:function",
+    "explain": "개스킷(gasket)의 기능은 누출(leak)을 막는 것이다. 밀폐재(seal)의 기능도 외풍(draft)을 막는 것이므로 같은 object:function 관계다. 나머지는 새끼:성체, 반의어, 종류 관계로 다르다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1091,
+    "question": "SALMON : FISH",
+    "stem": [
+      "SALMON",
+      "FISH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mahogany",
+          "wood"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wing",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dim",
+          "bright"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "roar",
+          "lion"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "연어는 물고기의 한 종류(예시)이다. 마호가니가 나무의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1092,
+    "question": "QUARTZ : MINERAL",
+    "stem": [
+      "QUARTZ",
+      "MINERAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "spaniel",
+          "dog"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fang",
+          "wolf"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "calm",
+          "frantic"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bleat",
+          "lamb"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "석영은 광물의 한 종류이다. 스패니얼이 개의 한 품종이라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1093,
+    "question": "CELLO : INSTRUMENT",
+    "stem": [
+      "CELLO",
+      "INSTRUMENT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mango",
+          "fruit"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "string",
+          "cello"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wet",
+          "dry"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hoot",
+          "owl"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "첼로는 악기의 한 종류이다. 망고가 과일의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1094,
+    "question": "FOXTROT : DANCE",
+    "stem": [
+      "FOXTROT",
+      "DANCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "spinach",
+          "vegetable"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "partner",
+          "dance"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "quiet"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "chirp",
+          "sparrow"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "폭스트롯은 춤의 한 종류이다. 시금치가 채소의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1095,
+    "question": "CYPRESS : TREE",
+    "stem": [
+      "CYPRESS",
+      "TREE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cobra",
+          "snake"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "needle",
+          "cypress"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "near",
+          "far"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "whinny",
+          "horse"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "사이프러스는 나무의 한 종류이다. 코브라가 뱀의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1096,
+    "question": "TYPHOON : STORM",
+    "stem": [
+      "TYPHOON",
+      "STORM"
+    ],
+    "options": [
+      {
+        "pair": [
+          "limerick",
+          "poem"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "eye",
+          "typhoon"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "full",
+          "empty"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "growl",
+          "bear"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "태풍은 폭풍의 한 종류이다. 리머릭이 시의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1097,
+    "question": "CHEETAH : MAMMAL",
+    "stem": [
+      "CHEETAH",
+      "MAMMAL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "trout",
+          "fish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "claw",
+          "cheetah"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hard",
+          "soft"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "caw",
+          "raven"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "치타는 포유류의 한 종류이다. 송어가 물고기의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1098,
+    "question": "NITROGEN : GAS",
+    "stem": [
+      "NITROGEN",
+      "GAS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pewter",
+          "alloy"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "atom",
+          "nitrogen"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "fast",
+          "slow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "squawk",
+          "parrot"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "질소는 기체의 한 종류이다. 백랍이 합금의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1099,
+    "question": "BARITONE : VOICE",
+    "stem": [
+      "BARITONE",
+      "VOICE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "thriller",
+          "novel"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "throat",
+          "baritone"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rough",
+          "smooth"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bray",
+          "mule"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "바리톤은 목소리의 한 종류이다. 스릴러가 소설의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1100,
+    "question": "JADE : STONE",
+    "stem": [
+      "JADE",
+      "STONE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bourbon",
+          "whiskey"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "facet",
+          "jade"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wide",
+          "narrow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cluck",
+          "hen"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "category:example",
+    "explain": "옥은 돌(보석)의 한 종류이다. 버번이 위스키의 한 종류라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1101,
+    "question": "WARRIOR : BRAVE",
+    "stem": [
+      "WARRIOR",
+      "BRAVE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sage",
+          "wise"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "panther",
+          "cat"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dawn",
+          "dusk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "whistle",
+          "kettle"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "전사의 전형적 특성은 용감함이다. 현자가 지혜로움이라는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1102,
+    "question": "COWARD : TIMID",
+    "stem": [
+      "COWARD",
+      "TIMID"
+    ],
+    "options": [
+      {
+        "pair": [
+          "martyr",
+          "selfless"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "beagle",
+          "dog"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "start",
+          "finish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "meow",
+          "cat"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "겁쟁이의 특성은 소심함이다. 순교자가 이타적이라는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1103,
+    "question": "SCHOLAR : LEARNED",
+    "stem": [
+      "SCHOLAR",
+      "LEARNED"
+    ],
+    "options": [
+      {
+        "pair": [
+          "jester",
+          "witty"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sardine",
+          "fish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "birth",
+          "death"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hiss",
+          "goose"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "학자의 특성은 박학함이다. 광대가 재치 있음이라는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1104,
+    "question": "BUFFOON : FOOLISH",
+    "stem": [
+      "BUFFOON",
+      "FOOLISH"
+    ],
+    "options": [
+      {
+        "pair": [
+          "saint",
+          "virtuous"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "maple",
+          "tree"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rise",
+          "fall"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gobble",
+          "turkey"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "어릿광대의 특성은 어리석음이다. 성인이 덕망 있음이라는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1105,
+    "question": "CHAMPION : VICTORIOUS",
+    "stem": [
+      "CHAMPION",
+      "VICTORIOUS"
+    ],
+    "options": [
+      {
+        "pair": [
+          "sentinel",
+          "watchful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sonnet",
+          "poem"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "open",
+          "close"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "trill",
+          "wren"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "챔피언의 특성은 승리에 능함이다. 보초가 경계심이 강하다는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1106,
+    "question": "DIPLOMAT : TACTFUL",
+    "stem": [
+      "DIPLOMAT",
+      "TACTFUL"
+    ],
+    "options": [
+      {
+        "pair": [
+          "pioneer",
+          "daring"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "robin",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "enter",
+          "leave"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "quack",
+          "duck"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "외교관의 특성은 재치(요령) 있음이다. 개척자가 대담함이라는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1107,
+    "question": "ROGUE : DISHONEST",
+    "stem": [
+      "ROGUE",
+      "DISHONEST"
+    ],
+    "options": [
+      {
+        "pair": [
+          "spendthrift",
+          "wasteful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "lime",
+          "fruit"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "launch",
+          "land"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bellow",
+          "stag"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "악당의 특성은 부정직함이다. 낭비가가 헤프다는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1108,
+    "question": "NOMAD : ROVING",
+    "stem": [
+      "NOMAD",
+      "ROVING"
+    ],
+    "options": [
+      {
+        "pair": [
+          "loyalist",
+          "faithful"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mint",
+          "herb"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "origin",
+          "terminus"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "chitter",
+          "squirrel"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "유목민의 특성은 떠돌아다님이다. 충성파가 충실함이라는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1109,
+    "question": "VETERAN : SEASONED",
+    "stem": [
+      "VETERAN",
+      "SEASONED"
+    ],
+    "options": [
+      {
+        "pair": [
+          "novice",
+          "inexperienced"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "heron",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sow",
+          "reap"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "snort",
+          "boar"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "person:trait",
+    "explain": "베테랑의 특성은 노련함이다. 초보자가 미숙하다는 특성을 가진 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1110,
+    "question": "CALF : ELK",
+    "stem": [
+      "CALF",
+      "ELK"
+    ],
+    "options": [
+      {
+        "pair": [
+          "eaglet",
+          "eagle"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "beak",
+          "eagle"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "near",
+          "distant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "screech",
+          "owl"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "young:adult",
+    "explain": "calf(새끼)는 자라서 엘크가 된다. 새끼독수리(eaglet)가 자라서 독수리가 된다는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1111,
+    "question": "CALVES : WHALE",
+    "stem": [
+      "CALVES",
+      "WHALE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "cub",
+          "tiger"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "fin",
+          "whale"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "high",
+          "low"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "moo",
+          "cow"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "young:adult",
+    "explain": "새끼는 자라서 고래가 된다. 새끼(cub)가 자라서 호랑이가 된다는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1112,
+    "question": "FRY : TROUT",
+    "stem": [
+      "FRY",
+      "TROUT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "whelp",
+          "lion"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "scale",
+          "trout"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "thick",
+          "thin"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "chirp",
+          "robin"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "young:adult",
+    "explain": "치어(fry)는 자라서 송어가 된다. 새끼(whelp)가 자라서 사자가 된다는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1113,
+    "question": "KITTEN : LION",
+    "stem": [
+      "KITTEN",
+      "LION"
+    ],
+    "options": [
+      {
+        "pair": [
+          "piglet",
+          "boar"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mane",
+          "lion"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "loud",
+          "faint"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bray",
+          "donkey"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "young:adult",
+    "explain": "새끼(kitten)는 자라서 사자가 된다. 새끼돼지(piglet)가 자라서 멧돼지가 된다는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1114,
+    "question": "CHICK : PHEASANT",
+    "stem": [
+      "CHICK",
+      "PHEASANT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "gosling",
+          "gander"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "feather",
+          "pheasant"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wide",
+          "slim"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "caw",
+          "crow"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "young:adult",
+    "explain": "새끼(chick)는 자라서 꿩이 된다. 새끼거위(gosling)가 자라서 수거위(gander)가 된다는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1115,
+    "question": "NYMPH : DRAGONFLY",
+    "stem": [
+      "NYMPH",
+      "DRAGONFLY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "maggot",
+          "fly"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wing",
+          "dragonfly"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bright",
+          "dull"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "buzz",
+          "wasp"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "young:adult",
+    "explain": "유충(nymph)은 자라서 잠자리가 된다. 구더기(maggot)가 자라서 파리가 된다는 짝이 같은 관계이며, 나머지는 부분, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1116,
+    "question": "NICKER : HORSE",
+    "stem": [
+      "NICKER",
+      "HORSE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "grunt",
+          "hog"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "foal",
+          "horse"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "start",
+          "stop"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "beagle",
+          "dog"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "sound:animal",
+    "explain": "낮은 울음(nicker)은 말이 내는 소리이다. 꿀꿀 소리(grunt)가 돼지가 내는 소리라는 짝이 같은 관계이며, 나머지는 어린동물, 반의어, 분류 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1117,
+    "question": "HONK : GOOSE",
+    "stem": [
+      "HONK",
+      "GOOSE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "coo",
+          "dove"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "gosling",
+          "goose"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "open",
+          "shut"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "maple",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "sound:animal",
+    "explain": "꽥꽥 소리(honk)는 거위가 내는 소리이다. 구구 소리(coo)가 비둘기가 내는 소리라는 짝이 같은 관계이며, 나머지는 어린동물, 반의어, 분류 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1118,
+    "question": "WHINE : PUPPY",
+    "stem": [
+      "WHINE",
+      "PUPPY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "mew",
+          "kitten"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "pup",
+          "dog"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "rise",
+          "sink"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "cobra",
+          "snake"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "sound:animal",
+    "explain": "낑낑 소리(whine)는 강아지가 내는 소리이다. 야옹 소리(mew)가 새끼고양이가 내는 소리라는 짝이 같은 관계이며, 나머지는 어린동물, 반의어, 분류 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1119,
+    "question": "GOBBLE : TURKEY",
+    "stem": [
+      "GOBBLE",
+      "TURKEY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bleat",
+          "sheep"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "wattle",
+          "turkey"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "dawn",
+          "dusk"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "tuna",
+          "fish"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "sound:animal",
+    "explain": "꼬르륵 소리(gobble)는 칠면조가 내는 소리이다. 매 소리(bleat)가 양이 내는 소리라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 분류 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1120,
+    "question": "CHATTER : MONKEY",
+    "stem": [
+      "CHATTER",
+      "MONKEY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "bark",
+          "seal"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "tail",
+          "monkey"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "full",
+          "hollow"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "spruce",
+          "tree"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "sound:animal",
+    "explain": "재잘거림(chatter)은 원숭이가 내는 소리이다. 짖는 소리(bark)가 물개가 내는 소리라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 분류 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1121,
+    "question": "CROW : ROOSTER",
+    "stem": [
+      "CROW",
+      "ROOSTER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "quack",
+          "duck"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "comb",
+          "rooster"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "wide",
+          "tight"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "perch",
+          "fish"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "sound:animal",
+    "explain": "꼬끼오 우는 소리(crow)는 수탉이 내는 소리이다. 꽥꽥(quack)이 오리가 내는 소리라는 짝이 같은 관계이며, 나머지는 부분, 반의어, 분류 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1122,
+    "question": "SCALE : JUSTICE",
+    "stem": [
+      "SCALE",
+      "JUSTICE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "dove",
+          "peace"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "raven",
+          "bird"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hello",
+          "goodbye"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "neigh",
+          "horse"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "저울은 정의를 상징한다. 비둘기가 평화를 상징한다는 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1123,
+    "question": "HOURGLASS : MORTALITY",
+    "stem": [
+      "HOURGLASS",
+      "MORTALITY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "anchor",
+          "stability"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "sloop",
+          "ship"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "arrive",
+          "depart"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "growl",
+          "tiger"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "모래시계는 유한한 생명(죽음)을 상징한다. 닻이 안정을 상징한다는 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1124,
+    "question": "CROWN : ROYALTY",
+    "stem": [
+      "CROWN",
+      "ROYALTY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "torch",
+          "liberty"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "herring",
+          "fish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "expand",
+          "shrink"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "howl",
+          "coyote"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "왕관은 왕권을 상징한다. 횃불이 자유를 상징한다는 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1125,
+    "question": "WHITE : PURITY",
+    "stem": [
+      "WHITE",
+      "PURITY"
+    ],
+    "options": [
+      {
+        "pair": [
+          "black",
+          "mourning"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "poodle",
+          "dog"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "sunrise",
+          "sunset"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "croak",
+          "frog"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "흰색은 순수를 상징한다. 검은색이 애도를 상징한다는 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "mid"
+  },
+  {
+    "id": 1126,
+    "question": "RING : COMMITMENT",
+    "stem": [
+      "RING",
+      "COMMITMENT"
+    ],
+    "options": [
+      {
+        "pair": [
+          "shamrock",
+          "luck"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "jasper",
+          "stone"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "import",
+          "export"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "hoot",
+          "owl"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "반지는 헌신(약속)을 상징한다. 토끼풀이 행운을 상징한다는 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1127,
+    "question": "LAMB : INNOCENCE",
+    "stem": [
+      "LAMB",
+      "INNOCENCE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "serpent",
+          "temptation"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "clarinet",
+          "instrument"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "accept",
+          "decline"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bleat",
+          "sheep"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "어린 양은 순결(무죄)을 상징한다. 뱀이 유혹을 상징한다는 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1128,
+    "question": "CHAIN : BONDAGE",
+    "stem": [
+      "CHAIN",
+      "BONDAGE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "wreath",
+          "remembrance"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "aspen",
+          "tree"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "gather",
+          "scatter"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "snarl",
+          "wolf"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "symbol:meaning",
+    "explain": "사슬은 속박(구속)을 상징한다. 화환이 추모를 상징한다는 짝이 같은 관계이며, 나머지는 분류, 반의어, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1129,
+    "question": "PROLOGUE : FINALE",
+    "stem": [
+      "PROLOGUE",
+      "FINALE"
+    ],
+    "options": [
+      {
+        "pair": [
+          "debut",
+          "retirement"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "mackerel",
+          "fish"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "judge",
+          "wise"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "bark",
+          "fox"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "beginning:end",
+    "explain": "프롤로그는 시작이고 피날레는 끝이다. 데뷔가 시작이고 은퇴가 끝이라는 짝이 같은 관계이며, 나머지는 분류, 특성, 동물소리 관계이다.",
+    "tier": "high"
+  },
+  {
+    "id": 1130,
+    "question": "SPROUT : WITHER",
+    "stem": [
+      "SPROUT",
+      "WITHER"
+    ],
+    "options": [
+      {
+        "pair": [
+          "hatch",
+          "perish"
+        ],
+        "correct": true
+      },
+      {
+        "pair": [
+          "walnut",
+          "nut"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "miser",
+          "stingy"
+        ],
+        "correct": false
+      },
+      {
+        "pair": [
+          "mew",
+          "cat"
+        ],
+        "correct": false
+      }
+    ],
+    "relation": "beginning:end",
+    "explain": "싹트는 것은 시작이고 시드는 것은 끝이다. 부화가 시작이고 죽음(perish)이 끝이라는 짝이 같은 관계이며, 나머지는 분류, 특성, 동물소리 관계이다.",
+    "tier": "high"
   }
 ]
