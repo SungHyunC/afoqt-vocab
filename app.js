@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.12.1";
+const VERSION = "4.13.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -42,7 +42,7 @@ function wireSpeakers(root=document){ $$(".spk[data-spk]",root).forEach(b=>{ if(
 /* ============================================================
    STATE
    ============================================================ */
-let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], GUIDES={}, AVIATION=[], AVTERMS=[];
+let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], ROOTLESSONS=[], GUIDES={}, AVIATION=[], AVTERMS=[];
 let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
 let state=null, sb=null, realtimeChan=null;
 
@@ -58,6 +58,7 @@ const DEFAULT_STATE = () => ({
   wkSeen:{}, avp:{},  // readiness coverage: wordId / aviationId seen in exams
   curr:{},    // 커리큘럼: track -> {unlocked:int, passed:{si:1}, best:{si:score}}
   checklist:{},  // 주차별 체크리스트: 'weekKey:phase' -> {taskIdx:1}
+  rootStep:0,    // 어근 추론 코치 진행 위치
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
@@ -269,7 +270,7 @@ async function flushPush(){ if(!sb) return;
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -290,7 +291,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -605,6 +606,69 @@ function renderRoots(){
     <div class="rm">${esc(r.meaning)}</div>
     <div class="rex">${r.examples.map(e=>`<span>${esc(e)}</span>`).join("")}</div></div>`).join("")
     ||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
+}
+
+/* ============================================================
+   ROOT COACH (어근 추론 코치 — 단계별 가이드 학습)
+   ============================================================ */
+let coachStep=0;
+// 'body'/'reason'/'explain' contain trusted inline HTML (<b>) authored in the
+// lesson file, so they are inserted as-is; all word/option fields are escaped.
+function renderRootCoach(){
+  const L=ROOTLESSONS;
+  if(!L.length){ $("#coachArea").innerHTML=`<div class="card center muted" style="padding:18px">콘텐츠를 불러오는 중…</div>`; return; }
+  coachStep=clamp(state.rootStep||0,0,L.length-1);
+  const s=L[coachStep], total=L.length;
+  $("#coachCount").textContent=`${coachStep+1} / ${total}`;
+  $("#coachBar").style.width=Math.round((coachStep+1)/total*100)+"%";
+  let html="";
+  if(s.kind==="teach"||s.kind==="theme"||s.kind==="caution"){
+    html=`<div class="rc-card rc-${s.kind}"><div class="rc-ic">${s.icon||"📘"}</div>
+      <h2 class="rc-title">${esc(s.title)}</h2><div class="rc-prose">${s.body||""}</div></div>`;
+  } else if(s.kind==="root"){
+    html=`<div class="rc-card rc-root">
+      <div class="rc-tag">🔑 핵심 어근</div>
+      <div class="rc-form">${esc(s.form)}</div>
+      <div class="rc-mean">${esc(s.meaning)}</div>
+      <div class="rc-hook">💡 ${esc(s.hook||"")}</div>
+      <div class="rc-words">${(s.words||[]).map(w=>`<span>${esc(w)}</span>`).join("")}</div></div>`;
+  } else if(s.kind==="worked"){
+    html=`<div class="rc-card rc-worked">
+      <div class="rc-tag">✍️ 같이 풀어보기</div>
+      <div class="rc-word">${esc(s.word)}${s.gloss?` <span class="rc-gloss">${esc(s.gloss)}</span>`:""}</div>
+      <div class="rc-break">${(s.breakdown||[]).map(b=>`<div class="rc-piece">🧩 ${esc(b)}</div>`).join("")}</div>
+      <div class="rc-opts">${s.options.map((o,i)=>`<div class="rc-opt ${i===s.answer?"ok":""}">${i===s.answer?"✅ ":""}${esc(o)}</div>`).join("")}</div>
+      <div class="rc-reason">${s.reason||""}</div></div>`;
+  } else if(s.kind==="practice"){
+    html=`<div class="rc-card rc-practice">
+      <div class="rc-tag">🥷 직접 풀기</div>
+      <div class="rc-word">${esc(s.word)}</div>
+      <div class="rc-q">이 단어와 뜻이 가장 가까운 것은?</div>
+      <div class="rc-opts" id="coachOpts">${s.options.map((o,i)=>`<button class="rc-pick" data-i="${i}">${esc(o)}</button>`).join("")}</div>
+      <button class="btn ghost sm" id="coachHint" style="margin-top:12px">💡 어근 힌트</button>
+      <div class="rc-hintbox hidden" id="coachHintBox">${esc(s.hint||"")}</div>
+      <div class="rc-explain hidden" id="coachExplain"></div></div>`;
+  }
+  $("#coachArea").innerHTML=html;
+  if(s.kind==="practice"){
+    $("#coachHint").onclick=()=>$("#coachHintBox").classList.toggle("hidden");
+    $$("#coachOpts .rc-pick").forEach(b=>b.onclick=()=>{
+      const i=+b.dataset.i, ok=i===s.answer;
+      $$("#coachOpts .rc-pick").forEach((x,xi)=>{ x.disabled=true;
+        if(xi===s.answer) x.classList.add("ok"); else if(xi===i) x.classList.add("no"); });
+      $("#coachHintBox").classList.remove("hidden");
+      const ex=$("#coachExplain"); ex.classList.remove("hidden");
+      ex.innerHTML=`<b>${ok?"⭕ 정답!":"❌ 아쉬워"}</b> ${esc(s.explain||"")}`;
+    });
+  }
+  $("#coachPrev").disabled=coachStep===0;
+  $("#coachNext").textContent=coachStep>=total-1?"완료 🎉":"다음 ▶";
+  window.scrollTo(0,0);
+}
+function coachGo(d){
+  const total=ROOTLESSONS.length; if(!total) return;
+  if(d>0 && coachStep>=total-1){ state.rootStep=0; saveLocal(); toast("어근 코스 완료! 🎉 매일 단어 복습에 어근 5개씩 얹어봐"); go("vocab"); return; }
+  state.rootStep=clamp(coachStep+d,0,total-1); saveLocal(); renderRootCoach();
 }
 
 /* ============================================================
@@ -1856,6 +1920,12 @@ function wire(){
   $("#rootsBack").onclick=()=>go("vocab");
   $("#rootsSearch").oninput=e=>{ rootSearch=e.target.value.trim(); renderRoots(); };
   $$("#rootsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#rootsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); rootFilter=c.dataset.rf; renderRoots(); });
+  // root coach
+  $("#vkCoach").onclick=()=>go("rootcoach");
+  $("#coachExit").onclick=()=>go("vocab");
+  $("#coachRestart").onclick=()=>{ if(confirm("처음부터 다시 볼까요?")){ state.rootStep=0; saveLocal(); renderRootCoach(); } };
+  $("#coachPrev").onclick=()=>coachGo(-1);
+  $("#coachNext").onclick=()=>coachGo(1);
   // exam
   $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
   $("#examExit").onclick=()=>go("home");
@@ -2010,6 +2080,7 @@ async function boot(){
     ANALOGIES=await loadJSON("./analogies.json")||[];
     READING=await loadJSON("./reading.json")||[];
     ROOTS=await loadJSON("./roots.json")||[];
+    ROOTLESSONS=await loadJSON("./root_lessons.json")||[];
     GUIDES=await loadJSON("./guides.json")||{};
     AVIATION=await loadJSON("./aviation.json")||[];
     AVTERMS=await loadJSON("./aviation_terms.json")||[];
