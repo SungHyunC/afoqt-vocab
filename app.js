@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.14.0";
+const VERSION = "4.15.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -178,7 +178,7 @@ async function initSync(){
   catch(e){ console.warn("sync offline:",e.message); setSyncDot("off"); return; }
   if(!lib){ setSyncDot("off"); return; }
   try{ sb=lib.createClient(sbUrl(),sbKey(),{realtime:{params:{eventsPerSecond:5}}});
-    setSyncDot("on"); await pullAll(); subscribeRealtime();
+    setSyncDot("on"); await pullAll(); pushAllLocal(); subscribeRealtime();
   }catch(e){ console.error(e); sb=null; setSyncDot("err"); }
 }
 async function pullAll(){
@@ -266,6 +266,28 @@ async function flushPush(){ if(!sb) return;
     if(pushQ.settings){ const r=pushQ.settings; pushQ.settings=null; await sb.from("settings").upsert(r,{onConflict:"user_key"}); }
     if(pushQ.app_state){ const r=pushQ.app_state; pushQ.app_state=null; await sb.from("app_state").upsert(r,{onConflict:"user_key"}); }
   }catch(e){ console.error("push fail",e); setSyncDot("err"); } }
+// Upload EVERY local row. Call AFTER pullAll (so local already holds the newest of
+// both sides) — heals progress whose push was lost when the app closed before the
+// 700ms debounce fired (the common mobile "study a card then background" case).
+function pushAllLocal(){
+  if(!sb) return Promise.resolve();
+  for(const id in state.cards){ const c=state.cards[id]; if(c&&c.status&&c.status!=="new") queuePush("vocab_state",{id:+id,...c}); }
+  for(const id in state.va){ queuePush("verbal_progress",{kind:"va",item_id:String(id),data:state.va[id]}); }
+  for(const id in state.rc){ queuePush("verbal_progress",{kind:"rc",item_id:String(id),data:state.rc[id]}); }
+  for(const day in state.daily){ queuePush("daily_log",{day,...state.daily[day]}); }
+  queuePush("settings",{}); queuePush("app_state");
+  return flushPush();
+}
+// Manual "sync now": pull newest, then push all local, then report the synced totals
+// so two devices can be compared apples-to-apples.
+async function forceSync(){
+  if(!sb){ toast("오프라인 모드예요. 먼저 동기화 코드를 연결하세요."); return; }
+  toast("동기화 중…");
+  try{ await pullAll(); await pushAllLocal();
+    const c=countByStatus();
+    toast(`✅ 동기화 완료 · 학습 ${c.learned}개 · 마스터 ${c.mastered}개`, 3500);
+  }catch(e){ toast("동기화 실패 — 연결 상태를 확인하세요"); }
+}
 
 /* ============================================================
    NAVIGATION
@@ -1968,6 +1990,7 @@ function wire(){
   $("#copyCode").onclick=()=>{ navigator.clipboard?.writeText(syncCode()); toast("동기화 코드 복사됨"); };
   $("#newCode").onclick=()=>{ if(confirm("새 동기화 코드를 만들면 이 기기는 새 데이터로 시작합니다. 계속할까요?")){ localStorage.setItem(LS.code,genCode()); location.reload(); } };
   $("#enterCode").onclick=()=>{ const c=prompt("다른 기기와 동기화할 코드를 입력하세요:",syncCode()); if(c&&c.trim()){ localStorage.setItem(LS.code,c.trim()); toast("코드 적용 — 동기화 중…"); location.reload(); } };
+  $("#forceSync").onclick=forceSync;
   $("#resetAll").onclick=()=>{ if(confirm("이 기기의 학습 기록을 모두 지웁니다. 계속할까요?")){ state=DEFAULT_STATE(); saveLocal(); toast("초기화됨"); $("#settingsSheet").classList.remove("open"); go("home"); } };
   $("#forceUpdate").onclick=forceUpdate;
   // Flush pending saves before the app is backgrounded/closed (mobile-safe).
@@ -1975,7 +1998,9 @@ function wire(){
   // recommended new-words amount reflect the current day (handles the day
   // rolling over while the app/PWA was left open in the background).
   document.addEventListener("visibilitychange",()=>{
-    if(document.visibilityState==="hidden"){ saveNow(); return; }
+    // Backgrounding/lock fires this while the page is still alive — flush the
+    // pending server push here so mobile "study then close" doesn't lose progress.
+    if(document.visibilityState==="hidden"){ saveNow(); flushPush(); return; }
     if(!sessionActive()){ lastDay=todayStr(); softRender(); }
   });
   window.addEventListener("focus",()=>{ if(!sessionActive()) softRender(); });
@@ -1985,8 +2010,8 @@ function wire(){
     if(todayStr()!==lastDay){ lastDay=todayStr(); if(!sessionActive()){ const a=$(".view.active")?.id;
       if(a==="view-home") renderHome(); else softRender(); } }
   }, 60000);
-  window.addEventListener("pagehide", saveNow);
-  window.addEventListener("beforeunload", saveNow);
+  window.addEventListener("pagehide", ()=>{ saveNow(); flushPush(); });
+  window.addEventListener("beforeunload", ()=>{ saveNow(); flushPush(); });
   // Preload TTS voices (they populate asynchronously in most browsers).
   if(window.speechSynthesis){ loadVoices(); window.speechSynthesis.onvoiceschanged=loadVoices; }
 }
