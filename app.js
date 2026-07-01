@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.17.0";
+const VERSION = "4.18.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1825,9 +1825,12 @@ function renderStats(){
   let met=0; for(const k in state.daily) if(state.daily[k].goal_met) met++;
   $("#calStreak").textContent=computeStreak(); $("#calMet").textContent=met;
   const left=daysLeft(),rem=cnt.remaining,pace=newPerDay(),fin=pace?Math.ceil(rem/pace):0,ok=fin<=left;
+  const todayDueN=dueCards().length, todayNewN=Math.min(pace,rem), todayN=todayDueN+todayNewN;
   $("#projection").innerHTML=rem===0?`<div class="center"><div class="big-emoji">🏁</div><b>모든 단어 학습 완료!</b><div class="muted">이제 복습으로 마스터하세요.</div></div>`
-    :`남은 단어 <b>${rem}</b>개 · 시험까지 <b>${left}</b>일<br>현재 페이스(신규 ${pace}/일)면 <b>약 ${fin}일</b>에 1회독.<br>
-      <span style="color:${ok?'var(--ok)':'var(--warn)'}">${ok?'✅ 일정 내 완주 가능!':'⚠️ 하루 신규 단어를 늘리면 더 안전해요.'}</span>`;
+    :`📅 <b>오늘은 ${todayN}개</b> (복습 ${todayDueN} + 신규 ${todayNewN})<br>
+      남은 단어 <b>${rem}</b>개 · 시험까지 <b>${left}</b>일<br>이 페이스(신규 ${pace}/일)면 <b>약 ${fin}일</b>에 1회독.<br>
+      <span style="color:${ok?'var(--ok)':'var(--warn)'}">${ok?'✅ 일정 내 완주 가능!':'⚠️ 하루 신규 단어를 늘리면 더 안전해요.'}</span>
+      <div class="muted" style="font-size:12px;margin-top:6px">⏳ 쉬는 날엔 남은 단어는 그대로, 남은 일수만 줄어서 다음날 개수가 자동으로 늘어나요.</div>`;
   renderComposite(); renderExamTrend(); renderWeakness();
 }
 const SEC_KO={WK:"단어",VA:"유추",RC:"독해",AR:"산수",MK:"수학",PS:"과학",AV:"항공",TR:"표읽기",BC:"블록",IC:"계기",SJ:"상황"};
