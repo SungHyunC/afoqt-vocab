@@ -20,6 +20,12 @@ create table if not exists public.vocab_state (
   primary key (user_key, word_id)
 );
 
+-- v4.16: 확인 시험(진짜 암기 검증) — 자가채점(플래시카드)과 별개로
+-- blind 4지선다 퀴즈로 통과했는지, 7일 뒤 재확인까지 통과했는지 기록.
+-- verify: null(미확인) | 'pending'(1차 통과, 재확인 대기) | 'verified'(2차까지 통과)
+alter table public.vocab_state add column if not exists verify     text;
+alter table public.vocab_state add column if not exists verify_due timestamptz;
+
 -- Verbal Analogies / Reading Comprehension 진도 (kind = 'va' | 'rc')
 create table if not exists public.verbal_progress (
   user_key    text        not null,
