@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.15.0";
+const VERSION = "4.16.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -109,7 +109,9 @@ function daysLeft(){ return Math.max(1, dayDiff(todayStr(), state.settings.exam_
 function newWordsRemaining(){ return newPool().length; }
 function autoPace(){ return clamp(Math.ceil(newWordsRemaining()/daysLeft()),5,300); }
 function newPerDay(){ return state.settings.daily_goal>0 ? state.settings.daily_goal : autoPace(); }
-function dueCards(){ const t=Date.now(),out=[]; for(const w of WORDS){ const c=state.cards[w.id]; if(c&&c.status!=="new"&&c.due&&new Date(c.due).getTime()<=t) out.push(w.id);} return out; }
+// Cards awaiting the 7-day "확인 시험" recheck are held out of the normal flashcard
+// rotation entirely (verify:"pending") — they only resurface via the confirm quiz.
+function dueCards(){ const t=Date.now(),out=[]; for(const w of WORDS){ const c=state.cards[w.id]; if(c&&c.status!=="new"&&c.verify!=="pending"&&c.due&&new Date(c.due).getTime()<=t) out.push(w.id);} return out; }
 function newCardIds(limit){
   let cand=newPool();
   if(flag("high_first")) cand=[...cand].sort((a,b)=>(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)])||a.id-b.id);
@@ -142,6 +144,69 @@ function gradeCard(id,q){ const c={...getCard(id)};
     const due=new Date(); due.setMinutes(due.getMinutes()+Math.round(c.interval*1440)); c.due=due.toISOString(); }
   setCard(id,c); }
 function fmtIv(d){ if(d<1) return "<1일"; if(d>=21) return "마스터"; return Math.round(d)+"일"; }
+
+/* ============================================================
+   확인 시험 (진짜 암기 검증)
+   ------------------------------------------------------------
+   플래시카드 자가채점("good")은 재인(recognition)이라 착각하기 쉬움.
+   review/mastered 단계 단어를 blind 4지선다로 통과해야 verify:"pending"
+   (7일 뒤 재확인 예약, 그동안 일반 플래시카드 로테이션에서 제외).
+   7일 뒤 재확인까지 통과하면 verify:"verified"(완전 마스터). 둘 중
+   한 번이라도 틀리면 즉시 학습중으로 강등해 복습 로테이션에 복귀.
+   ============================================================ */
+function confirmPoolFirst(){ return WORDS.filter(w=>{ const c=getCard(w.id);
+  return (c.status==="review"||c.status==="mastered") && !c.verify; }).map(w=>w.id); }
+function confirmPoolRecheck(){ const t=Date.now(); return WORDS.filter(w=>{ const c=getCard(w.id);
+  return c.verify==="pending" && c.verifyDue && new Date(c.verifyDue).getTime()<=t; }).map(w=>w.id); }
+function gradeConfirm(id,ok,isRecheck){
+  if(!ok){ gradeCard(id,"again"); const c={...getCard(id)}; c.verify=null; c.verifyDue=null; setCard(id,c); return; }
+  const c={...getCard(id)};
+  if(isRecheck){ c.verify="verified"; c.verifyDue=null; c.status="mastered"; }
+  else { c.verify="pending"; const d=new Date(); d.setDate(d.getDate()+7); c.verifyDue=d.toISOString(); }
+  setCard(id,c);
+}
+let confirmQuiz=null;
+function renderConfirmHub(){
+  const cf=confirmPoolFirst().length, cr=confirmPoolRecheck().length;
+  $("#confirmPoolInfo").innerHTML = cr>0
+    ? `🔁 <b>재확인 ${cr}개</b> 대기 (지난 확인 성공 후 7일 경과) · 첫 확인 대기 ${cf}개`
+    : cf>0 ? `첫 확인 대기 <b>${cf}개</b> — 복습/마스터 단계 단어 중 아직 검증 안 한 것들`
+    : "아직 확인할 단어가 없어요. 플래시카드로 복습 단계까지 학습하면 여기 나타나요.";
+  $("#confirmGo").disabled = (cf+cr)===0;
+}
+function startConfirm(){
+  const recheck=confirmPoolRecheck().slice(0,20);
+  const first=sample(confirmPoolFirst(), Math.max(0,20-recheck.length));
+  const items=[...recheck,...first];
+  if(!items.length){ toast("지금 확인할 단어가 없어요."); return; }
+  confirmQuiz={items,idx:0,score:0,recheckSet:new Set(recheck)};
+  $("#confirmStart").classList.add("hidden"); $("#confirmDone").classList.add("hidden"); renderConfirm();
+}
+function renderConfirm(){
+  const q=confirmQuiz; if(q.idx>=q.items.length) return finishConfirm();
+  const id=q.items[q.idx], w=WMAP.get(id), isRecheck=q.recheckSet.has(id);
+  $("#confirmCount").textContent=`${q.idx+1} / ${q.items.length}`; $("#confirmTag").textContent=isRecheck?"🔁 재확인":"✅ 첫 확인";
+  $("#confirmBar").style.width=(q.idx/q.items.length*100)+"%";
+  const correct=w.kor, choices=sample(WORDS.filter(x=>x.id!==id&&x.kor),3).map(x=>x.kor);
+  const opts=shuffle([correct,...choices]);
+  $("#confirmArea").innerHTML=`<div class="card"><div class="q-prompt">이 단어, 진짜 뜻을 알아요? (뒤집기 없이 바로 선택)</div><div class="q-word">${esc(w.word)}</div>
+    <div class="choices" id="confirmChoices">${opts.map(o=>`<button class="choice">${esc(o)}</button>`).join("")}</div></div>`;
+  q.answered=false;
+  $$("#confirmChoices .choice").forEach(btn=>btn.onclick=()=>{ if(q.answered) return; q.answered=true; const ok=btn.textContent===correct;
+    $$("#confirmChoices .choice").forEach(b=>{ b.disabled=true; if(b.textContent===correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
+    gradeConfirm(id,ok,isRecheck); if(ok) q.score++;
+    bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+    setTimeout(()=>{ q.idx++; renderConfirm(); }, ok?550:1300);
+  });
+}
+function finishConfirm(){
+  const q=confirmQuiz, total=q.items.length;
+  $("#confirmArea").innerHTML=""; $("#confirmBar").style.width="100%";
+  $("#confirmResult").textContent=`${q.score} / ${total} 진짜 암기 확인`;
+  $("#confirmResultSub").textContent = q.score===total ? "완벽해요! 통과한 단어는 며칠 뒤 몰래 한 번 더 확인할게요."
+    : "틀린 단어는 복습 목록으로 돌아갔어요 — 찍은 거였을 수도 있으니 다시 익혀봐요.";
+  $("#confirmDone").classList.remove("hidden"); confirmQuiz=null; renderVocab();
+}
 
 /* ============================================================
    SUPABASE SYNC
@@ -200,7 +265,7 @@ async function pullAll(){
   }catch(e){ console.error("pull fail",e); setSyncDot("err"); }
 }
 function mergeCard(r){ const cur=state.cards[r.word_id];
-  if(!cur||new Date(r.updated_at)>new Date(cur.updated_at||0)) state.cards[r.word_id]={status:r.status,reps:r.reps,lapses:r.lapses,ease:r.ease,interval:r.interval,due:r.due,starred:r.starred,updated_at:r.updated_at}; }
+  if(!cur||new Date(r.updated_at)>new Date(cur.updated_at||0)) state.cards[r.word_id]={status:r.status,reps:r.reps,lapses:r.lapses,ease:r.ease,interval:r.interval,due:r.due,starred:r.starred,verify:r.verify||null,verifyDue:r.verify_due||null,updated_at:r.updated_at}; }
 function mergeVerbal(r){ const tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null; if(!tgt) return;
   const cur=tgt[r.item_id]; const d=Object.assign({},r.data,{updated_at:r.updated_at});
   if(!cur||new Date(r.updated_at)>new Date(cur.updated_at||0)) tgt[r.item_id]=d; }
@@ -253,19 +318,32 @@ const pushQ={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()
 let pushTimer=null;
 function queuePush(table,row){ if(!sb) return; const code=syncCode();
   if(table==="app_state"){ pushQ.app_state={user_key:code,data:miscBlob(),updated_at:nowISO()}; clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,1200); return; }
-  if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,updated_at:row.updated_at});
+  if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at});
   else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only},updated_at:nowISO()};
   clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,700); }
+// Each table pushes independently and only clears its queue on confirmed success —
+// so a stale schema (e.g. a column added client-side before the SQL migration runs)
+// fails just that one table and self-heals on the next push once the DB catches up,
+// instead of silently dropping every table's pending writes.
 async function flushPush(){ if(!sb) return;
-  try{
-    if(pushQ.vocab_state.size){ const r=[...pushQ.vocab_state.values()]; pushQ.vocab_state.clear(); await sb.from("vocab_state").upsert(r,{onConflict:"user_key,word_id"}); }
-    if(pushQ.verbal_progress.size){ const r=[...pushQ.verbal_progress.values()]; pushQ.verbal_progress.clear(); await sb.from("verbal_progress").upsert(r,{onConflict:"user_key,kind,item_id"}); }
-    if(pushQ.daily_log.size){ const r=[...pushQ.daily_log.values()]; pushQ.daily_log.clear(); await sb.from("daily_log").upsert(r,{onConflict:"user_key,day"}); }
-    if(pushQ.settings){ const r=pushQ.settings; pushQ.settings=null; await sb.from("settings").upsert(r,{onConflict:"user_key"}); }
-    if(pushQ.app_state){ const r=pushQ.app_state; pushQ.app_state=null; await sb.from("app_state").upsert(r,{onConflict:"user_key"}); }
-  }catch(e){ console.error("push fail",e); setSyncDot("err"); } }
+  if(pushQ.vocab_state.size){ const r=[...pushQ.vocab_state.values()];
+    try{ await sb.from("vocab_state").upsert(r,{onConflict:"user_key,word_id"}); pushQ.vocab_state.clear(); }
+    catch(e){ console.error("push vocab_state fail",e); setSyncDot("err"); } }
+  if(pushQ.verbal_progress.size){ const r=[...pushQ.verbal_progress.values()];
+    try{ await sb.from("verbal_progress").upsert(r,{onConflict:"user_key,kind,item_id"}); pushQ.verbal_progress.clear(); }
+    catch(e){ console.error("push verbal_progress fail",e); setSyncDot("err"); } }
+  if(pushQ.daily_log.size){ const r=[...pushQ.daily_log.values()];
+    try{ await sb.from("daily_log").upsert(r,{onConflict:"user_key,day"}); pushQ.daily_log.clear(); }
+    catch(e){ console.error("push daily_log fail",e); setSyncDot("err"); } }
+  if(pushQ.settings){ const r=pushQ.settings;
+    try{ await sb.from("settings").upsert(r,{onConflict:"user_key"}); pushQ.settings=null; }
+    catch(e){ console.error("push settings fail",e); setSyncDot("err"); } }
+  if(pushQ.app_state){ const r=pushQ.app_state;
+    try{ await sb.from("app_state").upsert(r,{onConflict:"user_key"}); pushQ.app_state=null; }
+    catch(e){ console.error("push app_state fail",e); setSyncDot("err"); } }
+}
 // Upload EVERY local row. Call AFTER pullAll (so local already holds the newest of
 // both sides) — heals progress whose push was lost when the app closed before the
 // 700ms debounce fired (the common mobile "study a card then background" case).
@@ -313,7 +391,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -419,6 +497,8 @@ function renderVocab(){
   const cnt=countByStatus();
   $("#vkLearned").textContent=cnt.learned; $("#vkMastered").textContent=cnt.mastered;
   $("#vkHigh").textContent=cnt.highLearned; $("#vkRemain").textContent=cnt.remaining;
+  const cf=confirmPoolFirst().length, cr=confirmPoolRecheck().length;
+  $("#vkConfirmSub").textContent = cr>0?`🔁 재확인 ${cr}개 대기 · 첫 확인 ${cf}개`:cf>0?`확인 대기 ${cf}개`:"확인할 단어 없음";
   $("#optHighFirst").checked=flag("high_first"); $("#optHighOnly").checked=flag("high_only");
 }
 
@@ -1973,6 +2053,10 @@ function wire(){
   $("#quizBack").onclick=()=>go("vocab"); $("#quizGo").onclick=startQuiz;
   $("#quizRetry").onclick=()=>{ $("#quizDone").classList.add("hidden"); $("#quizStart").classList.remove("hidden"); $("#quizArea").innerHTML=""; };
   $("#quizHomeBtn").onclick=()=>go("home");
+  $("#vkConfirm").onclick=()=>go("confirm");
+  $("#confirmBack").onclick=()=>go("vocab"); $("#confirmGo").onclick=startConfirm;
+  $("#confirmRetryBtn").onclick=()=>{ $("#confirmDone").classList.add("hidden"); $("#confirmStart").classList.remove("hidden"); $("#confirmArea").innerHTML=""; renderConfirmHub(); };
+  $("#confirmHomeBtn").onclick=()=>go("home");
   // words
   $("#wordsBack").onclick=()=>go("vocab"); $("#searchBox").oninput=e=>{ wordSearch=e.target.value.trim(); renderWords(); };
   $$("#wordFilters .chip").forEach(c=>c.onclick=()=>{ $$("#wordFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); wordFilter=c.dataset.f; renderWords(); });

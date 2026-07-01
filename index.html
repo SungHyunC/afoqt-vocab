@@ -128,6 +128,8 @@
   <button class="btn primary" id="vkStart" style="margin-top:16px">▶︎ 플래시카드 학습</button>
   <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
   <button class="btn ghost" id="vkQuiz" style="margin-top:10px">🧠 빠른 퀴즈 (연습용 · 시간 無)</button>
+  <button class="btn ghost" id="vkConfirm" style="margin-top:10px;border-color:#22c55e">✅ 확인 시험 — 진짜 외웠는지 검증</button>
+  <div class="hintbox" id="vkConfirmSub" style="margin-top:4px">확인할 단어 없음</div>
   <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 보기</button>
   <button class="btn ghost" id="vkCoach" style="margin-top:10px;border-color:var(--brand)">🧠 어근 추론 코치 — 모르는 단어 좁히는 법</button>
   <button class="btn ghost" id="vkRoots" style="margin-top:10px">🔤 어원 사전 (접두사·어근 검색)</button>
@@ -202,6 +204,33 @@
     <p class="muted" id="quizResultSub"></p>
     <button class="btn primary" id="quizRetry" style="margin-top:10px">다시</button>
     <button class="btn ghost" id="quizHomeBtn" style="margin-top:10px">홈으로</button>
+  </div>
+</main>
+
+<!-- ===== CONFIRM (확인 시험 — 진짜 암기 검증) ===== -->
+<main id="view-confirm" class="view">
+  <div class="study-top">
+    <button class="btn sm ghost" id="confirmBack">← 나가기</button>
+    <span id="confirmCount">0 / 0</span>
+    <span id="confirmTag"></span>
+  </div>
+  <div class="progressbar" style="margin-bottom:14px"><i id="confirmBar"></i></div>
+  <div id="confirmArea"></div>
+  <div id="confirmStart" class="card center">
+    <div class="big-emoji">✅</div>
+    <h2>확인 시험</h2>
+    <p class="muted">뒤집어보지 않고 <b>4지선다로 진짜 뜻</b>을 맞혀서 확인해요.<br>
+      통과하면 <b>7일 뒤 몰래 한 번 더</b> 물어봐요 — 그때도 맞으면 완전히 마스터, 틀리면 복습으로 돌아가요.<br>
+      찍은 단어는 이 두 번의 검증에서 대부분 걸러집니다.</p>
+    <div class="hintbox" id="confirmPoolInfo" style="margin-top:10px"></div>
+    <button class="btn primary" id="confirmGo" style="margin-top:14px">시작</button>
+  </div>
+  <div id="confirmDone" class="card center hidden">
+    <div class="big-emoji">🏆</div>
+    <h2 id="confirmResult"></h2>
+    <p class="muted" id="confirmResultSub"></p>
+    <button class="btn primary" id="confirmRetryBtn" style="margin-top:10px">다시</button>
+    <button class="btn ghost" id="confirmHomeBtn" style="margin-top:10px">홈으로</button>
   </div>
 </main>
 
