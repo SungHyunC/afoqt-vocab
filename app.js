@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.16.0";
+const VERSION = "4.17.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -21,6 +21,11 @@ const dayDiff = (a,b) => Math.round((parseDate(b)-parseDate(a))/86400000);
 const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
 const sample = (arr,n) => shuffle(arr).slice(0,n);
 const esc = s => String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+// Shrink the font for long single words/phrases (CIRCUMNAVIGATE, INTROSPECTIVE...) so they
+// stay on one line on narrow phones instead of wrapping mid-word or overflowing the card.
+function wordFont(text,base){ const n=String(text||"").length;
+  const px = n<=9?base : n<=12?Math.round(base*0.8) : n<=15?Math.round(base*0.63) : n<=19?Math.round(base*0.5) : Math.round(base*0.42);
+  return `font-size:${px}px`; }
 function toast(msg, ms=1800){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove("show"), ms); }
 // Text-to-speech (browser built-in). Speaks English words/sentences for pronunciation.
 let _voices=[];
@@ -189,7 +194,7 @@ function renderConfirm(){
   $("#confirmBar").style.width=(q.idx/q.items.length*100)+"%";
   const correct=w.kor, choices=sample(WORDS.filter(x=>x.id!==id&&x.kor),3).map(x=>x.kor);
   const opts=shuffle([correct,...choices]);
-  $("#confirmArea").innerHTML=`<div class="card"><div class="q-prompt">이 단어, 진짜 뜻을 알아요? (뒤집기 없이 바로 선택)</div><div class="q-word">${esc(w.word)}</div>
+  $("#confirmArea").innerHTML=`<div class="card"><div class="q-prompt">이 단어, 진짜 뜻을 알아요? (뒤집기 없이 바로 선택)</div><div class="q-word" style="${wordFont(w.word,26)}">${esc(w.word)}</div>
     <div class="choices" id="confirmChoices">${opts.map(o=>`<button class="choice">${esc(o)}</button>`).join("")}</div></div>`;
   q.answered=false;
   $$("#confirmChoices .choice").forEach(btn=>btn.onclick=()=>{ if(q.answered) return; q.answered=true; const ok=btn.textContent===correct;
@@ -548,7 +553,7 @@ function renderCard(){
   $("#studyArea").innerHTML=`
     <div class="flash" id="flashCard">
       <button class="star-btn ${c.starred?'on':''}" id="starBtn">${c.starred?'★':'☆'}</button>
-      <div class="word-row"><div class="word">${esc(w.word)}</div>${spkBtn(w.word)}</div>
+      <div class="word-row"><div class="word" style="${wordFont(w.word,38)}">${esc(w.word)}</div>${spkBtn(w.word)}</div>
       <div class="pos">${esc(w.pos||"")}${w.source==="gre-magoosh"?" · GRE":""}${tierOf(w)==="high"?" · ⭐빈출":""}</div>
       <div class="reveal hidden" id="revealBox">
         <div class="kor">${esc(w.kor||"")}</div>
@@ -633,7 +638,7 @@ function renderQuiz(){ const q=quiz; if(q.idx>=q.items.length) return finishQuiz
   else { prompt=`"${w.word}" 와(과) 비슷한 말은?`; qword=w.word; correct=w.synonyms[Math.floor(Math.random()*w.synonyms.length)];
     choices=sample(WORDS.filter(x=>x.id!==id&&x.synonyms&&x.synonyms.length),3).map(x=>x.synonyms[0]); }
   const opts=shuffle([correct,...choices]);
-  $("#quizArea").innerHTML=`<div class="card"><div class="q-prompt">${esc(prompt)}</div><div class="q-word">${esc(qword)}</div>
+  $("#quizArea").innerHTML=`<div class="card"><div class="q-prompt">${esc(prompt)}</div><div class="q-word" style="${wordFont(qword,26)}">${esc(qword)}</div>
     <div class="choices" id="choices">${opts.map(o=>`<button class="choice">${esc(o)}</button>`).join("")}</div></div>`;
   q.answered=false;
   $$("#choices .choice").forEach(btn=>btn.onclick=()=>{ if(q.answered)return; q.answered=true; const ok=btn.textContent===correct;
@@ -739,7 +744,7 @@ function renderRootCoach(){
     // pick first, then reveal the answer + full reasoning (not pre-solved).
     html=`<div class="rc-card rc-worked">
       <div class="rc-tag">✍️ 같이 풀어보기</div>
-      <div class="rc-word">${esc(s.word)}</div>
+      <div class="rc-word" style="${wordFont(s.word,24)}">${esc(s.word)}</div>
       <div class="rc-q">아래 어근 단서로 뜻을 추론해 골라봐</div>
       <div class="rc-break">${(s.breakdown||[]).map(b=>`<div class="rc-piece">🧩 ${esc(b)}</div>`).join("")}</div>
       <div class="rc-opts" id="coachOpts">${s.options.map((o,i)=>`<button class="rc-pick" data-i="${i}">${esc(o)}</button>`).join("")}</div>
@@ -747,7 +752,7 @@ function renderRootCoach(){
   } else if(s.kind==="practice"){
     html=`<div class="rc-card rc-practice">
       <div class="rc-tag">🥷 직접 풀기</div>
-      <div class="rc-word">${esc(s.word)}</div>
+      <div class="rc-word" style="${wordFont(s.word,24)}">${esc(s.word)}</div>
       <div class="rc-q">이 단어와 뜻이 가장 가까운 것은?</div>
       <div class="rc-opts" id="coachOpts">${s.options.map((o,i)=>`<button class="rc-pick" data-i="${i}">${esc(o)}</button>`).join("")}</div>
       <button class="btn ghost sm" id="coachHint" style="margin-top:12px">💡 어근 힌트</button>
