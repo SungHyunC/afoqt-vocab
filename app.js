@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.25.0";
+const VERSION = "4.26.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -390,7 +390,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -411,7 +411,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -801,7 +801,9 @@ function coachGo(d){
 /* ============================================================
    AVIATION (Pilot — Aviation Information)
    ============================================================ */
-const AVCAT={aerodynamics:"공기역학",control_surfaces:"조종면",instruments:"계기",structure:"구조",airport:"공항",helicopter:"헬기",general:"일반",stability:"안정성",propulsion:"추진",forces:"힘·법칙",terminology:"용어",maneuvers:"기동",navigation:"항법",airspace:"공역"};
+const AVCAT={aerodynamics:"공기역학",control_surfaces:"조종면",instruments:"계기",structure:"구조",airport:"공항",helicopter:"헬기",general:"일반",stability:"안정성",propulsion:"추진",forces:"힘·법칙",terminology:"용어",maneuvers:"기동",navigation:"항법",airspace:"공역",airport_ops:"공항",weather:"기상",engines:"엔진",bernoulli:"베르누이",traffic_pattern:"장주",airspeed:"속도",faa_basics:"FAA 기초",airport_markings:"공항 표지",fixed_wing_parts:"고정익 구조",weight_balance:"무게·균형",four_forces:"4가지 힘",angle_of_attack:"받음각",drag:"항력",propeller:"프로펠러"};
+// aviation question topic -> Korean label (falls back to AVCAT, then raw)
+function avTopicKo(t){ return AVCAT[t]||t; }
 function renderAviation(){
   $("#avTerms").textContent=AVTERMS.length;
   $("#avQs").textContent=AVIATION.length;
@@ -821,6 +823,25 @@ function renderAvTerms(){
     <div class="d">${esc(t.def_ko||"")}</div><div class="de">${esc(t.def||"")}</div>
     <span class="cat">${AVCAT[t.category]||t.category}</span></div>`).join("")
     ||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
+}
+// 항공 문제 훑어보기 — 시험(시간측정) 대신, 문제+정답+해설을 펼쳐놓고 편하게 스크롤.
+let avsFilter="all", avsSearch="";
+function renderAvStudy(){
+  const list=AVIATION.filter(x=>{
+    if(avsFilter!=="all"&&x.topic!==avsFilter) return false;
+    if(avsSearch){ const q=avsSearch.toLowerCase();
+      if(!((x.q||"").toLowerCase().includes(q)||(x.q_ko||"").includes(avsSearch)||(x.explain||"").includes(avsSearch))) return false; }
+    return true; });
+  $("#avsCount").textContent=`${list.length}개`;
+  $("#avsList").innerHTML=list.map(x=>{
+    const opts=(x.options||[]).map((o,i)=>`<div class="ro ${i===x.answer?"ok":""}">${i===x.answer?"✓ ":""}${fmtMath(o)}</div>`).join("");
+    return `<div class="review-q">
+      <div class="rh">${esc(avTopicKo(x.topic))}</div>
+      <div style="font-weight:600;margin-bottom:4px">${fmtMath(x.q)}</div>
+      ${x.q_ko?`<div class="muted" style="font-size:13px;margin-bottom:6px">${fmtMath(x.q_ko)}</div>`:""}
+      ${opts}
+      ${x.explain?`<div class="rx">${fmtMath(x.explain)}</div>`:""}</div>`;
+  }).join("")||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
 }
 let avf=null;
 function startAvFlash(){
@@ -2046,6 +2067,9 @@ function wire(){
   $("#vkGuide").onclick=()=>openGuide("wk"); $("#vaGuide").onclick=()=>openGuide("va"); $("#rcGuide").onclick=()=>openGuide("rc");
   // aviation
   $("#avFlash").onclick=()=>go("avflash"); $("#avGlossary").onclick=()=>go("avterms");
+  $("#avStudy").onclick=()=>go("avstudy"); $("#avsBack").onclick=()=>go("aviation");
+  $("#avsSearch").oninput=e=>{ avsSearch=e.target.value.trim(); renderAvStudy(); };
+  $$("#avsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#avsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); avsFilter=c.dataset.as; renderAvStudy(); });
   $("#avExam").onclick=()=>startExam("av"); $("#avGuide").onclick=()=>openGuide("av");
   $("#avtBack").onclick=()=>go("aviation"); $("#avfBack").onclick=()=>go("aviation");
   $("#trStart").onclick=startTableReading; $("#trGuide").onclick=()=>openGuide("tr");
