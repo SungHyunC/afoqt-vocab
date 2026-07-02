@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.23.0";
+const VERSION = "4.24.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -21,6 +21,19 @@ const dayDiff = (a,b) => Math.round((parseDate(b)-parseDate(a))/86400000);
 const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
 const sample = (arr,n) => shuffle(arr).slice(0,n);
 const esc = s => String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+// Lightweight inline math renderer (no external lib — offline PWA). Turns ^exponents
+// and _subscripts into real super/subscripts and normalizes a few operators, so
+// "c^2 = a^2 + b^2" shows as c² = a² + b². Safe on prose (^ _ * <= rarely occur there).
+function fmtMath(s){
+  return esc(String(s==null?"":s))
+    .replace(/\^\{([^}]+)\}/g,(m,g)=>`<sup>${g}</sup>`)
+    .replace(/\^(-?\d+(?:\.\d+)?|[A-Za-z])/g,(m,g)=>`<sup>${g}</sup>`)
+    .replace(/_\{([^}]+)\}/g,(m,g)=>`<sub>${g}</sub>`)
+    .replace(/_(\d+|[A-Za-z])/g,(m,g)=>`<sub>${g}</sub>`)
+    .replace(/\s*\*\s*/g,' × ')
+    .replace(/&lt;=/g,'≤').replace(/&gt;=/g,'≥').replace(/!=/g,'≠')
+    .replace(/&gt;=|=&gt;/g,'≥');
+}
 // Shrink the font for long single words/phrases (CIRCUMNAVIGATE, INTROSPECTIVE...) so they
 // stay on one line on narrow phones instead of wrapping mid-word or overflowing the card.
 function wordFont(text,base){ const n=String(text||"").length;
@@ -1119,9 +1132,9 @@ function renderCPQ(){
   const passage=it.passage?`<details class="exam-passage" open><summary>📖 ${esc(it.passageTitle||"지문")}</summary><div class="passage">${esc(it.passage)}</div></details>`:"";
   $("#cpArea").innerHTML=`${passage}<div class="card">
       ${it.hint?`<span class="cp-hint">💡 ${esc(it.hint)}</span>`:""}
-      <div class="exam-prompt">${esc(it.prompt)}</div>
-      ${it.stem?`<div class="cp-stem">${esc(it.stem)}</div>`:""}
-      <div class="choices" id="cpChoices">${it.options.map((o,i)=>`<button class="choice" data-i="${i}">${esc(o)}</button>`).join("")}</div>
+      <div class="exam-prompt">${fmtMath(it.prompt)}</div>
+      ${it.stem?`<div class="cp-stem">${fmtMath(it.stem)}</div>`:""}
+      <div class="choices" id="cpChoices">${it.options.map((o,i)=>`<button class="choice" data-i="${i}">${fmtMath(o)}</button>`).join("")}</div>
       <div class="ana-explain hidden" id="cpExplain"></div>
       <button class="btn primary hidden" id="cpNext" style="margin-top:14px">${s.idx>=s.items.length-1?"결과 보기 →":"다음 →"}</button></div>`;
   $("#cpNext").onclick=()=>{ s.idx++; renderCPQ(); };
@@ -1134,7 +1147,7 @@ function renderCPQ(){
     if(it.sec) recordSecAcc(it.sec,ok);
     if(it.anaId!=null){ const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok){v.correct=(v.correct||0)+1;} else {v.wrong=(v.wrong||0)+1; state.wrong.va[it.anaId]=1;} setVA(it.anaId,v); }
     if(it.wordId!=null&&!ok) state.wrong.wk[it.wordId]=1;
-    $("#cpExplain").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b><br>${esc(it.explain||"")}`;
+    $("#cpExplain").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b><br>${fmtMath(it.explain||"")}`;
     $("#cpExplain").classList.remove("hidden");
     $("#cpNext").classList.remove("hidden");
   });
@@ -1676,12 +1689,12 @@ function renderExamQ(){
   // figure (table or SVG) and, for Instrument, picture options rendered via optionsHTML.
   const figure=it.figureHTML?`<div class="exam-figure">${it.figureHTML}</div>`:"";
   const choicesHTML=it.options.map((o,i)=>{
-    const inner=it.optionsHTML?it.optionsHTML[i]:esc(o);
+    const inner=it.optionsHTML?it.optionsHTML[i]:fmtMath(o);
     return `<button class="choice ${it.optionsHTML?"choice-fig":""} ${e.answers[e.idx]===i?"sel":""}" data-i="${i}">${inner}</button>`;
   }).join("");
   $("#examArea").innerHTML=`${passage}<div class="card">
     <span class="exam-sec">${secChip}</span>
-    <div class="exam-prompt">${esc(it.prompt)}</div>${ko}${stem}${sub}${figure}
+    <div class="exam-prompt">${fmtMath(it.prompt)}</div>${ko}${stem}${sub}${figure}
     <div class="choices ${it.optionsHTML?"choices-fig":""}" id="examChoices">${choicesHTML}</div></div>`;
   wireSpeakers($("#examArea"));
   $$("#examChoices .choice").forEach(btn=>btn.onclick=()=>{
@@ -1803,14 +1816,14 @@ function renderExamReview(){
     const opts=it.options.map((o,oi)=>{
       let cls=""; if(oi===it.answer) cls="ok"; else if(oi===pick) cls="no";
       const mark=oi===it.answer?"✓ ":(oi===pick?"✗ ":"");
-      return `<div class="ro ${cls}">${mark}${esc(o)}</div>`;
+      return `<div class="ro ${cls}">${mark}${fmtMath(o)}</div>`;
     }).join("");
     return `<div class="review-q">
       <div class="rh">${i+1}. ${secName[it.section]||it.section} ${ok?"✅":pick==null?"⬜ 미응답":"❌"}</div>
-      <div style="font-weight:600;margin-bottom:6px">${esc(it.stem||it.prompt)}</div>
+      <div style="font-weight:600;margin-bottom:6px">${fmtMath(it.stem||it.prompt)}</div>
       ${figure}
       ${opts}
-      ${it.explain?`<div class="rx">${esc(it.explain)}</div>`:""}</div>`;
+      ${it.explain?`<div class="rx">${fmtMath(it.explain)}</div>`:""}</div>`;
   }).join("");
 }
 
