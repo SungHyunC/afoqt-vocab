@@ -1916,5 +1916,957 @@
     ],
     "answer": 1,
     "explain": "2(L+W) = 100이므로 L+W = 50. L = W+10이므로 2W+10 = 50, W = 20, L = 30. 넓이 = 30 x 20 = 600제곱미터. 정답은 600 square meters (인덱스 1)."
+  },
+  {
+    "id": 138,
+    "topic": "percentages",
+    "q": "A store's weekly sales grew from 400 units to 500 units. What was the percent increase?",
+    "q_ko": "한 상점의 주간 판매량이 400개에서 500개로 증가했다. 증가율은 몇 퍼센트인가?",
+    "options": [
+      "25%",
+      "20%",
+      "15%",
+      "125%"
+    ],
+    "answer": 0,
+    "explain": "증가량은 500-400=100. 증가율=100/400=0.25=25%. 정답은 25%."
+  },
+  {
+    "id": 139,
+    "topic": "percentages",
+    "q": "A television is priced at $600 and is offered at a 15% discount. What is the sale price?",
+    "q_ko": "텔레비전 가격이 600달러이고 15% 할인된다. 할인가는 얼마인가?",
+    "options": [
+      "$510",
+      "$90",
+      "$690",
+      "$540"
+    ],
+    "answer": 0,
+    "explain": "할인액=600×0.15=90. 할인가=600-90=510. 정답은 $510."
+  },
+  {
+    "id": 140,
+    "topic": "percentages",
+    "q": "A meal costs $40 before an 8% sales tax. What is the total price including tax?",
+    "q_ko": "식사 값이 세전 40달러이고 판매세가 8%이다. 세금 포함 총액은 얼마인가?",
+    "options": [
+      "$43.20",
+      "$47.20",
+      "$3.20",
+      "$44.80"
+    ],
+    "answer": 0,
+    "explain": "세금=40×0.08=3.20. 총액=40+3.20=43.20. 정답은 $43.20."
+  },
+  {
+    "id": 141,
+    "topic": "percentages",
+    "q": "A restaurant bill is $50. If you leave an 18% tip, how much is the tip?",
+    "q_ko": "식당 계산서가 50달러이다. 18% 팁을 남긴다면 팁은 얼마인가?",
+    "options": [
+      "$9.00",
+      "$10.00",
+      "$8.00",
+      "$59.00"
+    ],
+    "answer": 0,
+    "explain": "팁=50×0.18=9. 정답은 $9.00."
+  },
+  {
+    "id": 142,
+    "topic": "percentages",
+    "q": "You invest $2,000 at a simple annual interest rate of 5% for 3 years. How much interest do you earn?",
+    "q_ko": "연 단리 5%로 2,000달러를 3년간 투자한다. 이자는 얼마인가?",
+    "options": [
+      "$300",
+      "$315",
+      "$100",
+      "$2,300"
+    ],
+    "answer": 0,
+    "explain": "단리=원금×이율×기간=2000×0.05×3=300. 정답은 $300."
+  },
+  {
+    "id": 143,
+    "topic": "percentages",
+    "q": "$1,000 is deposited at 10% interest compounded annually. What is the balance after 2 years?",
+    "q_ko": "1,000달러를 연 복리 10%로 예금한다. 2년 후 잔액은 얼마인가?",
+    "options": [
+      "$1,210",
+      "$1,200",
+      "$1,100",
+      "$1,220"
+    ],
+    "answer": 0,
+    "explain": "복리=1000×1.1²=1000×1.21=1210. 단리라면 1200이지만 복리이므로 1210. 정답은 $1,210."
+  },
+  {
+    "id": 144,
+    "topic": "percentages",
+    "q": "An item priced at $100 is first increased by 20%, then decreased by 20%. What is the net change from the original price?",
+    "q_ko": "100달러짜리 물건 가격을 먼저 20% 올린 뒤 다시 20% 내린다. 원래 가격 대비 순변화는?",
+    "options": [
+      "4% decrease",
+      "No change",
+      "4% increase",
+      "40% decrease"
+    ],
+    "answer": 0,
+    "explain": "100×1.20=120, 120×0.80=96. 원가 100 대비 96이므로 4% 감소. 정답은 4% decrease."
+  },
+  {
+    "id": 145,
+    "topic": "percentages",
+    "q": "A $200 item is marked down 10%, and then a 5% sales tax is applied to the discounted price. What is the final amount paid?",
+    "q_ko": "200달러짜리 물건을 10% 할인한 뒤 할인가에 5% 판매세를 붙인다. 최종 지불액은?",
+    "options": [
+      "$189.00",
+      "$190.00",
+      "$191.00",
+      "$210.00"
+    ],
+    "answer": 0,
+    "explain": "할인가=200×0.90=180. 세금 포함=180×1.05=189. 정답은 $189.00."
+  },
+  {
+    "id": 146,
+    "topic": "percentages",
+    "q": "30% of a certain number is 45. What is the number?",
+    "q_ko": "어떤 수의 30%가 45이다. 그 수는 얼마인가?",
+    "options": [
+      "150",
+      "135",
+      "75",
+      "13.5"
+    ],
+    "answer": 0,
+    "explain": "수=45÷0.30=150. 45×0.30=13.5은 흔한 실수. 정답은 150."
+  },
+  {
+    "id": 147,
+    "topic": "percentages",
+    "q": "A dinner bill is $80. A 6% tax is added, and a 15% tip is calculated on the pre-tax amount. What is the total?",
+    "q_ko": "저녁 식사 계산서가 80달러이다. 6% 세금이 추가되고, 세전 금액에 15% 팁을 계산한다. 총액은?",
+    "options": [
+      "$96.80",
+      "$96.00",
+      "$84.80",
+      "$100.80"
+    ],
+    "answer": 0,
+    "explain": "세금=80×0.06=4.80, 팁=80×0.15=12. 총액=80+4.80+12=96.80. 정답은 $96.80."
+  },
+  {
+    "id": 148,
+    "topic": "percentages",
+    "q": "A deposit of $500 earns $60 in simple interest over 2 years. What is the annual interest rate?",
+    "q_ko": "500달러 예금이 2년간 단리로 60달러의 이자를 얻었다. 연이율은 얼마인가?",
+    "options": [
+      "6%",
+      "12%",
+      "3%",
+      "5%"
+    ],
+    "answer": 0,
+    "explain": "단리 I=Prt → 60=500×r×2 → 1000r=60 → r=0.06=6%. 정답은 6%."
+  },
+  {
+    "id": 149,
+    "topic": "percentages",
+    "q": "After a 10% decline, a town's population is 5,400. What was the original population?",
+    "q_ko": "10% 감소한 후 한 마을의 인구가 5,400명이다. 원래 인구는 몇 명이었나?",
+    "options": [
+      "6,000",
+      "5,940",
+      "5,460",
+      "4,860"
+    ],
+    "answer": 0,
+    "explain": "5,400은 원래의 90%이므로 원래=5400÷0.90=6000. 5400×1.1=5940은 흔한 실수. 정답은 6,000."
+  },
+  {
+    "id": 150,
+    "topic": "ratios",
+    "q": "A cookie recipe mixes flour and sugar in a ratio of 5:2. If a baker uses 15 cups of flour, how many cups of sugar are needed?",
+    "q_ko": "어떤 쿠키 레시피는 밀가루와 설탕을 5:2의 비로 섞는다. 제빵사가 밀가루 15컵을 사용한다면, 설탕은 몇 컵이 필요한가?",
+    "options": [
+      "6 cups",
+      "7.5 cups",
+      "4 cups",
+      "37.5 cups"
+    ],
+    "answer": 0,
+    "explain": "밀가루 15컵 ÷ 5 = 한 몫당 3컵. 설탕은 2몫이므로 3 × 2 = 6컵."
+  },
+  {
+    "id": 151,
+    "topic": "ratios",
+    "q": "On a map with a scale of 1:50,000, two towns are 8 cm apart. What is the actual distance between them?",
+    "q_ko": "축척이 1:50,000인 지도에서 두 마을이 8 cm 떨어져 있다. 실제 거리는 얼마인가?",
+    "options": [
+      "40 km",
+      "0.4 km",
+      "6.25 km",
+      "4 km"
+    ],
+    "answer": 3,
+    "explain": "실제 거리 = 8 cm × 50,000 = 400,000 cm = 4,000 m = 4 km."
+  },
+  {
+    "id": 152,
+    "topic": "ratios",
+    "q": "A car travels at 90 kilometers per hour. What is its speed in meters per second?",
+    "q_ko": "자동차가 시속 90킬로미터로 달린다. 이 속도를 초속 몇 미터로 나타내면 얼마인가?",
+    "options": [
+      "250 m/s",
+      "25 m/s",
+      "15 m/s",
+      "45 m/s"
+    ],
+    "answer": 1,
+    "explain": "90 km/h = 90,000 m ÷ 3,600 s = 25 m/s."
+  },
+  {
+    "id": 153,
+    "topic": "ratios",
+    "q": "A prize of $360 is divided between two people in the ratio 3:5. How much does the person with the larger share receive?",
+    "q_ko": "상금 360달러를 두 사람에게 3:5의 비로 나눈다. 더 많은 몫을 받는 사람은 얼마를 받는가?",
+    "options": [
+      "$135",
+      "$45",
+      "$225",
+      "$288"
+    ],
+    "answer": 2,
+    "explain": "전체 몫 = 3 + 5 = 8. 한 몫 = 360 ÷ 8 = 45달러. 큰 몫 = 5 × 45 = 225달러."
+  },
+  {
+    "id": 154,
+    "topic": "ratios",
+    "q": "A car travels 240 miles using 8 gallons of gasoline. At the same rate, how many gallons are needed to travel 420 miles?",
+    "q_ko": "자동차가 휘발유 8갤런으로 240마일을 달린다. 같은 비율로 420마일을 달리려면 몇 갤런이 필요한가?",
+    "options": [
+      "14 gallons",
+      "12 gallons",
+      "16 gallons",
+      "13.5 gallons"
+    ],
+    "answer": 0,
+    "explain": "연비 = 240 ÷ 8 = 30 mpg. 필요 연료 = 420 ÷ 30 = 14갤런."
+  },
+  {
+    "id": 155,
+    "topic": "ratios",
+    "q": "The ages of two siblings are in the ratio 2:3, and their ages add up to 45. How old is the older sibling?",
+    "q_ko": "두 형제의 나이가 2:3의 비이고 나이의 합이 45이다. 나이가 많은 쪽은 몇 살인가?",
+    "options": [
+      "18",
+      "15",
+      "30",
+      "27"
+    ],
+    "answer": 3,
+    "explain": "전체 몫 = 2 + 3 = 5. 한 몫 = 45 ÷ 5 = 9. 많은 쪽 = 3 × 9 = 27살."
+  },
+  {
+    "id": 156,
+    "topic": "ratios",
+    "q": "A machine produces 150 parts in 2 hours. At the same rate, how many parts will it produce in 5 hours?",
+    "q_ko": "어떤 기계가 2시간에 부품 150개를 생산한다. 같은 속도로 5시간 동안 몇 개를 생산하는가?",
+    "options": [
+      "300 parts",
+      "375 parts",
+      "350 parts",
+      "450 parts"
+    ],
+    "answer": 1,
+    "explain": "시간당 생산량 = 150 ÷ 2 = 75개. 5시간 = 75 × 5 = 375개."
+  },
+  {
+    "id": 157,
+    "topic": "ratios",
+    "q": "A scale model of a car is built at a scale of 1:24. If the real car is 4.8 meters long, how long is the model?",
+    "q_ko": "자동차 축소 모형을 1:24 축척으로 만든다. 실제 차의 길이가 4.8미터라면 모형의 길이는 얼마인가?",
+    "options": [
+      "11.5 cm",
+      "2 cm",
+      "20 cm",
+      "200 cm"
+    ],
+    "answer": 2,
+    "explain": "모형 길이 = 4.8 m ÷ 24 = 0.2 m = 20 cm."
+  },
+  {
+    "id": 158,
+    "topic": "ratios",
+    "q": "Blue and white paint are mixed in a ratio of 3:4 to make 28 liters of a mixture. How many liters of blue paint are used?",
+    "q_ko": "파란색과 흰색 페인트를 3:4의 비로 섞어 28리터의 혼합물을 만든다. 사용된 파란색 페인트는 몇 리터인가?",
+    "options": [
+      "12 L",
+      "16 L",
+      "4 L",
+      "9.3 L"
+    ],
+    "answer": 0,
+    "explain": "전체 몫 = 3 + 4 = 7. 한 몫 = 28 ÷ 7 = 4 L. 파란색 = 3 × 4 = 12 L."
+  },
+  {
+    "id": 159,
+    "topic": "ratios",
+    "q": "At a currency exchange, 5 dollars can be exchanged for 4 euros. How many euros can be obtained for 45 dollars?",
+    "q_ko": "환전소에서 5달러를 4유로로 바꿀 수 있다. 45달러로는 몇 유로를 얻을 수 있는가?",
+    "options": [
+      "56.25 euros",
+      "40 euros",
+      "9 euros",
+      "36 euros"
+    ],
+    "answer": 3,
+    "explain": "45 ÷ 5 = 9배. 유로 = 4 × 9 = 36유로."
+  },
+  {
+    "id": 160,
+    "topic": "ratios",
+    "q": "It takes 6 identical machines 10 days to complete a job. Working at the same rate, how many days would 4 of these machines take to do the same job?",
+    "q_ko": "똑같은 기계 6대가 어떤 작업을 완료하는 데 10일이 걸린다. 같은 속도로 이 기계 4대가 같은 작업을 하면 며칠이 걸리는가?",
+    "options": [
+      "6.7 days",
+      "15 days",
+      "12 days",
+      "20 days"
+    ],
+    "answer": 1,
+    "explain": "총 작업량 = 6 × 10 = 60 기계·일. 4대일 때 = 60 ÷ 4 = 15일 (반비례)."
+  },
+  {
+    "id": 161,
+    "topic": "ratios",
+    "q": "A recipe that serves 4 people requires 6 eggs. Keeping the same ratio, how many eggs are needed to serve 10 people?",
+    "q_ko": "4인분 레시피에 달걀 6개가 필요하다. 같은 비율을 유지할 때 10인분을 만들려면 달걀이 몇 개 필요한가?",
+    "options": [
+      "12 eggs",
+      "24 eggs",
+      "15 eggs",
+      "2.4 eggs"
+    ],
+    "answer": 2,
+    "explain": "1인분당 달걀 = 6 ÷ 4 = 1.5개. 10인분 = 1.5 × 10 = 15개."
+  },
+  {
+    "id": 162,
+    "topic": "rates",
+    "q": "A train travels 315 miles in 4.5 hours. What is its average speed?",
+    "q_ko": "기차가 315마일을 4.5시간에 이동한다. 평균 속도는 얼마인가?",
+    "options": [
+      "60 mph",
+      "70 mph",
+      "75 mph",
+      "78.75 mph"
+    ],
+    "answer": 1,
+    "explain": "평균속도 = 거리 ÷ 시간 = 315 ÷ 4.5 = 70 mph."
+  },
+  {
+    "id": 163,
+    "topic": "rates",
+    "q": "A cyclist rides at a steady 15 mph for 2 hours and 40 minutes. How far does she travel?",
+    "q_ko": "자전거를 탄 사람이 시속 15마일로 2시간 40분 동안 일정하게 달린다. 이동 거리는 얼마인가?",
+    "options": [
+      "37.5 miles",
+      "40 miles",
+      "42 miles",
+      "45 miles"
+    ],
+    "answer": 1,
+    "explain": "40분 = 2/3시간이므로 시간 = 2 + 2/3 = 8/3시간. 거리 = 15 × 8/3 = 40마일."
+  },
+  {
+    "id": 164,
+    "topic": "rates",
+    "q": "Two cars leave the same point at the same time driving in opposite directions at 55 mph and 65 mph. After how many hours are they 360 miles apart?",
+    "q_ko": "두 자동차가 같은 지점에서 동시에 출발해 반대 방향으로 각각 시속 55마일과 65마일로 달린다. 몇 시간 후에 360마일 떨어지는가?",
+    "options": [
+      "2.5 hours",
+      "3 hours",
+      "4 hours",
+      "6 hours"
+    ],
+    "answer": 1,
+    "explain": "두 차의 벌어지는 속도 = 55 + 65 = 120 mph. 시간 = 360 ÷ 120 = 3시간."
+  },
+  {
+    "id": 165,
+    "topic": "rates",
+    "q": "Alice can paint a room in 4 hours and Ben can paint the same room in 6 hours. Working together, how long will it take them to paint the room?",
+    "q_ko": "앨리스는 방 하나를 4시간에, 벤은 같은 방을 6시간에 칠할 수 있다. 함께 일하면 방을 칠하는 데 얼마나 걸리는가?",
+    "options": [
+      "2.4 hours",
+      "2.5 hours",
+      "5 hours",
+      "10 hours"
+    ],
+    "answer": 0,
+    "explain": "합쳐진 일률 = 1/4 + 1/6 = 3/12 + 2/12 = 5/12 (방/시간). 시간 = 12/5 = 2.4시간."
+  },
+  {
+    "id": 166,
+    "topic": "rates",
+    "q": "A 20-ounce bottle of juice costs $2.40. What is the price per ounce?",
+    "q_ko": "주스 20온스 병이 $2.40이다. 온스당 가격은 얼마인가?",
+    "options": [
+      "$0.08",
+      "$0.10",
+      "$0.12",
+      "$0.15"
+    ],
+    "answer": 2,
+    "explain": "단위당 가격 = 2.40 ÷ 20 = $0.12 (온스당)."
+  },
+  {
+    "id": 167,
+    "topic": "rates",
+    "q": "Working together, two crews can clear a lot in 3 hours. The first crew alone would take 5 hours. How long would the second crew take working alone?",
+    "q_ko": "두 작업조가 함께 일하면 공터를 3시간에 정리한다. 첫 번째 조 혼자서는 5시간이 걸린다. 두 번째 조가 혼자 일하면 얼마나 걸리는가?",
+    "options": [
+      "2 hours",
+      "7 hours",
+      "7.5 hours",
+      "8 hours"
+    ],
+    "answer": 2,
+    "explain": "둘째 조의 일률 = 1/3 − 1/5 = 5/15 − 3/15 = 2/15 (공터/시간). 시간 = 15/2 = 7.5시간."
+  },
+  {
+    "id": 168,
+    "topic": "rates",
+    "q": "A driver goes to a town at 60 mph and returns along the same road at 40 mph. What is the average speed for the whole round trip?",
+    "q_ko": "운전자가 어떤 마을까지 시속 60마일로 가고 같은 길을 시속 40마일로 돌아온다. 왕복 전체의 평균 속도는 얼마인가?",
+    "options": [
+      "45 mph",
+      "48 mph",
+      "50 mph",
+      "52 mph"
+    ],
+    "answer": 1,
+    "explain": "거리를 d로 두면 총 시간 = d/60 + d/40 = (2d+3d)/120 = 5d/120. 평균속도 = 2d ÷ (5d/120) = 240/5 = 48 mph."
+  },
+  {
+    "id": 169,
+    "topic": "rates",
+    "q": "A machine produces 250 parts in 5 hours at a constant rate. How many parts will it produce in 8 hours?",
+    "q_ko": "한 기계가 일정한 속도로 5시간에 부품 250개를 생산한다. 8시간 동안 몇 개를 생산하는가?",
+    "options": [
+      "350",
+      "375",
+      "400",
+      "450"
+    ],
+    "answer": 2,
+    "explain": "생산 속도 = 250 ÷ 5 = 50개/시간. 8시간 × 50 = 400개."
+  },
+  {
+    "id": 170,
+    "topic": "rates",
+    "q": "Car A leaves at 50 mph. One hour later, Car B leaves from the same point on the same road at 70 mph. How long after Car B starts will it catch up to Car A?",
+    "q_ko": "자동차 A가 시속 50마일로 출발한다. 1시간 뒤 자동차 B가 같은 지점에서 같은 길을 시속 70마일로 출발한다. B가 출발한 뒤 몇 시간 만에 A를 따라잡는가?",
+    "options": [
+      "2 hours",
+      "2.5 hours",
+      "3.5 hours",
+      "5 hours"
+    ],
+    "answer": 1,
+    "explain": "A의 1시간 앞선 거리 = 50마일. B는 매시간 70 − 50 = 20마일씩 좁힌다. 시간 = 50 ÷ 20 = 2.5시간."
+  },
+  {
+    "id": 171,
+    "topic": "rates",
+    "q": "Rice is sold in a 3-pound bag for $7.50 and in a 5-pound bag for $12.00. How much less per pound is the 5-pound bag?",
+    "q_ko": "쌀이 3파운드 봉지에 $7.50, 5파운드 봉지에 $12.00로 판매된다. 5파운드 봉지가 파운드당 얼마나 더 싼가?",
+    "options": [
+      "$0.05",
+      "$0.10",
+      "$0.15",
+      "$0.20"
+    ],
+    "answer": 1,
+    "explain": "3파운드: 7.50÷3 = $2.50/파운드. 5파운드: 12.00÷5 = $2.40/파운드. 차이 = 2.50 − 2.40 = $0.10."
+  },
+  {
+    "id": 172,
+    "topic": "rates",
+    "q": "A pipe can fill a tank in 6 hours, while a drain can empty the full tank in 9 hours. If both are open, how long will it take to fill the empty tank?",
+    "q_ko": "한 파이프는 물탱크를 6시간에 채우고, 배수구는 가득 찬 탱크를 9시간에 비운다. 둘 다 열려 있으면 빈 탱크를 채우는 데 얼마나 걸리는가?",
+    "options": [
+      "3.6 hours",
+      "7.2 hours",
+      "15 hours",
+      "18 hours"
+    ],
+    "answer": 3,
+    "explain": "순 채움 일률 = 1/6 − 1/9 = 3/18 − 2/18 = 1/18 (탱크/시간). 시간 = 18시간."
+  },
+  {
+    "id": 173,
+    "topic": "rates",
+    "q": "A typist types at a steady rate of 45 words per minute. How long will it take to type a 3,150-word document?",
+    "q_ko": "타자수가 분당 45단어의 일정한 속도로 타이핑한다. 3,150단어 문서를 치는 데 얼마나 걸리는가?",
+    "options": [
+      "60 minutes",
+      "70 minutes",
+      "75 minutes",
+      "90 minutes"
+    ],
+    "answer": 1,
+    "explain": "시간 = 총 단어 ÷ 속도 = 3150 ÷ 45 = 70분."
+  },
+  {
+    "id": 174,
+    "topic": "mixtures",
+    "q": "A chemist mixes 4 liters of a 10% salt solution with 6 liters of a 20% salt solution. What is the salt concentration of the resulting mixture?",
+    "q_ko": "한 화학자가 10% 소금물 4리터와 20% 소금물 6리터를 섞는다. 만들어진 혼합물의 소금 농도는 얼마인가?",
+    "options": [
+      "14%",
+      "15%",
+      "16%",
+      "30%"
+    ],
+    "answer": 2,
+    "explain": "소금의 양 = 0.10×4 + 0.20×6 = 0.4 + 1.2 = 1.6 L. 전체 용액 = 4 + 6 = 10 L. 농도 = 1.6/10 = 0.16 = 16%."
+  },
+  {
+    "id": 175,
+    "topic": "mixtures",
+    "q": "You have 20 liters of a 30% acid solution. How much pure water must be added to dilute it to a 12% acid solution?",
+    "q_ko": "30% 산 용액 20리터가 있다. 이를 12% 산 용액으로 희석하려면 순수한 물을 몇 리터 넣어야 하는가?",
+    "options": [
+      "8 liters",
+      "20 liters",
+      "30 liters",
+      "50 liters"
+    ],
+    "answer": 2,
+    "explain": "산의 양 = 0.30×20 = 6 L (물을 넣어도 변하지 않음). 최종 용액 부피 = 6/0.12 = 50 L. 넣은 물 = 50 − 20 = 30 L."
+  },
+  {
+    "id": 176,
+    "topic": "mixtures",
+    "q": "An alloy weighing 50 pounds is 40% copper. How many pounds of pure copper must be added so that the new alloy is 60% copper?",
+    "q_ko": "무게 50파운드인 합금이 구리 40%로 이루어져 있다. 새 합금을 구리 60%로 만들려면 순수 구리를 몇 파운드 넣어야 하는가?",
+    "options": [
+      "10 pounds",
+      "20 pounds",
+      "25 pounds",
+      "30 pounds"
+    ],
+    "answer": 2,
+    "explain": "현재 구리 = 0.40×50 = 20파운드. 순수 구리 x파운드 추가: (20+x)/(50+x) = 0.6 → 20+x = 30+0.6x → 0.4x = 10 → x = 25파운드."
+  },
+  {
+    "id": 177,
+    "topic": "mixtures",
+    "q": "A shop blends coffee costing $8 per pound with coffee costing $12 per pound to make 20 pounds of blend worth $9 per pound. How many pounds of the $8 coffee are used?",
+    "q_ko": "한 가게가 파운드당 8달러인 커피와 파운드당 12달러인 커피를 섞어 파운드당 9달러 가치의 혼합물 20파운드를 만든다. 8달러짜리 커피는 몇 파운드 사용되는가?",
+    "options": [
+      "5 pounds",
+      "10 pounds",
+      "12 pounds",
+      "15 pounds"
+    ],
+    "answer": 3,
+    "explain": "8달러 커피를 x파운드라 하면 12달러 커피는 (20−x)파운드. 8x + 12(20−x) = 9×20 = 180 → 8x + 240 − 12x = 180 → −4x = −60 → x = 15파운드."
+  },
+  {
+    "id": 178,
+    "topic": "mixtures",
+    "q": "A tank holds 12 liters of a 5% salt solution. Water is boiled off until the solution becomes 8% salt. How many liters of water evaporated?",
+    "q_ko": "한 탱크에 5% 소금물 12리터가 들어 있다. 물을 끓여 날려 용액이 8% 소금물이 될 때까지 졸인다. 증발한 물은 몇 리터인가?",
+    "options": [
+      "3 liters",
+      "4 liters",
+      "4.5 liters",
+      "7.5 liters"
+    ],
+    "answer": 2,
+    "explain": "소금의 양 = 0.05×12 = 0.6 L (증발해도 변하지 않음). 최종 부피 = 0.6/0.08 = 7.5 L. 증발한 물 = 12 − 7.5 = 4.5 L."
+  },
+  {
+    "id": 179,
+    "topic": "mixtures",
+    "q": "A mixture is made by combining 3 gallons of a 25% alcohol solution with 2 gallons of a 50% alcohol solution. What is the alcohol concentration of the mixture?",
+    "q_ko": "25% 알코올 용액 3갤런과 50% 알코올 용액 2갤런을 합쳐 혼합물을 만든다. 혼합물의 알코올 농도는 얼마인가?",
+    "options": [
+      "30%",
+      "35%",
+      "37.5%",
+      "75%"
+    ],
+    "answer": 1,
+    "explain": "알코올의 양 = 0.25×3 + 0.50×2 = 0.75 + 1.0 = 1.75갤런. 전체 = 3 + 2 = 5갤런. 농도 = 1.75/5 = 0.35 = 35%."
+  },
+  {
+    "id": 180,
+    "topic": "mixtures",
+    "q": "A grocer wants 8 pounds of a nut mixture worth $7.50 per pound, using nuts that cost $6 per pound and nuts that cost $10 per pound. How many pounds of the $10 nuts are needed?",
+    "q_ko": "한 식료품상이 파운드당 6달러인 견과와 파운드당 10달러인 견과를 사용하여 파운드당 7.50달러 가치의 견과 혼합물 8파운드를 만들려 한다. 10달러짜리 견과는 몇 파운드 필요한가?",
+    "options": [
+      "2 pounds",
+      "3 pounds",
+      "4 pounds",
+      "5 pounds"
+    ],
+    "answer": 1,
+    "explain": "10달러 견과를 y파운드라 하면 6달러 견과는 (8−y)파운드. 6(8−y) + 10y = 7.50×8 = 60 → 48 − 6y + 10y = 60 → 4y = 12 → y = 3파운드."
+  },
+  {
+    "id": 181,
+    "topic": "mixtures",
+    "q": "Whole milk with 4% butterfat is mixed with skim milk containing 0% butterfat to produce 12 gallons of milk with 3% butterfat. How many gallons of whole milk are used?",
+    "q_ko": "유지방 4%인 전유를 유지방 0%인 탈지유와 섞어 유지방 3%인 우유 12갤런을 만든다. 전유는 몇 갤런 사용되는가?",
+    "options": [
+      "3 gallons",
+      "6 gallons",
+      "9 gallons",
+      "12 gallons"
+    ],
+    "answer": 2,
+    "explain": "전유를 x갤런이라 하면 유지방: 0.04x + 0 = 0.03×12 = 0.36 → x = 0.36/0.04 = 9갤런."
+  },
+  {
+    "id": 182,
+    "topic": "averages",
+    "q": "A student's five quiz scores are 78, 85, 90, 82, and 95. What is the average (mean) of these scores?",
+    "q_ko": "한 학생의 다섯 번의 퀴즈 점수는 78, 85, 90, 82, 95이다. 이 점수들의 평균은 얼마인가?",
+    "options": [
+      "84",
+      "85",
+      "86",
+      "88"
+    ],
+    "answer": 2,
+    "explain": "합계 = 78+85+90+82+95 = 430. 평균 = 430 ÷ 5 = 86. 따라서 86."
+  },
+  {
+    "id": 183,
+    "topic": "averages",
+    "q": "To earn an A, a student needs an average of 90 across 5 tests. On the first four tests she scored 85, 92, 88, and 91. What score does she need on the fifth test?",
+    "q_ko": "A 학점을 받으려면 학생은 5개의 시험에서 평균 90점이 필요하다. 처음 네 시험에서 85, 92, 88, 91점을 받았다. 다섯 번째 시험에서 몇 점이 필요한가?",
+    "options": [
+      "90",
+      "92",
+      "94",
+      "96"
+    ],
+    "answer": 2,
+    "explain": "필요한 총점 = 90 × 5 = 450. 앞 네 시험 합 = 85+92+88+91 = 356. 필요한 점수 = 450 − 356 = 94. 따라서 94."
+  },
+  {
+    "id": 184,
+    "topic": "averages",
+    "q": "In a course, homework counts for 30% of the grade and exams count for 70%. A student has a homework average of 90 and an exam average of 80. What is the student's overall grade?",
+    "q_ko": "어떤 과목에서 숙제가 성적의 30%, 시험이 70%를 차지한다. 한 학생의 숙제 평균은 90, 시험 평균은 80이다. 이 학생의 전체 성적은 얼마인가?",
+    "options": [
+      "82",
+      "83",
+      "84",
+      "85"
+    ],
+    "answer": 1,
+    "explain": "가중평균 = 0.30 × 90 + 0.70 × 80 = 27 + 56 = 83. (단순평균 85가 아님.) 따라서 83."
+  },
+  {
+    "id": 185,
+    "topic": "averages",
+    "q": "After 6 games, a basketball player is averaging 72 points per game. After his 7th game, his average rises to 74 points per game. How many points did he score in the 7th game?",
+    "q_ko": "6경기 후 한 농구 선수의 경기당 평균 득점은 72점이다. 7번째 경기 후 평균이 경기당 74점으로 올랐다. 7번째 경기에서 몇 점을 득점했는가?",
+    "options": [
+      "74",
+      "76",
+      "86",
+      "88"
+    ],
+    "answer": 2,
+    "explain": "6경기 총점 = 72 × 6 = 432. 7경기 총점 = 74 × 7 = 518. 7번째 경기 = 518 − 432 = 86. 따라서 86."
+  },
+  {
+    "id": 186,
+    "topic": "averages",
+    "q": "Find the median of the following data set: 12, 7, 15, 9, 20, 11.",
+    "q_ko": "다음 자료의 중앙값을 구하시오: 12, 7, 15, 9, 20, 11.",
+    "options": [
+      "11",
+      "11.5",
+      "12",
+      "12.3"
+    ],
+    "answer": 1,
+    "explain": "오름차순 정렬: 7, 9, 11, 12, 15, 20. 값이 6개이므로 중앙 두 값 11과 12의 평균 = (11+12)÷2 = 11.5. 따라서 11.5."
+  },
+  {
+    "id": 187,
+    "topic": "averages",
+    "q": "A class has 10 boys with an average height of 160 cm and 15 girls with an average height of 155 cm. What is the average height of all 25 students?",
+    "q_ko": "한 학급에 평균 키 160cm인 남학생 10명과 평균 키 155cm인 여학생 15명이 있다. 전체 25명 학생의 평균 키는 얼마인가?",
+    "options": [
+      "156 cm",
+      "157 cm",
+      "157.5 cm",
+      "158 cm"
+    ],
+    "answer": 1,
+    "explain": "전체 합 = 10 × 160 + 15 × 155 = 1600 + 2325 = 3925. 평균 = 3925 ÷ 25 = 157 cm. (두 평균의 단순평균 157.5가 아님.) 따라서 157 cm."
+  },
+  {
+    "id": 188,
+    "topic": "averages",
+    "q": "A car travels 150 miles in the first 3 hours, then 120 miles in the next 2 hours. What is the car's average speed for the entire trip?",
+    "q_ko": "한 자동차가 처음 3시간 동안 150마일을, 다음 2시간 동안 120마일을 달린다. 전체 여정에서 자동차의 평균 속력은 얼마인가?",
+    "options": [
+      "52 mph",
+      "54 mph",
+      "55 mph",
+      "56 mph"
+    ],
+    "answer": 1,
+    "explain": "총 거리 = 150 + 120 = 270마일. 총 시간 = 3 + 2 = 5시간. 평균 속력 = 270 ÷ 5 = 54 mph. (두 속력 50과 60의 단순평균 55가 아님.) 따라서 54 mph."
+  },
+  {
+    "id": 189,
+    "topic": "averages",
+    "q": "The average of 8 numbers is 15. If the number 22 is removed from the set, what is the average of the remaining 7 numbers?",
+    "q_ko": "8개의 수의 평균은 15이다. 이 집합에서 수 22를 제거하면 남은 7개 수의 평균은 얼마인가?",
+    "options": [
+      "13",
+      "14",
+      "14.5",
+      "15"
+    ],
+    "answer": 1,
+    "explain": "8개의 합 = 15 × 8 = 120. 22를 제거한 합 = 120 − 22 = 98. 남은 7개의 평균 = 98 ÷ 7 = 14. 따라서 14."
+  },
+  {
+    "id": 190,
+    "topic": "fractions",
+    "q": "A recipe needs 3/4 cup of flour. You have already added 1/3 cup. How much more flour do you need to add?",
+    "q_ko": "한 요리법에 밀가루 3/4컵이 필요하다. 이미 1/3컵을 넣었다. 밀가루를 얼마나 더 넣어야 하는가?",
+    "options": [
+      "13/12 cup",
+      "5/12 cup",
+      "1/2 cup",
+      "1/12 cup"
+    ],
+    "answer": 1,
+    "explain": "공통분모 12로: 3/4 = 9/12, 1/3 = 4/12. 남은 양 = 9/12 - 4/12 = 5/12컵."
+  },
+  {
+    "id": 191,
+    "topic": "fractions",
+    "q": "A water tank holds 60 gallons when full. It is currently 2/3 full. How many gallons of water are in the tank?",
+    "q_ko": "물탱크는 가득 차면 60갤런이 들어간다. 지금은 2/3만큼 차 있다. 탱크 안에는 물이 몇 갤런 있는가?",
+    "options": [
+      "40 gallons",
+      "20 gallons",
+      "90 gallons",
+      "30 gallons"
+    ],
+    "answer": 0,
+    "explain": "60 × 2/3 = 120/3 = 40갤런."
+  },
+  {
+    "id": 192,
+    "topic": "fractions",
+    "q": "Maria spent 2/5 of her $35 allowance on books. How much did she spend on books?",
+    "q_ko": "마리아는 자신의 용돈 35달러 중 2/5를 책 사는 데 썼다. 책에 쓴 돈은 얼마인가?",
+    "options": [
+      "$21",
+      "$7",
+      "$14",
+      "$17.50"
+    ],
+    "answer": 2,
+    "explain": "35 × 2/5 = 70/5 = 14. 즉 14달러."
+  },
+  {
+    "id": 193,
+    "topic": "fractions",
+    "q": "A ribbon is 3/4 meter long. It is cut into pieces each 1/8 meter long. How many pieces are there?",
+    "q_ko": "리본의 길이는 3/4미터이다. 이를 각각 1/8미터인 조각들로 자른다. 조각은 몇 개인가?",
+    "options": [
+      "8 pieces",
+      "6 pieces",
+      "4 pieces",
+      "3 pieces"
+    ],
+    "answer": 1,
+    "explain": "(3/4) ÷ (1/8) = 3/4 × 8 = 24/4 = 6조각."
+  },
+  {
+    "id": 194,
+    "topic": "fractions",
+    "q": "John has 24 marbles. He gives 1/4 of them to Amy, then gives 1/3 of the remaining marbles to Sam. How many marbles does John have left?",
+    "q_ko": "존은 구슬 24개를 가지고 있다. 그중 1/4을 에이미에게 주고, 남은 구슬의 1/3을 샘에게 준다. 존에게 남은 구슬은 몇 개인가?",
+    "options": [
+      "12 marbles",
+      "6 marbles",
+      "14 marbles",
+      "10 marbles"
+    ],
+    "answer": 0,
+    "explain": "에이미에게 24 × 1/4 = 6개 → 남은 18개. 샘에게 18 × 1/3 = 6개 → 남은 18 - 6 = 12개."
+  },
+  {
+    "id": 195,
+    "topic": "fractions",
+    "q": "A jogger ran 2 1/2 miles on Monday and 1 3/4 miles on Tuesday. What is the total distance she ran?",
+    "q_ko": "한 조깅하는 사람이 월요일에 2 1/2마일, 화요일에 1 3/4마일을 달렸다. 그녀가 달린 총 거리는 얼마인가?",
+    "options": [
+      "4 1/2 miles",
+      "4 1/4 miles",
+      "3 3/4 miles",
+      "4 3/4 miles"
+    ],
+    "answer": 1,
+    "explain": "2 1/2 = 2 2/4. 2 2/4 + 1 3/4 = 3 5/4 = 4 1/4마일."
+  },
+  {
+    "id": 196,
+    "topic": "fractions",
+    "q": "A worker earns $600. He saves 1/4 of it, then spends 2/3 of the remainder on rent. How much does he spend on rent?",
+    "q_ko": "한 노동자가 600달러를 번다. 그중 1/4을 저축하고, 남은 돈의 2/3를 집세로 쓴다. 집세로 쓰는 돈은 얼마인가?",
+    "options": [
+      "$300",
+      "$400",
+      "$150",
+      "$200"
+    ],
+    "answer": 0,
+    "explain": "저축 600 × 1/4 = 150 → 남은 450. 집세 450 × 2/3 = 300달러."
+  },
+  {
+    "id": 197,
+    "topic": "fractions",
+    "q": "A container holds 5/6 liter of juice. Two children each drink 1/4 liter. How much juice remains in the container?",
+    "q_ko": "한 용기에 주스 5/6리터가 들어 있다. 두 아이가 각각 1/4리터씩 마신다. 용기에 남은 주스는 얼마인가?",
+    "options": [
+      "7/12 liter",
+      "1/3 liter",
+      "1/12 liter",
+      "1/2 liter"
+    ],
+    "answer": 1,
+    "explain": "두 아이가 마신 양 = 2 × 1/4 = 1/2. 5/6 - 1/2 = 5/6 - 3/6 = 2/6 = 1/3리터."
+  },
+  {
+    "id": 198,
+    "topic": "probability",
+    "q": "A standard six-sided die is rolled once. What is the probability of rolling a number greater than 4?",
+    "q_ko": "표준 6면체 주사위를 한 번 굴린다. 4보다 큰 수가 나올 확률은 얼마인가?",
+    "options": [
+      "1/6",
+      "1/3",
+      "1/2",
+      "2/3"
+    ],
+    "answer": 1,
+    "explain": "4보다 큰 눈은 5, 6 두 가지다. 전체 경우는 6가지이므로 확률은 2/6 = 1/3."
+  },
+  {
+    "id": 199,
+    "topic": "probability",
+    "q": "A bag contains 4 red, 6 blue, and 2 green marbles. If one marble is drawn at random, what is the probability it is green?",
+    "q_ko": "주머니에 빨간 구슬 4개, 파란 구슬 6개, 초록 구슬 2개가 들어 있다. 구슬 하나를 무작위로 뽑을 때 그것이 초록색일 확률은 얼마인가?",
+    "options": [
+      "1/12",
+      "1/6",
+      "1/3",
+      "1/2"
+    ],
+    "answer": 1,
+    "explain": "전체 구슬은 4+6+2 = 12개, 초록은 2개다. 확률은 2/12 = 1/6."
+  },
+  {
+    "id": 200,
+    "topic": "probability",
+    "q": "A fair coin is flipped 3 times. What is the probability of getting exactly 2 heads?",
+    "q_ko": "공정한 동전을 3번 던진다. 앞면이 정확히 2번 나올 확률은 얼마인가?",
+    "options": [
+      "1/4",
+      "1/2",
+      "3/8",
+      "3/4"
+    ],
+    "answer": 2,
+    "explain": "전체 경우의 수는 2^3 = 8. 앞면이 정확히 2번인 경우는 C(3,2) = 3가지이므로 확률은 3/8."
+  },
+  {
+    "id": 201,
+    "topic": "probability",
+    "q": "In how many different orders can 5 distinct books be arranged in a row on a shelf?",
+    "q_ko": "서로 다른 책 5권을 선반에 일렬로 배열하는 방법은 몇 가지인가?",
+    "options": [
+      "25",
+      "60",
+      "120",
+      "720"
+    ],
+    "answer": 2,
+    "explain": "서로 다른 5권을 일렬로 배열하는 방법은 5! = 5×4×3×2×1 = 120가지."
+  },
+  {
+    "id": 202,
+    "topic": "probability",
+    "q": "How many different committees of 3 people can be formed from a group of 7 people?",
+    "q_ko": "7명 중에서 3명으로 구성된 위원회를 만드는 서로 다른 방법은 몇 가지인가?",
+    "options": [
+      "21",
+      "35",
+      "210",
+      "343"
+    ],
+    "answer": 1,
+    "explain": "순서가 상관없는 조합이므로 C(7,3) = (7×6×5)/(3×2×1) = 210/6 = 35가지."
+  },
+  {
+    "id": 203,
+    "topic": "probability",
+    "q": "Two fair six-sided dice are rolled. What is the probability that the sum of the two numbers is 7?",
+    "q_ko": "공정한 6면체 주사위 두 개를 굴린다. 두 눈의 합이 7이 될 확률은 얼마인가?",
+    "options": [
+      "1/12",
+      "1/9",
+      "1/6",
+      "5/36"
+    ],
+    "answer": 2,
+    "explain": "전체 경우는 6×6 = 36. 합이 7인 경우는 (1,6),(2,5),(3,4),(4,3),(5,2),(6,1)로 6가지이므로 6/36 = 1/6."
+  },
+  {
+    "id": 204,
+    "topic": "probability",
+    "q": "A club has 8 members. In how many ways can a president and a vice-president be chosen if one person cannot hold both positions?",
+    "q_ko": "한 동아리에 회원이 8명 있다. 한 사람이 두 직책을 겸할 수 없다면 회장과 부회장을 뽑는 방법은 몇 가지인가?",
+    "options": [
+      "16",
+      "28",
+      "56",
+      "64"
+    ],
+    "answer": 2,
+    "explain": "직책이 구별되므로 순열이다. 회장 8가지, 남은 7명 중 부회장 7가지로 8×7 = 56가지."
+  },
+  {
+    "id": 205,
+    "topic": "probability",
+    "q": "A spinner is divided into 8 equal sections numbered 1 through 8. What is the probability that the spinner lands on a prime number?",
+    "q_ko": "돌림판이 1부터 8까지 번호가 매겨진 8개의 동일한 구역으로 나뉘어 있다. 바늘이 소수에 멈출 확률은 얼마인가?",
+    "options": [
+      "1/4",
+      "3/8",
+      "1/2",
+      "5/8"
+    ],
+    "answer": 2,
+    "explain": "1~8 중 소수는 2, 3, 5, 7로 4개다. 전체 8구역이므로 확률은 4/8 = 1/2."
   }
 ]
