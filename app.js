@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.26.0";
+const VERSION = "4.27.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -62,7 +62,7 @@ function wireSpeakers(root=document){ $$(".spk[data-spk]",root).forEach(b=>{ if(
 /* ============================================================
    STATE
    ============================================================ */
-let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], ROOTLESSONS=[], GUIDES={}, AVIATION=[], AVTERMS=[];
+let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], ROOTLESSONS=[], GUIDES={}, AVIATION=[], AVTERMS=[], AVBOOK=[];
 let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
 let state=null, sb=null, realtimeChan=null;
 
@@ -390,7 +390,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -411,7 +411,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -842,6 +842,35 @@ function renderAvStudy(){
       ${opts}
       ${x.explain?`<div class="rx">${fmtMath(x.explain)}</div>`:""}</div>`;
   }).join("")||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
+}
+// 항공 교재 읽기 — PDF에서 정리한 지식을 챕터별 책 형태로 읽기.
+let avBookCh=null;
+function renderAvBook(){
+  if(avBookCh==null||!AVBOOK.length){  // table of contents
+    $("#avbTitle").textContent="📚 항공 교재";
+    $("#avbBack").textContent="← 항공"; $("#avbBack").onclick=()=>go("aviation");
+    if(!AVBOOK.length){ $("#avbBody").innerHTML=`<div class="card center muted" style="padding:20px">교재 준비 중이에요.</div>`; return; }
+    $("#avbBody").innerHTML=`<p class="muted" style="margin:0 0 12px;font-size:13px">업로드한 PDF 교재에서 정리한 항공 지식을 책처럼 읽어보세요. 챕터를 고르면 됩니다.</p>`+
+      AVBOOK.map(c=>`<button class="book-toc" data-ch="${c.id}"><span class="tt">${esc(c.title)}</span><span class="muted">${c.sections.length}절 ›</span></button>`).join("");
+    $$(".book-toc").forEach(b=>b.onclick=()=>{ avBookCh=+b.dataset.ch; window.scrollTo(0,0); renderAvBook(); });
+    return;
+  }
+  const idx=AVBOOK.findIndex(x=>x.id===avBookCh), c=AVBOOK[idx]||AVBOOK[0];
+  $("#avbTitle").textContent=`${idx+1}/${AVBOOK.length}`;
+  $("#avbBack").textContent="← 목차"; $("#avbBack").onclick=()=>{ avBookCh=null; window.scrollTo(0,0); renderAvBook(); };
+  const prev=idx>0?AVBOOK[idx-1]:null, next=idx<AVBOOK.length-1?AVBOOK[idx+1]:null;
+  $("#avbBody").innerHTML=
+    `<h2 class="book-title">${esc(c.title)}</h2>`+
+    (c.intro?`<div class="book-intro">${fmtMath(c.intro)}</div>`:"")+
+    c.sections.map(s=>`<div class="book-sec"><h3>${esc(s.h)}</h3>${String(s.body||"").split(/\n+/).filter(Boolean).map(p=>`<p>${fmtMath(p)}</p>`).join("")}</div>`).join("")+
+    `<div class="book-nav">
+      ${prev?`<button class="btn ghost sm" id="bkPrev">← ${esc(prev.title.replace(/^\d+\.\s*/,""))}</button>`:"<span></span>"}
+      ${next?`<button class="btn primary sm" id="bkNext">${esc(next.title.replace(/^\d+\.\s*/,""))} →</button>`:"<span></span>"}
+    </div>
+    <button class="btn ghost" id="bkToc" style="margin-top:10px">📚 목차로</button>`;
+  if(prev) $("#bkPrev").onclick=()=>{ avBookCh=prev.id; window.scrollTo(0,0); renderAvBook(); };
+  if(next) $("#bkNext").onclick=()=>{ avBookCh=next.id; window.scrollTo(0,0); renderAvBook(); };
+  $("#bkToc").onclick=()=>{ avBookCh=null; window.scrollTo(0,0); renderAvBook(); };
 }
 let avf=null;
 function startAvFlash(){
@@ -2068,6 +2097,7 @@ function wire(){
   // aviation
   $("#avFlash").onclick=()=>go("avflash"); $("#avGlossary").onclick=()=>go("avterms");
   $("#avStudy").onclick=()=>go("avstudy"); $("#avsBack").onclick=()=>go("aviation");
+  $("#avBook").onclick=()=>{ avBookCh=null; go("avbook"); };
   $("#avsSearch").oninput=e=>{ avsSearch=e.target.value.trim(); renderAvStudy(); };
   $$("#avsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#avsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); avsFilter=c.dataset.as; renderAvStudy(); });
   $("#avExam").onclick=()=>startExam("av"); $("#avGuide").onclick=()=>openGuide("av");
@@ -2255,6 +2285,7 @@ async function boot(){
     GUIDES=await loadJSON("./guides.json")||{};
     AVIATION=await loadJSON("./aviation.json")||[];
     AVTERMS=await loadJSON("./aviation_terms.json")||[];
+    AVBOOK=await loadJSON("./aviation_book.json")||[];
     ARITH=await loadJSON("./arithmetic.json")||[];
     MATHK=await loadJSON("./mathknowledge.json")||[];
     PHYSCI=await loadJSON("./physicalscience.json")||[];

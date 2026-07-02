@@ -313,7 +313,8 @@
     <div class="card tight stat"><div class="num" id="avTerms">0</div><div class="lbl">항공 용어</div></div>
     <div class="card tight stat"><div class="num" id="avQs">0</div><div class="lbl">문제 수</div></div>
   </div>
-  <button class="btn primary" id="avStudy" style="margin-top:16px">📖 문제 훑어보기 (정답·해설 같이·시간無)</button>
+  <button class="btn primary" id="avBook" style="margin-top:16px;border:0;background:linear-gradient(90deg,var(--brand),var(--brand2))">📚 항공 교재 읽기 (PDF 정리·책 형태)</button>
+  <button class="btn ghost" id="avStudy" style="margin-top:10px">📖 문제 훑어보기 (정답·해설 같이·시간無)</button>
   <button class="btn ghost" id="avFlash" style="margin-top:10px">🃏 용어 플래시카드</button>
   <button class="btn ghost" id="avGlossary" style="margin-top:10px">📖 용어집 (한글 뜻)</button>
   <button class="btn ghost" id="avExam" style="margin-top:10px">🎯 항공 시험 (20문항·8분)</button>
@@ -356,6 +357,12 @@
 </main>
 
 <!-- ===== AVIATION glossary ===== -->
+<!-- ===== AVIATION 교재 읽기 (book) ===== -->
+<main id="view-avbook" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="avbBack">← 항공</button><span id="avbTitle">📚 항공 교재</span><span></span></div>
+  <div id="avbBody"></div>
+</main>
+
 <!-- ===== AVIATION 문제 훑어보기 (read-only browse) ===== -->
 <main id="view-avstudy" class="view">
   <div class="study-top"><button class="btn sm ghost" id="avsBack">← 항공</button><span>📖 문제 훑어보기</span><span></span></div>
