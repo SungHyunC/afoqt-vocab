@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.21.0";
+const VERSION = "4.22.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -786,7 +786,7 @@ function coachGo(d){
 /* ============================================================
    AVIATION (Pilot — Aviation Information)
    ============================================================ */
-const AVCAT={aerodynamics:"공기역학",control_surfaces:"조종면",instruments:"계기",structure:"구조",airport:"공항",helicopter:"헬기",general:"일반"};
+const AVCAT={aerodynamics:"공기역학",control_surfaces:"조종면",instruments:"계기",structure:"구조",airport:"공항",helicopter:"헬기",general:"일반",stability:"안정성",propulsion:"추진",forces:"힘·법칙",terminology:"용어",maneuvers:"기동",navigation:"항법",airspace:"공역"};
 function renderAviation(){
   $("#avTerms").textContent=AVTERMS.length;
   $("#avQs").textContent=AVIATION.length;

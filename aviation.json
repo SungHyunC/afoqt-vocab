@@ -2518,5 +2518,1755 @@
     ],
     "answer": 0,
     "explain": "기장은 비행 전 항공기가 해당 비행에 감항성(airworthy)이 있는지 판단하고 안전한 운항을 보장할 최종 책임을 진다. 이는 FAA 규정의 기본 원칙이다."
+  },
+  {
+    "id": 181,
+    "topic": "structure",
+    "q": "Which six basic components are shared by most fixed-wing aircraft?",
+    "q_ko": "대부분의 고정익 항공기가 공유하는 여섯 가지 기본 구성 요소는 무엇인가?",
+    "options": [
+      "Fuselage, wings, landing gear, powerplant, tail assembly, and flight instruments/controls",
+      "Fuselage, rotor, landing gear, powerplant, tail assembly, and avionics",
+      "Cockpit, wings, floats, jet engine, rudder, and flight computer",
+      "Fuselage, wings, skis, propeller, canopy, and autopilot"
+    ],
+    "answer": 0,
+    "explain": "대부분의 고정익기는 동체, 날개, 착륙장치, 동력장치, 꼬리부(미익), 그리고 조종면을 갖춘 비행 계기/조종장치의 6가지 기본 구성 요소를 공유한다."
+  },
+  {
+    "id": 182,
+    "topic": "structure",
+    "q": "What is the primary function of the fuselage?",
+    "q_ko": "동체(fuselage)의 주요 기능은 무엇인가?",
+    "options": [
+      "It is the body of the airplane, holding the cockpit, cabin, and cargo, and serving as the attachment point for wings, tail, and landing gear",
+      "It is the main lifting surface that supports the airplane in flight",
+      "It is the fireproof partition that protects occupants from engine fire",
+      "It is the rotating component that produces forward thrust"
+    ],
+    "answer": 0,
+    "explain": "동체는 항공기의 몸체로 조종석, 객실, 화물칸을 담고 있으며 날개, 꼬리부, 착륙장치가 부착되는 지점 역할을 한다."
+  },
+  {
+    "id": 183,
+    "topic": "structure",
+    "q": "In a single-engine propeller airplane, what does the firewall do?",
+    "q_ko": "단발 프로펠러 항공기에서 방화벽(firewall)은 어떤 역할을 하는가?",
+    "options": [
+      "It is a fireproof partition separating the engine compartment from the cockpit/cabin to protect occupants from engine fire",
+      "It streamlines airflow over the front-mounted engine and cools it",
+      "It supports the airplane's weight while on the ground",
+      "It houses the bulkheads and stringers of a monocoque structure"
+    ],
+    "answer": 0,
+    "explain": "방화벽은 엔진실과 조종석/객실을 분리하는 내화성 칸막이로, 엔진 화재로부터 탑승자를 보호한다."
+  },
+  {
+    "id": 184,
+    "topic": "structure",
+    "q": "Which statement correctly distinguishes truss from monocoque fuselage construction?",
+    "q_ko": "트러스와 모노코크 동체 구조를 올바르게 구분한 설명은 무엇인가?",
+    "options": [
+      "Truss uses steel or aluminum tubing in triangular shapes, while monocoque uses bulkheads, stringers, and formers supporting a stressed skin",
+      "Truss uses a stressed skin over formers, while monocoque uses triangular tubing",
+      "Truss requires external struts, while monocoque requires no skin at all",
+      "Truss is used only on jets, while monocoque is used only on gliders"
+    ],
+    "answer": 0,
+    "explain": "트러스 구조는 강철/알루미늄 튜브를 삼각형 형태로 배치하고, 모노코크 구조는 격벽, 스트링거, 포머가 응력 외피를 지지한다."
+  },
+  {
+    "id": 185,
+    "topic": "control_surfaces",
+    "q": "How do ailerons control the airplane?",
+    "q_ko": "에일러론(aileron)은 항공기를 어떻게 조종하는가?",
+    "options": [
+      "They extend from about mid-wing to the wingtip and move in opposite directions to roll the airplane",
+      "They extend from the wing root to mid-wing and move down together to increase lift",
+      "They are mounted on the tail and pitch the airplane up or down",
+      "They retract into the fuselage to reduce drag in flight"
+    ],
+    "answer": 0,
+    "explain": "에일러론은 날개 중앙에서 날개 끝까지 뻗어 있으며 서로 반대 방향으로 움직여 항공기를 롤(roll)시킨다."
+  },
+  {
+    "id": 186,
+    "topic": "control_surfaces",
+    "q": "What is the purpose of flaps, and where are they located?",
+    "q_ko": "플랩(flap)의 목적과 위치는 무엇인가?",
+    "options": [
+      "They run from near the wing root to about mid-wing and lower together to increase lift for takeoff and landing",
+      "They run from mid-wing to the wingtip and move in opposite directions to roll the airplane",
+      "They are located on the empennage and provide yaw control",
+      "They are external struts that brace a semi-cantilever wing"
+    ],
+    "answer": 0,
+    "explain": "플랩은 날개 뿌리 부근에서 날개 중앙까지 위치하며, 함께 아래로 내려가 이착륙 시 양력을 증가시킨다."
+  },
+  {
+    "id": 187,
+    "topic": "aerodynamics",
+    "q": "According to the popular (Bernoulli) explanation of lift, why is lift produced?",
+    "q_ko": "널리 알려진(베르누이) 양력 설명에 따르면 양력이 생기는 이유는 무엇인가?",
+    "options": [
+      "Air flows faster over the more-cambered top of the wing, creating lower pressure above than below",
+      "Air flows faster under the wing, creating lower pressure below than above",
+      "The wing physically pushes air upward with its flat lower surface",
+      "The propeller forces high-pressure air over the entire wing"
+    ],
+    "answer": 0,
+    "explain": "베르누이 설명에서는 캠버가 더 큰 날개 윗면 위로 공기가 더 빨리 흘러 윗면 압력이 아랫면보다 낮아져 양력이 발생한다고 본다."
+  },
+  {
+    "id": 188,
+    "topic": "aerodynamics",
+    "q": "On which laws is the actual explanation of how lift occurs based more heavily?",
+    "q_ko": "양력이 실제로 어떻게 발생하는지에 대한 설명은 주로 어떤 법칙에 더 기반하는가?",
+    "options": [
+      "Newton's Laws, though the Bernoulli explanation is roughly adequate at low speeds",
+      "Bernoulli's Principle exclusively, at all speeds",
+      "Only the ideal gas law, regardless of airspeed",
+      "Kepler's Laws of planetary motion"
+    ],
+    "answer": 0,
+    "explain": "양력의 실제 설명은 베르누이 원리보다 뉴턴의 법칙에 더 기반하지만, 저속에서는 베르누이 설명도 대체로 적절하다."
+  },
+  {
+    "id": 189,
+    "topic": "stability",
+    "q": "What is dihedral and why is it built into a wing?",
+    "q_ko": "다이히드럴(dihedral)이란 무엇이며 날개에 적용하는 이유는?",
+    "options": [
+      "The upward angle of the wings from horizontal, built in for roll stability so the wing returns to its original position after displacement",
+      "The downward angle of the wings, built in to increase the roll rate of fighters",
+      "The sweep angle of the wings, built in to delay shock-wave formation",
+      "The chord-to-thickness ratio, built in to reduce drag at supersonic speed"
+    ],
+    "answer": 0,
+    "explain": "다이히드럴은 수평면에서 날개가 위로 올라간 각도로, 롤 안정성을 위해 적용되어 약간 흔들려도 날개가 원래 위치로 되돌아가게 한다."
+  },
+  {
+    "id": 190,
+    "topic": "aerodynamics",
+    "q": "Which wing type is the most common design for modern high-speed airplanes?",
+    "q_ko": "현대 고속 항공기에 가장 흔한 날개 형태는 무엇인가?",
+    "options": [
+      "The swept wing, which creates less drag than straight wings and delays shock-wave formation near the speed of sound",
+      "The straight wing, which gives efficient lift near the speed of sound",
+      "The delta wing, which is used only on small low-speed gliders",
+      "The anhedral wing, which is required on all commercial jets"
+    ],
+    "answer": 0,
+    "explain": "후퇴익(swept wing)은 현대 고속기에 가장 흔한 설계로, 직선익보다 항력이 적고 음속 부근에서 충격파 형성을 지연시킨다."
+  },
+  {
+    "id": 191,
+    "topic": "propulsion",
+    "q": "How does a propeller-driven airplane generate thrust?",
+    "q_ko": "프로펠러 구동 항공기는 어떻게 추력을 발생시키는가?",
+    "options": [
+      "The corkscrew action of the rotating blades pushes air backward, pushing the airplane forward per Newton's Third Law",
+      "Incoming air is compressed, mixed with fuel, burned, and exhausted at high speed",
+      "Lower pressure ahead of the propeller pulls the airplane forward with no reaction",
+      "The blades spin a turbine that drives the landing gear forward"
+    ],
+    "answer": 0,
+    "explain": "프로펠러기는 회전 날개의 나선형 작용으로 공기를 뒤로 밀어내고, 뉴턴의 제3법칙에 따라 항공기를 앞으로 밀어낸다."
+  },
+  {
+    "id": 192,
+    "topic": "propulsion",
+    "q": "In a jet engine, what keeps the compressor running before the gases exit the nozzle?",
+    "q_ko": "제트 엔진에서 배기가스가 노즐로 빠져나가기 전에 무엇이 압축기를 계속 돌아가게 하는가?",
+    "options": [
+      "Exhaust gases turn turbine blades connected by a shaft to the compressor blades",
+      "The propeller at the rear mechanically spins the compressor",
+      "The firewall channels cabin heat into the compressor",
+      "External struts brace the compressor to the fuselage"
+    ],
+    "answer": 0,
+    "explain": "제트 엔진에서는 배기가스가 터빈 날개를 돌리고, 이 터빈이 샤프트로 압축기 날개와 연결되어 배기가 노즐로 나가기 전에 압축기를 계속 구동한다."
+  },
+  {
+    "id": 193,
+    "topic": "propulsion",
+    "q": "In a turbojet engine, what is the correct order of the airflow path?",
+    "q_ko": "터보제트 엔진에서 공기 흐름의 올바른 순서는 무엇인가?",
+    "options": [
+      "Air intake, compressors, burner, turbines, exhaust nozzle",
+      "Air intake, burner, compressors, exhaust nozzle, turbines",
+      "Compressors, air intake, turbines, burner, exhaust nozzle",
+      "Burner, compressors, air intake, turbines, exhaust nozzle"
+    ],
+    "answer": 0,
+    "explain": "터보제트는 공기흡입구로 공기를 받아 저압·고압 압축기로 압축하고, 연소실(버너)에서 연료를 점화한 뒤 고압·저압 터빈을 돌리고 배기 노즐로 배출한다."
+  },
+  {
+    "id": 194,
+    "topic": "propulsion",
+    "q": "What is a primary drawback of using an afterburner?",
+    "q_ko": "애프터버너 사용의 주요 단점은 무엇인가?",
+    "options": [
+      "It sharply increases fuel consumption and can be used only briefly",
+      "It permanently reduces the engine's maximum thrust",
+      "It cools the exhaust gases too much to fly",
+      "It can only be used at low altitude"
+    ],
+    "answer": 0,
+    "explain": "애프터버너는 터빈과 후방 배기 노즐 사이에서 연료를 추가 점화해 추력을 크게 높이지만, 연료 소비가 급증해 짧은 시간만 사용할 수 있다."
+  },
+  {
+    "id": 195,
+    "topic": "control_surfaces",
+    "q": "Which movable control surface is attached to the trailing edge of the horizontal stabilizers?",
+    "q_ko": "수평 안정판의 뒷전에 부착된 가동 조종면은 무엇인가?",
+    "options": [
+      "The elevators",
+      "The rudder",
+      "The ailerons",
+      "The vertical stabilizer"
+    ],
+    "answer": 0,
+    "explain": "승강타(엘리베이터)는 수평 안정판 뒷전에 부착된 가동 조종면으로 기수를 위아래로 움직인다. 방향타는 수직 안정판에 붙어 있다."
+  },
+  {
+    "id": 196,
+    "topic": "control_surfaces",
+    "q": "What is the purpose of trim tabs on the trailing edges of the rudder, elevators, and ailerons?",
+    "q_ko": "방향타, 승강타, 보조날개 뒷전에 있는 트림 탭의 목적은 무엇인가?",
+    "options": [
+      "To reduce control pressures and decrease the pilot's workload",
+      "To increase the maximum speed of the aircraft",
+      "To serve as the primary means of rolling the aircraft",
+      "To replace the rudder during a stall"
+    ],
+    "answer": 0,
+    "explain": "트림 탭은 방향타·승강타·보조날개 뒷전의 작은 가동 부분으로, 조종 압력을 줄여 조종사의 부담을 덜어준다."
+  },
+  {
+    "id": 197,
+    "topic": "forces",
+    "q": "According to Newton's Third Law, how do jets and rockets produce forward thrust?",
+    "q_ko": "뉴턴의 제3법칙에 따르면 제트기와 로켓은 어떻게 전방 추력을 만드는가?",
+    "options": [
+      "By pushing hot gases backward, producing an equal and opposite forward reaction",
+      "By reducing their mass until they float upward",
+      "By attracting air with gravitational force",
+      "By increasing the pressure above the wing"
+    ],
+    "answer": 0,
+    "explain": "모든 작용에는 크기가 같고 방향이 반대인 반작용이 있다. 제트와 로켓은 뜨거운 가스를 뒤로 밀어내어 그 반작용으로 전방 추력을 얻는다."
+  },
+  {
+    "id": 198,
+    "topic": "forces",
+    "q": "An object weighs six pounds on Earth. About how much would it weigh on the Moon, and why?",
+    "q_ko": "어떤 물체가 지구에서 6파운드이다. 달에서는 약 얼마이며 그 이유는 무엇인가?",
+    "options": [
+      "About one pound, because the Moon's gravity is one-sixth of Earth's",
+      "About six pounds, because mass and weight are identical",
+      "About thirty-six pounds, because gravity increases with distance",
+      "About three pounds, because the Moon has half of Earth's gravity"
+    ],
+    "answer": 0,
+    "explain": "질량은 국소 중력과 무관한 상수지만 무게는 국소 중력의 함수다. 달 중력은 지구의 1/6이라 6파운드 물체는 달에서 약 1파운드가 된다."
+  },
+  {
+    "id": 199,
+    "topic": "forces",
+    "q": "Which four forces act upon an aircraft in flight?",
+    "q_ko": "비행 중인 항공기에 작용하는 네 가지 힘은 무엇인가?",
+    "options": [
+      "Lift, weight, thrust, and drag",
+      "Lift, camber, torque, and drag",
+      "Thrust, inertia, gravity, and pressure",
+      "Lift, weight, friction, and momentum"
+    ],
+    "answer": 0,
+    "explain": "비행 중 항공기에는 위로 미는 양력, 아래로 당기는 중력(무게), 앞으로 미는 추력, 뒤로 미는 항력의 네 힘이 작용한다."
+  },
+  {
+    "id": 200,
+    "topic": "aerodynamics",
+    "q": "According to Bernoulli's Principle, what happens to the pressure a fluid exerts as its velocity increases?",
+    "q_ko": "베르누이 원리에 따르면 유체의 속도가 증가하면 그 유체가 가하는 압력은 어떻게 되는가?",
+    "options": [
+      "The pressure decreases",
+      "The pressure increases",
+      "The pressure stays constant",
+      "The pressure doubles"
+    ],
+    "answer": 0,
+    "explain": "베르누이 원리는 유체의 속도가 증가하면 그것이 가하는 압력이 감소한다는 것이다. 공기도 유체이므로 날개 위 공기 흐름에 적용된다."
+  },
+  {
+    "id": 201,
+    "topic": "aerodynamics",
+    "q": "What causes an aerodynamic stall?",
+    "q_ko": "공기역학적 실속(stall)의 원인은 무엇인가?",
+    "options": [
+      "Separation of airflow from the wing's upper surface, causing a rapid loss of lift",
+      "The engine running out of fuel in flight",
+      "Excessive air pressure below the wing",
+      "The rudder being deflected too far"
+    ],
+    "answer": 0,
+    "explain": "실속은 날개 윗면에서 공기 흐름이 박리되어 양력이 급격히 감소해 발생한다. 회복하려면 받음각을 실속각 아래로 낮춰야 한다."
+  },
+  {
+    "id": 202,
+    "topic": "maneuvers",
+    "q": "Which axis does an airplane rotate about during a roll, and which surfaces control it?",
+    "q_ko": "항공기가 롤(roll)할 때 회전하는 축과 이를 제어하는 조종면은 무엇인가?",
+    "options": [
+      "The longitudinal axis, controlled by the ailerons",
+      "The lateral axis, controlled by the elevators",
+      "The vertical axis, controlled by the rudder",
+      "The longitudinal axis, controlled by the rudder"
+    ],
+    "answer": 0,
+    "explain": "롤은 세로축(기수에서 꼬리)을 중심으로 한 운동으로 보조날개(에일러론)로 제어한다. 피치는 가로축/승강타, 요는 수직축/방향타이다."
+  },
+  {
+    "id": 203,
+    "topic": "weather",
+    "q": "Approximately what is the composition of Earth's atmosphere?",
+    "q_ko": "지구 대기의 구성은 대략 어떻게 되는가?",
+    "options": [
+      "About 78% nitrogen, 21% oxygen, and 1% other gases",
+      "About 78% oxygen, 21% nitrogen, and 1% other gases",
+      "About 50% nitrogen and 50% oxygen",
+      "About 90% oxygen and 10% nitrogen"
+    ],
+    "answer": 0,
+    "explain": "지구 대기는 약 78%의 질소, 21%의 산소, 그리고 아르곤·헬륨 같은 기타 기체 약 1%로 구성된다."
+  },
+  {
+    "id": 204,
+    "topic": "aerodynamics",
+    "q": "Why does warmer air produce less lift than cooler air?",
+    "q_ko": "따뜻한 공기가 찬 공기보다 양력을 적게 만드는 이유는 무엇인가?",
+    "options": [
+      "Warmer air is less dense than cooler air",
+      "Warmer air is heavier than cooler air",
+      "Warmer air contains no oxygen",
+      "Warmer air increases atmospheric pressure"
+    ],
+    "answer": 0,
+    "explain": "따뜻한 공기는 찬 공기보다 밀도가 낮아 양력을 적게 발생시킨다."
+  },
+  {
+    "id": 205,
+    "topic": "control_surfaces",
+    "q": "A pilot pushes the left rudder pedal. Which way does the airplane's nose yaw?",
+    "q_ko": "조종사가 왼쪽 러더 페달을 밟으면 비행기의 기수는 어느 방향으로 요(yaw)합니까?",
+    "options": [
+      "To the left",
+      "To the right",
+      "The nose pitches up",
+      "The airplane rolls right"
+    ],
+    "answer": 0,
+    "explain": "왼쪽 러더 페달을 밟으면 러더가 왼쪽으로 움직여 기수가 왼쪽으로 요(yaw)합니다."
+  },
+  {
+    "id": 206,
+    "topic": "control_surfaces",
+    "q": "How does rudder effectiveness change with airspeed?",
+    "q_ko": "러더의 효과는 대기속도에 따라 어떻게 변합니까?",
+    "options": [
+      "It increases with airspeed, so only small deflections are needed at high speeds",
+      "It decreases with airspeed, so large deflections are needed at high speeds",
+      "It is unaffected by airspeed",
+      "It only works when the aircraft is on the ground"
+    ],
+    "answer": 0,
+    "explain": "러더 효과는 대기속도가 증가할수록 커지므로, 저속에서는 큰 편향이, 고속에서는 작은 편향만 필요합니다."
+  },
+  {
+    "id": 207,
+    "topic": "control_surfaces",
+    "q": "When the horizontal stabilizer and elevator are combined into a single movable surface, what is it called?",
+    "q_ko": "수평 안정판과 엘리베이터가 하나의 움직이는 면으로 결합되면 무엇이라고 부릅니까?",
+    "options": [
+      "A stabilator",
+      "A stabilizer trim tab",
+      "A spoiler",
+      "A slat"
+    ],
+    "answer": 0,
+    "explain": "수평 안정판과 엘리베이터가 하나의 가동면으로 합쳐지면 스태빌레이터(stabilator)라고 합니다."
+  },
+  {
+    "id": 208,
+    "topic": "control_surfaces",
+    "q": "Pulling the control column aft moves the elevators up. What is the result?",
+    "q_ko": "조종간을 뒤로 당기면 엘리베이터가 위로 올라갑니다. 그 결과는 무엇입니까?",
+    "options": [
+      "A downward force on the tail raises the nose (pitch up)",
+      "An upward force on the tail lowers the nose (pitch down)",
+      "The airplane yaws left",
+      "The airplane rolls into a bank"
+    ],
+    "answer": 0,
+    "explain": "조종간을 당기면 엘리베이터가 위로 올라가 꼬리에 아래로 향하는 힘이 생겨 무게중심을 기준으로 기수가 올라갑니다(피치 업)."
+  },
+  {
+    "id": 209,
+    "topic": "control_surfaces",
+    "q": "A downward-deflected aileron produces more lift but also more drag on that wing, causing the nose to yaw toward the raised wing. What is this called?",
+    "q_ko": "아래로 편향된 에일러론은 그 날개에 더 큰 양력과 함께 더 큰 항력을 만들어 기수가 올라간 날개 쪽으로 요하게 합니다. 이를 무엇이라고 합니까?",
+    "options": [
+      "Adverse yaw",
+      "Dutch roll",
+      "Ground effect",
+      "P-factor"
+    ],
+    "answer": 0,
+    "explain": "내려간 에일러론이 양력과 함께 항력도 늘려 기수가 올라간 날개 쪽으로 요하는 현상을 애드버스 요(adverse yaw)라고 합니다."
+  },
+  {
+    "id": 210,
+    "topic": "control_surfaces",
+    "q": "Deploying an elevator trim tab to its full 'up' position has what effect on the airplane's pitch?",
+    "q_ko": "엘리베이터 트림 탭을 완전히 '위(up)' 위치로 놓으면 비행기의 피치에 어떤 영향을 줍니까?",
+    "options": [
+      "The elevator trailing edge is forced down, producing a nose-down pitch change",
+      "The elevator trailing edge is forced up, producing a nose-up pitch change",
+      "It has no effect on pitch, only on roll",
+      "It locks the elevator in a neutral position"
+    ],
+    "answer": 0,
+    "explain": "엘리베이터 트림 탭을 완전히 위로 놓으면 엘리베이터 뒷전이 아래로 밀려 기수 내림(nose-down) 변화를 만듭니다."
+  },
+  {
+    "id": 211,
+    "topic": "control_surfaces",
+    "q": "What is the primary function of spoilers deployed on both wings simultaneously in flight?",
+    "q_ko": "비행 중 양쪽 날개에 스포일러를 동시에 전개하는 주된 기능은 무엇입니까?",
+    "options": [
+      "To descend without gaining speed by reducing lift and increasing drag",
+      "To increase lift for a short-field takeoff",
+      "To yaw the aircraft for a coordinated turn",
+      "To reduce drag and increase cruise speed"
+    ],
+    "answer": 0,
+    "explain": "스포일러는 고항력 장치로 양력을 줄이고 항력을 늘려, 양쪽에 동시에 전개하면 속도를 얻지 않고 강하할 수 있습니다."
+  },
+  {
+    "id": 212,
+    "topic": "instruments",
+    "q": "The altimeter operates as which type of instrument?",
+    "q_ko": "고도계는 어떤 종류의 계기로 작동합니까?",
+    "options": [
+      "An aneroid barometer measuring atmospheric pressure",
+      "A differential pressure gauge comparing pitot and static pressure",
+      "A gyroscopic instrument",
+      "A liquid-filled tube with a ball"
+    ],
+    "answer": 0,
+    "explain": "고도계는 대기압을 측정하여 고도를 피트로 표시하는 아네로이드 기압계(aneroid barometer)입니다."
+  },
+  {
+    "id": 213,
+    "topic": "weather",
+    "q": "When the outside air temperature is above standard, how does density altitude compare to pressure altitude?",
+    "q_ko": "외부 공기 온도가 표준보다 높을 때, 밀도고도는 압력고도와 비교하여 어떻습니까?",
+    "options": [
+      "Density altitude is higher than pressure altitude",
+      "Density altitude is lower than pressure altitude",
+      "They are always exactly equal",
+      "Density altitude drops to sea level"
+    ],
+    "answer": 0,
+    "explain": "밀도고도는 표준 온도 편차를 보정한 압력고도이며, 온도가 표준보다 높으면 밀도고도가 압력고도보다 높아집니다."
+  },
+  {
+    "id": 214,
+    "topic": "instruments",
+    "q": "On the airspeed indicator, what does the red line mark?",
+    "q_ko": "속도계에서 빨간 선(red line)은 무엇을 표시합니까?",
+    "options": [
+      "Vne, the never-exceed speed above which flight is prohibited",
+      "The flap operating range",
+      "The normal operating range",
+      "The rate of climb in feet per minute"
+    ],
+    "answer": 0,
+    "explain": "속도계의 빨간 선은 초과 금지 속도(Vne)를 표시하며, 이를 초과하면 구조적 파손 위험으로 비행이 금지됩니다."
+  },
+  {
+    "id": 215,
+    "topic": "instruments",
+    "q": "According to the rule 'step on the ball,' how does a pilot coordinate a turn when the inclinometer's ball is deflected to one side?",
+    "q_ko": "'공을 밟아라(step on the ball)'라는 규칙에 따르면, 경사계의 공이 한쪽으로 치우쳤을 때 조종사는 어떻게 선회를 조화시킵니까?",
+    "options": [
+      "Apply rudder pressure on the side toward which the ball is deflected",
+      "Apply rudder pressure on the opposite side of the ball",
+      "Apply back elevator pressure until the ball centers",
+      "Reduce aileron input until the ball centers"
+    ],
+    "answer": 0,
+    "explain": "'공을 밟아라'는 공이 치우친 쪽으로 러더 압력을 가해 선회를 조화(coordinated)시키라는 의미입니다."
+  },
+  {
+    "id": 216,
+    "topic": "instruments",
+    "q": "The gyro in the attitude indicator (artificial horizon) is mounted rigidly on a horizontal plane. What does this allow the instrument to display?",
+    "q_ko": "자세 지시계(인공 수평의)의 자이로는 수평면에 견고하게 고정되어 있습니다. 이로 인해 계기는 무엇을 표시할 수 있습니까?",
+    "options": [
+      "The airplane's pitch and bank attitude relative to the true horizon",
+      "The rate of turn in degrees per minute",
+      "The rate of climb or descent in feet per minute",
+      "The difference between pitot and static pressure"
+    ],
+    "answer": 0,
+    "explain": "자세 지시계의 자이로는 수평면에 견고히 고정되어 수평선 막대가 진짜 수평선을 나타내며, 소형 비행기와 함께 피치와 뱅크 자세를 표시합니다."
+  },
+  {
+    "id": 217,
+    "topic": "instruments",
+    "q": "On an artificial horizon (attitude indicator), how is the aircraft symbol displayed relative to the moving horizon line?",
+    "q_ko": "인공 수평선(자세 지시계)에서 항공기 심벌은 움직이는 수평선에 대해 어떻게 표시되는가?",
+    "options": [
+      "The wings symbol stays fixed and horizontal while the horizon line moves",
+      "The horizon line stays fixed while the wings symbol moves",
+      "Both the wings and horizon line move together",
+      "Neither the wings nor the horizon line ever moves"
+    ],
+    "answer": 0,
+    "explain": "인공 수평선에서는 항공기 날개 심벌이 계기판에 대해 고정·수평으로 유지되고, 움직이는 수평선이 상하로 이동하거나 좌우로 기울어져 자세와 뱅크를 표시한다."
+  },
+  {
+    "id": 218,
+    "topic": "instruments",
+    "q": "On an artificial horizon, if the horizon indicator line is tilted to the left, what is the aircraft doing?",
+    "q_ko": "인공 수평선에서 수평선 지시선이 왼쪽으로 기울어져 있으면 항공기는 어떤 상태인가?",
+    "options": [
+      "Banking to the right",
+      "Banking to the left",
+      "Climbing straight ahead",
+      "Diving straight ahead"
+    ],
+    "answer": 0,
+    "explain": "수평선 지시선은 실제 뱅크 방향과 반대로 기울어진다. 수평선이 왼쪽으로 기울면(왼쪽이 아래) 항공기는 오른쪽으로 뱅크하고 있는 것이다."
+  },
+  {
+    "id": 219,
+    "topic": "instruments",
+    "q": "On a magnetic compass card, how is a heading of 300 degrees displayed?",
+    "q_ko": "자기 컴퍼스 카드에서 300도 방위는 어떻게 표시되는가?",
+    "options": [
+      "As the number 30",
+      "As the number 300",
+      "As the number 3",
+      "As the number 33"
+    ],
+    "answer": 0,
+    "explain": "컴퍼스 카드는 30도 간격 숫자에서 끝의 0을 생략해 표시한다. 따라서 30도는 '3', 300도는 '30'으로 나타난다."
+  },
+  {
+    "id": 220,
+    "topic": "instruments",
+    "q": "Why does a compass needle point to magnetic north rather than true north at most locations?",
+    "q_ko": "대부분의 위치에서 컴퍼스 바늘이 진북이 아닌 자북을 가리키는 이유는 무엇인가?",
+    "options": [
+      "Earth's magnetic poles do not exactly coincide with the geographic poles",
+      "The compass is always installed slightly crooked",
+      "The needle is attracted to the aircraft engine",
+      "True north does not physically exist"
+    ],
+    "answer": 0,
+    "explain": "지구의 자극(자기극)은 지리적 극과 정확히 일치하지 않기 때문에 컴퍼스 바늘은 대부분의 위치에서 진북이 아닌 자북을 가리킨다."
+  },
+  {
+    "id": 221,
+    "topic": "instruments",
+    "q": "How does the heading indicator (directional gyro) differ from the magnetic compass?",
+    "q_ko": "방위 지시계(방향 자이로)는 자기 컴퍼스와 어떻게 다른가?",
+    "options": [
+      "It is a mechanical, non-magnetic instrument unaffected by turbulence forces",
+      "It is the only direction-seeking instrument required in all airplanes",
+      "It is a newer magnetic compass with a vertical card",
+      "It points to true north instead of magnetic north"
+    ],
+    "answer": 0,
+    "explain": "방위 지시계는 기계식·비자성 계기로, 난기류에서 자기 컴퍼스를 읽기 어렵게 만드는 힘의 영향을 받지 않으며 컴퍼스를 보조·백업한다."
+  },
+  {
+    "id": 222,
+    "topic": "maneuvers",
+    "q": "Which set correctly lists the four fundamental flight maneuvers on which all flying tasks are based?",
+    "q_ko": "모든 비행 과제의 기초가 되는 네 가지 기본 비행 기동을 올바르게 나열한 것은?",
+    "options": [
+      "Straight-and-level flight, turns, climbs, and descents",
+      "Takeoff, cruise, approach, and landing",
+      "Hover, transition, forward flight, and autorotation",
+      "Roll, pitch, yaw, and thrust"
+    ],
+    "answer": 0,
+    "explain": "모든 비행 과제의 기초가 되는 네 가지 기본 기동은 수평 직진 비행, 선회, 상승, 강하이다."
+  },
+  {
+    "id": 223,
+    "topic": "maneuvers",
+    "q": "How does an airplane primarily turn?",
+    "q_ko": "항공기는 주로 어떻게 선회하는가?",
+    "options": [
+      "By banking its wings in the direction of the desired turn",
+      "By using the rudder alone to swing the nose around",
+      "By increasing throttle on one wing",
+      "By raising the nose with the elevator"
+    ],
+    "answer": 0,
+    "explain": "항공기는 러더가 아니라 원하는 선회 방향으로 날개를 뱅크시켜 선회한다. 양력의 수평 성분이 실제로 항공기를 돌린다."
+  },
+  {
+    "id": 224,
+    "topic": "aerodynamics",
+    "q": "Why does adverse yaw occur during a turn, and how is it counteracted?",
+    "q_ko": "선회 중 역요(adverse yaw)가 발생하는 이유와 이를 상쇄하는 방법은?",
+    "options": [
+      "The lowered aileron on the rising wing creates more drag; rudder counteracts it",
+      "The engine torque pulls the nose down; elevator counteracts it",
+      "The wings lose lift symmetrically; throttle counteracts it",
+      "The horizon tilts the wrong way; the compass corrects it"
+    ],
+    "answer": 0,
+    "explain": "올라가는 날개의 내려간 에일러론이 내려가는 날개의 올라간 에일러론보다 더 많은 항력을 만들어 선회 반대 방향으로 요잉이 생기며, 러더를 사용해 이를 상쇄하고 조화 선회를 이룬다."
+  },
+  {
+    "id": 225,
+    "topic": "maneuvers",
+    "q": "What distinguishes best angle of climb (Vx) from best rate of climb (Vy)?",
+    "q_ko": "최대 상승각 속도(Vx)와 최대 상승률 속도(Vy)의 차이는 무엇인가?",
+    "options": [
+      "Vx is flown at a lower airspeed and gives the greatest altitude gain over distance",
+      "Vx gives the greatest altitude gain per unit of time",
+      "Vx is flown at a higher airspeed than Vy",
+      "Vx is used only during descent, not climb"
+    ],
+    "answer": 0,
+    "explain": "Vx는 Vy보다 낮은 속도로 비행하며 주어진 거리당 가장 큰 고도 획득을 제공해 이륙 후 장애물 회피에 유용하다. Vy는 단위 시간당 최대 고도 획득을 준다."
+  },
+  {
+    "id": 226,
+    "topic": "helicopter",
+    "q": "What happens when a helicopter pilot raises the collective?",
+    "q_ko": "헬리콥터 조종사가 컬렉티브를 올리면 어떤 일이 일어나는가?",
+    "options": [
+      "The pitch of all main rotor blades increases together, increasing lift and climbing",
+      "The main rotor disc tilts in the direction of the stick",
+      "The tail rotor pitch changes to yaw the aircraft",
+      "Only one rotor blade changes pitch to bank the aircraft"
+    ],
+    "answer": 0,
+    "explain": "컬렉티브를 올리면 모든 주 로터 블레이드의 피치가 함께 증가해 양력이 커지고 헬리콥터가 상승한다. 내리면 강하한다."
+  },
+  {
+    "id": 227,
+    "topic": "helicopter",
+    "q": "What is the purpose of a helicopter's tail rotor?",
+    "q_ko": "헬리콥터 꼬리 로터(tail rotor)의 목적은 무엇인가?",
+    "options": [
+      "Torque control to counteract the fuselage's tendency to rotate opposite the main rotor",
+      "To provide the primary lift for the helicopter",
+      "To increase forward airspeed like a propeller",
+      "To replace the collective in controlling blade pitch"
+    ],
+    "answer": 0,
+    "explain": "꼬리 로터는 엔진 동력의 일부를 사용해 토크를 제어하며, 동체가 주 로터와 반대 방향으로 회전하려는 경향을 상쇄해 방향 안정성을 유지한다."
+  },
+  {
+    "id": 228,
+    "topic": "helicopter",
+    "q": "Why do rotor blades cone upward into a shallow inverted cone shape as they spin?",
+    "q_ko": "로터 블레이드가 회전할 때 위로 원뿔 모양(얕은 역원뿔)으로 코닝되는 이유는 무엇인가?",
+    "options": [
+      "They are long, thin, flexible, and have higher lift loading toward the tips",
+      "They are rigid and bend from engine vibration",
+      "The tail rotor pushes them upward",
+      "Cold air makes the metal curl upward"
+    ],
+    "answer": 0,
+    "explain": "로터 블레이드는 길고 얇고 유연하며 끝쪽으로 갈수록 양력 부하가 커지기 때문에 회전하면서 위로 코닝되어 얕은 역원뿔 형태를 이룬다."
+  },
+  {
+    "id": 229,
+    "topic": "helicopter",
+    "q": "In a helicopter, pressing the left tail rotor pedal causes what?",
+    "q_ko": "헬리콥터에서 왼쪽 테일 로터 페달을 밟으면 어떤 일이 일어나는가?",
+    "options": [
+      "The nose yaws to the left",
+      "The nose yaws to the right",
+      "The helicopter climbs",
+      "The helicopter banks left"
+    ],
+    "answer": 0,
+    "explain": "테일 로터 페달은 요(yaw)를 제어하며, 왼쪽 페달을 밟으면 기수가 왼쪽으로 움직인다."
+  },
+  {
+    "id": 230,
+    "topic": "helicopter",
+    "q": "When a pilot increases collective and engine power in a helicopter, why is more tail rotor pedal pressure needed?",
+    "q_ko": "헬리콥터에서 조종사가 컬렉티브와 엔진 출력을 높이면 왜 더 많은 테일 로터 페달 압력이 필요한가?",
+    "options": [
+      "Increased torque tries to spin the cabin",
+      "The main rotor slows down",
+      "The tail rotor stops turning",
+      "Lift decreases at the tail"
+    ],
+    "answer": 0,
+    "explain": "컬렉티브와 엔진 출력을 높이면 캐빈을 회전시키려는 토크가 커지므로, 기수를 고정하려면 페달에 더 큰 압력이 필요하다."
+  },
+  {
+    "id": 231,
+    "topic": "helicopter",
+    "q": "During an autorotation, why does the tail rotor continue to provide yaw control?",
+    "q_ko": "자동회전(오토로테이션) 중에 테일 로터가 계속 요 제어를 제공하는 이유는?",
+    "options": [
+      "It is connected to the main rotor through a transmission",
+      "It has its own separate engine",
+      "It is driven by the wind alone",
+      "It runs on battery power"
+    ],
+    "answer": 0,
+    "explain": "테일 로터는 트랜스미션을 통해 메인 로터와 연결되어 있어 자동회전 중에도 계속 돌아가며 요 제어를 제공한다."
+  },
+  {
+    "id": 232,
+    "topic": "helicopter",
+    "q": "What causes a helicopter's rotor to speed up as it draws in, like an ice skater pulling in her arms?",
+    "q_ko": "아이스 스케이터가 팔을 끌어당길 때처럼 헬리콥터 로터가 빨라지게 하는 것은 무엇인가?",
+    "options": [
+      "The Coriolis force",
+      "Gyroscopic precession",
+      "The transverse flow effect",
+      "Torque effect"
+    ],
+    "answer": 0,
+    "explain": "코리올리 힘은 회전축에 팔을 가까이 당길 때 스케이터가 더 빨리 도는 것과 같은 원리로 로터의 거동을 설명한다."
+  },
+  {
+    "id": 233,
+    "topic": "aerodynamics",
+    "q": "According to gyroscopic precession, a force applied to a spinning disc takes effect where?",
+    "q_ko": "자이로스코픽 프리세션(세차운동)에 따르면, 회전하는 원판에 가해진 힘은 어디에서 효과가 나타나는가?",
+    "options": [
+      "90 degrees later in the direction of rotation",
+      "At the exact point of application",
+      "180 degrees later, opposite the rotation",
+      "45 degrees before the point of application"
+    ],
+    "answer": 0,
+    "explain": "자이로스코픽 프리세션은 회전하는 원판에 가해진 힘이 회전 방향으로 90도 뒤에서 나타나게 한다."
+  },
+  {
+    "id": 234,
+    "topic": "structure",
+    "q": "Who achieved the first recognized powered, manned flight, and where?",
+    "q_ko": "최초로 인정받은 동력 유인 비행을 이룬 사람과 장소는?",
+    "options": [
+      "The Wright brothers at Kitty Hawk, North Carolina",
+      "The Montgolfier brothers in France",
+      "Igor Sikorsky in Russia",
+      "Chuck Yeager at Kitty Hawk"
+    ],
+    "answer": 0,
+    "explain": "1903년 12월 17일 라이트 형제가 노스캐롤라이나 키티호크에서 최초로 인정받은 동력 유인 비행에 성공했다."
+  },
+  {
+    "id": 235,
+    "topic": "propulsion",
+    "q": "Who designed and patented the first jet engine in 1930?",
+    "q_ko": "1930년에 최초의 제트 엔진을 설계하고 특허를 받은 사람은?",
+    "options": [
+      "Frank Whittle of Great Britain",
+      "Igor Sikorsky of Russia",
+      "Chuck Yeager of the United States",
+      "Orville Wright of the United States"
+    ],
+    "answer": 0,
+    "explain": "1930년 영국의 프랭크 휘틀이 최초의 제트 엔진을 설계하고 특허를 받았으며, 약 10년 뒤에야 항공기에 시험되었다."
+  },
+  {
+    "id": 236,
+    "topic": "structure",
+    "q": "What feature of the P-51 Mustang gave it the range to escort Allied bombers into Germany?",
+    "q_ko": "P-51 머스탱이 연합군 폭격기를 독일까지 호위할 수 있는 항속거리를 갖게 한 특징은?",
+    "options": [
+      "Its laminar-flow wing that reduced drag",
+      "Its jet engine",
+      "Its tailhook design",
+      "Its multi-engine configuration"
+    ],
+    "answer": 0,
+    "explain": "P-51 머스탱의 층류익(laminar-flow wing)은 항력을 줄이고 공기역학을 개선해 독일까지 폭격기를 호위할 항속거리를 제공했다."
+  },
+  {
+    "id": 237,
+    "topic": "airport_ops",
+    "q": "A runway pointing due east (magnetic heading 090 degrees) is designated as which runway?",
+    "q_ko": "정동쪽(자기 방위 090도)을 가리키는 활주로는 몇 번 활주로로 지정되는가?",
+    "options": [
+      "Runway 09",
+      "Runway 90",
+      "Runway 18",
+      "Runway 27"
+    ],
+    "answer": 0,
+    "explain": "활주로 번호는 자기 방위의 1/10로 매기므로, 090도는 활주로 09가 된다."
+  },
+  {
+    "id": 238,
+    "topic": "airport_ops",
+    "q": "Why do fixed-wing aircraft usually take off and land into the wind?",
+    "q_ko": "고정익 항공기는 왜 보통 맞바람을 향해 이착륙하는가?",
+    "options": [
+      "To increase airflow over the wing and lift while reducing required ground speed",
+      "To reduce airflow over the wing and lower lift",
+      "To increase the required ground speed for safety",
+      "To keep the compass pointed at magnetic north"
+    ],
+    "answer": 0,
+    "explain": "맞바람을 향하면 날개 위 공기 흐름과 양력이 증가하고 필요한 지상 속도가 줄어든다."
+  },
+  {
+    "id": 239,
+    "topic": "airport_ops",
+    "q": "What color are taxiway markings and holding positions, as opposed to runway markings?",
+    "q_ko": "활주로 표시와 달리 유도로 표시와 대기 위치는 무슨 색인가?",
+    "options": [
+      "Yellow",
+      "White",
+      "Blue",
+      "Green"
+    ],
+    "answer": 0,
+    "explain": "활주로 표시는 흰색인 반면, 유도로 표시와 대기 위치는 노란색이다."
+  },
+  {
+    "id": 240,
+    "topic": "airport_ops",
+    "q": "About how long does a steam catapult take to accelerate a 48,000-lb aircraft from zero to 165 mph over 300 feet?",
+    "q_ko": "증기 캐터펄트가 48,000파운드 항공기를 300피트에 걸쳐 시속 0에서 165마일까지 가속하는 데 걸리는 시간은 약 얼마입니까?",
+    "options": [
+      "About two seconds",
+      "About ten seconds",
+      "About thirty seconds",
+      "About one minute"
+    ],
+    "answer": 0,
+    "explain": "항공모함의 증기 캐터펄트는 48,000파운드 항공기를 300피트 거리에서 약 2초 만에 시속 165마일까지 가속시킨다."
+  },
+  {
+    "id": 241,
+    "topic": "structure",
+    "q": "What component on a carrier aircraft's nose gear locks into the catapult shuttle for launch?",
+    "q_ko": "함재기 앞바퀴(노즈 기어)에서 캐터펄트 셔틀에 걸려 발사를 담당하는 부품은 무엇입니까?",
+    "options": [
+      "A T-bar",
+      "A tail hook",
+      "A drag chute",
+      "A holdback ring"
+    ],
+    "answer": 0,
+    "explain": "함재기 노즈 기어의 T-바(런치 바)가 캐터펄트 셔틀에 잠기며, 셔틀이 발사 시 항공기를 캐터펄트 길이만큼 끌어당긴다."
+  },
+  {
+    "id": 242,
+    "topic": "structure",
+    "q": "How many deck-edge elevators does a carrier use to move aircraft between the hangar deck and the flight deck?",
+    "q_ko": "항공모함이 격납고 갑판과 비행 갑판 사이에서 항공기를 옮기는 데 사용하는 갑판 가장자리 엘리베이터는 몇 개입니까?",
+    "options": [
+      "Four",
+      "Two",
+      "Six",
+      "One"
+    ],
+    "answer": 0,
+    "explain": "니미츠급 항공모함에는 4개의 갑판 가장자리 엘리베이터가 있으며, 각각 항공기 2대를 격납고에서 비행 갑판으로 수초 만에 올릴 수 있다."
+  },
+  {
+    "id": 243,
+    "topic": "terminology",
+    "q": "What is the name of the control tower for flight operations near an aircraft carrier?",
+    "q_ko": "항공모함 인근 비행 작전을 통제하는 관제탑의 이름은 무엇입니까?",
+    "options": [
+      "Primary Flight Control ('Pri-Fly')",
+      "Combat Information Center",
+      "Bridge",
+      "Ready Room"
+    ],
+    "answer": 0,
+    "explain": "항공모함의 비행 작전 관제탑은 'Pri-Fly'라 불리는 Primary Flight Control이다."
+  },
+  {
+    "id": 244,
+    "topic": "terminology",
+    "q": "Who controls takeoffs, landings, and the movement of planes on the flight deck from Pri-Fly?",
+    "q_ko": "Pri-Fly에서 이착함과 비행 갑판 위 항공기 이동을 통제하는 사람은 누구입니까?",
+    "options": [
+      "The air boss",
+      "The captain",
+      "The navigator",
+      "The LSO chief"
+    ],
+    "answer": 0,
+    "explain": "Pri-Fly에서는 '에어 보스(air boss)'가 이착함, 함 인근 공중 항공기, 갑판 위 항공기 이동을 통제한다."
+  },
+  {
+    "id": 245,
+    "topic": "instruments",
+    "q": "The carrier landing aid known as the 'meatball' uses which type of lenses?",
+    "q_ko": "'미트볼(meatball)'이라 불리는 항공모함 착함 보조장치는 어떤 종류의 렌즈를 사용합니까?",
+    "options": [
+      "Fresnel lenses",
+      "Convex mirrors",
+      "Prismatic filters",
+      "Polarized lenses"
+    ],
+    "answer": 0,
+    "explain": "미트볼은 프레넬(Fresnel) 렌즈가 장착된 호박색과 적색 등의 배열로, 조종사가 착함 정렬을 맞추도록 돕는다."
+  },
+  {
+    "id": 246,
+    "topic": "instruments",
+    "q": "With the Fresnel lens landing system, why does only one light appear to glow at a time?",
+    "q_ko": "프레넬 렌즈 착함 시스템에서 한 번에 하나의 등만 켜진 것처럼 보이는 이유는 무엇입니까?",
+    "options": [
+      "It depends on the angle at which the pilot views the lights, though all are always on",
+      "Only one bulb is powered at a time to save energy",
+      "The lights flash in rapid sequence too fast to see",
+      "Fog filters block all but one light"
+    ],
+    "answer": 0,
+    "explain": "프레넬 렌즈 시스템은 모든 등이 항상 켜져 있지만, 조종사가 바라보는 각도에 따라 한 번에 하나의 등만 빛나 보인다."
+  },
+  {
+    "id": 247,
+    "topic": "instruments",
+    "q": "On the meatball display, what does it mean if the amber lights appear above the green horizontal bar?",
+    "q_ko": "미트볼 표시에서 호박색 등이 초록색 수평 바 위에 나타나면 무엇을 의미합니까?",
+    "options": [
+      "The pilot is too high",
+      "The pilot is too low",
+      "The pilot is perfectly on glide path",
+      "A wave-off is commanded"
+    ],
+    "answer": 0,
+    "explain": "미트볼 등이 초록색 수평 바 위에 있으면 조종사가 너무 높은 것이고, 아래에 있으면 너무 낮은 것이다."
+  },
+  {
+    "id": 248,
+    "topic": "instruments",
+    "q": "On the meatball, flashing red lights on either side of the amber vertical bar signal what?",
+    "q_ko": "미트볼에서 호박색 수직 바 양옆의 적색 등이 깜박이면 무엇을 뜻합니까?",
+    "options": [
+      "A wave-off meaning 'don't land'",
+      "A clearance to land immediately",
+      "That the pilot is centered on glide path",
+      "That the arresting gear has failed"
+    ],
+    "answer": 0,
+    "explain": "수직 바 양옆의 깜박이는 적색 등은 웨이브오프(wave-off), 즉 '착함하지 말라'는 신호이다."
+  },
+  {
+    "id": 249,
+    "topic": "terminology",
+    "q": "'Mayday,' the international voice-radio distress call, is derived from which French phrase?",
+    "q_ko": "국제적으로 통용되는 음성 무선 조난 신호 'Mayday'는 어느 프랑스어 표현에서 유래했습니까?",
+    "options": [
+      "'m'aidez' (help me)",
+      "'bonjour' (good day)",
+      "'au revoir' (goodbye)",
+      "'attendez' (wait)"
+    ],
+    "answer": 0,
+    "explain": "'Mayday'는 '도와줘'를 뜻하는 프랑스어 'm'aidez'에서 유래했다."
+  },
+  {
+    "id": 250,
+    "topic": "navigation",
+    "q": "A nautical mile equals 1,852 meters and is derived from what?",
+    "q_ko": "해리(nautical mile)는 1,852미터에 해당하며 무엇에서 유래했습니까?",
+    "options": [
+      "The length of one minute of arc of a great circle",
+      "The distance a ship travels in one hour",
+      "One thousandth of the Earth's radius",
+      "The wavelength of a marine radio signal"
+    ],
+    "answer": 0,
+    "explain": "해리는 대권(great circle)의 호 1분의 길이에서 유래했으며 약 1,852미터(약 6,076피트)이다."
+  },
+  {
+    "id": 251,
+    "topic": "navigation",
+    "q": "A knot is a unit of speed equal to what?",
+    "q_ko": "노트(knot)는 무엇과 같은 속도 단위입니까?",
+    "options": [
+      "One nautical mile per hour",
+      "One statute mile per hour",
+      "One kilometer per hour",
+      "One meter per second"
+    ],
+    "answer": 0,
+    "explain": "노트는 시간당 1해리의 속도로, 1해리는 약 1.15 법정마일(약 1.85km)에 해당한다."
+  },
+  {
+    "id": 252,
+    "topic": "terminology",
+    "q": "What does the aircraft carrier designation 'CVN' indicate?",
+    "q_ko": "항공모함 부호 'CVN'은 무엇을 나타냅니까?",
+    "options": [
+      "A multi-purpose nuclear-powered aircraft carrier",
+      "A conventionally powered destroyer",
+      "A guided-missile cruiser",
+      "A nuclear ballistic missile submarine"
+    ],
+    "answer": 0,
+    "explain": "CVN은 다목적 원자력 추진 항공모함을 가리키는 부호이다."
+  },
+  {
+    "id": 253,
+    "topic": "forces",
+    "q": "According to Newton's first law of motion, what will an object in motion do?",
+    "q_ko": "뉴턴의 운동 제1법칙에 따르면, 운동하는 물체는 어떻게 되는가?",
+    "options": [
+      "Continue moving at constant velocity unless acted upon by an unbalanced force",
+      "Gradually slow down and stop on its own",
+      "Accelerate continuously until it reaches terminal velocity",
+      "Immediately reverse direction when force is removed"
+    ],
+    "answer": 0,
+    "explain": "제1법칙(관성의 법칙)은 불균형한 힘이 작용하지 않는 한 운동하는 물체는 일정한 속도로 계속 운동한다고 말한다."
+  },
+  {
+    "id": 254,
+    "topic": "forces",
+    "q": "Newton's second law of motion is expressed by which equation?",
+    "q_ko": "뉴턴의 운동 제2법칙은 어떤 식으로 표현되는가?",
+    "options": [
+      "F = ma",
+      "F = mv",
+      "E = mc^2",
+      "P = mv"
+    ],
+    "answer": 0,
+    "explain": "제2법칙은 가속도가 힘에 비례하고 질량에 반비례함을 나타내며 F = ma로 표현된다."
+  },
+  {
+    "id": 255,
+    "topic": "forces",
+    "q": "Under Newton's law of universal gravitation, if the distance between two objects is increased by a factor of 4, the gravitational force decreases by a factor of what?",
+    "q_ko": "뉴턴의 만유인력 법칙에서 두 물체 사이의 거리를 4배로 늘리면 중력은 몇 배로 감소하는가?",
+    "options": [
+      "16",
+      "4",
+      "8",
+      "2"
+    ],
+    "answer": 0,
+    "explain": "중력은 거리의 제곱에 반비례하므로 거리를 4배로 하면 힘은 4의 제곱인 16배 감소한다."
+  },
+  {
+    "id": 256,
+    "topic": "aerodynamics",
+    "q": "According to Bernoulli's principle, points of faster fluid speed within a horizontal flow experience what?",
+    "q_ko": "베르누이 원리에 따르면 수평 흐름 내에서 유체 속도가 빠른 지점은 어떤 상태가 되는가?",
+    "options": [
+      "Less pressure than points of slower fluid speed",
+      "More pressure than points of slower fluid speed",
+      "The same pressure as slower points",
+      "Zero pressure regardless of speed"
+    ],
+    "answer": 0,
+    "explain": "베르누이 원리는 유체 속도가 빠른 지점이 느린 지점보다 압력이 낮다고 설명한다."
+  },
+  {
+    "id": 257,
+    "topic": "forces",
+    "q": "Which of the following is one of the four forces of flight?",
+    "q_ko": "다음 중 비행의 4가지 힘에 해당하는 것은?",
+    "options": [
+      "Thrust",
+      "Inertia",
+      "Torque",
+      "Momentum"
+    ],
+    "answer": 0,
+    "explain": "비행의 4가지 힘은 무게, 양력, 추력(thrust), 항력이다. 관성, 토크, 운동량은 포함되지 않는다."
+  },
+  {
+    "id": 258,
+    "topic": "control_surfaces",
+    "q": "What is the primary purpose of extending spoilers upward during landing?",
+    "q_ko": "착륙 시 스포일러를 위로 펼치는 주된 목적은 무엇인가?",
+    "options": [
+      "To reduce airspeed by creating drag",
+      "To increase lift for a softer touchdown",
+      "To improve forward thrust",
+      "To raise the nose during flare"
+    ],
+    "answer": 0,
+    "explain": "스포일러는 착륙 시 항력을 만들어 속도를 줄이며, 활주로에서 제동 시 감속을 돕는다."
+  },
+  {
+    "id": 259,
+    "topic": "maneuvers",
+    "q": "Roll about the longitudinal axis is controlled by adjusting which control surfaces?",
+    "q_ko": "세로축(롤)을 중심으로 한 롤은 어떤 조종면을 조정하여 제어하는가?",
+    "options": [
+      "The ailerons at the trailing edges of the wings",
+      "The rudder on the vertical stabilizer",
+      "The elevators on the horizontal stabilizer",
+      "The flaps near the fuselage"
+    ],
+    "answer": 0,
+    "explain": "세로축을 중심으로 한 롤은 날개 뒷전의 에일러론을 조정하여 제어한다."
+  },
+  {
+    "id": 260,
+    "topic": "aerodynamics",
+    "q": "What is the angle of attack (AOA)?",
+    "q_ko": "받음각(AOA)이란 무엇인가?",
+    "options": [
+      "The angle between the direction of airflow against the wing and the chord line",
+      "The angle between the wing and the horizon",
+      "The angle between the fuselage and the runway",
+      "The angle between the propeller and the airflow"
+    ],
+    "answer": 0,
+    "explain": "받음각은 날개에 대한 기류의 방향과 앞전에서 뒷전까지 이어지는 시위선 사이의 각도이다."
+  },
+  {
+    "id": 261,
+    "topic": "helicopter",
+    "q": "What is downwash, and how is it visible when a helicopter hovers above water?",
+    "q_ko": "다운워시란 무엇이며, 헬리콥터가 물 위에서 정지비행할 때 어떻게 보이는가?",
+    "options": [
+      "Downward deflection of air off a rotor blade, visible as outward ripples in the water",
+      "Upward suction of air into the rotor, visible as a spray column",
+      "Sideways wind off the tail rotor, visible as a spinning vortex",
+      "Heat exhaust from the engine, visible as steam"
+    ],
+    "answer": 0,
+    "explain": "다운워시는 로터 블레이드에서 아래로 편향되는 공기로 양력을 돕고, 물 위에서는 바깥으로 퍼지는 물결로 보인다."
+  },
+  {
+    "id": 262,
+    "topic": "structure",
+    "q": "What happens if an aircraft exceeds its maximum takeoff weight (MTOW)?",
+    "q_ko": "항공기가 최대이륙중량(MTOW)을 초과하면 어떤 일이 발생하는가?",
+    "options": [
+      "Increased power required, longer runway distance, and excess stress on the structure",
+      "Reduced fuel consumption and shorter takeoff roll",
+      "Improved climb rate with no structural effect",
+      "Automatic reduction in landing gear stress"
+    ],
+    "answer": 0,
+    "explain": "MTOW를 초과하면 이륙에 필요한 출력이 증가하고 활주로 거리가 길어지며 기체 구조에 과도한 응력이 가해진다."
+  },
+  {
+    "id": 263,
+    "topic": "control_surfaces",
+    "q": "Which flight control surface, located in the rear portion of the vertical tail assembly, controls yaw?",
+    "q_ko": "수직 꼬리 조립부의 뒤쪽에 위치하며 요(yaw)를 제어하는 조종면은 무엇인가?",
+    "options": [
+      "The rudder",
+      "The elevators",
+      "The ailerons",
+      "The trim tabs"
+    ],
+    "answer": 0,
+    "explain": "러더는 수직 꼬리 조립부 뒤쪽에 있으며 기수를 좌우로 움직이는 요(yaw)를 제어한다."
+  },
+  {
+    "id": 264,
+    "topic": "control_surfaces",
+    "q": "An aircraft's ailerons, elevators, and rudder respectively control which movements?",
+    "q_ko": "항공기의 에일러론, 엘리베이터, 러더는 각각 어떤 움직임을 제어하는가?",
+    "options": [
+      "Roll, pitch, and yaw",
+      "Pitch, yaw, and roll",
+      "Yaw, roll, and pitch",
+      "Roll, yaw, and pitch"
+    ],
+    "answer": 0,
+    "explain": "에일러론은 롤, 엘리베이터는 피치, 러더는 요를 제어한다."
+  },
+  {
+    "id": 265,
+    "topic": "structure",
+    "q": "What is the main section of an aircraft that holds the crew, passengers, and cargo, and to which the wings, tail, engines, and landing gear attach?",
+    "q_ko": "승무원, 승객, 화물을 수용하고 날개, 꼬리, 엔진, 착륙장치가 부착되는 항공기의 주요 부분은 무엇인가?",
+    "options": [
+      "The fuselage",
+      "The empennage",
+      "The longeron",
+      "The powerplant"
+    ],
+    "answer": 0,
+    "explain": "동체(fuselage)는 항공기의 주요 부분으로 승무원·승객·화물을 담고 날개·꼬리·엔진·착륙장치가 부착된다."
+  },
+  {
+    "id": 266,
+    "topic": "structure",
+    "q": "A monocoque aircraft structure is primarily made of what material?",
+    "q_ko": "모노코크(monocoque) 항공기 구조는 주로 어떤 재료로 만들어지는가?",
+    "options": [
+      "Thin sheet-aluminum alloy skin",
+      "Welded steel-tubing longerons",
+      "Diagonal welded members",
+      "Fabric stretched over wood"
+    ],
+    "answer": 0,
+    "explain": "모노코크 구조는 동체 외피에 맞게 곡면 처리된 얇은 알루미늄 합금 판재로 이루어진다. 강철 튜브 롱저론은 트러스 구조의 특징이다."
+  },
+  {
+    "id": 267,
+    "topic": "aerodynamics",
+    "q": "Which wing planform is described as the most efficient style, having the lowest possible induced drag?",
+    "q_ko": "가능한 가장 낮은 유도항력을 가지며 가장 효율적인 형태로 설명되는 날개 평면형은 무엇인가?",
+    "options": [
+      "Elliptical",
+      "Rectangular",
+      "Swept",
+      "Delta"
+    ],
+    "answer": 0,
+    "explain": "타원형(elliptical) 평면형은 가장 효율적이며 유도항력이 가장 낮다. 직사각형은 가장 단순하고 비효율적이다."
+  },
+  {
+    "id": 268,
+    "topic": "aerodynamics",
+    "q": "According to the facts, the amount of lift a wing generates depends on the difference between which two lines?",
+    "q_ko": "날개가 생성하는 양력의 크기는 어떤 두 선의 차이에 따라 결정되는가?",
+    "options": [
+      "The camber line and the chord line",
+      "The wingspan and the chord line",
+      "The camber line and the wingtip",
+      "The chord line and the longitudinal axis"
+    ],
+    "answer": 0,
+    "explain": "양력의 크기는 캠버선과 시위선(chord line)의 차이에 따라 달라지며, 그 차이가 클수록 더 많은 양력을 낸다."
+  },
+  {
+    "id": 269,
+    "topic": "propulsion",
+    "q": "What distinguishes a variable pitch propeller from a fixed pitch propeller?",
+    "q_ko": "가변 피치 프로펠러가 고정 피치 프로펠러와 다른 점은 무엇인가?",
+    "options": [
+      "The pilot can adjust the blade pitch during flight",
+      "It is set permanently by the manufacturer",
+      "It is always mounted at the rear of the aircraft",
+      "It converts gas directly into lift"
+    ],
+    "answer": 0,
+    "explain": "가변 피치 프로펠러는 비행 중 조종사가 블레이드 피치를 조절할 수 있고, 고정 피치는 제조사가 미리 설정한다."
+  },
+  {
+    "id": 270,
+    "topic": "instruments",
+    "q": "The cockpit pressure altimeter is automatically calibrated for what standard setting?",
+    "q_ko": "조종석의 기압 고도계는 어떤 표준 설정값으로 자동 보정되는가?",
+    "options": [
+      "29.92 inches of mercury (Hg)",
+      "14.7 pounds per square inch",
+      "250 mph",
+      "375 pph"
+    ],
+    "answer": 0,
+    "explain": "기압 고도계는 표준 대기 기준인 수은주 29.92인치(Hg)로 자동 보정된다."
+  },
+  {
+    "id": 271,
+    "topic": "weather",
+    "q": "Why do aircraft perform more efficiently in colder temperatures?",
+    "q_ko": "항공기가 더 추운 온도에서 더 효율적으로 성능을 내는 이유는 무엇인가?",
+    "options": [
+      "Cold air is denser than warm air",
+      "Cold air is less dense than warm air",
+      "Humidity increases in cold air",
+      "Cold air reduces engine air intake"
+    ],
+    "answer": 0,
+    "explain": "찬 공기는 따뜻한 공기보다 밀도가 높기 때문에 항공기가 더 효율적으로 성능을 발휘한다."
+  },
+  {
+    "id": 272,
+    "topic": "control_surfaces",
+    "q": "When a pilot aims the trim tabs down, what happens to the elevators?",
+    "q_ko": "조종사가 트림 탭을 아래로 향하게 하면 엘리베이터는 어떻게 되는가?",
+    "options": [
+      "The elevators move up",
+      "The elevators move down",
+      "The elevators lock in place",
+      "The ailerons move up"
+    ],
+    "answer": 0,
+    "explain": "트림 탭을 아래로 향하게 하면 엘리베이터는 위로 움직이고, 위로 향하게 하면 엘리베이터는 아래로 움직인다."
+  },
+  {
+    "id": 273,
+    "topic": "control_surfaces",
+    "q": "Which secondary flight control surfaces reduce lift, increase drag, and assist the aircraft to roll?",
+    "q_ko": "양력을 줄이고 항력을 늘리며 항공기가 롤(뱅크)하도록 돕는 2차 조종면은 무엇인가?",
+    "options": [
+      "Spoilers",
+      "Ailerons",
+      "Elevators",
+      "Leading edge slats"
+    ],
+    "answer": 0,
+    "explain": "스포일러는 양력을 줄이고 항력을 늘려 하강 시 속도를 제어하며 좌우 롤을 돕는다. 이는 2차 조종 시스템에 속한다."
+  },
+  {
+    "id": 274,
+    "topic": "maneuvers",
+    "q": "Which of the following is one of the four fundamental flight maneuvers?",
+    "q_ko": "다음 중 네 가지 기본 비행 기동에 해당하는 것은?",
+    "options": [
+      "Hovering",
+      "Descents",
+      "Autorotation",
+      "Yawing"
+    ],
+    "answer": 1,
+    "explain": "네 가지 기본 비행 기동은 수평 직진 비행, 선회, 상승, 강하이므로 강하(Descents)가 정답입니다."
+  },
+  {
+    "id": 275,
+    "topic": "forces",
+    "q": "Straight-and-level flight is achieved when which condition is met?",
+    "q_ko": "수평 직진 비행은 어떤 조건이 충족될 때 이루어지는가?",
+    "options": [
+      "The four forces of flight are in balance",
+      "Lift greatly exceeds weight",
+      "Thrust exceeds all other forces",
+      "Drag is completely eliminated"
+    ],
+    "answer": 0,
+    "explain": "수평 직진 비행은 무게, 양력, 추력, 항력의 네 가지 힘이 균형을 이룰 때 달성됩니다."
+  },
+  {
+    "id": 276,
+    "topic": "control_surfaces",
+    "q": "For smooth flight, how should the flight controls be handled?",
+    "q_ko": "부드러운 비행을 위해 조종 장치는 어떻게 다뤄야 하는가?",
+    "options": [
+      "Gripped strongly at all times",
+      "Held with a light touch",
+      "Released entirely on autopilot",
+      "Locked in a fixed position"
+    ],
+    "answer": 1,
+    "explain": "부드러운 비행을 위해 조종 장치는 강하게 쥐지 않고 가볍게 잡아야 합니다."
+  },
+  {
+    "id": 277,
+    "topic": "maneuvers",
+    "q": "What defines a shallow turn?",
+    "q_ko": "완만한 선회(shallow turn)의 정의는 무엇인가?",
+    "options": [
+      "A bank of up to 20 degrees",
+      "A bank between 20 and 45 degrees",
+      "A bank greater than 45 degrees",
+      "A bank of exactly 90 degrees"
+    ],
+    "answer": 0,
+    "explain": "완만한 선회는 20도 이하의 뱅크로, 이후 항공기 안정성이 자연스럽게 수평 비행으로 되돌립니다."
+  },
+  {
+    "id": 278,
+    "topic": "maneuvers",
+    "q": "After a steep turn, what must the pilot do to return to level flight?",
+    "q_ko": "급선회(steep turn) 후 수평 비행으로 돌아가려면 조종사는 무엇을 해야 하는가?",
+    "options": [
+      "Nothing, stability returns it automatically",
+      "Input opposite pressure on the controls",
+      "Reduce power to idle",
+      "Lower the landing gear"
+    ],
+    "answer": 1,
+    "explain": "급선회는 45도를 초과하는 뱅크로, 수평으로 되돌리려면 조종사가 반대 방향으로 조종 압력을 가해야 합니다."
+  },
+  {
+    "id": 279,
+    "topic": "maneuvers",
+    "q": "What is the purpose of the best rate of climb (Vy)?",
+    "q_ko": "최대 상승률(Vy)의 목적은 무엇인가?",
+    "options": [
+      "To gain the most altitude over a given distance",
+      "To gain the most altitude in a given amount of time",
+      "To clear obstructions during takeoff",
+      "To descend at 500 feet per minute"
+    ],
+    "answer": 1,
+    "explain": "최대 상승률(Vy)은 주어진 시간 동안 가장 많은 고도를 얻어 순항 고도에 빠르게 도달하는 데 사용됩니다."
+  },
+  {
+    "id": 280,
+    "topic": "maneuvers",
+    "q": "A partial power descent typically drops the aircraft at what rate?",
+    "q_ko": "부분 동력 강하는 일반적으로 항공기를 어느 속도로 하강시키는가?",
+    "options": [
+      "200 feet per minute",
+      "500 feet per minute",
+      "1,000 feet per minute",
+      "1,500 feet per minute"
+    ],
+    "answer": 1,
+    "explain": "부분 동력 강하는 고도를 낮추는 선호되는 방법으로, 분당 500피트의 속도로 하강합니다."
+  },
+  {
+    "id": 281,
+    "topic": "helicopter",
+    "q": "What does gyroscopic precession cause regarding a force applied to a rotating rotor?",
+    "q_ko": "자이로스코프 세차운동은 회전하는 로터에 가해진 힘에 대해 무엇을 초래하는가?",
+    "options": [
+      "The force is felt 90 degrees later in the plane of rotation",
+      "The force is felt immediately at the point of application",
+      "The force is felt 180 degrees later",
+      "The force is completely canceled out"
+    ],
+    "answer": 0,
+    "explain": "자이로스코프 세차운동은 회전 로터에 가해진 힘이 회전면에서 90도 뒤에 나타나게 합니다."
+  },
+  {
+    "id": 282,
+    "topic": "helicopter",
+    "q": "What is the primary function of the tail rotor?",
+    "q_ko": "테일 로터의 주요 기능은 무엇인가?",
+    "options": [
+      "To increase main rotor lift",
+      "To counteract torque and provide directional control",
+      "To generate forward thrust only",
+      "To adjust the pitch of all main rotor blades"
+    ],
+    "answer": 1,
+    "explain": "테일 로터는 토크를 상쇄하고 방향 제어를 제공하여 기체가 메인 로터 반대 방향으로 회전하는 것을 막습니다."
+  },
+  {
+    "id": 283,
+    "topic": "helicopter",
+    "q": "During autorotation, what drives the rotor blades?",
+    "q_ko": "자동회전(autorotation) 중 로터 블레이드를 구동하는 것은 무엇인가?",
+    "options": [
+      "The aircraft's powerplant",
+      "Relative wind",
+      "The tail rotor",
+      "The swashplate"
+    ],
+    "answer": 1,
+    "explain": "자동회전은 로터 블레이드가 엔진이 아닌 상대풍에 의해 구동되어 엔진 고장 후 안전하게 착륙할 수 있게 합니다."
+  },
+  {
+    "id": 284,
+    "topic": "control_surfaces",
+    "q": "What does the collective control do when raised in a helicopter?",
+    "q_ko": "헬리콥터에서 컬렉티브 조종간을 올리면 무엇이 일어나는가?",
+    "options": [
+      "It changes only the tail rotor blade pitch",
+      "It increases blade pitch and angle of attack to create more lift",
+      "It directs the air column aft to move forward",
+      "It tilts the swashplate for a right turn"
+    ],
+    "answer": 1,
+    "explain": "컬렉티브는 모든 로터 블레이드의 피치를 함께 변경하며, 올리면 블레이드 피치와 받음각이 증가해 더 많은 양력을 생성합니다."
+  },
+  {
+    "id": 285,
+    "topic": "helicopter",
+    "q": "Which primary rotary-wing flight control increases the pitch angle of all rotor blades simultaneously?",
+    "q_ko": "모든 로터 블레이드의 피치 각도를 동시에 증가시키는 회전익 주 조종장치는 무엇인가?",
+    "options": [
+      "The collective",
+      "The cyclic",
+      "The anti-torque pedals",
+      "The throttle"
+    ],
+    "answer": 0,
+    "explain": "콜렉티브(collective)는 모든 로터 블레이드의 피치 각을 동시에 증가시키는 주 회전익 조종장치이다."
+  },
+  {
+    "id": 286,
+    "topic": "instruments",
+    "q": "By approximately how much does air pressure decrease for each 1,000 feet of altitude gained?",
+    "q_ko": "고도가 1,000피트 상승할 때마다 기압은 약 얼마나 감소하는가?",
+    "options": [
+      "1 inch of mercury",
+      "10 inches of mercury",
+      "0.5 inch of mercury",
+      "29.92 inches of mercury"
+    ],
+    "answer": 0,
+    "explain": "기압은 고도 1,000피트당 수은주 약 1인치(inHg)씩 감소한다."
+  },
+  {
+    "id": 287,
+    "topic": "instruments",
+    "q": "What value of standard sea-level atmospheric pressure is used as the pressure altitude setting?",
+    "q_ko": "기압고도(pressure altitude) 설정에 사용되는 표준 해수면 대기압 값은 얼마인가?",
+    "options": [
+      "29.92 inches of mercury",
+      "30.00 inches of mercury",
+      "18.00 inches of mercury",
+      "10.00 inches of mercury"
+    ],
+    "answer": 0,
+    "explain": "표준 해수면 대기압은 수은주 29.92인치이며, 이는 기압고도 설정값으로 사용된다."
+  },
+  {
+    "id": 288,
+    "topic": "instruments",
+    "q": "On a three-pointer altimeter, which hand indicates thousands of feet?",
+    "q_ko": "3침(three-pointer) 고도계에서 수천 피트를 나타내는 바늘은 어느 것인가?",
+    "options": [
+      "The shortest hand",
+      "The longest thinnest hand",
+      "The medium hand",
+      "The red radial hand"
+    ],
+    "answer": 2,
+    "explain": "3침 고도계에서 가장 긴 바늘이 수백 피트, 중간 바늘이 수천 피트, 가장 짧은 바늘이 수만 피트를 나타낸다. 따라서 수천 피트는 중간 바늘이다."
+  },
+  {
+    "id": 289,
+    "topic": "instruments",
+    "q": "A vertical speed indicator (VSI) typically has a lag of how long before showing the feet-per-minute rate?",
+    "q_ko": "수직속도계(VSI)는 분당 피트(feet-per-minute) 수치를 표시하기까지 일반적으로 어느 정도의 지연이 있는가?",
+    "options": [
+      "Six to nine seconds",
+      "One to two seconds",
+      "Ten to fifteen seconds",
+      "Thirty seconds"
+    ],
+    "answer": 0,
+    "explain": "VSI는 통상 6~9초의 지연이 있어 실시간이 아니며, 추세 정보가 먼저 나타난 뒤 분당 상승/하강률이 표시된다."
+  },
+  {
+    "id": 290,
+    "topic": "instruments",
+    "q": "On an airspeed indicator, what does the red radial line represent?",
+    "q_ko": "속도계에서 빨간색 방사선(red radial line)은 무엇을 나타내는가?",
+    "options": [
+      "The never-exceed speed (VNE)",
+      "The flap operating range",
+      "The normal operating range",
+      "The maximum structural cruising speed"
+    ],
+    "answer": 0,
+    "explain": "속도계의 빨간 방사선은 초과금지속도(VNE)를 나타낸다. 흰색 호는 플랩 작동 범위, 녹색 호는 정상 작동 범위이다."
+  },
+  {
+    "id": 291,
+    "topic": "maneuvers",
+    "q": "What is the rate of a standard-rate turn?",
+    "q_ko": "표준율 선회(standard-rate turn)의 선회율은 얼마인가?",
+    "options": [
+      "3 degrees per second, completing 360 degrees in 2 minutes",
+      "1 degree per second, completing 360 degrees in 6 minutes",
+      "5 degrees per second, completing 360 degrees in 1 minute",
+      "10 degrees per second, completing 360 degrees in 30 seconds"
+    ],
+    "answer": 0,
+    "explain": "표준율 선회는 초당 3도로, 360도 선회를 2분에 완료한다."
+  },
+  {
+    "id": 292,
+    "topic": "maneuvers",
+    "q": "In a coordinated turn, where does the slip indicator ball remain?",
+    "q_ko": "협조 선회(coordinated turn)에서 슬립 지시기의 볼(ball)은 어디에 머무는가?",
+    "options": [
+      "In the lowest part of the glass",
+      "Toward the inside of the turn",
+      "Toward the outside of the turn",
+      "At the top of the glass"
+    ],
+    "answer": 0,
+    "explain": "협조 선회에서는 원심력과 중력이 볼에 균형있게 작용하여 볼이 유리관의 가장 낮은(중앙) 부분에 머문다."
+  },
+  {
+    "id": 293,
+    "topic": "navigation",
+    "q": "Under the rule 'east is least, west is best,' how is easterly variation applied to convert true heading to magnetic heading?",
+    "q_ko": "'east is least, west is best' 규칙에 따라 진침로를 자침로로 변환할 때 동편차(easterly variation)는 어떻게 적용하는가?",
+    "options": [
+      "Subtract it",
+      "Add it",
+      "Double it",
+      "Ignore it"
+    ],
+    "answer": 0,
+    "explain": "동편차는 빼고(east is least) 서편차는 더한다(west is best)—진침로를 자침로로 변환할 때의 규칙이다."
+  },
+  {
+    "id": 294,
+    "topic": "navigation",
+    "q": "What does an agonic line represent?",
+    "q_ko": "무편각선(agonic line)은 무엇을 나타내는가?",
+    "options": [
+      "A line where magnetic variation is zero degrees",
+      "A line connecting points of equal nonzero variation",
+      "A line where magnetic dip is greatest",
+      "A line marking 10 degrees of deviation"
+    ],
+    "answer": 0,
+    "explain": "무편각선은 자기 편차가 0도인 선이고, 등편각선(isogonic lines)은 0이 아닌 동일한 편차 지점을 잇는 선이다."
+  },
+  {
+    "id": 295,
+    "topic": "airspace",
+    "q": "Class A airspace extends from 18,000 feet MSL to 60,000 feet and requires aircraft to operate under which rules?",
+    "q_ko": "A등급 공역은 18,000피트 MSL에서 60,000피트까지 이어지며 항공기는 어떤 규칙 하에 운항해야 하는가?",
+    "options": [
+      "Instrument flight rules (IFR)",
+      "Visual flight rules (VFR)",
+      "Either VFR or IFR at pilot discretion",
+      "No specific flight rules"
+    ],
+    "answer": 0,
+    "explain": "A등급 공역(18,000피트 MSL~60,000피트) 내의 모든 항공기는 계기비행규칙(IFR)에 따라 운항해야 한다."
+  },
+  {
+    "id": 296,
+    "topic": "airspace",
+    "q": "What are the daytime and nighttime visibility requirements in Class G (uncontrolled) airspace?",
+    "q_ko": "G급(비관제) 공역에서 주간 및 야간 시정 요구 조건은 무엇인가?",
+    "options": [
+      "1 mile during the day and 3 miles at night",
+      "3 miles during the day and 1 mile at night",
+      "5 miles day and night",
+      "1 mile day and night"
+    ],
+    "answer": 0,
+    "explain": "G급 공역은 주간 1마일, 야간 3마일의 시정을 요구한다."
+  },
+  {
+    "id": 297,
+    "topic": "airspace",
+    "q": "In Class E airspace, what is required before conducting special VFR operations?",
+    "q_ko": "E급 공역에서 특별 VFR 운항을 하기 전에 무엇이 필요한가?",
+    "options": [
+      "Prior clearance from the controlling facility",
+      "A filed IFR flight plan",
+      "5 miles of visibility",
+      "Only a transponder"
+    ],
+    "answer": 0,
+    "explain": "E급 공역의 특별 VFR 운항은 관제 시설의 사전 허가가 필요하다."
+  },
+  {
+    "id": 298,
+    "topic": "airspace",
+    "q": "An aircraft in distress has the right-of-way over which traffic?",
+    "q_ko": "조난 중인 항공기는 어떤 교통에 대해 우선권을 갖는가?",
+    "options": [
+      "All other air traffic",
+      "Only rotorcraft",
+      "Only aircraft of the same category",
+      "No other traffic"
+    ],
+    "answer": 0,
+    "explain": "조난 중인 항공기는 항상 모든 다른 항공 교통에 대해 우선권을 갖는다."
+  },
+  {
+    "id": 299,
+    "topic": "navigation",
+    "q": "When two aircraft approach each other head-on, what should each pilot do?",
+    "q_ko": "두 항공기가 정면으로 접근할 때 각 조종사는 어떻게 해야 하는가?",
+    "options": [
+      "Change course to the right",
+      "Change course to the left",
+      "Climb immediately",
+      "Descend immediately"
+    ],
+    "answer": 0,
+    "explain": "정면 접근 시 각 조종사는 진로를 오른쪽으로 변경해야 한다."
+  },
+  {
+    "id": 300,
+    "topic": "terminology",
+    "q": "In the right-of-way order for different categories of aircraft, which has the highest priority?",
+    "q_ko": "서로 다른 종류의 항공기 우선권 순서에서 가장 높은 우선순위를 갖는 것은?",
+    "options": [
+      "Hot-air balloons",
+      "Airplanes",
+      "Rotorcraft",
+      "Airships"
+    ],
+    "answer": 0,
+    "explain": "서로 다른 종류의 우선권 순서에서 최우선은 열기구이며, 동력 항공기(비행기/회전익기)가 가장 낮다."
+  },
+  {
+    "id": 301,
+    "topic": "terminology",
+    "q": "Who first exceeded the sound barrier in a rocket, on October 14, 1947?",
+    "q_ko": "1947년 10월 14일 로켓으로 처음 음속 장벽을 돌파한 사람은?",
+    "options": [
+      "Captain Charles E. Yeager",
+      "Charles A. Lindbergh",
+      "The Wright brothers",
+      "Captain Charles Zeppelin"
+    ],
+    "answer": 0,
+    "explain": "1947년 10월 14일 척 예거 대위가 로켓으로 음속 장벽을 처음 돌파했다."
+  },
+  {
+    "id": 302,
+    "topic": "terminology",
+    "q": "How long did the Wright brothers' first powered, manned, controlled flight last on December 17, 1903?",
+    "q_ko": "1903년 12월 17일 라이트 형제의 첫 동력 유인 조종 비행은 얼마나 지속되었는가?",
+    "options": [
+      "Twelve seconds",
+      "Twelve minutes",
+      "One hour",
+      "Thirty seconds"
+    ],
+    "answer": 0,
+    "explain": "1903년 12월 17일 라이트 형제의 첫 동력 유인 조종 비행은 12초간 지속되었다."
+  },
+  {
+    "id": 303,
+    "topic": "forces",
+    "q": "If an object experiences a net force of zero, which statement is true?",
+    "q_ko": "물체에 작용하는 알짜힘이 0이면 어느 진술이 참인가?",
+    "options": [
+      "Its velocity remains constant, though it may still be moving",
+      "It must be at rest",
+      "Its acceleration increases",
+      "It always slows to a stop"
+    ],
+    "answer": 0,
+    "explain": "알짜힘이 0이면 가속도가 0이므로 속도는 일정하게 유지되며, 여전히 운동 중일 수 있다."
+  },
+  {
+    "id": 304,
+    "topic": "forces",
+    "q": "In Newton's law of universal gravitation, if the distance d increases by a factor of 4, the gravitational force decreases by a factor of what?",
+    "q_ko": "뉴턴의 만유인력 법칙에서 거리 d가 4배 증가하면 중력은 몇 배로 감소하는가?",
+    "options": [
+      "16",
+      "4",
+      "8",
+      "32"
+    ],
+    "answer": 0,
+    "explain": "중력은 거리의 제곱에 반비례하므로 거리가 4배가 되면 힘은 4의 제곱인 16배로 감소한다."
+  },
+  {
+    "id": 305,
+    "topic": "structure",
+    "q": "What does staying within the maximum landing weight (MLW) ensure?",
+    "q_ko": "최대 착륙 중량(MLW)을 초과하지 않으면 무엇이 보장되는가?",
+    "options": [
+      "The landing gear can support the weight and no longer-than-normal runway is needed",
+      "A higher cruising altitude",
+      "Reduced fuel consumption in cruise",
+      "Increased maximum airspeed"
+    ],
+    "answer": 0,
+    "explain": "MLW를 넘지 않으면 착륙 장치가 무게를 지탱할 수 있고 평소보다 긴 활주로가 필요하지 않다."
   }
 ]
