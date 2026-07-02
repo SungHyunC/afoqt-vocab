@@ -284,6 +284,28 @@
 </main>
 
 <!-- ===== AVIATION (Pilot) ===== -->
+<!-- ===== MATH (Quantitative: Math Knowledge + Arithmetic) ===== -->
+<main id="view-math" class="view">
+  <h2 class="section">🔢 수학 (Quantitative)</h2>
+  <p class="muted" style="margin:0 0 12px">AFOQT 수리 영역. 문제는 영어 원문 + 한글 번역·해설이에요. 연습 모드는 시간 여유가 넉넉해요.</p>
+  <div class="grid2">
+    <div class="card tight stat"><div class="num" id="mkCount">0</div><div class="lbl">수학지식 문제</div></div>
+    <div class="card tight stat"><div class="num" id="arCount">0</div><div class="lbl">산수 문제</div></div>
+  </div>
+
+  <h2 class="section">📐 Math Knowledge (수학 지식)</h2>
+  <button class="btn primary" id="mkPractice">📝 연습 모드 (시간 여유)</button>
+  <button class="btn ghost" id="mkExam" style="margin-top:10px">🎯 실전 시험 (25문항·22분)</button>
+  <button class="btn ghost" id="mkGuide" style="margin-top:10px">📘 수학 지식 공부 가이드</button>
+  <div id="mkLast" class="muted" style="font-size:12px;text-align:center;margin-top:8px"></div>
+
+  <h2 class="section">➗ Arithmetic Reasoning (산수 추론)</h2>
+  <button class="btn primary" id="arPractice">📝 연습 모드 (시간 여유)</button>
+  <button class="btn ghost" id="arExam" style="margin-top:10px">🎯 실전 시험 (25문항·29분)</button>
+  <button class="btn ghost" id="arGuide" style="margin-top:10px">📘 산수 추론 공부 가이드</button>
+  <div id="arLast" class="muted" style="font-size:12px;text-align:center;margin-top:8px"></div>
+</main>
+
 <main id="view-aviation" class="view">
   <h2 class="section">✈️ Aviation Information (Pilot)</h2>
   <p class="muted" style="margin:0 0 12px">AFOQT 파일럿 파트의 기초 항공 지식. 문제·용어 모두 한글 병기예요.</p>
@@ -675,6 +697,7 @@
   <button data-go="vocab"><span class="ic">📇</span>어휘</button>
   <button data-go="analogy"><span class="ic">🔗</span>유추</button>
   <button data-go="reading"><span class="ic">📖</span>독해</button>
+  <button data-go="math"><span class="ic">🔢</span>수학</button>
   <button data-go="aviation"><span class="ic">✈️</span>항공</button>
   <button data-go="stats"><span class="ic">📊</span>통계</button>
 </nav>
