@@ -126,6 +126,7 @@
     <div class="card tight stat"><div class="num" id="vkRemain">0</div><div class="lbl">남은 단어</div></div>
   </div>
   <button class="btn primary" id="vkStart" style="margin-top:16px">▶︎ 플래시카드 학습</button>
+  <button class="btn ghost" id="vkAuto" style="margin-top:10px;border-color:#f59e0b">🎧 자동 넘김 (운동용·핸즈프리·음성)</button>
   <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
   <button class="btn ghost" id="vkQuiz" style="margin-top:10px">🧠 빠른 퀴즈 (연습용 · 시간 無)</button>
   <button class="btn ghost" id="vkConfirm" style="margin-top:10px;border-color:#22c55e">✅ 확인 시험 — 진짜 외웠는지 검증</button>
@@ -143,6 +144,42 @@
     <label class="switch-row"><span>빈출 단어만 학습 (std 제외)</span>
       <input type="checkbox" id="optHighOnly"></label>
     <div class="hintbox" style="margin-top:10px">빈출(high)·중요(mid)·일반(std) 순으로 외웁니다. GRE Magoosh 단어도 포함됩니다.</div>
+  </div>
+</main>
+
+<!-- ===== AUTO-PLAY (hands-free / workout) ===== -->
+<main id="view-autoplay" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="apBack">← 어휘</button><span id="apCount"></span><span></span></div>
+  <div id="apSetup">
+    <h2 class="section">🎧 자동 넘김 (운동용)</h2>
+    <p class="muted" style="margin:0 0 14px">화면을 안 만져도 단어→뜻→다음으로 자동으로 넘어가고, 소리로 읽어줘요. 운동·이동 중 듣기 좋아요. 재생 중엔 화면이 꺼지지 않게 유지돼요.</p>
+    <div class="field"><label>범위</label>
+      <select id="apScope">
+        <option value="learned">학습한 단어</option>
+        <option value="due">복습 대기 단어</option>
+        <option value="today">📅 오늘 학습한 단어</option>
+        <option value="high">⭐ 빈출 단어</option>
+        <option value="starred">★ 즐겨찾기</option>
+        <option value="all">전체 단어</option>
+      </select>
+    </div>
+    <div class="field"><label>속도</label>
+      <select id="apSpeed"><option value="slow">느리게</option><option value="normal" selected>보통</option><option value="fast">빠르게</option></select>
+    </div>
+    <label class="switch-row"><span>🔊 한글 뜻도 음성으로 읽기</span><input type="checkbox" id="apKo" checked></label>
+    <label class="switch-row"><span>🔁 끝까지 가면 반복</span><input type="checkbox" id="apLoop" checked></label>
+    <button class="btn primary" id="apGo" style="margin-top:14px">▶︎ 시작</button>
+    <div class="hintbox" style="margin-top:10px">📱 팁: 폰을 세워두고 들으세요. (일부 폰은 화면이 완전히 꺼지면 소리·자동넘김이 멈출 수 있어요 — 화면은 켜둔 채 사용하세요.)</div>
+  </div>
+  <div id="apPlayer" class="hidden">
+    <div class="progressbar" style="margin-bottom:14px"><i id="apBar"></i></div>
+    <div class="ap-card" id="apCard"></div>
+    <div class="ap-controls">
+      <button id="apPrev" aria-label="이전">⏮</button>
+      <button id="apPlay" class="big" aria-label="재생/일시정지">⏸</button>
+      <button id="apNext" aria-label="다음">⏭</button>
+    </div>
+    <div class="muted center" style="font-size:12px;margin-top:12px">자동으로 넘어가요 · ⏸ 로 멈추고 ⏮ ⏭ 로 이동</div>
   </div>
 </main>
 

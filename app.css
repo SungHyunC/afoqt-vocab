@@ -158,6 +158,22 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .nav button .ic{font-size:21px;line-height:1}
 .nav button.on{color:var(--brand2)}
 
+/* ---------- Auto-play (hands-free) ---------- */
+.ap-card{min-height:44vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;background:var(--card);border:1px solid var(--line);border-radius:24px;
+  padding:30px 20px;box-shadow:var(--shadow)}
+.ap-word{font-weight:800;letter-spacing:.5px;line-height:1.15}
+.ap-pos{margin-top:10px;color:var(--brand2);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.ap-mean{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);width:100%;animation:fade .2s ease}
+.ap-kor{font-size:25px;font-weight:700;margin-bottom:8px}
+.ap-def{color:var(--muted);font-size:14.5px;line-height:1.55}
+.ap-controls{display:flex;justify-content:center;align-items:center;gap:28px;margin-top:22px}
+.ap-controls button{font-size:24px;color:var(--txt);width:54px;height:54px;border-radius:50%;
+  background:var(--card2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.ap-controls button:active{transform:scale(.93)}
+.ap-controls button.big{font-size:30px;width:70px;height:70px;color:#fff;border:0;
+  background:linear-gradient(90deg,var(--brand),var(--brand2))}
+
 /* ---------- Aviation textbook (book reader) ---------- */
 .book-toc{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;
   background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:9px;color:var(--txt)}

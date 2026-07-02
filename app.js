@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.28.0";
+const VERSION = "4.29.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -45,14 +45,17 @@ function toast(msg, ms=1800){ const t=$("#toast"); t.textContent=msg; t.classLis
 // Text-to-speech (browser built-in). Speaks English words/sentences for pronunciation.
 let _voices=[];
 function loadVoices(){ try{ _voices=window.speechSynthesis? window.speechSynthesis.getVoices():[]; }catch{} }
-function speak(text, ev){
+function speak(text, ev, lang){
   if(ev){ ev.stopPropagation&&ev.stopPropagation(); }
   try{
     const synth=window.speechSynthesis; if(!synth){ toast("이 브라우저는 음성을 지원하지 않아요"); return; }
     synth.cancel();
-    const u=new SpeechSynthesisUtterance(String(text)); u.lang="en-US"; u.rate=0.92;
+    const u=new SpeechSynthesisUtterance(String(text)); u.lang=lang||"en-US"; u.rate=0.92;
     if(!_voices.length) loadVoices();
-    const v=_voices.find(x=>/en[-_]US/i.test(x.lang))||_voices.find(x=>/^en/i.test(x.lang)); if(v) u.voice=v;
+    const ko = lang && /^ko/i.test(lang);
+    const v = ko ? (_voices.find(x=>/ko[-_]KR/i.test(x.lang))||_voices.find(x=>/^ko/i.test(x.lang)))
+                 : (_voices.find(x=>/en[-_]US/i.test(x.lang))||_voices.find(x=>/^en/i.test(x.lang)));
+    if(v) u.voice=v; if(ko) u.rate=0.95;
     synth.speak(u);
   }catch(e){}
 }
@@ -390,7 +393,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -406,12 +409,13 @@ function renderGuide(){
     ((g.sources&&g.sources.length)?`<div class="guide-src"><b>참고:</b> ${g.sources.map(esc).join(" · ")}</div>`:"");
 }
 function go(view){
+  if(ap && view!=="autoplay") apStop();  // leaving hands-free mode: stop audio/timers/wake-lock
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -521,6 +525,64 @@ function renderVocab(){
   $("#vkConfirmSub").textContent = cr>0?`🔁 재확인 ${cr}개 대기 · 첫 확인 ${cf}개`:cf>0?`확인 대기 ${cf}개`:"확인할 단어 없음";
   $("#optHighFirst").checked=flag("high_first"); $("#optHighOnly").checked=flag("high_only");
 }
+
+/* ============================================================
+   자동 넘김 (핸즈프리 / 운동용) — 화면 안 만져도 단어→뜻→다음 자동 진행 + 음성
+   ============================================================ */
+let ap=null, apWake=null;
+const AP_SPEED={slow:{show:4200,mean:4600},normal:{show:2800,mean:3200},fast:{show:1700,mean:2100}};
+async function apAcquireWake(){ try{ if("wakeLock" in navigator && !apWake){ apWake=await navigator.wakeLock.request("screen");
+  apWake.addEventListener&&apWake.addEventListener("release",()=>{ apWake=null; }); } }catch(e){} }
+function apReleaseWake(){ try{ apWake&&apWake.release&&apWake.release(); }catch(e){} apWake=null; }
+function apClearTimer(){ if(ap&&ap.t){ clearTimeout(ap.t); ap.t=null; } }
+function apStop(){ apClearTimer(); try{ window.speechSynthesis&&window.speechSynthesis.cancel(); }catch(e){} apReleaseWake(); ap=null; }
+function renderAutoPlaySetup(){ apStop(); $("#apSetup").classList.remove("hidden"); $("#apPlayer").classList.add("hidden"); $("#apCount").textContent=""; }
+function startAutoPlay(){
+  let ids=poolFor($("#apScope").value);
+  if(!ids.length){ toast("이 범위에 단어가 없어요. 학습을 하거나 범위를 바꿔보세요."); return; }
+  ids=shuffle(ids);
+  ap={queue:ids, idx:0, revealed:false, playing:true, speed:$("#apSpeed").value, ko:$("#apKo").checked, loop:$("#apLoop").checked, t:null};
+  $("#apSetup").classList.add("hidden"); $("#apPlayer").classList.remove("hidden");
+  apAcquireWake(); apShowPhase();
+}
+function apRender(){
+  const s=ap; if(!s) return; const w=WMAP.get(s.queue[s.idx]); if(!w){ return apAdvance(); }
+  $("#apCount").textContent=`${s.idx+1} / ${s.queue.length}`;
+  $("#apBar").style.width=(s.idx/s.queue.length*100)+"%";
+  $("#apCard").innerHTML=`
+    <div class="ap-word" style="${wordFont(w.word,42)}">${esc(w.word)}</div>
+    <div class="ap-pos">${esc(w.pos||"")}${tierOf(w)==="high"?" · ⭐빈출":""}</div>
+    <div class="ap-mean ${s.revealed?"":"hidden"}">
+      <div class="ap-kor">${esc(w.kor||"")}</div>
+      ${w.def?`<div class="ap-def">${esc(w.def)}</div>`:""}
+    </div>`;
+  $("#apPlay").textContent=s.playing?"⏸":"▶︎";
+}
+function apShowPhase(){ // show word, speak it, then schedule the reveal
+  const s=ap; if(!s) return; s.revealed=false; apRender();
+  const w=WMAP.get(s.queue[s.idx]);
+  if(s.playing && w) speak(w.word);
+  apClearTimer(); if(s.playing) s.t=setTimeout(apRevealPhase, AP_SPEED[s.speed].show);
+}
+function apRevealPhase(){ // reveal meaning, speak it, then schedule advance
+  const s=ap; if(!s) return; s.revealed=true; apRender();
+  const w=WMAP.get(s.queue[s.idx]);
+  if(s.playing && w){ if(s.ko && w.kor) speak(w.kor,null,"ko-KR"); else if(w.def) speak(w.def); }
+  apClearTimer(); if(s.playing) s.t=setTimeout(apAdvance, AP_SPEED[s.speed].mean);
+}
+function apAdvance(){
+  const s=ap; if(!s) return;
+  if(s.idx>=s.queue.length-1){ if(s.loop){ s.idx=0; s.queue=shuffle(s.queue); } else { return apFinish(); } }
+  else s.idx++;
+  apShowPhase();
+}
+function apFinish(){ apClearTimer(); if(ap) ap.playing=false; apReleaseWake();
+  toast("한 바퀴 끝! 🔁 반복을 켜면 계속 돌아요."); apRender(); }
+function apTogglePlay(){ const s=ap; if(!s) return; s.playing=!s.playing;
+  if(s.playing){ apAcquireWake(); apShowPhase(); }
+  else { apClearTimer(); try{ window.speechSynthesis.cancel(); }catch(e){} apReleaseWake(); apRender(); } }
+function apManual(dir){ const s=ap; if(!s) return; apClearTimer();
+  s.idx=(s.idx+dir+s.queue.length)%s.queue.length; if(!s.playing) s.playing=true; apShowPhase(); }
 
 /* ============================================================
    STUDY (flashcards)
@@ -2114,6 +2176,8 @@ function wire(){
   $("#icBack").onclick=()=>{ icTimerStop(); icState=null; go("aviation"); }; $("#icRetry").onclick=startInstrument; $("#icHome").onclick=()=>{ icState=null; go("aviation"); };
   // vocab hub
   $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
+  $("#vkAuto").onclick=()=>go("autoplay"); $("#apBack").onclick=()=>go("vocab"); $("#apGo").onclick=startAutoPlay;
+  $("#apPlay").onclick=apTogglePlay; $("#apPrev").onclick=()=>apManual(-1); $("#apNext").onclick=()=>apManual(1);
   $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
   $("#vkGuide").onclick=()=>openGuide("wk"); $("#vaGuide").onclick=()=>openGuide("va"); $("#rcGuide").onclick=()=>openGuide("rc");
   // aviation
@@ -2197,6 +2261,8 @@ function wire(){
     // Backgrounding/lock fires this while the page is still alive — flush the
     // pending server push here so mobile "study then close" doesn't lose progress.
     if(document.visibilityState==="hidden"){ saveNow(); flushPush(); return; }
+    // Wake Lock is dropped when the tab is hidden — re-acquire it on return if auto-play is running.
+    if(ap && ap.playing) apAcquireWake();
     if(!sessionActive()){ lastDay=todayStr(); softRender(); }
   });
   window.addEventListener("focus",()=>{ if(!sessionActive()) softRender(); });
