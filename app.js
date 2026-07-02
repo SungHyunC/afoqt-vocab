@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.18.0";
+const VERSION = "4.19.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1379,7 +1379,8 @@ const SECBUILD={ WK:n=>buildWK(n), VA:n=>buildVA(n), RC:n=>buildRC(n),
   AV:n=>buildAV(n), SJ:n=>buildSJ(n), TR:n=>buildTR(n), IC:n=>buildIC(n), BC:n=>buildBC(n) };
 // Realistic seconds-per-question per subtest (from official AFOQT time ÷ count),
 // so every preset's timer/label stays consistent with its section mix.
-const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:11, IC:12, BC:9, PS:30, SJ:131 };
+// RC: 38분/25문항(공식 시간, guides.json 독해 가이드와 일치) ÷ 25 ≈ 91초/문항.
+const SECRATE={ WK:12, VA:19, RC:91, AR:70, MK:53, AV:24, TR:11, IC:12, BC:9, PS:30, SJ:131 };
 // Build a preset from a list of [sectionCode, count] specs; derives timer + label.
 function composeMock(name,specs,tag){
   const secs=specs.reduce((s,[c,n])=>s+SECRATE[c]*n,0);
