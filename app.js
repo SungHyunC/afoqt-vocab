@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.24.0";
+const VERSION = "4.25.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -26,13 +26,15 @@ const esc = s => String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&
 // "c^2 = a^2 + b^2" shows as c² = a² + b². Safe on prose (^ _ * <= rarely occur there).
 function fmtMath(s){
   return esc(String(s==null?"":s))
+    .replace(/\bsqrt\s*\(/gi,'√(')
     .replace(/\^\{([^}]+)\}/g,(m,g)=>`<sup>${g}</sup>`)
+    .replace(/\^\(([^)]+)\)/g,(m,g)=>`<sup>(${g})</sup>`)
     .replace(/\^(-?\d+(?:\.\d+)?|[A-Za-z])/g,(m,g)=>`<sup>${g}</sup>`)
     .replace(/_\{([^}]+)\}/g,(m,g)=>`<sub>${g}</sub>`)
     .replace(/_(\d+|[A-Za-z])/g,(m,g)=>`<sub>${g}</sub>`)
+    .replace(/\bpi\b/g,'π')
     .replace(/\s*\*\s*/g,' × ')
-    .replace(/&lt;=/g,'≤').replace(/&gt;=/g,'≥').replace(/!=/g,'≠')
-    .replace(/&gt;=|=&gt;/g,'≥');
+    .replace(/&lt;=/g,'≤').replace(/&gt;=/g,'≥').replace(/!=/g,'≠');
 }
 // Shrink the font for long single words/phrases (CIRCUMNAVIGATE, INTROSPECTIVE...) so they
 // stay on one line on narrow phones instead of wrapping mid-word or overflowing the card.
@@ -398,9 +400,9 @@ function renderGuide(){
   $("#guideNav").textContent="📘 공부 가이드";
   if(!g){ $("#guideBody").innerHTML=`<div class="card center muted" style="padding:20px">가이드 준비 중이에요.</div>`; return; }
   $("#guideBody").innerHTML=
-    `<div class="guide-hero"><h2>${esc(g.title||"공부 가이드")}</h2><div class="fmt">📋 ${esc(g.format||"")}</div></div>`+
-    (g.sections||[]).map(s=>`<div class="guide-sec"><h3>${esc(s.h)}</h3><p>${esc(s.body)}</p></div>`).join("")+
-    ((g.tips&&g.tips.length)?`<div class="guide-tips"><h3>⚡ 빠른 팁</h3><ul>${g.tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:"")+
+    `<div class="guide-hero"><h2>${esc(g.title||"공부 가이드")}</h2><div class="fmt">📋 ${fmtMath(g.format||"")}</div></div>`+
+    (g.sections||[]).map(s=>`<div class="guide-sec"><h3>${esc(s.h||s.title||s.heading||"")}</h3><p>${fmtMath(s.body)}</p></div>`).join("")+
+    ((g.tips&&g.tips.length)?`<div class="guide-tips"><h3>⚡ 빠른 팁</h3><ul>${g.tips.map(t=>`<li>${fmtMath(t)}</li>`).join("")}</ul></div>`:"")+
     ((g.sources&&g.sources.length)?`<div class="guide-src"><b>참고:</b> ${g.sources.map(esc).join(" · ")}</div>`:"");
 }
 function go(view){
