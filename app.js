@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.19.0";
+const VERSION = "4.20.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1066,7 +1066,7 @@ const CURR_TRACKS={
   rc:{name:"독해",icon:"📖",stages:[
     {name:"1단계 · 주제 찾기",desc:"지문의 중심 내용(main idea)만 집중 훈련",n:6,need:5,build:n=>buildRCType(["main_idea"],n)},
     {name:"2단계 · 세부·추론",desc:"세부사항과 추론 문제 풀기",n:8,need:6,build:n=>buildRCType(["detail","inference"],n)},
-    {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 25분 실전 — 15개 이상이면 졸업!",exam:"rc",need:15}]},
+    {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 24분 실전 — 15개 이상이면 졸업!",exam:"rc",need:15}]},
 };
 let curTrack="va", curSes=null;
 function getCurr(t){ return state.curr[t]||(state.curr[t]={unlocked:0,passed:{},best:{}}); }
@@ -1379,8 +1379,8 @@ const SECBUILD={ WK:n=>buildWK(n), VA:n=>buildVA(n), RC:n=>buildRC(n),
   AV:n=>buildAV(n), SJ:n=>buildSJ(n), TR:n=>buildTR(n), IC:n=>buildIC(n), BC:n=>buildBC(n) };
 // Realistic seconds-per-question per subtest (from official AFOQT time ÷ count),
 // so every preset's timer/label stays consistent with its section mix.
-// RC: 38분/25문항(공식 시간, guides.json 독해 가이드와 일치) ÷ 25 ≈ 91초/문항.
-const SECRATE={ WK:12, VA:19, RC:91, AR:70, MK:53, AV:24, TR:11, IC:12, BC:9, PS:30, SJ:131 };
+// RC: 공식 시간 24분/25문항 ÷ 25 = 57.6 ≈ 58초/문항.
+const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:11, IC:12, BC:9, PS:30, SJ:131 };
 // Build a preset from a list of [sectionCode, count] specs; derives timer + label.
 function composeMock(name,specs,tag){
   const secs=specs.reduce((s,[c,n])=>s+SECRATE[c]*n,0);
