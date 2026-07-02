@@ -489,6 +489,7 @@
       <div class="card tight stat"><div class="num" id="vaAcc">–</div><div class="lbl">정답률</div></div>
     </div>
     <button class="btn primary" id="vaStart" style="margin-top:16px">▶︎ 유추 연습 시작</button>
+    <button class="btn ghost" id="vaBrowse" style="margin-top:10px;border-color:#22c55e">📖 문제 훑어보기 (정답·해설 같이·시간無)</button>
     <button class="btn ghost" id="vaGuide" style="margin-top:10px">📘 유추 공부 가이드</button>
     <button class="btn ghost" id="vaCurr" style="margin-top:10px">🎓 커리큘럼 (관계 분류부터)</button>
     <button class="btn ghost" id="vaExam" style="margin-top:10px">🎯 유추 시험 (시간측정)</button>
@@ -510,6 +511,28 @@
     <button class="btn primary" id="vaRetry" style="margin-top:10px">계속</button>
     <button class="btn ghost" id="vaHomeBtn" style="margin-top:10px">홈으로</button>
   </div>
+</main>
+
+<!-- ===== VERBAL ANALOGIES 문제 훑어보기 (read-only browse) ===== -->
+<main id="view-vabrowse" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="vabBack">← 유추</button><span>📖 유추 훑어보기</span><span></span></div>
+  <p class="muted" style="margin:0 0 8px;font-size:12px">시간 제한 없이 A:B 관계·정답(✓)·해설을 한눈에. 관계별로 훑으며 감을 익히세요.</p>
+  <input class="search" id="vabSearch" placeholder="🔎 단어 / 관계 / 해설 검색…">
+  <div class="filters" id="vabFilters">
+    <button class="chip on" data-vr="all">전체</button>
+    <button class="chip" data-vr="antonym">반의어</button>
+    <button class="chip" data-vr="synonym">유의어</button>
+    <button class="chip" data-vr="part : whole">부분:전체</button>
+    <button class="chip" data-vr="cause : effect">원인:결과</button>
+    <button class="chip" data-vr="degree / intensity">정도</button>
+    <button class="chip" data-vr="young : adult">새끼:성체</button>
+    <button class="chip" data-vr="worker : product">직업:생산물</button>
+    <button class="chip" data-vr="container : contents">용기:내용물</button>
+    <button class="chip" data-vr="tool : function">도구:기능</button>
+    <button class="chip" data-vr="example : category">예시:범주</button>
+  </div>
+  <div class="muted" id="vabCount" style="font-size:12px;margin:2px 4px 10px"></div>
+  <div id="vabList"></div>
 </main>
 
 <!-- ===== READING (Reading Comprehension) ===== -->

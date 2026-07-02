@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.27.1";
+const VERSION = "4.28.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -390,7 +390,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -411,7 +411,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -1353,6 +1353,28 @@ function finishIC(){ const s=icState; if(!s) return; icTimerStop();
 function vaStats(){ const v=Object.values(state.va); const seen=v.filter(x=>x.seen>0).length;
   const mastered=v.filter(x=>x.status==="mastered").length; let c=0,w=0; v.forEach(x=>{c+=x.correct;w+=x.wrong;});
   return {seen,mastered,acc:(c+w)?Math.round(c/(c+w)*100):null}; }
+// 유추 문제 훑어보기 — 시험(시간측정) 대신, 문제·정답·해설을 펼쳐놓고 편하게 스크롤.
+let vaBrowseFilter="all", vaBrowseSearch="";
+function renderVaBrowse(){
+  const q=vaBrowseSearch.toLowerCase();
+  const full=ANALOGIES.filter(a=>{
+    if(vaBrowseFilter!=="all"&&a.relation!==vaBrowseFilter) return false;
+    if(vaBrowseSearch){
+      const hay=((a.stem||[]).join(" ")+" "+(a.options||[]).map(o=>(o.pair||[]).join(" ")).join(" ")+" "+(a.relation||"")+" "+(a.explain||"")).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true; });
+  const CAP=500, list=full.slice(0,CAP);
+  $("#vabCount").textContent=`${full.length}개${full.length>CAP?` (앞 ${CAP}개 표시 — 검색/필터로 좁혀보세요)`:""}`;
+  $("#vabList").innerHTML=list.map(a=>{
+    const opts=(a.options||[]).map(o=>`<div class="ro ${o.correct?"ok":""}">${o.correct?"✓ ":""}${esc((o.pair||[])[0]||"")} : ${esc((o.pair||[])[1]||"")}</div>`).join("");
+    return `<div class="review-q">
+      <div class="rh">${esc(a.relation||"관계")}</div>
+      <div style="font-weight:800;font-size:16px;letter-spacing:.5px;margin-bottom:6px">${esc((a.stem||[])[0]||"")} : ${esc((a.stem||[])[1]||"")}</div>
+      ${opts}
+      ${a.explain?`<div class="rx">${esc(a.explain)}</div>`:""}</div>`;
+  }).join("")||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
+}
 function renderAnalogyHub(){ $("#vaPlay").classList.add("hidden"); $("#vaDone").classList.add("hidden"); $("#vaHub").classList.remove("hidden");
   const s=vaStats(); $("#vaSeen").textContent=s.seen; $("#vaMastered").textContent=s.mastered; $("#vaAcc").textContent=s.acc==null?"–":s.acc+"%";
   $("#vaStart").disabled=!ANALOGIES.length; if(!ANALOGIES.length) $("#vaStart").textContent="준비 중 (데이터 없음)"; }
@@ -2150,6 +2172,9 @@ function wire(){
   // analogy
   $("#vaStart").onclick=()=>startAnalogy(false); $("#vaReview").onclick=()=>startAnalogy(true);
   $("#vaExam").onclick=()=>startExam("va");
+  $("#vaBrowse").onclick=()=>go("vabrowse"); $("#vabBack").onclick=()=>go("analogy");
+  $("#vabSearch").oninput=e=>{ vaBrowseSearch=e.target.value.trim(); renderVaBrowse(); };
+  $$("#vabFilters .chip").forEach(c=>c.onclick=()=>{ $$("#vabFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); vaBrowseFilter=c.dataset.vr; renderVaBrowse(); });
   $("#vaBack").onclick=()=>{ vaSession=null; renderAnalogyHub(); }; $("#vaRetry").onclick=()=>startAnalogy(false); $("#vaHomeBtn").onclick=()=>go("home");
   // reading
   $("#rcBack").onclick=()=>go("reading"); $("#rcToList").onclick=()=>go("reading"); $("#rcNext").onclick=nextPassage;
