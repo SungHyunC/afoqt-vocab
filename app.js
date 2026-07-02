@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.22.0";
+const VERSION = "4.23.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -380,7 +380,7 @@ let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
   const g=GUIDES[guideCur];
-  const back={wk:"vocab",va:"analogy",rc:"reading",av:"aviation",tr:"aviation",bc:"aviation",ic:"aviation",ar:"subtest",mk:"subtest",ps:"subtest",sj:"subtest",sdi:"home"}[guideCur]||"home";
+  const back={wk:"vocab",va:"analogy",rc:"reading",av:"aviation",tr:"aviation",bc:"aviation",ic:"aviation",ar:"math",mk:"math",ps:"subtest",sj:"subtest",sdi:"home"}[guideCur]||"home";
   $("#guideBack").onclick=()=>go(back);
   $("#guideNav").textContent="📘 공부 가이드";
   if(!g){ $("#guideBody").innerHTML=`<div class="card center muted" style="padding:20px">가이드 준비 중이에요.</div>`; return; }
@@ -396,7 +396,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -1162,6 +1162,13 @@ function finishCurr(){
 let subCur=null;
 const SUBPOOL={ar:()=>ARITH,mk:()=>MATHK,ps:()=>PHYSCI,sj:()=>SITJUD};
 function openSubtest(key){ subCur=key; go("subtest"); }
+// Dedicated 수학 hub (bottom-nav tab) — Math Knowledge + Arithmetic practice/exam.
+function renderMath(){
+  $("#mkCount").textContent=MATHK.length; $("#arCount").textContent=ARITH.length;
+  const line=(el,key)=>{ const r=state.exams[key];
+    $(el).textContent = r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:"아직 기록 없음"; };
+  line("#mkLast","mk"); line("#arLast","ar");
+}
 function renderSubtest(){
   const key=subCur, p=EXAM_PRESETS[key], g=GUIDES[key];
   const pool=(SUBPOOL[key]?SUBPOOL[key]():[])||[]; const ready=pool.length>0;
@@ -2007,6 +2014,8 @@ function wire(){
   $("#cpToCurr").onclick=()=>{ curSes=null; go("curriculum"); };
   $("#secWK").onclick=()=>go("vocab"); $("#secVA").onclick=()=>go("analogy"); $("#secRC").onclick=()=>go("reading");
   $("#secAV").onclick=()=>go("aviation");
+  $("#mkPractice").onclick=()=>startExam("mk",{practice:true}); $("#mkExam").onclick=()=>startExam("mk"); $("#mkGuide").onclick=()=>openGuide("mk");
+  $("#arPractice").onclick=()=>startExam("ar",{practice:true}); $("#arExam").onclick=()=>startExam("ar"); $("#arGuide").onclick=()=>openGuide("ar");
   $("#secAR").onclick=()=>openSubtest("ar"); $("#secMK").onclick=()=>openSubtest("mk");
   $("#secPS").onclick=()=>openSubtest("ps"); $("#secSJ").onclick=()=>openSubtest("sj");
   $("#secTR").onclick=startTableReading; $("#secIC").onclick=startInstrument; $("#secBC").onclick=startBlockCounting;
