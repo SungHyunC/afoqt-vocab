@@ -159,6 +159,10 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .nav button.on{color:var(--brand2)}
 
 /* ---------- misc ---------- */
+/* Inline math (fmtMath): keep exponents/subscripts tight so they don't stretch lines */
+sup,sub{font-size:.72em;line-height:0}
+sup{vertical-align:.55em}
+sub{vertical-align:-.25em}
 .center{text-align:center}
 .muted{color:var(--muted)}
 .big-emoji{font-size:54px}
