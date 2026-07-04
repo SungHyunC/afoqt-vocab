@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.30.0";
+const VERSION = "4.31.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -487,19 +487,33 @@ function renderHome(){
   renderWeekPlan();
 }
 function weekKey(){ const d=new Date(); const off=(d.getDay()+6)%7; d.setDate(d.getDate()-off); return todayStr(d); }
+// 12주 Academic Aptitude(전 과목 균형) 플랜을 이번 주 체크리스트로.
+// daysLeft 구간에 따라 단계가 자동 전환된다(과제는 매주 리셋되는 '이번 주 목표').
 function examPhase(){ const d=daysLeft();
-  if(d>35) return {key:"base",name:"기초 다지기",emoji:"🌱",tasks:[
-    "🎓 커리큘럼: 유추 1단계(관계 분류) 통과","📇 빈출 단어 100개 학습(플래시카드)","🔤 어원 10개 익히기",
-    "📖 독해 커리큘럼 1단계(주제 찾기)","📅 통합 학습 3회"]};
-  if(d>21) return {key:"build",name:"실력 쌓기",emoji:"💪",tasks:[
-    "🎓 유추·단어 커리큘럼 졸업 도전","📇 빈출 high(635) 완주","🔗 유추 시험 15+ 달성",
-    "🛩️ 항공/수학 시작","📅 통합 학습 4회"]};
-  if(d>10) return {key:"mock",name:"실전 모드",emoji:"🎯",tasks:[
-    "🎯 전체 모의고사 2회","🧩 약점 과목 집중 보강","📕 오답 노트 재시험",
-    "📊 예상 점수 70%↑ 확인","📅 통합 학습 4회"]};
-  return {key:"final",name:"마무리",emoji:"🔥",tasks:[
-    "📕 오답만 빠르게 복습","🎯 가벼운 모의고사 1회","📊 예상 점수 최종 확인",
-    "😴 컨디션·수면 관리","✅ 시험 준비물·일정 확인"]};
+  if(d>49) return {key:"base",name:"1단계 · 기초·볼륨",emoji:"🌱",tasks:[
+    "📇 단어: 매일 권장량 완료 (+🎧 자동 넘김으로 이동 중 복습)",
+    "🔢 수학: 공부 가이드로 공식 정리 → 연습 모드",
+    "🔗 유추: 훑어보기로 관계 유형 익히기",
+    "📖 독해: 하루 지문 2~3개 (정확도 우선)",
+    "🧠 어근 코치 1회독"]};
+  if(d>21) return {key:"build",name:"2단계 · 드릴·속도",emoji:"💪",tasks:[
+    "✅ 확인 시험으로 외운 단어 검증 (찍은 것 솎아내기)",
+    "🔢 수학 실전 시험 격일 (AR·MK 번갈아)",
+    "📖 독해 24분 타이머로 실전 페이스",
+    "🔗 유추 시험 15+ 달성",
+    "🎯 주 1회 전과목 모의고사 → 📊 약점 확인"]};
+  if(d>10) return {key:"mock",name:"3단계 · 실전 시뮬",emoji:"🎯",tasks:[
+    "🎯 주 2회 풀 모의고사 (실제 시간·연속)",
+    "🧩 📊 약점 리포트의 낮은 과목만 집중 보강",
+    "📕 오답 노트 재시험",
+    "📇 단어·공식 유지 복습 (확인 시험 재확인)",
+    "📊 예상 점수 90%대 확인"]};
+  return {key:"final",name:"마무리 (D-10)",emoji:"🔥",tasks:[
+    "📕 오답·빈출 단어만 빠르게",
+    "🎯 가벼운 모의고사 1회",
+    "📊 예상 점수 최종 확인",
+    "😴 컨디션·수면 관리",
+    "✅ 9/28 응시 준비물·일정 확인"]};
 }
 function renderWeekPlan(){
   const box=$("#weekPlan"); if(!box) return;
