@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.31.0";
+const VERSION = "4.32.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -550,14 +550,34 @@ async function apAcquireWake(){ try{ if("wakeLock" in navigator && !apWake){ apW
 function apReleaseWake(){ try{ apWake&&apWake.release&&apWake.release(); }catch(e){} apWake=null; }
 function apClearTimer(){ if(ap&&ap.t){ clearTimeout(ap.t); ap.t=null; } }
 function apStop(){ apClearTimer(); try{ window.speechSynthesis&&window.speechSynthesis.cancel(); }catch(e){} apReleaseWake(); ap=null; }
-function renderAutoPlaySetup(){ apStop(); $("#apSetup").classList.remove("hidden"); $("#apPlayer").classList.add("hidden"); $("#apCount").textContent=""; }
-function startAutoPlay(){
-  let ids=poolFor($("#apScope").value);
-  if(!ids.length){ toast("이 범위에 단어가 없어요. 학습을 하거나 범위를 바꿔보세요."); return; }
-  ids=shuffle(ids);
-  ap={queue:ids, idx:0, revealed:false, playing:true, speed:$("#apSpeed").value, ko:$("#apKo").checked, loop:$("#apLoop").checked, t:null};
+// 이어보기 체크포인트는 로컬에만 저장(동기화 X — 플래시카드 세션과 동일 방침).
+function apSaveSession(){ if(!ap) return; state.autoplay={queue:ap.queue, idx:ap.idx, scope:ap.scope, speed:ap.speed, ko:ap.ko, loop:ap.loop}; saveLocal(); }
+function renderAutoPlaySetup(){
+  apStop(); $("#apSetup").classList.remove("hidden"); $("#apPlayer").classList.add("hidden"); $("#apCount").textContent="";
+  const sv=state.autoplay, box=$("#apResume"); if(!box) return;
+  if(sv&&sv.queue&&sv.queue.length&&(sv.idx||0)<sv.queue.length-1){
+    box.classList.remove("hidden");
+    box.innerHTML=`<button class="btn primary" id="apResumeBtn" style="background:linear-gradient(90deg,var(--brand),var(--brand2));border:0">⏵ 이어서 재생 (${(sv.idx||0)+1} / ${sv.queue.length})</button>
+      <button class="btn ghost sm" id="apResumeClear" style="margin-top:8px">↩︎ 이어보기 지우기</button>`;
+    $("#apResumeBtn").onclick=resumeAutoPlay;
+    $("#apResumeClear").onclick=()=>{ state.autoplay=null; saveLocal(); renderAutoPlaySetup(); toast("이어보기 지웠어요"); };
+  } else { box.classList.add("hidden"); box.innerHTML=""; }
+}
+function resumeAutoPlay(){
+  const sv=state.autoplay; if(!sv||!sv.queue||!sv.queue.length){ toast("이어볼 기록이 없어요"); return; }
+  ap={queue:sv.queue.slice(), idx:Math.min(sv.idx||0, sv.queue.length-1), revealed:false, playing:true,
+      speed:sv.speed||"normal", ko:sv.ko!==false, loop:sv.loop!==false, scope:sv.scope, t:null};
   $("#apSetup").classList.add("hidden"); $("#apPlayer").classList.remove("hidden");
   apAcquireWake(); apShowPhase();
+}
+function startAutoPlay(){
+  const scope=$("#apScope").value;
+  let ids=poolFor(scope);
+  if(!ids.length){ toast("이 범위에 단어가 없어요. 학습을 하거나 범위를 바꿔보세요."); return; }
+  ids=shuffle(ids);
+  ap={queue:ids, idx:0, revealed:false, playing:true, speed:$("#apSpeed").value, ko:$("#apKo").checked, loop:$("#apLoop").checked, scope, t:null};
+  $("#apSetup").classList.add("hidden"); $("#apPlayer").classList.remove("hidden");
+  apAcquireWake(); apSaveSession(); apShowPhase();
 }
 function apRender(){
   const s=ap; if(!s) return; const w=WMAP.get(s.queue[s.idx]); if(!w){ return apAdvance(); }
@@ -573,7 +593,7 @@ function apRender(){
   $("#apPlay").textContent=s.playing?"⏸":"▶︎";
 }
 function apShowPhase(){ // show word, speak it, then schedule the reveal
-  const s=ap; if(!s) return; s.revealed=false; apRender();
+  const s=ap; if(!s) return; s.revealed=false; apRender(); apSaveSession(); // checkpoint each card
   const w=WMAP.get(s.queue[s.idx]);
   if(s.playing && w) speak(w.word);
   apClearTimer(); if(s.playing) s.t=setTimeout(apRevealPhase, AP_SPEED[s.speed].show);
@@ -591,6 +611,7 @@ function apAdvance(){
   apShowPhase();
 }
 function apFinish(){ apClearTimer(); if(ap) ap.playing=false; apReleaseWake();
+  state.autoplay=null; saveLocal(); // 끝까지 봤으면 체크포인트 정리(다음엔 새로 시작)
   toast("한 바퀴 끝! 🔁 반복을 켜면 계속 돌아요."); apRender(); }
 function apTogglePlay(){ const s=ap; if(!s) return; s.playing=!s.playing;
   if(s.playing){ apAcquireWake(); apShowPhase(); }
