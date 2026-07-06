@@ -158,6 +158,19 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .nav button .ic{font-size:21px;line-height:1}
 .nav button.on{color:var(--brand2)}
 
+/* ---------- Motivation banner + badges ---------- */
+.motiv{font-size:13.5px;line-height:1.5;padding:13px 15px}
+.motiv.todo{border-left:3px solid var(--warn);background:linear-gradient(90deg,#f59e0b18,var(--card))}
+.motiv.done{border-left:3px solid var(--ok);background:linear-gradient(90deg,#16a34a18,var(--card))}
+.motiv:empty{display:none}
+.badge-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:10px}
+.badge{text-align:center;padding:10px 4px;border-radius:12px;background:var(--card2);border:1px solid var(--line)}
+.badge .bi{font-size:26px;line-height:1}
+.badge .bn{font-size:10.5px;margin-top:4px;color:var(--muted);font-weight:600}
+.badge.off{opacity:.32;filter:grayscale(1)}
+.badge.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.badge.on .bn{color:var(--txt)}
+
 /* ---------- Auto-play (hands-free) ---------- */
 .ap-card{min-height:44vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
   text-align:center;background:var(--card);border:1px solid var(--line);border-radius:24px;
