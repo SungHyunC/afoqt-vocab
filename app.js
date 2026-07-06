@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.32.0";
+const VERSION = "4.33.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -81,6 +81,7 @@ const DEFAULT_STATE = () => ({
   wkSeen:{}, avp:{},  // readiness coverage: wordId / aviationId seen in exams
   curr:{},    // 커리큘럼: track -> {unlocked:int, passed:{si:1}, best:{si:score}}
   checklist:{},  // 주차별 체크리스트: 'weekKey:phase' -> {taskIdx:1}
+  apExposure:{}, // 자동 넘김 노출 기록: 'YYYY-MM-DD' -> 들은 단어 수(스트릭 인정용, SRS엔 영향 X)
   rootStep:0,    // 어근 추론 코치 진행 위치
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
@@ -93,7 +94,7 @@ function loadLocal(){
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.wrong=Object.assign({wk:{},va:{},rc:{},ar:{},mk:{},ps:{},av:{}},state.wrong||{});
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{},topic:{}},state.weak||{});
-  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{};
+  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{};
   state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
 }
@@ -147,9 +148,14 @@ function countByStatus(){
     learned++; totalRev+=c.reps; if(c.status==="mastered") mastered++; if(tierOf(w)!=="std") highLearned++; }
   return {learned,mastered,totalRev,highLearned,remaining:WORDS.length-learned};
 }
+// 자동 넘김으로 하루 20단어 이상 들으면 그날도 '활동한 날'로 인정(스트릭 유지). 숙련도엔 영향 없음.
+const AP_STREAK_MIN=20;
+function dayActive(key){ const r=state.daily[key]; return (r&&r.goal_met) || (state.apExposure[key]||0)>=AP_STREAK_MIN; }
 function computeStreak(){ let s=0; const cur=parseDate(todayStr());
-  for(let i=0;;i++){ const d=new Date(cur); d.setDate(d.getDate()-i); const r=state.daily[todayStr(d)];
-    if(r&&r.goal_met) s++; else if(i===0) continue; else break; } return s; }
+  for(let i=0;;i++){ const d=new Date(cur); d.setDate(d.getDate()-i); const key=todayStr(d);
+    if(dayActive(key)) s++; else if(i===0) continue; else break; } return s; }
+// 자동 넘김 노출만 카운트 — studied/target/goal_met/SRS는 절대 안 건드림.
+function bumpExposure(){ const day=todayStr(); state.apExposure[day]=(state.apExposure[day]||0)+1; saveLocal(); }
 
 /* ============================================================
    SRS (SM-2 변형)
@@ -301,7 +307,7 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist}; }
+  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist,apExposure:state.apExposure}; }
 function mergeMisc(d){
   if(!d) return;
   // exams: keep the higher best per key
@@ -325,6 +331,8 @@ function mergeMisc(d){
   (d.examHist||[]).forEach(x=>{ if(!seen.has(x.ts)){ state.examHist.push(x); seen.add(x.ts); } });
   state.examHist.sort((a,b)=>a.ts-b.ts); if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
   for(const k in (d.checklist||{})){ state.checklist[k]=Object.assign(state.checklist[k]||{}, d.checklist[k]); }
+  // apExposure: keep the higher count per day (union, max)
+  for(const day in (d.apExposure||{})){ state.apExposure[day]=Math.max(state.apExposure[day]||0, d.apExposure[day]||0); }
 }
 
 function subscribeRealtime(){
@@ -591,6 +599,8 @@ function apRender(){
       ${w.def?`<div class="ap-def">${esc(w.def)}</div>`:""}
     </div>`;
   $("#apPlay").textContent=s.playing?"⏸":"▶︎";
+  const ex=state.apExposure[todayStr()]||0, el=$("#apExposed");
+  if(el) el.textContent = ex?`🎧 오늘 들은 단어 ${ex}개${ex>=AP_STREAK_MIN?" · 스트릭 인정 ✓":` · ${AP_STREAK_MIN}개+면 스트릭 인정`} · `:"";
 }
 function apShowPhase(){ // show word, speak it, then schedule the reveal
   const s=ap; if(!s) return; s.revealed=false; apRender(); apSaveSession(); // checkpoint each card
@@ -599,7 +609,9 @@ function apShowPhase(){ // show word, speak it, then schedule the reveal
   apClearTimer(); if(s.playing) s.t=setTimeout(apRevealPhase, AP_SPEED[s.speed].show);
 }
 function apRevealPhase(){ // reveal meaning, speak it, then schedule advance
-  const s=ap; if(!s) return; s.revealed=true; apRender();
+  const s=ap; if(!s) return; s.revealed=true;
+  if(s._lastExp!==s.idx){ s._lastExp=s.idx; bumpExposure(); } // 카드당 1회 노출 인정(스트릭용)
+  apRender();
   const w=WMAP.get(s.queue[s.idx]);
   if(s.playing && w){ if(s.ko && w.kor) speak(w.kor,null,"ko-KR"); else if(w.def) speak(w.def); }
   apClearTimer(); if(s.playing) s.t=setTimeout(apAdvance, AP_SPEED[s.speed].mean);
