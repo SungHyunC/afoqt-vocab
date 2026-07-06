@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.33.0";
+const VERSION = "4.34.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -82,6 +82,7 @@ const DEFAULT_STATE = () => ({
   curr:{},    // 커리큘럼: track -> {unlocked:int, passed:{si:1}, best:{si:score}}
   checklist:{},  // 주차별 체크리스트: 'weekKey:phase' -> {taskIdx:1}
   apExposure:{}, // 자동 넘김 노출 기록: 'YYYY-MM-DD' -> 들은 단어 수(스트릭 인정용, SRS엔 영향 X)
+  badges:{},     // 달성 배지: badgeId -> 1
   rootStep:0,    // 어근 추론 코치 진행 위치
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
@@ -94,7 +95,7 @@ function loadLocal(){
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.wrong=Object.assign({wk:{},va:{},rc:{},ar:{},mk:{},ps:{},av:{}},state.wrong||{});
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{},topic:{}},state.weak||{});
-  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{};
+  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{}; state.badges=state.badges||{};
   state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
 }
@@ -151,11 +152,44 @@ function countByStatus(){
 // 자동 넘김으로 하루 20단어 이상 들으면 그날도 '활동한 날'로 인정(스트릭 유지). 숙련도엔 영향 없음.
 const AP_STREAK_MIN=20;
 function dayActive(key){ const r=state.daily[key]; return (r&&r.goal_met) || (state.apExposure[key]||0)>=AP_STREAK_MIN; }
-function computeStreak(){ let s=0; const cur=parseDate(todayStr());
-  for(let i=0;;i++){ const d=new Date(cur); d.setDate(d.getDate()-i); const key=todayStr(d);
-    if(dayActive(key)) s++; else if(i===0) continue; else break; } return s; }
+// 스트릭 보호막: 뒤로 훑을 때 7일 구간마다 하루 빠짐은 1번 봐줌(끊지 않음).
+// 한 번 실수로 두 달치 스트릭이 0이 되는 '포기 스파이럴'을 막는 장치.
+function computeStreak(){ let s=0, weekSkips=0; const cur=parseDate(todayStr());
+  for(let i=0;;i++){ if(i>0 && i%7===0) weekSkips=0;
+    const d=new Date(cur); d.setDate(d.getDate()-i); const key=todayStr(d);
+    if(dayActive(key)){ s++; continue; }
+    if(i===0) continue;                 // 오늘은 아직 안 함 — 안 끊고 안 셈
+    if(weekSkips<1){ weekSkips++; continue; }  // 이번 주 보호막으로 하루 빠짐 봐줌
+    break;
+  }
+  return s;
+}
 // 자동 넘김 노출만 카운트 — studied/target/goal_met/SRS는 절대 안 건드림.
 function bumpExposure(){ const day=todayStr(); state.apExposure[day]=(state.apExposure[day]||0)+1; saveLocal(); }
+// 마일스톤 배지 — 스트릭·학습·마스터·모의고사 지점에서 축하. 진도(SRS)엔 영향 X.
+const BADGES=[
+  {id:"streak7",  icon:"🔥", name:"7일 연속",   t:m=>m.streak>=7},
+  {id:"streak14", icon:"🔥", name:"14일 연속",  t:m=>m.streak>=14},
+  {id:"streak30", icon:"🏆", name:"30일 연속",  t:m=>m.streak>=30},
+  {id:"streak50", icon:"🏆", name:"50일 연속",  t:m=>m.streak>=50},
+  {id:"learn100", icon:"📇", name:"단어 100",   t:m=>m.learned>=100},
+  {id:"learn300", icon:"📚", name:"단어 300",   t:m=>m.learned>=300},
+  {id:"learn500", icon:"📚", name:"단어 500",   t:m=>m.learned>=500},
+  {id:"learn1000",icon:"🎓", name:"단어 1000",  t:m=>m.learned>=1000},
+  {id:"master50", icon:"⭐", name:"마스터 50",  t:m=>m.mastered>=50},
+  {id:"master100",icon:"🌟", name:"마스터 100", t:m=>m.mastered>=100},
+  {id:"master250",icon:"💎", name:"마스터 250", t:m=>m.mastered>=250},
+  {id:"mock1",    icon:"🎯", name:"첫 모의고사", t:m=>m.mocks>=1},
+  {id:"mock10",   icon:"🎯", name:"모의고사 10회",t:m=>m.mocks>=10},
+];
+function badgeMetrics(){ const c=countByStatus(); return {streak:computeStreak(), learned:c.learned, mastered:c.mastered, mocks:(state.examHist||[]).length}; }
+// 새로 달성한 배지가 있으면 저장 + (silent 아니면) 축하 토스트.
+function checkBadges(silent){
+  const m=badgeMetrics(); const newly=[];
+  for(const b of BADGES){ if(b.t(m) && !state.badges[b.id]){ state.badges[b.id]=1; newly.push(b); } }
+  if(newly.length){ saveLocal(); if(!silent){ const b=newly[newly.length-1]; toast(`${b.icon} 배지 획득! ${b.name} 🎉`, 3600); } }
+  return m;
+}
 
 /* ============================================================
    SRS (SM-2 변형)
@@ -307,7 +341,7 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist,apExposure:state.apExposure}; }
+  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges}; }
 function mergeMisc(d){
   if(!d) return;
   // exams: keep the higher best per key
@@ -333,6 +367,7 @@ function mergeMisc(d){
   for(const k in (d.checklist||{})){ state.checklist[k]=Object.assign(state.checklist[k]||{}, d.checklist[k]); }
   // apExposure: keep the higher count per day (union, max)
   for(const day in (d.apExposure||{})){ state.apExposure[day]=Math.max(state.apExposure[day]||0, d.apExposure[day]||0); }
+  for(const k in (d.badges||{})){ state.badges[k]=1; } // 배지: 획득분 union
 }
 
 function subscribeRealtime(){
@@ -437,7 +472,24 @@ function renderHome(){
   const pct=target?clamp(Math.round(today.studied/target*100),0,100):0;
   $("#goalRing").style.setProperty("--p",pct); $("#ringPct").textContent=pct+"%";
   const overall=Math.round(cnt.learned/Math.max(1,WORDS.length)*100);
-  $("#stStreak").textContent=computeStreak(); $("#stToday").textContent=today.studied; $("#stDue").textContent=dueCards().length;
+  const streak=computeStreak(), dueNow=dueCards().length, todayActive=dayActive(todayStr());
+  $("#stStreak").textContent=streak; $("#stToday").textContent=today.studied; $("#stDue").textContent=dueNow;
+  checkBadges(); // 마일스톤 달성 시 축하 토스트
+  // ---- 동기부여 배너: 손실 프레이밍 + 밀린 복습 자연 경고 (스트릭 보호막 안내 포함) ----
+  const mb=$("#motivBanner");
+  if(mb){
+    if(todayActive){
+      mb.className="card motiv done";
+      mb.innerHTML=`<b>🔥 오늘 완료! ${streak}일째 이어가는 중</b> 🎉 <span class="muted">— 이 리듬 유지하면 9/28 준비 충분해요.</span>`;
+    } else {
+      const streakTxt = streak>0
+        ? `🔥 <b>${streak}일 연속</b> 중 — 오늘 하면 이어가고, 건너뛰면 끊겨요.`
+        : `오늘부터 스트릭을 시작해봐요! 작게라도 하면 카운트가 올라가요.`;
+      const dueTxt = dueNow>0 ? `<div class="muted" style="margin-top:5px">📌 복습 <b>${dueNow}개</b> 대기 · 오늘 건너뛰면 내일 더 쌓여요.</div>` : "";
+      mb.className="card motiv todo";
+      mb.innerHTML=`${streakTxt}<div class="muted" style="margin-top:4px;font-size:11px">🛡️ 보호막: 실수로 하루 빠져도 주 1회는 자동으로 봐줘요(끊기지 않음).</div>${dueTxt}`;
+    }
+  }
   // ---- daily pacing (recomputed every render, so it auto-updates as days pass) ----
   const rawDays=dayDiff(todayStr(),state.settings.exam_date);
   const remain=newWordsRemaining(), dleft=daysLeft(), pace=newPerDay(), autop=autoPace();
@@ -2028,6 +2080,14 @@ function renderStats(){
   $("#calGrid").innerHTML=cells;
   let met=0; for(const k in state.daily) if(state.daily[k].goal_met) met++;
   $("#calStreak").textContent=computeStreak(); $("#calMet").textContent=met;
+  // 달성 배지
+  const bb=$("#badgeRow");
+  if(bb){ checkBadges(true);
+    const earned=BADGES.filter(b=>state.badges[b.id]).length;
+    $("#badgeCount").textContent=`${earned} / ${BADGES.length}`;
+    bb.innerHTML=BADGES.map(b=>{ const on=!!state.badges[b.id];
+      return `<div class="badge ${on?"on":"off"}" title="${esc(b.name)}"><div class="bi">${b.icon}</div><div class="bn">${esc(b.name)}</div></div>`;
+    }).join(""); }
   const left=daysLeft(),rem=cnt.remaining,pace=newPerDay(),fin=pace?Math.ceil(rem/pace):0,ok=fin<=left;
   const todayDueN=dueCards().length, todayNewN=Math.min(pace,rem), todayN=todayDueN+todayNewN;
   $("#projection").innerHTML=rem===0?`<div class="center"><div class="big-emoji">🏁</div><b>모든 단어 학습 완료!</b><div class="muted">이제 복습으로 마스터하세요.</div></div>`
