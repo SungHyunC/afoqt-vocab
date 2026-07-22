@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.38.0";
+const VERSION = "4.39.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -857,10 +857,12 @@ function synBuildQ(){
   while(distract.length<3 && guard++<60){
     const oid=s.pool[Math.random()*s.pool.length|0]; if(oid===id) continue;
     const ow=WMAP.get(oid); const cand=ow.synonyms[Math.random()*ow.synonyms.length|0];
-    if(!cand||used.has(cand.toLowerCase())) continue; used.add(cand.toLowerCase()); distract.push(cand);
+    if(!cand||used.has(cand.toLowerCase())) continue; used.add(cand.toLowerCase());
+    // 각 오답 보기의 뜻(gloss) = 그 단어가 동의어인 원 단어의 한글 뜻(근사). 답한 뒤 표시용.
+    distract.push({t:cand, ok:0, gloss:ow.kor||""});
   }
   if(distract.length<3) return null;
-  return {id, opts:shuffle([{t:correct,ok:1},...distract.map(t=>({t,ok:0}))]), chosen:null, added:false};
+  return {id, opts:shuffle([{t:correct,ok:1,gloss:w.kor||""},...distract]), chosen:null, added:false};
 }
 function newSynQ(){ const s=synq; if(!s) return; let q=null,tries=0; while(!q&&tries++<15) q=synBuildQ(); if(!q) return;
   s.history.push(q); if(s.history.length>60) s.history.shift(); s.pos=s.history.length-1; renderSynAt(); }
@@ -885,7 +887,9 @@ function renderSynAt(){
   const posLabel=s.history.length>1?`<span class="muted" style="font-size:11px"> · ${s.pos+1}/${s.history.length}${isPast?" · 지난 문제 다시보기":""}</span>`:"";
   $("#synqScore").textContent=`${s.correct} / ${s.count}${s.count?` · ${Math.round(s.correct/s.count*100)}%`:""}${s.added?` · 📇${s.added}`:""}`;
   const choicesHTML=q.opts.map((o,i)=>{ let cls=""; if(answered){ if(o.ok) cls="correct"; else if(i===q.chosen) cls="wrong"; }
-    return `<button class="choice ${cls}" data-i="${i}" ${answered?"disabled":""}>${esc(o.t)}</button>`; }).join("");
+    // 답한 뒤엔 보기 4개의 뜻을 함께 표시 → 다른 단어들도 무슨 뜻인지 학습.
+    const gl = answered && o.gloss ? `<span class="opt-gloss">${esc(o.gloss)}</span>` : "";
+    return `<button class="choice ${cls}" data-i="${i}" ${answered?"disabled":""}>${esc(o.t)}${gl}</button>`; }).join("");
   const ok=answered?q.opts[q.chosen].ok:null;
   const explain=answered?`<div class="ana-explain"><b>${ok?"✅ 정답":"❌ 오답"}</b> · <b>${esc(w.word)}</b> = ${esc(w.kor||"")}${(w.synonyms&&w.synonyms.length)?`<br><span class="muted">동의어: ${esc(w.synonyms.slice(0,5).join(", "))}</span>`:""}${q.added?`<br><span style="color:var(--brand2)">📇 플래시카드 복습에 추가됨</span>`:""}</div>`:"";
   const prevBtn=s.pos>0?`<button class="btn ghost" id="synqPrev" style="flex:1">← 이전</button>`:`<span style="flex:1"></span>`;
