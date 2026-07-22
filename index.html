@@ -130,6 +130,7 @@
   <button class="btn primary" id="vkStart" style="margin-top:16px">▶︎ 플래시카드 학습</button>
   <button class="btn ghost" id="vkAuto" style="margin-top:10px;border-color:#f59e0b">🎧 자동 넘김 (운동용·핸즈프리·음성)</button>
   <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
+  <button class="btn ghost" id="vkSynq" style="margin-top:10px;border-color:var(--brand2)">⚡ 동의어 퀴즈 (WK 실전형 · 빠른 반복)</button>
   <button class="btn ghost" id="vkQuiz" style="margin-top:10px">🧠 빠른 퀴즈 (연습용 · 시간 無)</button>
   <button class="btn ghost" id="vkConfirm" style="margin-top:10px;border-color:#22c55e">✅ 확인 시험 — 진짜 외웠는지 검증</button>
   <div class="hintbox" id="vkConfirmSub" style="margin-top:4px">확인할 단어 없음</div>
@@ -146,6 +147,31 @@
     <label class="switch-row"><span>빈출 단어만 학습 (std 제외)</span>
       <input type="checkbox" id="optHighOnly"></label>
     <div class="hintbox" style="margin-top:10px">빈출(high)·중요(mid)·일반(std) 순으로 외웁니다. GRE Magoosh 단어도 포함됩니다.</div>
+  </div>
+</main>
+
+<!-- ===== SYNONYM QUIZ (WK 실전형 · 연속) ===== -->
+<main id="view-synq" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="synqBack">← 어휘</button><span id="synqScore">0 / 0</span><span></span></div>
+  <div id="synqSetup">
+    <h2 class="section">⚡ 동의어 퀴즈</h2>
+    <p class="muted" style="margin:0 0 14px">AFOQT Word Knowledge 실전형 — 단어 하나에 <b>가장 비슷한 뜻</b>을 4개 중에서 고르면 바로 다음 문제로. 빠르게 연속 반복돼요.</p>
+    <div class="field"><label>범위</label>
+      <select id="synqScope">
+        <option value="high" selected>⭐ 빈출 단어</option>
+        <option value="learned">학습한 단어</option>
+        <option value="due">복습 대기 단어</option>
+        <option value="today">📅 오늘 학습한 단어</option>
+        <option value="starred">★ 즐겨찾기</option>
+        <option value="all">전체 단어</option>
+      </select>
+    </div>
+    <button class="btn primary" id="synqGo" style="margin-top:14px">▶︎ 시작</button>
+    <div class="hintbox" style="margin-top:10px">맞히면 즉시 다음 문제로 넘어가요. 정답률은 📊 예상 단어 점수에 반영되고, 틀린 단어는 오답 노트에 담겨요.</div>
+  </div>
+  <div id="synqPlay" class="hidden">
+    <div id="synqArea"></div>
+    <button class="btn ghost" id="synqStop" style="margin-top:14px">그만하기</button>
   </div>
 </main>
 
