@@ -166,8 +166,9 @@
         <option value="all">전체 단어</option>
       </select>
     </div>
+    <label class="switch-row"><span>🆕 모르는 단어는 한글 뜻 힌트 보기 (학습 모드)</span><input type="checkbox" id="synqLearn" checked></label>
     <button class="btn primary" id="synqGo" style="margin-top:14px">▶︎ 시작</button>
-    <div class="hintbox" style="margin-top:10px">맞히면 즉시 다음 문제로 넘어가요. 정답률은 📊 예상 단어 점수에 반영되고, 틀린 단어는 오답 노트에 담겨요.</div>
+    <div class="hintbox" style="margin-top:10px">아직 안 외운 단어는 <b>뜻을 힌트로</b> 보여줘서 처음이어도 배우며 풀 수 있어요(마스터한 단어는 힌트 없이 진짜 테스트). 틀린 단어는 <b>자동으로 플래시카드 복습에 추가</b>돼요.</div>
   </div>
   <div id="synqPlay" class="hidden">
     <div id="synqArea"></div>

@@ -158,6 +158,11 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .nav button .ic{font-size:21px;line-height:1}
 .nav button.on{color:var(--brand2)}
 
+/* ---------- Synonym quiz hint ---------- */
+.synq-hint{background:var(--card2);border-left:3px solid var(--brand2);border-radius:8px;
+  padding:8px 11px;font-size:14px;font-weight:600;margin:0 0 12px}
+.synq-hint .muted{font-weight:400}
+
 /* ---------- Motivation banner + badges ---------- */
 .motiv{font-size:13.5px;line-height:1.5;padding:13px 15px}
 .motiv.todo{border-left:3px solid var(--warn);background:linear-gradient(90deg,#f59e0b18,var(--card))}
