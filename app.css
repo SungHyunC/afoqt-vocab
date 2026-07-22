@@ -471,3 +471,43 @@ sub{vertical-align:-.25em}
 .rc-explain{margin-top:12px;padding:13px 14px;background:var(--card2);border-radius:12px;font-size:14.5px;line-height:1.7}
 .rc-nav{display:flex;gap:10px;margin-top:18px}
 .rc-nav .btn{flex:1}
+
+/* 동의어 퀴즈: 답한 뒤 각 보기 옆에 뜻 표시 */
+.choice .opt-gloss{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:3px}
+.choice.correct .opt-gloss{color:#a7f3d0}
+
+/* ============================================================
+   반응형 — 태블릿/PC (넓은 화면): 하단 탭 → 왼쪽 사이드바 + 넓은 본문
+   ============================================================ */
+@media (min-width:820px){
+  :root{ --sidebar:220px; }
+  body{ padding-bottom:0; padding-left:var(--sidebar); }
+
+  /* 하단 탭 → 좌측 세로 사이드바 */
+  .nav{ top:0; bottom:0; right:auto; width:var(--sidebar);
+    flex-direction:column; justify-content:flex-start; align-items:stretch; gap:4px;
+    border-top:none; border-right:1px solid var(--line);
+    padding:14px 12px var(--safe-b); overflow-y:auto; background:rgba(30,41,59,.98); }
+  .nav::before{ content:"AFOQT Master"; display:block; font-weight:800; font-size:14px;
+    color:var(--brand2); padding:8px 14px 12px; letter-spacing:.3px; }
+  .nav button{ flex:0 0 auto; flex-direction:row; justify-content:flex-start; gap:13px;
+    padding:12px 14px; font-size:14px; border-radius:12px; }
+  .nav button .ic{ font-size:20px; width:24px; text-align:center; }
+  .nav button.on{ background:var(--card2); color:var(--brand2); }
+
+  /* 본문 넓게 */
+  .view{ max-width:880px; padding:24px 30px; }
+  .appbar{ padding-left:30px; padding-right:30px; }
+
+  /* 설정 시트: 사이드바 옆 영역에 중앙 모달로 */
+  .sheet-bg{ align-items:center; padding-left:var(--sidebar); }
+  .sheet{ max-width:640px; border-radius:20px; max-height:86vh; }
+
+  /* 토스트를 본문 중앙으로 */
+  .toast{ left:calc(50% + var(--sidebar)/2); bottom:32px; }
+}
+
+/* 아주 넓은 화면(대형 PC): 본문 더 여유롭게 */
+@media (min-width:1200px){
+  .view{ max-width:1000px; }
+}
