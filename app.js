@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.35.0";
+const VERSION = "4.36.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -207,6 +207,11 @@ function gradeCard(id,q){ const c={...getCard(id)};
     const due=new Date(); due.setMinutes(due.getMinutes()+Math.round(c.interval*1440)); c.due=due.toISOString(); }
   setCard(id,c); }
 function fmtIv(d){ if(d<1) return "<1일"; if(d>=21) return "마스터"; return Math.round(d)+"일"; }
+// 틀린 단어를 플래시카드 복습 큐에 즉시 투입(학습중·지금 due). verify 보류도 해제해
+// 곧바로 복습에 뜨게 함. (동의어 퀴즈 등에서 오답 시 호출)
+function markForReview(id){ const c={...getCard(id)};
+  c.lapses=(c.lapses||0)+1; c.ease=Math.max(1.3,(c.ease||2.5)-0.2); c.interval=0;
+  c.status="learning"; c.due=nowISO(); c.verify=null; c.verifyDue=null; setCard(id,c); }
 
 /* ============================================================
    확인 시험 (진짜 암기 검증)
@@ -841,7 +846,7 @@ function renderSynQuiz(){ synq=null; $("#synqSetup").classList.remove("hidden");
 function startSynQuiz(){
   const pool=synPool($("#synqScope").value);
   if(pool.length<4){ toast("이 범위에 동의어 단어가 부족해요. 범위를 넓혀보세요."); return; }
-  synq={pool, count:0, correct:0, answered:false};
+  synq={pool, count:0, correct:0, added:0, answered:false, learn:$("#synqLearn").checked};
   $("#synqSetup").classList.add("hidden"); $("#synqPlay").classList.remove("hidden"); nextSynQ();
 }
 function nextSynQ(){
@@ -858,10 +863,14 @@ function nextSynQ(){
   if(distract.length<3) return nextSynQ();
   const opts=shuffle([{t:correct,ok:1},...distract.map(t=>({t,ok:0}))]);
   s.answered=false;
-  $("#synqScore").textContent = s.count?`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%`:"0 / 0";
+  // 학습 모드: 아직 안 외운(new/learning) 단어는 한글 뜻을 힌트로 → 콜드스타트에 다 틀리는 것 방지.
+  const st=getCard(id).status, unknown=(st==="new"||st==="learning");
+  const hint = (s.learn && unknown && w.kor) ? `<div class="synq-hint">💡 뜻: ${esc(w.kor)} <span class="muted">— 뜻에 맞는 동의어를 고르세요</span></div>` : "";
+  $("#synqScore").textContent = s.count?`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%${s.added?` · 📇${s.added}`:""}`:"0 / 0";
   $("#synqArea").innerHTML=`<div class="card">
     <div class="q-prompt">가장 비슷한 뜻은?</div>
     <div class="word-row"><div class="q-word" style="${wordFont(w.word,26)}">${esc(w.word)}</div>${spkBtn(w.word)}</div>
+    ${hint}
     <div class="choices" id="synqChoices">${opts.map(o=>`<button class="choice" data-ok="${o.ok}">${esc(o.t)}</button>`).join("")}</div>
     <div class="ana-explain hidden" id="synqEx"></div></div>`;
   wireSpeakers($("#synqArea"));
@@ -871,12 +880,13 @@ function nextSynQ(){
     $$("#synqChoices .choice").forEach(b=>{ b.disabled=true; if(b.dataset.ok==="1") b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
     s.count++; if(ok) s.correct++;
     bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
-    if(!ok) state.wrong.wk[id]=1;  // 틀린 단어는 오답노트로
+    let added=false;
+    if(!ok){ state.wrong.wk[id]=1; markForReview(id); s.added++; added=true; }  // 틀리면 오답노트 + 플래시카드 복습 자동 추가
     { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
-    $("#synqScore").textContent=`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%`;
-    $("#synqEx").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b> · <b>${esc(w.word)}</b> = ${esc(w.kor||"")}${(w.synonyms&&w.synonyms.length)?`<br><span class="muted">동의어: ${esc(w.synonyms.slice(0,5).join(", "))}</span>`:""}`;
+    $("#synqScore").textContent=`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%${s.added?` · 📇${s.added}`:""}`;
+    $("#synqEx").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b> · <b>${esc(w.word)}</b> = ${esc(w.kor||"")}${(w.synonyms&&w.synonyms.length)?`<br><span class="muted">동의어: ${esc(w.synonyms.slice(0,5).join(", "))}</span>`:""}${added?`<br><span style="color:var(--brand2)">📇 플래시카드 복습에 추가됨</span>`:""}`;
     $("#synqEx").classList.remove("hidden"); saveLocal();
-    setTimeout(()=>{ if(synq) nextSynQ(); }, ok?650:1600);
+    setTimeout(()=>{ if(synq) nextSynQ(); }, ok?650:1700);
   });
 }
 
