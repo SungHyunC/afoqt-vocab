@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.37.0";
+const VERSION = "4.38.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -846,12 +846,11 @@ function renderSynQuiz(){ synq=null; $("#synqSetup").classList.remove("hidden");
 function startSynQuiz(){
   const pool=synPool($("#synqScope").value);
   if(pool.length<4){ toast("이 범위에 동의어 단어가 부족해요. 범위를 넓혀보세요."); return; }
-  synq={pool, count:0, correct:0, added:0, answered:false, learn:$("#synqLearn").checked, auto:$("#synqAuto").checked};
-  $("#synqSetup").classList.add("hidden"); $("#synqPlay").classList.remove("hidden"); nextSynQ();
+  synq={pool, count:0, correct:0, added:0, learn:$("#synqLearn").checked, auto:$("#synqAuto").checked, history:[], pos:-1};
+  $("#synqSetup").classList.add("hidden"); $("#synqPlay").classList.remove("hidden"); newSynQ();
 }
-function nextSynQ(){
-  const s=synq; if(!s) return;
-  const id=s.pool[Math.random()*s.pool.length|0], w=WMAP.get(id);
+function synBuildQ(){
+  const s=synq; const id=s.pool[Math.random()*s.pool.length|0], w=WMAP.get(id); if(!w) return null;
   const correct=w.synonyms[Math.random()*w.synonyms.length|0];
   const used=new Set([w.word.toLowerCase(),(correct||"").toLowerCase()]);
   const distract=[]; let guard=0;
@@ -860,36 +859,48 @@ function nextSynQ(){
     const ow=WMAP.get(oid); const cand=ow.synonyms[Math.random()*ow.synonyms.length|0];
     if(!cand||used.has(cand.toLowerCase())) continue; used.add(cand.toLowerCase()); distract.push(cand);
   }
-  if(distract.length<3) return nextSynQ();
-  const opts=shuffle([{t:correct,ok:1},...distract.map(t=>({t,ok:0}))]);
-  s.answered=false;
-  // 학습 모드: 아직 안 외운(new/learning) 단어는 한글 뜻을 힌트로 → 콜드스타트에 다 틀리는 것 방지.
-  const st=getCard(id).status, unknown=(st==="new"||st==="learning");
-  const hint = (s.learn && unknown && w.kor) ? `<div class="synq-hint">💡 뜻: ${esc(w.kor)} <span class="muted">— 뜻에 맞는 동의어를 고르세요</span></div>` : "";
-  $("#synqScore").textContent = s.count?`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%${s.added?` · 📇${s.added}`:""}`:"0 / 0";
+  if(distract.length<3) return null;
+  return {id, opts:shuffle([{t:correct,ok:1},...distract.map(t=>({t,ok:0}))]), chosen:null, added:false};
+}
+function newSynQ(){ const s=synq; if(!s) return; let q=null,tries=0; while(!q&&tries++<15) q=synBuildQ(); if(!q) return;
+  s.history.push(q); if(s.history.length>60) s.history.shift(); s.pos=s.history.length-1; renderSynAt(); }
+function answerSynQ(i){
+  const s=synq, q=s.history[s.pos]; if(!q||q.chosen!=null) return; q.chosen=i;
+  const w=WMAP.get(q.id), ok=q.opts[i].ok;
+  s.count++; if(ok) s.correct++;
+  bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+  if(!ok){ state.wrong.wk[q.id]=1; markForReview(q.id); s.added++; q.added=true; } // 틀리면 오답노트 + 복습 자동 추가
+  { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+  saveLocal(); renderSynAt();
+  // 자동 넘김 옵션(기본 OFF): 최신 문제일 때만 자동으로 새 문제
+  if(s.auto){ setTimeout(()=>{ if(synq && synq.pos===synq.history.length-1) newSynQ(); }, ok?900:1800); }
+}
+// 히스토리 위치(pos)의 문제를 렌더 — 답 전엔 인터랙티브, 답 후엔 정답 공개+이전/다음 네비.
+function renderSynAt(){
+  const s=synq; if(!s||!s.history.length) return;
+  const q=s.history[s.pos], w=WMAP.get(q.id); if(!w) return;
+  const answered=q.chosen!=null, isPast=s.pos<s.history.length-1;
+  const st=getCard(q.id).status, unknown=(st==="new"||st==="learning");
+  const hint=(s.learn&&unknown&&w.kor&&!answered)?`<div class="synq-hint">💡 뜻: ${esc(w.kor)} <span class="muted">— 뜻에 맞는 동의어를 고르세요</span></div>`:"";
+  const posLabel=s.history.length>1?`<span class="muted" style="font-size:11px"> · ${s.pos+1}/${s.history.length}${isPast?" · 지난 문제 다시보기":""}</span>`:"";
+  $("#synqScore").textContent=`${s.correct} / ${s.count}${s.count?` · ${Math.round(s.correct/s.count*100)}%`:""}${s.added?` · 📇${s.added}`:""}`;
+  const choicesHTML=q.opts.map((o,i)=>{ let cls=""; if(answered){ if(o.ok) cls="correct"; else if(i===q.chosen) cls="wrong"; }
+    return `<button class="choice ${cls}" data-i="${i}" ${answered?"disabled":""}>${esc(o.t)}</button>`; }).join("");
+  const ok=answered?q.opts[q.chosen].ok:null;
+  const explain=answered?`<div class="ana-explain"><b>${ok?"✅ 정답":"❌ 오답"}</b> · <b>${esc(w.word)}</b> = ${esc(w.kor||"")}${(w.synonyms&&w.synonyms.length)?`<br><span class="muted">동의어: ${esc(w.synonyms.slice(0,5).join(", "))}</span>`:""}${q.added?`<br><span style="color:var(--brand2)">📇 플래시카드 복습에 추가됨</span>`:""}</div>`:"";
+  const prevBtn=s.pos>0?`<button class="btn ghost" id="synqPrev" style="flex:1">← 이전</button>`:`<span style="flex:1"></span>`;
+  const nextBtn=answered?`<button class="btn primary" id="synqNext" style="flex:1">${isPast?"다음 →":"새 문제 →"}</button>`:(isPast?`<button class="btn primary" id="synqNext" style="flex:1">다음 →</button>`:`<span style="flex:1"></span>`);
+  const nav=`<div class="row" style="gap:8px;margin-top:12px">${prevBtn}${nextBtn}</div>`;
   $("#synqArea").innerHTML=`<div class="card">
-    <div class="q-prompt">가장 비슷한 뜻은?</div>
+    <div class="q-prompt">가장 비슷한 뜻은?${posLabel}</div>
     <div class="word-row"><div class="q-word" style="${wordFont(w.word,26)}">${esc(w.word)}</div>${spkBtn(w.word)}</div>
     ${hint}
-    <div class="choices" id="synqChoices">${opts.map(o=>`<button class="choice" data-ok="${o.ok}">${esc(o.t)}</button>`).join("")}</div>
-    <div class="ana-explain hidden" id="synqEx"></div>
-    <button class="btn primary hidden" id="synqNext" style="margin-top:12px">다음 →</button></div>`;
+    <div class="choices" id="synqChoices">${choicesHTML}</div>
+    ${explain}${nav}</div>`;
   wireSpeakers($("#synqArea"));
-  $$("#synqChoices .choice").forEach(btn=>btn.onclick=()=>{
-    if(s.answered) return; s.answered=true;
-    const ok=btn.dataset.ok==="1";
-    $$("#synqChoices .choice").forEach(b=>{ b.disabled=true; if(b.dataset.ok==="1") b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    s.count++; if(ok) s.correct++;
-    bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
-    let added=false;
-    if(!ok){ state.wrong.wk[id]=1; markForReview(id); s.added++; added=true; }  // 틀리면 오답노트 + 플래시카드 복습 자동 추가
-    { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
-    $("#synqScore").textContent=`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%${s.added?` · 📇${s.added}`:""}`;
-    $("#synqEx").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b> · <b>${esc(w.word)}</b> = ${esc(w.kor||"")}${(w.synonyms&&w.synonyms.length)?`<br><span class="muted">동의어: ${esc(w.synonyms.slice(0,5).join(", "))}</span>`:""}${added?`<br><span style="color:var(--brand2)">📇 플래시카드 복습에 추가됨</span>`:""}`;
-    $("#synqEx").classList.remove("hidden"); saveLocal();
-    if(s.auto){ setTimeout(()=>{ if(synq) nextSynQ(); }, ok?750:1700); }  // 자동 넘김 옵션
-    else { const nb=$("#synqNext"); nb.classList.remove("hidden"); nb.textContent=ok?"다음 →":"확인했어요 · 다음 →"; nb.onclick=()=>{ if(synq) nextSynQ(); }; }
-  });
+  if(!answered){ $$("#synqChoices .choice").forEach(btn=>btn.onclick=()=>answerSynQ(+btn.dataset.i)); }
+  if($("#synqPrev")) $("#synqPrev").onclick=()=>{ if(s.pos>0){ s.pos--; renderSynAt(); } };
+  if($("#synqNext")) $("#synqNext").onclick=()=>{ if(s.pos<s.history.length-1){ s.pos++; renderSynAt(); } else { newSynQ(); } };
 }
 
 /* ============================================================
