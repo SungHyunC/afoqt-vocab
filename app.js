@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.39.0";
+const VERSION = "4.40.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2332,7 +2332,13 @@ window.__softRender=softRender; // test/debug hook
    WIRING
    ============================================================ */
 function wire(){
-  $$("#nav button").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  $$("#nav button[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  // 사이드바 접기/펴기(넓은 화면). 상태 기억.
+  const applyNavCollapsed=()=>{ const c=localStorage.getItem("afoqt_nav_collapsed")==="1";
+    document.body.classList.toggle("nav-collapsed",c); const t=$("#navToggle"); if(t){ t.textContent=c?"▶":"◀"; t.setAttribute("aria-label",c?"메뉴 펴기":"메뉴 접기"); } };
+  $("#navToggle").onclick=()=>{ const c=!document.body.classList.contains("nav-collapsed");
+    localStorage.setItem("afoqt_nav_collapsed", c?"1":"0"); applyNavCollapsed(); };
+  applyNavCollapsed();
   // home
   $("#btnStart").onclick=startStudy; $("#btnExam").onclick=()=>go("exam");
   $("#btnDaily").onclick=()=>startExam("daily");
