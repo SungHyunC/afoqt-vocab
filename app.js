@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.34.0";
+const VERSION = "4.35.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -436,7 +436,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -458,7 +458,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup}[view]||(()=>{}))();
+  ({home:renderHome,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -830,6 +830,55 @@ function finishQuiz(){ const q=quiz,total=q.items.length,got=q.score/10,pct=Math
   $("#quizResult").textContent=`${got} / ${total} 정답 (${pct}%)`;
   $("#quizResultSub").textContent=pct>=90?"완벽해요!":pct>=70?"좋아요, 계속!":"복습하면 금방 올라요.";
   $("#quizDone").classList.remove("hidden"); quiz=null; }
+
+/* ============================================================
+   동의어 퀴즈 (WK 실전형 · 연속 반복) — 단어 하나에 '가장 비슷한 뜻' 고르기.
+   진도(SRS)는 안 건드리고, 기존 퀴즈처럼 일일활동·예상점수(WK)·오답노트에만 반영.
+   ============================================================ */
+let synq=null;
+function synPool(scope){ return poolFor(scope).filter(id=>{ const w=WMAP.get(id); return w&&w.synonyms&&w.synonyms.length; }); }
+function renderSynQuiz(){ synq=null; $("#synqSetup").classList.remove("hidden"); $("#synqPlay").classList.add("hidden"); }
+function startSynQuiz(){
+  const pool=synPool($("#synqScope").value);
+  if(pool.length<4){ toast("이 범위에 동의어 단어가 부족해요. 범위를 넓혀보세요."); return; }
+  synq={pool, count:0, correct:0, answered:false};
+  $("#synqSetup").classList.add("hidden"); $("#synqPlay").classList.remove("hidden"); nextSynQ();
+}
+function nextSynQ(){
+  const s=synq; if(!s) return;
+  const id=s.pool[Math.random()*s.pool.length|0], w=WMAP.get(id);
+  const correct=w.synonyms[Math.random()*w.synonyms.length|0];
+  const used=new Set([w.word.toLowerCase(),(correct||"").toLowerCase()]);
+  const distract=[]; let guard=0;
+  while(distract.length<3 && guard++<60){
+    const oid=s.pool[Math.random()*s.pool.length|0]; if(oid===id) continue;
+    const ow=WMAP.get(oid); const cand=ow.synonyms[Math.random()*ow.synonyms.length|0];
+    if(!cand||used.has(cand.toLowerCase())) continue; used.add(cand.toLowerCase()); distract.push(cand);
+  }
+  if(distract.length<3) return nextSynQ();
+  const opts=shuffle([{t:correct,ok:1},...distract.map(t=>({t,ok:0}))]);
+  s.answered=false;
+  $("#synqScore").textContent = s.count?`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%`:"0 / 0";
+  $("#synqArea").innerHTML=`<div class="card">
+    <div class="q-prompt">가장 비슷한 뜻은?</div>
+    <div class="word-row"><div class="q-word" style="${wordFont(w.word,26)}">${esc(w.word)}</div>${spkBtn(w.word)}</div>
+    <div class="choices" id="synqChoices">${opts.map(o=>`<button class="choice" data-ok="${o.ok}">${esc(o.t)}</button>`).join("")}</div>
+    <div class="ana-explain hidden" id="synqEx"></div></div>`;
+  wireSpeakers($("#synqArea"));
+  $$("#synqChoices .choice").forEach(btn=>btn.onclick=()=>{
+    if(s.answered) return; s.answered=true;
+    const ok=btn.dataset.ok==="1";
+    $$("#synqChoices .choice").forEach(b=>{ b.disabled=true; if(b.dataset.ok==="1") b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
+    s.count++; if(ok) s.correct++;
+    bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+    if(!ok) state.wrong.wk[id]=1;  // 틀린 단어는 오답노트로
+    { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+    $("#synqScore").textContent=`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%`;
+    $("#synqEx").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b> · <b>${esc(w.word)}</b> = ${esc(w.kor||"")}${(w.synonyms&&w.synonyms.length)?`<br><span class="muted">동의어: ${esc(w.synonyms.slice(0,5).join(", "))}</span>`:""}`;
+    $("#synqEx").classList.remove("hidden"); saveLocal();
+    setTimeout(()=>{ if(synq) nextSynQ(); }, ok?650:1600);
+  });
+}
 
 /* ============================================================
    WORD LIST
@@ -2283,6 +2332,8 @@ function wire(){
   $("#icBack").onclick=()=>{ icTimerStop(); icState=null; go("aviation"); }; $("#icRetry").onclick=startInstrument; $("#icHome").onclick=()=>{ icState=null; go("aviation"); };
   // vocab hub
   $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
+  $("#vkSynq").onclick=()=>go("synq"); $("#synqGo").onclick=startSynQuiz;
+  $("#synqBack").onclick=()=>{ synq=null; go("vocab"); }; $("#synqStop").onclick=()=>{ synq=null; renderSynQuiz(); };
   $("#vkAuto").onclick=()=>go("autoplay"); $("#apBack").onclick=()=>go("vocab"); $("#apGo").onclick=startAutoPlay;
   $("#apPlay").onclick=apTogglePlay; $("#apPrev").onclick=()=>apManual(-1); $("#apNext").onclick=()=>apManual(1);
   $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
