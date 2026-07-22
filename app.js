@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.36.0";
+const VERSION = "4.37.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -846,7 +846,7 @@ function renderSynQuiz(){ synq=null; $("#synqSetup").classList.remove("hidden");
 function startSynQuiz(){
   const pool=synPool($("#synqScope").value);
   if(pool.length<4){ toast("이 범위에 동의어 단어가 부족해요. 범위를 넓혀보세요."); return; }
-  synq={pool, count:0, correct:0, added:0, answered:false, learn:$("#synqLearn").checked};
+  synq={pool, count:0, correct:0, added:0, answered:false, learn:$("#synqLearn").checked, auto:$("#synqAuto").checked};
   $("#synqSetup").classList.add("hidden"); $("#synqPlay").classList.remove("hidden"); nextSynQ();
 }
 function nextSynQ(){
@@ -872,7 +872,8 @@ function nextSynQ(){
     <div class="word-row"><div class="q-word" style="${wordFont(w.word,26)}">${esc(w.word)}</div>${spkBtn(w.word)}</div>
     ${hint}
     <div class="choices" id="synqChoices">${opts.map(o=>`<button class="choice" data-ok="${o.ok}">${esc(o.t)}</button>`).join("")}</div>
-    <div class="ana-explain hidden" id="synqEx"></div></div>`;
+    <div class="ana-explain hidden" id="synqEx"></div>
+    <button class="btn primary hidden" id="synqNext" style="margin-top:12px">다음 →</button></div>`;
   wireSpeakers($("#synqArea"));
   $$("#synqChoices .choice").forEach(btn=>btn.onclick=()=>{
     if(s.answered) return; s.answered=true;
@@ -886,7 +887,8 @@ function nextSynQ(){
     $("#synqScore").textContent=`${s.correct} / ${s.count} · ${Math.round(s.correct/s.count*100)}%${s.added?` · 📇${s.added}`:""}`;
     $("#synqEx").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b> · <b>${esc(w.word)}</b> = ${esc(w.kor||"")}${(w.synonyms&&w.synonyms.length)?`<br><span class="muted">동의어: ${esc(w.synonyms.slice(0,5).join(", "))}</span>`:""}${added?`<br><span style="color:var(--brand2)">📇 플래시카드 복습에 추가됨</span>`:""}`;
     $("#synqEx").classList.remove("hidden"); saveLocal();
-    setTimeout(()=>{ if(synq) nextSynQ(); }, ok?650:1700);
+    if(s.auto){ setTimeout(()=>{ if(synq) nextSynQ(); }, ok?750:1700); }  // 자동 넘김 옵션
+    else { const nb=$("#synqNext"); nb.classList.remove("hidden"); nb.textContent=ok?"다음 →":"확인했어요 · 다음 →"; nb.onclick=()=>{ if(synq) nextSynQ(); }; }
   });
 }
 
