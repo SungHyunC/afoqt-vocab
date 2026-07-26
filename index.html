@@ -27,6 +27,19 @@
 
 <div id="boot" class="view active"><div class="spinner"></div><p class="center muted">불러오는 중…</p></div>
 
+<!-- ===== 30일 완성 플랜 ===== -->
+<main id="view-plan" class="view">
+  <h2 class="section" style="margin-top:0">🗓️ 30일 완성 플랜</h2>
+  <div class="card" id="planHead"></div>
+  <h2 class="section">오늘 할 일</h2>
+  <div id="planTasks"></div>
+  <div class="card center hidden" id="planAllDone" style="margin-top:12px;border-color:var(--ok)">
+    <div class="big-emoji">🎉</div><b>오늘 할 일 완료!</b>
+    <div class="muted" style="font-size:12px;margin-top:4px">내일 또 만나요. 남는 시간은 🎧 자동 넘김으로 가볍게.</div>
+  </div>
+  <div class="hintbox" style="margin-top:14px">매일 여기만 보고 위에서부터 하나씩 하면 돼요. 학습하면 <b>자동으로 체크</b>되고, 직접 원을 눌러 체크할 수도 있어요.</div>
+</main>
+
 <!-- ===== HOME ===== -->
 <main id="view-home" class="view">
   <div class="card hero">
@@ -820,6 +833,7 @@
 <nav class="nav" id="nav">
   <button id="navToggle" class="nav-toggle" aria-label="메뉴 접기">◀</button>
   <button data-go="home" class="on"><span class="ic">🏠</span>홈</button>
+  <button data-go="plan"><span class="ic">🗓️</span>플랜</button>
   <button data-go="vocab"><span class="ic">📇</span>어휘</button>
   <button data-go="analogy"><span class="ic">🔗</span>유추</button>
   <button data-go="reading"><span class="ic">📖</span>독해</button>

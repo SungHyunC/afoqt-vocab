@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.40.0";
+const VERSION = "4.41.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -83,6 +83,8 @@ const DEFAULT_STATE = () => ({
   checklist:{},  // 주차별 체크리스트: 'weekKey:phase' -> {taskIdx:1}
   apExposure:{}, // 자동 넘김 노출 기록: 'YYYY-MM-DD' -> 들은 단어 수(스트릭 인정용, SRS엔 영향 X)
   badges:{},     // 달성 배지: badgeId -> 1
+  dayStats:{},   // 날짜별 과목 풀이 수: 'YYYY-MM-DD' -> {WK:n,VA:n,...} (플랜 자동체크)
+  plan30:null,   // 30일 완성 플랜: {start:'YYYY-MM-DD', done:{day:{taskKey:1}}}
   rootStep:0,    // 어근 추론 코치 진행 위치
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
@@ -95,7 +97,7 @@ function loadLocal(){
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.wrong=Object.assign({wk:{},va:{},rc:{},ar:{},mk:{},ps:{},av:{}},state.wrong||{});
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{},topic:{}},state.weak||{});
-  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{}; state.badges=state.badges||{};
+  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{}; state.badges=state.badges||{}; state.dayStats=state.dayStats||{};
   state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
 }
@@ -346,7 +348,7 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges}; }
+  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30}; }
 function mergeMisc(d){
   if(!d) return;
   // exams: keep the higher best per key
@@ -373,6 +375,14 @@ function mergeMisc(d){
   // apExposure: keep the higher count per day (union, max)
   for(const day in (d.apExposure||{})){ state.apExposure[day]=Math.max(state.apExposure[day]||0, d.apExposure[day]||0); }
   for(const k in (d.badges||{})){ state.badges[k]=1; } // 배지: 획득분 union
+  // dayStats: 날짜별 과목 카운트는 큰 값 우선(재동기화 중복 방지)
+  for(const day in (d.dayStats||{})){ const r=d.dayStats[day], c=state.dayStats[day]||(state.dayStats[day]={});
+    for(const k in r) c[k]=Math.max(c[k]||0, r[k]||0); }
+  if(d.plan30&&d.plan30.start){ // 플랜: 먼저 시작한 날짜 유지 + 완료 체크 union
+    if(!state.plan30) state.plan30={start:d.plan30.start,done:{}};
+    if(dayDiff(d.plan30.start, state.plan30.start)>0) state.plan30.start=d.plan30.start;
+    state.plan30.done=state.plan30.done||{};
+    for(const day in (d.plan30.done||{})) state.plan30.done[day]=Object.assign(state.plan30.done[day]||{}, d.plan30.done[day]); }
 }
 
 function subscribeRealtime(){
@@ -463,7 +473,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -591,6 +601,74 @@ function renderWeekPlan(){
     <div class="wp-bar"><i style="width:${pct}%"></i></div>
     ${ph.tasks.map((t,i)=>`<div class="wp-task ${ck[i]?"on":""}" data-i="${i}"><div class="wp-box">${ck[i]?"✓":""}</div><div class="tx">${esc(t)}</div></div>`).join("")}`;
   $$("#weekPlan .wp-task").forEach(el=>el.onclick=()=>{ const i=+el.dataset.i; if(ck[i]) delete ck[i]; else ck[i]=1; saveLocal(); renderWeekPlan(); });
+}
+
+/* ============================================================
+   30일 완성 플랜 — 매일 '오늘 할 일'을 정해주고, 실제 진행에서 자동 체크.
+   ============================================================ */
+const PLAN_DAYS=30;
+function planState(){ if(!state.plan30) state.plan30={start:todayStr(),done:{}};
+  if(!state.plan30.done) state.plan30.done={}; return state.plan30; }
+function planIdx(){ return clamp(dayDiff(planState().start, todayStr())+1, 1, PLAN_DAYS); }
+function planLeft(){ return Math.max(1, PLAN_DAYS-planIdx()+1); }
+// 빈출(high+mid) 중 아직 학습 안 한 단어 수 — 플랜의 하루 신규량 기준
+function coreRemain(){ return WORDS.filter(w=>tierOf(w)!=="std"&&(!state.cards[w.id]||state.cards[w.id].status==="new")).length; }
+function coreTotal(){ return WORDS.filter(w=>tierOf(w)!=="std").length; }
+function dayStat(sec){ const d=state.dayStats[todayStr()]; return (d&&d[sec])||0; }
+const PLAN_ROT=[
+  {k:"va",icon:"🔗",sec:"VA",n:20,label:"유추 20문항",     go:()=>{ go("analogy"); startAnalogy(false); }},
+  {k:"rc",icon:"📖",sec:"RC",n:10,label:"독해 10문항",     go:()=>go("reading")},
+  {k:"ar",icon:"➗",sec:"AR",n:15,label:"산수 15문항",     go:()=>startExam("ar",{practice:true})},
+  {k:"av",icon:"✈️",sec:"AV",n:20,label:"항공 20문항",     go:()=>startExam("av",{practice:true})},
+  {k:"mk",icon:"📐",sec:"MK",n:15,label:"수학지식 15문항", go:()=>startExam("mk",{practice:true})},
+];
+const PLAN_PILOT=[
+  {k:"tr",icon:"📊",sec:"TR",n:10,label:"표 읽기 드릴",   go:()=>startTableReading()},
+  {k:"bc",icon:"🧱",sec:"BC",n:10,label:"블록 세기 드릴", go:()=>startBlockCounting()},
+  {k:"ic",icon:"🎚️",sec:"IC",n:10,label:"계기 해석 드릴", go:()=>startInstrument()},
+];
+function planTasks(){
+  const i=planIdx(), d=getDay(), t=[];
+  const nw=clamp(Math.ceil(coreRemain()/planLeft()),20,100);
+  t.push({k:"wk",icon:"📇",label:`단어 플래시카드 — 신규 ${nw}개 + 복습`,sub:"오늘의 핵심",
+    done:(d.new_learned||0)>=nw || (coreRemain()===0&&(d.studied||0)>0), go:()=>startStudy()});
+  t.push({k:"syn",icon:"⚡",label:"동의어 퀴즈 20문항",sub:"속도 훈련",
+    done:dayStat("WK")>=20, go:()=>go("synq")});
+  const r=PLAN_ROT[(i-1)%PLAN_ROT.length];
+  t.push({k:"rot:"+r.k,icon:r.icon,label:r.label,sub:"오늘의 과목",done:dayStat(r.sec)>=r.n,go:r.go});
+  if(i%2===0){ const p=PLAN_PILOT[(((i/2)|0)-1+PLAN_PILOT.length)%PLAN_PILOT.length];
+    t.push({k:"pilot:"+p.k,icon:p.icon,label:p.label,sub:"파일럿 드릴",done:dayStat(p.sec)>=p.n,go:p.go}); }
+  if(i%7===0){ const today=todayStr();
+    t.push({k:"mock",icon:"🎯",label:"모의고사 1회 (시간측정)",sub:"주간 점검",
+      done:(state.examHist||[]).some(x=>x&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
+  return t;
+}
+function planDone(){ const p=planState(); return p.done[todayStr()]||(p.done[todayStr()]={}); }
+function renderPlan(){
+  const p=planState(), i=planIdx(), tasks=planTasks(), man=planDone();
+  const isDone=t=>t.done||!!man[t.k];
+  const doneN=tasks.filter(isDone).length, pct=Math.round(doneN/tasks.length*100);
+  const core=coreTotal(), left=coreRemain(), learned=core-left;
+  const examLeft=Math.max(0,dayDiff(todayStr(),state.settings.exam_date));
+  $("#planHead").innerHTML=`
+    <div class="row" style="justify-content:space-between;align-items:flex-start">
+      <div><div class="muted" style="font-size:13px">30일 완성 플랜</div>
+        <div class="plan-day">DAY <b>${i}</b><small> / ${PLAN_DAYS}</small></div>
+        <div class="muted" style="font-size:12px;margin-top:4px">시험까지 ${examLeft}일 · 빈출 단어 ${learned}/${core}</div></div>
+      <div class="ring" style="--p:${pct}"><div class="v"><b>${pct}%</b><span>오늘</span></div></div>
+    </div>
+    <div class="progressbar" style="margin-top:12px"><i style="width:${Math.round(i/PLAN_DAYS*100)}%"></i></div>
+    <div class="muted" style="font-size:11px;margin-top:6px">플랜 진행 ${Math.round(i/PLAN_DAYS*100)}% · 빈출 단어 ${core?Math.round(learned/core*100):0}% 완료</div>`;
+  $("#planTasks").innerHTML=tasks.map(t=>{ const dn=isDone(t);
+    return `<div class="ptask ${dn?"on":""}" data-k="${esc(t.k)}">
+      <button class="pchk" data-chk="${esc(t.k)}" aria-label="완료 표시">${dn?"✓":""}</button>
+      <div class="pmeta"><div class="pl">${t.icon} ${esc(t.label)}</div><div class="ps">${esc(t.sub)}${t.done?" · 자동 완료":""}</div></div>
+      ${dn?"":`<button class="btn sm primary pgo" data-go2="${esc(t.k)}">시작 →</button>`}
+    </div>`; }).join("");
+  $$("#planTasks .pchk").forEach(b=>b.onclick=()=>{ const k=b.dataset.chk;
+    if(man[k]) delete man[k]; else man[k]=1; saveLocal(); renderPlan(); });
+  $$("#planTasks .pgo").forEach(b=>b.onclick=()=>{ const t=tasks.find(x=>x.k===b.dataset.go2); if(t&&t.go) t.go(); });
+  $("#planAllDone").classList.toggle("hidden", doneN<tasks.length);
 }
 
 /* ============================================================
@@ -2027,7 +2105,9 @@ function renderExamGrid(){
 function refreshExamGrid(){ const e=exam; const b=$(`#examGrid button[data-i="${e.idx}"]`); if(b) b.classList.add("answered"); }
 // Record a graded item into the wrong-note and weakness stats.
 // Per-subtest accuracy tally for predicted composite scores.
-function recordSecAcc(sec,ok){ if(!sec) return; const o=state.secAcc[sec]||(state.secAcc[sec]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+function recordSecAcc(sec,ok){ if(!sec) return; const o=state.secAcc[sec]||(state.secAcc[sec]={c:0,w:0}); if(ok)o.c++; else o.w++;
+  // 날짜별·과목별 풀이 수 — 30일 플랜의 '오늘 할 일' 자동 체크에 사용
+  const day=todayStr(), ds=state.dayStats[day]||(state.dayStats[day]={}); ds[sec]=(ds[sec]||0)+1; }
 function recordResult(it,ok){
   const W=state.wrong, K=state.weak;
   recordSecAcc(it.section, ok);

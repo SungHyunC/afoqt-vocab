@@ -526,3 +526,20 @@ sub{vertical-align:-.25em}
 @media (min-width:1200px){
   .view{ max-width:1000px; }
 }
+
+/* ---------- 30일 플랜 ---------- */
+.plan-day{font-size:32px;font-weight:900;line-height:1.1;margin-top:2px}
+.plan-day small{font-size:15px;font-weight:600;color:var(--muted)}
+.ptask{display:flex;align-items:center;gap:12px;padding:14px;margin-bottom:9px;
+  background:var(--card);border:1px solid var(--line);border-radius:14px}
+.ptask.on{border-color:var(--ok);background:linear-gradient(90deg,#16a34a14,var(--card))}
+.pchk{flex:0 0 auto;width:28px;height:28px;border-radius:50%;border:2px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--muted)}
+.ptask.on .pchk{border-color:var(--ok);background:var(--ok);color:#fff}
+.pmeta{flex:1;min-width:0}
+.ptask .pl{font-weight:700;font-size:14.5px;line-height:1.35}
+.ptask .ps{font-size:11px;color:var(--muted);margin-top:2px}
+.ptask.on .pl{opacity:.6;text-decoration:line-through}
+.pgo{flex:0 0 auto}
+/* 내비 8개 — 아주 좁은 폰에서 살짝 축소 */
+@media (max-width:400px){ .nav button{font-size:9px} .nav button .ic{font-size:19px} }
