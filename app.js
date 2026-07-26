@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.41.0";
+const VERSION = "4.42.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -606,11 +606,17 @@ function renderWeekPlan(){
 /* ============================================================
    30일 완성 플랜 — 매일 '오늘 할 일'을 정해주고, 실제 진행에서 자동 체크.
    ============================================================ */
-const PLAN_DAYS=30;
-function planState(){ if(!state.plan30) state.plan30={start:todayStr(),done:{}};
-  if(!state.plan30.done) state.plan30.done={}; return state.plan30; }
-function planIdx(){ return clamp(dayDiff(planState().start, todayStr())+1, 1, PLAN_DAYS); }
-function planLeft(){ return Math.max(1, PLAN_DAYS-planIdx()+1); }
+const PLAN_DAYS=30;                    // 기본값(시험일 정보가 없을 때)
+// 플랜 길이 = 시험까지 남은 일수 - 12일(마지막 실전·마무리 기간). 시작 시 1회 정해 고정.
+function planLenCalc(){ const left=dayDiff(todayStr(), state.settings.exam_date);
+  return clamp(left-12, 14, 45); }
+function planState(){ if(!state.plan30) state.plan30={start:todayStr(),done:{},days:planLenCalc()};
+  if(!state.plan30.done) state.plan30.done={};
+  if(!state.plan30.days) state.plan30.days=planLenCalc();
+  return state.plan30; }
+function planLen(){ return planState().days||PLAN_DAYS; }
+function planIdx(){ return clamp(dayDiff(planState().start, todayStr())+1, 1, planLen()); }
+function planLeft(){ return Math.max(1, planLen()-planIdx()+1); }
 // 빈출(high+mid) 중 아직 학습 안 한 단어 수 — 플랜의 하루 신규량 기준
 function coreRemain(){ return WORDS.filter(w=>tierOf(w)!=="std"&&(!state.cards[w.id]||state.cards[w.id].status==="new")).length; }
 function coreTotal(){ return WORDS.filter(w=>tierOf(w)!=="std").length; }
@@ -652,13 +658,13 @@ function renderPlan(){
   const examLeft=Math.max(0,dayDiff(todayStr(),state.settings.exam_date));
   $("#planHead").innerHTML=`
     <div class="row" style="justify-content:space-between;align-items:flex-start">
-      <div><div class="muted" style="font-size:13px">30일 완성 플랜</div>
-        <div class="plan-day">DAY <b>${i}</b><small> / ${PLAN_DAYS}</small></div>
+      <div><div class="muted" style="font-size:13px">${planLen()}일 완성 플랜</div>
+        <div class="plan-day">DAY <b>${i}</b><small> / ${planLen()}</small></div>
         <div class="muted" style="font-size:12px;margin-top:4px">시험까지 ${examLeft}일 · 빈출 단어 ${learned}/${core}</div></div>
       <div class="ring" style="--p:${pct}"><div class="v"><b>${pct}%</b><span>오늘</span></div></div>
     </div>
-    <div class="progressbar" style="margin-top:12px"><i style="width:${Math.round(i/PLAN_DAYS*100)}%"></i></div>
-    <div class="muted" style="font-size:11px;margin-top:6px">플랜 진행 ${Math.round(i/PLAN_DAYS*100)}% · 빈출 단어 ${core?Math.round(learned/core*100):0}% 완료</div>`;
+    <div class="progressbar" style="margin-top:12px"><i style="width:${Math.round(i/planLen()*100)}%"></i></div>
+    <div class="muted" style="font-size:11px;margin-top:6px">플랜 진행 ${Math.round(i/planLen()*100)}% · 빈출 단어 ${core?Math.round(learned/core*100):0}% 완료</div>`;
   $("#planTasks").innerHTML=tasks.map(t=>{ const dn=isDone(t);
     return `<div class="ptask ${dn?"on":""}" data-k="${esc(t.k)}">
       <button class="pchk" data-chk="${esc(t.k)}" aria-label="완료 표시">${dn?"✓":""}</button>
