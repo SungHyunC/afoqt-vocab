@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.42.0";
+const VERSION = "4.43.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -621,31 +621,36 @@ function planLeft(){ return Math.max(1, planLen()-planIdx()+1); }
 function coreRemain(){ return WORDS.filter(w=>tierOf(w)!=="std"&&(!state.cards[w.id]||state.cards[w.id].status==="new")).length; }
 function coreTotal(){ return WORDS.filter(w=>tierOf(w)!=="std").length; }
 function dayStat(sec){ const d=state.dayStats[todayStr()]; return (d&&d[sec])||0; }
-const PLAN_ROT=[
-  {k:"va",icon:"🔗",sec:"VA",n:20,label:"유추 20문항",     go:()=>{ go("analogy"); startAnalogy(false); }},
-  {k:"rc",icon:"📖",sec:"RC",n:10,label:"독해 10문항",     go:()=>go("reading")},
-  {k:"ar",icon:"➗",sec:"AR",n:15,label:"산수 15문항",     go:()=>startExam("ar",{practice:true})},
-  {k:"av",icon:"✈️",sec:"AV",n:20,label:"항공 20문항",     go:()=>startExam("av",{practice:true})},
-  {k:"mk",icon:"📐",sec:"MK",n:15,label:"수학지식 15문항", go:()=>startExam("mk",{practice:true})},
+const PLAN_VERBAL=[
+  {k:"va",icon:"🔗",sec:"VA",n:20,label:"유추 20문항",              go:()=>{ go("analogy"); startAnalogy(false); }},
+  {k:"rc",icon:"📖",sec:"RC",n:10,label:"독해 10문항 (24분 타이머)", go:()=>go("reading")},
+];
+const PLAN_QUANT=[
+  {k:"ar",icon:"➗",sec:"AR",n:15,label:"산수 추론 1세트",   go:()=>startExam("ar",{practice:true})},
+  {k:"mk",icon:"📐",sec:"MK",n:15,label:"수학 지식 1세트",   go:()=>startExam("mk",{practice:true})},
 ];
 const PLAN_PILOT=[
-  {k:"tr",icon:"📊",sec:"TR",n:10,label:"표 읽기 드릴",   go:()=>startTableReading()},
-  {k:"bc",icon:"🧱",sec:"BC",n:10,label:"블록 세기 드릴", go:()=>startBlockCounting()},
-  {k:"ic",icon:"🎚️",sec:"IC",n:10,label:"계기 해석 드릴", go:()=>startInstrument()},
+  {k:"av",icon:"✈️",sec:"AV",n:20,label:"항공 지식 1세트",        go:()=>startExam("av",{practice:true})},
+  {k:"tr",icon:"📊",sec:"TR",n:20,label:"표 읽기 1세트 (20문항)",  go:()=>startTableReading()},
+  {k:"bc",icon:"🧱",sec:"BC",n:10,label:"블록 세기 1세트 (10문항)",go:()=>startBlockCounting()},
+  {k:"ic",icon:"🎚️",sec:"IC",n:12,label:"계기 해석 1세트 (12문항)",go:()=>startInstrument()},
 ];
 function planTasks(){
   const i=planIdx(), d=getDay(), t=[];
-  const nw=clamp(Math.ceil(coreRemain()/planLeft()),20,100);
-  t.push({k:"wk",icon:"📇",label:`단어 플래시카드 — 신규 ${nw}개 + 복습`,sub:"오늘의 핵심",
+  // 하루 신규 단어: 설정에 목표가 있으면 그 값, 없으면 남은 빈출 ÷ 플랜 잔여일
+  const nw = state.settings.daily_goal>0 ? state.settings.daily_goal
+           : clamp(Math.ceil(coreRemain()/planLeft()),20,100);
+  t.push({k:"wk",icon:"📇",label:`단어 플래시카드 — 신규 ${nw}개 + 복습`,sub:"📇 단어",
     done:(d.new_learned||0)>=nw || (coreRemain()===0&&(d.studied||0)>0), go:()=>startStudy()});
-  t.push({k:"syn",icon:"⚡",label:"동의어 퀴즈 20문항",sub:"속도 훈련",
+  t.push({k:"syn",icon:"⚡",label:"동의어 퀴즈 20문항",sub:"📇 단어 · 속도",
     done:dayStat("WK")>=20, go:()=>go("synq")});
-  const r=PLAN_ROT[(i-1)%PLAN_ROT.length];
-  t.push({k:"rot:"+r.k,icon:r.icon,label:r.label,sub:"오늘의 과목",done:dayStat(r.sec)>=r.n,go:r.go});
-  if(i%2===0){ const p=PLAN_PILOT[(((i/2)|0)-1+PLAN_PILOT.length)%PLAN_PILOT.length];
-    t.push({k:"pilot:"+p.k,icon:p.icon,label:p.label,sub:"파일럿 드릴",done:dayStat(p.sec)>=p.n,go:p.go}); }
+  const add=(arr,idx,tag)=>{ const x=arr[idx%arr.length];
+    t.push({k:tag+":"+x.k,icon:x.icon,label:x.label,sub:tag,done:dayStat(x.sec)>=x.n,go:x.go}); };
+  add(PLAN_VERBAL,i-1,"🗣 Verbal");
+  add(PLAN_QUANT ,i-1,"🔢 Quant");
+  add(PLAN_PILOT ,i-1,"✈️ Pilot");
   if(i%7===0){ const today=todayStr();
-    t.push({k:"mock",icon:"🎯",label:"모의고사 1회 (시간측정)",sub:"주간 점검",
+    t.push({k:"mock",icon:"🎯",label:"모의고사 1회 (시간측정)",sub:"🏁 주간 점검",
       done:(state.examHist||[]).some(x=>x&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
   return t;
 }
