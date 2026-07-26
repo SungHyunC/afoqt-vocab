@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.43.0";
+const VERSION = "4.44.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -621,36 +621,32 @@ function planLeft(){ return Math.max(1, planLen()-planIdx()+1); }
 function coreRemain(){ return WORDS.filter(w=>tierOf(w)!=="std"&&(!state.cards[w.id]||state.cards[w.id].status==="new")).length; }
 function coreTotal(){ return WORDS.filter(w=>tierOf(w)!=="std").length; }
 function dayStat(sec){ const d=state.dayStats[todayStr()]; return (d&&d[sec])||0; }
-const PLAN_VERBAL=[
-  {k:"va",icon:"🔗",sec:"VA",n:20,label:"유추 20문항",              go:()=>{ go("analogy"); startAnalogy(false); }},
-  {k:"rc",icon:"📖",sec:"RC",n:10,label:"독해 10문항 (24분 타이머)", go:()=>go("reading")},
-];
-const PLAN_QUANT=[
-  {k:"ar",icon:"➗",sec:"AR",n:15,label:"산수 추론 1세트",   go:()=>startExam("ar",{practice:true})},
-  {k:"mk",icon:"📐",sec:"MK",n:15,label:"수학 지식 1세트",   go:()=>startExam("mk",{practice:true})},
-];
-const PLAN_PILOT=[
-  {k:"av",icon:"✈️",sec:"AV",n:20,label:"항공 지식 1세트",        go:()=>startExam("av",{practice:true})},
-  {k:"tr",icon:"📊",sec:"TR",n:20,label:"표 읽기 1세트 (20문항)",  go:()=>startTableReading()},
-  {k:"bc",icon:"🧱",sec:"BC",n:10,label:"블록 세기 1세트 (10문항)",go:()=>startBlockCounting()},
-  {k:"ic",icon:"🎚️",sec:"IC",n:12,label:"계기 해석 1세트 (12문항)",go:()=>startInstrument()},
+// 매일 전 과목 1회씩. min = 예상 소요(분)
+const PLAN_DAILY=[
+  {k:"va",icon:"🔗",sec:"VA",n:20,min:20,tag:"🗣 Verbal",label:"유추 20문항",              go:()=>{ go("analogy"); startAnalogy(false); }},
+  {k:"rc",icon:"📖",sec:"RC",n:10,min:35,tag:"🗣 Verbal",label:"독해 10문항 (24분 타이머)", go:()=>go("reading")},
+  {k:"ar",icon:"➗",sec:"AR",n:15,min:25,tag:"🔢 Quant", label:"산수 추론 1세트",           go:()=>startExam("ar",{practice:true})},
+  {k:"mk",icon:"📐",sec:"MK",n:15,min:25,tag:"🔢 Quant", label:"수학 지식 1세트",           go:()=>startExam("mk",{practice:true})},
+  {k:"av",icon:"✈️",sec:"AV",n:20,min:15,tag:"✈️ Pilot", label:"항공 지식 1세트",           go:()=>startExam("av",{practice:true})},
+  {k:"tr",icon:"📊",sec:"TR",n:20,min:4, tag:"✈️ Pilot", label:"표 읽기 드릴 · 3.5분",      go:()=>startTableReading()},
+  {k:"bc",icon:"🧱",sec:"BC",n:10,min:3, tag:"✈️ Pilot", label:"블록 세기 드릴 · 3분",      go:()=>startBlockCounting()},
+  {k:"ic",icon:"🎚️",sec:"IC",n:12,min:3, tag:"✈️ Pilot", label:"계기 해석 드릴 · 3분",      go:()=>startInstrument()},
 ];
 function planTasks(){
   const i=planIdx(), d=getDay(), t=[];
   // 하루 신규 단어: 설정에 목표가 있으면 그 값, 없으면 남은 빈출 ÷ 플랜 잔여일
   const nw = state.settings.daily_goal>0 ? state.settings.daily_goal
            : clamp(Math.ceil(coreRemain()/planLeft()),20,100);
-  t.push({k:"wk",icon:"📇",label:`단어 플래시카드 — 신규 ${nw}개 + 복습`,sub:"📇 단어",
+  const due=dueCards().length;
+  t.push({k:"wk",icon:"📇",label:`단어 플래시카드 — 신규 ${nw} + 복습 ${due}`,sub:"📇 단어",
+    min:Math.round((nw*25+due*7)/60),
     done:(d.new_learned||0)>=nw || (coreRemain()===0&&(d.studied||0)>0), go:()=>startStudy()});
-  t.push({k:"syn",icon:"⚡",label:"동의어 퀴즈 20문항",sub:"📇 단어 · 속도",
+  t.push({k:"syn",icon:"⚡",label:"동의어 퀴즈 20문항",sub:"📇 단어",min:10,
     done:dayStat("WK")>=20, go:()=>go("synq")});
-  const add=(arr,idx,tag)=>{ const x=arr[idx%arr.length];
-    t.push({k:tag+":"+x.k,icon:x.icon,label:x.label,sub:tag,done:dayStat(x.sec)>=x.n,go:x.go}); };
-  add(PLAN_VERBAL,i-1,"🗣 Verbal");
-  add(PLAN_QUANT ,i-1,"🔢 Quant");
-  add(PLAN_PILOT ,i-1,"✈️ Pilot");
+  for(const x of PLAN_DAILY)
+    t.push({k:x.k,icon:x.icon,label:x.label,sub:x.tag,min:x.min,done:dayStat(x.sec)>=x.n,go:x.go});
   if(i%7===0){ const today=todayStr();
-    t.push({k:"mock",icon:"🎯",label:"모의고사 1회 (시간측정)",sub:"🏁 주간 점검",
+    t.push({k:"mock",icon:"🎯",label:"모의고사 1회 (시간측정)",sub:"🏁 주간 점검",min:180,
       done:(state.examHist||[]).some(x=>x&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
   return t;
 }
@@ -661,11 +657,14 @@ function renderPlan(){
   const doneN=tasks.filter(isDone).length, pct=Math.round(doneN/tasks.length*100);
   const core=coreTotal(), left=coreRemain(), learned=core-left;
   const examLeft=Math.max(0,dayDiff(todayStr(),state.settings.exam_date));
+  const leftMin=tasks.filter(t=>!isDone(t)).reduce((a,b)=>a+(b.min||0),0);
+  const hhmm=m=>m<=0?"완료":(m>=60?`${Math.floor(m/60)}시간 ${m%60?m%60+"분":""}`.trim():`${m}분`);
   $("#planHead").innerHTML=`
     <div class="row" style="justify-content:space-between;align-items:flex-start">
       <div><div class="muted" style="font-size:13px">${planLen()}일 완성 플랜</div>
         <div class="plan-day">DAY <b>${i}</b><small> / ${planLen()}</small></div>
-        <div class="muted" style="font-size:12px;margin-top:4px">시험까지 ${examLeft}일 · 빈출 단어 ${learned}/${core}</div></div>
+        <div class="muted" style="font-size:12px;margin-top:4px">시험까지 ${examLeft}일 · 빈출 단어 ${learned}/${core}</div>
+        <div style="font-size:12px;margin-top:6px;color:var(--brand2);font-weight:700">⏱️ 남은 예상 ${hhmm(leftMin)}</div></div>
       <div class="ring" style="--p:${pct}"><div class="v"><b>${pct}%</b><span>오늘</span></div></div>
     </div>
     <div class="progressbar" style="margin-top:12px"><i style="width:${Math.round(i/planLen()*100)}%"></i></div>
@@ -673,7 +672,7 @@ function renderPlan(){
   $("#planTasks").innerHTML=tasks.map(t=>{ const dn=isDone(t);
     return `<div class="ptask ${dn?"on":""}" data-k="${esc(t.k)}">
       <button class="pchk" data-chk="${esc(t.k)}" aria-label="완료 표시">${dn?"✓":""}</button>
-      <div class="pmeta"><div class="pl">${t.icon} ${esc(t.label)}</div><div class="ps">${esc(t.sub)}${t.done?" · 자동 완료":""}</div></div>
+      <div class="pmeta"><div class="pl">${t.icon} ${esc(t.label)}</div><div class="ps">${esc(t.sub)}${t.min?" · ~"+t.min+"분":""}${t.done?" · 자동 완료":""}</div></div>
       ${dn?"":`<button class="btn sm primary pgo" data-go2="${esc(t.k)}">시작 →</button>`}
     </div>`; }).join("");
   $$("#planTasks .pchk").forEach(b=>b.onclick=()=>{ const k=b.dataset.chk;
