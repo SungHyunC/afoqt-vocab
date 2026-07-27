@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.46.0";
+const VERSION = "4.47.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -457,7 +457,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",math:"math",confirm:"vocab"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -479,7 +479,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -2193,8 +2193,14 @@ function submitExam(auto){
   bumpDay({studied:total,correct:got});
   if(e.key){ const prev=state.exams[e.key]||{best:0,bestTotal:total};
     state.exams[e.key]={best:Math.max(prev.best||0,got),bestTotal:total,last:got,lastTotal:total,date:todayStr()}; }
-  state.examHist.push({key:e.key||"retest",date:todayStr(),got,total,acc:got/total,pctile:estPercentile(got/total),ts:Date.now()});
+  // 문항별 상세 — 나중에 해설까지 복기할 수 있도록. 지문 본문은 passageId로 복원(용량 절약).
+  const detail=e.items.map((it,i)=>({s:it.section,q:it.prompt||"",t:it.stem||"",o:(it.options||[]).slice(),
+    u:e.answers[i],a:it.answer,x:it.explain||"",p:it.passageId!=null?it.passageId:null,pt:it.passageTitle||""}));
+  state.examHist.push({key:e.key||"retest",name:(EXAM_PRESETS[e.key]&&EXAM_PRESETS[e.key].name)||e.name||"모의고사",
+    date:todayStr(),got,total,acc:got/total,pctile:estPercentile(got/total),ts:Date.now(),
+    secs:used,bySec:JSON.parse(JSON.stringify(bySec)),items:detail});
   if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
+  pruneExamDetail();
   saveNow();
   // render result
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
@@ -2367,6 +2373,66 @@ function renderComposite(){
   box.innerHTML=COMPOSITES.map(c=>block(c.name,compositeEst(c.codes),c.codes)).join("")
     +`<div class="guide-src" style="margin-top:2px">※ 비공식 추정치입니다. 합성점수 구성·환산은 실제 AFOQT와 다를 수 있어요. 각 과목(항공·표읽기·블록·계기 포함)을 고루 풀수록 정확해집니다.</div>`;
 }
+// 용량 관리: 최근 10회만 문항 상세 보관, 그 이전은 요약만
+function pruneExamDetail(){ const h=state.examHist||[];
+  for(let i=0;i<h.length-10;i++) if(h[i]&&h[i].items) delete h[i].items; }
+
+/* ============================================================
+   지난 시험 기록 — 목록 → 상세(문항별 해설 복기)
+   ============================================================ */
+const EXAM_SECKO={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
+let examLogIdx=null;
+function renderExamLog(){
+  const h=(state.examHist||[]).slice().reverse();
+  if(examLogIdx==null){
+    $("#elTitle").textContent="📋 지난 시험 기록";
+    $("#elBack").textContent="← 통계"; $("#elBack").onclick=()=>go("stats");
+    if(!h.length){ $("#elBody").innerHTML=`<div class="card center muted" style="padding:20px">아직 본 시험이 없어요.<br>모의고사를 보면 여기에 기록이 남아요.</div>`; return; }
+    $("#elBody").innerHTML=`<div class="muted" style="font-size:12px;margin-bottom:10px">총 ${h.length}회 · 문항별 해설은 최근 10회까지 볼 수 있어요.</div>`+
+      h.map((x,i)=>{ const pct=Math.round(x.acc*100);
+        const col=pct>=85?"var(--ok)":pct>=70?"var(--brand2)":pct>=50?"var(--warn)":"var(--bad)";
+        return `<button class="elrow" data-i="${i}">
+          <div class="elm"><div class="eln">${esc(x.name||x.key||"모의고사")}</div>
+            <div class="eld">${esc(x.date||"")}${x.secs?" · "+fmtTime(x.secs):""}${x.items?"":" · 요약만"}</div></div>
+          <div class="elsc" style="color:${col}"><b>${x.got}/${x.total}</b><span>${pct}%${x.pctile?" · "+x.pctile+"th":""}</span></div>
+          <div class="elgo">›</div></button>`; }).join("");
+    $$("#elBody .elrow").forEach(b=>b.onclick=()=>{ examLogIdx=+b.dataset.i; window.scrollTo(0,0); renderExamLog(); });
+    return;
+  }
+  const x=h[examLogIdx]; if(!x){ examLogIdx=null; return renderExamLog(); }
+  $("#elTitle").textContent=`${x.date} · ${Math.round(x.acc*100)}%`;
+  $("#elBack").textContent="← 목록"; $("#elBack").onclick=()=>{ examLogIdx=null; window.scrollTo(0,0); renderExamLog(); };
+  const secs=Object.keys(x.bySec||{}).map(k=>`<div class="s"><b>${x.bySec[k].got}/${x.bySec[k].total}</b><span>${EXAM_SECKO[k]||k}</span></div>`).join("");
+  let head=`<div class="card center">
+      <div style="font-size:13px;color:var(--muted)">${esc(x.name||x.key||"모의고사")}</div>
+      <h2 style="margin:6px 0">${x.got} / ${x.total} 정답 (${Math.round(x.acc*100)}%)</h2>
+      <div class="muted" style="font-size:12px">${esc(x.date||"")}${x.secs?" · 소요 "+fmtTime(x.secs):""}${x.pctile?" · 예상 "+x.pctile+"th":""}</div>
+      ${secs?`<div class="breakdown" style="margin-top:12px">${secs}</div>`:""}</div>`;
+  if(!x.items){ $("#elBody").innerHTML=head+`<div class="hintbox" style="margin-top:14px">이 회차는 오래돼서 요약만 남아 있어요(문항 상세는 최근 10회까지 보관).</div>`; return; }
+  const body=x.items.map((it,i)=>{
+    const ok=it.u===it.a, un=it.u==null;
+    const opts=(it.o||[]).map((o,oi)=>{ let cls=""; if(oi===it.a) cls="ok"; else if(oi===it.u) cls="no";
+      const mark=oi===it.a?"✓ ":(oi===it.u?"✗ ":"");
+      return `<div class="ro ${cls}">${mark}${fmtMath(o)}</div>`; }).join("");
+    const psg=(it.p!=null)?(()=>{ const p=READING.find(z=>z.id===it.p); return p?`<details class="exam-passage"><summary>📖 ${esc(it.pt||p.title||"지문")} (탭하여 보기)</summary><div class="passage">${esc(p.passage||"")}</div></details>`:""; })():"";
+    return `<div class="review-q">
+      <div class="rh">${i+1}. ${EXAM_SECKO[it.s]||it.s} ${ok?"✅":un?"⬜ 미응답":"❌"}</div>
+      ${psg}
+      <div style="font-weight:600;margin-bottom:6px">${fmtMath(it.t||it.q)}</div>
+      ${opts}
+      ${it.x?`<div class="rx">${fmtMath(it.x)}</div>`:""}</div>`;
+  }).join("");
+  const wrongN=x.items.filter(t=>t.u!==t.a).length;
+  $("#elBody").innerHTML=head+
+    `<div class="row" style="gap:8px;margin-top:12px">
+       <button class="btn ghost sm" id="elAll" style="flex:1">전체 ${x.items.length}문항</button>
+       <button class="btn primary sm" id="elWrong" style="flex:1">틀린 것만 ${wrongN}개</button>
+     </div><div id="elList" style="margin-top:12px">${body}</div>`;
+  const apply=(wrongOnly)=>{ $$("#elList .review-q").forEach((el,i)=>{
+      const t=x.items[i]; el.classList.toggle("hidden", wrongOnly && t.u===t.a); }); };
+  $("#elAll").onclick=()=>{ apply(false); $("#elAll").className="btn primary sm"; $("#elWrong").className="btn ghost sm"; };
+  $("#elWrong").onclick=()=>{ apply(true); $("#elWrong").className="btn primary sm"; $("#elAll").className="btn ghost sm"; };
+}
 function renderExamTrend(){
   const h=state.examHist||[]; const box=$("#examTrend");
   if(h.length<1){ box.innerHTML=`<div class="center muted" style="padding:8px">아직 기록이 없어요. 모의고사를 보면 정답률 추이가 그려집니다.</div>`; return; }
@@ -2456,6 +2522,7 @@ function wire(){
   $("#vkCurr").onclick=()=>openCurriculum("wk"); $("#vaCurr").onclick=()=>openCurriculum("va"); $("#rcCurr").onclick=()=>openCurriculum("rc");
   $("#currBack").onclick=()=>go("home");
   $("#repBack").onclick=()=>go("stats"); $("#btnReport")&&($("#btnReport").onclick=openReport); $("#repOpen")&&($("#repOpen").onclick=openReport);
+  $("#btnExamLog")&&($("#btnExamLog").onclick=()=>{ examLogIdx=null; go("examlog"); });
   $$("#currTabs .chip").forEach(c=>c.onclick=()=>{ curTrack=c.dataset.ct; renderCurriculum(); });
   $("#cpBack").onclick=()=>{ curSes=null; go("curriculum"); };
   $("#cpRetry").onclick=()=>{ const t=curSes?.t??curTrack, si=curSes?.si??0; curSes=null; startCurrStage(t,si); };
