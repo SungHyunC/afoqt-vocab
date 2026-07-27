@@ -2868,5 +2868,1153 @@
     ],
     "answer": 2,
     "explain": "1~8 중 소수는 2, 3, 5, 7로 4개다. 전체 8구역이므로 확률은 4/8 = 1/2."
+  },
+  {
+    "id": 206,
+    "topic": "percentages",
+    "q": "A jacket regularly priced at $80 is marked down 25%. An 8% sales tax is then applied to the discounted price. What is the total amount paid?",
+    "q_ko": "정가 $80인 재킷이 25% 할인되었다. 그 후 할인된 가격에 8%의 판매세가 붙는다. 최종 지불 금액은 얼마인가?",
+    "options": [
+      "$55.20",
+      "$60.00",
+      "$64.80",
+      "$66.40"
+    ],
+    "answer": 2,
+    "explain": "할인가 = 80 × 0.75 = $60. 세금 포함 = 60 × 1.08 = $64.80. $60.00은 세금 누락, $66.40은 세금을 원래 가격($80 × 0.08 = $6.40)에 계산한 값, $55.20은 세금을 더하지 않고 뺀 오류(60 × 0.92)."
+  },
+  {
+    "id": 207,
+    "topic": "percentages",
+    "q": "The population of a town increased by 20% in 2023 and then decreased by 20% in 2024. Compared with the population before 2023, what is the net change?",
+    "q_ko": "어느 마을의 인구가 2023년에 20% 증가한 뒤 2024년에 20% 감소했다. 2023년 이전 인구와 비교할 때 순 변화는 얼마인가?",
+    "options": [
+      "No change",
+      "A 4% decrease",
+      "A 4% increase",
+      "A 2% decrease"
+    ],
+    "answer": 1,
+    "explain": "1.20 × 0.80 = 0.96 이므로 원래의 96%, 즉 4% 감소. 증가율과 감소율이 같아도 기준액이 달라 상쇄되지 않으므로 '변화 없음'은 오답."
+  },
+  {
+    "id": 208,
+    "topic": "percentages",
+    "q": "A store buys a lamp for $60 and sells it for $75. What is the profit expressed as a percent of the cost?",
+    "q_ko": "어느 상점이 램프를 $60에 사서 $75에 판매한다. 이익은 원가의 몇 퍼센트인가?",
+    "options": [
+      "15%",
+      "20%",
+      "25%",
+      "80%"
+    ],
+    "answer": 2,
+    "explain": "이익 = 75 − 60 = $15. 원가 대비 = 15/60 = 25%. 20%는 판매가($75) 기준으로 계산한 값(15/75), 15%는 이익 금액을 그대로 퍼센트로 쓴 오류."
+  },
+  {
+    "id": 209,
+    "topic": "percentages",
+    "q": "A retailer marks up an item costing $40 by 50% and then sells it at 20% off the marked price. What is the retailer's profit as a percent of cost?",
+    "q_ko": "어느 소매상이 원가 $40인 물건에 50%의 마진을 붙여 표시가를 정한 뒤, 표시가에서 20% 할인하여 판매한다. 원가 대비 이익률은 몇 퍼센트인가?",
+    "options": [
+      "About 16.7%",
+      "20%",
+      "25%",
+      "30%"
+    ],
+    "answer": 1,
+    "explain": "표시가 = 40 × 1.5 = $60, 판매가 = 60 × 0.8 = $48. 이익 = $8, 8/40 = 20%. 약 16.7%는 판매가($48) 기준으로 나눈 오류, 30%는 50% − 20%로 단순히 뺀 오류."
+  },
+  {
+    "id": 210,
+    "topic": "percentages",
+    "q": "A dinner bill is $60 before tax. A 5% tax is added, and a 20% tip is calculated on the pre-tax amount. What is the total paid?",
+    "q_ko": "저녁 식사 금액이 세금 전 $60이다. 5%의 세금이 붙고, 팁은 세금 전 금액의 20%로 계산한다. 총 지불 금액은 얼마인가?",
+    "options": [
+      "$72.00",
+      "$75.00",
+      "$75.60",
+      "$78.00"
+    ],
+    "answer": 1,
+    "explain": "세금 = 60 × 0.05 = $3, 팁 = 60 × 0.20 = $12. 합계 = 60 + 3 + 12 = $75. $75.60은 팁을 세금 포함액($63)에 계산한 값, $72는 세금 누락."
+  },
+  {
+    "id": 211,
+    "topic": "percentages",
+    "q": "After a 15% discount, a bicycle sells for $272. What was its price before the discount?",
+    "q_ko": "15% 할인 후 자전거의 가격이 $272이다. 할인 전 가격은 얼마였는가?",
+    "options": [
+      "$287.00",
+      "$300.00",
+      "$312.80",
+      "$320.00"
+    ],
+    "answer": 3,
+    "explain": "$272는 원가의 85%이므로 272 ÷ 0.85 = $320. $312.80은 272에 15%를 더한 값(272 × 1.15)으로, 기준액을 잘못 잡은 대표적 오류."
+  },
+  {
+    "id": 212,
+    "topic": "percentages",
+    "q": "A camera listed at $200 is sold by Store A at 15% off with free shipping, and by Store B at 25% off plus a $12 shipping fee. Which store is cheaper, and by how much?",
+    "q_ko": "정가 $200인 카메라를 A 상점은 15% 할인에 무료 배송으로, B 상점은 25% 할인에 배송비 $12를 더해 판매한다. 어느 쪽이 얼마나 더 저렴한가?",
+    "options": [
+      "Store A, by $8",
+      "Store B, by $8",
+      "Store B, by $12",
+      "Store B, by $20"
+    ],
+    "answer": 1,
+    "explain": "A = 200 × 0.85 = $170. B = 200 × 0.75 + 12 = 150 + 12 = $162. B가 $8 저렴. 배송비를 빼먹으면 차이를 $20로 잘못 계산한다."
+  },
+  {
+    "id": 213,
+    "topic": "percentages",
+    "q": "An employee's monthly salary rose from $2,400 to $2,760. By what percent did the salary increase?",
+    "q_ko": "한 직원의 월급이 $2,400에서 $2,760으로 올랐다. 급여는 몇 퍼센트 인상되었는가?",
+    "options": [
+      "12%",
+      "13%",
+      "15%",
+      "36%"
+    ],
+    "answer": 2,
+    "explain": "증가액 = 360. 360 ÷ 2,400 = 0.15 = 15%. 13%는 360을 새 급여 2,760으로 나눈 오류(기준은 항상 이전 값)."
+  },
+  {
+    "id": 214,
+    "topic": "percentages",
+    "q": "A coat is discounted 30%, and at checkout an additional 10% is taken off the already reduced price. This is equivalent to a single discount of what percent?",
+    "q_ko": "코트가 30% 할인되고, 계산대에서 이미 할인된 가격에 추가로 10%가 더 할인된다. 이는 몇 퍼센트의 단일 할인과 같은가?",
+    "options": [
+      "27%",
+      "33%",
+      "37%",
+      "40%"
+    ],
+    "answer": 2,
+    "explain": "0.70 × 0.90 = 0.63, 즉 정가의 63%를 지불하므로 총 할인은 37%. 40%는 두 할인율을 단순히 더한 오류."
+  },
+  {
+    "id": 215,
+    "topic": "percentages",
+    "q": "A vendor pays $480 for 60 mugs. Six mugs break, and the rest are sold at $10 each. What is the vendor's profit as a percent of the amount he paid?",
+    "q_ko": "한 상인이 머그컵 60개를 $480에 구입했다. 6개가 깨지고 나머지는 개당 $10에 판매되었다. 상인이 지불한 금액 대비 이익률은 몇 퍼센트인가?",
+    "options": [
+      "About 11.1%",
+      "12.5%",
+      "20%",
+      "25%"
+    ],
+    "answer": 1,
+    "explain": "판매 수량 = 54개, 매출 = 54 × 10 = $540. 이익 = 540 − 480 = $60. 60 ÷ 480 = 12.5%. 약 11.1%는 매출 $540을 기준으로 나눈 오류."
+  },
+  {
+    "id": 216,
+    "topic": "percentages",
+    "q": "In a school of 320 students, 60% are enrolled in a math course. Of those math students, 25% are also enrolled in physics. How many students take both courses?",
+    "q_ko": "학생 320명인 학교에서 60%가 수학 과목을 수강한다. 그 수학 수강생 중 25%가 물리도 함께 수강한다. 두 과목을 모두 듣는 학생은 몇 명인가?",
+    "options": [
+      "48",
+      "80",
+      "128",
+      "192"
+    ],
+    "answer": 0,
+    "explain": "수학 수강생 = 320 × 0.6 = 192명. 그 중 25% = 192 × 0.25 = 48명. 80명은 전체 320명의 25%를 구한 오류, 192명은 수학 수강생 수 자체."
+  },
+  {
+    "id": 217,
+    "topic": "percentages",
+    "q": "A salesperson earns a 4% commission on the first $10,000 of monthly sales and 7% on any sales above that. If her sales for the month total $18,000, what is her commission?",
+    "q_ko": "한 영업사원이 월 매출 중 처음 $10,000에 대해 4%, 그 초과분에 대해 7%의 수수료를 받는다. 이번 달 매출이 총 $18,000이라면 수수료는 얼마인가?",
+    "options": [
+      "$720",
+      "$960",
+      "$1,060",
+      "$1,260"
+    ],
+    "answer": 1,
+    "explain": "400 (= 10,000 × 0.04) + 560 (= 8,000 × 0.07) = $960. $1,260은 전액에 7%, $720은 전액에 4%를 적용한 오류."
+  },
+  {
+    "id": 218,
+    "topic": "percentages",
+    "q": "A candidate's approval rating rose from 40% to 50%. By what percent did the approval rating increase?",
+    "q_ko": "어느 후보의 지지율이 40%에서 50%로 올랐다. 지지율은 몇 퍼센트 증가한 것인가?",
+    "options": [
+      "10%",
+      "20%",
+      "25%",
+      "50%"
+    ],
+    "answer": 2,
+    "explain": "증가폭 10퍼센트포인트를 기준값 40으로 나누면 10/40 = 0.25, 즉 25% 증가. 10%는 퍼센트포인트(percentage point)를 퍼센트 증가율과 혼동한 오류."
+  },
+  {
+    "id": 219,
+    "topic": "percentages",
+    "q": "The price of a stock fell 20%. By what percent must the new price rise to return to its original value?",
+    "q_ko": "어떤 주식의 가격이 20% 하락했다. 원래 가격으로 되돌아가려면 새 가격이 몇 퍼센트 올라야 하는가?",
+    "options": [
+      "20%",
+      "22%",
+      "25%",
+      "30%"
+    ],
+    "answer": 2,
+    "explain": "100 → 80으로 떨어졌으므로 20을 80으로 나눈 20/80 = 25% 상승해야 한다. 20%는 하락률을 그대로 쓴 오류(기준액이 달라짐)."
+  },
+  {
+    "id": 220,
+    "topic": "percentages",
+    "q": "A shop starts the month with 240 units. In week 1 it sells 40% of them; in week 2 it sells 25% of what remained. How many units are left after week 2?",
+    "q_ko": "어느 가게가 240개의 재고로 한 달을 시작한다. 1주차에 그중 40%를 팔고, 2주차에는 남은 수량의 25%를 판다. 2주차가 끝난 뒤 남은 수량은 몇 개인가?",
+    "options": [
+      "84",
+      "96",
+      "108",
+      "120"
+    ],
+    "answer": 2,
+    "explain": "1주차 판매 = 240 × 0.4 = 96개 → 잔여 144개. 2주차 판매 = 144 × 0.25 = 36개 → 잔여 108개. 84개는 2주차 25%를 원래 240개에 적용한 오류."
+  },
+  {
+    "id": 221,
+    "topic": "percentages",
+    "q": "An item costs a store $48. The owner wants the profit to be 20% of the selling price. What should the selling price be?",
+    "q_ko": "어떤 물건의 원가가 $48이다. 주인은 이익이 판매가의 20%가 되기를 원한다. 판매가는 얼마여야 하는가?",
+    "options": [
+      "$57.60",
+      "$60.00",
+      "$62.40",
+      "$64.00"
+    ],
+    "answer": 1,
+    "explain": "이익이 판매가의 20%이면 원가는 판매가의 80%. 판매가 = 48 ÷ 0.8 = $60. $57.60은 원가에 20%를 더한 값(48 × 1.2)으로, 원가 기준 마진과 혼동한 오류."
+  },
+  {
+    "id": 222,
+    "topic": "rates",
+    "q": "A staff car travels 195 miles in 3 hours at a constant speed. At that same speed, how far will it travel in 5 hours?",
+    "q_ko": "한 관용차가 일정한 속도로 3시간 동안 195마일을 달린다. 같은 속도로 5시간 동안 달리면 몇 마일을 가는가?",
+    "options": [
+      "260 miles",
+      "300 miles",
+      "325 miles",
+      "390 miles"
+    ],
+    "answer": 2,
+    "explain": "속도 = 195 ÷ 3 = 65mph. 5시간이면 65 × 5 = 325마일. 260은 4시간분, 390은 6시간분(시간 잘못 대입)이다."
+  },
+  {
+    "id": 223,
+    "topic": "rates",
+    "q": "A courier drives 120 miles to a base at 60 mph and returns over the same road at 40 mph. What is the average speed for the entire round trip?",
+    "q_ko": "배달원이 기지까지 120마일을 시속 60마일로 가고, 같은 길을 시속 40마일로 돌아온다. 왕복 전체의 평균 속도는?",
+    "options": [
+      "45 mph",
+      "48 mph",
+      "50 mph",
+      "52 mph"
+    ],
+    "answer": 1,
+    "explain": "총거리 240마일, 총시간 = 120/60 + 120/40 = 2 + 3 = 5시간이므로 240 ÷ 5 = 48mph. 50은 두 속도를 단순 평균한 흔한 오답이다."
+  },
+  {
+    "id": 224,
+    "topic": "rates",
+    "q": "A bottling machine fills 300 bottles in 12 minutes. Working at the same rate, how many bottles will it fill in 45 minutes?",
+    "q_ko": "병입 기계가 12분에 300병을 채운다. 같은 속도로 45분 동안 채우면 몇 병인가?",
+    "options": [
+      "900 bottles",
+      "1,000 bottles",
+      "1,125 bottles",
+      "1,250 bottles"
+    ],
+    "answer": 2,
+    "explain": "분당 300 ÷ 12 = 25병. 25 × 45 = 1,125병. 900은 36분치, 1,250은 50분치로 시간 계산 실수에서 나온다."
+  },
+  {
+    "id": 225,
+    "topic": "rates",
+    "q": "Painter A can paint a hangar wall alone in 6 hours, and painter B can paint the same wall alone in 12 hours. Working together at their usual rates, how long will the wall take?",
+    "q_ko": "도장공 A는 격납고 벽을 혼자 6시간에, B는 같은 벽을 혼자 12시간에 칠한다. 두 사람이 평소 속도로 함께 하면 몇 시간이 걸리는가?",
+    "options": [
+      "3 hours",
+      "4 hours",
+      "6 hours",
+      "9 hours"
+    ],
+    "answer": 1,
+    "explain": "시간당 1/6 + 1/12 = 3/12 = 1/4 을 칠하므로 전체는 4시간. 9시간은 두 시간을 평균 낸 오답, 6시간은 빠른 사람 혼자 걸리는 시간이다."
+  },
+  {
+    "id": 226,
+    "topic": "rates",
+    "q": "An inlet pipe can fill an empty tank in 10 minutes. A drain valve, left open, can empty the full tank in 15 minutes. If both are open starting from empty, how long will the tank take to fill?",
+    "q_ko": "급수관은 빈 탱크를 10분에 채우고, 배수 밸브는 가득 찬 탱크를 15분에 비운다. 탱크가 빈 상태에서 둘 다 열어두면 채우는 데 몇 분이 걸리는가?",
+    "options": [
+      "5 minutes",
+      "6 minutes",
+      "25 minutes",
+      "30 minutes"
+    ],
+    "answer": 3,
+    "explain": "순 유입률 = 1/10 − 1/15 = 3/30 − 2/30 = 1/30 (분당). 따라서 30분. 6분은 두 비율을 빼지 않고 더한 오답, 25분은 10+15에서 나온 오답이다."
+  },
+  {
+    "id": 227,
+    "topic": "rates",
+    "q": "Two trains start at the same moment from stations 420 miles apart and travel toward each other on parallel tracks at 60 mph and 80 mph. How long until they pass each other?",
+    "q_ko": "420마일 떨어진 두 역에서 두 기차가 동시에 출발해 나란한 선로 위를 시속 60마일과 80마일로 마주 보고 달린다. 서로 스쳐 지나가기까지 몇 시간이 걸리는가?",
+    "options": [
+      "3 hours",
+      "3.5 hours",
+      "5.25 hours",
+      "7 hours"
+    ],
+    "answer": 0,
+    "explain": "접근 속도 = 60 + 80 = 140mph, 420 ÷ 140 = 3시간. 7시간은 420÷60, 5.25시간은 420÷80으로 한 기차만 고려한 오답이다."
+  },
+  {
+    "id": 228,
+    "topic": "rates",
+    "q": "A convoy truck leaves a depot at 50 mph. Two hours later a jeep leaves the same depot on the same road at 70 mph. How long after the jeep starts will it overtake the truck?",
+    "q_ko": "보급 트럭이 시속 50마일로 기지를 출발한다. 2시간 뒤 지프가 같은 길을 시속 70마일로 출발한다. 지프가 출발한 뒤 몇 시간 만에 트럭을 따라잡는가?",
+    "options": [
+      "2.5 hours",
+      "3.5 hours",
+      "5 hours",
+      "7 hours"
+    ],
+    "answer": 2,
+    "explain": "트럭의 선행 거리 = 50 × 2 = 100마일, 속도 차 = 70 − 50 = 20mph이므로 100 ÷ 20 = 5시간. 7시간은 트럭 출발 기준 총 시간(5+2)을 답한 오답이다."
+  },
+  {
+    "id": 229,
+    "topic": "rates",
+    "q": "An aircraft cruises at 240 mph in still air. Flying with a 30 mph tailwind, how long does it take to cover 540 miles?",
+    "q_ko": "어떤 항공기가 무풍 상태에서 시속 240마일로 순항한다. 시속 30마일의 뒷바람을 받으며 540마일을 비행하면 시간은 얼마나 걸리는가?",
+    "options": [
+      "2 hours",
+      "2 hours 15 minutes",
+      "about 2 hours 34 minutes",
+      "2 hours 45 minutes"
+    ],
+    "answer": 0,
+    "explain": "대지속도 = 240 + 30 = 270mph, 540 ÷ 270 = 2시간. 2시간 15분은 바람을 무시한 540÷240, 2시간 34분은 바람을 반대로 빼서 540÷210으로 계산한 오답이다."
+  },
+  {
+    "id": 230,
+    "topic": "rates",
+    "q": "A crew of 5 workers can resurface a runway section in 8 days. Working at the same individual rate, how long would 4 workers need for the same section?",
+    "q_ko": "작업자 5명이 활주로 한 구간을 8일에 재포장한다. 1인당 작업 속도가 같다면 4명이 같은 구간을 하는 데 며칠이 걸리는가?",
+    "options": [
+      "6.4 days",
+      "8 days",
+      "10 days",
+      "12.5 days"
+    ],
+    "answer": 2,
+    "explain": "총 작업량 = 5 × 8 = 40 인·일. 40 ÷ 4 = 10일. 6.4일은 비례 관계를 뒤집어 8×4÷5로 계산한 오답이다."
+  },
+  {
+    "id": 231,
+    "topic": "rates",
+    "q": "Working together, two mechanics can complete an inspection in 6 hours. Alone, the first mechanic would need 10 hours. How long would the second mechanic need working alone?",
+    "q_ko": "정비사 두 명이 함께 하면 점검을 6시간에 끝낸다. 첫 번째 정비사가 혼자 하면 10시간이 걸린다. 두 번째 정비사가 혼자 하면 몇 시간이 걸리는가?",
+    "options": [
+      "4 hours",
+      "12 hours",
+      "15 hours",
+      "16 hours"
+    ],
+    "answer": 2,
+    "explain": "1/6 − 1/10 = 5/30 − 3/30 = 2/30 = 1/15이므로 15시간. 4시간은 10 − 6으로 시간을 그냥 뺀 대표적 오답이다."
+  },
+  {
+    "id": 232,
+    "topic": "rates",
+    "q": "One clerk types 60 words per minute and another types 90 words per minute. If they work simultaneously on different parts of a 4,500-word report until it is finished, how long does the whole report take?",
+    "q_ko": "한 사무원은 분당 60단어, 다른 사무원은 분당 90단어를 입력한다. 4,500단어 보고서의 서로 다른 부분을 동시에 입력해 끝까지 작업하면 전체를 끝내는 데 몇 분이 걸리는가?",
+    "options": [
+      "30 minutes",
+      "36 minutes",
+      "50 minutes",
+      "75 minutes"
+    ],
+    "answer": 0,
+    "explain": "합쳐서 분당 60 + 90 = 150단어. 4,500 ÷ 150 = 30분. 50분과 75분은 각각 90wpm, 60wpm 한 사람만으로 계산한 오답이다."
+  },
+  {
+    "id": 233,
+    "topic": "rates",
+    "q": "A survey drone covers 1.5 miles in 2 minutes at a steady speed. What is its speed in miles per hour?",
+    "q_ko": "측량 드론이 일정한 속도로 2분에 1.5마일을 이동한다. 이 드론의 속도는 시속 몇 마일인가?",
+    "options": [
+      "22.5 mph",
+      "45 mph",
+      "75 mph",
+      "90 mph"
+    ],
+    "answer": 1,
+    "explain": "분당 1.5 ÷ 2 = 0.75마일, × 60 = 시속 45마일. 90mph는 2분으로 나누는 것을 빠뜨린 값(1.5×60)이다."
+  },
+  {
+    "id": 234,
+    "topic": "rates",
+    "q": "A loading crew has moved 3/5 of a cargo shipment in 6 hours. At the same rate, how much longer will it take to finish the rest?",
+    "q_ko": "하역 작업조가 6시간 동안 화물의 3/5를 옮겼다. 같은 속도로 나머지를 끝내려면 시간이 얼마나 더 필요한가?",
+    "options": [
+      "3 hours",
+      "4 hours",
+      "4.5 hours",
+      "10 hours"
+    ],
+    "answer": 1,
+    "explain": "시간당 (3/5) ÷ 6 = 1/10이므로 전체는 10시간. 남은 2/5는 (2/5) ÷ (1/10) = 4시간. 10시간은 '남은 시간'이 아니라 전체 소요 시간을 답한 오답이다."
+  },
+  {
+    "id": 235,
+    "topic": "rates",
+    "q": "A driver covers the first 90 miles of a trip at 45 mph and the remaining 150 miles at 50 mph. What is the average speed for the entire trip?",
+    "q_ko": "운전자가 여행의 첫 90마일을 시속 45마일로, 나머지 150마일을 시속 50마일로 달렸다. 전체 여행의 평균 속도는?",
+    "options": [
+      "46 mph",
+      "47.5 mph",
+      "48 mph",
+      "49 mph"
+    ],
+    "answer": 2,
+    "explain": "시간 = 90/45 + 150/50 = 2 + 3 = 5시간, 총거리 240마일 → 240 ÷ 5 = 48mph. 47.5는 두 속도의 단순 평균이다."
+  },
+  {
+    "id": 236,
+    "topic": "rates",
+    "q": "A truck averages 18 miles per gallon and carries 25 gallons of usable fuel. If it maintains 60 mph, how many hours can it drive before the fuel is gone?",
+    "q_ko": "어떤 트럭은 갤런당 18마일을 주행하고 사용 가능한 연료 25갤런을 싣고 있다. 시속 60마일을 유지하면 연료가 떨어질 때까지 몇 시간을 달릴 수 있는가?",
+    "options": [
+      "6 hours",
+      "7.5 hours",
+      "8 hours",
+      "9 hours"
+    ],
+    "answer": 1,
+    "explain": "주행 가능 거리 = 18 × 25 = 450마일, 450 ÷ 60 = 7.5시간. 시간당 연료 소모(60÷18 ≈ 3.33갤런)로 풀어도 25 ÷ 3.33 = 7.5시간으로 같다."
+  },
+  {
+    "id": 237,
+    "topic": "rates",
+    "q": "Three pumps can empty a reservoir alone in 4 hours, 6 hours, and 12 hours respectively. Running all three at once, how long will emptying the reservoir take?",
+    "q_ko": "펌프 세 대가 저수조를 각각 혼자서 4시간, 6시간, 12시간에 비운다. 세 대를 동시에 가동하면 저수조를 비우는 데 얼마나 걸리는가?",
+    "options": [
+      "1 hour 30 minutes",
+      "2 hours",
+      "3 hours",
+      "7 hours 20 minutes"
+    ],
+    "answer": 1,
+    "explain": "1/4 + 1/6 + 1/12 = 3/12 + 2/12 + 1/12 = 6/12 = 1/2 (시간당). 따라서 2시간. 7시간 20분은 세 시간을 평균 낸((4+6+12)/3) 오답이다."
+  },
+  {
+    "id": 238,
+    "topic": "ratios",
+    "q": "A squadron divides 4,800 gallons of fuel between two aircraft in the ratio 5:3. How many more gallons does the larger share receive than the smaller share?",
+    "q_ko": "한 비행대대가 연료 4,800갤런을 두 항공기에 5:3의 비로 나눈다. 많은 쪽이 적은 쪽보다 몇 갤런 더 받는가?",
+    "options": [
+      "600 gallons",
+      "1,200 gallons",
+      "1,800 gallons",
+      "3,000 gallons"
+    ],
+    "answer": 1,
+    "explain": "전체 비의 합은 5+3=8, 1묶음 = 4,800÷8 = 600갤런. 차이는 5-3=2묶음이므로 2×600 = 1,200갤런. (600은 1묶음, 3,000과 1,800은 각각의 몫)"
+  },
+  {
+    "id": 239,
+    "topic": "ratios",
+    "q": "On a chart with a scale of 1:250,000, two airfields are 3.4 cm apart. What is the actual distance between them?",
+    "q_ko": "축척이 1:250,000인 지도에서 두 비행장 사이가 3.4 cm 떨어져 있다. 실제 거리는 얼마인가?",
+    "options": [
+      "0.85 km",
+      "8.5 km",
+      "85 km",
+      "850 km"
+    ],
+    "answer": 1,
+    "explain": "실제 거리 = 3.4 cm × 250,000 = 850,000 cm. 1 km = 100,000 cm이므로 850,000 ÷ 100,000 = 8.5 km. (850 km는 cm를 m로 착각한 값)"
+  },
+  {
+    "id": 240,
+    "topic": "ratios",
+    "q": "A vehicle travels 66 feet every second. Given that 1 mile = 5,280 feet, what is its speed in miles per hour?",
+    "q_ko": "어떤 차량이 매초 66피트를 이동한다. 1마일 = 5,280피트일 때, 시속 몇 마일인가?",
+    "options": [
+      "45 mph",
+      "22.5 mph",
+      "90 mph",
+      "135 mph"
+    ],
+    "answer": 0,
+    "explain": "1시간 이동 거리 = 66 × 3,600 = 237,600피트. 237,600 ÷ 5,280 = 45마일이므로 45 mph. (135는 1마일을 1,760(야드 수)으로 잘못 나눈 값)"
+  },
+  {
+    "id": 241,
+    "topic": "ratios",
+    "q": "A coolant mixture is made with coolant and water in the ratio 2:7. How many liters of coolant are in 63 liters of the mixture?",
+    "q_ko": "냉각액과 물을 2:7의 비로 섞어 혼합액을 만든다. 혼합액 63리터 속에 냉각액은 몇 리터 들어 있는가?",
+    "options": [
+      "9 liters",
+      "12 liters",
+      "14 liters",
+      "18 liters"
+    ],
+    "answer": 2,
+    "explain": "비의 합 2+7=9, 1묶음 = 63÷9 = 7리터. 냉각액 = 2×7 = 14리터(물은 49리터). (18은 전체에 2/7을 곱한 흔한 실수, 9는 1묶음을 잘못 본 값)"
+  },
+  {
+    "id": 242,
+    "topic": "ratios",
+    "q": "In a cadet class the ratio of men to women is 7:5. If there are 24 more men than women, how many cadets are in the class altogether?",
+    "q_ko": "어느 생도반의 남자와 여자의 비가 7:5이다. 남자가 여자보다 24명 많다면 반 전체 인원은 몇 명인가?",
+    "options": [
+      "84",
+      "120",
+      "144",
+      "288"
+    ],
+    "answer": 2,
+    "explain": "차이는 7-5=2묶음 = 24명이므로 1묶음 = 12명. 전체는 7+5=12묶음 = 12×12 = 144명. (84는 남자 수, 288은 1묶음을 24로 잘못 둔 경우)"
+  },
+  {
+    "id": 243,
+    "topic": "ratios",
+    "q": "Six mechanics can complete a scheduled inspection in 10 hours. Working at the same rate, how long would 4 mechanics need for the same inspection?",
+    "q_ko": "정비사 6명이 정기 점검을 10시간에 끝낼 수 있다. 같은 작업 속도로 정비사 4명이 같은 점검을 하려면 몇 시간이 걸리는가?",
+    "options": [
+      "6 hours 40 minutes",
+      "12 hours",
+      "15 hours",
+      "20 hours"
+    ],
+    "answer": 2,
+    "explain": "총 작업량 = 6명×10시간 = 60인시(man-hour). 4명이면 60÷4 = 15시간. 사람이 줄면 시간은 늘어나는 반비례 관계다. (6시간 40분은 정비례로 잘못 계산한 값)"
+  },
+  {
+    "id": 244,
+    "topic": "ratios",
+    "q": "One cubic foot holds 7.5 gallons of liquid. A rectangular tank measures 4 ft by 3 ft by 2 ft. How many gallons does it hold when full?",
+    "q_ko": "1세제곱피트에는 액체 7.5갤런이 들어간다. 직육면체 탱크의 크기가 4 ft × 3 ft × 2 ft일 때, 가득 채우면 몇 갤런이 들어가는가?",
+    "options": [
+      "3.2 gallons",
+      "24 gallons",
+      "90 gallons",
+      "180 gallons"
+    ],
+    "answer": 3,
+    "explain": "부피 = 4×3×2 = 24 ft³. 24 × 7.5 = 180갤런. (24는 부피 값 자체, 3.2는 24를 7.5로 나눈 값)"
+  },
+  {
+    "id": 245,
+    "topic": "ratios",
+    "q": "A display model of an aircraft is built to a scale of 1:48. If the real aircraft has a wingspan of 36 feet, what is the wingspan of the model?",
+    "q_ko": "어떤 항공기의 전시용 모형을 1:48 축척으로 만든다. 실제 항공기의 날개폭이 36피트라면 모형의 날개폭은 얼마인가?",
+    "options": [
+      "0.75 inches",
+      "9 inches",
+      "12 inches",
+      "18 inches"
+    ],
+    "answer": 1,
+    "explain": "36피트 = 36×12 = 432인치. 432 ÷ 48 = 9인치. (0.75는 36÷48 = 0.75피트를 인치로 바꾸지 않은 실수)"
+  },
+  {
+    "id": 246,
+    "topic": "ratios",
+    "q": "Cargo weighing 350 kilograms must be listed in pounds. Using 1 kilogram = 2.2 pounds, what is the weight in pounds?",
+    "q_ko": "350킬로그램의 화물을 파운드 단위로 기재해야 한다. 1킬로그램 = 2.2파운드일 때 무게는 몇 파운드인가?",
+    "options": [
+      "159 pounds",
+      "700 pounds",
+      "735 pounds",
+      "770 pounds"
+    ],
+    "answer": 3,
+    "explain": "350 × 2.2 = 770파운드. (159는 2.2로 나눈 값, 700은 2를 곱한 값, 735는 2.1을 곱한 값)"
+  },
+  {
+    "id": 247,
+    "topic": "ratios",
+    "q": "For three fuel tanks A, B, and C, A:B = 2:3 and B:C = 4:5. If tank C holds 45 gallons, how many gallons does tank A hold?",
+    "q_ko": "세 연료탱크 A, B, C에 대해 A:B = 2:3이고 B:C = 4:5이다. C가 45갤런을 담고 있다면 A는 몇 갤런인가?",
+    "options": [
+      "18",
+      "24",
+      "30",
+      "36"
+    ],
+    "answer": 1,
+    "explain": "B:C = 4:5, C = 45이므로 B = 45×4/5 = 36. A:B = 2:3이므로 A = 36×2/3 = 24갤런. (30은 A:B를 C에 바로 적용한 값, 36은 B의 값)"
+  },
+  {
+    "id": 248,
+    "topic": "ratios",
+    "q": "A selection board accepts 3 out of every 8 applicants. If 96 people apply, how many applicants are NOT accepted?",
+    "q_ko": "어떤 선발 위원회는 지원자 8명 중 3명을 합격시킨다. 96명이 지원했다면 합격하지 못한 지원자는 몇 명인가?",
+    "options": [
+      "32",
+      "36",
+      "60",
+      "64"
+    ],
+    "answer": 2,
+    "explain": "1묶음 = 96÷8 = 12명. 불합격은 8-3 = 5묶음 = 5×12 = 60명. (36은 합격자 수, 64는 2/3로 잘못 계산한 값)"
+  },
+  {
+    "id": 249,
+    "topic": "ratios",
+    "q": "A navigator must convert a leg of 240 nautical miles into statute miles. Using 1 nautical mile = 1.15 statute miles, what is the distance?",
+    "q_ko": "항법사가 240해리 구간을 법정마일로 환산하려 한다. 1해리 = 1.15법정마일일 때 거리는 얼마인가?",
+    "options": [
+      "208.7 statute miles",
+      "252 statute miles",
+      "276 statute miles",
+      "300 statute miles"
+    ],
+    "answer": 2,
+    "explain": "240 × 1.15 = 240 + 240×0.15 = 240 + 36 = 276법정마일. (208.7은 1.15로 나눈 값, 252는 1.05를 곱한 값)"
+  },
+  {
+    "id": 250,
+    "topic": "ratios",
+    "q": "A 40-liter mixture contains antifreeze and water in the ratio 3:5. How many liters of pure antifreeze must be added so that the mixture contains equal amounts of antifreeze and water?",
+    "q_ko": "40리터의 혼합액에 부동액과 물이 3:5의 비로 들어 있다. 부동액과 물의 양이 같아지려면 순수 부동액을 몇 리터 더 넣어야 하는가?",
+    "options": [
+      "5 liters",
+      "8 liters",
+      "10 liters",
+      "12.5 liters"
+    ],
+    "answer": 2,
+    "explain": "1묶음 = 40÷8 = 5리터이므로 부동액 15리터, 물 25리터. 물의 양은 변하지 않으므로 부동액도 25리터가 되어야 한다. 25-15 = 10리터. (5는 전체 40의 절반인 20에 맞추려다 총량이 늘어나는 것을 놓친 실수)"
+  },
+  {
+    "id": 251,
+    "topic": "ratios",
+    "q": "A floor plan is drawn to a scale of 1:200. A room on the plan measures 6 cm by 4 cm. What is the actual floor area of the room?",
+    "q_ko": "어떤 평면도가 1:200 축척으로 그려져 있다. 도면에서 방의 크기가 6 cm × 4 cm라면 방의 실제 바닥 면적은 얼마인가?",
+    "options": [
+      "0.48 m²",
+      "96 m²",
+      "4,800 m²",
+      "9,600 m²"
+    ],
+    "answer": 1,
+    "explain": "실제 길이는 6×200 = 1,200 cm = 12 m, 4×200 = 800 cm = 8 m. 면적 = 12×8 = 96 m². (0.48은 도면 면적 24 cm²에 축척을 한 번만 곱한 실수, 넓이는 축척의 제곱배가 된다)"
+  },
+  {
+    "id": 252,
+    "topic": "mixtures",
+    "q": "A chemist mixes 40 liters of a 15% saline solution with 60 liters of a 25% saline solution. What is the concentration of the resulting mixture?",
+    "q_ko": "한 화학자가 15% 소금물 40리터와 25% 소금물 60리터를 섞는다. 만들어진 혼합액의 농도는 얼마인가?",
+    "options": [
+      "20%",
+      "21%",
+      "22%",
+      "23%"
+    ],
+    "answer": 1,
+    "explain": "소금량 = 0.15×40 + 0.25×60 = 6 + 15 = 21kg, 전체 100L이므로 21/100 = 21%. 20%는 두 농도를 단순평균(15,25)한 오답으로, 양이 다르므로 가중평균을 써야 한다."
+  },
+  {
+    "id": 253,
+    "topic": "mixtures",
+    "q": "How many liters of pure water must be added to 30 liters of a 20% acid solution to dilute it to a 12% solution?",
+    "q_ko": "20% 산성 용액 30리터를 12% 용액으로 희석하려면 순수한 물 몇 리터를 넣어야 하는가?",
+    "options": [
+      "12",
+      "18",
+      "20",
+      "50"
+    ],
+    "answer": 2,
+    "explain": "산의 양은 0.20×30 = 6L로 변하지 않는다. 최종 전체량 = 6 ÷ 0.12 = 50L이므로 추가할 물 = 50 − 30 = 20L. 50은 최종 전체량을 그대로 고른 오답이다."
+  },
+  {
+    "id": 254,
+    "topic": "mixtures",
+    "q": "A tank holds 60 kg of an 8% salt solution. How many kilograms of water must evaporate so that the remaining solution is 12% salt?",
+    "q_ko": "탱크에 8% 소금물 60kg이 들어 있다. 남은 용액이 12% 소금물이 되려면 물 몇 kg이 증발해야 하는가?",
+    "options": [
+      "15",
+      "20",
+      "30",
+      "40"
+    ],
+    "answer": 1,
+    "explain": "소금 = 0.08×60 = 4.8kg으로 일정. 최종 전체량 = 4.8 ÷ 0.12 = 40kg이므로 증발량 = 60 − 40 = 20kg. 40은 최종 전체 무게를 답으로 착각한 오답이다."
+  },
+  {
+    "id": 255,
+    "topic": "mixtures",
+    "q": "An alloy of 12 kg contains 30% copper. How many kilograms of an alloy containing 70% copper must be added so that the mixture is 60% copper?",
+    "q_ko": "12kg짜리 합금에 구리가 30% 들어 있다. 혼합물이 구리 60%가 되려면 구리 70% 합금 몇 kg을 넣어야 하는가?",
+    "options": [
+      "4",
+      "18",
+      "24",
+      "36"
+    ],
+    "answer": 3,
+    "explain": "3.6 + 0.7x = 0.6(12 + x) → 3.6 + 0.7x = 7.2 + 0.6x → 0.1x = 3.6 → x = 36kg. 교차법으로도 (60−30):(70−60) = 30:10 = 3:1이므로 12×3 = 36. 4는 비를 거꾸로 적용한 오답이다."
+  },
+  {
+    "id": 256,
+    "topic": "mixtures",
+    "q": "One class of 18 cadets averaged 82 on a test; another class of 12 cadets averaged 92. What is the average score of all 30 cadets?",
+    "q_ko": "18명으로 이루어진 한 반은 시험 평균이 82점이고, 12명인 다른 반은 평균이 92점이다. 30명 전체의 평균 점수는 얼마인가?",
+    "options": [
+      "85",
+      "86",
+      "87",
+      "88"
+    ],
+    "answer": 1,
+    "explain": "총점 = 18×82 + 12×92 = 1476 + 1104 = 2580, 2580 ÷ 30 = 86점. 87은 82와 92를 단순평균한 오답으로, 인원수가 다르므로 가중평균이 필요하다."
+  },
+  {
+    "id": 257,
+    "topic": "mixtures",
+    "q": "A shop blends 8 pounds of coffee costing $6 per pound with 12 pounds costing $11 per pound. What should the blend sell for per pound to bring in the same total revenue?",
+    "q_ko": "어떤 가게가 파운드당 6달러인 커피 8파운드와 파운드당 11달러인 커피 12파운드를 섞는다. 같은 총 매출을 얻으려면 혼합 커피는 파운드당 얼마에 팔아야 하는가?",
+    "options": [
+      "$8.50",
+      "$9.00",
+      "$9.50",
+      "$10.00"
+    ],
+    "answer": 1,
+    "explain": "총 원가 = 8×6 + 12×11 = 48 + 132 = 180달러, 총 무게 20파운드 → 180 ÷ 20 = 9.00달러. 8.50은 6과 11의 단순평균으로, 비싼 커피가 더 많으므로 틀리다."
+  },
+  {
+    "id": 258,
+    "topic": "mixtures",
+    "q": "A 20-liter radiator is filled with a 30% antifreeze solution. If 4 liters are drained off and replaced with pure antifreeze, what is the new concentration?",
+    "q_ko": "20리터 라디에이터가 30% 부동액 용액으로 가득 차 있다. 4리터를 빼내고 순수 부동액 4리터로 채우면 새로운 농도는 얼마인가?",
+    "options": [
+      "40%",
+      "44%",
+      "46%",
+      "50%"
+    ],
+    "answer": 1,
+    "explain": "남은 16L 속 부동액 = 0.30×16 = 4.8L, 여기에 순수 4L를 더하면 8.8L. 8.8 ÷ 20 = 44%. 50%는 빼낸 만큼의 손실을 무시하고 30% + 20%로 계산한 오답이다."
+  },
+  {
+    "id": 259,
+    "topic": "mixtures",
+    "q": "A technician combines 2 liters of a 10% solution, 3 liters of a 20% solution, and 5 liters of a 40% solution. What is the concentration of the final 10 liters?",
+    "q_ko": "기술자가 10% 용액 2리터, 20% 용액 3리터, 40% 용액 5리터를 합친다. 최종 10리터의 농도는 얼마인가?",
+    "options": [
+      "23.3%",
+      "25%",
+      "28%",
+      "30%"
+    ],
+    "answer": 2,
+    "explain": "용질 = 0.2 + 0.6 + 2.0 = 2.8L, 전체 10L → 28%. 23.3%는 10·20·40을 단순평균한 값이고, 25%는 중간값을 어림한 오답이다."
+  },
+  {
+    "id": 260,
+    "topic": "mixtures",
+    "q": "A course grade counts homework as 30% of the total and the final exam as 70%. A cadet scored 95 on homework and finished with an overall grade of 88. What was the exam score?",
+    "q_ko": "어떤 과목의 성적은 과제가 30%, 기말고사가 70%를 차지한다. 한 후보생이 과제에서 95점을 받고 최종 성적이 88점이었다면, 기말고사 점수는 얼마인가?",
+    "options": [
+      "81",
+      "83",
+      "85",
+      "90"
+    ],
+    "answer": 2,
+    "explain": "0.3×95 + 0.7x = 88 → 28.5 + 0.7x = 88 → 0.7x = 59.5 → x = 85점. 81은 가중치를 무시하고 2×88 − 95로 계산한 오답이다."
+  },
+  {
+    "id": 261,
+    "topic": "mixtures",
+    "q": "A 30-liter mixture is 80% milk and the rest water. How many liters of water must be added so that the new mixture is 60% milk?",
+    "q_ko": "30리터 혼합물이 우유 80%이고 나머지는 물이다. 새 혼합물이 우유 60%가 되려면 물 몇 리터를 더 넣어야 하는가?",
+    "options": [
+      "6",
+      "10",
+      "12",
+      "40"
+    ],
+    "answer": 1,
+    "explain": "우유 = 0.8×30 = 24L로 일정. 최종 전체량 = 24 ÷ 0.6 = 40L이므로 추가할 물 = 40 − 30 = 10L. 40은 최종 전체량, 6은 30×(0.8−0.6)으로 잘못 계산한 오답이다."
+  },
+  {
+    "id": 262,
+    "topic": "mixtures",
+    "q": "Alloy A is 40% silver and Alloy B is 65% silver. To produce 100 grams of an alloy that is 55% silver, how many grams of Alloy A are needed?",
+    "q_ko": "합금 A는 은 40%, 합금 B는 은 65%이다. 은 55%인 합금 100그램을 만들려면 합금 A는 몇 그램 필요한가?",
+    "options": [
+      "40",
+      "45",
+      "50",
+      "60"
+    ],
+    "answer": 0,
+    "explain": "0.40a + 0.65(100 − a) = 55 → 65 − 0.25a = 55 → a = 40g. 교차법으로도 |55−65| : |55−40| = 10 : 15 = 2 : 3이므로 A:B = 2:3, 100g의 2/5 = 40g. 60g은 비를 뒤바꾼 오답, 50g은 절반씩 섞는다고 본 오답이다."
+  },
+  {
+    "id": 263,
+    "topic": "mixtures",
+    "q": "A grocer wants 25 pounds of a nut mixture worth $6 per pound, using nuts worth $4 per pound and nuts worth $9 per pound. How many pounds of the $9 nuts are needed?",
+    "q_ko": "한 상인이 파운드당 4달러 견과와 파운드당 9달러 견과를 사용해 파운드당 6달러짜리 혼합 견과 25파운드를 만들려 한다. 9달러짜리 견과는 몇 파운드가 필요한가?",
+    "options": [
+      "10",
+      "12",
+      "12.5",
+      "15"
+    ],
+    "answer": 0,
+    "explain": "9달러 견과를 x파운드라 하면 9x + 4(25 − x) = 6×25 = 150 → 5x + 100 = 150 → x = 10파운드. 15는 4달러 견과의 양이고, 12.5는 반씩 섞는다고 본 오답이다."
+  },
+  {
+    "id": 264,
+    "topic": "averages",
+    "q": "A student's five homework scores are 95, 88, 0, 92, and 90. What is the average of the five scores?",
+    "q_ko": "어떤 학생의 과제 점수 5개가 95, 88, 0, 92, 90이다. 다섯 점수의 평균은?",
+    "options": [
+      "73",
+      "73.5",
+      "76",
+      "91.25"
+    ],
+    "answer": 0,
+    "explain": "합 = 95+88+0+92+90 = 365, 365 ÷ 5 = 73. 0점도 하나의 자료값이므로 반드시 5로 나눈다(0을 빼고 4로 나누면 91.25가 되는 것이 대표적 실수)."
+  },
+  {
+    "id": 265,
+    "topic": "averages",
+    "q": "Six training flights had an average length of 4.0 hours. Five of the flights lasted 3.5, 5, 2.5, 4, and 6 hours. How long was the sixth flight?",
+    "q_ko": "6회의 훈련 비행 평균 시간이 4.0시간이었다. 그중 5회는 각각 3.5, 5, 2.5, 4, 6시간이었다. 여섯 번째 비행은 몇 시간이었는가?",
+    "options": [
+      "2.5",
+      "3",
+      "3.5",
+      "4.2"
+    ],
+    "answer": 1,
+    "explain": "전체 합 = 4.0 × 6 = 24시간. 알려진 5회의 합 = 3.5+5+2.5+4+6 = 21. 따라서 24 − 21 = 3시간. (5회만의 평균 21÷5 = 4.2를 답으로 고르는 실수 주의.)"
+  },
+  {
+    "id": 266,
+    "topic": "averages",
+    "q": "After four exams a cadet has an average of 78. What must she score on the fifth exam so that her average for all five exams is 80?",
+    "q_ko": "네 번의 시험을 치른 생도의 평균이 78점이다. 다섯 번의 시험 평균을 80점으로 만들려면 다섯 번째 시험에서 몇 점을 받아야 하는가?",
+    "options": [
+      "80",
+      "82",
+      "88",
+      "92"
+    ],
+    "answer": 2,
+    "explain": "필요한 총점 = 80 × 5 = 400. 현재 총점 = 78 × 4 = 312. 400 − 312 = 88점. (평균을 2점 올리려면 2점만 더 받으면 된다고 생각해 82를 고르기 쉽다.)"
+  },
+  {
+    "id": 267,
+    "topic": "averages",
+    "q": "Class A has 18 students with an average score of 76. Class B has 12 students with an average score of 86. What is the average score of all 30 students?",
+    "q_ko": "A반은 18명이고 평균 점수가 76점, B반은 12명이고 평균 점수가 86점이다. 30명 전체의 평균 점수는?",
+    "options": [
+      "79",
+      "80",
+      "81",
+      "82"
+    ],
+    "answer": 1,
+    "explain": "총점 = 18×76 + 12×86 = 1368 + 1032 = 2400. 2400 ÷ 30 = 80점. 인원수가 다르므로 가중평균을 써야 한다(단순평균 (76+86)÷2 = 81은 오답)."
+  },
+  {
+    "id": 268,
+    "topic": "averages",
+    "q": "A course grade is computed as homework 20%, midterm 30%, and final exam 50%. A student earns 90 on homework, 80 on the midterm, and 76 on the final. What is the course grade?",
+    "q_ko": "어떤 과목의 성적은 과제 20%, 중간고사 30%, 기말고사 50%로 계산된다. 한 학생이 과제 90점, 중간 80점, 기말 76점을 받았다면 최종 성적은?",
+    "options": [
+      "78",
+      "80",
+      "82",
+      "84"
+    ],
+    "answer": 1,
+    "explain": "0.20×90 + 0.30×80 + 0.50×76 = 18 + 24 + 38 = 80점. 비중을 무시한 단순평균 (90+80+76)÷3 = 82는 오답."
+  },
+  {
+    "id": 269,
+    "topic": "averages",
+    "q": "Seven maintenance logs record these delay times (in minutes): 12, 7, 15, 9, 22, 7, 18. What is the median delay?",
+    "q_ko": "7건의 정비 기록에 적힌 지연 시간(분)이 12, 7, 15, 9, 22, 7, 18이다. 지연 시간의 중앙값은?",
+    "options": [
+      "7",
+      "9",
+      "12",
+      "15"
+    ],
+    "answer": 2,
+    "explain": "작은 순으로 정렬하면 7, 7, 9, 12, 15, 18, 22. 자료가 7개이므로 네 번째 값인 12분이 중앙값이다. 정렬하지 않고 원래 목록의 가운데 값(9)을 고르거나 최빈값(7)을 고르는 것이 흔한 실수."
+  },
+  {
+    "id": 270,
+    "topic": "averages",
+    "q": "Eight fuel readings (in gallons) are 40, 55, 48, 62, 51, 44, 58, and 47. What is the median reading?",
+    "q_ko": "8개의 연료량 측정값(갤런)이 40, 55, 48, 62, 51, 44, 58, 47이다. 이 측정값들의 중앙값은?",
+    "options": [
+      "48",
+      "49.5",
+      "51",
+      "56.5"
+    ],
+    "answer": 1,
+    "explain": "정렬: 40, 44, 47, 48, 51, 55, 58, 62. 자료가 8개(짝수)이므로 4번째와 5번째의 평균 = (48+51)÷2 = 49.5. 정렬 없이 원래 목록의 가운데 두 값(62, 51)을 평균하면 56.5가 되는데 이는 오답."
+  },
+  {
+    "id": 271,
+    "topic": "averages",
+    "q": "The average weight of 8 boxes is 12 kg. One box weighing 19 kg is removed. What is the average weight of the remaining boxes?",
+    "q_ko": "상자 8개의 평균 무게가 12kg이다. 무게가 19kg인 상자 하나를 빼냈다면 남은 상자들의 평균 무게는?",
+    "options": [
+      "10",
+      "11",
+      "11.5",
+      "12.5"
+    ],
+    "answer": 1,
+    "explain": "전체 무게 = 12 × 8 = 96kg. 19kg을 빼면 77kg이 남고 상자는 7개이므로 77 ÷ 7 = 11kg. 평균보다 무거운 값이 빠졌으므로 평균은 내려간다."
+  },
+  {
+    "id": 272,
+    "topic": "averages",
+    "q": "A driver travels 60 miles at 30 mph and then returns over the same 60 miles at 60 mph. What is the average speed for the entire round trip?",
+    "q_ko": "어떤 운전자가 60마일을 시속 30마일로 간 뒤, 같은 60마일을 시속 60마일로 되돌아왔다. 왕복 전체의 평균 속력은?",
+    "options": [
+      "36 mph",
+      "40 mph",
+      "45 mph",
+      "50 mph"
+    ],
+    "answer": 1,
+    "explain": "시간 = 60/30 + 60/60 = 2 + 1 = 3시간, 총거리 = 120마일. 평균 속력 = 120 ÷ 3 = 시속 40마일. 두 속력의 단순평균 45는 오답(거리는 같아도 걸린 시간이 다르므로 시간으로 가중해야 한다)."
+  },
+  {
+    "id": 273,
+    "topic": "averages",
+    "q": "After 9 timed runs a squadron's average time score is 84. After the 10th run the average for all 10 runs is 85. What was the score on the 10th run?",
+    "q_ko": "9회의 기록 측정 후 한 편대의 평균 점수는 84점이었다. 10회째를 마친 뒤 10회 전체 평균이 85점이 되었다. 10회째의 점수는?",
+    "options": [
+      "85",
+      "86",
+      "90",
+      "94"
+    ],
+    "answer": 3,
+    "explain": "10회 총점 = 85 × 10 = 850, 9회 총점 = 84 × 9 = 756. 850 − 756 = 94점. 달리 보면 새 평균 85점에 앞선 9회를 1점씩 끌어올린 몫 9점을 더해 85 + 9 = 94점."
+  },
+  {
+    "id": 274,
+    "topic": "averages",
+    "q": "The average of a set of 5 numbers is 20. If 4 is added to each number and then every result is doubled, what is the average of the new set?",
+    "q_ko": "5개 수의 평균이 20이다. 각 수에 4를 더한 뒤 그 결과를 모두 2배 하면, 새로운 수들의 평균은?",
+    "options": [
+      "24",
+      "40",
+      "44",
+      "48"
+    ],
+    "answer": 3,
+    "explain": "모든 값에 같은 연산을 하면 평균에도 같은 연산이 적용된다. (20 + 4) × 2 = 48. 2배를 빠뜨리면 24, 4를 더하는 것을 빠뜨리면 40, 순서를 바꿔 20×2+4로 계산하면 44가 나오는 실수."
+  },
+  {
+    "id": 275,
+    "topic": "averages",
+    "q": "Six donations to a unit fund are $20, $25, $25, $30, $35, and $165. By how much does the mean exceed the median?",
+    "q_ko": "부대 기금에 들어온 6건의 기부금이 각각 $20, $25, $25, $30, $35, $165이다. 평균은 중앙값보다 얼마나 큰가?",
+    "options": [
+      "$20",
+      "$22.50",
+      "$25",
+      "$27.50"
+    ],
+    "answer": 1,
+    "explain": "합 = 20+25+25+30+35+165 = 300이므로 평균 = 300 ÷ 6 = $50. 정렬하면 20, 25, 25, 30, 35, 165이고 가운데 두 값의 평균 = (25+30)÷2 = $27.50이 중앙값. 차이 = 50 − 27.50 = $22.50. 극단값 165 때문에 평균이 크게 끌려 올라간다."
+  },
+  {
+    "id": 276,
+    "topic": "money",
+    "q": "A credit union pays 6% simple annual interest. How much interest does a $4,500 deposit earn in 8 months?",
+    "q_ko": "한 신용조합은 연 6%의 단리 이자를 지급한다. 4,500달러를 8개월 동안 예치하면 이자는 얼마인가?",
+    "options": [
+      "$120",
+      "$180",
+      "$216",
+      "$270"
+    ],
+    "answer": 1,
+    "explain": "단리 I = P·r·t. t = 8/12 = 2/3년이므로 I = 4,500 × 0.06 × 2/3 = 4,500 × 0.04 = 180달러. 270달러는 기간을 1년으로 계산한 값이다."
+  },
+  {
+    "id": 277,
+    "topic": "money",
+    "q": "Marisol invests $2,000 at 10% interest compounded annually. How much interest has the account earned after 2 years?",
+    "q_ko": "마리솔은 2,000달러를 연 10% 복리로 투자한다. 2년 후 계좌가 벌어들인 이자는 얼마인가?",
+    "options": [
+      "$400",
+      "$420",
+      "$441",
+      "$484"
+    ],
+    "answer": 1,
+    "explain": "1년 후 2,000 × 1.1 = 2,200달러, 2년 후 2,200 × 1.1 = 2,420달러. 이자는 2,420 − 2,000 = 420달러. 400달러는 단리로 계산한 값이다."
+  },
+  {
+    "id": 278,
+    "topic": "money",
+    "q": "A shop buys a lamp for $40 and marks it up 25%. During a sale the lamp is sold at 10% off the marked price. What is the shop's profit on the lamp?",
+    "q_ko": "한 상점이 램프를 40달러에 사서 25% 이윤을 붙여 정가를 매겼다. 세일 기간에 정가에서 10% 할인해 팔았다면 상점의 이익은 얼마인가?",
+    "options": [
+      "$2.50",
+      "$5.00",
+      "$6.00",
+      "$10.00"
+    ],
+    "answer": 1,
+    "explain": "정가 = 40 × 1.25 = 50달러, 판매가 = 50 × 0.9 = 45달러. 이익 = 45 − 40 = 5달러. 10달러는 할인을 빼먹은 값이다."
+  },
+  {
+    "id": 279,
+    "topic": "money",
+    "q": "A family's monthly budget is $3,600. They spend 1/3 on rent and 1/4 on food. How many dollars are left for everything else?",
+    "q_ko": "한 가정의 월 예산은 3,600달러다. 그중 1/3을 임대료로, 1/4을 식비로 쓴다. 나머지 모든 지출에 남는 금액은 얼마인가?",
+    "options": [
+      "$900",
+      "$1,200",
+      "$1,500",
+      "$1,800"
+    ],
+    "answer": 2,
+    "explain": "임대료 = 3,600 ÷ 3 = 1,200달러, 식비 = 3,600 ÷ 4 = 900달러. 합계 2,100달러이므로 남은 돈 = 3,600 − 2,100 = 1,500달러."
+  },
+  {
+    "id": 280,
+    "topic": "money",
+    "q": "A dealer sells a bicycle for $84, which gives a profit of 40% of the cost. What did the bicycle cost the dealer?",
+    "q_ko": "한 판매상이 자전거를 84달러에 팔아 원가의 40%에 해당하는 이익을 얻었다. 이 자전거의 원가는 얼마인가?",
+    "options": [
+      "$44.00",
+      "$50.40",
+      "$60.00",
+      "$117.60"
+    ],
+    "answer": 2,
+    "explain": "판매가 = 원가 × 1.4이므로 원가 = 84 ÷ 1.4 = 60달러. 50.40달러는 84에서 40%를 빼는 실수, 117.60달러는 84에 40%를 더한 실수다."
+  },
+  {
+    "id": 281,
+    "topic": "money",
+    "q": "A $1,200 loan grows to $1,380 in 3 years at simple interest. What is the annual interest rate?",
+    "q_ko": "1,200달러의 대출금이 단리로 3년 만에 1,380달러가 되었다. 연 이자율은 얼마인가?",
+    "options": [
+      "4%",
+      "5%",
+      "6%",
+      "15%"
+    ],
+    "answer": 1,
+    "explain": "이자 = 1,380 − 1,200 = 180달러. r = I ÷ (P·t) = 180 ÷ (1,200 × 3) = 0.05, 즉 5%. 15%는 3년으로 나누는 것을 잊은 값이다."
+  },
+  {
+    "id": 282,
+    "topic": "money",
+    "q": "A bank pays 8% annual interest compounded quarterly. How much interest does $8,000 earn in 6 months?",
+    "q_ko": "한 은행이 연 8%의 이자를 분기별 복리로 지급한다. 8,000달러가 6개월 동안 얻는 이자는 얼마인가?",
+    "options": [
+      "$320.00",
+      "$323.20",
+      "$332.80",
+      "$640.00"
+    ],
+    "answer": 1,
+    "explain": "분기 이율 = 8% ÷ 4 = 2%이고 6개월은 2분기. 8,000 × 1.02 = 8,160, 8,160 × 1.02 = 8,323.20달러. 이자 = 323.20달러. 320달러는 6개월 단리 값이다."
+  },
+  {
+    "id": 283,
+    "topic": "money",
+    "q": "A club's $5,000 budget goes 30% to equipment and 45% to travel; the rest buys uniforms costing $50 each. How many uniforms can the club buy?",
+    "q_ko": "한 동아리의 5,000달러 예산 중 30%는 장비에, 45%는 여행에 쓰이고, 나머지로 한 벌에 50달러인 유니폼을 산다. 유니폼은 몇 벌 살 수 있는가?",
+    "options": [
+      "20",
+      "25",
+      "30",
+      "45"
+    ],
+    "answer": 1,
+    "explain": "유니폼 비율 = 100% − 30% − 45% = 25%, 금액 = 5,000 × 0.25 = 1,250달러. 1,250 ÷ 50 = 25벌."
+  },
+  {
+    "id": 284,
+    "topic": "money",
+    "q": "A jacket listed at $80 is marked down 15%, and then a 5% sales tax is added to the reduced price. What is the final amount paid?",
+    "q_ko": "정가 80달러인 재킷을 15% 할인하고, 할인된 가격에 5%의 판매세를 더한다. 최종 지불 금액은 얼마인가?",
+    "options": [
+      "$68.00",
+      "$71.40",
+      "$72.00",
+      "$76.00"
+    ],
+    "answer": 1,
+    "explain": "할인가 = 80 × 0.85 = 68달러. 세금 포함 = 68 × 1.05 = 71.40달러. 68달러는 세금을 빠뜨린 값이다."
+  },
+  {
+    "id": 285,
+    "topic": "money",
+    "q": "An investor splits $6,000 between an account paying 5% simple interest and one paying 8% simple interest. After one year the total interest is $420. How much was put in the 8% account?",
+    "q_ko": "한 투자자가 6,000달러를 단리 5%인 계좌와 단리 8%인 계좌에 나누어 넣었다. 1년 후 총 이자가 420달러라면 8% 계좌에 넣은 금액은 얼마인가?",
+    "options": [
+      "$2,000",
+      "$3,500",
+      "$4,000",
+      "$4,500"
+    ],
+    "answer": 2,
+    "explain": "8% 계좌 금액을 x라 하면 0.08x + 0.05(6,000 − x) = 420 → 300 + 0.03x = 420 → x = 4,000달러. 2,000달러는 5% 계좌에 들어간 금액이다."
+  },
+  {
+    "id": 286,
+    "topic": "money",
+    "q": "A machine bought for $25,000 loses 20% of its value each year. What is it worth after 2 years?",
+    "q_ko": "25,000달러에 구입한 기계가 매년 가치의 20%씩 감소한다. 2년 후 이 기계의 가치는 얼마인가?",
+    "options": [
+      "$15,000",
+      "$16,000",
+      "$16,400",
+      "$20,000"
+    ],
+    "answer": 1,
+    "explain": "매년 80%가 남으므로 25,000 × 0.8 = 20,000, 20,000 × 0.8 = 16,000달러. 15,000달러는 2년치 40%를 원값에서 한 번에 뺀 값이다."
+  },
+  {
+    "id": 287,
+    "topic": "money",
+    "q": "A department divides its $18,000 budget among three teams in the ratio 2 : 3 : 4. How much more does the largest share receive than the smallest?",
+    "q_ko": "한 부서가 18,000달러의 예산을 세 팀에 2 : 3 : 4의 비율로 나눈다. 가장 큰 몫은 가장 작은 몫보다 얼마나 더 많은가?",
+    "options": [
+      "$2,000",
+      "$4,000",
+      "$6,000",
+      "$8,000"
+    ],
+    "answer": 1,
+    "explain": "총 비율은 2+3+4 = 9이므로 1몫 = 18,000 ÷ 9 = 2,000달러. 최대 = 4몫 = 8,000달러, 최소 = 2몫 = 4,000달러, 차이는 4,000달러. 8,000달러는 차이가 아니라 최대 몫이다."
   }
 ]

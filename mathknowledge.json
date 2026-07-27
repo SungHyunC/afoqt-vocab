@@ -3204,5 +3204,957 @@
     ],
     "answer": 3,
     "explain": "완전제곱: (x²−6x+9)+(y²+4y+4)=12+9+4 → (x−3)²+(y+2)²=25. 중심 (3, −2), 반지름 √25=5. 정답 중심 (3, −2), 반지름 5."
+  },
+  {
+    "id": 230,
+    "topic": "algebra",
+    "q": "If 5(x - 3) - 2(x + 4) = 7, what is the value of x?",
+    "q_ko": "5(x - 3) - 2(x + 4) = 7 일 때, x의 값은?",
+    "options": [
+      "6",
+      "8",
+      "10",
+      "12"
+    ],
+    "answer": 2,
+    "explain": "전개하면 5x - 15 - 2x - 8 = 7, 즉 3x - 23 = 7 → 3x = 30 → x = 10. -2(x+4)에서 부호를 놓쳐 -2x + 4로 쓰면 x = 6이 나온다."
+  },
+  {
+    "id": 231,
+    "topic": "algebra",
+    "q": "Solve the system 2x + 3y = 12 and x - y = 1. What is the value of x?",
+    "q_ko": "연립방정식 2x + 3y = 12, x - y = 1을 풀 때 x의 값은?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "5"
+    ],
+    "answer": 2,
+    "explain": "x = y + 1을 대입하면 2(y+1) + 3y = 12 → 5y = 10 → y = 2, x = 3. 2는 y값, 5는 x+y값이므로 혼동 주의."
+  },
+  {
+    "id": 232,
+    "topic": "algebra",
+    "q": "Which inequality is equivalent to -3x + 7 > 22 ?",
+    "q_ko": "-3x + 7 > 22 와 동치인 부등식은?",
+    "options": [
+      "x < -5",
+      "x > -5",
+      "x < 5",
+      "x > 5"
+    ],
+    "answer": 0,
+    "explain": "-3x > 15에서 음수로 나누므로 부등호가 뒤집혀 x < -5. 부호 뒤집기를 잊으면 x > -5가 된다."
+  },
+  {
+    "id": 233,
+    "topic": "algebra",
+    "q": "Simplify (4x²y³)(3xy²) / (6x²y⁴).",
+    "q_ko": "(4x²y³)(3xy²) / (6x²y⁴) 를 간단히 하면?",
+    "options": [
+      "2xy²",
+      "2xy",
+      "2x²y",
+      "6xy"
+    ],
+    "answer": 1,
+    "explain": "분자는 12x³y⁵. 12/6 = 2, x^(3-2) = x, y^(5-4) = y 이므로 2xy. 지수 뺄셈을 잘못하면 2x²y나 2xy²가 나온다."
+  },
+  {
+    "id": 234,
+    "topic": "algebra",
+    "q": "The sum of two numbers is 40. The larger number is 4 more than three times the smaller. What is the smaller number?",
+    "q_ko": "두 수의 합이 40이다. 큰 수는 작은 수의 3배보다 4만큼 크다. 작은 수는?",
+    "options": [
+      "9",
+      "10",
+      "11",
+      "31"
+    ],
+    "answer": 0,
+    "explain": "작은 수를 x라 하면 x + (3x + 4) = 40 → 4x = 36 → x = 9 (큰 수는 31). 4를 왼쪽으로 옮겨 4x = 44로 계산하면 11이 나온다."
+  },
+  {
+    "id": 235,
+    "topic": "algebra",
+    "q": "If 2a - 3b = 12, which expression gives a in terms of b?",
+    "q_ko": "2a - 3b = 12 일 때, a를 b로 나타낸 식은?",
+    "options": [
+      "a = 6 + 3b/2",
+      "a = 6 - 3b/2",
+      "a = 2(12 + 3b)",
+      "a = (12 + 3b)/3"
+    ],
+    "answer": 0,
+    "explain": "2a = 12 + 3b → a = (12 + 3b)/2 = 6 + 3b/2. 3b를 이항할 때 부호를 그대로 두면 6 - 3b/2가 된다."
+  },
+  {
+    "id": 236,
+    "topic": "algebra",
+    "q": "Solve the compound inequality -5 ≤ 2x - 1 < 7.",
+    "q_ko": "연립부등식 -5 ≤ 2x - 1 < 7 을 풀면?",
+    "options": [
+      "-3 ≤ x < 4",
+      "-2 < x ≤ 4",
+      "-2 ≤ x < 4",
+      "-2 ≤ x < 3"
+    ],
+    "answer": 2,
+    "explain": "각 변에 1을 더하면 -4 ≤ 2x < 8, 2로 나누면 -2 ≤ x < 4. 등호 위치는 원래 부등호를 그대로 따라간다."
+  },
+  {
+    "id": 237,
+    "topic": "algebra",
+    "q": "If 5x + 2y = 24 and 3x - 2y = 8, what is the value of y?",
+    "q_ko": "5x + 2y = 24 이고 3x - 2y = 8 일 때, y의 값은?",
+    "options": [
+      "1",
+      "2",
+      "4",
+      "6"
+    ],
+    "answer": 1,
+    "explain": "두 식을 더하면 8x = 32 → x = 4. 이를 대입하면 20 + 2y = 24 → y = 2. 4는 x값이다."
+  },
+  {
+    "id": 238,
+    "topic": "algebra",
+    "q": "Which expression is equivalent to (2x - 5)(x + 3)?",
+    "q_ko": "(2x - 5)(x + 3) 과 같은 식은?",
+    "options": [
+      "2x² - x - 15",
+      "2x² + x - 15",
+      "2x² + 11x - 15",
+      "2x² - 2x - 15"
+    ],
+    "answer": 1,
+    "explain": "6x - 5x = x 이므로 2x² + x - 15. 바깥·안쪽 항의 부호를 바꿔 계산하면 2x² - x - 15, 두 항을 더하면 11x가 나온다."
+  },
+  {
+    "id": 239,
+    "topic": "algebra",
+    "q": "Solve for x: 3(x - 2)/4 = (x + 5)/2.",
+    "q_ko": "3(x - 2)/4 = (x + 5)/2 를 풀면 x는?",
+    "options": [
+      "4",
+      "10",
+      "16",
+      "22"
+    ],
+    "answer": 2,
+    "explain": "양변에 4를 곱하면 3(x - 2) = 2(x + 5) → 3x - 6 = 2x + 10 → x = 16. 오른쪽에 2를 곱하는 것을 잊으면 값이 크게 달라진다."
+  },
+  {
+    "id": 240,
+    "topic": "algebra",
+    "q": "Three consecutive even integers have a sum of 66. What is the largest of the three?",
+    "q_ko": "연속하는 세 짝수의 합이 66이다. 가장 큰 수는?",
+    "options": [
+      "20",
+      "22",
+      "24",
+      "26"
+    ],
+    "answer": 2,
+    "explain": "n + (n+2) + (n+4) = 66 → 3n = 60 → n = 20이므로 20, 22, 24. 22는 가운데 수(66÷3)이다."
+  },
+  {
+    "id": 241,
+    "topic": "algebra",
+    "q": "What is the sum of all values of x that satisfy |2x - 3| = 9?",
+    "q_ko": "|2x - 3| = 9 를 만족하는 모든 x의 합은?",
+    "options": [
+      "-3",
+      "6",
+      "9",
+      "3"
+    ],
+    "answer": 3,
+    "explain": "2x - 3 = 9 → x = 6, 2x - 3 = -9 → x = -3. 합은 6 + (-3) = 3. 음수 경우를 빠뜨리면 6만 답하게 된다."
+  },
+  {
+    "id": 242,
+    "topic": "algebra",
+    "q": "A cadet has scores of 88, 92, and 85 on three tests. What is the minimum score needed on the fourth test for the average of all four to be at least 90?",
+    "q_ko": "한 후보생의 세 번의 시험 점수가 88, 92, 85이다. 네 시험의 평균이 90 이상이 되려면 네 번째 시험에서 최소 몇 점이 필요한가?",
+    "options": [
+      "90",
+      "93",
+      "95",
+      "97"
+    ],
+    "answer": 2,
+    "explain": "평균이 90 이상이려면 총점이 4×90 = 360 이상이어야 한다. 현재 합은 88+92+85 = 265이므로 360 - 265 = 95점이 필요하다."
+  },
+  {
+    "id": 243,
+    "topic": "algebra",
+    "q": "Simplify (x² - 9)/(x² + 5x + 6).",
+    "q_ko": "(x² - 9)/(x² + 5x + 6) 를 간단히 하면?",
+    "options": [
+      "(x + 3)/(x + 2)",
+      "(x - 3)/(x - 2)",
+      "-3/(5x + 6)",
+      "(x - 3)/(x + 2)"
+    ],
+    "answer": 3,
+    "explain": "(x-3)(x+3) / (x+2)(x+3) 에서 공통인수 (x+3)을 약분하면 (x - 3)/(x + 2). x²끼리 무작정 소거하면 -3/(5x+6) 같은 오답이 된다."
+  },
+  {
+    "id": 244,
+    "topic": "algebra",
+    "q": "How many solutions does the system 2x + 4y = 10 and x + 2y = 7 have?",
+    "q_ko": "연립방정식 2x + 4y = 10, x + 2y = 7 의 해는 몇 개인가?",
+    "options": [
+      "Exactly one",
+      "None",
+      "Infinitely many",
+      "Exactly two"
+    ],
+    "answer": 1,
+    "explain": "두 번째 식에 2를 곱하면 2x + 4y = 14 로 첫 식(=10)과 좌변이 같은데 우변이 다르다. 평행한 두 직선이므로 해가 없다."
+  },
+  {
+    "id": 245,
+    "topic": "algebra",
+    "q": "Adult tickets cost $8 and student tickets cost $5. If 30 tickets were sold for a total of $186, how many adult tickets were sold?",
+    "q_ko": "성인 표는 8달러, 학생 표는 5달러이다. 총 30장이 팔려 186달러가 되었다면 성인 표는 몇 장인가?",
+    "options": [
+      "10",
+      "12",
+      "18",
+      "24"
+    ],
+    "answer": 1,
+    "explain": "성인 표를 a라 하면 8a + 5(30 - a) = 186 → 3a + 150 = 186 → 3a = 36 → a = 12. 18은 학생 표 수이다."
+  },
+  {
+    "id": 246,
+    "topic": "geometry",
+    "q": "The length of a rectangle is 3 more than its width, and its perimeter is 34. What is its area?",
+    "q_ko": "직사각형의 가로가 세로보다 3 길고, 둘레가 34이다. 넓이는 얼마인가?",
+    "options": [
+      "60",
+      "68",
+      "70",
+      "72"
+    ],
+    "answer": 2,
+    "explain": "둘레 34 → 가로+세로=17. 세로를 w라 하면 w+(w+3)=17, 2w=14, w=7, 가로=10. 넓이=7×10=70. (68은 17×4로 잘못 계산한 오답, 72는 8×9로 나눈 오답.)"
+  },
+  {
+    "id": 247,
+    "topic": "geometry",
+    "q": "A circle has an area of 36π. What is its circumference?",
+    "q_ko": "어떤 원의 넓이가 36π이다. 이 원의 둘레(원주)는 얼마인가?",
+    "options": [
+      "6π",
+      "12π",
+      "36π",
+      "72π"
+    ],
+    "answer": 1,
+    "explain": "πr²=36π → r²=36, r=6. 둘레=2πr=2π×6=12π. (6π는 반지름을 그대로 쓴 오답, 36π는 넓이를 그대로 쓴 오답, 72π는 넓이에 2를 곱한 오답.)"
+  },
+  {
+    "id": 248,
+    "topic": "geometry",
+    "q": "A 25-foot ladder leans against a vertical wall with its base 7 feet from the wall. How high up the wall does the ladder reach?",
+    "q_ko": "25피트 길이의 사다리가 수직인 벽에 기대어 있고, 사다리의 밑부분은 벽에서 7피트 떨어져 있다. 사다리는 벽을 따라 몇 피트 높이까지 닿는가?",
+    "options": [
+      "18",
+      "20",
+      "24",
+      "32"
+    ],
+    "answer": 2,
+    "explain": "빗변 25, 한 변 7 → 나머지 변=√(625−49)=√576=24. (18은 25−7로 뺀 오답, 32는 25+7로 더한 오답.)"
+  },
+  {
+    "id": 249,
+    "topic": "geometry",
+    "q": "The three angles of a triangle are in the ratio 2 : 3 : 4. What is the measure of the largest angle?",
+    "q_ko": "삼각형의 세 각의 비가 2 : 3 : 4이다. 가장 큰 각의 크기는 얼마인가?",
+    "options": [
+      "60°",
+      "72°",
+      "80°",
+      "90°"
+    ],
+    "answer": 2,
+    "explain": "2x+3x+4x=180 → 9x=180, x=20. 가장 큰 각=4×20=80°. (72°는 합을 360°로 본 오답, 90°는 가장 큰 각이 직각이라고 가정한 오답.)"
+  },
+  {
+    "id": 250,
+    "topic": "geometry",
+    "q": "What is the measure of one interior angle of a regular octagon?",
+    "q_ko": "정팔각형의 한 내각의 크기는 얼마인가?",
+    "options": [
+      "45°",
+      "120°",
+      "135°",
+      "144°"
+    ],
+    "answer": 2,
+    "explain": "내각의 합=(8−2)×180=1080°, 한 내각=1080÷8=135°. (45°는 한 외각(360÷8), 120°는 정육각형, 144°는 정십각형의 한 내각.)"
+  },
+  {
+    "id": 251,
+    "topic": "geometry",
+    "q": "A right circular cylinder has radius 3 and height 7. What is its volume?",
+    "q_ko": "밑면 반지름이 3이고 높이가 7인 원기둥의 부피는 얼마인가?",
+    "options": [
+      "21π",
+      "42π",
+      "63π",
+      "189π"
+    ],
+    "answer": 2,
+    "explain": "V=πr²h=π×3²×7=π×9×7=63π. (21π는 r을 제곱하지 않은 오답, 42π는 옆면넓이 2πrh, 189π는 r을 세제곱한 오답(27×7).)"
+  },
+  {
+    "id": 252,
+    "topic": "geometry",
+    "q": "If every edge of a rectangular box is doubled in length, the volume of the new box is how many times the volume of the original?",
+    "q_ko": "직육면체의 모든 모서리의 길이를 2배로 늘리면, 새 직육면체의 부피는 원래 부피의 몇 배가 되는가?",
+    "options": [
+      "2배",
+      "4배",
+      "6배",
+      "8배"
+    ],
+    "answer": 3,
+    "explain": "부피는 세 길이의 곱이므로 (2l)(2w)(2h)=8lwh → 8배. (2배는 길이 비, 4배는 넓이 비를 부피에 잘못 적용한 오답.)"
+  },
+  {
+    "id": 253,
+    "topic": "geometry",
+    "q": "A triangle with sides 6, 8, and 10 is similar to a larger triangle whose shortest side is 9. What is the perimeter of the larger triangle?",
+    "q_ko": "세 변이 6, 8, 10인 삼각형이 가장 짧은 변이 9인 더 큰 삼각형과 닮음이다. 큰 삼각형의 둘레는 얼마인가?",
+    "options": [
+      "24",
+      "30",
+      "36",
+      "45"
+    ],
+    "answer": 2,
+    "explain": "닮음비=9/6=1.5. 큰 삼각형의 세 변=9, 12, 15 → 둘레=36 (또는 24×1.5=36). (24는 원래 삼각형의 둘레, 45는 비를 잘못 적용한 오답.)"
+  },
+  {
+    "id": 254,
+    "topic": "geometry",
+    "q": "A trapezoid has parallel sides of length 8 and 14 and a height of 5. What is its area?",
+    "q_ko": "평행한 두 변의 길이가 8과 14이고 높이가 5인 사다리꼴의 넓이는 얼마인가?",
+    "options": [
+      "35",
+      "55",
+      "70",
+      "110"
+    ],
+    "answer": 1,
+    "explain": "A=½(b₁+b₂)h=½(8+14)×5=½×22×5=55. (110은 ½을 빼먹은 오답, 70은 14×5, 35는 8×5에 가까운 계산 착오.)"
+  },
+  {
+    "id": 255,
+    "topic": "geometry",
+    "q": "What is the area of an equilateral triangle with side length 6?",
+    "q_ko": "한 변의 길이가 6인 정삼각형의 넓이는 얼마인가?",
+    "options": [
+      "6√3",
+      "9√3",
+      "18",
+      "36√3"
+    ],
+    "answer": 1,
+    "explain": "A=(√3/4)s²=(√3/4)×36=9√3. (18은 높이를 6으로 착각해 ½×6×6으로 계산한 오답, 36√3은 √3/4를 곱하지 않은 경우.)"
+  },
+  {
+    "id": 256,
+    "topic": "geometry",
+    "q": "In a circle of radius 10, what is the length of an arc that subtends a central angle of 72°?",
+    "q_ko": "반지름이 10인 원에서 중심각 72°에 대한 호의 길이는 얼마인가?",
+    "options": [
+      "2π",
+      "4π",
+      "8π",
+      "20π"
+    ],
+    "answer": 1,
+    "explain": "원주=2π×10=20π. 72°는 전체의 72/360=1/5이므로 호의 길이=20π÷5=4π. (20π는 원 전체의 둘레, 다른 값은 비율을 잘못 잡은 오답.)"
+  },
+  {
+    "id": 257,
+    "topic": "geometry",
+    "q": "A cube has a volume of 125 cubic units. What is its total surface area?",
+    "q_ko": "부피가 125인 정육면체의 겉넓이는 얼마인가?",
+    "options": [
+      "25",
+      "75",
+      "125",
+      "150"
+    ],
+    "answer": 3,
+    "explain": "s³=125 → s=5. 겉넓이=6s²=6×25=150. (25는 한 면의 넓이, 75는 면을 3개만 센 오답, 125는 부피를 그대로 쓴 오답.)"
+  },
+  {
+    "id": 258,
+    "topic": "geometry",
+    "q": "The diagonal of a square measures 10. What is the area of the square?",
+    "q_ko": "정사각형의 대각선의 길이가 10이다. 이 정사각형의 넓이는 얼마인가?",
+    "options": [
+      "25",
+      "50",
+      "50√2",
+      "100"
+    ],
+    "answer": 1,
+    "explain": "s√2=10 → s=10/√2=5√2. 넓이=s²=50. (또는 넓이=½d²=½×100=50.) (100은 대각선을 한 변으로 착각한 오답, 25는 대각선의 절반을 변으로 본 경우.)"
+  },
+  {
+    "id": 259,
+    "topic": "geometry",
+    "q": "In an isosceles triangle, the angle between the two equal sides measures 40°. What is the measure of each base angle?",
+    "q_ko": "이등변삼각형에서 두 같은 변 사이의 각(꼭지각)이 40°이다. 각 밑각의 크기는 얼마인가?",
+    "options": [
+      "40°",
+      "55°",
+      "70°",
+      "140°"
+    ],
+    "answer": 2,
+    "explain": "밑각 두 개는 크기가 같고 합이 180−40=140°이므로 각각 140÷2=70°. (140°는 두 밑각의 합, 40°는 꼭지각을 그대로 쓴 오답.)"
+  },
+  {
+    "id": 260,
+    "topic": "geometry",
+    "q": "A circle is inscribed in a square whose side is 12. What is the area of the region inside the square but outside the circle?",
+    "q_ko": "한 변이 12인 정사각형에 원이 내접해 있다. 정사각형 안쪽이면서 원 바깥쪽인 부분의 넓이는 얼마인가?",
+    "options": [
+      "144 − 12π",
+      "144 − 36π",
+      "144 − 72π",
+      "144 − 144π"
+    ],
+    "answer": 1,
+    "explain": "정사각형 넓이=12²=144. 내접원의 지름=12이므로 반지름=6, 원 넓이=π×6²=36π. 차=144−36π. (144−144π는 반지름을 12로 본 오답, 144−12π는 원주 12π를 넓이로 착각한 오답.)"
+  },
+  {
+    "id": 261,
+    "topic": "exponents",
+    "q": "Which expression is equivalent to (2x^3·y^2)^4 ?",
+    "q_ko": "다음 중 (2x^3·y^2)^4 와 같은 식은?",
+    "options": [
+      "8x^12y^8",
+      "16x^12y^8",
+      "16x^7y^6",
+      "2x^12y^8"
+    ],
+    "answer": 1,
+    "explain": "곱의 거듭제곱은 각 인수에 지수를 분배: 2^4=16, (x^3)^4=x^12, (y^2)^4=y^8 → 16x^12y^8. 8x^12y^8은 2^4을 2^3으로 착각한 것, 16x^7y^6은 지수를 곱하지 않고 더한 오답."
+  },
+  {
+    "id": 262,
+    "topic": "exponents",
+    "q": "Simplify: (x^5 · x^-2) / x^4  (x ≠ 0)",
+    "q_ko": "간단히 하시오: (x^5 · x^-2) / x^4  (x ≠ 0)",
+    "options": [
+      "x^3",
+      "x",
+      "1/x^3",
+      "1/x"
+    ],
+    "answer": 3,
+    "explain": "분자는 x^(5+(-2))=x^3, 나누면 x^(3-4)=x^-1=1/x. x^3은 분모로 나누는 과정을 빠뜨린 오답, 1/x^3은 지수 계산을 반대로 한 오답."
+  },
+  {
+    "id": 263,
+    "topic": "exponents",
+    "q": "(3.2 × 10^5)(4.0 × 10^-8) = ?",
+    "q_ko": "(3.2 × 10^5)(4.0 × 10^-8) = ?",
+    "options": [
+      "1.28 × 10^-2",
+      "1.28 × 10^-3",
+      "7.2 × 10^-3",
+      "1.28 × 10^4"
+    ],
+    "answer": 0,
+    "explain": "3.2×4.0=12.8, 10^5×10^-8=10^-3 → 12.8×10^-3. 소수점을 왼쪽으로 한 칸 옮기면 지수는 1 증가하므로 1.28×10^-2. 1.28×10^-3은 그 보정을 잊은 값, 7.2×10^-3은 앞수를 곱하지 않고 더한 오답."
+  },
+  {
+    "id": 264,
+    "topic": "exponents",
+    "q": "√50 + √18 = ?",
+    "q_ko": "√50 + √18 = ?",
+    "options": [
+      "√68",
+      "15√2",
+      "8√2",
+      "7√2"
+    ],
+    "answer": 2,
+    "explain": "√50=5√2, √18=3√2 이므로 (5+3)√2=8√2. √68은 근호 안의 수를 그대로 더한 오답, 15√2는 계수를 곱한 오답."
+  },
+  {
+    "id": 265,
+    "topic": "exponents",
+    "q": "Evaluate: 27^(2/3)",
+    "q_ko": "값을 구하시오: 27^(2/3)",
+    "options": [
+      "18",
+      "9",
+      "6",
+      "3"
+    ],
+    "answer": 1,
+    "explain": "27^(1/3)=3, 그것을 제곱하면 3^2=9. 18은 27×(2/3)로 계산한 오답, 3은 세제곱근만 구하고 제곱을 잊은 오답."
+  },
+  {
+    "id": 266,
+    "topic": "exponents",
+    "q": "Which of the following equals 6/√3 with the denominator rationalized?",
+    "q_ko": "6/√3 의 분모를 유리화하면?",
+    "options": [
+      "3√3",
+      "6√3",
+      "2",
+      "2√3"
+    ],
+    "answer": 3,
+    "explain": "분자·분모에 √3을 곱하면 6√3/3 = 2√3. 6√3은 마지막에 3으로 나누는 것을 빠뜨린 오답, 2는 근호를 그냥 지운 오답."
+  },
+  {
+    "id": 267,
+    "topic": "exponents",
+    "q": "(6.0 × 10^-3) ÷ (1.5 × 10^-7) = ?",
+    "q_ko": "(6.0 × 10^-3) ÷ (1.5 × 10^-7) = ?",
+    "options": [
+      "4.0 × 10^-10",
+      "2.5 × 10^4",
+      "4.0 × 10^4",
+      "4.0 × 10^-4"
+    ],
+    "answer": 2,
+    "explain": "6.0÷1.5=4.0, 10^-3÷10^-7=10^(-3-(-7))=10^4 → 4.0×10^4. 4.0×10^-10은 지수를 더한 오답, 2.5×10^4는 앞수 나눗셈을 거꾸로 한 오답."
+  },
+  {
+    "id": 268,
+    "topic": "exponents",
+    "q": "Express (a^-3 · b^2)^-2 using only positive exponents. (a, b ≠ 0)",
+    "q_ko": "(a^-3 · b^2)^-2 를 양의 지수만으로 나타내면? (a, b ≠ 0)",
+    "options": [
+      "a^6 / b^4",
+      "b^4 / a^6",
+      "a^6 b^4",
+      "1 / (a^6 b^4)"
+    ],
+    "answer": 0,
+    "explain": "지수끼리 곱하면 a^((-3)×(-2))=a^6, b^(2×(-2))=b^-4 → a^6·b^-4 = a^6/b^4. b^4/a^6은 두 지수 부호를 모두 반대로 본 오답."
+  },
+  {
+    "id": 269,
+    "topic": "exponents",
+    "q": "If 2^(x+1) = 32, what is the value of x ?",
+    "q_ko": "2^(x+1) = 32 일 때, x의 값은?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "answer": 1,
+    "explain": "32 = 2^5 이므로 밑을 맞추면 x+1 = 5, 즉 x = 4. 5는 지수식의 +1을 빠뜨린 대표적 오답."
+  },
+  {
+    "id": 270,
+    "topic": "exponents",
+    "q": "Simplify √(72x^5), where x > 0.",
+    "q_ko": "√(72x^5) 을 간단히 하시오. (x > 0)",
+    "options": [
+      "6x^2√2",
+      "36x^2√(2x)",
+      "6x^2√(2x)",
+      "6x√(2x)"
+    ],
+    "answer": 2,
+    "explain": "72=36×2 → 6√2, x^5=x^4·x → x^2√x. 합치면 6x^2√(2x). 6x^2√2는 남은 x를 빠뜨린 오답, 36x^2√(2x)는 36의 제곱근을 구하지 않은 오답."
+  },
+  {
+    "id": 271,
+    "topic": "exponents",
+    "q": "Write 0.00046 in scientific notation.",
+    "q_ko": "0.00046 을 과학적 표기법으로 나타내면?",
+    "options": [
+      "4.6 × 10^-5",
+      "4.6 × 10^-3",
+      "4.6 × 10^4",
+      "4.6 × 10^-4"
+    ],
+    "answer": 3,
+    "explain": "소수점을 오른쪽으로 4칸 옮겨야 4.6이 되므로 지수는 -4 → 4.6×10^-4. 자리수를 잘못 세면 -3이나 -5가 되고, 부호를 반대로 하면 10^4가 된다."
+  },
+  {
+    "id": 272,
+    "topic": "exponents",
+    "q": "Evaluate: (1/2)^-3 + 4^0",
+    "q_ko": "값을 구하시오: (1/2)^-3 + 4^0",
+    "options": [
+      "-7",
+      "9/8",
+      "9",
+      "8"
+    ],
+    "answer": 2,
+    "explain": "(1/2)^-3 = 2^3 = 8, 4^0 = 1 → 8+1 = 9. 8은 4^0을 0으로 본 오답, 9/8은 음의 지수에서 역수를 취하지 않은 오답, -7은 음의 지수를 음수로 착각한 오답."
+  },
+  {
+    "id": 273,
+    "topic": "exponents",
+    "q": "Evaluate: 9^(3/2) · 4^(-1/2)",
+    "q_ko": "값을 구하시오: 9^(3/2) · 4^(-1/2)",
+    "options": [
+      "54",
+      "27/2",
+      "27/4",
+      "6"
+    ],
+    "answer": 1,
+    "explain": "9^(3/2)=(√9)^3=27, 4^(-1/2)=1/√4=1/2 → 27×(1/2) = 27/2. 54는 음의 지수를 무시하고 2를 곱한 오답, 27/4는 4^(-1/2)를 1/4로 본 오답."
+  },
+  {
+    "id": 274,
+    "topic": "exponents",
+    "q": "A county road fund holds 3.2 × 10^7 dollars and then receives an additional 8.0 × 10^6 dollars. What is the new total, in scientific notation?",
+    "q_ko": "어느 군의 도로 기금에 3.2 × 10^7 달러가 있고, 이후 8.0 × 10^6 달러가 추가로 들어왔다. 새 합계를 과학적 표기법으로 나타내면?",
+    "options": [
+      "3.28 × 10^7",
+      "11.2 × 10^7",
+      "4.0 × 10^7",
+      "4.0 × 10^13"
+    ],
+    "answer": 2,
+    "explain": "지수를 맞추면 8.0×10^6 = 0.8×10^7 이므로 3.2+0.8 = 4.0 → 4.0×10^7. 3.28×10^7은 0.08×10^7로 잘못 맞춘 오답, 11.2×10^7은 지수를 맞추지 않고 앞수만 더한 오답, 4.0×10^13은 덧셈에서 지수를 더한 오답."
+  },
+  {
+    "id": 275,
+    "topic": "quadratics",
+    "q": "Factor completely: x² + 7x + 12",
+    "q_ko": "완전히 인수분해하시오: x² + 7x + 12",
+    "options": [
+      "(x + 3)(x + 4)",
+      "(x + 2)(x + 6)",
+      "(x − 3)(x − 4)",
+      "(x + 1)(x + 12)"
+    ],
+    "answer": 0,
+    "explain": "곱이 12, 합이 7인 두 수는 3과 4 → (x+3)(x+4). (x+2)(x+6)은 합이 8, (x−3)(x−4)는 일차항이 −7, (x+1)(x+12)는 합이 13이라 틀림."
+  },
+  {
+    "id": 276,
+    "topic": "quadratics",
+    "q": "What are the solutions of 2x² − 5x − 3 = 0?",
+    "q_ko": "2x² − 5x − 3 = 0 의 해는?",
+    "options": [
+      "x = 3 or x = −1/2",
+      "x = −3 or x = 1/2",
+      "x = 3 or x = 1/2",
+      "x = −3 or x = −1/2"
+    ],
+    "answer": 0,
+    "explain": "2x²−5x−3 = (2x+1)(x−3) 이므로 x = −1/2, 3. 각 괄호의 부호를 반대로 읽으면 나머지 보기가 나온다."
+  },
+  {
+    "id": 277,
+    "topic": "quadratics",
+    "q": "For which positive value of k does x² + kx + 9 = 0 have exactly one real solution?",
+    "q_ko": "x² + kx + 9 = 0 이 실근을 정확히 하나 가질 때, 양수 k의 값은?",
+    "options": [
+      "3",
+      "6",
+      "9",
+      "18"
+    ],
+    "answer": 1,
+    "explain": "중근 조건은 판별식 D = k² − 4·1·9 = k² − 36 = 0 → k = ±6, 양수이므로 6. 3은 √9만 취한 실수, 9와 18은 4ac(=36)를 잘못 계산한 값이다."
+  },
+  {
+    "id": 278,
+    "topic": "quadratics",
+    "q": "What is the vertex of the parabola y = x² − 6x + 5?",
+    "q_ko": "포물선 y = x² − 6x + 5 의 꼭짓점은?",
+    "options": [
+      "(−3, −4)",
+      "(3, 4)",
+      "(3, −4)",
+      "(6, 5)"
+    ],
+    "answer": 2,
+    "explain": "x = −b/(2a) = 6/2 = 3, y = 9 − 18 + 5 = −4 → (3, −4). 완전제곱 y = (x−3)² − 4 에서 부호를 뒤집으면 (−3,−4)나 (3,4)가 된다."
+  },
+  {
+    "id": 279,
+    "topic": "quadratics",
+    "q": "If r and s are the roots of 3x² − 12x + 7 = 0, what is r + s?",
+    "q_ko": "3x² − 12x + 7 = 0 의 두 근을 r, s라 할 때 r + s 의 값은?",
+    "options": [
+      "−4",
+      "4",
+      "12",
+      "7/3"
+    ],
+    "answer": 1,
+    "explain": "근과 계수의 관계로 r+s = −b/a = 12/3 = 4. −4는 부호 실수, 12는 a로 나누지 않은 값, 7/3은 두 근의 곱 rs = c/a 이다."
+  },
+  {
+    "id": 280,
+    "topic": "quadratics",
+    "q": "How many real solutions does 2x² + 3x + 5 = 0 have?",
+    "q_ko": "2x² + 3x + 5 = 0 의 실근은 몇 개인가?",
+    "options": [
+      "0",
+      "1",
+      "2",
+      "Infinitely many"
+    ],
+    "answer": 0,
+    "explain": "D = 3² − 4(2)(5) = 9 − 40 = −31 < 0 이므로 실근은 없다(허근 2개). 계수가 모두 양수라고 해서 실근이 생기는 것은 아니다."
+  },
+  {
+    "id": 281,
+    "topic": "quadratics",
+    "q": "Factor: 9x² − 49",
+    "q_ko": "인수분해하시오: 9x² − 49",
+    "options": [
+      "(3x − 7)²",
+      "(3x − 7)(3x + 7)",
+      "(9x − 7)(x + 7)",
+      "(3x − 49)(3x + 1)"
+    ],
+    "answer": 1,
+    "explain": "합차 공식 a²−b² = (a−b)(a+b), a=3x, b=7 → (3x−7)(3x+7). (3x−7)²은 −42x 항이 남고, 나머지 보기는 전개하면 일차항이 생긴다."
+  },
+  {
+    "id": 282,
+    "topic": "quadratics",
+    "q": "If x² + 8x + 3 is written as (x + 4)² + c, what is c?",
+    "q_ko": "x² + 8x + 3 을 (x + 4)² + c 꼴로 나타낼 때 c의 값은?",
+    "options": [
+      "19",
+      "13",
+      "−13",
+      "−19"
+    ],
+    "answer": 2,
+    "explain": "(x+4)² = x²+8x+16 이므로 x²+8x+3 = (x+4)² − 16 + 3 = (x+4)² − 13, 즉 c = −13. 16을 더한다고 착각하면 19, 부호를 놓치면 13이 나온다."
+  },
+  {
+    "id": 283,
+    "topic": "quadratics",
+    "q": "What is the minimum value of y = 2x² − 8x + 1?",
+    "q_ko": "y = 2x² − 8x + 1 의 최솟값은?",
+    "options": [
+      "1",
+      "−7",
+      "−15",
+      "7"
+    ],
+    "answer": 1,
+    "explain": "a = 2 > 0 이므로 꼭짓점에서 최솟값. x = −b/(2a) = 8/4 = 2, y = 2(2)² − 8(2) + 1 = 8 − 16 + 1 = −7. 1은 x=0일 때의 y절편, −15는 상수항에서 16을 그냥 뺀 값(1−16), 7은 부호 실수이다."
+  },
+  {
+    "id": 284,
+    "topic": "quadratics",
+    "q": "Which equation has roots x = −5 and x = 2?",
+    "q_ko": "근이 x = −5, x = 2 인 방정식은?",
+    "options": [
+      "x² − 3x − 10 = 0",
+      "x² + 3x − 10 = 0",
+      "x² + 3x + 10 = 0",
+      "x² − 3x + 10 = 0"
+    ],
+    "answer": 1,
+    "explain": "(x+5)(x−2) = x² + 3x − 10. 두 근의 합 = −3, 곱 = −10 이므로 x² − (합)x + (곱) = x² + 3x − 10. 합의 부호를 그대로 쓰면 x² − 3x − 10 이 된다."
+  },
+  {
+    "id": 285,
+    "topic": "quadratics",
+    "q": "Solve x² − 4x + 1 = 0.",
+    "q_ko": "x² − 4x + 1 = 0 을 푸시오.",
+    "options": [
+      "x = 2 ± √5",
+      "x = 2 ± √3",
+      "x = −2 ± √3",
+      "x = 4 ± √3"
+    ],
+    "answer": 1,
+    "explain": "완전제곱: (x−2)² = 3 → x = 2 ± √3. 근의 공식으로는 (4 ± √12)/2 = 2 ± √3. 2로 나누는 것을 잊으면 4 ± √3, 판별식을 16+4=20으로 보면 2 ± √5 가 나온다."
+  },
+  {
+    "id": 286,
+    "topic": "quadratics",
+    "q": "Solve for x: 3x² = 12x",
+    "q_ko": "x에 대하여 푸시오: 3x² = 12x",
+    "options": [
+      "x = 4 only",
+      "x = 0 or x = 4",
+      "x = 0 or x = −4",
+      "x = −4 or x = 4"
+    ],
+    "answer": 1,
+    "explain": "3x² − 12x = 0 → 3x(x − 4) = 0 → x = 0 또는 x = 4. 양변을 x로 나누면 x=0을 잃어버려 'x=4만'이라는 대표적 오답이 된다."
+  },
+  {
+    "id": 287,
+    "topic": "number_properties",
+    "q": "What is the greatest common factor (GCF) of 84 and 126?",
+    "q_ko": "84와 126의 최대공약수(GCF)는 얼마인가?",
+    "options": [
+      "21",
+      "42",
+      "126",
+      "252"
+    ],
+    "answer": 1,
+    "explain": "84 = 2²·3·7, 126 = 2·3²·7. 공통 소인수의 최소 지수를 취하면 2·3·7 = 42. (252는 최소공배수, 21은 인수 2를 빠뜨린 값)"
+  },
+  {
+    "id": 288,
+    "topic": "number_properties",
+    "q": "What is the least common multiple (LCM) of 15, 18, and 24?",
+    "q_ko": "15, 18, 24의 최소공배수(LCM)는 얼마인가?",
+    "options": [
+      "120",
+      "180",
+      "360",
+      "720"
+    ],
+    "answer": 2,
+    "explain": "15 = 3·5, 18 = 2·3², 24 = 2³·3. 각 소인수의 최대 지수를 취하면 2³·3²·5 = 360. (180은 24로 나누어떨어지지 않고, 720은 배수이지만 최소가 아님)"
+  },
+  {
+    "id": 289,
+    "topic": "number_properties",
+    "q": "What is the remainder when 7²³ is divided by 5?",
+    "q_ko": "7²³을 5로 나눈 나머지는 얼마인가?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "answer": 2,
+    "explain": "7 ≡ 2 (mod 5)이므로 2²³의 나머지를 구한다. 2의 거듭제곱을 5로 나눈 나머지는 2, 4, 3, 1이 주기 4로 반복되고 23 = 4·5 + 3이므로 주기의 세 번째 값인 3."
+  },
+  {
+    "id": 290,
+    "topic": "number_properties",
+    "q": "How many positive divisors does 360 have?",
+    "q_ko": "360의 양의 약수는 모두 몇 개인가?",
+    "options": [
+      "12",
+      "18",
+      "23",
+      "24"
+    ],
+    "answer": 3,
+    "explain": "360 = 2³·3²·5¹. 약수의 개수는 (3+1)(2+1)(1+1) = 4·3·2 = 24개. (23은 자기 자신을 제외한 실수, 12는 지수에 1을 더하지 않은 실수)"
+  },
+  {
+    "id": 291,
+    "topic": "number_properties",
+    "q": "What is the smallest positive integer n such that 168n is a perfect square?",
+    "q_ko": "168n이 완전제곱수가 되게 하는 가장 작은 양의 정수 n은?",
+    "options": [
+      "6",
+      "14",
+      "21",
+      "42"
+    ],
+    "answer": 3,
+    "explain": "168 = 2³·3·7에서 지수가 홀수인 소인수는 2, 3, 7. 따라서 n = 2·3·7 = 42이고 168·42 = 7056 = 84². (6이나 14는 홀수 지수를 전부 없애지 못함)"
+  },
+  {
+    "id": 292,
+    "topic": "number_properties",
+    "q": "What is the smallest integer greater than 3 that leaves a remainder of 3 when divided by 5 and also a remainder of 3 when divided by 7?",
+    "q_ko": "5로 나누어도 나머지가 3이고 7로 나누어도 나머지가 3인, 3보다 큰 가장 작은 정수는?",
+    "options": [
+      "24",
+      "33",
+      "35",
+      "38"
+    ],
+    "answer": 3,
+    "explain": "(수 − 3)이 5와 7의 공배수여야 하므로 35의 배수. 가장 작은 경우 35 + 3 = 38. (35는 3을 더하지 않은 값, 24는 7로 나눌 때만 나머지가 3)"
+  },
+  {
+    "id": 293,
+    "topic": "number_properties",
+    "q": "If n is an odd integer, which expression must be an even integer?",
+    "q_ko": "n이 홀수인 정수일 때, 반드시 짝수가 되는 식은?",
+    "options": [
+      "3n + 2",
+      "n² + n",
+      "n² + 2",
+      "2n + 1"
+    ],
+    "answer": 1,
+    "explain": "n² + n = n(n+1)은 연속한 두 정수의 곱이므로 항상 짝수. n이 홀수면 3n+2는 홀수, n²+2도 홀수, 2n+1은 항상 홀수."
+  },
+  {
+    "id": 294,
+    "topic": "number_properties",
+    "q": "Two positive integers have a GCF of 6 and an LCM of 180. If one of the numbers is 36, what is the other?",
+    "q_ko": "두 양의 정수의 최대공약수가 6, 최소공배수가 180이다. 한 수가 36일 때 다른 수는?",
+    "options": [
+      "24",
+      "30",
+      "45",
+      "60"
+    ],
+    "answer": 1,
+    "explain": "GCF×LCM = 두 수의 곱이므로 6·180 = 1080. 다른 수는 1080 ÷ 36 = 30. 실제로 GCF(36,30)=6, LCM(36,30)=180으로 맞다."
+  },
+  {
+    "id": 295,
+    "topic": "number_properties",
+    "q": "What is the units digit of 3⁴⁷?",
+    "q_ko": "3⁴⁷의 일의 자리 숫자는?",
+    "options": [
+      "1",
+      "3",
+      "7",
+      "9"
+    ],
+    "answer": 2,
+    "explain": "3의 거듭제곱의 일의 자리는 3, 9, 7, 1이 주기 4로 반복된다. 47 = 4·11 + 3이므로 주기의 세 번째 값인 7."
+  },
+  {
+    "id": 296,
+    "topic": "number_properties",
+    "q": "What is the greatest integer that divides both 209 and 353, leaving a remainder of 5 in each case?",
+    "q_ko": "209와 353을 각각 나누었을 때 나머지가 모두 5가 되는 가장 큰 정수는?",
+    "options": [
+      "6",
+      "12",
+      "17",
+      "24"
+    ],
+    "answer": 1,
+    "explain": "209 − 5 = 204, 353 − 5 = 348을 모두 나누어야 한다. 204 = 2²·3·17, 348 = 2²·3·29이므로 GCF = 12. (12 > 5이므로 나머지 5 조건도 성립. 17은 348을 나누지 못함)"
+  },
+  {
+    "id": 297,
+    "topic": "number_properties",
+    "q": "How many integers from 1 to 100 inclusive are divisible by 3 or by 5?",
+    "q_ko": "1부터 100까지의 정수 중 3 또는 5로 나누어떨어지는 수는 몇 개인가?",
+    "options": [
+      "45",
+      "46",
+      "47",
+      "53"
+    ],
+    "answer": 2,
+    "explain": "3의 배수 33개, 5의 배수 20개, 15의 배수 6개. 포함-배제로 33 + 20 − 6 = 47개. (53은 중복을 빼지 않은 값)"
   }
 ]
