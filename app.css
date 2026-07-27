@@ -552,3 +552,15 @@ sub{vertical-align:-.25em}
 .wroots .rp{color:var(--muted);font-weight:700;margin:0 2px}
 .wroots .rhook{flex-basis:100%;margin-top:6px;padding-top:6px;border-top:1px solid var(--line);
   color:#cbd5e1;font-size:12.5px}
+
+/* ---------- 지난 시험 기록 ---------- */
+.elrow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin-bottom:9px;
+  padding:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;color:var(--txt)}
+.elrow:active{transform:scale(.99)}
+.elm{flex:1;min-width:0}
+.eln{font-weight:700;font-size:14.5px}
+.eld{font-size:11px;color:var(--muted);margin-top:2px}
+.elsc{text-align:right;flex:0 0 auto}
+.elsc b{display:block;font-size:16px;font-weight:800}
+.elsc span{font-size:10.5px;color:var(--muted)}
+.elgo{color:var(--muted);font-size:19px;flex:0 0 auto}
