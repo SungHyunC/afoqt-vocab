@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.52.0";
+const VERSION = "4.53.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -87,6 +87,24 @@ function toast(msg, ms=1800){ const t=$("#toast"); t.textContent=msg; t.classLis
 // Text-to-speech (browser built-in). Speaks English words/sentences for pronunciation.
 let _voices=[];
 function loadVoices(){ try{ _voices=window.speechSynthesis? window.speechSynthesis.getVoices():[]; }catch{} }
+// 여러 문장을 끊김 없이 이어 읽기 (speak는 매 호출마다 cancel하므로 별도 함수)
+function speakSeq(items){
+  try{
+    const synth=window.speechSynthesis; if(!synth) return;
+    synth.cancel();
+    if(!_voices.length) loadVoices();
+    for(const it of items){
+      if(!it||!it.t) continue;
+      const ko=/^ko/i.test(it.lang||"");
+      const u=new SpeechSynthesisUtterance(String(it.t));
+      u.lang=it.lang||"en-US"; u.rate=ko?0.95:0.92;
+      const v= ko ? (_voices.find(x=>/ko[-_]KR/i.test(x.lang))||_voices.find(x=>/^ko/i.test(x.lang)))
+                  : (_voices.find(x=>/en[-_]US/i.test(x.lang))||_voices.find(x=>/^en/i.test(x.lang)));
+      if(v) u.voice=v;
+      synth.speak(u);
+    }
+  }catch(e){}
+}
 function speak(text, ev, lang){
   if(ev){ ev.stopPropagation&&ev.stopPropagation(); }
   try{
@@ -773,7 +791,7 @@ function renderAutoPlaySetup(){
 function resumeAutoPlay(){
   const sv=state.autoplay; if(!sv||!sv.queue||!sv.queue.length){ toast("이어볼 기록이 없어요"); return; }
   ap={queue:sv.queue.slice(), idx:Math.min(sv.idx||0, sv.queue.length-1), revealed:false, playing:true,
-      speed:sv.speed||"normal", ko:sv.ko!==false, loop:sv.loop!==false, scope:sv.scope, t:null};
+      speed:sv.speed||"normal", ko:sv.ko!==false, loop:sv.loop!==false, extra:sv.extra!==false, scope:sv.scope, t:null};
   $("#apSetup").classList.add("hidden"); $("#apPlayer").classList.remove("hidden");
   apAcquireWake(); apShowPhase();
 }
@@ -782,7 +800,8 @@ function startAutoPlay(){
   let ids=poolFor(scope);
   if(!ids.length){ toast("이 범위에 단어가 없어요. 학습을 하거나 범위를 바꿔보세요."); return; }
   ids=shuffle(ids);
-  ap={queue:ids, idx:0, revealed:false, playing:true, speed:$("#apSpeed").value, ko:$("#apKo").checked, loop:$("#apLoop").checked, scope, t:null};
+  ap={queue:ids, idx:0, revealed:false, playing:true, speed:$("#apSpeed").value, ko:$("#apKo").checked,
+      loop:$("#apLoop").checked, extra:!$("#apExtra")||$("#apExtra").checked, scope, t:null};
   $("#apSetup").classList.add("hidden"); $("#apPlayer").classList.remove("hidden");
   apAcquireWake(); apSaveSession(); apShowPhase();
 }
@@ -796,6 +815,8 @@ function apRender(){
     <div class="ap-mean ${s.revealed?"":"hidden"}">
       <div class="ap-kor">${esc(w.kor||"")}</div>
       ${w.def?`<div class="ap-def">${esc(w.def)}</div>`:""}
+      ${s.extra&&(w.synonyms||[]).length?`<div class="ap-syn">${w.synonyms.slice(0,3).map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}
+      ${s.extra&&(w.roots||[]).length?`<div class="ap-roots">🧩 ${w.roots.map(r=>`<b>${esc(r.f)}</b> ${esc(r.m)}`).join(" + ")}${w.hook?`<div class="h">→ ${esc(w.hook)}</div>`:""}</div>`:""}
     </div>`;
   $("#apPlay").textContent=s.playing?"⏸":"▶︎";
   const ex=state.apExposure[todayStr()]||0, el=$("#apExposed");
@@ -812,8 +833,15 @@ function apRevealPhase(){ // reveal meaning, speak it, then schedule advance
   if(s._lastExp!==s.idx){ s._lastExp=s.idx; bumpExposure(); } // 카드당 1회 노출 인정(스트릭용)
   apRender();
   const w=WMAP.get(s.queue[s.idx]);
-  if(s.playing && w){ if(s.ko && w.kor) speak(w.kor,null,"ko-KR"); else if(w.def) speak(w.def); }
-  apClearTimer(); if(s.playing) s.t=setTimeout(apAdvance, AP_SPEED[s.speed].mean);
+  let extraSpoken=false;
+  if(s.playing && w){
+    const seq=[];
+    if(s.ko && w.kor) seq.push({t:w.kor, lang:"ko-KR"}); else if(w.def) seq.push({t:w.def, lang:"en-US"});
+    // 오늘 정렬한 '가장 시험에 잘 나오는' 동의어를 이어서 읽어 WK식 연결을 강화
+    if(s.extra && (w.synonyms||[]).length){ seq.push({t:w.synonyms[0], lang:"en-US"}); extraSpoken=true; }
+    if(seq.length===1) speak(seq[0].t, null, seq[0].lang); else if(seq.length) speakSeq(seq);
+  }
+  apClearTimer(); if(s.playing) s.t=setTimeout(apAdvance, AP_SPEED[s.speed].mean + (extraSpoken?800:0));
 }
 function apAdvance(){
   const s=ap; if(!s) return;
