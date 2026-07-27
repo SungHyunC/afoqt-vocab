@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.47.0";
+const VERSION = "4.48.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1298,15 +1298,70 @@ function finishTR(){ const s=trState; if(!s) return; trTimerStop();
    BLOCK COUNTING (Pilot subtest — procedural, isometric SVG)
    ============================================================ */
 let bcState=null;
+// 등축 투영에서 타깃 블록의 윗면이 뒤에 그려지는 블록들에 가려지지 않는지 기하학적으로 판정.
+// (그리기 순서: x+y 오름차순, 같으면 z 오름차순 → 뒤에 그려질수록 위에 덮인다)
+function bcTopVisible(blocks,t){
+  const tw=38,th=19,vh=26;
+  const proj=(x,y,z)=>[(x-y)*(tw/2),(x+y)*(th/2)-z*vh];
+  const [tx,ty,tz]=t, [sx,sy]=proj(tx,ty,tz);
+  // 타깃 윗면(마름모) 내부 샘플점: 중심 + 주변
+  const pts=[];
+  for(const [u,v] of [[0,0],[.5,0],[-.5,0],[0,.5],[0,-.5],[.35,.35],[-.35,.35],[.35,-.35],[-.35,-.35]])
+    pts.push([sx+u*(tw/2), sy+th/2+v*(th/2)]);
+  const inPoly=(px,py,poly)=>{ let c=false;
+    for(let i=0,j=poly.length-1;i<poly.length;j=i++){ const [xi,yi]=poly[i],[xj,yj]=poly[j];
+      if(((yi>py)!==(yj>py)) && (px < (xj-xi)*(py-yi)/(yj-yi)+xi)) c=!c; } return c; };
+  for(const [x,y,z] of blocks){
+    if(x===tx&&y===ty&&z===tz) continue;
+    const after=((x+y)>(tx+ty)) || ((x+y)===(tx+ty)&&z>tz);   // 타깃보다 나중에(위에) 그려지는 것만
+    if(!after) continue;
+    const [ax,ay]=proj(x,y,z);
+    const top=[[ax,ay],[ax+tw/2,ay+th/2],[ax,ay+th],[ax-tw/2,ay+th/2]];
+    const left=[[ax-tw/2,ay+th/2],[ax,ay+th],[ax,ay+th+vh],[ax-tw/2,ay+th/2+vh]];
+    const right=[[ax,ay+th],[ax+tw/2,ay+th/2],[ax+tw/2,ay+th/2+vh],[ax,ay+th+vh]];
+    for(const [px,py] of pts)
+      if(inPoly(px,py,top)||inPoly(px,py,left)||inPoly(px,py,right)) return false;
+  }
+  return true;
+}
 function genBlockFigure(){
-  const W=2+(Math.random()*3|0), D=2+(Math.random()*2|0); const set=new Set(), heights={};
-  for(let x=0;x<W;x++)for(let y=0;y<D;y++){ const h=Math.random()*4|0; heights[x+","+y]=h;
-    for(let z=0;z<h;z++) set.add(x+","+y+","+z); }
-  const blocks=[...set].map(s=>s.split(",").map(Number));
+  // ── 발자국(footprint) 패턴 ──────────────────────────────
+  const W=2+(Math.random()*4|0), D=2+(Math.random()*3|0);   // 2~5 × 2~4
+  const shape=["rect","rect","L","T","plus","diag"][Math.random()*6|0];
+  const cx=(W-1)/2, cy=(D-1)/2, foot=[];
+  for(let x=0;x<W;x++)for(let y=0;y<D;y++){
+    let keep=true;
+    if(shape==="L")    keep=(x<Math.ceil(W/2))||(y<Math.ceil(D/2));
+    else if(shape==="T")keep=(y===0)||(Math.abs(x-cx)<=0.5);
+    else if(shape==="plus")keep=(Math.abs(x-cx)<=0.5)||(Math.abs(y-cy)<=0.5);
+    else if(shape==="diag")keep=(x+y)%3!==2;
+    if(keep) foot.push([x,y]);
+  }
+  if(foot.length<3) return genBlockFigure();
+  // ── 높이 패턴 ──────────────────────────────────────────
+  const hp=["random","stair","pyramid","flat","tower"][Math.random()*5|0];
+  const maxH=2+(Math.random()*3|0);   // 2~4
+  const heights={};
+  for(const [x,y] of foot){
+    let h;
+    if(hp==="stair")        h=1+Math.min(maxH-1, x);
+    else if(hp==="pyramid") h=Math.max(1, maxH-Math.round(Math.abs(x-cx)+Math.abs(y-cy)));
+    else if(hp==="flat")    h=1+(Math.random()<0.25?1:0);
+    else if(hp==="tower")   h=(Math.abs(x-cx)<=0.5&&Math.abs(y-cy)<=0.5)?maxH:1;
+    else                    h=1+(Math.random()*maxH|0);
+    heights[x+","+y]=Math.max(0,Math.min(4,h));
+  }
+  const set=new Set(), blocks=[];
+  for(const k in heights){ const [x,y]=k.split(",").map(Number);
+    for(let z=0;z<heights[k];z++){ set.add(x+","+y+","+z); blocks.push([x,y,z]); } }
   if(blocks.length<4) return genBlockFigure();
-  // target = a top-of-column block (its top face is visible/labelable)
-  const tops=[]; for(const k in heights){ const h=heights[k]; if(h>0){ const [x,y]=k.split(",").map(Number); tops.push([x,y,h-1]); } }
-  const target=tops[Math.random()*tops.length|0];
+  // ── 타깃 선택: 윗면이 화면에서 실제로 안 가려지는 블록만 ──
+  const cand=[];
+  for(const k in heights){ const h=heights[k]; if(!h) continue;
+    const [x,y]=k.split(",").map(Number), z=h-1;
+    if(bcTopVisible(blocks,[x,y,z])) cand.push([x,y,z]); }
+  if(!cand.length) return genBlockFigure();
+  const target=cand[Math.random()*cand.length|0];
   const [tx,ty,tz]=target;
   let touch=0; [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]].forEach(([dx,dy,dz])=>{ if(set.has((tx+dx)+","+(ty+dy)+","+(tz+dz))) touch++; });
   return {blocks,target,touch};
@@ -1325,9 +1380,10 @@ function bcSVG(fig){
   const pad=10,ox=-minX+pad,oy=-minY+pad,W=(maxX-minX+pad*2),H=(maxY-minY+pad*2);
   const P=(pts,fill)=>`<polygon points="${pts.map(([x,y])=>`${(x+ox).toFixed(1)},${(y+oy).toFixed(1)}`).join(" ")}" fill="${fill}" stroke="#0f172a" stroke-width="1.2" stroke-linejoin="round"/>`;
   let svg=`<svg viewBox="0 0 ${W.toFixed(0)} ${H.toFixed(0)}" xmlns="http://www.w3.org/2000/svg">`;
+  let label="";
   cubes.forEach(c=>{ svg+=P(c.right,"#3f4c63")+P(c.left,"#566481")+P(c.top,c.isT?"#22d3ee":"#93a4bd");
-    if(c.isT) svg+=`<text x="${(c.sx+ox).toFixed(1)}" y="${(c.sy+th/2+oy).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="800" fill="#0f172a">?</text>`; });
-  return svg+'</svg>';
+    if(c.isT) label=`<text x="${(c.sx+ox).toFixed(1)}" y="${(c.sy+th/2+oy).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="800" fill="#0f172a">?</text>`; });
+  return svg+label+'</svg>';   // 라벨은 항상 맨 위에
 }
 function startBlockCounting(){
   const N=10, secs=180, qs=[];
