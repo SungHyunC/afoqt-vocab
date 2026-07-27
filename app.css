@@ -571,3 +571,12 @@ sub{vertical-align:-.25em}
 .wroots .rtlink:active{background:#06b6d433}
 .wroots .rtlink .rn{background:var(--brand2);color:#0f172a;font-size:10px;font-weight:800;
   border-radius:999px;padding:1px 6px}
+
+/* 자동 넘김 — 동의어·어근 */
+.ap-syn{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
+.ap-syn span{background:var(--card2);border:1px solid var(--line);padding:5px 12px;border-radius:999px;font-size:13px}
+.ap-syn span:first-child{border-color:var(--brand2);color:var(--brand2);font-weight:700}
+.ap-roots{margin-top:12px;padding:10px 12px;background:var(--card2);border-left:3px solid var(--brand2);
+  border-radius:10px;font-size:12.5px;line-height:1.55;text-align:left}
+.ap-roots b{color:var(--brand2)}
+.ap-roots .h{margin-top:5px;padding-top:5px;border-top:1px solid var(--line);color:#cbd5e1}
