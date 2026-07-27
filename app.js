@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.49.0";
+const VERSION = "4.50.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -38,12 +38,48 @@ function fmtMath(s){
 }
 // Shrink the font for long single words/phrases (CIRCUMNAVIGATE, INTROSPECTIVE...) so they
 // stay on one line on narrow phones instead of wrapping mid-word or overflowing the card.
+/* ===== 어근 교차 참조 — 같은 어근을 쓰는 단어 묶어 보기 ===== */
+let ROOTIDX=null;               // { form: {m, ids:[wordId...]} }
+function buildRootIndex(){
+  ROOTIDX={};
+  for(const w of WORDS) for(const r of (w.roots||[])){
+    const k=String(r.f||"").trim(); if(!k) continue;
+    const e=ROOTIDX[k]||(ROOTIDX[k]={m:r.m||"",ids:[]});
+    if(!e.m&&r.m) e.m=r.m;
+    e.ids.push(w.id);
+  }
+}
+function rootSiblings(form){ if(!ROOTIDX) buildRootIndex(); return ROOTIDX[form]||{m:"",ids:[]}; }
+// 어근 하나를 눌렀을 때: 같은 어근 단어 목록 시트
+function showRootWords(form){
+  const e=rootSiblings(form);
+  const list=e.ids.map(id=>WMAP.get(id)).filter(Boolean)
+    .sort((a,b)=>(tierOf(a)==="high"?0:1)-(tierOf(b)==="high"?0:1)||a.word.localeCompare(b.word));
+  openSheet(`<div class="row" style="justify-content:space-between;align-items:center">
+      <div><h3 style="margin:0;font-size:24px;color:var(--brand2)">${esc(form)}</h3>
+        <div class="muted" style="font-size:13px;margin-top:4px">${esc(e.m||"")}</div></div>
+      <span class="pill">${list.length}개 단어</span></div>
+    ${list.length?`<div class="wlist" style="margin-top:14px">${list.map(w=>`
+      <div class="witem" data-rid="${w.id}"><div style="min-width:0">
+        <div class="w">${esc(w.word)}</div><div class="k">${esc(w.kor||w.def||"")}</div></div>
+        ${tierOf(w)==="high"?`<span class="tag mastered">빈출</span>`:""}</div>`).join("")}</div>`
+      :`<div class="card center muted" style="margin-top:14px;padding:14px">이 어근을 쓰는 다른 단어가 아직 없어요.</div>`}
+    <button class="btn ghost" id="rwClose" style="margin-top:18px">닫기</button>`);
+  $$("#genericSheetBody .witem[data-rid]").forEach(el=>el.onclick=()=>showWord(+el.dataset.rid));
+  $("#rwClose").onclick=closeSheet;
+}
 // 단어의 어근 분해 표시 (roots/hook 이 있을 때만)
 function rootsHTML(w){
   if(!w||!Array.isArray(w.roots)||!w.roots.length) return "";
-  const parts=w.roots.map(r=>`<span class="rt"><b>${esc(r.f)}</b> ${esc(r.m)}</span>`).join('<span class="rp">+</span>');
+  if(!ROOTIDX) buildRootIndex();
+  const parts=w.roots.map(r=>{ const n=(rootSiblings(String(r.f||"").trim()).ids.length)||1;
+    return n>1 ? `<button class="rt rtlink" data-root="${esc(r.f)}"><b>${esc(r.f)}</b> ${esc(r.m)}<span class="rn">${n}</span></button>`
+               : `<span class="rt"><b>${esc(r.f)}</b> ${esc(r.m)}</span>`; }).join('<span class="rp">+</span>');
   return `<div class="wroots">${parts}${w.hook?`<div class="rhook">→ ${esc(w.hook)}</div>`:""}</div>`;
 }
+// 어근 칩 클릭 위임 (플래시카드·단어상세·시트 어디서든 동작)
+document.addEventListener("click",e=>{ const b=e.target.closest&&e.target.closest(".rtlink");
+  if(b){ e.preventDefault(); e.stopPropagation(); showRootWords(b.dataset.root); } },true);
 function wordFont(text,base){ const n=String(text||"").length;
   const px = n<=9?base : n<=12?Math.round(base*0.8) : n<=15?Math.round(base*0.63) : n<=19?Math.round(base*0.5) : Math.round(base*0.42);
   return `font-size:${px}px`; }
@@ -1062,6 +1098,21 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
 let rootFilter="all", rootSearch="";
 function renderRoots(){
   const tn={prefix:"접두사",root:"어근",suffix:"접미사"};
+  if(rootFilter==="words"){   // 단어에서 추출한 어근 색인 (교차 참조)
+    if(!ROOTIDX) buildRootIndex();
+    let ent=Object.entries(ROOTIDX).filter(([,v])=>v.ids.length>=2);
+    if(rootSearch){ const q=rootSearch.toLowerCase();
+      ent=ent.filter(([k,v])=>k.toLowerCase().includes(q)||String(v.m).toLowerCase().includes(q)||String(v.m).includes(rootSearch)); }
+    ent.sort((a,b)=>b[1].ids.length-a[1].ids.length||a[0].localeCompare(b[0]));
+    $("#rootsCount").textContent=`${ent.length}개 · 탭하면 그 어근 단어 전부`;
+    $("#rootsList").innerHTML=ent.map(([k,v])=>{
+      const ex=v.ids.slice(0,5).map(id=>WMAP.get(id)).filter(Boolean).map(w=>`<span>${esc(w.word)}</span>`).join("");
+      return `<button class="root-card rtlink" data-root="${esc(k)}" style="width:100%;text-align:left">
+        <div><span class="rf">${esc(k)}</span><span class="rt">${v.ids.length}개</span></div>
+        <div class="rm">${esc(v.m||"")}</div><div class="rex">${ex}</div></button>`; }).join("")
+      ||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
+    return;
+  }
   let list=ROOTS.filter(r=>{
     if(rootFilter!=="all"&&r.type!==rootFilter) return false;
     if(rootSearch){ const q=rootSearch.toLowerCase();
@@ -2793,6 +2844,7 @@ async function boot(){
       return;
     }
     WMAP=new Map(WORDS.map(w=>[w.id,w]));
+    buildRootIndex();
     ANALOGIES=await loadJSON("./analogies.json")||[];
     READING=await loadJSON("./reading.json")||[];
     ROOTS=await loadJSON("./roots.json")||[];

@@ -564,3 +564,10 @@ sub{vertical-align:-.25em}
 .elsc b{display:block;font-size:16px;font-weight:800}
 .elsc span{font-size:10.5px;color:var(--muted)}
 .elgo{color:var(--muted);font-size:19px;flex:0 0 auto}
+
+/* 어근 교차 참조 — 클릭 가능한 어근 칩 */
+.wroots .rtlink{background:#0f172a66;border:1px solid var(--brand2);border-radius:8px;
+  padding:3px 8px;color:var(--txt);font-size:13px;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.wroots .rtlink:active{background:#06b6d433}
+.wroots .rtlink .rn{background:var(--brand2);color:#0f172a;font-size:10px;font-weight:800;
+  border-radius:999px;padding:1px 6px}
