@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.45.0";
+const VERSION = "4.46.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -38,6 +38,12 @@ function fmtMath(s){
 }
 // Shrink the font for long single words/phrases (CIRCUMNAVIGATE, INTROSPECTIVE...) so they
 // stay on one line on narrow phones instead of wrapping mid-word or overflowing the card.
+// 단어의 어근 분해 표시 (roots/hook 이 있을 때만)
+function rootsHTML(w){
+  if(!w||!Array.isArray(w.roots)||!w.roots.length) return "";
+  const parts=w.roots.map(r=>`<span class="rt"><b>${esc(r.f)}</b> ${esc(r.m)}</span>`).join('<span class="rp">+</span>');
+  return `<div class="wroots">${parts}${w.hook?`<div class="rhook">→ ${esc(w.hook)}</div>`:""}</div>`;
+}
 function wordFont(text,base){ const n=String(text||"").length;
   const px = n<=9?base : n<=12?Math.round(base*0.8) : n<=15?Math.round(base*0.63) : n<=19?Math.round(base*0.5) : Math.round(base*0.42);
   return `font-size:${px}px`; }
@@ -839,6 +845,7 @@ function renderCard(){
       <div class="reveal hidden" id="revealBox">
         <div class="kor">${esc(w.kor||"")}</div>
         <div class="def">${esc(w.def||"")}</div>
+        ${rootsHTML(w)}
         ${w.example?`<div class="ex">"${esc(w.example)}" ${spkBtn(w.example)}</div>`:""}
         ${syn?`<div class="syn">${syn}</div>`:""}
         ${ana?`<div class="ana">${ana}</div>`:""}
@@ -1040,6 +1047,7 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
     ${w.afoqtCommon?`<div class="hintbox" style="margin-top:8px;font-size:11px">⭐ AFOQT 빈출 단어 — Quizlet·Barron's·커뮤니티 AFOQT 단어 목록에 등재된 단어입니다.</div>`:""}
     <div style="font-size:20px;font-weight:700;margin-top:10px">${esc(w.kor||"")}</div>
     <div class="muted" style="margin-top:6px;line-height:1.5">${esc(w.def||"")}</div>
+    ${rootsHTML(w)}
     ${w.example?`<div style="font-style:italic;border-left:3px solid var(--brand);padding-left:10px;margin-top:12px;color:#cbd5e1">"${esc(w.example)}" ${spkBtn(w.example)}</div>`:""}
     ${syn?`<h2 class="section">동의어</h2><div class="syn" style="display:flex;flex-wrap:wrap;gap:6px">${syn}</div>`:""}
     ${ana?`<h2 class="section">유추 관계</h2><div style="font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);line-height:1.7">${ana}</div>`:""}

@@ -543,3 +543,12 @@ sub{vertical-align:-.25em}
 .pgo{flex:0 0 auto}
 /* 내비 8개 — 아주 좁은 폰에서 살짝 축소 */
 @media (max-width:400px){ .nav button{font-size:9px} .nav button .ic{font-size:19px} }
+
+/* ---------- 단어 어근 분해 ---------- */
+.wroots{margin:12px 0;padding:10px 12px;background:var(--card2);border-left:3px solid var(--brand2);
+  border-radius:10px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;line-height:1.5}
+.wroots .rt{white-space:nowrap}
+.wroots .rt b{color:var(--brand2);font-weight:800;margin-right:3px}
+.wroots .rp{color:var(--muted);font-weight:700;margin:0 2px}
+.wroots .rhook{flex-basis:100%;margin-top:6px;padding-top:6px;border-top:1px solid var(--line);
+  color:#cbd5e1;font-size:12.5px}
