@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.55.0";
+const VERSION = "4.56.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2144,9 +2144,15 @@ function estPercentile(acc){
 // Word Knowledge: choose the word most similar in meaning (real AFOQT WK format)
 function buildWK(n){
   const pool=WORDS.filter(w=>w.synonyms&&w.synonyms.length);
-  // weight toward high/mid tiers for exam realism, but keep some std
-  const ranked=[...pool].sort((a,b)=>(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)]));
-  const top=pickFresh(ranked.slice(0,Math.min(ranked.length, n*12)), n*12, w=>state.wkSeen[w.id]||0);
+  // 티어 가중(high>mid>std)은 유지하되, 티어별로 '안 푼 것' 우선 선발.
+  // 예전처럼 상위 n*12개만 잘라 쓰면 그 고정 구간이 소진된 뒤 계속 같은 단어만 돌게 된다.
+  const seenAt=w=>state.wkSeen[w.id]||0;
+  const byTier=t=>pool.filter(w=>tierOf(w)===t);
+  const top=shuffle([
+    ...pickFresh(byTier("high"), Math.ceil(n*1.6), seenAt),
+    ...pickFresh(byTier("mid"),  Math.ceil(n*0.9), seenAt),
+    ...pickFresh(byTier("std"),  Math.ceil(n*0.5), seenAt),
+  ]);
   const items=[];
   for(const w of top){
     if(items.length>=n) break;
