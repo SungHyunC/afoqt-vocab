@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.54.0";
+const VERSION = "4.55.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -139,6 +139,7 @@ const DEFAULT_STATE = () => ({
   weak:{vaRel:{},rcType:{},wkTier:{},topic:{}},  // 약점 분석: category -> {c,w}
   secAcc:{},  // 예상점수용 과목별 정답 누적: 'WK'|'VA'|... -> {c,w}
   wkSeen:{}, avp:{},  // readiness coverage: wordId / aviationId seen in exams
+  qSeen:{ar:{},mk:{},ps:{}},  // 과목별 문항 풀이 시각 — 시험에서 중복 출제 방지
   curr:{},    // 커리큘럼: track -> {unlocked:int, passed:{si:1}, best:{si:score}}
   checklist:{},  // 주차별 체크리스트: 'weekKey:phase' -> {taskIdx:1}
   apExposure:{}, // 자동 넘김 노출 기록: 'YYYY-MM-DD' -> 들은 단어 수(스트릭 인정용, SRS엔 영향 X)
@@ -157,7 +158,7 @@ function loadLocal(){
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
   state.wrong=Object.assign({wk:{},va:{},rc:{},ar:{},mk:{},ps:{},av:{}},state.wrong||{});
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{},topic:{}},state.weak||{});
-  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{}; state.badges=state.badges||{}; state.dayStats=state.dayStats||{};
+  state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.qSeen=Object.assign({ar:{},mk:{},ps:{}},state.qSeen||{}); state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{}; state.badges=state.badges||{}; state.dayStats=state.dayStats||{};
   state.examHist=state.examHist||[];
   state.settings=Object.assign(d.settings, state.settings||{});
 }
@@ -474,7 +475,7 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,examHist:state.examHist,curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30}; }
+  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,examHist:state.examHist,curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30}; }
 function mergeMisc(d){
   if(!d) return;
   // exams: keep the higher best per key
@@ -492,6 +493,7 @@ function mergeMisc(d){
     for(const k in rg){ if(richer(cg[k],rg[k])) cg[k]=rg[k]; } });
   // sets: union
   ["wkSeen","avp"].forEach(key=>{ Object.assign(state[key], d[key]||{}); });
+  ["ar","mk","ps"].forEach(k=>{ Object.assign(state.qSeen[k]||(state.qSeen[k]={}), (d.qSeen||{})[k]||{}); });
   ["wk","va","rc","ar","mk","ps","av"].forEach(g=>{ Object.assign(state.wrong[g]||(state.wrong[g]={}), (d.wrong||{})[g]||{}); });
   // exam history: union by ts, keep last 200
   const seen=new Set(state.examHist.map(x=>x.ts));
@@ -2055,14 +2057,15 @@ const EXAM_PRESETS={
   daily:{name:"오늘의 통합 학습", secs:1500, build:()=>[...buildWK(8),...buildVA(6),...buildRC(4),...buildAV(4)], label:"전 영역 22문항"},
 };
 function buildAV(n){
-  return shuffle(AVIATION).slice(0,n).map(q=>({
+  return pickFresh(AVIATION, n, q=>state.avp[q.id]||0).map(q=>({
     section:"AV", prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:AVCAT[q.topic]||q.topic||"",
     avId:q.id, avTopic:q.topic,
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
 }
 // Generic bilingual MCQ builder (Arithmetic Reasoning / Math Knowledge / Physical Science).
 function buildMCQ(pool,section,n){
-  return shuffle(pool).slice(0,n).map(q=>({
+  const sec=section.toLowerCase(), rec=state.qSeen[sec]||{};
+  return pickFresh(pool, n, q=>rec[q.id]||0).map(q=>({
     section, prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:q.topic||"", qid:q.id,
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
 }
@@ -2143,7 +2146,7 @@ function buildWK(n){
   const pool=WORDS.filter(w=>w.synonyms&&w.synonyms.length);
   // weight toward high/mid tiers for exam realism, but keep some std
   const ranked=[...pool].sort((a,b)=>(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)]));
-  const top=shuffle(ranked.slice(0,Math.min(ranked.length, n*12)));
+  const top=pickFresh(ranked.slice(0,Math.min(ranked.length, n*12)), n*12, w=>state.wkSeen[w.id]||0);
   const items=[];
   for(const w of top){
     if(items.length>=n) break;
@@ -2175,16 +2178,30 @@ function vaItem(a){
     options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.c),
     explain:`관계: ${a.relation||""} — ${a.explain||""}`};
 }
-function buildVA(n){ return shuffle(ANALOGIES).slice(0,n).map(vaItem); }
+function buildVA(n){ return pickFresh(ANALOGIES, n, a=>{ const v=state.va[a.id]; return (v&&v.seen>0)?seenTs(v):0; }).map(vaItem); }
 function rcItem(p,qi){
   const q=p.questions[qi];
   return {section:"RC",prompt:q.q, stem:null, sub:p.topic||"",
     passageId:p.id, qIdx:qi, qType:q.type||"detail", passageTitle:p.title, passageText:p.passage,
     options:q.options.slice(), answer:q.answer, explain:q.explain||""};
 }
+// 이미 푼 문제가 시험에 다시 나와 정답을 외운 채 푸는 일을 막는다.
+// 안 푼 것을 먼저 쓰고, 모자라면 "가장 오래 전에 푼 것"부터 채워 자연스럽게 순환시킨다.
+function pickFresh(pool, n, seenAt){
+  const fresh=[], seen=[];
+  for(const x of pool){ const t=seenAt(x); if(t) seen.push([t,x]); else fresh.push(x); }
+  const out=shuffle(fresh).slice(0,n);                     // 안 푼 것(무작위) 먼저
+  if(out.length<n){ seen.sort((a,b)=>a[0]-b[0]);            // 모자라면 오래 전에 푼 것부터
+    out.push(...seen.slice(0,n-out.length).map(e=>e[1])); }
+  return out;   // 최종 셔플하면 '안 푼 것 우선' 순서가 무너지므로 하지 않음
+}
+const seenTs=v=>{ if(!v) return 0; const t=(typeof v==="number")?v:new Date(v.updated_at||0).getTime(); return t||1; };
+function rcSeenAt(p){ const r=state.rc[p.id]; return (r&&(r.done||r.seen))?seenTs(r):0; }
 function buildRC(n){
   const items=[];
-  for(const p of shuffle(READING)){
+  // 지문 단위로 안 푼 것 우선 (한 지문에 문항 3~5개)
+  const order=pickFresh(READING, READING.length, rcSeenAt);
+  for(const p of order){
     for(let qi=0;qi<p.questions.length;qi++){
       if(items.length>=n) break;
       items.push(rcItem(p,qi));
@@ -2349,7 +2366,7 @@ function recordResult(it,ok){
   if(it.section==="WK"&&it.wordId!=null){
     if(ok) delete W.wk[it.wordId]; else W.wk[it.wordId]=1;
     bump(K.wkTier, it.tier||"std");
-    state.wkSeen[it.wordId]=1;                 // coverage for readiness
+    state.wkSeen[it.wordId]=Date.now();        // coverage + 중복 회피용 시각
   } else if(it.section==="VA"&&it.anaId!=null){
     if(ok) delete W.va[it.anaId]; else W.va[it.anaId]=1;
     bump(K.vaRel, it.relation||"기타");
@@ -2360,10 +2377,12 @@ function recordResult(it,ok){
     bump(K.rcType, it.qType||"detail");
     const r={...getRC(it.passageId)}; r.seen=true; setRC(it.passageId,r);  // coverage
   } else if(it.section==="AV"&&it.avId!=null){
-    state.avp[it.avId]=1;                      // coverage for readiness
+    state.avp[it.avId]=Date.now();             // coverage + 중복 회피용 시각
     if(ok) delete W.av[it.avId]; else W.av[it.avId]=1;
   } else if(["AR","MK","PS"].includes(it.section)&&it.qid!=null){
-    const b=W[it.section.toLowerCase()]; if(b){ if(ok) delete b[it.qid]; else b[it.qid]=1; }
+    const sec=it.section.toLowerCase();
+    const b=W[sec]; if(b){ if(ok) delete b[it.qid]; else b[it.qid]=1; }
+    (state.qSeen[sec]||(state.qSeen[sec]={}))[it.qid]=Date.now();   // 중복 출제 방지
   }
 }
 function wrongCounts(){ const c={}; for(const k of WRONG_ORDER) c[k]=Object.keys(state.wrong[k]||{}).length; return c; }
