@@ -168,7 +168,7 @@ h2.section{font-size:14px;color:var(--muted);font-weight:600;margin:22px 4px 10p
 .motiv.todo{border-left:3px solid var(--warn);background:linear-gradient(90deg,#f59e0b18,var(--card))}
 .motiv.done{border-left:3px solid var(--ok);background:linear-gradient(90deg,#16a34a18,var(--card))}
 .motiv:empty{display:none}
-.badge-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:10px}
+.badge-row{display:flex;flex-direction:column;gap:16px}
 .badge{text-align:center;padding:10px 4px;border-radius:12px;background:var(--card2);border:1px solid var(--line)}
 .badge .bi{font-size:26px;line-height:1}
 .badge .bn{font-size:10.5px;margin-top:4px;color:var(--muted);font-weight:600}
@@ -580,3 +580,11 @@ sub{vertical-align:-.25em}
   border-radius:10px;font-size:12.5px;line-height:1.55;text-align:left}
 .ap-roots b{color:var(--brand2)}
 .ap-roots .h{margin-top:5px;padding-top:5px;border-top:1px solid var(--line);color:#cbd5e1}
+
+/* 배지 — 카테고리 그룹 */
+.bgroup{margin-bottom:16px}
+.bgroup:last-child{margin-bottom:0}
+.bghead{font-size:12.5px;font-weight:700;color:var(--txt);margin-bottom:9px;
+  display:flex;align-items:center;justify-content:space-between}
+.bghead span{font-size:11px;color:var(--muted);font-weight:600}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:10px}

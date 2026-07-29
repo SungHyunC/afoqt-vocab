@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.53.0";
+const VERSION = "4.54.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -206,10 +206,11 @@ function newCardIds(limit){
 }
 function plannedToday(){ return dueCards().length + newPerDay(); }
 function countByStatus(){
-  let learned=0,mastered=0,totalRev=0,highLearned=0;
+  let learned=0,mastered=0,totalRev=0,highLearned=0,verified=0;
   for(const w of WORDS){ const c=state.cards[w.id]; if(!c||c.status==="new") continue;
-    learned++; totalRev+=c.reps; if(c.status==="mastered") mastered++; if(tierOf(w)!=="std") highLearned++; }
-  return {learned,mastered,totalRev,highLearned,remaining:WORDS.length-learned};
+    learned++; totalRev+=c.reps; if(c.status==="mastered") mastered++; if(tierOf(w)!=="std") highLearned++;
+    if(c.verify==="verified") verified++; }
+  return {learned,mastered,totalRev,highLearned,verified,remaining:WORDS.length-learned};
 }
 // 자동 넘김으로 하루 20단어 이상 들으면 그날도 '활동한 날'로 인정(스트릭 유지). 숙련도엔 영향 없음.
 const AP_STREAK_MIN=20;
@@ -229,27 +230,92 @@ function computeStreak(){ let s=0, weekSkips=0; const cur=parseDate(todayStr());
 // 자동 넘김 노출만 카운트 — studied/target/goal_met/SRS는 절대 안 건드림.
 function bumpExposure(){ const day=todayStr(); state.apExposure[day]=(state.apExposure[day]||0)+1; saveLocal(); }
 // 마일스톤 배지 — 스트릭·학습·마스터·모의고사 지점에서 축하. 진도(SRS)엔 영향 X.
+const BADGE_CATS={streak:"🔥 꾸준함",word:"📇 단어",verify:"✅ 검증",subject:"📚 과목",mock:"🎯 실전",effort:"💪 몰입",special:"🏅 특별"};
 const BADGES=[
-  {id:"streak7",  icon:"🔥", name:"7일 연속",   t:m=>m.streak>=7},
-  {id:"streak14", icon:"🔥", name:"14일 연속",  t:m=>m.streak>=14},
-  {id:"streak30", icon:"🏆", name:"30일 연속",  t:m=>m.streak>=30},
-  {id:"streak50", icon:"🏆", name:"50일 연속",  t:m=>m.streak>=50},
-  {id:"learn100", icon:"📇", name:"단어 100",   t:m=>m.learned>=100},
-  {id:"learn300", icon:"📚", name:"단어 300",   t:m=>m.learned>=300},
-  {id:"learn500", icon:"📚", name:"단어 500",   t:m=>m.learned>=500},
-  {id:"learn1000",icon:"🎓", name:"단어 1000",  t:m=>m.learned>=1000},
-  {id:"master50", icon:"⭐", name:"마스터 50",  t:m=>m.mastered>=50},
-  {id:"master100",icon:"🌟", name:"마스터 100", t:m=>m.mastered>=100},
-  {id:"master250",icon:"💎", name:"마스터 250", t:m=>m.mastered>=250},
-  {id:"mock1",    icon:"🎯", name:"첫 모의고사", t:m=>m.mocks>=1},
-  {id:"mock10",   icon:"🎯", name:"모의고사 10회",t:m=>m.mocks>=10},
+  // 🔥 꾸준함
+  {id:"streak3",  cat:"streak", icon:"🌱", name:"3일 연속",   d:"3일 연속 학습",   t:m=>m.streak>=3},
+  {id:"streak7",  cat:"streak", icon:"🔥", name:"7일 연속",   d:"7일 연속 학습",   t:m=>m.streak>=7},
+  {id:"streak14", cat:"streak", icon:"🔥", name:"2주 연속",   d:"14일 연속 학습",  t:m=>m.streak>=14},
+  {id:"streak30", cat:"streak", icon:"🏆", name:"한 달 연속", d:"30일 연속 학습",  t:m=>m.streak>=30},
+  {id:"streak50", cat:"streak", icon:"👑", name:"50일 연속",  d:"50일 연속 학습",  t:m=>m.streak>=50},
+  {id:"days30",   cat:"streak", icon:"📅", name:"30일 출석",  d:"학습한 날 30일",  t:m=>m.activeDays>=30},
+  // 📇 단어
+  {id:"learn100", cat:"word", icon:"📇", name:"단어 100",   d:"단어 100개 학습",   t:m=>m.learned>=100},
+  {id:"learn300", cat:"word", icon:"📇", name:"단어 300",   d:"단어 300개 학습",   t:m=>m.learned>=300},
+  {id:"learn500", cat:"word", icon:"📚", name:"단어 500",   d:"단어 500개 학습",   t:m=>m.learned>=500},
+  {id:"learn1000",cat:"word", icon:"📚", name:"단어 1000",  d:"단어 1,000개 학습", t:m=>m.learned>=1000},
+  {id:"learn2000",cat:"word", icon:"🎓", name:"단어 2000",  d:"단어 2,000개 학습", t:m=>m.learned>=2000},
+  {id:"high500",  cat:"word", icon:"⭐", name:"빈출 500",   d:"빈출 단어 500개",   t:m=>m.highLearned>=500},
+  {id:"high1245", cat:"word", icon:"🌟", name:"빈출 정복",  d:"빈출(high) 1,245개 전부", t:m=>m.highLearned>=1245},
+  {id:"master50", cat:"word", icon:"⭐", name:"마스터 50",  d:"마스터 50개",       t:m=>m.mastered>=50},
+  {id:"master100",cat:"word", icon:"🌟", name:"마스터 100", d:"마스터 100개",      t:m=>m.mastered>=100},
+  {id:"master250",cat:"word", icon:"💎", name:"마스터 250", d:"마스터 250개",      t:m=>m.mastered>=250},
+  {id:"master500",cat:"word", icon:"💠", name:"마스터 500", d:"마스터 500개",      t:m=>m.mastered>=500},
+  {id:"rev1000",  cat:"word", icon:"🔁", name:"복습 1000",  d:"누적 복습 1,000회", t:m=>m.totalRev>=1000},
+  // ✅ 검증 (확인 시험 통과)
+  {id:"verify10", cat:"verify", icon:"✅", name:"진짜 10",   d:"확인 시험 통과 10개",  t:m=>m.verified>=10},
+  {id:"verify50", cat:"verify", icon:"✅", name:"진짜 50",   d:"확인 시험 통과 50개",  t:m=>m.verified>=50},
+  {id:"verify200",cat:"verify", icon:"🛡️", name:"진짜 200",  d:"확인 시험 통과 200개", t:m=>m.verified>=200},
+  {id:"clean",    cat:"verify", icon:"🧹", name:"오답 청소", d:"오답 노트 전부 비우기(20개+ 풀고)", t:m=>m.wrongEver>=20&&m.wrongLeft===0},
+  // 📚 과목
+  {id:"va300",  cat:"subject", icon:"🔗", name:"유추 300",  d:"유추 300문항",   t:m=>m.va>=300},
+  {id:"va1000", cat:"subject", icon:"🔗", name:"유추 1000", d:"유추 1,000문항", t:m=>m.va>=1000},
+  {id:"rc100",  cat:"subject", icon:"📖", name:"독해 100",  d:"독해 100문항",   t:m=>m.rc>=100},
+  {id:"rc400",  cat:"subject", icon:"📖", name:"독해 400",  d:"독해 400문항",   t:m=>m.rc>=400},
+  {id:"math200",cat:"subject", icon:"🔢", name:"수학 200",  d:"산수+수학 200문항", t:m=>(m.ar+m.mk)>=200},
+  {id:"math600",cat:"subject", icon:"📐", name:"수학 600",  d:"산수+수학 600문항", t:m=>(m.ar+m.mk)>=600},
+  {id:"av200",  cat:"subject", icon:"✈️", name:"항공 200",  d:"항공 200문항",   t:m=>m.av>=200},
+  {id:"pilot300",cat:"subject",icon:"🛩️", name:"파일럿 드릴", d:"표읽기+블록+계기 300문항", t:m=>(m.tr+m.bc+m.ic)>=300},
+  {id:"allsec", cat:"subject", icon:"🌐", name:"전 과목 경험", d:"모든 과목 1문항 이상", t:m=>["WK","VA","RC","AR","MK","AV","TR","BC","IC"].every(k=>m.secN(k)>0)},
+  // 🎯 실전
+  {id:"mock1",  cat:"mock", icon:"🎯", name:"첫 모의고사", d:"모의고사 1회",   t:m=>m.mocks>=1},
+  {id:"mock5",  cat:"mock", icon:"🎯", name:"모의고사 5회", d:"모의고사 5회",  t:m=>m.mocks>=5},
+  {id:"mock10", cat:"mock", icon:"🏹", name:"모의고사 10회",d:"모의고사 10회", t:m=>m.mocks>=10},
+  {id:"mock25", cat:"mock", icon:"🏹", name:"모의고사 25회",d:"모의고사 25회", t:m=>m.mocks>=25},
+  {id:"acc70",  cat:"mock", icon:"📈", name:"정답률 70%",  d:"모의고사 70% 이상", t:m=>m.bestAcc>=0.70},
+  {id:"acc80",  cat:"mock", icon:"📈", name:"정답률 80%",  d:"모의고사 80% 이상", t:m=>m.bestAcc>=0.80},
+  {id:"acc90",  cat:"mock", icon:"🥇", name:"정답률 90%",  d:"모의고사 90% 이상", t:m=>m.bestAcc>=0.90},
+  {id:"full1",  cat:"mock", icon:"🏁", name:"전과목 완주", d:"AFOQT 전체 모의고사 완료", t:m=>m.fullMock>=1},
+  // 💪 몰입
+  {id:"day100", cat:"effort", icon:"💪", name:"하루 100",  d:"하루 100문항",    t:m=>m.dayMax>=100},
+  {id:"day200", cat:"effort", icon:"🔋", name:"하루 200",  d:"하루 200문항",    t:m=>m.dayMax>=200},
+  {id:"hour2",  cat:"effort", icon:"⏱️", name:"2시간 몰입", d:"하루 2시간 학습", t:m=>m.secMax>=7200},
+  {id:"listen500", cat:"effort", icon:"🎧", name:"청취 500", d:"자동 넘김 500단어",   t:m=>m.listen>=500},
+  {id:"listen2000",cat:"effort", icon:"🎧", name:"청취 2000",d:"자동 넘김 2,000단어", t:m=>m.listen>=2000},
+  // 🏅 특별
+  {id:"plan7",  cat:"special", icon:"🗓️", name:"플랜 7일",  d:"플랜 시작 7일차 도달",  t:m=>m.planDay>=7},
+  {id:"plan21", cat:"special", icon:"🗓️", name:"플랜 21일", d:"플랜 시작 21일차 도달", t:m=>m.planDay>=21},
+  {id:"early",  cat:"special", icon:"🌅", name:"얼리버드",  d:"오전 9시 전에 학습",    t:m=>m.early},
+  {id:"night",  cat:"special", icon:"🌙", name:"야간 학습",  d:"밤 11시 이후 학습",     t:m=>m.night},
 ];
-function badgeMetrics(){ const c=countByStatus(); return {streak:computeStreak(), learned:c.learned, mastered:c.mastered, mocks:(state.examHist||[]).length}; }
+function badgeMetrics(){
+  const c=countByStatus(), hist=state.examHist||[], D=state.daily||{};
+  const secN=k=>{ const o=state.secAcc[k]; return o?(o.c||0)+(o.w||0):0; };
+  const wrongLeft=Object.values(state.wrong||{}).reduce((a,o)=>a+Object.keys(o||{}).length,0);
+  const h=new Date().getHours();
+  const todayStudied=(D[todayStr()]||{}).studied||0;
+  return {
+    streak:computeStreak(), learned:c.learned, mastered:c.mastered, highLearned:c.highLearned,
+    verified:c.verified, totalRev:c.totalRev,
+    activeDays:Object.keys(D).filter(k=>(D[k].studied||0)>0).length,
+    mocks:hist.length, fullMock:hist.filter(x=>x&&x.key==="afoqt").length,
+    bestAcc:hist.length?Math.max(...hist.map(x=>x.acc||0)):0,
+    dayMax:Object.values(D).reduce((m,d)=>Math.max(m,d.studied||0),0),
+    secMax:Object.values(D).reduce((m,d)=>Math.max(m,d.seconds||0),0),
+    listen:Object.values(state.apExposure||{}).reduce((a,b)=>a+(b||0),0),
+    planDay:state.plan30&&state.plan30.start?clamp(dayDiff(state.plan30.start,todayStr())+1,0,999):0,
+    wrongLeft, wrongEver:(state.wkSeen?Object.keys(state.wkSeen).length:0)+secN("AR")+secN("MK"),
+    va:secN("VA"), rc:secN("RC"), ar:secN("AR"), mk:secN("MK"), av:secN("AV"),
+    tr:secN("TR"), bc:secN("BC"), ic:secN("IC"), secN,
+    early:todayStudied>0&&h<9, night:todayStudied>0&&h>=23,
+  };
+}
 // 새로 달성한 배지가 있으면 저장 + (silent 아니면) 축하 토스트.
 function checkBadges(silent){
   const m=badgeMetrics(); const newly=[];
   for(const b of BADGES){ if(b.t(m) && !state.badges[b.id]){ state.badges[b.id]=1; newly.push(b); } }
-  if(newly.length){ saveLocal(); if(!silent){ const b=newly[newly.length-1]; toast(`${b.icon} 배지 획득! ${b.name} 🎉`, 3600); } }
+  if(newly.length){ saveLocal(); if(!silent){ const b=newly[newly.length-1];
+    toast(newly.length>1?`${b.icon} 배지 ${newly.length}개 획득! (${b.name} 외) 🎉`:`${b.icon} 배지 획득! ${b.name} 🎉`, 3800); } }
   return m;
 }
 
@@ -2412,8 +2478,13 @@ function renderStats(){
   if(bb){ checkBadges(true);
     const earned=BADGES.filter(b=>state.badges[b.id]).length;
     $("#badgeCount").textContent=`${earned} / ${BADGES.length}`;
-    bb.innerHTML=BADGES.map(b=>{ const on=!!state.badges[b.id];
-      return `<div class="badge ${on?"on":"off"}" title="${esc(b.name)}"><div class="bi">${b.icon}</div><div class="bn">${esc(b.name)}</div></div>`;
+    bb.innerHTML=Object.keys(BADGE_CATS).map(cat=>{
+      const list=BADGES.filter(b=>b.cat===cat); if(!list.length) return "";
+      const got=list.filter(b=>state.badges[b.id]).length;
+      return `<div class="bgroup"><div class="bghead">${BADGE_CATS[cat]} <span>${got}/${list.length}</span></div>
+        <div class="bgrid">${list.map(b=>{ const on=!!state.badges[b.id];
+          return `<div class="badge ${on?"on":"off"}" title="${esc(b.d||b.name)}"><div class="bi">${b.icon}</div><div class="bn">${esc(b.name)}</div></div>`;
+        }).join("")}</div></div>`;
     }).join(""); }
   const left=daysLeft(),rem=cnt.remaining,pace=newPerDay(),fin=pace?Math.ceil(rem/pace):0,ok=fin<=left;
   const todayDueN=dueCards().length, todayNewN=Math.min(pace,rem), todayN=todayDueN+todayNewN;
