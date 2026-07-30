@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.56.0";
+const VERSION = "4.57.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1920,7 +1920,7 @@ function renderVaBrowse(){
       <div class="rh">${esc(a.relation||"관계")}</div>
       <div style="font-weight:800;font-size:16px;letter-spacing:.5px;margin-bottom:6px">${esc((a.stem||[])[0]||"")} : ${esc((a.stem||[])[1]||"")}</div>
       ${opts}
-      ${a.explain?`<div class="rx">${esc(a.explain)}</div>`:""}</div>`;
+      <div class="rx">${vaExplainHTML(a)}</div></div>`;
   }).join("")||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
 }
 function renderAnalogyHub(){ $("#vaPlay").classList.add("hidden"); $("#vaDone").classList.add("hidden"); $("#vaHub").classList.remove("hidden");
@@ -1957,7 +1957,7 @@ function renderVA(){ const s=vaSession; if(s.idx>=s.items.length) return finishV
     v.status=v.streak>=2?"mastered":"learning"; setVA(a.id,v);
     if(ok) s.score+=10; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("VA",ok);
     $("#vaScore").textContent=`${s.score}점`;
-    $("#vaExplain").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b> · 관계: <b>${esc(a.relation||"")}</b><br>${esc(a.explain||"")}`;
+    $("#vaExplain").innerHTML=`<div class="va-head ${ok?"ok":"no"}">${ok?"✅ 맞혔어요":"❌ 틀렸어요"}</div>`+vaExplainHTML(a);
     $("#vaExplain").classList.remove("hidden");
     $("#vaNext").classList.remove("hidden");
   });
@@ -2177,12 +2177,30 @@ function buildWK(n){
   }
   return items;
 }
+// 유추 해설 — 정답 근거(why) + 오답 이유(wrong)까지 보여준다. 데이터 없으면 기존 explain으로 폴백.
+function vaExplainHTML(a, opts){
+  if(!a) return "";
+  const correct=(a.options||[]).find(o=>o.correct);
+  const cp=correct?`${correct.pair[0]} : ${correct.pair[1]}`:"";
+  const rel=a.relKo?`${esc(a.relKo)} <span class="muted">(${esc(a.relation||"")})</span>`:esc(a.relation||"");
+  let h=`<div class="va-ans">✅ 정답 <b>${esc(cp)}</b></div>`;
+  if(rel) h+=`<div class="va-rel">🔗 관계: ${rel}</div>`;
+  h+=`<div class="va-why">${esc(a.why||a.explain||"")}</div>`;
+  if(a.why&&a.explain&&a.explain!==a.why) h+=`<div class="va-why2">${esc(a.explain)}</div>`;
+  if(Array.isArray(a.wrong)&&a.wrong.length&&!(opts&&opts.brief)){
+    h+=`<div class="va-wrongs"><div class="t">✗ 나머지 보기</div>`+
+       a.wrong.map(w=>`<div class="wr"><b>${esc(w.pair)}</b> — ${esc(w.why)}</div>`).join("")+`</div>`;
+  }
+  return h;
+}
 function vaItem(a){
   const opts=shuffle(a.options.map(o=>({t:`${o.pair[0]} : ${o.pair[1]}`,c:!!o.correct})));
   return {section:"VA",prompt:"다음과 같은 관계를 가진 짝은?",
     stem:`${a.stem[0]} : ${a.stem[1]}`, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
     options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.c),
-    explain:`관계: ${a.relation||""} — ${a.explain||""}`};
+    explain:[`관계: ${a.relKo?a.relKo+" ("+(a.relation||"")+")":(a.relation||"")}`,
+             a.why||a.explain||"",
+             ...(Array.isArray(a.wrong)?a.wrong.map(w=>`✗ ${w.pair} — ${w.why}`):[])].filter(Boolean).join("\n")};
 }
 function buildVA(n){ return pickFresh(ANALOGIES, n, a=>{ const v=state.va[a.id]; return (v&&v.seen>0)?seenTs(v):0; }).map(vaItem); }
 function rcItem(p,qi){
