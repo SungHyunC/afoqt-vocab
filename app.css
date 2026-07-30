@@ -588,3 +588,17 @@ sub{vertical-align:-.25em}
   display:flex;align-items:center;justify-content:space-between}
 .bghead span{font-size:11px;color:var(--muted);font-weight:600}
 .bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:10px}
+
+/* 유추 해설 — 정답 근거 + 오답 이유 */
+.va-head{font-weight:800;font-size:15px;margin-bottom:8px}
+.va-head.ok{color:var(--ok)} .va-head.no{color:var(--bad)}
+.va-ans{font-size:15px;margin-bottom:5px}
+.va-ans b{color:var(--ok)}
+.va-rel{font-size:13px;color:var(--brand2);font-weight:700;margin-bottom:7px}
+.va-why{font-size:14px;line-height:1.65}
+.va-why2{font-size:13px;line-height:1.6;color:var(--muted);margin-top:4px}
+.va-wrongs{margin-top:10px;padding-top:9px;border-top:1px solid var(--line)}
+.va-wrongs .t{font-size:11.5px;color:var(--muted);font-weight:700;margin-bottom:5px}
+.va-wrongs .wr{font-size:12.5px;line-height:1.6;color:#cbd5e1;margin-bottom:3px}
+.va-wrongs .wr b{color:var(--txt)}
+.review-q .rx{white-space:pre-line}
