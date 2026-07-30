@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.57.0";
+const VERSION = "4.58.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
