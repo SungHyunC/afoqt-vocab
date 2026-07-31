@@ -281,6 +281,37 @@ sub{vertical-align:-.25em}
 .drillbtn{flex:0 0 auto;background:var(--brand);color:#fff;border:none;border-radius:8px;
   font-size:11.5px;font-weight:700;padding:5px 9px;cursor:pointer}
 .drillbtn:active{transform:scale(.96)}
+/* 시험 전 요약 시트 */
+.cs-sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0 14px;margin-bottom:12px}
+.cs-sec summary{cursor:pointer;font-weight:800;font-size:14.5px;padding:13px 0;list-style:none}
+.cs-sec summary::-webkit-details-marker{display:none}
+.cs-sec summary::after{content:"▾";float:right;color:var(--muted);transition:transform .15s}
+.cs-sec:not([open]) summary::after{transform:rotate(-90deg)}
+.cs-sec>*:last-child{margin-bottom:13px}
+.cs-sub{font-size:12px;font-weight:800;color:var(--brand2);margin:10px 0 4px}
+.cs-f{font-size:13.5px;line-height:1.65;padding:4px 0 4px 10px;border-left:2px solid var(--line)}
+.cs-table{width:100%;border-collapse:collapse;font-size:13px}
+.cs-table td{padding:5.5px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.cs-table tr:last-child td{border-bottom:none}
+@media print{
+  #nav,.study-top button,.btn{display:none !important}
+  body{background:#fff;color:#000}
+  .view{display:none} .view.active{display:block}
+  .cs-sec{border-color:#ccc;break-inside:avoid}
+}
+/* 새 버전 배너 */
+#updBanner{position:fixed;left:12px;right:12px;bottom:calc(74px + env(safe-area-inset-bottom));z-index:960;
+  background:var(--brand);color:#fff;border:none;border-radius:13px;padding:12px 14px;
+  font-size:13.5px;font-weight:600;box-shadow:0 6px 22px #0006;cursor:pointer}
+/* 첫 진입 온보딩 */
+.onboard-overlay{position:fixed;inset:0;z-index:980;background:#0b1220e6;backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:20px}
+.onboard-card{background:var(--card);border:1px solid var(--brand);border-radius:18px;
+  padding:22px 18px;max-width:380px;width:100%;text-align:center}
+.onboard-card .ob-step{text-align:left;background:var(--bg);border:1px solid var(--line);
+  border-radius:12px;padding:10px 12px;margin-top:8px}
+.onboard-card .ob-step input[type=date]{width:100%;margin-top:6px;background:var(--card);
+  color:var(--text);border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:14px}
 .exam-prompt{font-weight:700;font-size:16px;line-height:1.45;margin-bottom:6px}
 .exam-ko{font-size:13px;color:var(--brand2);line-height:1.5;margin:-2px 0 8px}
 .exam-stem{font-size:26px;font-weight:800;text-align:center;letter-spacing:1px;margin:12px 0;color:#fff}

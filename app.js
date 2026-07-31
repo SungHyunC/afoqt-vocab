@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.59.0";
+const VERSION = "4.60.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -509,7 +509,8 @@ function mergeDaily(r){ const cur=state.daily[r.day];
   if(!cur||new Date(r.updated_at)>new Date(cur.updated_at||0)) state.daily[r.day]={studied:r.studied,correct:r.correct,new_learned:r.new_learned,seconds:r.seconds,target:cur?.target||0,goal_met:r.goal_met,updated_at:r.updated_at}; }
 function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.daily_goal;
   if(r.start_date) state.settings.start_date=r.start_date; if(r.exam_date) state.settings.exam_date=r.exam_date;
-  if(r.data){ if(r.data.high_first!=null) state.settings.high_first=r.data.high_first; if(r.data.high_only!=null) state.settings.high_only=r.data.high_only; } }
+  if(r.data){ if(r.data.high_first!=null) state.settings.high_first=r.data.high_first; if(r.data.high_only!=null) state.settings.high_only=r.data.high_only;
+    if(r.data.plan_ps_sj!=null) state.settings.plan_ps_sj=r.data.plan_ps_sj; } }
 // The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
@@ -572,7 +573,7 @@ function queuePush(table,row){ if(!sb) return; const code=syncCode();
   if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at});
-  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only},updated_at:nowISO()};
+  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj},updated_at:nowISO()};
   clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,700); }
 // Each table pushes independently and only clears its queue on confirmed success —
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
@@ -621,7 +622,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -643,7 +644,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -886,6 +887,13 @@ function planTasks(){
     done:dayStat("RC")>=rcN, go:()=>go("reading")});
   for(const x of PLAN_DAILY)
     t.push({k:x.k,icon:x.icon,label:x.label,sub:x.tag,min:x.min,done:dayStat(x.sec)>=x.n,go:x.go});
+  // 선택: 과학·상황판단 (합성점수 비중 낮음 — 기본 제외, 토글로 격일 포함)
+  if(flag("plan_ps_sj")){
+    if(i%2===0) t.push({k:"ps",icon:"🔬",label:"과학 10문항",sub:"기타",min:8,
+      done:dayStat("PS")>=10, go:()=>startExam("ps",{practice:true})});
+    if(i%3===0) t.push({k:"sj",icon:"🧭",label:"상황판단 8문항",sub:"기타",min:15,
+      done:dayStat("SJ")>=8, go:()=>{ subCur="sj"; go("subtest"); }});
+  }
   // 시험 임박(D-7): verified 단어 최종 스윕 — 막판 망각 방지
   const dExam=dayDiff(todayStr(),state.settings.exam_date);
   if(dExam>=0&&dExam<=7){ const sw=sweepPool().length;
@@ -929,6 +937,9 @@ function renderPlan(){
     if(man[k]) delete man[k]; else man[k]=1; saveLocal(); renderPlan(); });
   $$("#planTasks .pgo").forEach(b=>b.onclick=()=>{ const t=tasks.find(x=>x.k===b.dataset.go2); if(t&&t.go) t.go(); });
   $("#planAllDone").classList.toggle("hidden", doneN<tasks.length);
+  const ps=$("#optPlanPsSj");
+  if(ps){ ps.checked=flag("plan_ps_sj");
+    ps.onchange=e=>{ state.settings.plan_ps_sj=e.target.checked; saveLocal(); queuePush("settings",{}); renderPlan(); }; }
 }
 
 /* ============================================================
@@ -1911,6 +1922,9 @@ function renderSubtest(){
    ============================================================ */
 let icState=null;
 const IC_BANKS=[-45,-30,0,30,45], IC_PITCH=[-1,0,1];
+// 실전 AFOQT처럼 자세계+나침반 2계기: 기수 방향(heading)까지 맞혀야 한다.
+const IC_HDG=[0,90,180,270], IC_HDG_KO={0:"북",90:"동",180:"남",270:"서"};
+function icLabel(o){ return `${IC_HDG_KO[o.heading||0]}향 · ${o.bank<0?"왼쪽 "+(-o.bank)+"° 뱅크":o.bank>0?"오른쪽 "+o.bank+"° 뱅크":"수평"} · ${o.pitch>0?"상승":o.pitch<0?"하강":"수평비행"}`; }
 // Attitude indicator: background rotates OPPOSITE to aircraft bank; climb pushes the horizon DOWN.
 function attitudeSVG(bank,pitch){
   const cx=75,cy=75,R=62, py=pitch*16; // climb(+1) -> horizon moves down (+y)
@@ -1946,29 +1960,55 @@ function compassSVG(heading){
     <text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="13" font-weight="800" fill="#22d3ee">${String(Math.round(heading)).padStart(3,"0")}°</text>
   </svg>`;
 }
-// Recognizable swept-wing jet seen from behind/above (nose points up/away).
-// Bank = rotate the whole jet; pitch = a clear ↑/↓ climb/dive marker.
-function planeSVG(bank,pitch){
+// Jet silhouette by viewing direction. 북=꼬리 쪽(뱅크 그대로 보임), 남=정면(뱅크가
+// 거울처럼 반대로 보임 — 실전 단골 함정), 동·서=옆모습(피치가 기수 각도로 보임, 뱅크는 0만 출제).
+// pitch 는 모든 뷰에서 ↑/↓ 마커로도 병기해 훈련 난이도를 완만하게 유지한다.
+function planeSVG(bank,pitch,heading=0){
   const cx=60,cy=48;
+  const arrow= pitch>0?`<text x="${cx}" y="20" text-anchor="middle" font-size="15" font-weight="800" fill="#22d3ee">▲ 상승</text>`
+             : pitch<0?`<text x="${cx}" y="20" text-anchor="middle" font-size="15" font-weight="800" fill="#f59e0b">▼ 하강</text>`
+             : `<text x="${cx}" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#94a3b8">— 수평</text>`;
+  if(heading===90||heading===270){
+    const prof=`
+      <ellipse cx="${cx}" cy="${cy}" rx="33" ry="7" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+      <path d="M ${cx+24} ${cy-2.5} L ${cx+38} ${cy} L ${cx+24} ${cy+2.5} Z" fill="#94a3b8"/>
+      <path d="M ${cx-20} ${cy-2} L ${cx-32} ${cy-16} L ${cx-25} ${cy-16} L ${cx-13} ${cy-3} Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+      <path d="M ${cx+2} ${cy+1} L ${cx-13} ${cy+11} L ${cx-2} ${cy+4} Z" fill="#94a3b8"/>
+      <circle cx="${cx+13}" cy="${cy-4}" r="3" fill="#7c8aa3"/>`;
+    const mirror=heading===270?`translate(${2*cx} 0) scale(-1 1)`:"";
+    return `<svg viewBox="0 0 120 96" xmlns="http://www.w3.org/2000/svg">${arrow}
+      <g transform="${mirror}"><g transform="rotate(${-pitch*14} ${cx} ${cy})">${prof}</g></g></svg>`;
+  }
   const jet=`
     <path d="M ${cx} ${cy-22} L ${cx+5} ${cy+6} L ${cx+42} ${cy+18} L ${cx+42} ${cy+12} L ${cx+5} ${cy-2}
              L ${cx+4} ${cy+18} L ${cx+11} ${cy+24} L ${cx} ${cy+20} L ${cx-11} ${cy+24} L ${cx-4} ${cy+18}
              L ${cx-5} ${cy-2} L ${cx-42} ${cy+12} L ${cx-42} ${cy+18} L ${cx-5} ${cy+6} Z"
           fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" stroke-linejoin="round"/>
     <circle cx="${cx}" cy="${cy-16}" r="3.5" fill="#7c8aa3"/>`;
-  const arrow= pitch>0?`<g><text x="${cx}" y="20" text-anchor="middle" font-size="15" font-weight="800" fill="#22d3ee">▲ 상승</text></g>`
-             : pitch<0?`<g><text x="${cx}" y="20" text-anchor="middle" font-size="15" font-weight="800" fill="#f59e0b">▼ 하강</text></g>`
-             : `<text x="${cx}" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#94a3b8">— 수평</text>`;
-  return `<svg viewBox="0 0 120 96" xmlns="http://www.w3.org/2000/svg">${arrow}<g transform="rotate(${bank} ${cx} ${cy})">${jet}</g></svg>`;
+  const nose=heading===180?`<circle cx="${cx}" cy="${cy-22}" r="4.5" fill="#ef4444"/><circle cx="${cx}" cy="${cy-9}" r="3" fill="#22d3ee"/>`:"";
+  const rot=heading===180?-bank:bank; // 정면(남향)은 뱅크가 반대로 보인다
+  return `<svg viewBox="0 0 120 96" xmlns="http://www.w3.org/2000/svg">${arrow}<g transform="rotate(${rot} ${cx} ${cy})">${jet}${nose}</g></svg>`;
 }
 function genIC(){
-  const bank=IC_BANKS[Math.random()*IC_BANKS.length|0];
+  const heading=IC_HDG[Math.random()*IC_HDG.length|0];
+  const side=heading===90||heading===270;
+  const bank=side?0:IC_BANKS[Math.random()*IC_BANKS.length|0];
   const pitch=IC_PITCH[Math.random()*IC_PITCH.length|0];
-  const correct={bank,pitch};
+  const correct={bank,pitch,heading};
   const opts=[correct]; let guard=0;
-  while(opts.length<4&&guard++<60){ const b=IC_BANKS[Math.random()*IC_BANKS.length|0], p=IC_PITCH[Math.random()*IC_PITCH.length|0];
-    if(!opts.some(o=>o.bank===b&&o.pitch===p)) opts.push({bank:b,pitch:p}); }
-  return {bank,pitch,options:shuffle(opts)};
+  // 같은 방향에서 자세만 다른 오답 2개 — 나침반만 보고는 못 풀게
+  while(opts.length<3&&guard++<60){
+    const b=side?0:IC_BANKS[Math.random()*IC_BANKS.length|0], p=IC_PITCH[Math.random()*IC_PITCH.length|0];
+    if(!opts.some(o=>o.bank===b&&o.pitch===p&&o.heading===heading)) opts.push({bank:b,pitch:p,heading});
+  }
+  // 방향이 다른 오답 1개 — 나침반 확인을 강제
+  while(opts.length<4&&guard++<90){
+    const h=IC_HDG[Math.random()*IC_HDG.length|0]; if(h===heading) continue;
+    const s2=h===90||h===270;
+    const b=s2?0:IC_BANKS[Math.random()*IC_BANKS.length|0], p=IC_PITCH[Math.random()*IC_PITCH.length|0];
+    if(!opts.some(o=>o.bank===b&&o.pitch===p&&o.heading===h)) opts.push({bank:b,pitch:p,heading:h});
+  }
+  return {bank,pitch,heading,options:shuffle(opts)};
 }
 function startInstrument(){
   const N=12, secs=180, qs=[]; for(let i=0;i<N;i++) qs.push(genIC());
@@ -1983,13 +2023,14 @@ function icTimerStart(){ icTimerStop(); $("#icTimer").textContent=fmtTime(icStat
     if(icState.secsLeft<=0) finishIC(); },1000); }
 function icTimerStop(){ if(icState&&icState.timer){ clearInterval(icState.timer); icState.timer=null; } }
 function renderICQ(){ const s=icState; if(!s) return; if(s.idx>=s.N) return finishIC();
-  const q=s.qs[s.idx]; s.answered=false; const correctKey=q.options.findIndex(o=>o.bank===q.bank&&o.pitch===q.pitch);
+  const q=s.qs[s.idx]; s.answered=false; const correctKey=q.options.findIndex(o=>o.bank===q.bank&&o.pitch===q.pitch&&o.heading===q.heading);
   $("#icCount").textContent=`${s.idx+1} / ${s.N}`; $("#icBar").style.width=(s.idx/s.N*100)+"%";
   $("#icArea").innerHTML=`<div class="ic-instruments">
-      <div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (Attitude Indicator)</div></div></div>
-    <div class="ic-prompt">자세계를 보고 <b>같은 자세</b>의 비행기를 고르세요
-      <br><span class="muted" style="font-size:12px">기울어진 정도·방향(뱅크)과 수평선 위치(상승/하강)를 확인하세요</span></div>
-    <div class="ic-opts">${q.options.map((o,i)=>`<button data-i="${i}">${planeSVG(o.bank,o.pitch)}<div class="ol">${o.bank<0?"왼쪽 "+(-o.bank)+"° 뱅크":o.bank>0?"오른쪽 "+o.bank+"° 뱅크":"수평"} · ${o.pitch>0?"상승":o.pitch<0?"하강":"수평비행"}</div></button>`).join("")}</div>`;
+      <div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (Attitude)</div></div>
+      <div class="ic-dial">${compassSVG(q.heading)}<div class="lbl">나침반 (Compass)</div></div></div>
+    <div class="ic-prompt">두 계기를 보고 <b>같은 자세·방향</b>의 비행기를 고르세요
+      <br><span class="muted" style="font-size:12px">뱅크(기울기)·피치(상승/하강)에 나침반의 기수 방향까지! 남향(정면)은 뱅크가 거울처럼 반대로 보여요</span></div>
+    <div class="ic-opts">${q.options.map((o,i)=>`<button data-i="${i}">${planeSVG(o.bank,o.pitch,o.heading)}<div class="ol">${icLabel(o)}</div></button>`).join("")}</div>`;
   $$("#icArea .ic-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
     const i=+btn.dataset.i, ok=i===correctKey;
     $$("#icArea .ic-opts button").forEach((b,bi)=>{ b.disabled=true; if(bi===correctKey) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
@@ -2228,13 +2269,13 @@ function buildBC(n){
 function buildIC(n){
   const items=[];
   for(let i=0;i<n;i++){ const q=genIC();
-    const correctKey=q.options.findIndex(o=>o.bank===q.bank&&o.pitch===q.pitch);
-    const lbl=o=>`${o.bank<0?"왼쪽 "+(-o.bank)+"°":o.bank>0?"오른쪽 "+o.bank+"°":"수평"} · ${o.pitch>0?"상승":o.pitch<0?"하강":"수평비행"}`;
-    const optionsHTML=q.options.map(o=>`${planeSVG(o.bank,o.pitch)}<div class="ol">${lbl(o)}</div>`);
-    items.push({section:"IC", prompt:"자세계(Attitude Indicator)를 보고 같은 자세의 비행기를 고르세요", sub:"계기 해석",
-      figureHTML:`<div class="ic-instruments"><div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (Attitude)</div></div></div>`,
-      options:q.options.map(lbl), optionsHTML, answer:correctKey,
-      explain:`정답: ${lbl(q.options[correctKey])}. 뱅크=기울어진 방향, 피치=수평선 위치(상승/하강).`});
+    const correctKey=q.options.findIndex(o=>o.bank===q.bank&&o.pitch===q.pitch&&o.heading===q.heading);
+    const optionsHTML=q.options.map(o=>`${planeSVG(o.bank,o.pitch,o.heading)}<div class="ol">${icLabel(o)}</div>`);
+    items.push({section:"IC", prompt:"자세계와 나침반을 보고 같은 자세·방향의 비행기를 고르세요", sub:"계기 해석",
+      figureHTML:`<div class="ic-instruments"><div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (Attitude)</div></div>
+        <div class="ic-dial">${compassSVG(q.heading)}<div class="lbl">나침반 (Compass)</div></div></div>`,
+      options:q.options.map(icLabel), optionsHTML, answer:correctKey,
+      explain:`정답: ${icLabel(q.options[correctKey])}. 뱅크=기울기, 피치=수평선 위치, 나침반=기수 방향. 남향(정면)은 뱅크가 거울로 반대로 보이는 것에 주의.`});
   }
   return items;
 }
@@ -2345,11 +2386,13 @@ function buildRC(n){
   return items;
 }
 /* ----- 오답 노트(retest) builders ----- */
+// 반복 오답 우선: 많이 틀린 것부터(동률은 무작위) + 2회 이상이면 ❗표시
+function wrongSorted(bucket){ return shuffle(Object.keys(bucket)).sort((a,b)=>(bucket[b]||1)-(bucket[a]||1)); }
+function wrongTag(it,n){ if(n>=2) it.sub=(it.sub?it.sub+" · ":"")+`❗${n}회 틀림`; return it; }
 function buildWrongWK(){
-  const ids=Object.keys(state.wrong.wk).map(Number);
-  const out=[];
-  for(const wid of shuffle(ids)){ const w=WMAP.get(wid); if(!w||!(w.synonyms&&w.synonyms.length)) continue;
-    const one=buildWKfor(w); if(one) out.push(one); }
+  const b=state.wrong.wk, out=[];
+  for(const k of wrongSorted(b)){ const w=WMAP.get(+k); if(!w||!(w.synonyms&&w.synonyms.length)) continue;
+    const one=buildWKfor(w); if(one) out.push(wrongTag(one,b[k]||1)); }
   return out;
 }
 function buildWKfor(w){
@@ -2367,29 +2410,30 @@ function buildWKfor(w){
     wordId:w.id,tier:tierOf(w),explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`};
 }
 function buildWrongVA(){
-  const ids=Object.keys(state.wrong.va).map(Number);
-  return shuffle(ids).map(id=>ANALOGIES.find(a=>a.id===id)).filter(Boolean).map(vaItem);
+  const b=state.wrong.va;
+  return wrongSorted(b).map(k=>ANALOGIES.find(a=>a.id===+k)).filter(Boolean)
+    .map(a=>wrongTag(vaItem(a),b[a.id]||1));
 }
 function buildWrongRC(){
-  const out=[];
-  for(const key of shuffle(Object.keys(state.wrong.rc))){
+  const b=state.wrong.rc, out=[];
+  for(const key of wrongSorted(b)){
     const [pid,qi]=key.split(":").map(Number); const p=READING.find(x=>x.id===pid);
-    if(p&&p.questions[qi]) out.push(rcItem(p,qi));
+    if(p&&p.questions[qi]) out.push(wrongTag(rcItem(p,qi),b[key]||1));
   }
   return out;
 }
 // Retest the exact wrong MCQ questions (산수/수학/과학), rebuilt from their pool by id.
 function buildWrongMCQ(pool,section,bucket){
-  const ids=new Set(Object.keys(state.wrong[bucket]||{}).map(Number));
-  return shuffle(pool.filter(q=>ids.has(q.id))).map(q=>({
+  const b=state.wrong[bucket]||{}; const map=new Map(pool.map(q=>[q.id,q]));
+  return wrongSorted(b).map(k=>map.get(+k)).filter(Boolean).map(q=>wrongTag({
     section, prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:q.topic||"", qid:q.id,
-    options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
+    options:q.options.slice(), answer:q.answer, explain:q.explain||""}, b[q.id]||1));
 }
 function buildWrongAV(){
-  const ids=new Set(Object.keys(state.wrong.av||{}).map(Number));
-  return shuffle(AVIATION.filter(q=>ids.has(q.id))).map(q=>({
+  const b=state.wrong.av||{}; const map=new Map(AVIATION.map(q=>[q.id,q]));
+  return wrongSorted(b).map(k=>map.get(+k)).filter(Boolean).map(q=>wrongTag({
     section:"AV", prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:AVCAT[q.topic]||q.topic||"",
-    avId:q.id, avTopic:q.topic, options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
+    avId:q.id, avTopic:q.topic, options:q.options.slice(), answer:q.answer, explain:q.explain||""}, b[q.id]||1));
 }
 const WRONG_BUILD={ wk:buildWrongWK, va:buildWrongVA, rc:buildWrongRC,
   ar:()=>buildWrongMCQ(ARITH,"AR","ar"), mk:()=>buildWrongMCQ(MATHK,"MK","mk"),
@@ -2406,9 +2450,10 @@ function renderExamSetup(){
       :(EXAM_PRESETS[k]?EXAM_PRESETS[k].label:""); });
   // wrong-note (오답 노트)
   const wc=wrongCounts();
-  const rows=WRONG_ORDER.filter(k=>wc[k]>0).map(k=>
-    `<button class="exam-preset" data-retest="${k}" style="padding:13px"><div class="ic" style="font-size:20px">${WRONG_META[k][0]}</div>
-      <div class="meta"><b>${WRONG_META[k][1]} 오답</b><div class="muted">${wc[k]}문제 다시 풀기</div></div><div class="go">›</div></button>`).join("");
+  const rows=WRONG_ORDER.filter(k=>wc[k]>0).map(k=>{
+    const rep=Object.values(state.wrong[k]||{}).filter(v=>v>=2).length;
+    return `<button class="exam-preset" data-retest="${k}" style="padding:13px"><div class="ic" style="font-size:20px">${WRONG_META[k][0]}</div>
+      <div class="meta"><b>${WRONG_META[k][1]} 오답</b><div class="muted">${wc[k]}문제 다시 풀기${rep?` · <span style="color:var(--warn)">❗2회+ ${rep}개</span>`:""}</div></div><div class="go">›</div></button>`; }).join("");
   $("#retestList").innerHTML=rows||`<div class="card center muted" style="padding:14px">아직 틀린 문제가 없어요. 모의고사를 보면 여기 쌓입니다.</div>`;
   $$("#retestList [data-retest]").forEach(b=>b.onclick=()=>startRetest(b.dataset.retest));
   const tot=WRONG_ORDER.reduce((s,k)=>s+wc[k],0); $("#retestAll").classList.toggle("hidden",tot===0);
@@ -2508,25 +2553,26 @@ function recordResult(it,ok){
   // per-topic weakness for the topic-based MCQ subtests
   const topic=(it.section==="AV"?it.avTopic:it.sub)||"";
   if(["AR","MK","PS","AV"].includes(it.section)&&topic) bump(K.topic||(K.topic={}), it.section+":"+topic);
+  // 오답 노트는 틀린 '횟수'를 누적한다(1→2→…) — 반복해서 틀리는 문제를 강조·우선 재출제.
   if(it.section==="WK"&&it.wordId!=null){
-    if(ok) delete W.wk[it.wordId]; else W.wk[it.wordId]=1;
+    if(ok) delete W.wk[it.wordId]; else W.wk[it.wordId]=(W.wk[it.wordId]||0)+1;
     bump(K.wkTier, it.tier||"std");
     state.wkSeen[it.wordId]=Date.now();        // coverage + 중복 회피용 시각
   } else if(it.section==="VA"&&it.anaId!=null){
-    if(ok) delete W.va[it.anaId]; else W.va[it.anaId]=1;
+    if(ok) delete W.va[it.anaId]; else W.va[it.anaId]=(W.va[it.anaId]||0)+1;
     bump(K.vaRel, it.relation||"기타");
     const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok)v.correct=(v.correct||0)+1; else v.wrong=(v.wrong||0)+1; setVA(it.anaId,v);
   } else if(it.section==="RC"&&it.passageId!=null){
     const key=it.passageId+":"+(it.qIdx||0);
-    if(ok) delete W.rc[key]; else W.rc[key]=1;
+    if(ok) delete W.rc[key]; else W.rc[key]=(W.rc[key]||0)+1;
     bump(K.rcType, it.qType||"detail");
     const r={...getRC(it.passageId)}; r.seen=true; setRC(it.passageId,r);  // coverage
   } else if(it.section==="AV"&&it.avId!=null){
     state.avp[it.avId]=Date.now();             // coverage + 중복 회피용 시각
-    if(ok) delete W.av[it.avId]; else W.av[it.avId]=1;
+    if(ok) delete W.av[it.avId]; else W.av[it.avId]=(W.av[it.avId]||0)+1;
   } else if(["AR","MK","PS"].includes(it.section)&&it.qid!=null){
     const sec=it.section.toLowerCase();
-    const b=W[sec]; if(b){ if(ok) delete b[it.qid]; else b[it.qid]=1; }
+    const b=W[sec]; if(b){ if(ok) delete b[it.qid]; else b[it.qid]=(b[it.qid]||0)+1; }
     (state.qSeen[sec]||(state.qSeen[sec]={}))[it.qid]=Date.now();   // 중복 출제 방지
   }
 }
@@ -2544,6 +2590,99 @@ function startRetest(kind){
   $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
   startExamTimer(); renderExamQ();
 }
+/* ============================================================
+   시험 전 요약 시트 — 공식·관계유형·항공핵심·어근을 한 페이지로
+   (유추 관계·어근은 실제 데이터에서 빈도순 자동 집계)
+   ============================================================ */
+let csFrom="exam";
+function openCheatsheet(from){ if(from) csFrom=from; go("cheatsheet"); }
+const CS_MATH=[
+ ["백분율·비율",[
+   "x% = x/100 · 부분 = 전체 * 비율",
+   "증감률(%) = 변화량/원래값 * 100",
+   "비례식 a:b = c:d ⇔ ad = bc",
+ ]],
+ ["평균",[
+   "평균 = 합 ÷ 개수 → 합 = 평균 * 개수",
+   "가중평균 = (n_1x_1 + n_2x_2) ÷ (n_1 + n_2)",
+   "연속 정수의 합 = 가운데 값 * 개수",
+ ]],
+ ["속력·거리·시간",[
+   "거리 = 속력 * 시간 (d = rt)",
+   "평균속력 = 총거리 ÷ 총시간 (속력 두 개의 평균이 아님!)",
+   "마주 보고 접근 → 속력의 합 · 같은 방향 추격 → 속력의 차",
+ ]],
+ ["일률·혼합",[
+   "함께 일하면 1/T = 1/A + 1/B",
+   "농도(%) = 용질/전체 * 100 · 혼합: C_1V_1 + C_2V_2 = C(V_1+V_2)",
+ ]],
+ ["이자",[
+   "단리: 이자 = P*r*t",
+   "복리: A = P(1+r)^n",
+ ]],
+ ["지수·제곱근",[
+   "a^m * a^n = a^{m+n} · (a^m)^n = a^{mn} · a^{-n} = 1/a^n · a^0 = 1",
+   "sqrt(ab) = sqrt(a) * sqrt(b) · sqrt(a/b) = sqrt(a)/sqrt(b)",
+ ]],
+ ["대수",[
+   "a^2 - b^2 = (a+b)(a-b) · (a+b)^2 = a^2 + 2ab + b^2",
+   "근의 공식: x = (-b ± sqrt(b^2 - 4ac)) / 2a",
+   "부등식: 음수를 곱하거나 나누면 부호가 뒤집힌다",
+ ]],
+ ["기하",[
+   "삼각형 내각 합 180° · 피타고라스 a^2 + b^2 = c^2",
+   "특수 직각삼각형: 3-4-5 · 5-12-13 · 45°(1:1:sqrt(2)) · 30-60°(1:sqrt(3):2)",
+   "원: 둘레 2*pi*r · 넓이 pi*r^2 · 부채꼴은 중심각/360° 비례",
+   "사다리꼴 = (윗변+아랫변)*높이 ÷ 2 · 원기둥 V = pi*r^2h · 구 V = 4/3 pi*r^3",
+   "직육면체 대각선 = sqrt(a^2 + b^2 + c^2)",
+ ]],
+ ["확률·경우의 수",[
+   "순열 nPr = n!/(n-r)! · 조합 nCr = n!/(r!(n-r)!)",
+   "독립 사건은 확률을 곱하고, 배반 사건은 더한다",
+ ]],
+];
+const CS_AV=[
+ "4가지 힘: 양력↔중력 · 추력↔항력 — 등속 수평비행이면 네 힘이 평형",
+ "3축 조종: 롤(세로축)=에일러론 · 피치(가로축)=엘리베이터 · 요(수직축)=러더",
+ "플랩 = 양력·항력 동시 증가(저속 이착륙용) · 트림 = 조종간 힘 경감",
+ "실속 = 받음각(AOA)이 임계각 초과 — 속도가 아니라 '각도' 문제 · 회복은 기수를 낮춰 AOA 감소",
+ "계기 6팩: 피토·정압계 → 속도계·고도계·승강계 / 자이로계 → 자세계·기수방위계·선회경사계",
+ "피토관 막힘 → 속도계 이상 · 정압구 막힘 → 고도계·승강계·속도계까지 영향",
+ "V속도: V_{S0} 착륙형상 실속 · V_{S1} 클린 실속 · V_X 최대상승각 · V_Y 최대상승률 · V_{NE} 초과 금지",
+ "좌선회 경향(P-팩터·토크·나선 후류·자이로 세차) → 고출력·저속(이륙)에서 오른쪽 러더",
+ "밀도고도 상승(고온·고고도·다습) = 공기 희박 → 양력·엔진·프로펠러 성능 모두 감소",
+ "카뷰레터 결빙: 습하고 서늘한 날 출력 감소 → 카브 히트 (외기 20°C여도 발생 가능)",
+ "고도계: 고기압→저기압으로 비행하면 실제보다 높게 지시 — 'High to Low, look out below'",
+ "장주 패턴: 다운윈드 → 베이스 → 파이널 · 무관제 비행장에서는 CTAF 방송",
+ "라이트 건(무선 두절 시): 녹색 점등 = 착륙 허가 · 적색 점등 = 양보하고 계속 선회 · 적색 점멸 = 착륙 금지",
+ "산소 규정: 12,500ft 초과 30분 이상 → 승무원 산소 사용 · 14,000ft 초과 → 상시 사용",
+];
+function renderCheatsheet(){
+  const box=$("#csBody"); if(!box) return;
+  const rel={};
+  for(const a of ANALOGIES){ const k=a.relKo||a.relation||"기타"; (rel[k]=rel[k]||{n:0,ex:null}).n++; if(!rel[k].ex&&a.stem) rel[k].ex=a; }
+  const relRows=Object.entries(rel).sort((x,y)=>y[1].n-x[1].n).slice(0,14)
+    .map(([k,v])=>`<tr><td><b>${esc(k)}</b></td><td class="muted">${v.ex?esc(v.ex.stem[0]+" : "+v.ex.stem[1]):""}</td><td class="muted" style="text-align:right">${v.n}</td></tr>`).join("");
+  if(!ROOTIDX) buildRootIndex();
+  const roots=Object.entries(ROOTIDX||{}).map(([f,e])=>({f,m:e.m,n:e.ids.length,ex:e.ids.slice(0,2).map(id=>(WMAP.get(id)||{}).word).filter(Boolean)}))
+    .sort((a,b)=>b.n-a.n).slice(0,24);
+  const rootRows=roots.map(r=>`<tr><td><b>${esc(r.f)}</b></td><td>${esc(r.m)}</td><td class="muted">${esc(r.ex.join(", "))}</td></tr>`).join("");
+  const paceRows=[["WK","단어",25,5],["VA","유추",25,8],["RC","독해",25,24],["AR","산수",25,29],["MK","수학",25,22],
+    ["AV","항공",20,8],["TR","표읽기",40,7],["IC","계기",25,5],["BC","블록",30,4.5]]
+    .map(([c,ko,n,min])=>`<tr><td>${ko}</td><td class="muted">${n}문항 · ${min}분</td><td style="text-align:right"><b>${SECRATE[c]}초</b>/문항</td></tr>`).join("");
+  const mathBlocks=CS_MATH.map(([t,rows])=>`<div class="cs-sub">${esc(t)}</div>${rows.map(r=>`<div class="cs-f">${fmtMath(r)}</div>`).join("")}`).join("");
+  box.innerHTML=`
+    <div class="hintbox" style="margin-bottom:14px">시험 전날 밤·시험장 가는 길에 한 번 훑는 용도예요. 제목을 누르면 접혔다 펴져요.</div>
+    <details class="cs-sec" open><summary>⏱️ 과목별 시간 배분</summary><table class="cs-table">${paceRows}</table>
+      <div class="guide-src">AFOQT는 오답 감점이 없어요 — 시간이 모자라면 남은 문항은 반드시 다 찍기!</div></details>
+    <details class="cs-sec"><summary>🔢 수학 공식 (산수·수학지식)</summary>${mathBlocks}</details>
+    <details class="cs-sec"><summary>🔗 유추 관계 유형 — 빈도순 TOP ${Math.min(14,Object.keys(rel).length)}</summary><table class="cs-table">${relRows}</table>
+      <div class="guide-src">짝의 '관계'뿐 아니라 '방향'(부분→전체 vs 전체→부분)까지 같아야 정답!</div></details>
+    <details class="cs-sec"><summary>✈️ 항공 핵심 암기 ${CS_AV.length}줄</summary>${CS_AV.map(x=>`<div class="cs-f">${fmtMath(x)}</div>`).join("")}</details>
+    <details class="cs-sec"><summary>📇 최빈출 어근 TOP ${roots.length}</summary><table class="cs-table">${rootRows}</table>
+      <div class="guide-src">모르는 단어가 나오면 어근으로 뜻을 추론 — 어근 코치에서 훈련한 그대로!</div></details>`;
+}
+
 /* ============================================================
    약점 원탭 드릴 — 약점 리포트의 '유형' 한 줄에서 그 유형만 20문제 즉시 연습
    ============================================================ */
@@ -2991,6 +3130,11 @@ function wire(){
   $("#currBack").onclick=()=>go("home");
   $("#repBack").onclick=()=>go("stats"); $("#btnReport")&&($("#btnReport").onclick=openReport); $("#repOpen")&&($("#repOpen").onclick=openReport);
   $("#btnExamLog")&&($("#btnExamLog").onclick=()=>{ examLogIdx=null; go("examlog"); });
+  // 요약 시트
+  $("#btnCheatsheet")&&($("#btnCheatsheet").onclick=()=>openCheatsheet("exam"));
+  $("#btnCheatsheet2")&&($("#btnCheatsheet2").onclick=()=>openCheatsheet("stats"));
+  $("#csBack")&&($("#csBack").onclick=()=>go(csFrom||"exam"));
+  $("#csPrint")&&($("#csPrint").onclick=()=>{ $$("#csBody details").forEach(d=>d.open=true); window.print(); });
   $$("#currTabs .chip").forEach(c=>c.onclick=()=>{ curTrack=c.dataset.ct; renderCurriculum(); });
   $("#cpBack").onclick=()=>{ curSes=null; go("curriculum"); };
   $("#cpRetry").onclick=()=>{ const t=curSes?.t??curTrack, si=curSes?.si??0; curSes=null; startCurrStage(t,si); };
@@ -3161,6 +3305,15 @@ async function forceUpdate(){
   // cache-bust the document so the server copy is fetched fresh
   const u=new URL(location.href); u.searchParams.set("v",Date.now().toString()); location.replace(u.toString());
 }
+// 새 버전이 준비되면 하단에 배너를 띄워 사용자가 바로 적용할 수 있게 한다.
+// (풀이 중엔 자동 새로고침이 미뤄지므로, 배너가 '지금 적용' 탈출구가 된다)
+function showUpdBanner(){
+  if($("#updBanner")) return;
+  const b=document.createElement("button"); b.id="updBanner";
+  b.innerHTML=`🔄 새 버전 준비 완료 — <b>탭해서 적용</b>`;
+  b.onclick=()=>{ b.disabled=true; b.textContent="적용 중…"; location.reload(); };
+  document.body.appendChild(b);
+}
 function registerSW(){
   if(!("serviceWorker" in navigator)) return;
   let reloaded=false;
@@ -3169,6 +3322,7 @@ function registerSW(){
   // user is back on a hub screen.
   navigator.serviceWorker.addEventListener("controllerchange",()=>{
     if(reloaded) return;
+    showUpdBanner();
     const tryReload=()=>{ if(sessionActive()){ setTimeout(tryReload,4000); return; } reloaded=true; location.reload(); };
     tryReload();
   });
@@ -3187,6 +3341,33 @@ function registerSW(){
       });
     });
   }).catch(()=>{});
+}
+/* ============================================================
+   첫 진입 온보딩 — 시험일 → 진단 → 플랜 3단계 (기존 사용자는 자동 통과)
+   ============================================================ */
+function maybeOnboard(){
+  if(state.settings.onboard_done) return;
+  // 기존 사용자 판정: 실제 학습 흔적이 있는지 (renderHome 이 오늘 daily 빈 엔트리를
+  // 만들어 두므로 키 존재가 아니라 studied>0 로 본다)
+  const used=Object.keys(state.cards).length>0||(state.examHist||[]).length>0
+    ||Object.values(state.daily||{}).some(d=>(d&&d.studied||0)>0);
+  if(used){ state.settings.onboard_done=1; saveNow(); return; }
+  const ov=document.createElement("div"); ov.id="onboard"; ov.className="onboard-overlay";
+  ov.innerHTML=`<div class="onboard-card">
+    <div class="big-emoji">🎯</div>
+    <h2 style="margin:4px 0 2px">AFOQT 준비, 3단계로 시작!</h2>
+    <div class="muted" style="font-size:12px;margin-bottom:12px">1분이면 세팅 끝나요.</div>
+    <div class="ob-step"><b>1️⃣ 시험 날짜</b>
+      <input type="date" id="obDate" value="${esc(state.settings.exam_date)}"></div>
+    <div class="ob-step"><b>2️⃣ 진단 모의고사</b><div class="muted" style="font-size:12px">전 과목 1회로 현재 실력 측정 (약 30분) — 홈에 예상 점수가 떠요</div></div>
+    <div class="ob-step"><b>3️⃣ 완성 플랜</b><div class="muted" style="font-size:12px">시험일까지 매일 '오늘 할 일'이 자동으로 생겨요 (🗓️ 플랜 탭)</div></div>
+    <button class="btn primary" id="obGo" style="margin-top:14px">🩺 날짜 저장하고 진단 시작</button>
+    <button class="btn ghost" id="obSkip" style="margin-top:8px">나중에 — 먼저 둘러보기</button></div>`;
+  document.body.appendChild(ov);
+  const close=()=>{ const d=$("#obDate").value; if(d) state.settings.exam_date=d;
+    state.settings.onboard_done=1; saveLocal(); queuePush("settings",{}); ov.remove(); renderHome(); };
+  $("#obGo").onclick=()=>{ close(); startExam("afoqt"); };
+  $("#obSkip").onclick=close;
 }
 async function loadJSON(path){
   try{
@@ -3222,6 +3403,7 @@ async function boot(){
     PHYSCI=await loadJSON("./physicalscience.json")||[];
     SITJUD=await loadJSON("./situational.json")||[];
     $("#boot").classList.remove("active"); go("home");
+    maybeOnboard();
     initSync();   // non-blocking: app already usable
     registerSW();
   }catch(e){
