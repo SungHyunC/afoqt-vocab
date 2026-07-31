@@ -60,6 +60,8 @@
 
   <div class="card motiv" id="motivBanner" style="margin-top:12px"></div>
 
+  <div id="scoreProj" style="margin-top:12px"></div>
+
   <button class="btn primary" id="btnDaily" style="margin-top:16px;font-size:17px;padding:17px">📅 오늘의 통합 학습 (전 영역)</button>
   <button class="btn ghost" id="btnCurr" style="margin-top:10px;font-size:16px;padding:15px">🎓 커리큘럼 학습 (기초 → 실전 · 15+ 목표)</button>
   <button class="btn ghost" id="btnStart" style="margin-top:10px;font-size:16px;padding:15px">📇 단어 플래시카드만</button>
@@ -306,6 +308,8 @@
       찍은 단어는 이 두 번의 검증에서 대부분 걸러집니다.</p>
     <div class="hintbox" id="confirmPoolInfo" style="margin-top:10px"></div>
     <button class="btn primary" id="confirmGo" style="margin-top:14px">시작</button>
+    <div class="hintbox hidden" id="sweepBlock" style="margin-top:14px;text-align:left"></div>
+    <button class="btn ghost hidden" id="sweepGo" style="margin-top:10px">🧹 최종 스윕 시작</button>
   </div>
   <div id="confirmDone" class="card center hidden">
     <div class="big-emoji">🏆</div>
@@ -683,6 +687,9 @@
   <div class="card" id="examTrend"></div>
   <button class="btn ghost" id="btnExamLog" style="margin-top:10px">📋 지난 시험 기록 · 해설 다시보기</button>
 
+  <h2 class="section">⚡ 풀이 속도 (실전 배분 대비)</h2>
+  <div class="card" id="speedStats"></div>
+
   <h2 class="section">🧩 약점 분석</h2>
   <div class="card" id="weakAnalysis"></div>
   <button class="btn primary" id="repOpen" style="margin-top:12px">🔍 내 약점 리포트 (바로 연습)</button>
@@ -788,6 +795,7 @@
       <div class="exam-scoreline" id="examBreakDown"></div>
       <div id="examProjection" class="exam-projection hidden"></div>
       <p class="muted" id="examTimeUsed"></p>
+      <div id="examSpeed" class="hintbox hidden" style="margin-top:8px"></div>
       <button class="btn primary" id="examReviewBtn" style="margin-top:8px">📋 문제 해설 보기</button>
       <button class="btn ghost" id="examRetry" style="margin-top:10px">다시 풀기</button>
       <button class="btn ghost" id="examDoneHome" style="margin-top:10px">홈으로</button>

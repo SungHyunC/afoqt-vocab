@@ -274,6 +274,13 @@ sub{vertical-align:-.25em}
 @keyframes pulse{50%{opacity:.55}}
 .exam-sec{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.6px;
   color:var(--brand2);border:1px solid var(--brand2);border-radius:6px;padding:1px 7px;margin-bottom:10px}
+/* 문항별 스톱워치 칩 — 목표(실전 배분) 초과 시 경고색 */
+.qtime{float:right;font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.qtime.over{color:var(--warn)}
+/* 약점 리포트 — 유형별 원탭 드릴 버튼 */
+.drillbtn{flex:0 0 auto;background:var(--brand);color:#fff;border:none;border-radius:8px;
+  font-size:11.5px;font-weight:700;padding:5px 9px;cursor:pointer}
+.drillbtn:active{transform:scale(.96)}
 .exam-prompt{font-weight:700;font-size:16px;line-height:1.45;margin-bottom:6px}
 .exam-ko{font-size:13px;color:var(--brand2);line-height:1.5;margin:-2px 0 8px}
 .exam-stem{font-size:26px;font-weight:800;text-align:center;letter-spacing:1px;margin:12px 0;color:#fff}
