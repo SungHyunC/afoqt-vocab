@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.61.0";
+const VERSION = "4.62.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -510,7 +510,8 @@ function mergeDaily(r){ const cur=state.daily[r.day];
 function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.daily_goal;
   if(r.start_date) state.settings.start_date=r.start_date; if(r.exam_date) state.settings.exam_date=r.exam_date;
   if(r.data){ if(r.data.high_first!=null) state.settings.high_first=r.data.high_first; if(r.data.high_only!=null) state.settings.high_only=r.data.high_only;
-    if(r.data.plan_ps_sj!=null) state.settings.plan_ps_sj=r.data.plan_ps_sj; } }
+    if(r.data.plan_ps_sj!=null) state.settings.plan_ps_sj=r.data.plan_ps_sj;
+    if(r.data.hide_ko!=null) state.settings.hide_ko=r.data.hide_ko; } }
 // The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
@@ -573,7 +574,7 @@ function queuePush(table,row){ if(!sb) return; const code=syncCode();
   if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at});
-  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj},updated_at:nowISO()};
+  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko},updated_at:nowISO()};
   clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,700); }
 // Each table pushes independently and only clears its queue on confirmed success —
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
@@ -622,7 +623,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -644,7 +645,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -1451,7 +1452,7 @@ function renderAvStudy(){
     return `<div class="review-q">
       <div class="rh">${esc(avTopicKo(x.topic))}</div>
       <div style="font-weight:600;margin-bottom:4px">${fmtMath(x.q)}</div>
-      ${x.q_ko?`<div class="muted" style="font-size:13px;margin-bottom:6px">${fmtMath(x.q_ko)}</div>`:""}
+      ${(x.q_ko&&!flag("hide_ko"))?`<div class="muted" style="font-size:13px;margin-bottom:6px">${fmtMath(x.q_ko)}</div>`:""}
       ${opts}
       ${x.explain?`<div class="rx">${fmtMath(x.explain)}</div>`:""}</div>`;
   }).join("")||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
@@ -1896,6 +1897,147 @@ function finishCurr(){
 let subCur=null;
 const SUBPOOL={ar:()=>ARITH,mk:()=>MATHK,ps:()=>PHYSCI,sj:()=>SITJUD};
 function openSubtest(key){ subCur=key; go("subtest"); }
+/* ============================================================
+   수학 유형별 공략 — AR·MK 전 유형: 개념·공식 → 푸는 순서 → 함정 →
+   실제 풀에서 뽑은 예제 → "이 유형만 20문제" 드릴
+   ============================================================ */
+const MATH_TYPES=[
+ // ── ➗ 산수 추론 (AR) ──
+ {k:"ar_ratio",sec:"AR",name:"비율·비례",keys:["ratios","proportions"],
+  pts:["비 a:b 에서 전체 = a+b 단위. 예: 3:5면 전체는 8단위","비례식 a:b = c:d ⇔ ad = bc (교차 곱셈)"],
+  steps:"① 주어진 값으로 '1단위 크기'부터 구한다 (값 ÷ 해당 비) → ② 구하려는 쪽 비에 곱한다",
+  trap:"'전체 인원'을 물으면 8단위(합)로 계산해야지, 3이나 5로 나누면 오답."},
+ {k:"ar_pct",sec:"AR",name:"백분율·증감률",keys:["percentages"],
+  pts:["x% = x/100 · 부분 = 전체 * 비율","증감률(%) = 변화량/원래값 * 100 — 기준은 항상 '변하기 전' 값","연속 할인은 곱셈: 20% 후 30% 할인 = 0.8 * 0.7 = 44% 할인 (50% 아님)"],
+  steps:"① '무엇의 %'인지(기준) 확정 → ② 식 세우기 → ③ 원래값을 물으면 나눗셈으로 역산",
+  trap:"10% 올랐다가 10% 내리면 제자리가 아니라 원래의 0.99배."},
+ {k:"ar_mix",sec:"AR",name:"혼합(농도)",keys:["mixtures"],
+  pts:["농도(%) = 용질/전체 * 100","혼합: C_1V_1 + C_2V_2 = C(V_1+V_2)","물 추가 = 농도 0% 용액 추가 · 증발 = 용질 그대로, 전체만 감소"],
+  steps:"① 각 용액의 '용질 양'부터 구한다 → ② 용질 합 ÷ 전체 합 = 새 농도",
+  trap:"농도를 그냥 평균 내면 안 됨 — 반드시 양(부피)으로 가중해야 한다."},
+ {k:"ar_rate",sec:"AR",name:"속력·거리·시간",keys:["rates","distance_rate_time"],
+  pts:["거리 = 속력 * 시간 (d = rt)","평균속력 = 총거리 ÷ 총시간","마주 보고 접근 → 속력의 합 · 같은 방향 추격 → 속력의 차"],
+  steps:"① 거리|속력|시간 표를 그린다 → ② 같은 것(거리 또는 시간)을 찾아 등식을 세운다",
+  trap:"왕복 평균속력은 두 속력의 평균이 아니라 2ab/(a+b)."},
+ {k:"ar_work",sec:"AR",name:"일률(작업 속도)",keys:["work_rate"],
+  pts:["혼자 T시간 걸리면 1시간 일량 = 1/T","함께 일하면: 1/A + 1/B = 1/T"],
+  steps:"① 각자의 시간당 일량(분수)으로 바꾼다 → ② 더한다 → ③ 역수가 함께 걸리는 시간",
+  trap:"A 3시간·B 6시간이면 함께 2시간 — 절대 평균(4.5시간)이 아니다."},
+ {k:"ar_avg",sec:"AR",name:"평균",keys:["averages"],
+  pts:["평균 = 합 ÷ 개수 → 합 = 평균 * 개수","가중평균 = (n_1x_1 + n_2x_2) ÷ (n_1+n_2)","연속 정수의 합 = 가운데 값 * 개수"],
+  steps:"평균 문제는 무조건 '총합'으로 바꿔서 계산 — 사람이 추가/제외되면 합의 변화를 따라간다",
+  trap:"두 그룹 평균을 합칠 때 인원수가 다르면 단순 평균 금지."},
+ {k:"ar_frac",sec:"AR",name:"분수·정수 연산",keys:["fractions","integers","number_properties"],
+  pts:["분수 나눗셈 = 역수를 곱한다","덧셈·뺄셈은 통분 먼저","짝±짝=짝 · 홀±홀=짝 · 홀*홀=홀"],
+  steps:"복잡한 분수식은 ① 괄호 안 → ② 곱셈·나눗셈 → ③ 덧셈·뺄셈 순서로",
+  trap:"전체의 1/3을 쓰고 '남은 것'의 1/2를 쓰면 남는 건 1/3 — 기준이 계속 바뀐다."},
+ {k:"ar_money",sec:"AR",name:"돈·이익·이자",keys:["money","simple_interest","compound_interest"],
+  pts:["이익 = 판매가 - 원가 · 이익률은 보통 원가 기준","단리: 이자 = P*r*t","복리: A = P(1+r)^n"],
+  steps:"① 기준(원가/정가)을 확정 → ② 할인·이익을 곱셈으로 연결 → ③ 역산은 나눗셈",
+  trap:"'정가의 20% 할인 판매로 원가의 20% 이익' — 두 20%의 기준이 다르다."},
+ {k:"ar_geo",sec:"AR",name:"기하 응용(둘레·넓이)",keys:["geometry","area_perimeter","area_word_problem","perimeter_word_problem"],
+  pts:["직사각형: 둘레 2(a+b) · 넓이 ab","삼각형 넓이 = 밑변*높이/2 · 원: 둘레 2*pi*r, 넓이 pi*r^2","복합 도형은 쪼개서 더하거나, 큰 것에서 빼기"],
+  steps:"① 그림을 그리고 아는 값 표시 → ② 공식 적용 → ③ 단위 확인",
+  trap:"단위 환산 주의 — 길이가 100배면 넓이는 10,000배(제곱)."},
+ {k:"ar_prob",sec:"AR",name:"확률·경우의 수",keys:["probability","basic_probability"],
+  pts:["확률 = 원하는 경우 ÷ 전체 경우","독립 사건은 곱하고, 배반 사건은 더한다","'적어도 하나' = 1 - (하나도 없을 확률)"],
+  steps:"① 전체 경우 수 → ② 조건 만족 경우 수 → ③ 비복원이면 분모가 줄어드는 것 반영",
+  trap:"카드를 '다시 넣지 않으면' 두 번째 확률의 분모는 1 작아진다."},
+ {k:"ar_age",sec:"AR",name:"나이 문제",keys:["age_problems"],
+  pts:["x년 후에는 '모든 사람'이 +x살","현재 나이를 미지수로 두고 관계식을 세운다"],
+  steps:"① 현재 나이 x 설정 → ② '~년 전/후' 조건을 식으로 → ③ 방정식 풀기",
+  trap:"몇 년이 지나도 두 사람의 나이 '차'는 변하지 않는다 — 이걸 쓰면 빠르다."},
+ {k:"ar_unit",sec:"AR",name:"단위 환산",keys:["unit_conversion"],
+  pts:["1 ft = 12 in · 1 yd = 3 ft · 1 mi = 5,280 ft","1시간 = 3,600초 · 1 lb = 16 oz"],
+  steps:"단위를 분수로 곱해 소거: 60 mi/hr * (5280 ft/mi) ÷ (3600 s/hr) = 88 ft/s",
+  trap:"곱할지 나눌지 헷갈리면 '단위가 소거되는 방향'으로 판단."},
+ // ── 📐 수학 지식 (MK) ──
+ {k:"mk_lin",sec:"MK",name:"일차방정식·연립",keys:["equations","linear_equations","systems_of_equations","systems"],
+  pts:["이항 → 동류항 정리 → 계수로 나누기","연립: 대입법(한 문자를 다른 문자로 표현) 또는 가감법(더하거나 빼서 소거)"],
+  steps:"분수 계수는 양변에 분모의 최소공배수를 곱해 정수로 만든 뒤 시작",
+  trap:"이항할 때 부호 반전 — 답을 원식에 대입해 3초 검산하는 습관."},
+ {k:"mk_alg",sec:"MK",name:"대수식 계산·대입",keys:["algebra"],
+  pts:["곱셈공식: (a+b)^2 = a^2+2ab+b^2 · (a-b)^2 = a^2-2ab+b^2 · (a+b)(a-b) = a^2-b^2","문자에 수를 대입할 때 음수는 반드시 괄호로: x=-2면 x^2 = (-2)^2 = 4"],
+  steps:"① 전개/정리로 식을 단순화 → ② 대입 → ③ 계산",
+  trap:"-x^2 과 (-x)^2 은 다르다 — x=3이면 각각 -9와 9."},
+ {k:"mk_exp",sec:"MK",name:"지수",keys:["exponents"],
+  pts:["a^m * a^n = a^{m+n} · a^m ÷ a^n = a^{m-n}","(a^m)^n = a^{mn} · (ab)^n = a^n b^n","a^{-n} = 1/a^n · a^0 = 1 (a≠0)"],
+  steps:"밑을 같게 통일하는 게 1순위: 8^x = 2^{3x}, 9 = 3^2",
+  trap:"(2^3)^2 = 2^6 이지만 2^{3^2} = 2^9 — 괄호 위치로 완전히 달라진다."},
+ {k:"mk_rad",sec:"MK",name:"근호(루트)",keys:["radicals"],
+  pts:["sqrt(ab) = sqrt(a) * sqrt(b) · sqrt(a/b) = sqrt(a)/sqrt(b)","분모 유리화: 1/sqrt(2) = sqrt(2)/2","sqrt(x^2) = |x| (음수 조심)"],
+  steps:"근호 안을 소인수분해해 제곱 인수를 밖으로: sqrt(48) = sqrt(16*3) = 4sqrt(3)",
+  trap:"sqrt(a) + sqrt(b) ≠ sqrt(a+b) — 덧셈은 분배되지 않는다."},
+ {k:"mk_quad",sec:"MK",name:"이차식·인수분해",keys:["quadratics","factoring","polynomials","quadratic_vertex"],
+  pts:["x^2 + (p+q)x + pq = (x+p)(x+q)","근의 공식: x = (-b ± sqrt(b^2-4ac)) / 2a · 판별식 b^2-4ac 부호로 근 개수","근과 계수: 두 근의 합 = -b/a · 곱 = c/a","꼭짓점: x = -b/2a"],
+  steps:"① 우변을 0으로 → ② 인수분해 시도 → ③ 안 되면 근의 공식",
+  trap:"x^2 = 4x 에서 양변을 x로 나누면 x=0 근을 잃는다 — 이항해서 인수분해."},
+ {k:"mk_ineq",sec:"MK",name:"부등식·절댓값",keys:["inequalities","absolute_value"],
+  pts:["음수를 곱하거나 나누면 부등호 방향 반전","|x| < a ⇔ -a < x < a","|x| > a ⇔ x < -a 또는 x > a"],
+  steps:"① 일차부등식처럼 풀되 → ② 음수 곱/나눗셈 순간 부호 뒤집기 → ③ 답은 수직선으로 확인",
+  trap:"-2x < 6 → x > -3 (부호 반전을 깜빡하면 정반대 답)."},
+ {k:"mk_fn",sec:"MK",name:"함수",keys:["functions"],
+  pts:["f(x)는 '대입 기계': f(3)은 x 자리에 3을 넣은 값","합성 f(g(x))는 안쪽 g부터 계산","일차함수 y = mx + b: m 기울기, b 절편"],
+  steps:"① 정의식 확인 → ② 안쪽부터 대입 → ③ 정리",
+  trap:"f(2x)와 2f(x)는 다르다 — 어디에 곱해지는지 확인."},
+ {k:"mk_geo",sec:"MK",name:"기하(각·도형·부피)",keys:["geometry","triangles","circles","geometry_area"],
+  pts:["삼각형 내각 합 180° · n각형 내각 합 (n-2)*180°","피타고라스 a^2+b^2=c^2 · 특수삼각형 3-4-5, 5-12-13, 45°(1:1:sqrt(2)), 30-60°(1:sqrt(3):2)","원: 둘레 2*pi*r · 넓이 pi*r^2 · 원기둥 V = pi*r^2h · 구 V = 4/3 pi*r^3","닮음비 k → 넓이는 k^2배, 부피는 k^3배"],
+  steps:"① 그림에 아는 각·길이 표시 → ② 숨은 직각삼각형/닮음 찾기 → ③ 공식 적용",
+  trap:"맞꼭지각·평행선 동위각/엇각부터 채우면 미지의 각이 줄줄이 풀린다."},
+ {k:"mk_coord",sec:"MK",name:"좌표기하",keys:["coordinate_geometry"],
+  pts:["기울기 = (y_2-y_1)/(x_2-x_1)","두 점 거리 = sqrt((x_2-x_1)^2 + (y_2-y_1)^2)","중점 = 두 좌표의 평균","평행 ⇔ 기울기 같음 · 수직 ⇔ 기울기 곱 = -1"],
+  steps:"① 좌표를 공식에 순서대로 대입 → ② 부호 조심해서 계산",
+  trap:"수직 조건(기울기 곱 -1)은 단골 출제 — 기울기 2의 수직선은 -1/2."},
+ {k:"mk_num",sec:"MK",name:"수 성질·약수·배수",keys:["number_properties","arithmetic"],
+  pts:["소수는 1과 자기 자신만 약수 (2는 유일한 짝수 소수)","최대공약수(GCD)*최소공배수(LCM) = 두 수의 곱","연속 정수 n개의 합 = 가운데 값 * n"],
+  steps:"약수 개수: 소인수분해 후 (지수+1)들의 곱 — 12 = 2^2*3 → (2+1)(1+1) = 6개",
+  trap:"1은 소수가 아니다. 0은 짝수다."},
+ {k:"mk_seq",sec:"MK",name:"수열·로그",keys:["sequences_series","sequences","series","geometric_series","logarithms"],
+  pts:["등차수열: a_n = a_1 + (n-1)d · 합 = (첫항+끝항)*n/2","등비수열: a_n = a_1 * r^{n-1}","log_b(x) = y ⇔ b^y = x · log(ab) = log a + log b"],
+  steps:"수열은 ① 규칙(차이/비율) 파악 → ② 공식에 대입. 로그는 지수 정의로 되돌리면 쉽다",
+  trap:"등차 합에서 n(항의 개수) 세기 실수 — 끝-first ÷ d + 1."},
+];
+function typeAcc(sec,keys){ let c=0,w=0;
+  keys.forEach(k=>{ const o=(state.weak.topic||{})[sec+":"+k]; if(o){ c+=o.c||0; w+=o.w||0; } });
+  const n=c+w; return n?{p:Math.round(c/n*100),n}:null; }
+function drillTopicsMulti(sec,keys){
+  const set=new Set(keys);
+  if(sec==="AV") return shuffle(AVIATION.filter(q=>set.has(q.topic))).slice(0,20).map(q=>({
+    section:"AV",prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:AVCAT[q.topic]||q.topic||"",
+    avId:q.id,avTopic:q.topic,options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
+  const pool={AR:ARITH,MK:MATHK,PS:PHYSCI}[sec]||[];
+  return shuffle(pool.filter(q=>set.has(q.topic||""))).slice(0,20).map(q=>({
+    section:sec,prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:q.topic||"",qid:q.id,
+    options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
+}
+function renderMathTypes(){
+  const box=$("#mtBody"); if(!box) return;
+  const pools={AR:ARITH,MK:MATHK};
+  const secName={AR:"➗ 산수 추론 (Arithmetic Reasoning)",MK:"📐 수학 지식 (Math Knowledge)"};
+  box.innerHTML=["AR","MK"].map(sec=>`<h2 class="section">${secName[sec]}</h2>`+
+    MATH_TYPES.filter(g=>g.sec===sec).map(g=>{
+      const n=pools[sec].filter(q=>g.keys.includes(q.topic)).length;
+      const acc=typeAcc(sec,g.keys);
+      const accChip=acc?`<span class="pill" style="font-size:10.5px;color:${acc.p<60?"var(--bad)":acc.p<80?"var(--warn)":"var(--ok)"}">내 정답률 ${acc.p}%</span>`
+                       :`<span class="pill" style="font-size:10.5px;color:var(--muted)">미풀이</span>`;
+      const ex=pools[sec].find(q=>g.keys.includes(q.topic));
+      const exHTML=ex?`<div class="cs-sub">예제 (실제 문제)</div>
+        <div class="review-q" style="margin-top:2px">
+          <div style="font-weight:600">${fmtMath(ex.q)}</div>
+          ${(ex.q_ko&&!flag("hide_ko"))?`<div class="muted" style="font-size:12.5px;margin-top:3px">${fmtMath(ex.q_ko)}</div>`:""}
+          ${ex.options.map((o,oi)=>`<div class="ro ${oi===ex.answer?"ok":""}">${oi===ex.answer?"✓ ":""}${fmtMath(o)}</div>`).join("")}
+          <div class="rx">${fmtMath(ex.explain||"")}</div></div>`:"";
+      return `<details class="cs-sec"><summary>${esc(g.name)} <span class="muted" style="font-weight:600;font-size:11px">${n}문제</span> ${accChip}</summary>
+        <div class="cs-sub">핵심 개념·공식</div>${g.pts.map(p=>`<div class="cs-f">${fmtMath(p)}</div>`).join("")}
+        ${g.steps?`<div class="cs-sub">푸는 순서</div><div class="cs-f">${fmtMath(g.steps)}</div>`:""}
+        ${g.trap?`<div class="cs-sub">⚠️ 함정</div><div class="cs-f" style="border-left-color:var(--warn)">${fmtMath(g.trap)}</div>`:""}
+        ${exHTML}
+        <button class="btn primary sm" data-mt="${esc(g.k)}" style="margin:10px 0 4px">🎯 이 유형만 20문제 풀기 ▶</button>
+      </details>`;
+    }).join("")).join("");
+  $$("#mtBody [data-mt]").forEach(b=>b.onclick=()=>{ const g=MATH_TYPES.find(x=>x.k===b.dataset.mt); if(!g) return;
+    startDrill(drillTopicsMulti(g.sec,g.keys), `유형 드릴 · ${g.name}`); });
+}
 // Dedicated 수학 hub (bottom-nav tab) — Math Knowledge + Arithmetic practice/exam.
 function renderMath(){
   $("#mkCount").textContent=MATHK.length; $("#arCount").textContent=ARITH.length;
@@ -2225,7 +2367,7 @@ function buildSJ(n){
   return shuffle(SITJUD).slice(0,n).map(q=>({
     section:"SJ", prompt:q.q||"가장 효과적인 행동은?", promptKo:"", stem:null, sub:"리더십·판단",
     passageId:"sj"+q.id, passageTitle:"상황 (Situation)",
-    passageText:(q.scenario||"")+(q.scenario_ko?("\n\n"+q.scenario_ko):""),
+    passageText:(q.scenario||"")+((q.scenario_ko&&!flag("hide_ko"))?("\n\n"+q.scenario_ko):""),
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
 }
 // ── Visual subtests as exam items (figure + MCQ), so they slot into the linear runner ──
@@ -2510,7 +2652,7 @@ function renderExamQ(){
       ? `<div class="word-row"><div class="exam-stem">${esc(it.stem)}</div>${spkBtn(it.stem)}</div>`
       : `<div class="exam-stem">${esc(it.stem)}</div>`):"";
   const sub=it.sub?`<div class="exam-sub">${esc(it.sub)}</div>`:"";
-  const ko=it.promptKo?`<div class="exam-ko">${esc(it.promptKo)}</div>`:"";
+  const ko=(it.promptKo&&!flag("hide_ko"))?`<div class="exam-ko">${esc(it.promptKo)}</div>`:"";
   // Visual subtests (Table Reading / Instrument / Block Counting) carry a pre-built
   // figure (table or SVG) and, for Instrument, picture options rendered via optionsHTML.
   const figure=it.figureHTML?`<div class="exam-figure">${it.figureHTML}</div>`:"";
@@ -3088,6 +3230,7 @@ function createGeneric(){ const bg=document.createElement("div"); bg.className="
   bg.innerHTML=`<div class="sheet" id="genericSheetBody"></div>`; bg.onclick=e=>{ if(e.target===bg) closeSheet(); }; document.body.appendChild(bg); return bg; }
 function closeSheet(){ $("#genericSheet")?.classList.remove("open"); }
 function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#setStart").value=state.settings.start_date; $("#setExam").value=state.settings.exam_date;
+  $("#optShowKo")&&($("#optShowKo").checked=!flag("hide_ko"));
   $("#setUrl").value=localStorage.getItem(LS.url)||""; $("#setKey").value=localStorage.getItem(LS.key)||"";
   $("#syncCodeView").textContent=syncCode(); $("#verLine").textContent=`v${VERSION} · 단어 ${WORDS.length} · 유추 ${ANALOGIES.length} · 독해 ${READING.length} · 항공 ${AVIATION.length}`;
   setSyncDot(sb?"on":(sbUrl()&&sbKey()?"err":"off")); $("#settingsSheet").classList.add("open"); }
@@ -3130,6 +3273,9 @@ function wire(){
   $("#currBack").onclick=()=>go("home");
   $("#repBack").onclick=()=>go("stats"); $("#btnReport")&&($("#btnReport").onclick=openReport); $("#repOpen")&&($("#repOpen").onclick=openReport);
   $("#btnExamLog")&&($("#btnExamLog").onclick=()=>{ examLogIdx=null; go("examlog"); });
+  // 수학 유형별 공략
+  $("#btnMathTypes")&&($("#btnMathTypes").onclick=()=>go("mathtypes"));
+  $("#mtBack")&&($("#mtBack").onclick=()=>go("math"));
   // 요약 시트
   $("#btnCheatsheet")&&($("#btnCheatsheet").onclick=()=>openCheatsheet("exam"));
   $("#btnCheatsheet2")&&($("#btnCheatsheet2").onclick=()=>openCheatsheet("stats"));
@@ -3199,6 +3345,8 @@ function wire(){
   $("#examDoneHome").onclick=()=>go("home");
   $("#optHighFirst").onchange=e=>{ state.settings.high_first=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
+  $("#optShowKo")&&($("#optShowKo").onchange=e=>{ state.settings.hide_ko=!e.target.checked; saveLocal(); queuePush("settings",{});
+    toast(e.target.checked?"한글 번역을 표시해요":"실전 모드 — 영어 원문만 보여요 💪"); });
   // study
   $("#studyBack").onclick=()=>{ session=null; go("vocab"); }; $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=startStudy;
   $("#doneQuiz").onclick=()=>{ if(poolFor("today").length<4){ toast("오늘 학습한 단어가 4개 이상이면 퀴즈를 볼 수 있어요"); return; } session=null; startQuizScope("today"); };
