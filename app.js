@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.63.0";
+const VERSION = "4.63.1";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -3129,8 +3129,10 @@ function renderReport(){
 }
 function renderComposite(){
   const box=$("#compositeEst"); if(!box) return;
-  const accOf=s=>{ const o=state.secAcc[s]; const n=o?(o.c+o.w):0; return n?Math.round(o.c/n*100):null; };
-  const secLine=codes=>codes.filter(s=>accOf(s)!=null).map(s=>`${SEC_KO[s]} ${accOf(s)}%`).join(" · ")||"–";
+  // 만점 처리 중인 시각과목(TR/BC/IC)은 표기도 100%로 — 계산과 표시가 어긋나지 않게
+  const accOf=s=>{ if(pilotPerfect()&&PILOT_VISUAL.includes(s)) return 100;
+    const o=state.secAcc[s]; const n=o?(o.c+o.w):0; return n?Math.round(o.c/n*100):null; };
+  const secLine=codes=>codes.filter(s=>accOf(s)!=null).map(s=>`${SEC_KO[s]} ${accOf(s)}%${(pilotPerfect()&&PILOT_VISUAL.includes(s))?"✓":""}`).join(" · ")||"–";
   const block=(title,e,codes)=>`<div style="margin-bottom:13px">
       <div class="row" style="justify-content:space-between;align-items:baseline">
         <b style="font-size:15px">${title}</b>
