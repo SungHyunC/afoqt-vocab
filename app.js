@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.62.0";
+const VERSION = "4.63.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -171,6 +171,9 @@ function saveLocal(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150)
 // so a debounced save can be lost — always flush on hide/pagehide (see wire()).
 function saveNow(){ clearTimeout(saveTimer); try{ localStorage.setItem(LS.state, JSON.stringify(state)); }catch(e){} }
 function flag(k){ return !!state.settings[k]; }
+// 표읽기·블록·계기(Pilot 시각과목)를 외부 앱에서 연습 중 → 만점 처리 (기본 ON, 설정에서 해제)
+const PILOT_VISUAL=["TR","BC","IC"], PILOT_FULL={TR:40,BC:30,IC:25};
+function pilotPerfect(){ return state.settings.pilot_perfect!==false; }
 
 /* ---------- WK card ---------- */
 function getCard(id){ return state.cards[id] || {status:"new",reps:0,lapses:0,ease:2.5,interval:0,due:null,starred:false}; }
@@ -302,7 +305,7 @@ function badgeMetrics(){
     streak:computeStreak(), learned:c.learned, mastered:c.mastered, highLearned:c.highLearned,
     verified:c.verified, totalRev:c.totalRev,
     activeDays:Object.keys(D).filter(k=>(D[k].studied||0)>0).length,
-    mocks:hist.length, fullMock:hist.filter(x=>x&&x.key==="afoqt").length,
+    mocks:hist.length, fullMock:hist.filter(x=>x&&String(x.key||"").startsWith("afoqt")).length,
     bestAcc:hist.length?Math.max(...hist.map(x=>x.acc||0)):0,
     dayMax:Object.values(D).reduce((m,d)=>Math.max(m,d.studied||0),0),
     secMax:Object.values(D).reduce((m,d)=>Math.max(m,d.seconds||0),0),
@@ -511,7 +514,8 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
   if(r.start_date) state.settings.start_date=r.start_date; if(r.exam_date) state.settings.exam_date=r.exam_date;
   if(r.data){ if(r.data.high_first!=null) state.settings.high_first=r.data.high_first; if(r.data.high_only!=null) state.settings.high_only=r.data.high_only;
     if(r.data.plan_ps_sj!=null) state.settings.plan_ps_sj=r.data.plan_ps_sj;
-    if(r.data.hide_ko!=null) state.settings.hide_ko=r.data.hide_ko; } }
+    if(r.data.hide_ko!=null) state.settings.hide_ko=r.data.hide_ko;
+    if(r.data.pilot_perfect!=null) state.settings.pilot_perfect=r.data.pilot_perfect; } }
 // The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
@@ -574,7 +578,7 @@ function queuePush(table,row){ if(!sb) return; const code=syncCode();
   if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at});
-  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko},updated_at:nowISO()};
+  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false},updated_at:nowISO()};
   clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,700); }
 // Each table pushes independently and only clears its queue on confirmed success —
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
@@ -751,7 +755,7 @@ function scoreTrendLine(){
 }
 function renderScoreProj(){
   const box=$("#scoreProj"); if(!box) return;
-  const hasFull=(state.examHist||[]).some(x=>x&&x.key==="afoqt");
+  const hasFull=(state.examHist||[]).some(x=>x&&String(x.key||"").startsWith("afoqt"));
   const h=bigExams();
   if(!hasFull && h.length<2){
     box.innerHTML=`<div class="card" style="border:1px solid var(--brand)">
@@ -864,9 +868,10 @@ const PLAN_DAILY=[
 ];
 function planTasks(){
   const i=planIdx(), d=getDay(), t=[];
-  // 진단: 풀 모의고사(afoqt)를 한 번도 안 봤으면 무엇보다 먼저 시작점을 찍게 한다.
-  const hasFull=(state.examHist||[]).some(x=>x&&x.key==="afoqt");
-  const fullToday=(state.examHist||[]).some(x=>x&&x.key==="afoqt"&&x.ts&&todayStr(new Date(x.ts))===todayStr());
+  // 진단: 풀 모의고사(afoqt/afoqtCore)를 한 번도 안 봤으면 무엇보다 먼저 시작점을 찍게 한다.
+  const isFull=x=>x&&String(x.key||"").startsWith("afoqt");
+  const hasFull=(state.examHist||[]).some(isFull);
+  const fullToday=(state.examHist||[]).some(x=>isFull(x)&&x.ts&&todayStr(new Date(x.ts))===todayStr());
   if(!hasFull||fullToday)
     t.push({k:"diag",icon:"🩺",label:"진단 풀 모의고사 (전 과목 — 시작점 측정)",sub:"🏁 진단",min:35,
       done:hasFull, go:()=>startExam("afoqt")});
@@ -886,8 +891,13 @@ function planTasks(){
     done:dayStat("VA")>=vaN, go:()=>{ go("analogy"); startAnalogy(false); }});
   t.push({k:"rc",icon:"📖",label:`독해 ${rcN}문항 (24분 타이머)`,sub:"🗣 Verbal",min:Math.round(rcN*2.2),
     done:dayStat("RC")>=rcN, go:()=>go("reading")});
-  for(const x of PLAN_DAILY)
-    t.push({k:x.k,icon:x.icon,label:x.label,sub:x.tag,min:x.min,done:dayStat(x.sec)>=x.n,go:x.go});
+  for(const x of PLAN_DAILY){
+    // 표읽기·블록·계기: 외부 앱에서 연습 중이면 여기선 '했다' 체크만 (앱 내 드릴은 선택)
+    if(pilotPerfect()&&PILOT_VISUAL.includes(x.sec))
+      t.push({k:x.k,icon:x.icon,label:`${x.label.replace(/\s*드릴.*$/,"")} — 외부 앱 연습 (체크만)`,sub:"✈️ Pilot·외부",
+        min:x.min,done:dayStat(x.sec)>=x.n,go:x.go});
+    else t.push({k:x.k,icon:x.icon,label:x.label,sub:x.tag,min:x.min,done:dayStat(x.sec)>=x.n,go:x.go});
+  }
   // 선택: 과학·상황판단 (합성점수 비중 낮음 — 기본 제외, 토글로 격일 포함)
   if(flag("plan_ps_sj")){
     if(i%2===0) t.push({k:"ps",icon:"🔬",label:"과학 10문항",sub:"기타",min:8,
@@ -2327,6 +2337,9 @@ const EXAM_PRESETS={
   // ── 전과목 통합 (full AFOQT simulation — excludes Physical Science & Situational Judgment) ──
   afoqt: composeMock("AFOQT 전체 모의고사",
     [["WK",12],["VA",12],["RC",10],["AR",10],["MK",10],["AV",8],["TR",10],["IC",8],["BC",8]], "전 과목"),
+  // pilotPerfect(): 표읽기·블록·계기는 외부 앱에서 연습 → 전체 모의고사에서 제외한 코어 버전
+  afoqtCore: composeMock("AFOQT 모의고사 (표읽기·블록·계기 제외)",
+    [["WK",12],["VA",12],["RC",10],["AR",10],["MK",10],["AV",8]], "Pilot 시각과목 만점 처리"),
   // ── 섹터별 (composite-focused mocks) ──
   secVerbal: composeMock("Verbal 섹터",       [["WK",12],["VA",12],["RC",12]],            "Verbal"),
   secQuant:  composeMock("Quantitative 섹터", [["AR",12],["MK",12]],                       "Quant"),
@@ -2422,8 +2435,11 @@ function buildIC(n){
   return items;
 }
 // Predicted composite percentile from accumulated per-subtest accuracy.
+// pilotPerfect(): TR/BC/IC 는 외부 앱에서 거의 만점 → 실제 문항 수만큼 만점 표본으로 넣는다.
 function compositeEst(codes){
-  let c=0,w=0; codes.forEach(s=>{ const o=state.secAcc[s]; if(o){ c+=o.c||0; w+=o.w||0; } });
+  let c=0,w=0; codes.forEach(s=>{
+    if(pilotPerfect()&&PILOT_VISUAL.includes(s)){ c+=PILOT_FULL[s]||25; return; }
+    const o=state.secAcc[s]; if(o){ c+=o.c||0; w+=o.w||0; } });
   const n=c+w; if(n<5) return {pct:null,acc:null,n};
   const acc=c/n; return {pct:estPercentile(acc),acc,n};
 }
@@ -2587,7 +2603,9 @@ function renderExamSetup(){
   exam=null; stopExamTimer();
   $("#examSetup").classList.remove("hidden"); $("#examRun").classList.add("hidden"); $("#examResult").classList.add("hidden");
   $$("#examSetup .exam-preset").forEach(btn=>{
-    const k=btn.dataset.exam, r=state.exams[k], el=btn.querySelector(".last"); if(!el) return;
+    let k=btn.dataset.exam;
+    if(k==="afoqt"&&pilotPerfect()) k="afoqtCore"; // 시각과목 제외 버전으로 응시·표시
+    const r=state.exams[k], el=btn.querySelector(".last"); if(!el) return;
     el.textContent=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`
       :(EXAM_PRESETS[k]?EXAM_PRESETS[k].label:""); });
   // wrong-note (오답 노트)
@@ -2602,6 +2620,7 @@ function renderExamSetup(){
   $("#retestAll").textContent=`🔁 전체 오답 재시험 (${tot}문제)`;
 }
 function startExam(key,opts){
+  if(key==="afoqt"&&pilotPerfect()) key="afoqtCore"; // 시각과목은 외부 앱에서 — 코어만 응시
   const p=EXAM_PRESETS[key]; if(!p) return;
   const items=p.build();
   if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
@@ -2915,7 +2934,7 @@ function submitExam(auto){
   const acc=got/total, pctile=estPercentile(acc), multi=Object.keys(bySec).length>1;
   const secLines=Object.keys(bySec).map(k=>`${secName[k]||k} ${Math.round(bySec[k].got/bySec[k].total*100)}%`).join(" · ");
   const proj=$("#examProjection"); proj.classList.remove("hidden");
-  if(e.key==="afoqt"){
+  if(e.key==="afoqt"||e.key==="afoqtCore"){
     const compLines=COMPOSITES.map(c=>{ const ce=compositeEst(c.codes); return `<div class="row" style="justify-content:space-between"><span>${c.name}</span><b>${ce.pct==null?"–":ce.pct+"th"}</b></div>`; }).join("");
     proj.innerHTML=`<div class="lbl">예상 AFOQT 합성점수 백분위</div>
       <div class="seclist" style="text-align:left;margin-top:6px">${compLines}</div>
@@ -3066,7 +3085,8 @@ function repBar(label,o,drill){ const p=accPct(o); const n=(o?.c||0)+(o?.w||0); 
 function openReport(){ go("report"); }
 function renderReport(){
   const box=$("#repBody"); if(!box) return;
-  const subs=SUBTESTS.map(s=>({...s,o:state.secAcc[s.code]})).filter(s=>((s.o?.c||0)+(s.o?.w||0))>=3)
+  const subs=SUBTESTS.filter(s=>!(pilotPerfect()&&PILOT_VISUAL.includes(s.code)))
+    .map(s=>({...s,o:state.secAcc[s.code]})).filter(s=>((s.o?.c||0)+(s.o?.w||0))>=3)
     .map(s=>({...s,acc:accPct(s.o),n:(s.o.c||0)+(s.o.w||0)})).sort((a,b)=>a.acc-b.acc);
   if(!subs.length){ box.innerHTML=`<div class="card rep-empty">아직 분석할 데이터가 부족해요.<br>퀴즈·시험·커리큘럼을 조금 풀면 약점을 분석해 드릴게요.<br><button class="btn primary" id="repGoDaily" style="max-width:240px;margin:14px auto 0">📅 오늘의 통합 학습 시작</button></div>`;
     $("#repGoDaily")&&($("#repGoDaily").onclick=()=>startExam("daily")); return; }
@@ -3119,7 +3139,8 @@ function renderComposite(){
         ?"데이터 부족 — 관련 과목을 더 풀면 예측돼요."
         :`정답률 ${Math.round(e.acc*100)}% · ${secLine(codes)} · 표본 ${e.n}`}</div></div>`;
   box.innerHTML=COMPOSITES.map(c=>block(c.name,compositeEst(c.codes),c.codes)).join("")
-    +`<div class="guide-src" style="margin-top:2px">※ 비공식 추정치입니다. 합성점수 구성·환산은 실제 AFOQT와 다를 수 있어요. 각 과목(항공·표읽기·블록·계기 포함)을 고루 풀수록 정확해집니다.</div>`;
+    +(pilotPerfect()?`<div class="guide-src" style="margin-top:2px">✈️ 표읽기·블록·계기는 <b>만점 처리</b> 중 (외부 앱 연습 — 설정 → 학습 옵션에서 변경)</div>`:"")
+    +`<div class="guide-src" style="margin-top:2px">※ 비공식 추정치입니다. 합성점수 구성·환산은 실제 AFOQT와 다를 수 있어요.</div>`;
 }
 // 용량 관리: 최근 10회만 문항 상세 보관, 그 이전은 요약만
 function pruneExamDetail(){ const h=state.examHist||[];
@@ -3231,6 +3252,7 @@ function createGeneric(){ const bg=document.createElement("div"); bg.className="
 function closeSheet(){ $("#genericSheet")?.classList.remove("open"); }
 function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#setStart").value=state.settings.start_date; $("#setExam").value=state.settings.exam_date;
   $("#optShowKo")&&($("#optShowKo").checked=!flag("hide_ko"));
+  $("#optPilotPerfect")&&($("#optPilotPerfect").checked=pilotPerfect());
   $("#setUrl").value=localStorage.getItem(LS.url)||""; $("#setKey").value=localStorage.getItem(LS.key)||"";
   $("#syncCodeView").textContent=syncCode(); $("#verLine").textContent=`v${VERSION} · 단어 ${WORDS.length} · 유추 ${ANALOGIES.length} · 독해 ${READING.length} · 항공 ${AVIATION.length}`;
   setSyncDot(sb?"on":(sbUrl()&&sbKey()?"err":"off")); $("#settingsSheet").classList.add("open"); }
@@ -3347,6 +3369,8 @@ function wire(){
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optShowKo")&&($("#optShowKo").onchange=e=>{ state.settings.hide_ko=!e.target.checked; saveLocal(); queuePush("settings",{});
     toast(e.target.checked?"한글 번역을 표시해요":"실전 모드 — 영어 원문만 보여요 💪"); });
+  $("#optPilotPerfect")&&($("#optPilotPerfect").onchange=e=>{ state.settings.pilot_perfect=e.target.checked; saveLocal(); queuePush("settings",{});
+    toast(e.target.checked?"표읽기·블록·계기를 만점으로 계산해요 ✈️":"세 과목을 다시 앱 성적으로 계산해요"); renderHome(); });
   // study
   $("#studyBack").onclick=()=>{ session=null; go("vocab"); }; $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=startStudy;
   $("#doneQuiz").onclick=()=>{ if(poolFor("today").length<4){ toast("오늘 학습한 단어가 4개 이상이면 퀴즈를 볼 수 있어요"); return; } session=null; startQuizScope("today"); };
