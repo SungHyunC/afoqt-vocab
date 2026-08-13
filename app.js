@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.64.0";
+const VERSION = "4.64.1";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2278,14 +2278,24 @@ function finishVA(){ const s=vaSession,total=s.items.length,got=s.score/10,pct=M
    READING COMPREHENSION
    ============================================================ */
 function rcStats(){ const v=Object.values(state.rc); const done=v.filter(x=>x.done).length;
-  let sc=0,to=0; v.forEach(x=>{sc+=x.score||0;to+=x.total||0;}); return {done,acc:to?Math.round(sc/to*100):null}; }
-function renderReading(){ const s=rcStats(); $("#rcDone").textContent=s.done; $("#rcAccTop").textContent=s.acc==null?"–":s.acc+"%";
+  const examSeen=v.filter(x=>!x.done&&x.seen).length; // 모의고사·드릴에서만 본 지문
+  let sc=0,to=0; v.forEach(x=>{sc+=x.score||0;to+=x.total||0;});
+  return {done,examSeen,covered:done+examSeen,acc:to?Math.round(sc/to*100):null}; }
+function renderReading(){ const s=rcStats();
+  $("#rcDone").textContent=s.covered;
+  const dl=$("#rcDone").parentElement&&$("#rcDone").parentElement.querySelector(".lbl");
+  if(dl) dl.textContent=s.examSeen?`완료 지문 (연습 ${s.done}+시험 ${s.examSeen})`:"완료 지문";
+  $("#rcAccTop").textContent=s.acc==null?"–":s.acc+"%";
   if(!READING.length){ $("#rcList").innerHTML=`<div class="card center muted">독해 지문 준비 중 (데이터 없음)</div>`; return; }
   $("#rcList").innerHTML=READING.map(p=>{ const r=getRC(p.id);
+    // ✓ = 연습에서 채점 완료 · 🎯 = 모의고사/드릴에서 풀어본 지문 (같은 풀 공유 — 시험엔 안 본 지문부터 출제)
+    const mark=r.done?'<span class="done-check">✓</span>'
+      :(r.seen?'<span class="done-check" style="opacity:.6" title="모의고사에서 풀었음">🎯</span>':'<span class="go" style="color:var(--muted)">›</span>');
+    const sub=r.done?` · ${r.score}/${r.total}`:(r.seen?" · 모의고사에서 풂":"");
     return `<div class="witem" data-id="${p.id}"><div style="min-width:0">
       <div class="w">${esc(p.title||("Passage "+p.id))}</div>
-      <div class="k">${esc(p.topic||"")} · ${p.questions.length}문제${r.done?` · ${r.score}/${r.total}`:""}</div></div>
-      ${r.done?'<span class="done-check">✓</span>':'<span class="go" style="color:var(--muted)">›</span>'}</div>`; }).join("");
+      <div class="k">${esc(p.topic||"")} · ${p.questions.length}문제${sub}</div></div>
+      ${mark}</div>`; }).join("");
   $$("#rcList .witem").forEach(el=>el.onclick=()=>openPassage(+el.dataset.id));
 }
 let rcCur=null;
