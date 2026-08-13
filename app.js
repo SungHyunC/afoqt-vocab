@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.63.1";
+const VERSION = "4.64.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1970,8 +1970,8 @@ const MATH_TYPES=[
   pts:["곱셈공식: (a+b)^2 = a^2+2ab+b^2 · (a-b)^2 = a^2-2ab+b^2 · (a+b)(a-b) = a^2-b^2","문자에 수를 대입할 때 음수는 반드시 괄호로: x=-2면 x^2 = (-2)^2 = 4"],
   steps:"① 전개/정리로 식을 단순화 → ② 대입 → ③ 계산",
   trap:"-x^2 과 (-x)^2 은 다르다 — x=3이면 각각 -9와 9."},
- {k:"mk_exp",sec:"MK",name:"지수",keys:["exponents"],
-  pts:["a^m * a^n = a^{m+n} · a^m ÷ a^n = a^{m-n}","(a^m)^n = a^{mn} · (ab)^n = a^n b^n","a^{-n} = 1/a^n · a^0 = 1 (a≠0)"],
+ {k:"mk_exp",sec:"MK",name:"지수·과학적 표기법",keys:["exponents","scientific_notation"],
+  pts:["a^m * a^n = a^{m+n} · a^m ÷ a^n = a^{m-n}","(a^m)^n = a^{mn} · (ab)^n = a^n b^n","a^{-n} = 1/a^n · a^0 = 1 (a≠0)","과학적 표기법: (1 이상 10 미만) * 10^n — 곱은 지수 더하기, 나눗셈은 빼기"],
   steps:"밑을 같게 통일하는 게 1순위: 8^x = 2^{3x}, 9 = 3^2",
   trap:"(2^3)^2 = 2^6 이지만 2^{3^2} = 2^9 — 괄호 위치로 완전히 달라진다."},
  {k:"mk_rad",sec:"MK",name:"근호(루트)",keys:["radicals"],
@@ -2002,6 +2002,10 @@ const MATH_TYPES=[
   pts:["소수는 1과 자기 자신만 약수 (2는 유일한 짝수 소수)","최대공약수(GCD)*최소공배수(LCM) = 두 수의 곱","연속 정수 n개의 합 = 가운데 값 * n"],
   steps:"약수 개수: 소인수분해 후 (지수+1)들의 곱 — 12 = 2^2*3 → (2+1)(1+1) = 6개",
   trap:"1은 소수가 아니다. 0은 짝수다."},
+ {k:"mk_stat",sec:"MK",name:"통계 (중앙값·최빈값·범위)",keys:["statistics"],
+  pts:["중앙값(median): 크기순 정렬 후 가운데 값 — 짝수 개면 가운데 두 값의 평균","최빈값(mode): 가장 자주 나오는 값 · 범위(range): 최댓값 - 최솟값","평균 문제는 합 = 평균 * 개수 로 변환 — '평균을 85로 올리려면?' = 필요한 총합부터"],
+  steps:"① 반드시 크기순으로 정렬부터 → ② 개수가 짝수인지 홀수인지 확인 → ③ 해당 통계량 계산",
+  trap:"이상값(극단값)은 평균을 크게 흔들지만 중앙값은 거의 안 움직인다 — {1,2,3,4,100}의 중앙값은 여전히 3."},
  {k:"mk_seq",sec:"MK",name:"수열·로그",keys:["sequences_series","sequences","series","geometric_series","logarithms"],
   pts:["등차수열: a_n = a_1 + (n-1)d · 합 = (첫항+끝항)*n/2","등비수열: a_n = a_1 * r^{n-1}","log_b(x) = y ⇔ b^y = x · log(ab) = log a + log b"],
   steps:"수열은 ① 규칙(차이/비율) 파악 → ② 공식에 대입. 로그는 지수 정의로 되돌리면 쉽다",
@@ -2763,10 +2767,11 @@ const CS_MATH=[
    "증감률(%) = 변화량/원래값 * 100",
    "비례식 a:b = c:d ⇔ ad = bc",
  ]],
- ["평균",[
+ ["평균·통계",[
    "평균 = 합 ÷ 개수 → 합 = 평균 * 개수",
    "가중평균 = (n_1x_1 + n_2x_2) ÷ (n_1 + n_2)",
-   "연속 정수의 합 = 가운데 값 * 개수",
+   "중앙값 = 정렬 후 가운데 (짝수 개면 두 값 평균) · 최빈값 = 가장 잦은 값 · 범위 = 최대 - 최소",
+   "이상값은 평균만 크게 흔든다 (중앙값은 튼튼)",
  ]],
  ["속력·거리·시간",[
    "거리 = 속력 * 시간 (d = rt)",
