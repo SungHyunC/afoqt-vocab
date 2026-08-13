@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.64.1";
+const VERSION = "4.65.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -715,8 +715,9 @@ function renderHome(){
   const wkR=afLearned/afCount;
   const vaSeen=Object.values(state.va).filter(v=>v.seen>0).length;
   const vaR=ANALOGIES.length?vaSeen/ANALOGIES.length:0;
-  const rcDone=Object.values(state.rc).filter(v=>v.done||v.seen).length;
-  const rcR=READING.length?rcDone/READING.length:0;
+  const rcPr=rcPracticePool(), rcIds=new Set(rcPr.map(p=>p.id));
+  const rcDone=Object.entries(state.rc).filter(([id,v])=>rcIds.has(+id)&&(v.done||v.seen)).length;
+  const rcR=rcPr.length?rcDone/rcPr.length:0;
   const avEx=state.exams.av; const avCov=Object.keys(state.avp).length;
   const avR=AVIATION.length?avCov/AVIATION.length:0;
   $("#wkBar").style.width=Math.round(wkR*100)+"%";
@@ -724,7 +725,7 @@ function renderHome(){
   $("#vaBar").style.width=Math.round(vaR*100)+"%";
   $("#vaSub").textContent=ANALOGIES.length?`유추 ${vaSeen}/${ANALOGIES.length}`:"준비 중";
   $("#rcBar").style.width=Math.round(rcR*100)+"%";
-  $("#rcSub").textContent=READING.length?`독해 ${rcDone}/${READING.length}`:"준비 중";
+  $("#rcSub").textContent=rcPr.length?`독해 ${rcDone}/${rcPr.length}`:"준비 중";
   if($("#avBarH")){ $("#avBarH").style.width=Math.round(avR*100)+"%";
     $("#avSub").textContent=AVIATION.length?(avEx?`항공 최고 ${avEx.best}/${avEx.bestTotal} · 푼 ${avCov}/${AVIATION.length}`:`항공 ${avCov}/${AVIATION.length} 풀이`):"준비 중"; }
   // ---- composite AFOQT readiness ----
@@ -855,7 +856,7 @@ function coreTotal(){ return WORDS.filter(w=>tierOf(w)!=="std").length; }
 function dayStat(sec){ const d=state.dayStats[todayStr()]; return (d&&d[sec])||0; }
 // 아직 한 번도 안 푼 유추/독해 분량 — 플랜 잔여일로 나눠 '완주 보장' 하루 목표를 만든다
 function vaRemain(){ return ANALOGIES.filter(a=>{ const v=state.va[a.id]; return !(v&&v.seen>0); }).length; }
-function rcRemainQ(){ return READING.filter(p=>{ const r=state.rc[p.id]; return !(r&&(r.done||r.seen)); })
+function rcRemainQ(){ return rcPracticePool().filter(p=>{ const r=state.rc[p.id]; return !(r&&(r.done||r.seen)); })
   .reduce((s,p)=>s+((p.questions||[]).length),0); }
 // 매일 전 과목 1회씩. min = 예상 소요(분)
 const PLAN_DAILY=[
@@ -1789,7 +1790,7 @@ function buildWKSynCurr(n){
 }
 function buildRCType(types,n){
   const out=[];
-  for(const p of shuffle(READING)){ if(out.length>=n) break;
+  for(const p of shuffle(rcPracticePool())){ if(out.length>=n) break;
     const qi=p.questions.findIndex(q=>types.includes(q.type));
     if(qi<0) continue; const q=p.questions[qi];
     out.push({prompt:q.q,passage:p.passage,passageTitle:p.title,sec:"RC",
@@ -2277,21 +2278,27 @@ function finishVA(){ const s=vaSession,total=s.items.length,got=s.score/10,pct=M
 /* ============================================================
    READING COMPREHENSION
    ============================================================ */
-function rcStats(){ const v=Object.values(state.rc); const done=v.filter(x=>x.done).length;
-  const examSeen=v.filter(x=>!x.done&&x.seen).length; // 모의고사·드릴에서만 본 지문
-  let sc=0,to=0; v.forEach(x=>{sc+=x.score||0;to+=x.total||0;});
+/* 독해 풀 완전 분리 — id가 4의 배수(60지문)는 모의고사 전용, 나머지(180지문)는 연습 전용.
+   연습에서 미리 읽은 지문이 시험에 다시 나와 점수가 부풀지 않도록 서로 절대 섞이지 않는다. */
+function rcExamPool(){ return READING.filter(p=>p.id%4===0); }
+function rcPracticePool(){ return READING.filter(p=>p.id%4!==0); }
+function rcStats(){ const ids=new Set(rcPracticePool().map(p=>p.id));
+  let done=0,examSeen=0,sc=0,to=0;
+  for(const [id,x] of Object.entries(state.rc)){ if(!ids.has(+id)) continue;
+    if(x.done){ done++; sc+=x.score||0; to+=x.total||0; } else if(x.seen) examSeen++; }
   return {done,examSeen,covered:done+examSeen,acc:to?Math.round(sc/to*100):null}; }
-function renderReading(){ const s=rcStats();
+function renderReading(){ const s=rcStats(), plist=rcPracticePool();
   $("#rcDone").textContent=s.covered;
   const dl=$("#rcDone").parentElement&&$("#rcDone").parentElement.querySelector(".lbl");
-  if(dl) dl.textContent=s.examSeen?`완료 지문 (연습 ${s.done}+시험 ${s.examSeen})`:"완료 지문";
+  if(dl) dl.textContent=s.examSeen?`완료 지문 (연습 ${s.done}+과거시험 ${s.examSeen})`:"완료 지문";
   $("#rcAccTop").textContent=s.acc==null?"–":s.acc+"%";
-  if(!READING.length){ $("#rcList").innerHTML=`<div class="card center muted">독해 지문 준비 중 (데이터 없음)</div>`; return; }
-  $("#rcList").innerHTML=READING.map(p=>{ const r=getRC(p.id);
-    // ✓ = 연습에서 채점 완료 · 🎯 = 모의고사/드릴에서 풀어본 지문 (같은 풀 공유 — 시험엔 안 본 지문부터 출제)
+  if(!plist.length){ $("#rcList").innerHTML=`<div class="card center muted">독해 지문 준비 중 (데이터 없음)</div>`; return; }
+  const note=`<div class="guide-src" style="margin:2px 4px 10px">🔒 모의고사 전용 지문 ${rcExamPool().length}개는 이 목록에 없어요 — 연습으로 답을 미리 알게 되지 않게 완전히 분리돼 있어요. (여기 ${plist.length}개는 연습 전용)</div>`;
+  $("#rcList").innerHTML=note+plist.map(p=>{ const r=getRC(p.id);
+    // ✓ = 연습 채점 완료 · 🎯 = (분리 전) 과거 모의고사에서 봤던 지문
     const mark=r.done?'<span class="done-check">✓</span>'
-      :(r.seen?'<span class="done-check" style="opacity:.6" title="모의고사에서 풀었음">🎯</span>':'<span class="go" style="color:var(--muted)">›</span>');
-    const sub=r.done?` · ${r.score}/${r.total}`:(r.seen?" · 모의고사에서 풂":"");
+      :(r.seen?'<span class="done-check" style="opacity:.6" title="과거 모의고사에서 풀었음">🎯</span>':'<span class="go" style="color:var(--muted)">›</span>');
+    const sub=r.done?` · ${r.score}/${r.total}`:(r.seen?" · 과거 모의고사에서 풂":"");
     return `<div class="witem" data-id="${p.id}"><div style="min-width:0">
       <div class="w">${esc(p.title||("Passage "+p.id))}</div>
       <div class="k">${esc(p.topic||"")} · ${p.questions.length}문제${sub}</div></div>
@@ -2546,8 +2553,9 @@ const seenTs=v=>{ if(!v) return 0; const t=(typeof v==="number")?v:new Date(v.up
 function rcSeenAt(p){ const r=state.rc[p.id]; return (r&&(r.done||r.seen))?seenTs(r):0; }
 function buildRC(n){
   const items=[];
-  // 지문 단위로 안 푼 것 우선 (한 지문에 문항 3~5개)
-  const order=pickFresh(READING, READING.length, rcSeenAt);
+  // 모의고사 전용 풀에서만 출제 — 지문 단위로 안 푼 것 우선 (한 지문에 문항 3~5개)
+  const pool=rcExamPool();
+  const order=pickFresh(pool, pool.length, rcSeenAt);
   for(const p of order){
     for(let qi=0;qi<p.questions.length;qi++){
       if(items.length>=n) break;
@@ -2875,7 +2883,7 @@ function startDrill(items,name){
   startExamTimer(); renderExamQ();
 }
 function drillRCType(type){
-  const pool=[]; READING.forEach(p=>(p.questions||[]).forEach((q,qi)=>{ if(q.type===type) pool.push([p,qi]); }));
+  const pool=[]; rcPracticePool().forEach(p=>(p.questions||[]).forEach((q,qi)=>{ if(q.type===type) pool.push([p,qi]); }));
   return shuffle(pool).slice(0,20).map(([p,qi])=>rcItem(p,qi));
 }
 function drillVARel(rel){
