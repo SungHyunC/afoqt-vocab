@@ -105325,5 +105325,2993 @@
    }
   ],
   "hook": "파벌(factio)을 짓고 다니는 → 당파적인, 분열을 일으키는"
+ },
+ {
+  "id": 4409,
+  "word": "ACCESS",
+  "pos": "noun",
+  "kor": "접근(권), 이용 권한",
+  "def": "A means of approach or admittance to a place or organization",
+  "example": "Only officers have access to the secure hangar.",
+  "synonyms": [
+   "entry",
+   "admittance",
+   "approach",
+   "entree"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4410,
+  "word": "ALIAS",
+  "pos": "noun",
+  "kor": "가명, 별칭",
+  "def": "An assumed name used for purposes of deception",
+  "example": "He checked into the hotel under an alias.",
+  "synonyms": [
+   "pseudonym",
+   "moniker",
+   "nom de plume",
+   "cognomen"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4411,
+  "word": "ANIMATED",
+  "pos": "adj",
+  "kor": "활기찬, 생기 넘치는",
+  "def": "Alive and lively; full of energy",
+  "example": "The debate grew animated as the deadline neared.",
+  "synonyms": [
+   "lively",
+   "spirited",
+   "vivacious",
+   "ebullient"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4412,
+  "word": "ATLAS",
+  "pos": "noun",
+  "kor": "지도책",
+  "def": "A book of maps",
+  "example": "She traced the route in an old atlas.",
+  "synonyms": [
+   "map book",
+   "cartography volume",
+   "gazetteer",
+   "chart book"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4413,
+  "word": "BEACON",
+  "pos": "noun",
+  "kor": "등대, 신호등불; 길잡이",
+  "def": "A guiding light that shows the way or marks a spot",
+  "example": "The lighthouse served as a beacon for ships.",
+  "synonyms": [
+   "signal light",
+   "lighthouse",
+   "guide",
+   "lodestar"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4414,
+  "word": "BONDAGE",
+  "pos": "noun",
+  "kor": "속박, 노예 상태",
+  "def": "Slavery; the state of being bound in servitude",
+  "example": "The revolt freed thousands from bondage.",
+  "synonyms": [
+   "slavery",
+   "servitude",
+   "enslavement",
+   "thralldom"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4415,
+  "word": "BRAWL",
+  "pos": "noun",
+  "kor": "난투, 시끄러운 싸움",
+  "def": "A noisy fight",
+  "example": "A brawl broke out in the crowded bar.",
+  "synonyms": [
+   "fight",
+   "scuffle",
+   "melee",
+   "fracas"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4416,
+  "word": "BROCHURE",
+  "pos": "noun",
+  "kor": "소책자, 팸플릿",
+  "def": "A pamphlet, usually with information or advertising",
+  "example": "The recruiter handed out a brochure on flight training.",
+  "synonyms": [
+   "pamphlet",
+   "leaflet",
+   "booklet",
+   "flyer"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4417,
+  "word": "CALIBER",
+  "pos": "noun",
+  "kor": "구경; (사람의) 역량, 수준",
+  "def": "Literally the size of a bullet; figuratively, the quality of a person or thing",
+  "example": "We need officers of the highest caliber.",
+  "synonyms": [
+   "quality",
+   "standard",
+   "grade",
+   "merit"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4418,
+  "word": "CASTE",
+  "pos": "noun",
+  "kor": "계층, 신분 계급",
+  "def": "A social class or category",
+  "example": "The rigid caste system limited social mobility.",
+  "synonyms": [
+   "class",
+   "rank",
+   "stratum",
+   "station"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4419,
+  "word": "CHRONOLOGY",
+  "pos": "noun",
+  "kor": "연대순 기록, 시간 순서",
+  "def": "An order or listing of events in the order in which they happened",
+  "example": "The report gives a clear chronology of the accident.",
+  "synonyms": [
+   "timeline",
+   "sequence",
+   "order of events",
+   "annals"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4420,
+  "word": "CONDOLENCE",
+  "pos": "noun",
+  "kor": "애도, 조의",
+  "def": "An expression of sympathy to one who has suffered a loss",
+  "example": "He sent a letter of condolence to the family.",
+  "synonyms": [
+   "sympathy",
+   "commiseration",
+   "consolation",
+   "solace"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4421,
+  "word": "CRUX",
+  "pos": "noun",
+  "kor": "핵심, 요점",
+  "def": "The essential point or central part",
+  "example": "The crux of the argument is a matter of cost.",
+  "synonyms": [
+   "core",
+   "essence",
+   "gist",
+   "nub"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4422,
+  "word": "CYNIC",
+  "pos": "noun",
+  "kor": "냉소가, 인간 불신자",
+  "def": "One who mocks or disbelieves the good intentions of others",
+  "example": "A cynic assumes everyone acts out of self-interest.",
+  "synonyms": [
+   "skeptic",
+   "doubter",
+   "misanthrope",
+   "pessimist"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4423,
+  "word": "DATA",
+  "pos": "noun",
+  "kor": "자료, 데이터",
+  "def": "Facts or information",
+  "example": "The flight data confirmed the pilot's account.",
+  "synonyms": [
+   "facts",
+   "information",
+   "statistics",
+   "figures"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4424,
+  "word": "DEBUT",
+  "pos": "noun",
+  "kor": "데뷔, 첫 등장",
+  "def": "A first appearance, especially before an audience",
+  "example": "The aircraft made its debut at the air show.",
+  "synonyms": [
+   "first appearance",
+   "premiere",
+   "introduction",
+   "unveiling"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4425,
+  "word": "DEPOT",
+  "pos": "noun",
+  "kor": "창고, 저장소; 정거장",
+  "def": "A warehouse or large storage place",
+  "example": "Supplies were trucked from the depot to the base.",
+  "synonyms": [
+   "warehouse",
+   "storehouse",
+   "terminal",
+   "repository"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4426,
+  "word": "DESTINY",
+  "pos": "noun",
+  "kor": "운명, 숙명",
+  "def": "Predetermined fate",
+  "example": "She believed it was her destiny to fly.",
+  "synonyms": [
+   "fate",
+   "fortune",
+   "providence",
+   "lot"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4427,
+  "word": "DETRIMENT",
+  "pos": "noun",
+  "kor": "손해, 손상",
+  "def": "Damage, loss, or disadvantage",
+  "example": "He worked overtime to the detriment of his health.",
+  "synonyms": [
+   "harm",
+   "damage",
+   "disadvantage",
+   "injury"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4428,
+  "word": "DIAGNOSIS",
+  "pos": "noun",
+  "kor": "진단",
+  "def": "Analysis or determination of the cause of a disease or problem",
+  "example": "The mechanic's diagnosis was a faulty fuel pump.",
+  "synonyms": [
+   "analysis",
+   "identification",
+   "assessment",
+   "determination"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4429,
+  "word": "DIRECTIVE",
+  "pos": "noun",
+  "kor": "지시, 명령",
+  "def": "A general order or instruction",
+  "example": "The new directive changed the reporting procedure.",
+  "synonyms": [
+   "order",
+   "instruction",
+   "mandate",
+   "edict"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4430,
+  "word": "DIVERSE",
+  "pos": "adj",
+  "kor": "다양한, 각양각색의",
+  "def": "Varied; showing a great deal of variety",
+  "example": "The squadron drew from diverse backgrounds.",
+  "synonyms": [
+   "varied",
+   "assorted",
+   "manifold",
+   "heterogeneous"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4431,
+  "word": "DRONE",
+  "pos": "verb",
+  "kor": "단조롭게 계속 말하다; 웅웅거리다",
+  "def": "To talk on and on in a dull way",
+  "example": "The speaker droned on for an hour.",
+  "synonyms": [
+   "ramble",
+   "prattle",
+   "intone",
+   "hum"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4432,
+  "word": "DROUGHT",
+  "pos": "noun",
+  "kor": "가뭄",
+  "def": "A long period of dry weather or conditions",
+  "example": "The drought devastated the region's crops.",
+  "synonyms": [
+   "dry spell",
+   "aridity",
+   "water shortage",
+   "dearth of rain"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4433,
+  "word": "EGOTIST",
+  "pos": "noun",
+  "kor": "자기중심적인 사람",
+  "def": "A self-centered person",
+  "example": "The egotist steered every conversation back to himself.",
+  "synonyms": [
+   "narcissist",
+   "braggart",
+   "self-seeker",
+   "egoist"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4434,
+  "word": "ELITE",
+  "pos": "noun",
+  "kor": "엘리트, 정예",
+  "def": "A part of the whole considered to be at or near the top",
+  "example": "Only the elite are selected for the program.",
+  "synonyms": [
+   "best",
+   "cream",
+   "upper crust",
+   "vanguard"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4435,
+  "word": "ENVIRONMENT",
+  "pos": "noun",
+  "kor": "환경, 주변 상황",
+  "def": "General surroundings, either physical or influential",
+  "example": "A high-stress environment tests a pilot's judgment.",
+  "synonyms": [
+   "surroundings",
+   "setting",
+   "milieu",
+   "atmosphere"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4436,
+  "word": "ERA",
+  "pos": "noun",
+  "kor": "시대, 시기",
+  "def": "A period of time identified by particular conditions or events",
+  "example": "The jet era transformed air combat.",
+  "synonyms": [
+   "age",
+   "epoch",
+   "period",
+   "span"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4437,
+  "word": "ETIQUETTE",
+  "pos": "noun",
+  "kor": "예의범절, 에티켓",
+  "def": "Generally accepted rules of social behavior and manners",
+  "example": "Military etiquette governs how salutes are exchanged.",
+  "synonyms": [
+   "manners",
+   "protocol",
+   "decorum",
+   "propriety"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4438,
+  "word": "EXCERPT",
+  "pos": "noun",
+  "kor": "발췌문, 인용 부분",
+  "def": "A passage quoted from a book or other document",
+  "example": "She read an excerpt from the manual aloud.",
+  "synonyms": [
+   "extract",
+   "passage",
+   "selection",
+   "quotation"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4439,
+  "word": "EXODUS",
+  "pos": "noun",
+  "kor": "대탈출, 집단 이동",
+  "def": "A departure, usually referring to a group or large numbers",
+  "example": "The base closure caused an exodus of families.",
+  "synonyms": [
+   "mass departure",
+   "migration",
+   "evacuation",
+   "flight"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4440,
+  "word": "FACSIMILE",
+  "pos": "noun",
+  "kor": "복제, 사본",
+  "def": "An exact copy or representation",
+  "example": "The museum displays a facsimile of the original charter.",
+  "synonyms": [
+   "copy",
+   "duplicate",
+   "replica",
+   "reproduction"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4441,
+  "word": "FANATICAL",
+  "pos": "adj",
+  "kor": "광신적인, 열광적인",
+  "def": "Extremely devoted to or passionate about a cause or an idea",
+  "example": "His fanatical devotion to training alarmed his friends.",
+  "synonyms": [
+   "zealous",
+   "obsessive",
+   "rabid",
+   "extreme"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4442,
+  "word": "FANTASY",
+  "pos": "noun",
+  "kor": "공상, 상상",
+  "def": "An imagined scenario or situation",
+  "example": "Flying jets was a childhood fantasy of his.",
+  "synonyms": [
+   "daydream",
+   "imagination",
+   "reverie",
+   "fancy"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4443,
+  "word": "FINALE",
+  "pos": "noun",
+  "kor": "피날레, 마지막 부분",
+  "def": "The last part of a performance",
+  "example": "The air show ended with a spectacular finale.",
+  "synonyms": [
+   "conclusion",
+   "climax",
+   "ending",
+   "culmination"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4444,
+  "word": "FLAIR",
+  "pos": "noun",
+  "kor": "재능, 센스; 세련미",
+  "def": "A natural-seeming talent or style",
+  "example": "She has a flair for navigation problems.",
+  "synonyms": [
+   "talent",
+   "knack",
+   "aptitude",
+   "panache"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4445,
+  "word": "FOCUS",
+  "pos": "noun",
+  "kor": "초점, 중심점",
+  "def": "A central point",
+  "example": "The focus of the briefing was fuel management.",
+  "synonyms": [
+   "center",
+   "core",
+   "focal point",
+   "emphasis"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4446,
+  "word": "FOE",
+  "pos": "noun",
+  "kor": "적, 원수",
+  "def": "An enemy, adversary, or opponent",
+  "example": "The two nations were foes for a generation.",
+  "synonyms": [
+   "enemy",
+   "adversary",
+   "opponent",
+   "antagonist"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4447,
+  "word": "FORMAT",
+  "pos": "noun",
+  "kor": "형식, 구성 방식",
+  "def": "An arrangement, especially of a document or presentation",
+  "example": "The test follows a standard multiple-choice format.",
+  "synonyms": [
+   "arrangement",
+   "layout",
+   "structure",
+   "design"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4448,
+  "word": "FORTE",
+  "pos": "noun",
+  "kor": "장기, 특기",
+  "def": "An area in which a person excels",
+  "example": "Mental math is not his forte.",
+  "synonyms": [
+   "strength",
+   "specialty",
+   "strong suit",
+   "talent"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4449,
+  "word": "FOYER",
+  "pos": "noun",
+  "kor": "현관 홀, 로비",
+  "def": "The entrance hall to a building or dwelling",
+  "example": "They waited in the foyer for the interview.",
+  "synonyms": [
+   "lobby",
+   "entrance hall",
+   "vestibule",
+   "anteroom"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4450,
+  "word": "FRAUD",
+  "pos": "noun",
+  "kor": "사기, 기만",
+  "def": "Deliberate deception, especially an illegal one",
+  "example": "He was convicted of insurance fraud.",
+  "synonyms": [
+   "deception",
+   "swindle",
+   "deceit",
+   "chicanery"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4451,
+  "word": "FUNCTION",
+  "pos": "noun",
+  "kor": "기능, 역할",
+  "def": "The purpose served by a person, an object, or an organization",
+  "example": "The function of the rudder is to control yaw.",
+  "synonyms": [
+   "purpose",
+   "role",
+   "use",
+   "duty"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4452,
+  "word": "FUROR",
+  "pos": "noun",
+  "kor": "격분, 소동",
+  "def": "An outburst of excitement or disagreement",
+  "example": "The decision caused a furor among the crew.",
+  "synonyms": [
+   "uproar",
+   "outcry",
+   "commotion",
+   "tumult"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4453,
+  "word": "GENRE",
+  "pos": "noun",
+  "kor": "장르, 종류",
+  "def": "A class or category, especially of art or entertainment",
+  "example": "The war memoir is a genre of its own.",
+  "synonyms": [
+   "category",
+   "class",
+   "type",
+   "style"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4454,
+  "word": "GIST",
+  "pos": "noun",
+  "kor": "요지, 골자",
+  "def": "The essential content or central idea",
+  "example": "Give me the gist of the report in one sentence.",
+  "synonyms": [
+   "essence",
+   "core",
+   "substance",
+   "crux"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4455,
+  "word": "GLUTTON",
+  "pos": "noun",
+  "kor": "대식가, 탐욕스러운 사람",
+  "def": "One who overeats or indulges in anything to excess",
+  "example": "He is a glutton for punishment, volunteering for every duty.",
+  "synonyms": [
+   "overeater",
+   "gourmand",
+   "hog",
+   "devourer"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4456,
+  "word": "HAZARD",
+  "pos": "noun",
+  "kor": "위험, 위험 요소",
+  "def": "A danger or risk of injury",
+  "example": "Ice on the wings is a serious hazard.",
+  "synonyms": [
+   "danger",
+   "risk",
+   "peril",
+   "jeopardy"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4457,
+  "word": "HORIZON",
+  "pos": "noun",
+  "kor": "지평선; 시야, 한계",
+  "def": "The farthest limit, usually of vision, knowledge, or experience",
+  "example": "Travel broadened her horizons.",
+  "synonyms": [
+   "skyline",
+   "limit",
+   "scope",
+   "purview"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4458,
+  "word": "HUE",
+  "pos": "noun",
+  "kor": "색조, 빛깔",
+  "def": "A shade of color",
+  "example": "The sunset took on a reddish hue.",
+  "synonyms": [
+   "shade",
+   "tint",
+   "tone",
+   "color"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4459,
+  "word": "HYSTERIA",
+  "pos": "noun",
+  "kor": "히스테리, 광란",
+  "def": "Excessive or uncontrollable fear or other strong emotion",
+  "example": "Panic spread into outright hysteria.",
+  "synonyms": [
+   "frenzy",
+   "panic",
+   "mania",
+   "delirium"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4460,
+  "word": "IDIOM",
+  "pos": "noun",
+  "kor": "관용구; 특유의 어법",
+  "def": "A phrase whose meaning differs from the literal words, or a group's manner of speech",
+  "example": "\"Kick the bucket\" is an English idiom.",
+  "synonyms": [
+   "expression",
+   "phrase",
+   "colloquialism",
+   "vernacular"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4461,
+  "word": "IMAGE",
+  "pos": "noun",
+  "kor": "이미지, 인상",
+  "def": "The likeness or interpreted impression of a person, object, or locale",
+  "example": "The service works hard to protect its image.",
+  "synonyms": [
+   "likeness",
+   "impression",
+   "representation",
+   "perception"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4462,
+  "word": "IMPETUS",
+  "pos": "noun",
+  "kor": "추진력, 자극",
+  "def": "A moving force or starting idea",
+  "example": "The crash gave impetus to new safety rules.",
+  "synonyms": [
+   "momentum",
+   "stimulus",
+   "impulse",
+   "catalyst"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4463,
+  "word": "INFRACTION",
+  "pos": "noun",
+  "kor": "위반, 위법 행위",
+  "def": "A violation of a rule, regulation, or law",
+  "example": "A minor infraction cost him weekend leave.",
+  "synonyms": [
+   "violation",
+   "breach",
+   "transgression",
+   "offense"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4464,
+  "word": "INTERLUDE",
+  "pos": "noun",
+  "kor": "막간, 사이의 기간",
+  "def": "A short period of time coming between two longer events",
+  "example": "A brief interlude of calm followed the storm.",
+  "synonyms": [
+   "intermission",
+   "break",
+   "interval",
+   "respite"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4465,
+  "word": "INTRIGUE",
+  "pos": "noun",
+  "kor": "음모, 계략",
+  "def": "A secret plot or scheme",
+  "example": "Court intrigue toppled the minister.",
+  "synonyms": [
+   "plot",
+   "scheme",
+   "conspiracy",
+   "machination"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4466,
+  "word": "IOTA",
+  "pos": "noun",
+  "kor": "아주 조금, 티끌만큼",
+  "def": "A very small amount or piece",
+  "example": "He did not show one iota of fear.",
+  "synonyms": [
+   "bit",
+   "jot",
+   "whit",
+   "modicum"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4467,
+  "word": "JEOPARDY",
+  "pos": "noun",
+  "kor": "위험, 위기",
+  "def": "Risk of danger or harm",
+  "example": "Poor maintenance put the crew in jeopardy.",
+  "synonyms": [
+   "danger",
+   "peril",
+   "risk",
+   "hazard"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4468,
+  "word": "KEYNOTE",
+  "pos": "noun",
+  "kor": "기조, 주요 논지",
+  "def": "The main theme or idea, usually of the main speech at a convention",
+  "example": "Readiness was the keynote of his address.",
+  "synonyms": [
+   "main theme",
+   "central idea",
+   "gist",
+   "core message"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4469,
+  "word": "LAYMAN",
+  "pos": "noun",
+  "kor": "비전문가, 문외한",
+  "def": "A person who is not a member of a particular profession or specialty",
+  "example": "Explain the system in layman's terms.",
+  "synonyms": [
+   "nonspecialist",
+   "amateur",
+   "novice",
+   "outsider"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4470,
+  "word": "LEGEND",
+  "pos": "noun",
+  "kor": "전설; 전설적 인물",
+  "def": "Unverified stories handed down from earlier times; also a person of great fame",
+  "example": "He became a legend among test pilots.",
+  "synonyms": [
+   "myth",
+   "folklore",
+   "lore",
+   "icon"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4471,
+  "word": "LEGION",
+  "pos": "noun",
+  "kor": "군단, 다수",
+  "def": "A large number of people; historically a military unit",
+  "example": "A legion of volunteers answered the call.",
+  "synonyms": [
+   "multitude",
+   "host",
+   "throng",
+   "army"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4472,
+  "word": "LEVEE",
+  "pos": "noun",
+  "kor": "제방, 둑",
+  "def": "A raised embankment designed to prevent flooding",
+  "example": "The levee held back the swollen river.",
+  "synonyms": [
+   "embankment",
+   "dike",
+   "barrier",
+   "bank"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4473,
+  "word": "LITIGATION",
+  "pos": "noun",
+  "kor": "소송, 법적 절차",
+  "def": "Legal proceedings",
+  "example": "The dispute ended in years of litigation.",
+  "synonyms": [
+   "lawsuit",
+   "legal action",
+   "court case",
+   "proceedings"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4474,
+  "word": "LORE",
+  "pos": "noun",
+  "kor": "전승 지식, 구전",
+  "def": "A body of traditional or historical knowledge",
+  "example": "Squadron lore is passed down over beers.",
+  "synonyms": [
+   "tradition",
+   "folklore",
+   "legend",
+   "wisdom"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4475,
+  "word": "MARATHON",
+  "pos": "noun",
+  "kor": "마라톤; 장시간의 시련",
+  "def": "A 26.2-mile footrace; any contest requiring unusual endurance",
+  "example": "The negotiation became a marathon.",
+  "synonyms": [
+   "long race",
+   "endurance test",
+   "ordeal",
+   "long haul"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4476,
+  "word": "MEDIUM",
+  "pos": "noun",
+  "kor": "매체, 수단",
+  "def": "A means of communication or presentation",
+  "example": "Radio was once the dominant medium.",
+  "synonyms": [
+   "means",
+   "channel",
+   "vehicle",
+   "instrument"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4477,
+  "word": "MEMENTO",
+  "pos": "noun",
+  "kor": "기념품, 유품",
+  "def": "An object that commemorates or reminds someone of a past event",
+  "example": "She kept his wings as a memento.",
+  "synonyms": [
+   "keepsake",
+   "souvenir",
+   "relic",
+   "token"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4478,
+  "word": "METROPOLIS",
+  "pos": "noun",
+  "kor": "대도시",
+  "def": "A very large city",
+  "example": "The base sits an hour from the metropolis.",
+  "synonyms": [
+   "large city",
+   "megalopolis",
+   "urban center",
+   "capital"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4479,
+  "word": "MORES",
+  "pos": "noun",
+  "kor": "관습, 사회적 규범",
+  "def": "Established customs or values of a group or segment of society",
+  "example": "Unit mores discourage boasting.",
+  "synonyms": [
+   "customs",
+   "conventions",
+   "norms",
+   "traditions"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4480,
+  "word": "MULTITUDE",
+  "pos": "noun",
+  "kor": "다수, 군중",
+  "def": "A large number of something",
+  "example": "A multitude of details must be checked preflight.",
+  "synonyms": [
+   "host",
+   "throng",
+   "myriad",
+   "legion"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4481,
+  "word": "MYTH",
+  "pos": "noun",
+  "kor": "신화; 근거 없는 통념",
+  "def": "A traditional story explaining a natural condition, often involving supernatural influences",
+  "example": "It is a myth that lightning never strikes twice.",
+  "synonyms": [
+   "legend",
+   "folktale",
+   "fable",
+   "misconception"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4482,
+  "word": "NICHE",
+  "pos": "noun",
+  "kor": "적소, 알맞은 자리",
+  "def": "An activity or situation especially well suited to a person's abilities",
+  "example": "He found his niche in flight instruction.",
+  "synonyms": [
+   "specialty",
+   "calling",
+   "slot",
+   "forte"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4483,
+  "word": "NOMAD",
+  "pos": "noun",
+  "kor": "유목민, 방랑자",
+  "def": "A wanderer",
+  "example": "Military life made a nomad of her.",
+  "synonyms": [
+   "wanderer",
+   "drifter",
+   "itinerant",
+   "rover"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4484,
+  "word": "OASIS",
+  "pos": "noun",
+  "kor": "오아시스; 안식처",
+  "def": "An isolated place of comfort surrounded by desolation",
+  "example": "The library was an oasis of quiet.",
+  "synonyms": [
+   "haven",
+   "refuge",
+   "sanctuary",
+   "retreat"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4485,
+  "word": "ODYSSEY",
+  "pos": "noun",
+  "kor": "오디세이, 긴 모험 여정",
+  "def": "A long journey involving significant challenges or obstacles",
+  "example": "Training was an eighteen-month odyssey.",
+  "synonyms": [
+   "journey",
+   "quest",
+   "pilgrimage",
+   "voyage"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4486,
+  "word": "OMEN",
+  "pos": "noun",
+  "kor": "징조, 전조",
+  "def": "A sign believed to foretell the future",
+  "example": "Clear skies seemed a good omen.",
+  "synonyms": [
+   "sign",
+   "portent",
+   "augury",
+   "harbinger"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4487,
+  "word": "OPTIMUM",
+  "pos": "noun",
+  "kor": "최적 조건",
+  "def": "The best possible condition or combination of factors",
+  "example": "They flew at the optimum for fuel economy.",
+  "synonyms": [
+   "best",
+   "ideal",
+   "peak",
+   "optimal point"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4488,
+  "word": "OVATION",
+  "pos": "noun",
+  "kor": "기립 박수, 열렬한 환영",
+  "def": "Applause of an audience or any enthusiastic reception",
+  "example": "The returning crew received an ovation.",
+  "synonyms": [
+   "applause",
+   "acclaim",
+   "cheers",
+   "plaudits"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4489,
+  "word": "PANORAMA",
+  "pos": "noun",
+  "kor": "전경, 파노라마",
+  "def": "An unobstructed view of a wide area",
+  "example": "From the cockpit he took in the whole panorama.",
+  "synonyms": [
+   "vista",
+   "view",
+   "scene",
+   "prospect"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4490,
+  "word": "PASTIME",
+  "pos": "noun",
+  "kor": "취미, 소일거리",
+  "def": "A way of spending leisure time",
+  "example": "Chess is his favorite pastime.",
+  "synonyms": [
+   "hobby",
+   "diversion",
+   "recreation",
+   "amusement"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4491,
+  "word": "PATHOLOGY",
+  "pos": "noun",
+  "kor": "병리학; 병리 현상",
+  "def": "The science of diseases; any deviation from a normal, healthy condition",
+  "example": "The report studied the pathology of the failure.",
+  "synonyms": [
+   "disease study",
+   "morbidity",
+   "abnormality",
+   "disorder"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4492,
+  "word": "PAUPER",
+  "pos": "noun",
+  "kor": "빈민, 극빈자",
+  "def": "A very poor person",
+  "example": "He died a pauper despite his fame.",
+  "synonyms": [
+   "poor person",
+   "beggar",
+   "indigent",
+   "have-not"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4493,
+  "word": "PEDAGOGUE",
+  "pos": "noun",
+  "kor": "엄격한 교사, 훈장",
+  "def": "A strict, overly academic teacher or speaker",
+  "example": "The old pedagogue drilled them in grammar.",
+  "synonyms": [
+   "schoolmaster",
+   "teacher",
+   "instructor",
+   "dogmatist"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4494,
+  "word": "PEER",
+  "pos": "noun",
+  "kor": "동료, 또래",
+  "def": "An equal in age, social standing, professional rank, or ability",
+  "example": "He was respected by his peers.",
+  "synonyms": [
+   "equal",
+   "colleague",
+   "contemporary",
+   "compeer"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4495,
+  "word": "PHOBIA",
+  "pos": "noun",
+  "kor": "공포증",
+  "def": "An unreasonable fear of something",
+  "example": "She overcame her phobia of heights.",
+  "synonyms": [
+   "fear",
+   "dread",
+   "aversion",
+   "terror"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4496,
+  "word": "PHYSIQUE",
+  "pos": "noun",
+  "kor": "체격, 체형",
+  "def": "The build or physical condition of a human body",
+  "example": "Training gave him a lean physique.",
+  "synonyms": [
+   "build",
+   "body",
+   "frame",
+   "constitution"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4497,
+  "word": "PILGRIMAGE",
+  "pos": "noun",
+  "kor": "순례, 성지 참배",
+  "def": "A long journey to some place or condition worthy of respect or devotion",
+  "example": "They made a pilgrimage to the memorial.",
+  "synonyms": [
+   "journey",
+   "expedition",
+   "quest",
+   "voyage"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4498,
+  "word": "PLATEAU",
+  "pos": "noun",
+  "kor": "고원; 정체기",
+  "def": "An elevated, level expanse of land; a leveling-off of progress",
+  "example": "His scores hit a plateau in June.",
+  "synonyms": [
+   "tableland",
+   "level",
+   "stability",
+   "standstill"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4499,
+  "word": "PLIGHT",
+  "pos": "noun",
+  "kor": "곤경, 어려운 처지",
+  "def": "An unfavorable condition or situation",
+  "example": "No one ignored the plight of the stranded crew.",
+  "synonyms": [
+   "predicament",
+   "dilemma",
+   "quandary",
+   "trouble"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4500,
+  "word": "POPULACE",
+  "pos": "noun",
+  "kor": "주민, 대중",
+  "def": "The people living in a certain area",
+  "example": "The populace welcomed the returning troops.",
+  "synonyms": [
+   "population",
+   "public",
+   "citizenry",
+   "inhabitants"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4501,
+  "word": "PREDECESSOR",
+  "pos": "noun",
+  "kor": "전임자, 이전 것",
+  "def": "Someone or something that came before another",
+  "example": "The new jet outperforms its predecessor.",
+  "synonyms": [
+   "forerunner",
+   "precursor",
+   "antecedent",
+   "forebear"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4502,
+  "word": "PREFACE",
+  "pos": "noun",
+  "kor": "서문, 머리말",
+  "def": "An introductory statement or passage to a book or speech",
+  "example": "The preface explains the author's method.",
+  "synonyms": [
+   "introduction",
+   "foreword",
+   "prologue",
+   "preamble"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4503,
+  "word": "PRELUDE",
+  "pos": "noun",
+  "kor": "서곡, 전조",
+  "def": "Something preliminary to a more important act or event",
+  "example": "The skirmish was a prelude to war.",
+  "synonyms": [
+   "introduction",
+   "precursor",
+   "overture",
+   "forerunner"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4504,
+  "word": "PREMIUM",
+  "pos": "noun",
+  "kor": "할증금; 고급, 프리미엄",
+  "def": "Best quality; also an amount added to the usual price",
+  "example": "Employers put a premium on reliability.",
+  "synonyms": [
+   "surcharge",
+   "bonus",
+   "high value",
+   "top grade"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4505,
+  "word": "PRIORITY",
+  "pos": "noun",
+  "kor": "우선순위, 우선 사항",
+  "def": "Something that comes before others in significance or importance",
+  "example": "Safety is the first priority.",
+  "synonyms": [
+   "precedence",
+   "preference",
+   "primacy",
+   "urgency"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4506,
+  "word": "PROCESS",
+  "pos": "noun",
+  "kor": "과정, 공정",
+  "def": "A system or design for accomplishing a goal or an objective",
+  "example": "The selection process takes six months.",
+  "synonyms": [
+   "procedure",
+   "method",
+   "system",
+   "operation"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4507,
+  "word": "PROPINQUITY",
+  "pos": "noun",
+  "kor": "근접, 가까움",
+  "def": "Nearness",
+  "example": "The propinquity of the two bases eased logistics.",
+  "synonyms": [
+   "nearness",
+   "proximity",
+   "closeness",
+   "adjacency"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4508,
+  "word": "PROSPECT",
+  "pos": "noun",
+  "kor": "전망, 가능성",
+  "def": "A possibility for the future",
+  "example": "The prospect of promotion motivated him.",
+  "synonyms": [
+   "outlook",
+   "possibility",
+   "expectation",
+   "likelihood"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4509,
+  "word": "PSEUDONYM",
+  "pos": "noun",
+  "kor": "필명, 가명",
+  "def": "An assumed name, usually a pen name taken by an author",
+  "example": "Mark Twain was a pseudonym for Samuel Clemens.",
+  "synonyms": [
+   "pen name",
+   "alias",
+   "nom de plume",
+   "moniker"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4510,
+  "word": "PUN",
+  "pos": "noun",
+  "kor": "말장난, 언어유희",
+  "def": "A play on words depending on two or more meanings or sounds of the same word",
+  "example": "His pun about wings drew groans.",
+  "synonyms": [
+   "wordplay",
+   "double entendre",
+   "quip",
+   "witticism"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4511,
+  "word": "QUERY",
+  "pos": "noun",
+  "kor": "질문, 문의",
+  "def": "A question or request for information",
+  "example": "She sent a query to headquarters.",
+  "synonyms": [
+   "question",
+   "inquiry",
+   "request",
+   "interrogation"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4512,
+  "word": "RARITY",
+  "pos": "noun",
+  "kor": "희귀함, 진귀한 것",
+  "def": "Something that is infrequent or not commonly encountered",
+  "example": "A perfect score is a rarity.",
+  "synonyms": [
+   "scarcity",
+   "uncommonness",
+   "curiosity",
+   "novelty"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4513,
+  "word": "RELEVANT",
+  "pos": "adj",
+  "kor": "관련 있는, 적절한",
+  "def": "Important to the matter at hand; pertinent",
+  "example": "Keep your answer relevant to the question.",
+  "synonyms": [
+   "pertinent",
+   "applicable",
+   "germane",
+   "apposite"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4514,
+  "word": "RENASCENCE",
+  "pos": "noun",
+  "kor": "부흥, 재생",
+  "def": "A rebirth or revival; a variant of renaissance",
+  "example": "The town saw a renascence of local crafts.",
+  "synonyms": [
+   "rebirth",
+   "revival",
+   "renewal",
+   "resurgence"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4515,
+  "word": "RENDEZVOUS",
+  "pos": "noun",
+  "kor": "약속 장소, 만남",
+  "def": "A meeting or a location for a meeting",
+  "example": "The tanker made its rendezvous at 20,000 feet.",
+  "synonyms": [
+   "meeting",
+   "appointment",
+   "tryst",
+   "assignation"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4516,
+  "word": "REPLICA",
+  "pos": "noun",
+  "kor": "복제품, 모형",
+  "def": "An exact copy or facsimile of something",
+  "example": "A replica of the first jet hangs in the lobby.",
+  "synonyms": [
+   "copy",
+   "duplicate",
+   "facsimile",
+   "reproduction"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4517,
+  "word": "REPRISAL",
+  "pos": "noun",
+  "kor": "보복, 앙갚음",
+  "def": "Retaliation for real or perceived injuries",
+  "example": "The raid was a reprisal for the attack.",
+  "synonyms": [
+   "retaliation",
+   "revenge",
+   "retribution",
+   "vengeance"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4518,
+  "word": "RESERVE",
+  "pos": "noun",
+  "kor": "예비 병력, 비축",
+  "def": "A fighting force kept uncommitted until the need arises",
+  "example": "The commander held two platoons in reserve.",
+  "synonyms": [
+   "backup",
+   "stockpile",
+   "reservoir",
+   "standby"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4519,
+  "word": "RESIDUE",
+  "pos": "noun",
+  "kor": "잔여물, 나머지",
+  "def": "The remainder of something after removal of a part",
+  "example": "A sticky residue coated the valve.",
+  "synonyms": [
+   "remainder",
+   "remnant",
+   "leftover",
+   "dregs"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4520,
+  "word": "RESOURCES",
+  "pos": "noun",
+  "kor": "자원, 재원",
+  "def": "Assets that are available for use, either material or spiritual",
+  "example": "The unit lacked the resources for the mission.",
+  "synonyms": [
+   "assets",
+   "means",
+   "supplies",
+   "reserves"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4521,
+  "word": "RESUME",
+  "pos": "noun",
+  "kor": "이력서",
+  "def": "A written summary of work, education, and accomplishments",
+  "example": "He updated his resume before the board.",
+  "synonyms": [
+   "curriculum vitae",
+   "CV",
+   "summary",
+   "dossier"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4522,
+  "word": "ROSTER",
+  "pos": "noun",
+  "kor": "명단, 등록부",
+  "def": "A list of names, such as of organization members",
+  "example": "Check the duty roster for tomorrow.",
+  "synonyms": [
+   "list",
+   "register",
+   "roll",
+   "lineup"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4523,
+  "word": "SAGA",
+  "pos": "noun",
+  "kor": "대하 서사, 무용담",
+  "def": "A long story or tale, usually involving heroic deeds",
+  "example": "The rescue became a squadron saga.",
+  "synonyms": [
+   "epic",
+   "chronicle",
+   "legend",
+   "narrative"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4524,
+  "word": "SALUTATION",
+  "pos": "noun",
+  "kor": "인사, 인사말",
+  "def": "A written or spoken greeting",
+  "example": "The letter opened with a formal salutation.",
+  "synonyms": [
+   "greeting",
+   "address",
+   "welcome",
+   "salute"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4525,
+  "word": "SCENT",
+  "pos": "noun",
+  "kor": "향기, 냄새",
+  "def": "A distinctive aroma or smell",
+  "example": "The scent of jet fuel filled the hangar.",
+  "synonyms": [
+   "aroma",
+   "odor",
+   "fragrance",
+   "smell"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4526,
+  "word": "SCOPE",
+  "pos": "noun",
+  "kor": "범위, 영역",
+  "def": "The complete area or extent of action or thought",
+  "example": "The scope of the inquiry widened.",
+  "synonyms": [
+   "range",
+   "extent",
+   "breadth",
+   "compass"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4527,
+  "word": "SCROLL",
+  "pos": "noun",
+  "kor": "두루마리",
+  "def": "A roll of paper or parchment with writing",
+  "example": "The ancient scroll was carefully unrolled.",
+  "synonyms": [
+   "roll",
+   "parchment",
+   "manuscript",
+   "document"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4528,
+  "word": "SECT",
+  "pos": "noun",
+  "kor": "종파, 분파",
+  "def": "A group of people having the same beliefs, usually religious",
+  "example": "A small sect broke away from the church.",
+  "synonyms": [
+   "faction",
+   "denomination",
+   "cult",
+   "splinter group"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4529,
+  "word": "SEMBLANCE",
+  "pos": "noun",
+  "kor": "외관, 겉모습",
+  "def": "An outward appearance",
+  "example": "They restored some semblance of order.",
+  "synonyms": [
+   "appearance",
+   "guise",
+   "facade",
+   "likeness"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4530,
+  "word": "SEQUEL",
+  "pos": "noun",
+  "kor": "속편, 후속",
+  "def": "Something that follows from what has happened before",
+  "example": "The sequel disappointed the critics.",
+  "synonyms": [
+   "follow-up",
+   "continuation",
+   "successor",
+   "aftermath"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4531,
+  "word": "SHAM",
+  "pos": "noun",
+  "kor": "가짜, 위선",
+  "def": "A false imitation; in slang, avoiding work by pretense",
+  "example": "The inspection turned out to be a sham.",
+  "synonyms": [
+   "fraud",
+   "fake",
+   "pretense",
+   "charade"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4532,
+  "word": "SHEAF",
+  "pos": "noun",
+  "kor": "다발, 묶음",
+  "def": "A bundle, usually either of papers or grain",
+  "example": "He carried a sheaf of flight plans.",
+  "synonyms": [
+   "bundle",
+   "bunch",
+   "stack",
+   "packet"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4533,
+  "word": "SHEEN",
+  "pos": "noun",
+  "kor": "광택, 윤",
+  "def": "Shine or luster",
+  "example": "The polished fuselage had a bright sheen.",
+  "synonyms": [
+   "luster",
+   "gloss",
+   "shine",
+   "polish"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4534,
+  "word": "SILHOUETTE",
+  "pos": "noun",
+  "kor": "실루엣, 윤곽",
+  "def": "The outline of a person or an object, usually without observable details",
+  "example": "He recognized the aircraft by its silhouette.",
+  "synonyms": [
+   "outline",
+   "profile",
+   "contour",
+   "shape"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4535,
+  "word": "SITE",
+  "pos": "noun",
+  "kor": "장소, 부지",
+  "def": "A location",
+  "example": "The crash site was cordoned off.",
+  "synonyms": [
+   "location",
+   "place",
+   "spot",
+   "locale"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4536,
+  "word": "SLOGAN",
+  "pos": "noun",
+  "kor": "표어, 구호",
+  "def": "A motto or saying that sums up an individual or group's attitude",
+  "example": "Their slogan was painted on the hangar wall.",
+  "synonyms": [
+   "motto",
+   "catchphrase",
+   "maxim",
+   "byword"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4537,
+  "word": "SLOPE",
+  "pos": "noun",
+  "kor": "경사, 기울기",
+  "def": "The angle of a surface that is neither vertical nor horizontal",
+  "example": "The glide slope guides the approach.",
+  "synonyms": [
+   "incline",
+   "gradient",
+   "pitch",
+   "tilt"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4538,
+  "word": "SNARE",
+  "pos": "noun",
+  "kor": "덫, 올가미",
+  "def": "A trap",
+  "example": "The regulation proved a bureaucratic snare.",
+  "synonyms": [
+   "trap",
+   "net",
+   "pitfall",
+   "gin"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4539,
+  "word": "SPONSOR",
+  "pos": "noun",
+  "kor": "후원자, 보증인",
+  "def": "One who supports and approves of a person or an activity",
+  "example": "His sponsor recommended him for the academy.",
+  "synonyms": [
+   "backer",
+   "patron",
+   "supporter",
+   "benefactor"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4540,
+  "word": "STANZA",
+  "pos": "noun",
+  "kor": "연(시의 단락)",
+  "def": "A section of a poem or song; a verse",
+  "example": "She memorized the final stanza.",
+  "synonyms": [
+   "verse",
+   "strophe",
+   "section",
+   "stave"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4541,
+  "word": "STATURE",
+  "pos": "noun",
+  "kor": "위상, 명성; 키",
+  "def": "A height, measured either physically or in respect",
+  "example": "His stature in the field is unmatched.",
+  "synonyms": [
+   "standing",
+   "prestige",
+   "status",
+   "eminence"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4542,
+  "word": "STATUS",
+  "pos": "noun",
+  "kor": "지위, 상태",
+  "def": "Social or professional standing or level",
+  "example": "Check the status of the aircraft.",
+  "synonyms": [
+   "standing",
+   "rank",
+   "position",
+   "condition"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4543,
+  "word": "STRATEGY",
+  "pos": "noun",
+  "kor": "전략",
+  "def": "Planning and coordination aimed at achieving a goal or an objective",
+  "example": "The new strategy shortened the campaign.",
+  "synonyms": [
+   "plan",
+   "approach",
+   "scheme",
+   "tactics"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4544,
+  "word": "SUMMIT",
+  "pos": "noun",
+  "kor": "정상, 최고점; 정상 회담",
+  "def": "The highest point, as of a mountain or a career",
+  "example": "Reaching command was the summit of his career.",
+  "synonyms": [
+   "peak",
+   "apex",
+   "pinnacle",
+   "zenith"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4545,
+  "word": "SURVEY",
+  "pos": "noun",
+  "kor": "조사, 개관",
+  "def": "A general study of a topic or an issue",
+  "example": "The survey polled two hundred cadets.",
+  "synonyms": [
+   "study",
+   "poll",
+   "review",
+   "examination"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4546,
+  "word": "SUSPENSE",
+  "pos": "noun",
+  "kor": "긴장감, 불안한 기다림",
+  "def": "Tenseness brought on by uncertainty about an outcome",
+  "example": "The wait for results was pure suspense.",
+  "synonyms": [
+   "tension",
+   "anxiety",
+   "uncertainty",
+   "anticipation"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4547,
+  "word": "SYMBOL",
+  "pos": "noun",
+  "kor": "상징, 표상",
+  "def": "A design or insignia that represents something, usually a value or group identity",
+  "example": "The eagle is a symbol of the service.",
+  "synonyms": [
+   "emblem",
+   "sign",
+   "token",
+   "insignia"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4548,
+  "word": "SYMPTOM",
+  "pos": "noun",
+  "kor": "증상, 징후",
+  "def": "An indication of a problem, usually referring to a disease or an illness",
+  "example": "Fatigue was the first symptom.",
+  "synonyms": [
+   "sign",
+   "indication",
+   "manifestation",
+   "warning"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4549,
+  "word": "SYNOPSIS",
+  "pos": "noun",
+  "kor": "개요, 요약",
+  "def": "A brief summary",
+  "example": "Give me a synopsis of the mission.",
+  "synonyms": [
+   "summary",
+   "abstract",
+   "outline",
+   "precis"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4550,
+  "word": "TACTICS",
+  "pos": "noun",
+  "kor": "전술, 작전",
+  "def": "Specific actions used to achieve a purpose; in military terms, maneuvers by small units in contact with the enemy",
+  "example": "Their tactics changed after the first sortie.",
+  "synonyms": [
+   "maneuvers",
+   "methods",
+   "strategy",
+   "approach"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4551,
+  "word": "TALLY",
+  "pos": "noun",
+  "kor": "집계, 기록",
+  "def": "A record of an account or score; any list involving counting",
+  "example": "The final tally showed a narrow win.",
+  "synonyms": [
+   "count",
+   "score",
+   "reckoning",
+   "total"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4552,
+  "word": "TECHNIQUE",
+  "pos": "noun",
+  "kor": "기법, 기술",
+  "def": "A method or specific way of doing something",
+  "example": "His landing technique is textbook.",
+  "synonyms": [
+   "method",
+   "approach",
+   "procedure",
+   "skill"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4553,
+  "word": "TEMPO",
+  "pos": "noun",
+  "kor": "속도, 박자",
+  "def": "The pace or speed of an activity or a series of activities",
+  "example": "The tempo of operations increased.",
+  "synonyms": [
+   "pace",
+   "speed",
+   "rate",
+   "rhythm"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4554,
+  "word": "TENSION",
+  "pos": "noun",
+  "kor": "긴장, 갈등",
+  "def": "Mental or emotional strain, usually brought on by problems or conflicts",
+  "example": "Tension in the cockpit was palpable.",
+  "synonyms": [
+   "strain",
+   "stress",
+   "pressure",
+   "anxiety"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4555,
+  "word": "THEME",
+  "pos": "noun",
+  "kor": "주제, 테마",
+  "def": "The main topic of a written work, movie, speech, and so on",
+  "example": "Discipline was the theme of his talk.",
+  "synonyms": [
+   "topic",
+   "subject",
+   "motif",
+   "thread"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4556,
+  "word": "THRIFT",
+  "pos": "noun",
+  "kor": "절약, 검약",
+  "def": "An ability or a desire to spend money wisely",
+  "example": "Wartime thrift became a habit.",
+  "synonyms": [
+   "frugality",
+   "economy",
+   "prudence",
+   "husbandry"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4557,
+  "word": "TIMBRE",
+  "pos": "noun",
+  "kor": "음색",
+  "def": "The quality of a sound, independent of pitch and volume",
+  "example": "The engine's timbre changed at altitude.",
+  "synonyms": [
+   "tone",
+   "tone color",
+   "resonance",
+   "quality"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4558,
+  "word": "TINT",
+  "pos": "noun",
+  "kor": "색조, 엷은 색",
+  "def": "A shade of a color",
+  "example": "A faint blue tint showed on the horizon.",
+  "synonyms": [
+   "shade",
+   "hue",
+   "tinge",
+   "tone"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4559,
+  "word": "TOKEN",
+  "pos": "noun",
+  "kor": "징표, 상징물",
+  "def": "A sign or an object that signifies a greater feeling or whole",
+  "example": "He kept the coin as a token of respect.",
+  "synonyms": [
+   "symbol",
+   "emblem",
+   "memento",
+   "sign"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4560,
+  "word": "TRAIT",
+  "pos": "noun",
+  "kor": "특성, 특징",
+  "def": "A characteristic or distinguishing feature",
+  "example": "Patience is his best trait.",
+  "synonyms": [
+   "characteristic",
+   "quality",
+   "attribute",
+   "feature"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4561,
+  "word": "TRANSITION",
+  "pos": "noun",
+  "kor": "전환, 이행",
+  "def": "Movement from one condition or situation to another",
+  "example": "The transition to jets took a year.",
+  "synonyms": [
+   "change",
+   "shift",
+   "passage",
+   "conversion"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4562,
+  "word": "TRIBUTE",
+  "pos": "noun",
+  "kor": "찬사, 헌사",
+  "def": "A demonstration of respect or gratitude",
+  "example": "The flyover was a tribute to the fallen.",
+  "synonyms": [
+   "homage",
+   "honor",
+   "testimonial",
+   "accolade"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4563,
+  "word": "TUTOR",
+  "pos": "noun",
+  "kor": "개인 교사",
+  "def": "A private teacher, often for a student who needs extra help",
+  "example": "She hired a math tutor before the test.",
+  "synonyms": [
+   "teacher",
+   "instructor",
+   "coach",
+   "mentor"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4564,
+  "word": "TYCOON",
+  "pos": "noun",
+  "kor": "거물, 재벌",
+  "def": "A very wealthy and powerful business leader",
+  "example": "The airline was founded by a shipping tycoon.",
+  "synonyms": [
+   "magnate",
+   "mogul",
+   "baron",
+   "industrialist"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4565,
+  "word": "ULTIMATUM",
+  "pos": "noun",
+  "kor": "최후통첩",
+  "def": "A final demand or condition",
+  "example": "The commander issued an ultimatum.",
+  "synonyms": [
+   "final demand",
+   "last word",
+   "edict",
+   "condition"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4566,
+  "word": "UTENSIL",
+  "pos": "noun",
+  "kor": "도구, 기구",
+  "def": "An implement or tool to help the user accomplish something",
+  "example": "Each mess kit holds a utensil set.",
+  "synonyms": [
+   "tool",
+   "implement",
+   "instrument",
+   "device"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4567,
+  "word": "UTOPIA",
+  "pos": "noun",
+  "kor": "유토피아, 이상향",
+  "def": "An ideal place or society, usually regarded as unachievable",
+  "example": "The plan promised a bureaucratic utopia.",
+  "synonyms": [
+   "paradise",
+   "ideal society",
+   "Eden",
+   "Shangri-la"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4568,
+  "word": "VENTURE",
+  "pos": "noun",
+  "kor": "모험적 사업",
+  "def": "A project or an enterprise involving some degree of risk",
+  "example": "The venture cost him his savings.",
+  "synonyms": [
+   "enterprise",
+   "undertaking",
+   "gamble",
+   "endeavor"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4569,
+  "word": "VICINITY",
+  "pos": "noun",
+  "kor": "근처, 인근",
+  "def": "A local area",
+  "example": "There is no airfield in the vicinity.",
+  "synonyms": [
+   "neighborhood",
+   "proximity",
+   "surroundings",
+   "environs"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4570,
+  "word": "VICTOR",
+  "pos": "noun",
+  "kor": "승리자",
+  "def": "A winner",
+  "example": "The victor was decided by one point.",
+  "synonyms": [
+   "winner",
+   "champion",
+   "conqueror",
+   "vanquisher"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4571,
+  "word": "VISIONARY",
+  "pos": "noun",
+  "kor": "선견자, 몽상가",
+  "def": "One with lofty, revolutionary, or sometimes impractical goals or ideas about the future",
+  "example": "The designer was a visionary ahead of his time.",
+  "synonyms": [
+   "dreamer",
+   "idealist",
+   "prophet",
+   "seer"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4572,
+  "word": "VOW",
+  "pos": "noun",
+  "kor": "맹세, 서약",
+  "def": "A solemn pledge or promise",
+  "example": "He made a vow to finish training.",
+  "synonyms": [
+   "pledge",
+   "oath",
+   "promise",
+   "commitment"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "mid",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4573,
+  "word": "WAGER",
+  "pos": "noun",
+  "kor": "내기, 도박",
+  "def": "A bet",
+  "example": "He lost a small wager on the match.",
+  "synonyms": [
+   "bet",
+   "stake",
+   "gamble",
+   "ante"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
+ },
+ {
+  "id": 4574,
+  "word": "WOE",
+  "pos": "noun",
+  "kor": "비통, 재난",
+  "def": "Great trouble or sorrow",
+  "example": "She recounted her tale of woe.",
+  "synonyms": [
+   "sorrow",
+   "misery",
+   "distress",
+   "affliction"
+  ],
+  "category": "wk",
+  "source": "barron-mfat",
+  "tier": "high",
+  "afoqtCommon": true
  }
 ]
