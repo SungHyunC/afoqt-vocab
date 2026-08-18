@@ -105342,7 +105342,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "ac-",
+    "m": "~쪽으로 (to, toward)"
+   },
+   {
+    "f": "ced",
+    "m": "가다 (go, cedere)"
+   }
+  ],
+  "hook": "그쪽으로(ac) 갈(ced) 수 있는 길 → 접근(권)"
  },
  {
   "id": 4410,
@@ -105360,7 +105371,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "ali",
+    "m": "다른 (alius, other)"
+   }
+  ],
+  "hook": "본명 말고 다른(ali) 이름 → 가명"
  },
  {
   "id": 4411,
@@ -105378,7 +105396,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "anim",
+    "m": "마음, 정신 (mind)"
+   },
+   {
+    "f": "-ate",
+    "m": "~하다"
+   },
+   {
+    "f": "-ed",
+    "m": "~된 (형용사)"
+   }
+  ],
+  "hook": "정신(anim)을 불어넣은 → 활기찬"
  },
  {
   "id": 4412,
@@ -105432,7 +105465,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "bond",
+    "m": "묶다 (bind)"
+   },
+   {
+    "f": "-age",
+    "m": "~함"
+   }
+  ],
+  "hook": "사람을 묶어(bond) 놓은 상태 → 속박, 노예 신분"
  },
  {
   "id": 4415,
@@ -105468,7 +105512,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "broch",
+    "m": "꿰매다, 찌르다 (brocher)"
+   },
+   {
+    "f": "-ure",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "종이를 꿰매어(broch) 묶은 얇은 책 → 소책자"
  },
  {
   "id": 4417,
@@ -105504,7 +105559,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "cast",
+    "m": "깨끗한, 순수한 (L castus: pure)"
+   }
+  ],
+  "hook": "순수한(cast) 혈통끼리만 묶은 층 → 신분 계급"
  },
  {
   "id": 4419,
@@ -105522,7 +105584,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "chron",
+    "m": "시간 (time)"
+   },
+   {
+    "f": "log",
+    "m": "학문, 말 (logos)"
+   },
+   {
+    "f": "-y",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "시간(chron) 순서대로 적은 기록(log) → 연대순 기록"
  },
  {
   "id": 4420,
@@ -105540,7 +105617,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "con-",
+    "m": "함께"
+   },
+   {
+    "f": "dol",
+    "m": "고통을 느끼다 (dolere, pain)"
+   },
+   {
+    "f": "-ence",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "함께(con) 아파해(dol) 주는 말 → 애도"
  },
  {
   "id": 4421,
@@ -105558,7 +105650,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "crux",
+    "m": "십자, 교차점 (L crux: cross)"
+   }
+  ],
+  "hook": "길이 교차하는 십자(crux) 지점 → 핵심"
  },
  {
   "id": 4422,
@@ -105576,7 +105675,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "cyn",
+    "m": "개 (kyon, dog)"
+   },
+   {
+    "f": "-ic",
+    "m": "~한"
+   }
+  ],
+  "hook": "개(cyn)처럼 물어뜯듯 비웃는 사람 → 냉소가"
  },
  {
   "id": 4423,
@@ -105594,7 +105704,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "dat",
+    "m": "주다 (dare, give)"
+   }
+  ],
+  "hook": "주어진(dat) 것들 → 자료"
  },
  {
   "id": 4424,
@@ -105612,7 +105729,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "de-",
+    "m": "아래로 (down)"
+   },
+   {
+    "f": "but",
+    "m": "목표, 표적 (but, target)"
+   }
+  ],
+  "hook": "목표(but)를 향해 처음 발을 내딛음 → 데뷔"
  },
  {
   "id": 4425,
@@ -105630,7 +105758,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "de-",
+    "m": "아래로 (down)"
+   },
+   {
+    "f": "pos",
+    "m": "놓다 (ponere, place)"
+   }
+  ],
+  "hook": "물건을 내려(de) 놓아두는(pos) 곳 → 창고"
  },
  {
   "id": 4426,
@@ -105648,7 +105787,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "de-",
+    "m": "아래로 (down)"
+   },
+   {
+    "f": "stin",
+    "m": "서다, 버티다 (stare, stand)"
+   },
+   {
+    "f": "-y",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "미리 못 박아 세워진(stin) 것 → 운명"
  },
  {
   "id": 4427,
@@ -105666,7 +105820,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "de-",
+    "m": "아래로 (down)"
+   },
+   {
+    "f": "trit",
+    "m": "문지르다, 갈다 (rub)"
+   },
+   {
+    "f": "-ment",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "아래로(de) 갈려(trit) 깎여 나감 → 손해"
  },
  {
   "id": 4428,
@@ -105684,7 +105853,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "dia-",
+    "m": "관통하여, 계속 (through)"
+   },
+   {
+    "f": "gnos",
+    "m": "알다 (Gk. gnosis)"
+   },
+   {
+    "f": "-is",
+    "m": "명사화"
+   }
+  ],
+  "hook": "속속들이(dia) 꿰뚫어 알아냄(gnos) → 진단"
  },
  {
   "id": 4429,
@@ -105702,7 +105886,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "di-",
+    "m": "떨어져, 옆으로 (apart)"
+   },
+   {
+    "f": "rect",
+    "m": "바른, 곧은 (right, straight)"
+   },
+   {
+    "f": "-ive",
+    "m": "~한"
+   }
+  ],
+  "hook": "곧게(rect) 방향을 정해 주는 것 → 지시"
  },
  {
   "id": 4430,
@@ -105720,7 +105919,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "di-",
+    "m": "떨어져, 옆으로 (apart)"
+   },
+   {
+    "f": "vers",
+    "m": "돌다, 향하다 (turn)"
+   }
+  ],
+  "hook": "제각기 따로(di) 돌아서(vers) → 다양한"
  },
  {
   "id": 4431,
@@ -105774,7 +105984,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "ego",
+    "m": "나, 자아 (L. ego)"
+   },
+   {
+    "f": "-ist",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "'나(ego)'만 앞세우는 사람 → 자기중심적인 사람"
  },
  {
   "id": 4434,
@@ -105792,7 +106013,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "e-",
+    "m": "밖으로 (out)"
+   },
+   {
+    "f": "lig",
+    "m": "고르다, 챙기다 (legere, pick up)"
+   }
+  ],
+  "hook": "밖으로(e) 골라낸(lig) 사람들 → 정예"
  },
  {
   "id": 4435,
@@ -105810,7 +106042,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "en-",
+    "m": "~하게 만들다"
+   },
+   {
+    "f": "viron",
+    "m": "둘러싸다, 돌다 (virer, turn around)"
+   },
+   {
+    "f": "-ment",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "나를 빙 둘러싸게(viron) 만든 것 → 환경"
  },
  {
   "id": 4436,
@@ -105864,7 +106111,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "ex-",
+    "m": "밖으로 (out)"
+   },
+   {
+    "f": "cerp",
+    "m": "따다, 뜯다 (carpere, pluck)"
+   }
+  ],
+  "hook": "본문에서 밖으로(ex) 따낸(cerp) 부분 → 발췌문"
  },
  {
   "id": 4439,
@@ -105882,7 +106140,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "ex-",
+    "m": "밖으로 (out)"
+   },
+   {
+    "f": "hod",
+    "m": "길 (hodos, way)"
+   }
+  ],
+  "hook": "밖으로(ex) 나가는 길(hod)에 오름 → 대탈출"
  },
  {
   "id": 4440,
@@ -105900,7 +106169,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "fac",
+    "m": "하다, 만들다 (do, make)"
+   },
+   {
+    "f": "simil",
+    "m": "비슷한 (like, same)"
+   }
+  ],
+  "hook": "똑같이 비슷하게(simil) 만든(fac) 것 → 복제"
  },
  {
   "id": 4441,
@@ -105918,7 +106198,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "fan",
+    "m": "신전 (fanum, temple)"
+   },
+   {
+    "f": "-ic",
+    "m": "~한"
+   },
+   {
+    "f": "-al",
+    "m": "~의"
+   }
+  ],
+  "hook": "신전(fan)에 홀린 듯 몰두하는 → 광신적인"
  },
  {
   "id": 4442,
@@ -105936,7 +106231,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "phan",
+    "m": "보이다, 나타나다 (show)"
+   },
+   {
+    "f": "-y",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "머릿속에서만 나타나는(phan) 것 → 공상"
  },
  {
   "id": 4443,
@@ -105954,7 +106260,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "fin",
+    "m": "경계, 끝 (finis, border)"
+   }
+  ],
+  "hook": "끝(fin)을 장식하는 마지막 부분 → 피날레"
  },
  {
   "id": 4444,
@@ -105990,7 +106303,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "foc",
+    "m": "화덕, 불 (focus, hearth)"
+   }
+  ],
+  "hook": "빛이 한 점에 모이는 화덕(foc) → 초점"
  },
  {
   "id": 4446,
@@ -106026,7 +106346,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "form",
+    "m": "형태 (forma, shape)"
+   },
+   {
+    "f": "-at",
+    "m": "~하게 하라 (기원·명령형)"
+   }
+  ],
+  "hook": "형태(form)를 미리 잡아 둔 틀 → 형식"
  },
  {
   "id": 4448,
@@ -106044,7 +106375,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "fort",
+    "m": "강한 (fortis, strong)"
+   }
+  ],
+  "hook": "내가 강한(fort) 분야 → 장기, 특기"
  },
  {
   "id": 4449,
@@ -106062,7 +106400,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "foc",
+    "m": "화덕, 불 (focus, hearth)"
+   },
+   {
+    "f": "-er",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "화덕(foc)을 두던 입구 방 → 현관 홀"
  },
  {
   "id": 4450,
@@ -106080,7 +106429,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "fraud",
+    "m": "속임 (fraus, deceit)"
+   }
+  ],
+  "hook": "속임(fraud) 그 자체 → 사기"
  },
  {
   "id": 4451,
@@ -106098,7 +106454,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "funct",
+    "m": "수행하다 (perform)"
+   },
+   {
+    "f": "-ion",
+    "m": "명사형"
+   }
+  ],
+  "hook": "맡아 수행하는(funct) 일 → 기능"
  },
  {
   "id": 4452,
@@ -106116,7 +106483,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "fur",
+    "m": "격노하다 (furere, rage)"
+   },
+   {
+    "f": "-or",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "격노(fur)가 밖으로 터져 나옴 → 소동, 격분"
  },
  {
   "id": 4453,
@@ -106134,7 +106512,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "gen",
+    "m": "태생, 기질 (birth, kind)"
+   }
+  ],
+  "hook": "태생(gen)이 같은 것끼리 묶은 갈래 → 장르"
  },
  {
   "id": 4454,
@@ -106170,7 +106555,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "glut",
+    "m": "삼키다, 실컷 먹다 (swallow, gorge)"
+   },
+   {
+    "f": "-on",
+    "m": "단위, 입자"
+   }
+  ],
+  "hook": "실컷 삼키는(glut) 사람 → 대식가"
  },
  {
   "id": 4456,
@@ -106206,7 +106602,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "horiz",
+    "m": "경계 짓다 (horizein, bound)"
+   },
+   {
+    "f": "-on",
+    "m": "단위, 입자"
+   }
+  ],
+  "hook": "시야를 경계 짓는(horiz) 선 → 지평선, 시야의 한계"
  },
  {
   "id": 4458,
@@ -106242,7 +106649,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "hyster",
+    "m": "자궁 (hystera, womb)"
+   },
+   {
+    "f": "-ia",
+    "m": "상태 (명사화)"
+   }
+  ],
+  "hook": "옛날엔 자궁(hyster) 탓이라 여긴 발작 → 히스테리"
  },
  {
   "id": 4460,
@@ -106260,7 +106678,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "idio",
+    "m": "자기만의 (idios, own)"
+   }
+  ],
+  "hook": "그 언어만의(idio) 고유한 표현 → 관용구"
  },
  {
   "id": 4461,
@@ -106278,7 +106703,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "imag",
+    "m": "모습, 본뜨다 (imago, likeness)"
+   }
+  ],
+  "hook": "본떠 만든 모습(imag) → 이미지, 인상"
  },
  {
   "id": 4462,
@@ -106296,7 +106728,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pet",
+    "m": "돌진하다, 추구하다 (petere, rush)"
+   }
+  ],
+  "hook": "앞으로 돌진하게(pet) 만드는 힘 → 추진력"
  },
  {
   "id": 4463,
@@ -106314,7 +106753,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "fract",
+    "m": "꺾다, 부러뜨리다 (break)"
+   },
+   {
+    "f": "-ion",
+    "m": "명사형"
+   }
+  ],
+  "hook": "규칙을 꺾어(fract) 버림 → 위반"
  },
  {
   "id": 4464,
@@ -106332,7 +106782,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "inter-",
+    "m": "사이에 (between)"
+   },
+   {
+    "f": "lud",
+    "m": "놀다 (play)"
+   }
+  ],
+  "hook": "두 막 사이에(inter) 끼워 노는(lud) 시간 → 막간"
  },
  {
   "id": 4465,
@@ -106350,7 +106811,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "tric",
+    "m": "엉킴, 곤경 (tricae=entanglements)"
+   }
+  ],
+  "hook": "남을 얽어(tric) 넣으려는 꾀 → 음모"
  },
  {
   "id": 4466,
@@ -106494,7 +106962,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "lit",
+    "m": "다툼, 소송 (lis/litis, lawsuit)"
+   },
+   {
+    "f": "ag",
+    "m": "몰다, 가다 (drive, go)"
+   },
+   {
+    "f": "-ation",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "소송(lit)을 몰고 가는(ag) 일 → 법적 절차"
  },
  {
   "id": 4474,
@@ -106548,7 +107031,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "medi",
+    "m": "가운데 (medius, middle)"
+   },
+   {
+    "f": "-um",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "가운데(medi)에서 전달해 주는 것 → 매체"
  },
  {
   "id": 4477,
@@ -106566,7 +107060,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "mem",
+    "m": "기억하다 (memor, mindful)"
+   }
+  ],
+  "hook": "기억(mem)나게 해 주는 물건 → 기념품"
  },
  {
   "id": 4478,
@@ -106584,7 +107085,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "metro",
+    "m": "어머니 (meter, mother)"
+   },
+   {
+    "f": "polis",
+    "m": "도시 (polis, city)"
+   }
+  ],
+  "hook": "어머니(metro) 격인 중심 도시(polis) → 대도시"
  },
  {
   "id": 4479,
@@ -106602,7 +107114,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "mor",
+    "m": "제 성미, 고집 (mos, self-will)"
+   },
+   {
+    "f": "-es",
+    "m": "복수"
+   }
+  ],
+  "hook": "그 무리가 고집하는 방식(mor)들 → 관습"
  },
  {
   "id": 4480,
@@ -106620,7 +107143,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "multi",
+    "m": "많은 (multus, many)"
+   },
+   {
+    "f": "-tude",
+    "m": "~한 상태 (명사)"
+   }
+  ],
+  "hook": "많음(multi)의 상태 → 다수, 군중"
  },
  {
   "id": 4481,
@@ -106638,7 +107172,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "myth",
+    "m": "이야기 (mythos, story)"
+   }
+  ],
+  "hook": "입에서 입으로 전해진 옛이야기(myth) → 신화"
  },
  {
   "id": 4482,
@@ -106656,7 +107197,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "nid",
+    "m": "둥지 (nidus, nest)"
+   }
+  ],
+  "hook": "새 둥지(nid)처럼 딱 들어맞는 자리 → 적소"
  },
  {
   "id": 4483,
@@ -106746,7 +107294,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "optim",
+    "m": "가장 좋은 (optimus, best)"
+   },
+   {
+    "f": "-um",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "가장 좋은(optim) 상태 → 최적"
  },
  {
   "id": 4488,
@@ -106764,7 +107323,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "ov",
+    "m": "환호하다 (ovare, rejoice)"
+   },
+   {
+    "f": "-ation",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "환호(ov)를 쏟아냄 → 기립 박수"
  },
  {
   "id": 4489,
@@ -106782,7 +107352,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pan-",
+    "m": "모든 (all)"
+   },
+   {
+    "f": "orama",
+    "m": "봄, 광경 (horama, view)"
+   }
+  ],
+  "hook": "전체(pan)를 한눈에 봄(orama) → 전경"
  },
  {
   "id": 4490,
@@ -106818,7 +107399,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "path",
+    "m": "감정, 느낌 (feeling)"
+   },
+   {
+    "f": "log",
+    "m": "학문, 말 (logos)"
+   },
+   {
+    "f": "-y",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "몸이 겪는 고통(path)을 다루는 학문(log) → 병리학"
  },
  {
   "id": 4492,
@@ -106836,7 +107432,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "paup",
+    "m": "가난한 (pauper, poor)"
+   }
+  ],
+  "hook": "가난함(paup) 그 자체인 사람 → 빈민"
  },
  {
   "id": 4493,
@@ -106854,7 +107457,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "paed",
+    "m": "어린이 (pais/paid, child)"
+   },
+   {
+    "f": "agog",
+    "m": "이끌다 (lead, agein)"
+   }
+  ],
+  "hook": "아이(paed)를 이끌고(agog) 다니던 사람 → 엄격한 교사"
  },
  {
   "id": 4494,
@@ -106872,7 +107486,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "par",
+    "m": "같은, 동등한 (equal)"
+   }
+  ],
+  "hook": "나와 동등한(par) 위치의 사람 → 동료, 또래"
  },
  {
   "id": 4495,
@@ -106890,7 +107511,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "phob",
+    "m": "두려움 (phobos, fear)"
+   },
+   {
+    "f": "-ia",
+    "m": "상태 (명사화)"
+   }
+  ],
+  "hook": "두려움(phob)에 사로잡힌 상태 → 공포증"
  },
  {
   "id": 4496,
@@ -106908,7 +107540,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "phys",
+    "m": "자연 (nature)"
+   },
+   {
+    "f": "-ique",
+    "m": "~한 것"
+   }
+  ],
+  "hook": "타고난 자연(phys) 그대로의 몸 → 체격"
  },
  {
   "id": 4497,
@@ -106926,7 +107569,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "agr",
+    "m": "밭, 경작지 (ager: field)"
+   },
+   {
+    "f": "-age",
+    "m": "~함"
+   }
+  ],
+  "hook": "낯선 땅(agr)을 가로질러 가는 여정 → 순례"
  },
  {
   "id": 4498,
@@ -106944,7 +107598,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "plat",
+    "m": "평평한, 밋밋한 (flat)"
+   },
+   {
+    "f": "-eau",
+    "m": "~것"
+   }
+  ],
+  "hook": "평평하게(plat) 펼쳐진 고지 → 고원, 정체기"
  },
  {
   "id": 4499,
@@ -106980,7 +107645,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "popul",
+    "m": "사람들 (populus, people)"
+   },
+   {
+    "f": "-ace",
+    "m": "명사 접미사"
+   }
+  ],
+  "hook": "그 땅의 사람들(popul) 전체 → 주민"
  },
  {
   "id": 4501,
@@ -106998,7 +107674,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pre-",
+    "m": "미리, 먼저"
+   },
+   {
+    "f": "ced",
+    "m": "가다 (go, cedere)"
+   },
+   {
+    "f": "-or",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "나보다 먼저(pre) 그 자리를 거쳐 간(ced) 사람 → 전임자"
  },
  {
   "id": 4502,
@@ -107016,7 +107707,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pre-",
+    "m": "미리, 먼저"
+   },
+   {
+    "f": "fa",
+    "m": "말하다 (L fari: speak)"
+   }
+  ],
+  "hook": "본문에 앞서(pre) 하는 말(fa) → 서문"
  },
  {
   "id": 4503,
@@ -107034,7 +107736,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pre-",
+    "m": "미리, 먼저"
+   },
+   {
+    "f": "lud",
+    "m": "놀다 (play)"
+   }
+  ],
+  "hook": "본편에 앞서(pre) 벌이는(lud) 것 → 서곡, 전조"
  },
  {
   "id": 4504,
@@ -107052,7 +107765,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pre-",
+    "m": "미리, 먼저"
+   },
+   {
+    "f": "em",
+    "m": "취하다, 뽑다 (emere, take)"
+   },
+   {
+    "f": "-um",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "먼저(pre) 값을 치러(em) 얹는 것 → 할증금, 고급"
  },
  {
   "id": 4505,
@@ -107070,7 +107798,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "prior",
+    "m": "더 앞선 (prior, former)"
+   },
+   {
+    "f": "-ity",
+    "m": "성질 (명사화)"
+   }
+  ],
+  "hook": "더 앞선(prior) 성질 → 우선순위"
  },
  {
   "id": 4506,
@@ -107088,7 +107827,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pro-",
+    "m": "앞으로"
+   },
+   {
+    "f": "ced",
+    "m": "가다 (go, cedere)"
+   }
+  ],
+  "hook": "앞으로(pro) 나아가는(ced) 절차 → 과정"
  },
  {
   "id": 4507,
@@ -107106,7 +107856,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "prop",
+    "m": "가까운 (prope, near)"
+   },
+   {
+    "f": "-ity",
+    "m": "성질 (명사화)"
+   }
+  ],
+  "hook": "가까움(prop)이라는 성질 → 근접"
  },
  {
   "id": 4508,
@@ -107124,7 +107885,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pro-",
+    "m": "앞으로"
+   },
+   {
+    "f": "spect",
+    "m": "보다 (look)"
+   }
+  ],
+  "hook": "앞을(pro) 내다봄(spect) → 전망, 가능성"
  },
  {
   "id": 4509,
@@ -107142,7 +107914,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "pseudo",
+    "m": "가짜 (pseudes, false)"
+   },
+   {
+    "f": "onym",
+    "m": "이름 (onoma, name)"
+   }
+  ],
+  "hook": "가짜(pseudo) 이름(onym) → 필명"
  },
  {
   "id": 4510,
@@ -107196,7 +107979,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "rar",
+    "m": "드문 (rarus, thin)"
+   },
+   {
+    "f": "-ity",
+    "m": "성질 (명사화)"
+   }
+  ],
+  "hook": "드묾(rar)이라는 성질 → 희귀함"
  },
  {
   "id": 4513,
@@ -107214,7 +108008,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로 (back)"
+   },
+   {
+    "f": "lev",
+    "m": "가벼운 (light)"
+   }
+  ],
+  "hook": "그 자리에서 다시(re) 들어 올릴(lev) 만한 → 관련 있는"
  },
  {
   "id": 4514,
@@ -107232,7 +108037,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로 (back)"
+   },
+   {
+    "f": "nasc",
+    "m": "태어나다 (nasci=be born)"
+   },
+   {
+    "f": "-ence",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "다시(re) 태어남(nasc) → 부흥, 재생"
  },
  {
   "id": 4515,
@@ -107268,7 +108088,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로 (back)"
+   },
+   {
+    "f": "plic",
+    "m": "접다 (fold)"
+   }
+  ],
+  "hook": "똑같이 다시(re) 접어(plic) 만든 것 → 복제품"
  },
  {
   "id": 4517,
@@ -107286,7 +108117,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로 (back)"
+   },
+   {
+    "f": "pris",
+    "m": "잡다, 취하다 (take, seize < L. prehendere)"
+   },
+   {
+    "f": "-al",
+    "m": "~의"
+   }
+  ],
+  "hook": "당한 만큼 되잡아(pris) 돌려줌 → 보복"
  },
  {
   "id": 4518,
@@ -107322,7 +108168,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로 (back)"
+   },
+   {
+    "f": "sid",
+    "m": "앉다 (sit)"
+   }
+  ],
+  "hook": "덜어낸 뒤(re) 남아 앉은(sid) 것 → 잔여물"
  },
  {
   "id": 4520,
@@ -107340,7 +108197,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로 (back)"
+   },
+   {
+    "f": "surg",
+    "m": "일어나다 (rise)"
+   }
+  ],
+  "hook": "쓰면 다시(re) 솟아나는(surg) 것들 → 자원"
  },
  {
   "id": 4521,
@@ -107358,7 +108226,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로 (back)"
+   },
+   {
+    "f": "sum",
+    "m": "취하다 (sumere=take)"
+   }
+  ],
+  "hook": "내 경력을 다시(re) 집어 든(sum) 요약 → 이력서"
  },
  {
   "id": 4522,
@@ -107412,7 +108291,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "salut",
+    "m": "건강, 안녕 (salus, health)"
+   },
+   {
+    "f": "-ation",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "건강(salut)을 빌어 주는 말 → 인사"
  },
  {
   "id": 4525,
@@ -107430,7 +108320,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sent",
+    "m": "느끼다 (feel)"
+   }
+  ],
+  "hook": "코로 느끼는(sent) 것 → 향기"
  },
  {
   "id": 4526,
@@ -107448,7 +108345,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "scop",
+    "m": "보다 (skopein, look)"
+   }
+  ],
+  "hook": "눈에 보이는(scop) 범위 → 범위, 영역"
  },
  {
   "id": 4527,
@@ -107484,7 +108388,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sect",
+    "m": "자르다 (secare, cut)"
+   }
+  ],
+  "hook": "본체에서 잘려(sect) 나온 무리 → 종파"
  },
  {
   "id": 4529,
@@ -107502,7 +108413,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sembl",
+    "m": "비슷한 (similis, like)"
+   },
+   {
+    "f": "-ance",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "비슷해(sembl) 보이는 겉모습 → 외관"
  },
  {
   "id": 4530,
@@ -107520,7 +108442,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sequ",
+    "m": "따라가다 (follow)"
+   }
+  ],
+  "hook": "앞 이야기를 뒤따라오는(sequ) 것 → 속편"
  },
  {
   "id": 4531,
@@ -107610,7 +108539,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sit",
+    "m": "놓인 자리 (situs, position)"
+   }
+  ],
+  "hook": "놓인 자리(sit) 그 자체 → 장소"
  },
  {
   "id": 4536,
@@ -107682,7 +108618,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "spons",
+    "m": "답하다, 약속하다 (spondere)"
+   },
+   {
+    "f": "-or",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "책임지겠다 약속하고(spons) 뒤를 봐주는 사람 → 후원자"
  },
  {
   "id": 4540,
@@ -107700,7 +108647,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sta",
+    "m": "서다 (stand)"
+   }
+  ],
+  "hook": "시가 한 번 멈춰 서는(sta) 단락 → 연"
  },
  {
   "id": 4541,
@@ -107718,7 +108672,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "stat",
+    "m": "서다 (stand)"
+   },
+   {
+    "f": "-ure",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "서(stat) 있는 높이 → 키, 위상"
  },
  {
   "id": 4542,
@@ -107736,7 +108701,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "stat",
+    "m": "서다 (stand)"
+   },
+   {
+    "f": "-us",
+    "m": "명사 어미"
+   }
+  ],
+  "hook": "지금 서(stat) 있는 위치 → 지위, 상태"
  },
  {
   "id": 4543,
@@ -107754,7 +108730,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "strat",
+    "m": "군대 (stratos: army)"
+   },
+   {
+    "f": "ag",
+    "m": "몰다, 가다 (drive, go)"
+   },
+   {
+    "f": "-y",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "군대(strat)를 이끄는(ag) 기술 → 전략"
  },
  {
   "id": 4544,
@@ -107772,7 +108763,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "summ",
+    "m": "가장 높은 (summus, highest)"
+   },
+   {
+    "f": "-it",
+    "m": "~된 (형용사)"
+   }
+  ],
+  "hook": "가장 높은(summ) 지점 → 정상"
  },
  {
   "id": 4545,
@@ -107790,7 +108792,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sur-",
+    "m": "위로, 지나치게 (over)"
+   },
+   {
+    "f": "vid",
+    "m": "보다 (see)"
+   }
+  ],
+  "hook": "위에서(sur) 전체를 훑어봄(vid) → 조사, 개관"
  },
  {
   "id": 4546,
@@ -107808,7 +108821,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sus-",
+    "m": "아래에 (under)"
+   },
+   {
+    "f": "pens",
+    "m": "매달다, 무게를 달다 (hang, weigh)"
+   }
+  ],
+  "hook": "결말이 아래에(sus) 매달린(pens) 채 기다림 → 긴장감"
  },
  {
   "id": 4547,
@@ -107826,7 +108850,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sym-",
+    "m": "함께 (together)"
+   },
+   {
+    "f": "bol",
+    "m": "던지다 (ballein = throw)"
+   }
+  ],
+  "hook": "뜻을 함께(sym) 던져(bol) 넣은 표시 → 상징"
  },
  {
   "id": 4548,
@@ -107844,7 +108879,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "sym-",
+    "m": "함께 (together)"
+   },
+   {
+    "f": "ptom",
+    "m": "떨어지다 (piptein, fall)"
+   }
+  ],
+  "hook": "병과 함께(sym) 떨어져(ptom) 나오는 신호 → 증상"
  },
  {
   "id": 4549,
@@ -107862,7 +108908,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "syn-",
+    "m": "함께 (together)"
+   },
+   {
+    "f": "ops",
+    "m": "봄, 시야 (opsis, sight)"
+   },
+   {
+    "f": "-is",
+    "m": "명사화"
+   }
+  ],
+  "hook": "전체를 함께(syn) 한눈에 봄(ops) → 개요"
  },
  {
   "id": 4550,
@@ -107898,7 +108959,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "tal",
+    "m": "막대기 (talea, stick)"
+   }
+  ],
+  "hook": "눈금 새긴 막대(tal)로 세던 것 → 집계"
  },
  {
   "id": 4552,
@@ -107916,7 +108984,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "techn",
+    "m": "기술 (techne, art)"
+   },
+   {
+    "f": "-ique",
+    "m": "~한 것"
+   }
+  ],
+  "hook": "기술(techn) 그 자체 → 기법"
  },
  {
   "id": 4553,
@@ -107934,7 +109013,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "temp",
+    "m": "시간 (tempus, time)"
+   }
+  ],
+  "hook": "시간(temp)이 흐르는 속도 → 박자, 속도"
  },
  {
   "id": 4554,
@@ -107952,7 +109038,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "tens",
+    "m": "팽팽히 당기다 (tendere, stretch)"
+   },
+   {
+    "f": "-ion",
+    "m": "명사형"
+   }
+  ],
+  "hook": "팽팽히 당겨진(tens) 상태 → 긴장"
  },
  {
   "id": 4555,
@@ -107970,7 +109067,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "the",
+    "m": "놓다 (tithenai, place)"
+   }
+  ],
+  "hook": "논의의 바탕에 놓은(the) 것 → 주제"
  },
  {
   "id": 4556,
@@ -108024,7 +109128,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "tinct",
+    "m": "물들이다 (tingere, dye)"
+   }
+  ],
+  "hook": "살짝 물들인(tinct) 색 → 색조"
  },
  {
   "id": 4559,
@@ -108060,7 +109171,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "tract",
+    "m": "끌다 (trahere, draw)"
+   }
+  ],
+  "hook": "그 사람에게서 끌어낸(tract) 선 하나 → 특성"
  },
  {
   "id": 4561,
@@ -108078,7 +109196,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "trans-",
+    "m": "가로질러 (across)"
+   },
+   {
+    "f": "it",
+    "m": "가다 (go, ire)"
+   },
+   {
+    "f": "-ion",
+    "m": "명사형"
+   }
+  ],
+  "hook": "이쪽에서 저쪽으로 가로질러(trans) 감(it) → 전환"
  },
  {
   "id": 4562,
@@ -108114,7 +109247,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "tut",
+    "m": "지키다, 보호하다 (tueri, watch over)"
+   },
+   {
+    "f": "-or",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "학생을 곁에서 지켜(tut) 주는 사람 → 개인 교사"
  },
  {
   "id": 4564,
@@ -108150,7 +109294,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "ultim",
+    "m": "마지막 (last)"
+   },
+   {
+    "f": "-um",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "더 없는 마지막(ultim) 통보 → 최후통첩"
  },
  {
   "id": 4566,
@@ -108168,7 +109323,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "ut",
+    "m": "쓰다 (uti, use)"
+   },
+   {
+    "f": "-ensil",
+    "m": "~하는 도구"
+   }
+  ],
+  "hook": "쓰기(ut) 위한 물건 → 도구"
  },
  {
   "id": 4567,
@@ -108186,7 +109352,22 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "u-",
+    "m": "없는 (ou, not)"
+   },
+   {
+    "f": "top",
+    "m": "장소, 자리 (place)"
+   },
+   {
+    "f": "-ia",
+    "m": "상태 (명사화)"
+   }
+  ],
+  "hook": "어디에도 없는(u) 장소(top) → 유토피아"
  },
  {
   "id": 4568,
@@ -108204,7 +109385,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "vent",
+    "m": "오다, 가다 (come)"
+   },
+   {
+    "f": "-ure",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "위험을 무릅쓰고 나아가(vent) 보는 일 → 모험적 사업"
  },
  {
   "id": 4569,
@@ -108222,7 +109414,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "vicin",
+    "m": "이웃한 (vicinus, neighboring)"
+   },
+   {
+    "f": "-ity",
+    "m": "성질 (명사화)"
+   }
+  ],
+  "hook": "이웃해(vicin) 있음 → 근처"
  },
  {
   "id": 4570,
@@ -108240,7 +109443,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "vict",
+    "m": "이기다 (vincere, conquer)"
+   },
+   {
+    "f": "-or",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "이긴(vict) 사람 → 승리자"
  },
  {
   "id": 4571,
@@ -108258,7 +109472,18 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "high",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "vid",
+    "m": "보다 (see)"
+   },
+   {
+    "f": "-ary",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "남보다 멀리 내다보는(vid) 사람 → 선견자"
  },
  {
   "id": 4572,
@@ -108276,7 +109501,14 @@
   "category": "wk",
   "source": "barron-mfat",
   "tier": "mid",
-  "afoqtCommon": true
+  "afoqtCommon": true,
+  "roots": [
+   {
+    "f": "vot",
+    "m": "맹세하다 (vovere, pledge)"
+   }
+  ],
+  "hook": "신 앞에 맹세한(vot) 것 → 서약"
  },
  {
   "id": 4573,
