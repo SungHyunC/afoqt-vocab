@@ -3723,10 +3723,12 @@ function injectMockUI(){
     const subBtns=f.subtests.map(st=>
       `<button class="mock-sub" data-exam="mock_${f.id}_${st.code}">${SEC_KO[st.code]||st.code}<small>${st.count}</small></button>`).join("");
     const pk=EXAM_PRESETS["mock_"+f.id];
+    const icon=f.barron?"📕":"📄";
+    const note=f.note?`<div class="mock-note ${f.answerAI?"ai":""}">${esc(f.note)}</div>`:"";
     return `<button class="exam-preset" data-exam="mock_${f.id}" style="border-color:var(--gold)">
-        <div class="ic">📄</div><div class="meta"><b>${esc(f.name)} · 전체</b>
+        <div class="ic">${icon}</div><div class="meta"><b>${esc(f.name)} · 전체</b>
         <div class="muted">${pk?pk.label:""}</div></div><div class="go">›</div></button>
-      <div class="mock-subs">${subBtns}</div>`;
+      ${note}<div class="mock-subs">${subBtns}</div>`;
   }).join("");
   box.innerHTML=`<h3 class="exam-group">📄 실전 기출 모의고사 <span class="mock-open">🔓 열림</span></h3>
     <p class="muted" style="margin:-4px 0 10px;font-size:13px">실전 3회분 · 7과목. 전체 또는 과목별로 응시하세요.</p>${forms}`;

@@ -677,3 +677,7 @@ sub{vertical-align:-.25em}
 .mm-err{color:var(--bad);font-size:13px;margin-top:9px;font-weight:600}
 .mm-btns{display:flex;gap:10px;margin-top:16px}
 .mm-btns .btn{flex:1}
+/* Barron 회차 안내 문구 */
+.mock-note{font-size:12px;color:var(--muted);margin:-6px 2px 8px;padding:6px 10px;
+  background:var(--card2);border-radius:9px;border:1px solid var(--line)}
+.mock-note.ai{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,var(--line))}
