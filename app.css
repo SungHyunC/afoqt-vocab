@@ -650,3 +650,30 @@ sub{vertical-align:-.25em}
 .va-wrongs .wr{font-size:12.5px;line-height:1.6;color:#cbd5e1;margin-bottom:3px}
 .va-wrongs .wr b{color:var(--txt)}
 .review-q .rx{white-space:pre-line}
+
+/* ═══════════ 실전 기출 모의고사 (암호화·비공개) ═══════════ */
+#mockGroup{margin-bottom:6px}
+.mock-lock,.mock-open{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;vertical-align:middle;margin-left:6px}
+.mock-lock{background:#78716c22;color:var(--muted);border:1px solid var(--line)}
+.mock-open{background:#16a34a22;color:var(--ok)}
+.mock-locked .ic{filter:grayscale(.15)}
+.mock-subs{display:flex;flex-wrap:wrap;gap:7px;margin:-4px 0 14px;padding:0 2px}
+.mock-sub{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:11px;
+  background:var(--card2);border:1.5px solid var(--line);color:var(--txt);font-size:13px;font-weight:600}
+.mock-sub small{font-size:11px;color:var(--muted);font-weight:500}
+.mock-sub:active{transform:scale(.97)}
+.mock-fig{display:block;max-width:100%;width:100%;height:auto;background:#fff;border-radius:10px;
+  padding:8px;border:1px solid var(--line)}
+/* 잠금 해제 모달 */
+.mock-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.55);padding:20px;backdrop-filter:blur(2px)}
+.mm-card{width:100%;max-width:360px;background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:22px 20px;box-shadow:var(--shadow);text-align:center}
+.mm-title{font-size:19px;font-weight:800;margin-bottom:8px}
+.mm-desc{font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:16px}
+.mm-card input{width:100%;padding:13px 14px;border-radius:12px;border:2px solid var(--line);
+  background:var(--card2);color:var(--txt);font-size:16px;text-align:center;outline:none}
+.mm-card input:focus{border-color:var(--gold)}
+.mm-err{color:var(--bad);font-size:13px;margin-top:9px;font-weight:600}
+.mm-btns{display:flex;gap:10px;margin-top:16px}
+.mm-btns .btn{flex:1}

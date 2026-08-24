@@ -1,0 +1,4 @@
+# 실전 모의고사 원본(평문)은 절대 커밋하지 않습니다 — 저작권 보호
+mockexams.plain.json
+mock-source/
+*.plain.json

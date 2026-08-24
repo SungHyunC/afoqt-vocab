@@ -2640,6 +2640,7 @@ function renderExamSetup(){
   $$("#retestList [data-retest]").forEach(b=>b.onclick=()=>startRetest(b.dataset.retest));
   const tot=WRONG_ORDER.reduce((s,k)=>s+wc[k],0); $("#retestAll").classList.toggle("hidden",tot===0);
   $("#retestAll").textContent=`🔁 전체 오답 재시험 (${tot}문제)`;
+  injectMockUI();   // 🔒 실전 기출 모의고사 그룹 주입(잠금/해제 상태에 따라)
 }
 function startExam(key,opts){
   if(key==="afoqt"&&pilotPerfect()) key="afoqtCore"; // 시각과목은 외부 앱에서 — 코어만 응시
@@ -3630,5 +3631,108 @@ async function boot(){
       "<button class='btn primary' style='max-width:200px;margin:16px auto' onclick='location.reload()'>새로고침</button>";
   }
 }
+/* ═══════════════════════════════════════════════════════════════════════
+   실전 기출 모의고사 (암호화·비공개)
+   - mockexams.enc.json 은 AES-GCM 으로 암호화되어 있어 공개 저장소에 올라가도
+     비밀번호 없이는 문제를 볼 수 없습니다(저작권 보호).
+   - 비밀번호 입력 → 브라우저에서 복호화 → 기존 시험 러너/채점/리뷰 재사용.
+   ═══════════════════════════════════════════════════════════════════════ */
+let MOCK=null;                                   // 복호화된 데이터(세션 메모리에만 유지)
+const MOCK_MIN={VA:8,AR:29,WK:5,MK:22,RC:38,PS:10,AV:8};   // 과목별 공식 제한시간(분)
+function _mb64(b){ const s=atob(b), u=new Uint8Array(s.length); for(let i=0;i<s.length;i++) u[i]=s.charCodeAt(i); return u; }
+async function _mockKey(pw,salt,iter,hash){
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
+  return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:iter,hash},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+}
+async function mockDecrypt(pw){
+  const r=await fetch("./mockexams.enc.json",{cache:"force-cache"});
+  if(!r.ok) throw new Error("enc-fetch");
+  const j=await r.json();
+  const key=await _mockKey(pw,_mb64(j.salt),j.iter||200000,j.hash||"SHA-256");
+  const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:_mb64(j.iv)},key,_mb64(j.ct));  // 틀리면 예외
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+// 저장된 문항 → 러너 아이템으로 변환(원본 순서 유지, 셔플 없음)
+function mockToItems(sub){
+  return sub.questions.map(q=>{
+    const it={section:q.section,prompt:q.fig?"":(q.prompt||""),options:q.options.slice(),
+              answer:q.answer,explain:q.explain||"",sub:""};
+    if(q.passageText){ it.passageId=q.passageId; it.passageTitle=q.passageTitle; it.passageText=q.passageText; }
+    if(q.fig){ it.figureHTML=`<img class="mock-fig" alt="문항" src="data:image/png;base64,${q.fig}">`; }
+    return it;
+  });
+}
+function buildMockPresets(){
+  if(!MOCK||!MOCK.forms) return;
+  MOCK.forms.forEach(f=>{
+    const allSecs=f.subtests.reduce((s,st)=>s+(MOCK_MIN[st.code]||10)*60,0);
+    const allN=f.subtests.reduce((s,st)=>s+st.count,0);
+    EXAM_PRESETS["mock_"+f.id]={name:`${f.name} · 전체`,secs:allSecs,
+      build:()=>f.subtests.flatMap(mockToItems),
+      label:`${allN}문항 · ${fmtTime(allSecs)} · 실전`};
+    f.subtests.forEach(st=>{
+      const secs=(MOCK_MIN[st.code]||10)*60;
+      EXAM_PRESETS[`mock_${f.id}_${st.code}`]={name:`${f.id} · ${st.name}`,secs,
+        build:()=>mockToItems(st), label:`${st.count}문항 · ${fmtTime(secs)}`};
+    });
+  });
+}
+function mockUnlocked(){ return !!MOCK; }
+async function unlockMock(pw){
+  try{ const d=await mockDecrypt(pw); if(!d||!d.forms) return false; MOCK=d; buildMockPresets(); return true; }
+  catch(e){ return false; }
+}
+function mockModal(){
+  if($("#mockModal")) return;
+  const ov=document.createElement("div"); ov.id="mockModal"; ov.className="mock-modal";
+  ov.innerHTML=`<div class="mm-card">
+    <div class="mm-title">🔒 실전 기출 모의고사</div>
+    <div class="mm-desc">저작권 보호를 위해 비공개로 잠겨 있습니다.<br>비밀번호를 입력하세요.</div>
+    <input id="mockPw" type="password" autocomplete="off" placeholder="비밀번호">
+    <div id="mockErr" class="mm-err hidden">비밀번호가 올바르지 않습니다.</div>
+    <div class="mm-btns"><button class="btn ghost" id="mockCancel">취소</button>
+      <button class="btn primary" id="mockGo">🔓 잠금 해제</button></div></div>`;
+  document.body.appendChild(ov);
+  const close=()=>ov.remove();
+  const go=async()=>{
+    const pw=$("#mockPw").value; if(!pw) return;
+    const gb=$("#mockGo"); gb.disabled=true; gb.textContent="확인 중…"; $("#mockErr").classList.add("hidden");
+    const ok=await unlockMock(pw);
+    if(ok){ close(); toast("🔓 모의고사 잠금 해제됨"); injectMockUI(); }
+    else{ $("#mockErr").classList.remove("hidden"); gb.disabled=false; gb.textContent="🔓 잠금 해제"; $("#mockPw").select(); }
+  };
+  $("#mockCancel").onclick=close; $("#mockGo").onclick=go;
+  $("#mockPw").onkeydown=e=>{ if(e.key==="Enter") go(); };
+  ov.onclick=e=>{ if(e.target===ov) close(); };
+  setTimeout(()=>{ const i=$("#mockPw"); if(i) i.focus(); },60);
+}
+function injectMockUI(){
+  const host=$("#examSetup"); if(!host) return;
+  let box=$("#mockGroup");
+  if(!box){ box=document.createElement("div"); box.id="mockGroup";
+    const anchor=host.querySelector("h3.exam-group"); host.insertBefore(box,anchor||null); }
+  if(!mockUnlocked()){
+    box.innerHTML=`<h3 class="exam-group">🔒 실전 기출 모의고사 <span class="mock-lock">비공개</span></h3>
+      <button class="exam-preset mock-locked" id="mockUnlockBtn" style="border-color:var(--gold)">
+        <div class="ic">🔒</div><div class="meta"><b>실제 기출 3회분 · 잠금</b>
+        <div class="muted">비밀번호를 입력하면 T01·T02·T03 실전 모의고사가 열려요</div></div>
+        <div class="go">›</div></button>`;
+    const b=$("#mockUnlockBtn"); if(b) b.onclick=mockModal; return;
+  }
+  const forms=MOCK.forms.map(f=>{
+    const subBtns=f.subtests.map(st=>
+      `<button class="mock-sub" data-exam="mock_${f.id}_${st.code}">${SEC_KO[st.code]||st.code}<small>${st.count}</small></button>`).join("");
+    const pk=EXAM_PRESETS["mock_"+f.id];
+    return `<button class="exam-preset" data-exam="mock_${f.id}" style="border-color:var(--gold)">
+        <div class="ic">📄</div><div class="meta"><b>${esc(f.name)} · 전체</b>
+        <div class="muted">${pk?pk.label:""}</div></div><div class="go">›</div></button>
+      <div class="mock-subs">${subBtns}</div>`;
+  }).join("");
+  box.innerHTML=`<h3 class="exam-group">📄 실전 기출 모의고사 <span class="mock-open">🔓 열림</span></h3>
+    <p class="muted" style="margin:-4px 0 10px;font-size:13px">실전 3회분 · 7과목. 전체 또는 과목별로 응시하세요.</p>${forms}`;
+  box.querySelectorAll("[data-exam]").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
+}
+
+
 document.addEventListener("DOMContentLoaded", boot);
 })();
