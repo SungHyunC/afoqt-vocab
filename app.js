@@ -3763,7 +3763,7 @@ function injectMockUI(){
     const subBtns=f.subtests.map(st=>
       `<button class="mock-sub" data-exam="mock_${f.id}_${st.code}">${SEC_KO[st.code]||st.code}<small>${st.count}</small></button>`).join("");
     const pk=EXAM_PRESETS["mock_"+f.id];
-    const icon=f.barron?"📕":"📄";
+    const icon=f.icon||(f.barron?"📕":"📄");
     const note=f.note?`<div class="mock-note ${f.answerAI?"ai":""}">${esc(f.note)}</div>`:"";
     return `<button class="exam-preset" data-exam="mock_${f.id}" style="border-color:var(--gold)">
         <div class="ic">${icon}</div><div class="meta"><b>${esc(f.name)} · 전체</b>
