@@ -2021,7 +2021,9 @@ function drillTopicsMulti(sec,keys){
     section:"AV",prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:AVCAT[q.topic]||q.topic||"",
     avId:q.id,avTopic:q.topic,options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
   const pool={AR:ARITH,MK:MATHK,PS:PHYSCI}[sec]||[];
-  return shuffle(pool.filter(q=>set.has(q.topic||""))).slice(0,20).map(q=>({
+  const cand=pool.filter(q=>set.has(q.topic||""));
+  // 유형은 사용자가 골랐으니 주제 가중은 빼고, 교재 문체(긴 서술형)만 우선 출제한다.
+  return ((sec==="AR"||sec==="MK")?shuffleW(cand,mqStyleWeight):shuffle(cand)).slice(0,20).map(q=>({
     section:sec,prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:q.topic||"",qid:q.id,
     options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
 }
@@ -2407,18 +2409,50 @@ function mqNamed(t){                       // 등장인물(고유명사) 포함 
   const m=String(t).match(/\b[A-Z][a-z]{2,}\b/g)||[];
   return m.some(x=>!MQ_COMMON.has(x));
 }
-function mqWeight(q){
+function mqStyleWeight(q){                 // 문체(길이·인물) 가중
   const t=q.q||"", w=t.trim().split(/\s+/).length;
   let s = w<18 ? 0.20 : (w<=25 ? 0.9 : (w<=34 ? 2.8 : 3.4));
   if(mqNamed(t)) s*=3.0; else if(MQ_CTX.test(t)) s*=1.3;
   return s;
+}
+/* 주제 가중 — 교재 278문항의 유형 분포에 맞춘다. 앱 은행은 혼합(농도)·속력·비율·통계·함수·수열이
+   교재보다 많고 백분율·돈·단위환산이 적다. 값은 문체 가중과의 상호작용까지 포함해 시뮬레이션으로 보정한 것. */
+const MQ_TOPIC_W={
+  // 산수 추론
+  "AR:age_problems":1.1, "AR:area_perimeter":0.72, "AR:area_word_problem":0.72,
+  "AR:averages":1.11, "AR:basic_probability":3.01, "AR:compound_interest":1.53,
+  "AR:distance_rate_time":0.38, "AR:fractions":0.51, "AR:geometry":0.72,
+  "AR:integers":0.51, "AR:mixtures":0.1, "AR:money":1.53,
+  "AR:number_properties":0.51, "AR:percentages":1.92, "AR:perimeter_word_problem":0.72,
+  "AR:probability":3.01, "AR:proportions":0.53, "AR:rates":0.38,
+  "AR:ratios":0.53, "AR:simple_interest":1.53, "AR:unit_conversion":3.83,
+  "AR:work_rate":0.21,
+  // 수학 지식
+  "MK:absolute_value":2.54, "MK:algebra":0.72, "MK:arithmetic":0.78,
+  "MK:circles":0.71, "MK:coordinate_geometry":1.94, "MK:equations":2.8,
+  "MK:exponents":2.11, "MK:factoring":1.04, "MK:functions":0.35,
+  "MK:geometric_series":0.59, "MK:geometry":0.71, "MK:geometry_area":0.71,
+  "MK:inequalities":2.54, "MK:linear_equations":2.8, "MK:logarithms":0.59,
+  "MK:number_properties":0.78, "MK:polynomials":1.04, "MK:quadratic_vertex":1.04,
+  "MK:quadratics":1.04, "MK:radicals":2.49, "MK:scientific_notation":2.11,
+  "MK:sequences":0.59, "MK:sequences_series":0.59, "MK:series":0.59,
+  "MK:statistics":0.16, "MK:systems":2.8, "MK:systems_of_equations":2.8,
+  "MK:triangles":0.71,
+};
+function mqWeight(q, sec){                 // 모의고사용 = 문체 x 주제
+  return mqStyleWeight(q) * (MQ_TOPIC_W[sec+":"+(q.topic||"")] ?? 1);
+}
+// 가중 무작위 정렬(A-Res) — 유형 드릴처럼 '이미 유형을 고른' 경우엔 문체 가중만 쓴다.
+function shuffleW(arr, wf){
+  return arr.map(x=>[Math.pow(Math.random(), 1/Math.max(wf(x)||1,0.01)), x])
+            .sort((a,b)=>b[0]-a[0]).map(e=>e[1]);
 }
 // Generic bilingual MCQ builder (Arithmetic Reasoning / Math Knowledge / Physical Science).
 function buildMCQ(pool,section,n){
   const sec=section.toLowerCase(), rec=state.qSeen[sec]||{};
   const seenAt=q=>rec[q.id]||0;
   const picked = (section==="AR"||section==="MK")
-    ? pickFreshW(pool, n, seenAt, mqWeight)
+    ? pickFreshW(pool, n, seenAt, q=>mqWeight(q, section))
     : pickFresh(pool, n, seenAt);
   return picked.map(q=>({
     section, prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:q.topic||"", qid:q.id,
@@ -3011,7 +3045,8 @@ function drillTopic(sec,topic){
     section:"AV",prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:AVCAT[q.topic]||q.topic||"",
     avId:q.id,avTopic:q.topic,options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
   const pool={AR:ARITH,MK:MATHK,PS:PHYSCI}[sec]||[];
-  return shuffle(pool.filter(q=>(q.topic||"")===topic)).slice(0,20).map(q=>({
+  const cand=pool.filter(q=>(q.topic||"")===topic);
+  return ((sec==="AR"||sec==="MK")?shuffleW(cand,mqStyleWeight):shuffle(cand)).slice(0,20).map(q=>({
     section:sec,prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:q.topic||"",qid:q.id,
     options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
 }
