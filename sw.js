@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-76-0";  // + Trivium 실전 1
+const CACHE = "afoqt-v4-77-0";  // 실전 유형 보강 완료 + 장문 16편
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

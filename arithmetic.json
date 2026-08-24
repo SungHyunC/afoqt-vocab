@@ -5128,5 +5128,665 @@
   "answer": 0,
   "explain": "5 ÷ 8 = 0.625 = 62.5%.",
   "id": 342
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "How many pints are there in 7 gallons?",
+  "q_ko": "7갤런은 몇 파인트인가?",
+  "options": [
+   "28",
+   "42",
+   "64",
+   "56",
+   "112"
+  ],
+  "answer": 3,
+  "explain": "1갤런 = 8파인트. 7 × 8 = 56파인트.",
+  "id": 343
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "How many quarts are there in 96 fluid ounces?",
+  "q_ko": "96액량온스는 몇 쿼트인가?",
+  "options": [
+   "3",
+   "12",
+   "2",
+   "4",
+   "6"
+  ],
+  "answer": 0,
+  "explain": "1쿼트 = 32온스. 96 ÷ 32 = 3쿼트.",
+  "id": 344
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A shipment weighs 2.5 tons. What is its weight in pounds?",
+  "q_ko": "화물의 무게가 2.5톤이다. 파운드로는 얼마인가?",
+  "options": [
+   "2,500",
+   "5,500",
+   "4,000",
+   "4,500",
+   "5,000"
+  ],
+  "answer": 4,
+  "explain": "1톤 = 2,000파운드. 2.5 × 2,000 = 5,000파운드.",
+  "id": 345
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A cable measures 4 yards 2 feet. What is its length in inches?",
+  "q_ko": "케이블 길이가 4야드 2피트이다. 인치로는 얼마인가?",
+  "options": [
+   "180",
+   "156",
+   "168",
+   "144",
+   "172"
+  ],
+  "answer": 2,
+  "explain": "4야드 = 144인치, 2피트 = 24인치. 합 168인치.",
+  "id": 346
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A pipe 8 feet 4 inches long is cut into 5 equal pieces. How long is each piece?",
+  "q_ko": "길이 8피트 4인치 파이프를 5등분하면 한 조각의 길이는?",
+  "options": [
+   "1 ft. 4 in.",
+   "2 ft. 0 in.",
+   "1 ft. 10 in.",
+   "1 ft. 6 in.",
+   "1 ft. 8 in."
+  ],
+  "answer": 4,
+  "explain": "8'4\" = 100인치. 100 ÷ 5 = 20인치 = 1피트 8인치.",
+  "id": 347
+ },
+ {
+  "topic": "proportions",
+  "q": "Three gallons of paint cover 1,200 square feet. How many gallons are needed to cover 3,200 square feet?",
+  "q_ko": "페인트 3갤런으로 1,200제곱피트를 칠할 수 있다. 3,200제곱피트에는 몇 갤런이 필요한가?",
+  "options": [
+   "7",
+   "9",
+   "8",
+   "12",
+   "6"
+  ],
+  "answer": 2,
+  "explain": "1갤런당 400 sq ft. 3,200 ÷ 400 = 8갤런.",
+  "id": 348
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A recipe calls for 6 fluid ounces of broth per serving. How many quarts of broth are needed for 16 servings?",
+  "q_ko": "1인분마다 육수 6액량온스가 필요하다. 16인분에는 몇 쿼트가 필요한가?",
+  "options": [
+   "2",
+   "6",
+   "3",
+   "8",
+   "4"
+  ],
+  "answer": 2,
+  "explain": "6 × 16 = 96온스. 96 ÷ 32 = 3쿼트.",
+  "id": 349
+ },
+ {
+  "topic": "distance_rate_time",
+  "q": "A car travels 45 miles in 50 minutes. What is its average speed in miles per hour?",
+  "q_ko": "자동차가 50분 동안 45마일을 달렸다. 평균 속력(mph)은?",
+  "options": [
+   "50",
+   "54",
+   "60",
+   "56",
+   "48"
+  ],
+  "answer": 1,
+  "explain": "45 × (60/50) = 54 mph.",
+  "id": 350
+ },
+ {
+  "topic": "area_word_problem",
+  "q": "A room measures 12 feet by 15 feet. If carpet costs $18 per square yard, what is the total cost to carpet the room?",
+  "q_ko": "방이 12피트 × 15피트이다. 카펫이 제곱야드당 $18이면 총 비용은?",
+  "options": [
+   "$300",
+   "$420",
+   "$240",
+   "$360",
+   "$3,240"
+  ],
+  "answer": 3,
+  "explain": "180 sq ft ÷ 9 = 20 sq yd. 20 × $18 = $360.",
+  "id": 351
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A truck is loaded with 3,400 pounds of cargo. If its capacity is 2 tons, how many more pounds can it carry?",
+  "q_ko": "트럭에 화물 3,400파운드를 실었다. 적재 한도가 2톤이면 몇 파운드를 더 실을 수 있는가?",
+  "options": [
+   "1,000",
+   "600",
+   "400",
+   "1,400",
+   "800"
+  ],
+  "answer": 1,
+  "explain": "2톤 = 4,000파운드. 4,000 − 3,400 = 600파운드.",
+  "id": 352
+ },
+ {
+  "topic": "area_word_problem",
+  "q": "A wall measures 9 feet high and 24 feet long. If one gallon of paint covers 400 square feet, how many full gallons must be purchased to paint the wall?",
+  "q_ko": "벽이 높이 9피트, 길이 24피트이다. 페인트 1갤런이 400제곱피트를 칠하면 몇 갤런을 사야 하는가?",
+  "options": [
+   "6",
+   "2",
+   "3",
+   "1",
+   "4"
+  ],
+  "answer": 3,
+  "explain": "넓이 = 216 sq ft < 400 → 1갤런이면 충분하다.",
+  "id": 353
+ },
+ {
+  "topic": "money",
+  "q": "Ground beef costs $6.40 per pound. What is the cost of 5 pounds 4 ounces?",
+  "q_ko": "소고기가 파운드당 $6.40이다. 5파운드 4온스의 값은?",
+  "options": [
+   "$33.60",
+   "$36.80",
+   "$32.00",
+   "$34.20",
+   "$35.20"
+  ],
+  "answer": 0,
+  "explain": "4온스 = 0.25파운드 → 5.25파운드. 5.25 × 6.40 = $33.60.",
+  "id": 354
+ },
+ {
+  "topic": "money",
+  "q": "A fuel tank holds 18 gallons and is one-third full. If fuel costs $3.75 per gallon, how much will it cost to fill the tank?",
+  "q_ko": "18갤런 연료탱크가 1/3 차 있다. 연료가 갤런당 $3.75이면 가득 채우는 비용은?",
+  "options": [
+   "$45.00",
+   "$33.75",
+   "$52.50",
+   "$22.50",
+   "$67.50"
+  ],
+  "answer": 0,
+  "explain": "필요한 양 = 18 × 2/3 = 12갤런. 12 × $3.75 = $45.00.",
+  "id": 355
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A board is 16 feet long. If three pieces each 4 feet 6 inches long are cut from it, how much of the board remains?",
+  "q_ko": "길이 16피트 판자에서 4피트 6인치짜리 3조각을 잘라내면 얼마가 남는가?",
+  "options": [
+   "3 ft. 6 in.",
+   "2 ft. 6 in.",
+   "2 ft. 0 in.",
+   "3 ft. 0 in.",
+   "1 ft. 6 in."
+  ],
+  "answer": 1,
+  "explain": "4'6\" × 3 = 13피트 6인치. 16 − 13.5 = 2피트 6인치.",
+  "id": 356
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "How many yards are there in 144 inches?",
+  "q_ko": "144인치는 몇 야드인가?",
+  "options": [
+   "48",
+   "6",
+   "4",
+   "3",
+   "12"
+  ],
+  "answer": 2,
+  "explain": "1야드 = 36인치. 144 ÷ 36 = 4야드.",
+  "id": 357
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A projectile travels at 88 feet per second. What is its speed in miles per hour?",
+  "q_ko": "발사체가 초당 88피트로 이동한다. 시속 몇 마일인가?",
+  "options": [
+   "60",
+   "45",
+   "55",
+   "75",
+   "30"
+  ],
+  "answer": 0,
+  "explain": "88 × 3,600 ÷ 5,280 = 60 mph.",
+  "id": 358
+ },
+ {
+  "topic": "area_word_problem",
+  "q": "A field measures 242 yards by 100 yards. If one acre equals 4,840 square yards, how many acres is the field?",
+  "q_ko": "들판이 242야드 × 100야드이다. 1에이커가 4,840제곱야드이면 몇 에이커인가?",
+  "options": [
+   "5",
+   "4",
+   "3",
+   "10",
+   "6"
+  ],
+  "answer": 0,
+  "explain": "24,200 ÷ 4,840 = 5에이커.",
+  "id": 359
+ },
+ {
+  "topic": "proportions",
+  "q": "One cubic yard of soil covers 100 square feet at a depth of 3 inches. How many cubic yards are needed to cover 400 square feet at the same depth?",
+  "q_ko": "흙 1세제곱야드로 3인치 깊이 100제곱피트를 덮을 수 있다. 같은 깊이로 400제곱피트를 덮으려면 몇 세제곱야드가 필요한가?",
+  "options": [
+   "3",
+   "2",
+   "4",
+   "6",
+   "12"
+  ],
+  "answer": 2,
+  "explain": "400 ÷ 100 = 4 → 4세제곱야드.",
+  "id": 360
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A rectangular pool measures 20 feet by 10 feet by 5 feet deep. If one cubic foot holds 7.5 gallons, how many gallons does the pool hold?",
+  "q_ko": "직사각형 수영장이 20피트 × 10피트 × 깊이 5피트이다. 1세제곱피트가 7.5갤런이면 총 몇 갤런인가?",
+  "options": [
+   "15,000",
+   "7,500",
+   "10,000",
+   "5,000",
+   "1,000"
+  ],
+  "answer": 1,
+  "explain": "부피 1,000 cu ft × 7.5 = 7,500갤런.",
+  "id": 361
+ },
+ {
+  "topic": "money",
+  "q": "Milk costs $3.29 per gallon. Which is closest to the cost of 3 quarts?",
+  "q_ko": "우유가 갤런당 $3.29이다. 3쿼트 가격에 가장 가까운 값은?",
+  "options": [
+   "$4.39",
+   "$2.19",
+   "$1.65",
+   "$2.75",
+   "$2.47"
+  ],
+  "answer": 4,
+  "explain": "3쿼트 = 3/4갤런. 3.29 × 0.75 = $2.47.",
+  "id": 362
+ },
+ {
+  "topic": "distance_rate_time",
+  "q": "A person walks 1.5 miles in 24 minutes. How many feet does the person walk per minute?",
+  "q_ko": "어떤 사람이 24분 동안 1.5마일을 걷는다. 분당 몇 피트를 걷는가?",
+  "options": [
+   "440",
+   "264",
+   "528",
+   "330",
+   "220"
+  ],
+  "answer": 3,
+  "explain": "1.5마일 = 7,920피트. 7,920 ÷ 24 = 330피트/분.",
+  "id": 363
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A wire 50 feet long is cut into pieces that are each 8 inches long. How many whole pieces can be cut?",
+  "q_ko": "길이 50피트 전선을 8인치씩 자르면 온전한 조각이 몇 개 나오는가?",
+  "options": [
+   "60",
+   "75",
+   "62",
+   "72",
+   "80"
+  ],
+  "answer": 1,
+  "explain": "50피트 = 600인치. 600 ÷ 8 = 75조각.",
+  "id": 364
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "How many miles are there in 7,040 yards?",
+  "q_ko": "7,040야드는 몇 마일인가?",
+  "options": [
+   "5",
+   "6",
+   "4",
+   "2",
+   "3"
+  ],
+  "answer": 2,
+  "explain": "1마일 = 1,760야드. 7,040 ÷ 1,760 = 4마일.",
+  "id": 365
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A package weighing 6 pounds 12 ounces is divided equally into 3 parcels. What does each parcel weigh?",
+  "q_ko": "6파운드 12온스 소포를 3등분하면 각각의 무게는?",
+  "options": [
+   "2 lb. 8 oz.",
+   "2 lb. 4 oz.",
+   "2 lb. 0 oz.",
+   "2 lb. 6 oz.",
+   "3 lb. 0 oz."
+  ],
+  "answer": 1,
+  "explain": "6lb 12oz = 108온스. 108 ÷ 3 = 36온스 = 2파운드 4온스.",
+  "id": 366
+ },
+ {
+  "topic": "money",
+  "q": "A freight company charges $0.12 per pound. What is the charge for a shipment weighing 2,750 pounds?",
+  "q_ko": "운송사가 파운드당 $0.12를 청구한다. 2,750파운드 화물의 운임은?",
+  "options": [
+   "$360",
+   "$412",
+   "$275",
+   "$300",
+   "$330"
+  ],
+  "answer": 4,
+  "explain": "2,750 × $0.12 = $330.",
+  "id": 367
+ },
+ {
+  "topic": "perimeter_word_problem",
+  "q": "A room has a perimeter of 46 feet. If baseboard costs $2.75 per foot, what is the total cost of the baseboard?",
+  "q_ko": "방의 둘레가 46피트이다. 걸레받이가 피트당 $2.75이면 총 비용은?",
+  "options": [
+   "$138.00",
+   "$115.00",
+   "$120.50",
+   "$132.25",
+   "$126.50"
+  ],
+  "answer": 4,
+  "explain": "46 × $2.75 = $126.50.",
+  "id": 368
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "Water weighs about 8.34 pounds per gallon. Which is closest to the weight of 5 gallons of water?",
+  "q_ko": "물은 갤런당 약 8.34파운드이다. 물 5갤런의 무게에 가장 가까운 값은?",
+  "options": [
+   "41.7 lb.",
+   "37.5 lb.",
+   "50.0 lb.",
+   "45.2 lb.",
+   "33.4 lb."
+  ],
+  "answer": 0,
+  "explain": "5 × 8.34 = 41.7파운드.",
+  "id": 369
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "A ribbon 3 yards long is cut into pieces each 9 inches long. How many pieces are obtained?",
+  "q_ko": "길이 3야드 리본을 9인치씩 자르면 몇 조각이 나오는가?",
+  "options": [
+   "15",
+   "18",
+   "10",
+   "12",
+   "9"
+  ],
+  "answer": 3,
+  "explain": "3야드 = 108인치. 108 ÷ 9 = 12조각.",
+  "id": 370
+ },
+ {
+  "topic": "percentages",
+  "q": "Which is closest to 19 percent of 512?",
+  "q_ko": "512의 19%에 가장 가까운 값은?",
+  "options": [
+   "112",
+   "104",
+   "97",
+   "82",
+   "91"
+  ],
+  "answer": 2,
+  "explain": "512 × 0.19 = 97.28 → 약 97.",
+  "id": 371
+ },
+ {
+  "topic": "rates",
+  "q": "A car travels 268 miles on 11.4 gallons of fuel. Which is closest to its fuel economy in miles per gallon?",
+  "q_ko": "자동차가 11.4갤런으로 268마일을 달렸다. 연비(mpg)에 가장 가까운 값은?",
+  "options": [
+   "21.5",
+   "27.5",
+   "23.5",
+   "25.5",
+   "19.5"
+  ],
+  "answer": 2,
+  "explain": "268 ÷ 11.4 = 23.5 mpg.",
+  "id": 372
+ },
+ {
+  "topic": "fractions",
+  "q": "Which is closest to 7/16 expressed as a decimal?",
+  "q_ko": "7/16을 소수로 나타낸 값에 가장 가까운 것은?",
+  "options": [
+   "0.44",
+   "0.47",
+   "0.56",
+   "0.35",
+   "0.40"
+  ],
+  "answer": 0,
+  "explain": "7 ÷ 16 = 0.4375 → 약 0.44.",
+  "id": 373
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "Approximately how many minutes are there in 3.4 hours?",
+  "q_ko": "3.4시간은 대략 몇 분인가?",
+  "options": [
+   "204",
+   "216",
+   "192",
+   "234",
+   "180"
+  ],
+  "answer": 0,
+  "explain": "3.4 × 60 = 204분.",
+  "id": 374
+ },
+ {
+  "topic": "number_properties",
+  "q": "Which is closest to the product of 39 and 61?",
+  "q_ko": "39와 61의 곱에 가장 가까운 값은?",
+  "options": [
+   "2,200",
+   "2,000",
+   "2,600",
+   "1,800",
+   "2,400"
+  ],
+  "answer": 4,
+  "explain": "39 × 61 = 2,379 → 약 2,400.",
+  "id": 375
+ },
+ {
+  "topic": "money",
+  "q": "A worker earns $17.85 per hour and works 38.5 hours. Which is closest to her gross pay?",
+  "q_ko": "시급 $17.85로 38.5시간 일했다. 총 급여에 가장 가까운 값은?",
+  "options": [
+   "$620",
+   "$742",
+   "$687",
+   "$652",
+   "$715"
+  ],
+  "answer": 2,
+  "explain": "17.85 × 38.5 = $687.23 → 약 $687.",
+  "id": 376
+ },
+ {
+  "topic": "number_properties",
+  "q": "Which is closest to 1,000 divided by 31?",
+  "q_ko": "1,000 ÷ 31 에 가장 가까운 값은?",
+  "options": [
+   "34",
+   "36",
+   "28",
+   "32",
+   "30"
+  ],
+  "answer": 3,
+  "explain": "1,000 ÷ 31 = 32.26 → 약 32.",
+  "id": 377
+ },
+ {
+  "topic": "number_properties",
+  "q": "Which is closest to the sum 4,987 + 3,012 + 1,995?",
+  "q_ko": "4,987 + 3,012 + 1,995 의 합에 가장 가까운 값은?",
+  "options": [
+   "10,500",
+   "10,000",
+   "11,000",
+   "9,500",
+   "9,000"
+  ],
+  "answer": 1,
+  "explain": "각 값을 반올림하면 5,000 + 3,000 + 2,000 = 10,000.",
+  "id": 378
+ },
+ {
+  "topic": "area_word_problem",
+  "q": "A room measures 11.5 feet by 13.5 feet. Which is closest to its area in square feet?",
+  "q_ko": "방이 11.5피트 × 13.5피트이다. 넓이(제곱피트)에 가장 가까운 값은?",
+  "options": [
+   "145",
+   "135",
+   "165",
+   "155",
+   "175"
+  ],
+  "answer": 3,
+  "explain": "11.5 × 13.5 = 155.25 → 약 155 제곱피트.",
+  "id": 379
+ },
+ {
+  "topic": "percentages",
+  "q": "Which is closest to 5.5 percent of 890?",
+  "q_ko": "890의 5.5%에 가장 가까운 값은?",
+  "options": [
+   "54",
+   "39",
+   "59",
+   "44",
+   "49"
+  ],
+  "answer": 4,
+  "explain": "890 × 0.055 = 48.95 → 약 49.",
+  "id": 380
+ },
+ {
+  "topic": "percentages",
+  "q": "Approximately what is 63 percent of 78?",
+  "q_ko": "78의 63%는 대략 얼마인가?",
+  "options": [
+   "39",
+   "49",
+   "61",
+   "44",
+   "54"
+  ],
+  "answer": 1,
+  "explain": "78 × 0.63 = 49.14 → 약 49.",
+  "id": 381
+ },
+ {
+  "topic": "rates",
+  "q": "A tank loses 2.3 gallons of fuel per hour. Approximately how many gallons does it lose in 7.5 hours?",
+  "q_ko": "탱크에서 시간당 2.3갤런이 샌다. 7.5시간 동안 대략 몇 갤런이 새는가?",
+  "options": [
+   "12",
+   "23",
+   "14",
+   "17",
+   "20"
+  ],
+  "answer": 3,
+  "explain": "2.3 × 7.5 = 17.25 → 약 17갤런.",
+  "id": 382
+ },
+ {
+  "topic": "percentages",
+  "q": "The population of a town grew from 12,480 to 14,976. Which is closest to the percent of increase?",
+  "q_ko": "도시 인구가 12,480명에서 14,976명으로 늘었다. 증가율에 가장 가까운 값은?",
+  "options": [
+   "16%",
+   "28%",
+   "12%",
+   "24%",
+   "20%"
+  ],
+  "answer": 4,
+  "explain": "증가 2,496 ÷ 12,480 = 0.20 → 20%.",
+  "id": 383
+ },
+ {
+  "topic": "money",
+  "q": "A meal costs $47.60 before a tip. Which is closest to an 18 percent tip?",
+  "q_ko": "식사비가 팁 전 $47.60이다. 18% 팁에 가장 가까운 값은?",
+  "options": [
+   "$8.60",
+   "$11.20",
+   "$6.40",
+   "$9.50",
+   "$7.20"
+  ],
+  "answer": 0,
+  "explain": "47.60 × 0.18 = $8.57 → 약 $8.60.",
+  "id": 384
+ },
+ {
+  "topic": "distance_rate_time",
+  "q": "A flight covers 1,340 miles in 2 hours 45 minutes. Which is closest to its average speed?",
+  "q_ko": "항공편이 2시간 45분 동안 1,340마일을 비행했다. 평균 속력에 가장 가까운 값은?",
+  "options": [
+   "490 mph",
+   "520 mph",
+   "440 mph",
+   "470 mph",
+   "560 mph"
+  ],
+  "answer": 0,
+  "explain": "2시간 45분 = 2.75시간. 1,340 ÷ 2.75 = 487 → 약 490 mph.",
+  "id": 385
+ },
+ {
+  "topic": "averages",
+  "q": "Five items weigh 3.2, 4.7, 2.9, 5.1, and 3.6 pounds. Which is closest to their average weight?",
+  "q_ko": "다섯 물건의 무게가 3.2, 4.7, 2.9, 5.1, 3.6파운드이다. 평균 무게에 가장 가까운 값은?",
+  "options": [
+   "4.2 lb.",
+   "3.9 lb.",
+   "4.6 lb.",
+   "3.4 lb.",
+   "5.0 lb."
+  ],
+  "answer": 1,
+  "explain": "합 19.5 ÷ 5 = 3.9파운드.",
+  "id": 386
  }
 ]

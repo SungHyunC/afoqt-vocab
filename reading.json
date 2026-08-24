@@ -14600,5 +14600,597 @@
   ],
   "id": 248,
   "longform": true
+ },
+ {
+  "title": "Bletchley Park and the Enigma",
+  "topic": "history",
+  "passage": "The German Enigma machine was not, in the ordinary sense, a code. It was a cipher device: an electromechanical rotor system that substituted one letter for another, changing the substitution after every keystroke so that the same plaintext letter almost never produced the same ciphertext letter twice in succession. The number of possible configurations exceeded a hundred million million million. Officials responsible for the machine calculated, correctly, that exhaustive search was impossible with any conceivable resource, and concluded, incorrectly, that the traffic was therefore secure.\n\nThe error lay in assuming that an attacker would try to search the whole space. The British effort at Bletchley Park, building on Polish work of the 1930s, instead attacked the ways in which the machine was used. Enigma had a structural property its designers regarded as a convenience: no letter could ever be enciphered as itself. That single constraint allowed an analyst holding a guess about a fragment of plaintext to slide the guess along the intercepted message and discard, immediately, every alignment in which a letter matched itself. Most alignments died at once.\n\nWhat made such guesses possible was routine. Weather stations transmitted reports in a fixed form each morning. Units with nothing to report sent messages that consisted almost entirely of standard phrases. Some operators began every transmission with the same greeting; one is said to have used his girlfriend's name. These predictable fragments, which the codebreakers called cribs, converted an impossible search into a tractable one, and the machines built by Alan Turing and Gordon Welchman—the bombes—mechanized the elimination of contradictory settings at speeds no human team could match.\n\nThe intelligence produced was subject to a constraint more difficult than the mathematics. Any use of the material risked revealing that Enigma had been broken, which would have prompted the Germans to change procedures and closed the source. Decrypts were therefore released only when a plausible alternative explanation existed, and reconnaissance aircraft were sometimes sent to be seen over convoys that had already been located by other means. Commanders who were not cleared for the source received orders they could not fully justify, and had to be trusted to follow them.\n\nHistorians debate how far the effort shortened the war; estimates of two years are common and none are precise. The clearer lesson concerns security itself. Enigma was not defeated by a mathematical breakthrough that its designers had failed to anticipate. It was defeated by disciplined exploitation of the habits of the people operating it, and the episode is cited whenever a system is judged secure on the strength of its theoretical properties alone, without reference to how it will actually be used.",
+  "questions": [
+   {
+    "q": "The main idea of this passage is that:",
+    "type": "main_idea",
+    "options": [
+     "Enigma was defeated by exploiting predictable operating habits rather than by defeating its mathematics",
+     "the Enigma machine was poorly designed from a mathematical standpoint",
+     "the intelligence produced at Bletchley Park was rarely useful to commanders",
+     "Polish codebreakers deserve sole credit for breaking Enigma",
+     "Enigma was broken by exhaustively searching all possible machine settings"
+    ],
+    "answer": 0,
+    "explain": "이론적 난이도가 아니라 '운용 습관'을 파고들어 해독했다는 것이 요지."
+   },
+   {
+    "q": "According to the passage, the rule that no letter could be enciphered as itself was useful to analysts because it:",
+    "type": "detail",
+    "options": [
+     "prevented the Germans from changing their procedures",
+     "revealed the daily rotor settings directly",
+     "allowed most trial alignments of a guessed fragment to be discarded immediately",
+     "made the number of possible configurations smaller",
+     "forced operators to repeat standard phrases"
+    ],
+    "answer": 2,
+    "explain": "글자가 자기 자신으로 암호화되지 않으므로, 자기 일치가 생기는 정렬을 즉시 버릴 수 있었다."
+   },
+   {
+    "q": "The passage indicates that reconnaissance aircraft were sometimes sent over convoys in order to:",
+    "type": "inference",
+    "options": [
+     "deliver orders to commanders not cleared for the source",
+     "test whether the Germans had changed their cipher",
+     "confirm the accuracy of the decrypted messages",
+     "photograph the Enigma machines in use",
+     "provide a plausible alternative explanation for how the convoy was found"
+    ],
+    "answer": 4,
+    "explain": "해독 사실을 숨기기 위해 '다른 경로로 발견한 것처럼' 보이게 하는 구실이 필요했다."
+   },
+   {
+    "q": "As used in the third paragraph, the word \"cribs\" most nearly means:",
+    "type": "vocab_in_context",
+    "options": [
+     "mechanical calculating devices",
+     "copies of the Enigma machine",
+     "predictable fragments of known plaintext",
+     "coded greetings between operators",
+     "intercepted weather reports"
+    ],
+    "answer": 2,
+    "explain": "추측 가능한 평문 조각을 코드브레이커들이 crib이라 불렀다."
+   },
+   {
+    "q": "The author's attitude toward the German officials who judged Enigma secure can best be described as:",
+    "type": "tone_purpose",
+    "options": [
+     "measured but critical",
+     "admiring",
+     "indifferent",
+     "entirely sympathetic",
+     "openly contemptuous"
+    ],
+    "answer": 0,
+    "explain": "계산은 '옳았고' 결론은 '틀렸다'고 균형 있게 지적한다 — 절제된 비판."
+   }
+  ],
+  "id": 249,
+  "longform": true
+ },
+ {
+  "title": "The Panama Canal",
+  "topic": "geography",
+  "passage": "The French attempt to cut a canal across the Isthmus of Panama, begun in 1881 under Ferdinand de Lesseps, failed after eight years, the expenditure of roughly 280 million dollars, and the deaths of more than twenty thousand workers. De Lesseps had built the Suez Canal, a sea-level channel through flat desert, and he proposed to repeat the design in Panama. The two problems had almost nothing in common. Panama's terrain rises to a continental divide, its rainfall can exceed ten feet a year, and the Chagres River, which crosses the route, can rise thirty feet in a day.\n\nThe American effort that resumed in 1904 succeeded partly because it abandoned the sea-level plan. Engineers dammed the Chagres to create Gatun Lake, which drowned the most difficult stretch of the route and converted an obstacle into twenty-three miles of navigable water. Ships would be lifted eighty-five feet by locks, cross the lake, and be lowered on the other side. The design used the river's water rather than fighting it: every lockage is powered by gravity, drawing from the lake that the rainfall continually refills.\n\nThe second reason was medical. Yellow fever and malaria had killed the French workforce, and both were believed to spread through foul air. Walter Reed's experiments in Cuba had by then demonstrated that mosquitoes carried yellow fever, and William Gorgas, appointed chief sanitary officer, proposed to eliminate the breeding grounds. His requests were initially refused as extravagant by a commission that considered mosquito theory unproven. Only after the disease returned in 1905 and the canal's chief engineer resigned did Gorgas receive support. Standing water was drained or oiled, buildings were screened, and grass was cut back along the route. Yellow fever disappeared from the isthmus within eighteen months.\n\nThe excavation itself remained enormous—the Culebra Cut through the divide required the removal of over one hundred million cubic yards, and landslides repeatedly filled what had been dug—but it was now a problem of machinery and organization rather than of survival. The canal opened in August 1914, six months ahead of schedule.\n\nThe episode is often summarized as a triumph of engineering, which understates the more transferable lesson. The French had better financing and comparable equipment; what they lacked was an accurate model of the problem. They copied a solution that had worked elsewhere without examining whether the conditions that made it work were present, and they dismissed a medical explanation because it conflicted with what was then considered settled. Both failures were failures of analysis rather than of effort.",
+  "questions": [
+   {
+    "q": "According to the passage, the American engineers differed from the French chiefly by:",
+    "type": "detail",
+    "options": [
+     "hiring a larger workforce",
+     "choosing a different route across the isthmus",
+     "using more powerful digging machinery",
+     "excavating the Culebra Cut more quickly",
+     "abandoning the sea-level design in favor of a lock-and-lake system"
+    ],
+    "answer": 4,
+    "explain": "해수면 운하 대신 갑문·호수 방식으로 설계를 바꾼 것이 핵심 차이."
+   },
+   {
+    "q": "The passage indicates that Gatun Lake was valuable because it:",
+    "type": "inference",
+    "options": [
+     "provided drinking water for the workforce",
+     "eliminated the need for locks",
+     "reduced the rainfall along the route",
+     "drowned the hardest stretch and supplies the water that powers the locks",
+     "prevented landslides in the Culebra Cut"
+    ],
+    "answer": 3,
+    "explain": "가장 어려운 구간을 수몰시켜 항행 가능하게 하고, 갑문 작동에 쓰이는 물을 공급한다."
+   },
+   {
+    "q": "According to the passage, Gorgas's sanitation requests were initially refused because the commission:",
+    "type": "detail",
+    "options": [
+     "wanted to prioritize the Culebra Cut",
+     "considered mosquito theory unproven",
+     "distrusted Walter Reed's experiments in Cuba",
+     "believed yellow fever had already disappeared",
+     "lacked the funds to carry them out"
+    ],
+    "answer": 1,
+    "explain": "위원회는 모기 매개설이 입증되지 않았다고 보아 요청을 사치로 여겼다."
+   },
+   {
+    "q": "The author suggests that the French failure was primarily one of:",
+    "type": "inference",
+    "options": [
+     "leadership experience",
+     "financing",
+     "equipment",
+     "effort",
+     "analysis"
+    ],
+    "answer": 4,
+    "explain": "마지막 문단: 자금·장비는 있었고 '문제에 대한 정확한 모형'이 없었다 — 분석의 실패."
+   },
+   {
+    "q": "As used in the final paragraph, \"transferable\" most nearly means:",
+    "type": "vocab_in_context",
+    "options": [
+     "legally assignable",
+     "temporary",
+     "applicable to other situations",
+     "easily explained",
+     "able to be moved physically"
+    ],
+    "answer": 2,
+    "explain": "다른 상황에도 적용할 수 있는 교훈이라는 뜻."
+   }
+  ],
+  "id": 250,
+  "longform": true
+ },
+ {
+  "title": "Forecasting and the Jet Stream",
+  "topic": "astronomy",
+  "passage": "Weather forecasting became a quantitative science only after it became possible to observe the atmosphere above the surface. Nineteenth-century forecasters worked from surface pressure readings telegraphed between stations, and their predictions rarely extended beyond a day. The upper air was known to be in motion, but its speed and structure were matters of conjecture until aircraft began flying high enough to encounter them.\n\nDuring the Second World War, American bombers flying west toward Japan at thirty thousand feet found themselves nearly stationary relative to the ground. They had entered a narrow band of wind, later called the jet stream, moving at speeds exceeding two hundred miles an hour. The phenomenon had been described in the 1920s by the Japanese meteorologist Wasaburo Ooishi, who tracked balloons released from a station near Mount Fuji and published his findings in Esperanto, a choice that ensured they were almost entirely ignored.\n\nThe jet stream forms where cold polar air meets warmer air from the temperate latitudes. The temperature contrast produces a pressure difference that increases with altitude, and the resulting wind is deflected by the earth's rotation into a flow that runs roughly west to east. Its position is not fixed. It meanders in large waves that shift over days, and those meanders steer the surface weather systems beneath them. A southward dip brings cold air far into the temperate zone; a northward bulge allows warmth to reach unusually high latitudes. Much of what is experienced as ordinary weather is the consequence of where this boundary happens to lie.\n\nUnderstanding the mechanism did not by itself make forecasting reliable. The atmosphere is governed by equations whose solutions are exquisitely sensitive to their starting conditions, a property demonstrated by Edward Lorenz in the 1960s when a rounding difference in the fourth decimal place of an input produced an entirely different simulated weather within weeks. No practical observing network can specify the current state precisely enough to eliminate this divergence. Forecasts therefore degrade with time in a way that no increase in computing power can fully correct.\n\nModern practice accepts the limit rather than fighting it. Rather than producing a single prediction, forecasters run the model many times from slightly different starting states and examine how the results spread. When the members of such an ensemble agree, confidence is warranted; when they diverge rapidly, the atmosphere is in a state whose evolution genuinely cannot be pinned down, and the honest forecast is a probability rather than a statement.",
+  "questions": [
+   {
+    "q": "The primary purpose of this passage is to:",
+    "type": "tone_purpose",
+    "options": [
+     "trace the history of the telegraph in meteorology",
+     "criticize Wasaburo Ooishi for publishing in Esperanto",
+     "argue that weather forecasting is essentially useless",
+     "explain how bombers navigated during the Second World War",
+     "describe how the jet stream was discovered and why forecasting remains limited"
+    ],
+    "answer": 4,
+    "explain": "제트기류의 발견 경위와 예보의 근본적 한계를 함께 설명하는 글."
+   },
+   {
+    "q": "According to the passage, Ooishi's findings were largely ignored because he:",
+    "type": "detail",
+    "options": [
+     "did not measure wind speed",
+     "worked before aircraft could reach high altitudes",
+     "published them in Esperanto",
+     "described the wrong altitude",
+     "used balloons rather than aircraft"
+    ],
+    "answer": 2,
+    "explain": "에스페란토로 발표해 사실상 아무도 읽지 않았다고 명시."
+   },
+   {
+    "q": "The passage states that the jet stream forms where:",
+    "type": "detail",
+    "options": [
+     "pressure is uniform with altitude",
+     "ocean currents meet continental air",
+     "the earth's rotation is fastest",
+     "mountain ranges deflect surface winds",
+     "cold polar air meets warmer temperate air"
+    ],
+    "answer": 4,
+    "explain": "극지방의 찬 공기와 온대의 따뜻한 공기가 만나는 경계에서 형성된다."
+   },
+   {
+    "q": "Lorenz's demonstration is presented in order to show that:",
+    "type": "inference",
+    "options": [
+     "small differences in initial conditions can produce entirely different outcomes",
+     "weather models should use fewer decimal places",
+     "forecasting improves steadily with computing power",
+     "computers of the 1960s were unreliable",
+     "the jet stream cannot be measured accurately"
+    ],
+    "answer": 0,
+    "explain": "초기조건의 미세한 차이가 전혀 다른 결과를 낳는다는 민감성을 보여주는 사례."
+   },
+   {
+    "q": "The passage suggests that an ensemble forecast is most useful because it:",
+    "type": "inference",
+    "options": [
+     "requires fewer observations",
+     "eliminates uncertainty from the model",
+     "avoids the need to understand the jet stream",
+     "runs faster than a single prediction",
+     "indicates how much confidence a prediction deserves"
+    ],
+    "answer": 4,
+    "explain": "여러 번 돌린 결과가 모이면 신뢰, 흩어지면 불확실 — 신뢰도를 알려준다."
+   }
+  ],
+  "id": 251,
+  "longform": true
+ },
+ {
+  "title": "Mulberry Harbours",
+  "topic": "history",
+  "passage": "The planners of the Normandy invasion faced a problem that had no precedent. An assault across the Channel required a port, because the ammunition, fuel, vehicles, and food needed to sustain an army ashore could not be delivered over open beaches for long. Yet the ports on the French coast were the most heavily defended positions in the German line, and the raid on Dieppe in 1942 had demonstrated at severe cost what an attempt to seize one directly would produce.\n\nThe conclusion drawn was that if a port could not be captured, one would have to be brought. Two artificial harbours, code-named Mulberry, were designed in Britain and towed across the Channel in sections after the landings. Each consisted of an outer breakwater of sunken ships and enormous concrete caissons, some the size of a five-story building, and floating piers connected to the shore by roadways that rose and fell with a tide that varies by more than twenty feet on that coast. The engineering was unusual in that the components had to be built inland, floated, towed sixty miles at a speed of a few knots, and then sunk in precisely the right position.\n\nThe scheme has been described as one of the decisive innovations of the campaign, and also as a costly diversion of resources. Both judgments have support. A storm in the third week of June destroyed the American harbour at Omaha beach almost completely; the British harbour at Arromanches survived and operated for ten months, landing more than two and a half million men and half a million vehicles. Yet in the weeks after the storm, more supplies were being landed directly over the open beaches, by ordinary landing craft driven ashore at high tide and unloaded as the water receded, than through the surviving Mulberry.\n\nThe more careful assessments therefore separate two questions. Whether the harbours were the most efficient way to deliver tonnage is doubtful. Whether they were worth building is a different matter, because their existence removed the necessity of assaulting a defended port, and it was that necessity, rather than the tonnage itself, that had constrained the planning. The Germans, for their part, continued to concentrate their defensive effort on the ports, an allocation that made sense given every previous amphibious operation and that the Mulberries rendered irrelevant.\n\nThe episode is frequently cited in discussions of planning under uncertainty, where the value of an option is often not the use eventually made of it but the alternatives it makes unnecessary.",
+  "questions": [
+   {
+    "q": "According to the passage, the Mulberry harbours were built because:",
+    "type": "detail",
+    "options": [
+     "capturing a defended port directly had proved too costly",
+     "the Channel tides made ordinary landing craft unusable",
+     "concrete was more readily available than steel",
+     "the French ports had been destroyed by bombing",
+     "the Germans had abandoned the coastal ports"
+    ],
+    "answer": 0,
+    "explain": "디에프 급습이 보여주었듯 방어된 항구를 직접 탈취하는 것은 대가가 너무 컸다."
+   },
+   {
+    "q": "The passage indicates that after the June storm:",
+    "type": "detail",
+    "options": [
+     "more supplies came over open beaches than through the surviving harbour",
+     "the British harbour was abandoned",
+     "both harbours continued to operate normally",
+     "the invasion was halted for ten months",
+     "all supplies were delivered through captured ports"
+    ],
+    "answer": 0,
+    "explain": "폭풍 이후 몇 주간은 살아남은 멀베리보다 개방 해변을 통한 보급량이 더 많았다."
+   },
+   {
+    "q": "The author suggests that the harbours' principal value lay in:",
+    "type": "inference",
+    "options": [
+     "the total tonnage they delivered",
+     "removing the need to assault a defended port",
+     "their ability to withstand storms",
+     "the speed with which they were constructed",
+     "deceiving the Germans about the invasion site"
+    ],
+    "answer": 1,
+    "explain": "넷째 문단: 톤수가 아니라 '방어된 항구를 공격할 필요를 없앤 것'이 가치였다."
+   },
+   {
+    "q": "The passage states that German defensive effort remained concentrated on:",
+    "type": "detail",
+    "options": [
+     "the open beaches",
+     "inland rail junctions",
+     "the Channel islands",
+     "the ports",
+     "the Normandy bocage"
+    ],
+    "answer": 3,
+    "explain": "독일군은 이전의 모든 상륙작전 경험에 따라 항구 방어에 전력을 집중했다."
+   },
+   {
+    "q": "As used in the final paragraph, the word \"option\" most nearly means:",
+    "type": "vocab_in_context",
+    "options": [
+     "a financial contract",
+     "a preference expressed by planners",
+     "a possibility held open for future use",
+     "an additional feature",
+     "a choice already made"
+    ],
+    "answer": 2,
+    "explain": "장래에 쓸 수 있도록 열어 둔 가능성(선택지)의 가치를 말한다."
+   }
+  ],
+  "id": 252,
+  "longform": true
+ },
+ {
+  "title": "Apollo and Systems Engineering",
+  "topic": "astronomy",
+  "passage": "When President Kennedy committed the United States in 1961 to landing a man on the moon before the decade ended, no part of the necessary hardware existed and the central question of how to get there had not been settled. Three approaches were under consideration. Direct ascent would send a single enormous rocket to the lunar surface and back, requiring a booster far larger than any then contemplated. Earth-orbit rendezvous would assemble a vehicle in orbit from several smaller launches. The third proposal, lunar-orbit rendezvous, was advocated for two years by a NASA engineer named John Houbolt against the opposition of most of the senior staff.\n\nHoubolt's argument was that the spacecraft should be split. A small, fragile lander carrying two men would descend to the surface while the command module remained in lunar orbit; the lander would return, dock, and be discarded. The objection was that a failed rendezvous a quarter of a million miles from earth would leave the crew with no possibility of rescue, and the risk seemed unacceptable when compared with a single vehicle that never had to find another. Houbolt's response reframed the comparison. The lander, freed from the need to survive re-entry or carry return fuel to earth, could be built at a fraction of the weight, and the weight saved propagated backward through the entire design: a smaller lander meant less fuel to slow it, which meant a smaller spacecraft, which meant a booster that could actually be built. The alternatives were not safer, because they could not be built at all within the schedule.\n\nThis argument illustrates the discipline that came to be called systems engineering. Its central claim is that components cannot be optimized in isolation, because the requirements they must satisfy are consequences of choices made elsewhere. A decision that appears to concern only the lander determines the size of the rocket. Conversely, a component made better in isolation may make the system worse: adding redundancy adds mass, and mass on a spacecraft is subtracted from something else.\n\nThe approach also changed how failure was treated. Rather than attempting to build components that would not fail, engineers assumed that failures would occur and designed the sequence so that most of them would be survivable. Aborts were planned for every phase of the mission. The lunar module's ascent engine, which had no backup and had to work or the crew would die on the surface, was made as simple as it was possible to make an engine: no pumps, no ignition system, and propellants that burned on contact with each other.\n\nApollo 11 landed with roughly twenty-five seconds of fuel remaining, a margin that reflects how tightly the whole design was bound together.",
+  "questions": [
+   {
+    "q": "The main idea of this passage is that:",
+    "type": "main_idea",
+    "options": [
+     "John Houbolt was unfairly treated by senior NASA staff",
+     "the Apollo program was completed ahead of schedule",
+     "direct ascent was the safest of the three approaches considered",
+     "redundancy is always the best protection against failure",
+     "lunar-orbit rendezvous succeeded because it treated the spacecraft as a single interdependent system"
+    ],
+    "answer": 4,
+    "explain": "부품을 따로 최적화할 수 없다는 시스템 공학적 관점이 성공의 핵심이었다는 것이 요지."
+   },
+   {
+    "q": "According to the passage, the main objection to lunar-orbit rendezvous was that:",
+    "type": "detail",
+    "options": [
+     "the lander could not be built light enough",
+     "it required assembling a vehicle in earth orbit",
+     "a failed rendezvous far from earth would leave no possibility of rescue",
+     "it required a booster larger than any then contemplated",
+     "it would take longer than the other approaches"
+    ],
+    "answer": 2,
+    "explain": "지구에서 40만 km 떨어진 곳에서 도킹에 실패하면 구조가 불가능하다는 점이 반대 이유였다."
+   },
+   {
+    "q": "Houbolt argued that splitting the spacecraft was advantageous because the weight saved:",
+    "type": "inference",
+    "options": [
+     "allowed a larger crew",
+     "made re-entry unnecessary",
+     "propagated backward and reduced the size of the booster",
+     "permitted more scientific instruments",
+     "eliminated the need for a command module"
+    ],
+    "answer": 2,
+    "explain": "착륙선이 가벼워지면 감속 연료가 줄고 우주선이 작아져 결국 로켓 크기까지 줄어든다."
+   },
+   {
+    "q": "The passage indicates that the lunar module's ascent engine was made extremely simple because it:",
+    "type": "detail",
+    "options": [
+     "was designed before the rest of the spacecraft",
+     "had no backup and had to work",
+     "had to operate in a vacuum",
+     "needed to be reusable",
+     "was the heaviest component"
+    ],
+    "answer": 1,
+    "explain": "예비 장치가 없어 반드시 작동해야 했기에 펌프·점화장치 없이 극도로 단순화했다."
+   },
+   {
+    "q": "As used in the third paragraph, \"in isolation\" most nearly means:",
+    "type": "vocab_in_context",
+    "options": [
+     "in a vacuum chamber",
+     "under quarantine",
+     "in secret",
+     "separately from the rest of the system",
+     "without government funding"
+    ],
+    "answer": 3,
+    "explain": "시스템 전체와 분리해 따로 떼어 놓고, 라는 뜻."
+   }
+  ],
+  "id": 253,
+  "longform": true
+ },
+ {
+  "title": "The Eradication of Smallpox",
+  "topic": "health",
+  "passage": "Smallpox is the only human disease that has been deliberately eliminated. The achievement is often attributed to vaccination, which is accurate but incomplete, since vaccines against several other diseases have existed for decades without producing the same result. The features that made smallpox vulnerable were partly biological and partly a matter of strategy.\n\nBiologically, the disease had no animal reservoir. The virus survived only by passing from one human being to another, so interrupting transmission everywhere eliminated it permanently, with no possibility of reintroduction from wildlife. Infection also produced a distinctive rash, which meant cases could be identified without laboratory confirmation by workers with modest training. Finally, the disease conferred lasting immunity on survivors and could not be carried silently: a person who was infectious was visibly ill and generally too ill to travel far.\n\nThe strategic insight came later and was initially resisted. The eradication campaign launched by the World Health Organization in 1967 aimed at mass vaccination, on the assumption that immunizing eighty percent of a population would halt transmission. In eastern Nigeria that year, an outbreak occurred at a moment when vaccine supplies were inadequate. A team led by William Foege decided to use what it had where it would matter most. Rather than vaccinating everyone, the team located each case, vaccinated the household, the neighbors, and anyone else who had been in contact, and thereby built a ring of immunity around the outbreak. Transmission stopped, and it stopped in a region where overall vaccination coverage remained well below fifty percent.\n\nThe method, called surveillance and containment or ring vaccination, exploited a fact about how epidemics actually spread. Cases are not distributed evenly through a population; they cluster, and a small number of chains account for most onward transmission. Vaccinating at random treats every person as equally likely to be infected, which wastes most of the doses. Vaccinating around known cases concentrates the effort exactly where the virus is.\n\nThe last naturally occurring case was recorded in Somalia in 1977, and the disease was declared eradicated in 1980. Efforts to repeat the achievement have proved harder than expected. Polio, the closest candidate, is infectious before symptoms appear and produces visible paralysis in fewer than one case in a hundred, so the chains that ring vaccination depends on locating are largely invisible. The smallpox campaign is therefore best understood not as a template but as a demonstration that eradication is possible when the biology of a disease and the structure of a strategy happen to fit each other.",
+  "questions": [
+   {
+    "q": "According to the passage, one biological feature that made smallpox vulnerable to eradication was that it:",
+    "type": "detail",
+    "options": [
+     "was infectious before symptoms appeared",
+     "produced no immunity in survivors",
+     "spread slowly through populations",
+     "required laboratory confirmation to identify",
+     "had no animal reservoir"
+    ],
+    "answer": 4,
+    "explain": "동물 보유숙주가 없어 사람 간 전파만 끊으면 영구히 사라진다."
+   },
+   {
+    "q": "The passage indicates that Foege's team in Nigeria changed strategy because:",
+    "type": "detail",
+    "options": [
+     "the World Health Organization ordered the change",
+     "vaccine supplies were inadequate for mass vaccination",
+     "mass vaccination had already reached eighty percent coverage",
+     "the local population refused vaccination",
+     "the outbreak was too small to justify mass vaccination"
+    ],
+    "answer": 1,
+    "explain": "백신 공급이 부족한 상황에서 가진 자원을 가장 효과적인 곳에 쓰기로 했다."
+   },
+   {
+    "q": "Ring vaccination is effective mainly because:",
+    "type": "inference",
+    "options": [
+     "cases cluster, so effort concentrated around known cases reaches the virus",
+     "it requires fewer trained workers",
+     "it produces stronger immunity than mass vaccination",
+     "it eliminates the animal reservoir",
+     "it can be carried out without identifying cases"
+    ],
+    "answer": 0,
+    "explain": "감염은 고르게 퍼지지 않고 뭉쳐 있으므로 알려진 사례 주변에 집중하는 편이 효율적이다."
+   },
+   {
+    "q": "According to the passage, polio has proved harder to eradicate largely because it:",
+    "type": "detail",
+    "options": [
+     "confers no immunity",
+     "spreads only in tropical climates",
+     "requires a more expensive vaccine",
+     "is infectious before symptoms appear and is usually invisible",
+     "has an animal reservoir"
+    ],
+    "answer": 3,
+    "explain": "증상 전 전염되고 마비는 100건 중 1건 미만이라 전파 사슬이 거의 보이지 않는다."
+   },
+   {
+    "q": "The author concludes that the smallpox campaign is best understood as:",
+    "type": "tone_purpose",
+    "options": [
+     "proof that eradication is impossible for most diseases",
+     "a largely accidental success",
+     "a template that other campaigns should copy exactly",
+     "a demonstration that eradication works when disease biology and strategy fit each other",
+     "evidence that mass vaccination is always superior"
+    ],
+    "answer": 3,
+    "explain": "마지막 문장: 템플릿이 아니라 '생물학적 특성과 전략이 맞아떨어질 때 근절이 가능하다'는 증명."
+   }
+  ],
+  "id": 254,
+  "longform": true
+ },
+ {
+  "title": "The Printing Press",
+  "topic": "history",
+  "passage": "Printing with movable type existed in China four centuries before Gutenberg, and Korean printers were casting type in bronze by the early fifteenth century. What Gutenberg assembled in Mainz around 1450 was not the idea but a manufacturing system: an oil-based ink that would adhere to metal rather than run off it, a hand mould that could cast identical pieces of type in quantity, a metal alloy that melted at a workable temperature and did not shrink as it cooled, and an adaptation of the screw press already used for wine and olives. The individual elements were unremarkable; their combination was not.\n\nThe economic consequence was immediate and severe. A manuscript Bible required the skins of some two hundred sheep and roughly a year of a scribe's labor. Within fifty years of Gutenberg's press, printed books existed in the millions and their price had fallen by perhaps ninety percent. Texts that had circulated in a few dozen copies could now circulate in thousands, and could do so identically. That last property mattered more than volume. A scholar in one city could cite page and line to a scholar in another and be certain they were looking at the same words, which had never before been reliably possible.\n\nStandardization also had consequences the printers did not intend. Errors were reproduced as faithfully as truths, and a mistake in a printed table of navigation or medicine propagated to every user of that edition. The response was the development of habits that are now taken for granted: errata sheets, numbered editions, and the practice of citing which edition one had used. These are not features of printing itself but of a culture that grew up around the recognition that a fixed text can be fixed in the wrong position.\n\nThe political effects are frequently overstated in one direction and underestimated in another. Printing did not by itself produce the Reformation; grievances against the church long predated it. But the speed of the response to Luther's theses in 1517—translated, reprinted, and distributed across Germany within weeks by printers who acted for profit rather than doctrine—meant that the church could not contain the dispute by the usual method of dealing with an individual. The technology did not create the disagreement. It removed the possibility of settling it quietly.\n\nThe pattern is a common one. A technology that lowers the cost of copying rarely changes what people believe. It changes which beliefs can be coordinated, and how quickly.",
+  "questions": [
+   {
+    "q": "The passage argues that Gutenberg's central contribution was:",
+    "type": "main_idea",
+    "options": [
+     "the translation of the Bible into German",
+     "the invention of movable type",
+     "the combination of several existing elements into a manufacturing system",
+     "the invention of the screw press",
+     "the discovery of a new metal alloy"
+    ],
+    "answer": 2,
+    "explain": "가동활자 자체는 이미 있었고, 잉크·주형·합금·압착기를 결합한 '제조 체계'가 그의 기여."
+   },
+   {
+    "q": "According to the passage, the property of printed texts that mattered most to scholars was that they were:",
+    "type": "detail",
+    "options": [
+     "identical to one another",
+     "produced in greater volume",
+     "available in translation",
+     "cheaper than manuscripts",
+     "printed on paper rather than skins"
+    ],
+    "answer": 0,
+    "explain": "같은 판이면 쪽·행까지 동일해 서로 같은 글을 보고 있음을 확신할 수 있었다."
+   },
+   {
+    "q": "The passage indicates that errata sheets and numbered editions developed because:",
+    "type": "inference",
+    "options": [
+     "printers wanted to sell more copies",
+     "governments required them",
+     "paper was expensive",
+     "scribes demanded recognition",
+     "a fixed text could be fixed in the wrong position"
+    ],
+    "answer": 4,
+    "explain": "오류도 똑같이 복제되므로, 고정된 텍스트가 '틀린 채로' 고정될 수 있다는 인식에서 생긴 관행."
+   },
+   {
+    "q": "According to the passage, printing affected the Reformation chiefly by:",
+    "type": "detail",
+    "options": [
+     "creating grievances against the church",
+     "removing the possibility of settling the dispute quietly",
+     "converting printers to Luther's doctrine",
+     "preventing the church from publishing replies",
+     "reducing the price of Bibles to nothing"
+    ],
+    "answer": 1,
+    "explain": "불만은 이전부터 있었고, 인쇄술은 조용히 처리할 가능성을 없앴다."
+   },
+   {
+    "q": "The author's final claim is that technologies which lower the cost of copying primarily change:",
+    "type": "inference",
+    "options": [
+     "the reliability of navigation tables",
+     "which beliefs can be coordinated and how quickly",
+     "the status of scribes",
+     "what people believe",
+     "the profitability of printing"
+    ],
+    "answer": 1,
+    "explain": "마지막 문단: 믿음 자체가 아니라 '어떤 믿음이 얼마나 빨리 결집될 수 있는가'를 바꾼다."
+   }
+  ],
+  "id": 255,
+  "longform": true
+ },
+ {
+  "title": "The Louisiana Purchase",
+  "topic": "history",
+  "passage": "In 1803 the United States bought from France a territory of some eight hundred thousand square miles for fifteen million dollars, roughly four cents an acre. The transaction doubled the size of the country and is routinely described as the greatest bargain in the history of real estate. It was also, by the standards its principal author had spent his career defending, of doubtful legality.\n\nThomas Jefferson had argued throughout his political life that the federal government possessed only those powers the Constitution explicitly granted, and the Constitution said nothing about acquiring foreign territory. He drafted an amendment to authorize the purchase, and was advised that the time required to ratify it would exceed the time Napoleon was likely to remain interested. Napoleon's interest was itself contingent. France had intended Louisiana as the agricultural base supplying a Caribbean sugar empire, but the revolution in Saint-Domingue had destroyed a French army of some fifty thousand men, mostly through yellow fever, and without the sugar colony the mainland territory had no purpose. War with Britain was resuming, the Royal Navy could take New Orleans whenever it chose, and Napoleon preferred cash from a neutral party to a possession he could not defend.\n\nThe American negotiators had been sent to buy New Orleans alone, for up to ten million dollars, and were offered the entire territory instead. They accepted without instructions, exceeding their authority in a manner that Jefferson, having decided to proceed without the amendment, was in no position to criticize. He submitted the treaty to the Senate, which ratified it, and privately expressed the hope that the country would not examine the constitutional question too closely.\n\nWhat was purchased was less clear than the acreage suggests. France had held the territory for three years and had never administered it; the boundaries were undefined, particularly in the west and along the Gulf, and disputes with Spain over them persisted for years. The land was inhabited by tens of thousands of Native people whose claims the transaction did not address and whose consent was never sought, a fact that the arithmetic of four cents an acre conceals entirely. What France actually sold was its own claim to exclude other European powers.\n\nThe purchase is therefore an unusually clear case of a decision that was strategically sound, constitutionally irregular, and morally compromised at the same time, and of the difficulty of holding those three judgments together rather than allowing the most convenient of them to stand for the whole.",
+  "questions": [
+   {
+    "q": "According to the passage, Jefferson considered the purchase constitutionally doubtful because:",
+    "type": "detail",
+    "options": [
+     "the price exceeded what Congress had appropriated",
+     "the boundaries were undefined",
+     "the Senate had not been consulted",
+     "the Constitution did not explicitly grant a power to acquire territory",
+     "France had no legal title to the land"
+    ],
+    "answer": 3,
+    "explain": "헌법이 명시하지 않은 권한은 없다는 그의 지론과 충돌했다."
+   },
+   {
+    "q": "The passage indicates that Napoleon was willing to sell largely because:",
+    "type": "inference",
+    "options": [
+     "he expected the United States to become an ally against Britain",
+     "the loss of the sugar colony left the mainland territory purposeless and indefensible",
+     "the territory produced no revenue for France",
+     "he needed the money to pay for the Saint-Domingue campaign",
+     "Spain had already claimed the western boundary"
+    ],
+    "answer": 1,
+    "explain": "설탕 식민지를 잃자 루이지애나의 용도가 사라졌고, 영국 해군을 상대로 방어도 불가능했다."
+   },
+   {
+    "q": "According to the passage, the American negotiators:",
+    "type": "detail",
+    "options": [
+     "were recalled by Jefferson before signing",
+     "refused the offer until they received new instructions",
+     "accepted the entire territory although they had been sent to buy only New Orleans",
+     "insisted that the boundaries be defined first",
+     "negotiated the price down from thirty million dollars"
+    ],
+    "answer": 2,
+    "explain": "뉴올리언스만 사오라는 지시를 받았으나 전체 영토 제안을 지시 없이 수락했다."
+   },
+   {
+    "q": "The passage states that what France actually sold was:",
+    "type": "detail",
+    "options": [
+     "the right to navigate the Mississippi",
+     "title confirmed by treaty with Spain",
+     "a three-year administrative lease",
+     "full sovereignty over the inhabitants",
+     "its claim to exclude other European powers"
+    ],
+    "answer": 4,
+    "explain": "프랑스가 판 것은 다른 유럽 열강을 배제할 수 있는 자기 주장(청구권)이었다."
+   },
+   {
+    "q": "The author's purpose in the final paragraph is to:",
+    "type": "tone_purpose",
+    "options": [
+     "praise the negotiators for exceeding their authority",
+     "condemn Jefferson for hypocrisy",
+     "insist that the purchase was a mistake",
+     "argue that the constitutional question was unimportant",
+     "note the difficulty of holding several conflicting judgments about the same decision"
+    ],
+    "answer": 4,
+    "explain": "전략적으로 타당하고, 헌법적으로 변칙이며, 도덕적으로 문제가 있다는 세 판단을 동시에 유지하기 어렵다는 점을 지적한다."
+   }
+  ],
+  "id": 256,
+  "longform": true
  }
 ]

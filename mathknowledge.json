@@ -5338,5 +5338,545 @@
   "answer": 0,
   "explain": "348 × 0.17 = 59.16 → 약 59.",
   "id": 356
+ },
+ {
+  "topic": "circles",
+  "q": "Using 22/7 for pi, what is the area of a circle whose radius is 7 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 7인치 원의 넓이는?",
+  "options": [
+   "308 sq. in.",
+   "616 sq. in.",
+   "44 sq. in.",
+   "77 sq. in.",
+   "154 sq. in."
+  ],
+  "answer": 4,
+  "explain": "πr² = (22/7) × 49 = 154 제곱인치.",
+  "id": 357
+ },
+ {
+  "topic": "circles",
+  "q": "Using 22/7 for pi, what is the circumference of a circle whose radius is 14 feet?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 14피트 원의 둘레는?",
+  "options": [
+   "132 ft.",
+   "66 ft.",
+   "88 ft.",
+   "44 ft.",
+   "176 ft."
+  ],
+  "answer": 2,
+  "explain": "2πr = 2 × (22/7) × 14 = 88피트.",
+  "id": 358
+ },
+ {
+  "topic": "circles",
+  "q": "Using 22/7 for pi, what is the area of a circle whose diameter is 42 cm?",
+  "q_ko": "파이를 22/7로 할 때, 지름 42cm 원의 넓이는?",
+  "options": [
+   "132 sq. cm",
+   "1,386 sq. cm",
+   "693 sq. cm",
+   "5,544 sq. cm",
+   "2,772 sq. cm"
+  ],
+  "answer": 1,
+  "explain": "반지름 21. (22/7) × 441 = 1,386 제곱센티미터.",
+  "id": 359
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the volume of a cylinder with a radius of 7 inches and a height of 6 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 7인치·높이 6인치 원기둥의 부피는?",
+  "options": [
+   "924 cu. in.",
+   "1,848 cu. in.",
+   "462 cu. in.",
+   "308 cu. in.",
+   "616 cu. in."
+  ],
+  "answer": 0,
+  "explain": "πr²h = (22/7) × 49 × 6 = 154 × 6 = 924 세제곱인치.",
+  "id": 360
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the total surface area of a cylinder with a radius of 7 feet and a height of 10 feet?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 7피트·높이 10피트 원기둥의 겉넓이는?",
+  "options": [
+   "440 sq. ft.",
+   "616 sq. ft.",
+   "748 sq. ft.",
+   "528 sq. ft.",
+   "1,078 sq. ft."
+  ],
+  "answer": 2,
+  "explain": "2πrh + 2πr² = 440 + 308 = 748 제곱피트.",
+  "id": 361
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the volume of a cone with a radius of 3 inches and a height of 7 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 3인치·높이 7인치 원뿔의 부피는?",
+  "options": [
+   "198 cu. in.",
+   "66 cu. in.",
+   "231 cu. in.",
+   "33 cu. in.",
+   "99 cu. in."
+  ],
+  "answer": 1,
+  "explain": "(1/3)πr²h = (1/3) × (22/7) × 9 × 7 = 66 세제곱인치.",
+  "id": 362
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the volume of a sphere whose radius is 21 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 21인치 구의 부피는?",
+  "options": [
+   "29,106 cu. in.",
+   "58,212 cu. in.",
+   "9,702 cu. in.",
+   "19,404 cu. in.",
+   "38,808 cu. in."
+  ],
+  "answer": 4,
+  "explain": "(4/3)πr³ = (4/3) × (22/7) × 9,261 = 38,808 세제곱인치.",
+  "id": 363
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the surface area of a sphere whose radius is 7 feet?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 7피트 구의 겉넓이는?",
+  "options": [
+   "616 sq. ft.",
+   "462 sq. ft.",
+   "308 sq. ft.",
+   "1,232 sq. ft.",
+   "154 sq. ft."
+  ],
+  "answer": 0,
+  "explain": "4πr² = 4 × (22/7) × 49 = 616 제곱피트.",
+  "id": 364
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the perimeter of a semicircle whose diameter is 14 inches?",
+  "q_ko": "파이를 22/7로 할 때, 지름 14인치 반원의 둘레는?",
+  "options": [
+   "28 in.",
+   "44 in.",
+   "22 in.",
+   "50 in.",
+   "36 in."
+  ],
+  "answer": 4,
+  "explain": "호의 길이 = (1/2)πd = 22인치. 지름 14를 더하면 36인치.",
+  "id": 365
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Using 22/7 for pi, what is the area of a quarter circle whose radius is 14 feet?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 14피트인 사분원의 넓이는?",
+  "options": [
+   "462 sq. ft.",
+   "154 sq. ft.",
+   "308 sq. ft.",
+   "77 sq. ft.",
+   "616 sq. ft."
+  ],
+  "answer": 1,
+  "explain": "원 넓이 = (22/7) × 196 = 616. 1/4 = 154 제곱피트.",
+  "id": 366
+ },
+ {
+  "topic": "circles",
+  "q": "Using 22/7 for pi, what is the length of a 90-degree arc on a circle whose radius is 28 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 28인치 원에서 90도 호의 길이는?",
+  "options": [
+   "44 in.",
+   "22 in.",
+   "66 in.",
+   "33 in.",
+   "88 in."
+  ],
+  "answer": 0,
+  "explain": "둘레 = 2 × (22/7) × 28 = 176. 90도는 1/4 → 44인치.",
+  "id": 367
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Using 22/7 for pi, what is the area of a 60-degree sector of a circle whose radius is 21 cm?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 21cm 원에서 60도 부채꼴의 넓이는?",
+  "options": [
+   "1,386 sq. cm",
+   "462 sq. cm",
+   "115.5 sq. cm",
+   "231 sq. cm",
+   "154 sq. cm"
+  ],
+  "answer": 3,
+  "explain": "원 넓이 = (22/7) × 441 = 1,386. 60/360 = 1/6 → 231 제곱센티미터.",
+  "id": 368
+ },
+ {
+  "topic": "circles",
+  "q": "Using 22/7 for pi, the area of a circle is 154 square inches. What is its radius?",
+  "q_ko": "파이를 22/7로 할 때, 넓이가 154제곱인치인 원의 반지름은?",
+  "options": [
+   "11 in.",
+   "7 in.",
+   "14 in.",
+   "3.5 in.",
+   "22 in."
+  ],
+  "answer": 1,
+  "explain": "r² = 154 × 7 ÷ 22 = 49 → r = 7인치.",
+  "id": 369
+ },
+ {
+  "topic": "circles",
+  "q": "Using 22/7 for pi, the circumference of a circle is 132 feet. What is its diameter?",
+  "q_ko": "파이를 22/7로 할 때, 둘레가 132피트인 원의 지름은?",
+  "options": [
+   "28 ft.",
+   "21 ft.",
+   "42 ft.",
+   "66 ft.",
+   "35 ft."
+  ],
+  "answer": 2,
+  "explain": "d = C ÷ π = 132 × 7 ÷ 22 = 42피트.",
+  "id": 370
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, a cylinder with a radius of 14 inches has a volume of 3,080 cubic inches. What is its height?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 14인치 원기둥의 부피가 3,080세제곱인치이면 높이는?",
+  "options": [
+   "10 in.",
+   "3 in.",
+   "14 in.",
+   "5 in.",
+   "7 in."
+  ],
+  "answer": 3,
+  "explain": "밑넓이 = (22/7) × 196 = 616. h = 3,080 ÷ 616 = 5인치.",
+  "id": 371
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, a wheel has a radius of 21 inches. How many complete revolutions does it make traveling one mile (5,280 feet)?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 21인치 바퀴가 1마일(5,280피트)을 가려면 몇 바퀴 회전하는가?",
+  "options": [
+   "400",
+   "640",
+   "480",
+   "320",
+   "240"
+  ],
+  "answer": 2,
+  "explain": "둘레 = 2 × (22/7) × 21 = 132인치. 1마일 = 63,360인치. 63,360 ÷ 132 = 480회.",
+  "id": 372
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Using 22/7 for pi, what is the cross-sectional area of a pipe whose inside diameter is 14 inches?",
+  "q_ko": "파이를 22/7로 할 때, 안지름 14인치 배관의 단면적은?",
+  "options": [
+   "44 sq. in.",
+   "308 sq. in.",
+   "77 sq. in.",
+   "154 sq. in.",
+   "616 sq. in."
+  ],
+  "answer": 3,
+  "explain": "반지름 7. (22/7) × 49 = 154 제곱인치.",
+  "id": 373
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, a circular garden has a radius of 35 feet. If fencing costs $3 per foot, what does it cost to fence the garden?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 35피트 원형 정원을 피트당 $3인 울타리로 두르는 비용은?",
+  "options": [
+   "$660",
+   "$770",
+   "$440",
+   "$330",
+   "$550"
+  ],
+  "answer": 0,
+  "explain": "둘레 = 2 × (22/7) × 35 = 220피트. 220 × $3 = $660.",
+  "id": 374
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, a circular pool has a radius of 7 feet and a uniform depth of 4 feet. What is its volume?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 7피트·깊이 4피트인 원형 수영장의 부피는?",
+  "options": [
+   "462 cu. ft.",
+   "616 cu. ft.",
+   "308 cu. ft.",
+   "154 cu. ft.",
+   "924 cu. ft."
+  ],
+  "answer": 1,
+  "explain": "(22/7) × 49 × 4 = 616 세제곱피트.",
+  "id": 375
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, a cone-shaped pile of sand has a radius of 7 feet and a height of 9 feet. What is its volume?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 7피트·높이 9피트인 원뿔 모양 모래 더미의 부피는?",
+  "options": [
+   "1,386 cu. ft.",
+   "693 cu. ft.",
+   "231 cu. ft.",
+   "462 cu. ft.",
+   "154 cu. ft."
+  ],
+  "answer": 3,
+  "explain": "(1/3) × (22/7) × 49 × 9 = (1/3) × 1,386 = 462 세제곱피트.",
+  "id": 376
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Using 22/7 for pi, two circles share the same center. Their radii are 7 inches and 14 inches. What is the area of the ring between them?",
+  "q_ko": "파이를 22/7로 할 때, 중심이 같은 두 원의 반지름이 7인치와 14인치이다. 두 원 사이 고리의 넓이는?",
+  "options": [
+   "462 sq. in.",
+   "308 sq. in.",
+   "154 sq. in.",
+   "616 sq. in.",
+   "231 sq. in."
+  ],
+  "answer": 0,
+  "explain": "(22/7)(196 − 49) = (22/7) × 147 = 462 제곱인치.",
+  "id": 377
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, a circular track has a radius of 70 meters. How far does a runner travel in 5 complete laps?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 70m 원형 트랙을 5바퀴 돌면 이동 거리는?",
+  "options": [
+   "1,760 m",
+   "3,080 m",
+   "2,640 m",
+   "1,100 m",
+   "2,200 m"
+  ],
+  "answer": 4,
+  "explain": "1바퀴 = 2 × (22/7) × 70 = 440m. 5바퀴 = 2,200m.",
+  "id": 378
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, a cylindrical water tank has a radius of 7 feet and a height of 10 feet. If one cubic foot holds 7.5 gallons, how many gallons does the tank hold?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 7피트·높이 10피트 원기둥 물탱크가 있다. 1세제곱피트가 7.5갤런이면 총 용량은?",
+  "options": [
+   "11,550",
+   "7,700",
+   "15,400",
+   "23,100",
+   "9,240"
+  ],
+  "answer": 0,
+  "explain": "부피 = (22/7) × 49 × 10 = 1,540 cu ft. 1,540 × 7.5 = 11,550갤런.",
+  "id": 379
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Using 22/7 for pi, what is the area of a 45-degree sector of a circle whose radius is 28 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 28인치 원에서 45도 부채꼴의 넓이는?",
+  "options": [
+   "308 sq. in.",
+   "154 sq. in.",
+   "2,464 sq. in.",
+   "616 sq. in.",
+   "231 sq. in."
+  ],
+  "answer": 0,
+  "explain": "원 넓이 = (22/7) × 784 = 2,464. 45/360 = 1/8 → 308 제곱인치.",
+  "id": 380
+ },
+ {
+  "topic": "circles",
+  "q": "Using 22/7 for pi, the area of a circle is 616 square feet. What is its circumference?",
+  "q_ko": "파이를 22/7로 할 때, 넓이가 616제곱피트인 원의 둘레는?",
+  "options": [
+   "176 ft.",
+   "132 ft.",
+   "44 ft.",
+   "88 ft.",
+   "66 ft."
+  ],
+  "answer": 3,
+  "explain": "r² = 616 × 7 ÷ 22 = 196 → r = 14. 둘레 = 2 × (22/7) × 14 = 88피트.",
+  "id": 381
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Using 22/7 for pi, a circular pizza with a diameter of 28 inches is cut into 8 equal slices. What is the area of one slice?",
+  "q_ko": "파이를 22/7로 할 때, 지름 28인치 피자를 8등분하면 한 조각의 넓이는?",
+  "options": [
+   "154 sq. in.",
+   "308 sq. in.",
+   "77 sq. in.",
+   "88 sq. in.",
+   "44 sq. in."
+  ],
+  "answer": 2,
+  "explain": "전체 넓이 = (22/7) × 196 = 616. 616 ÷ 8 = 77 제곱인치.",
+  "id": 382
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the lateral surface area of a cylinder with a radius of 7 inches and a height of 20 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 7인치·높이 20인치 원기둥의 옆면 넓이는?",
+  "options": [
+   "308 sq. in.",
+   "1,232 sq. in.",
+   "440 sq. in.",
+   "616 sq. in.",
+   "880 sq. in."
+  ],
+  "answer": 4,
+  "explain": "옆면 = 2πrh = 2 × (22/7) × 7 × 20 = 880 제곱인치.",
+  "id": 383
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Using 22/7 for pi, a circular running track has an inner radius of 35 yards and an outer radius of 42 yards. What is the area of the track surface?",
+  "q_ko": "파이를 22/7로 할 때, 안쪽 반지름 35야드·바깥쪽 42야드인 원형 트랙 노면의 넓이는?",
+  "options": [
+   "1,078 sq. yd.",
+   "1,694 sq. yd.",
+   "5,544 sq. yd.",
+   "847 sq. yd.",
+   "3,850 sq. yd."
+  ],
+  "answer": 1,
+  "explain": "(22/7)(42² − 35²) = (22/7)(1,764 − 1,225) = (22/7) × 539 = 1,694 제곱야드.",
+  "id": 384
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, a wheel has a diameter of 28 inches. How far does it travel in 100 complete revolutions?",
+  "q_ko": "파이를 22/7로 할 때, 지름 28인치 바퀴가 100바퀴 회전하면 이동 거리는?",
+  "options": [
+   "24,640 in.",
+   "17,600 in.",
+   "2,800 in.",
+   "8,800 in.",
+   "4,400 in."
+  ],
+  "answer": 3,
+  "explain": "둘레 = (22/7) × 28 = 88인치. 88 × 100 = 8,800인치.",
+  "id": 385
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the volume of a cone with a radius of 14 inches and a height of 3 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 14인치·높이 3인치 원뿔의 부피는?",
+  "options": [
+   "924 cu. in.",
+   "308 cu. in.",
+   "616 cu. in.",
+   "1,848 cu. in.",
+   "154 cu. in."
+  ],
+  "answer": 2,
+  "explain": "(1/3) × (22/7) × 196 × 3 = 616 세제곱인치.",
+  "id": 386
+ },
+ {
+  "topic": "geometry",
+  "q": "Using 22/7 for pi, what is the volume of a hemisphere whose radius is 21 inches?",
+  "q_ko": "파이를 22/7로 할 때, 반지름 21인치 반구의 부피는?",
+  "options": [
+   "38,808 cu. in.",
+   "29,106 cu. in.",
+   "14,553 cu. in.",
+   "9,702 cu. in.",
+   "19,404 cu. in."
+  ],
+  "answer": 4,
+  "explain": "구의 부피 38,808의 절반 = 19,404 세제곱인치.",
+  "id": 387
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Using 22/7 for pi, a square with a side of 28 inches has a circle inscribed in it. What is the area inside the square but outside the circle?",
+  "q_ko": "파이를 22/7로 할 때, 한 변 28인치 정사각형에 내접원이 그려져 있다. 정사각형 안쪽이면서 원 바깥인 넓이는?",
+  "options": [
+   "616 sq. in.",
+   "168 sq. in.",
+   "392 sq. in.",
+   "196 sq. in.",
+   "224 sq. in."
+  ],
+  "answer": 1,
+  "explain": "정사각형 784 − 원 (22/7)(14²) = 784 − 616 = 168 제곱인치.",
+  "id": 388
+ },
+ {
+  "topic": "radicals",
+  "q": "Find the square root of 60 correct to the nearest tenth.",
+  "q_ko": "60의 제곱근을 소수 첫째 자리까지 구하면?",
+  "options": [
+   "7.5",
+   "8.1",
+   "7.7",
+   "7.9",
+   "7.3"
+  ],
+  "answer": 2,
+  "explain": "7.7² = 59.29, 7.8² = 60.84 → √60 ≈ 7.75 → 7.7 (반올림 기준 7.7에 가장 가깝다).",
+  "id": 389
+ },
+ {
+  "topic": "radicals",
+  "q": "Which is closest to the square root of 200?",
+  "q_ko": "200의 제곱근에 가장 가까운 값은?",
+  "options": [
+   "12.1",
+   "14.1",
+   "15.8",
+   "13.4",
+   "16.3"
+  ],
+  "answer": 1,
+  "explain": "14² = 196, 14.2² = 201.6 → √200 ≈ 14.14 → 14.1.",
+  "id": 390
+ },
+ {
+  "topic": "arithmetic",
+  "q": "Which is closest to the product of 3 1/8 and 4 2/5?",
+  "q_ko": "3과 1/8, 4와 2/5의 곱에 가장 가까운 값은?",
+  "options": [
+   "11.6",
+   "12.4",
+   "14.9",
+   "13.8",
+   "15.6"
+  ],
+  "answer": 3,
+  "explain": "3.125 × 4.4 = 13.75 → 약 13.8.",
+  "id": 391
+ },
+ {
+  "topic": "geometry_area",
+  "q": "Which is closest to the area of a triangle with a base of 17.5 inches and a height of 12.4 inches?",
+  "q_ko": "밑변 17.5인치, 높이 12.4인치인 삼각형의 넓이에 가장 가까운 값은?",
+  "options": [
+   "109 sq. in.",
+   "135 sq. in.",
+   "217 sq. in.",
+   "96 sq. in.",
+   "118 sq. in."
+  ],
+  "answer": 0,
+  "explain": "(1/2) × 17.5 × 12.4 = 108.5 → 약 109 제곱인치.",
+  "id": 392
  }
 ]
