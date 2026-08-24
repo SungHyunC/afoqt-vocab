@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-80-0";  // 수학 유형 비중·드릴 문체 정렬
+const CACHE = "afoqt-v4-81-0";  // 합성점수 공식표 반영
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

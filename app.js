@@ -2367,7 +2367,7 @@ const EXAM_PRESETS={
   // ── 섹터별 (composite-focused mocks) ──
   secVerbal: composeMock("Verbal 섹터",       [["WK",12],["VA",12],["RC",12]],            "Verbal"),
   secQuant:  composeMock("Quantitative 섹터", [["AR",12],["MK",12]],                       "Quant"),
-  secPilot:  composeMock("Pilot 섹터",        [["AV",8],["TR",10],["IC",8],["BC",8]], "Pilot"),
+  secPilot:  composeMock("Pilot 섹터",        [["MK",10],["TR",10],["IC",8],["AV",8]], "Pilot"),
   // ── 세션별 (individual subtests, real counts) ──
   wk: composeMock("Word Knowledge",          [["WK",25]]),
   va: composeMock("Verbal Analogies",        [["VA",25]]),
@@ -3220,19 +3220,22 @@ function renderSpeedStats(){
 }
 const SEC_KO={WK:"단어",VA:"유추",RC:"독해",AR:"산수",MK:"수학",PS:"과학",AV:"항공",TR:"표읽기",BC:"블록",IC:"계기",SJ:"상황"};
 // Approximate AFOQT composite -> subtest membership (unofficial).
+/* 공식 AFOQT Form T 정보 팸플릿(2015-08-01 갱신) Table 1 기준.
+   Pilot 은 수학지식·표읽기·계기·항공 4과목이며 산수(AR)·유추(VA)·블록(BC)은 포함되지 않는다.
+   물리과학(PS)과 자기기술(SDI)은 어떤 합성점수에도 들어가지 않는다. */
 const COMPOSITES=[
-  {name:"🎓 Academic Aptitude",codes:["WK","VA","RC","AR","MK"]},
-  {name:"🗣 Verbal",codes:["WK","VA","RC"]},
+  {name:"🎓 Academic Aptitude",codes:["VA","AR","WK","MK","RC"]},
+  {name:"🗣 Verbal",codes:["VA","WK","RC"]},
   {name:"🔢 Quantitative",codes:["AR","MK"]},
-  // Pilot composite = Aviation + Block Counting + Table Reading + Instrument.
-  {name:"✈️ Pilot",codes:["AV","BC","TR","IC"]},
-  {name:"🛰 CSO",codes:["WK","AR","MK","TR","BC","AV"]},
+  {name:"✈️ Pilot",codes:["MK","TR","IC","AV"]},
+  {name:"🛰 CSO",codes:["WK","MK","TR","BC"]},
+  {name:"🎯 ABM",codes:["VA","MK","TR","IC","BC","AV"]},
 ];
 // Sector mocks → which composite to show on their result screen.
 const SECTOR_COMPOSITE={
   secVerbal:{name:"🗣 Verbal",codes:["WK","VA","RC"]},
   secQuant:{name:"🔢 Quantitative",codes:["AR","MK"]},
-  secPilot:{name:"✈️ Pilot",codes:["AV","BC","TR","IC"]},
+  secPilot:{name:"✈️ Pilot",codes:["MK","TR","IC","AV"]},
 };
 /* ============================================================
    WEAKNESS REPORT (약점 리포트 — 푼 문제 기반 분석 + 바로 연습)
