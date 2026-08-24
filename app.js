@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.67.0";
+const VERSION = "4.68.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2662,7 +2662,9 @@ function startExamTimer(){ stopExamTimer(); updateTimerUI();
   exam.timerId=setInterval(()=>{ if(!exam) return stopExamTimer(); exam.secsLeft--; updateTimerUI();
     if(exam.secsLeft<=0) submitExam(true); },1000); }
 function stopExamTimer(){ if(exam&&exam.timerId){ clearInterval(exam.timerId); exam.timerId=null; } }
-function updateTimerUI(){ const t=$("#examTimer"); if(!t||!exam) return; t.textContent=fmtTime(exam.secsLeft); t.classList.toggle("warn",exam.secsLeft<=30);
+function updateTimerUI(){ const t=$("#examTimer"); if(!t||!exam) return;
+  if(exam.learn){ t.textContent="📚 연습"; t.classList.remove("warn"); }  // 학습 모드: 카운트다운 숨김
+  else { t.textContent=fmtTime(exam.secsLeft); t.classList.toggle("warn",exam.secsLeft<=30); }
   // 문항별 스톱워치 칩: 목표(실전 배분) 초과 시 색 경고
   const chip=$("#qTimeChip"), e=exam;
   if(chip&&!e.submitted&&e._openAt&&e.times){
@@ -2697,22 +2699,39 @@ function renderExamQ(){
   // Visual subtests (Table Reading / Instrument / Block Counting) carry a pre-built
   // figure (table or SVG) and, for Instrument, picture options rendered via optionsHTML.
   const figure=it.figureHTML?`<div class="exam-figure">${it.figureHTML}</div>`:"";
+  // 학습 모드(유형 드릴): 답하면 즉시 정답 색·해설을 보여주고 수동으로 넘어간다.
+  const revealed = e.learn && e.answers[e.idx]!=null;
   const choicesHTML=it.options.map((o,i)=>{
     const inner=it.optionsHTML?it.optionsHTML[i]:fmtMath(o);
-    return `<button class="choice ${it.optionsHTML?"choice-fig":""} ${e.answers[e.idx]===i?"sel":""}" data-i="${i}">${inner}</button>`;
+    let cls=e.answers[e.idx]===i?"sel":"";
+    if(revealed){ if(i===it.answer) cls="correct"; else if(i===e.answers[e.idx]) cls="wrong"; }
+    return `<button class="choice ${it.optionsHTML?"choice-fig":""} ${cls}" data-i="${i}" ${revealed?"disabled":""}>${inner}</button>`;
   }).join("");
   const tgtSec=SECRATE[it.section]||30;
+  const okAns = revealed && e.answers[e.idx]===it.answer;
+  const explainHTML = revealed
+    ? `<div class="exam-explain ${okAns?"ok":"no"}">
+         <div class="ee-head">${okAns?"✅ 정답":"❌ 오답 · 정답: "+fmtMath(it.options[it.answer])}</div>
+         ${it.explain?`<div class="ee-body">${fmtMath(it.explain)}</div>`:""}
+         <button class="btn primary" id="drillNext" style="margin-top:12px">${e.idx>=e.total-1?"채점·결과 보기 →":"다음 문제 →"}</button>
+       </div>`
+    : "";
   $("#examArea").innerHTML=`${passage}<div class="card">
     <span class="exam-sec">${secChip}</span><span class="qtime" id="qTimeChip">⏱ 0초 / ${tgtSec}초</span>
     <div class="exam-prompt">${fmtMath(it.prompt)}</div>${ko}${stem}${sub}${figure}
-    <div class="choices ${it.optionsHTML?"choices-fig":""}" id="examChoices">${choicesHTML}</div></div>`;
+    <div class="choices ${it.optionsHTML?"choices-fig":""}" id="examChoices">${choicesHTML}</div>${explainHTML}</div>`;
   wireSpeakers($("#examArea"));
   $$("#examChoices .choice").forEach(btn=>btn.onclick=()=>{
+    if(e.learn && e.answers[e.idx]!=null) return;           // 이미 답함 — 잠금
     e.answers[e.idx]=+btn.dataset.i;
+    if(e.learn){ refreshExamGrid(); renderExamQ(); return; } // 즉시 해설 노출
     $$("#examChoices .choice").forEach(b=>b.classList.toggle("sel",b===btn));
     refreshExamGrid();
     if(e.idx<e.total-1){ setTimeout(()=>{ if(exam&&!exam.submitted&&exam.idx<exam.total-1){ exam.idx++; renderExamQ(); } },160); }
   });
+  const dn=$("#drillNext"); if(dn) dn.onclick=()=>{
+    if(e.idx>=e.total-1) submitExam(false);
+    else { e.idx++; renderExamQ(); } };
   $("#examPrev").disabled=e.idx===0;
   $("#examNext").disabled=e.idx>=e.total-1;
   renderExamGrid();
@@ -2870,11 +2889,13 @@ function renderCheatsheet(){
 /* ============================================================
    약점 원탭 드릴 — 약점 리포트의 '유형' 한 줄에서 그 유형만 20문제 즉시 연습
    ============================================================ */
-function startDrill(items,name){
+// learn=true → 유형 연습(문제마다 즉시 해설). false → 시간 재는 실전 드릴.
+function startDrill(items,name,learn=true){
   items=(items||[]).slice(0,20);
   if(items.length<3){ toast("이 유형은 문제가 부족해요."); return; }
-  const secs=Math.max(120, Math.round(items.reduce((s,it)=>s+(SECRATE[it.section]||30),0)*1.5));
-  exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),
+  // 학습 모드는 넉넉하게(문항당 5분) — 해설 읽는 동안 자동 제출 안 되게.
+  const per=learn?300:1.5, secs=Math.max(120, Math.round(items.reduce((s,it)=>s+(SECRATE[it.section]||30)*per,0)));
+  exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),learn,
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
