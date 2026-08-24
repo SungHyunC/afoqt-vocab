@@ -1226,14 +1226,14 @@ function synBuildQ(){
   const correct=w.synonyms[Math.random()*w.synonyms.length|0];
   const used=new Set([w.word.toLowerCase(),(correct||"").toLowerCase()]);
   const distract=[]; let guard=0;
-  while(distract.length<3 && guard++<60){
+  while(distract.length<4 && guard++<80){        // 실전과 동일하게 보기 5개(A~E)
     const oid=s.pool[Math.random()*s.pool.length|0]; if(oid===id) continue;
     const ow=WMAP.get(oid); const cand=ow.synonyms[Math.random()*ow.synonyms.length|0];
     if(!cand||used.has(cand.toLowerCase())) continue; used.add(cand.toLowerCase());
     // 각 오답 보기의 뜻(gloss) = 그 단어가 동의어인 원 단어의 한글 뜻(근사). 답한 뒤 표시용.
     distract.push({t:cand, ok:0, gloss:ow.kor||""});
   }
-  if(distract.length<3) return null;
+  if(distract.length<4) return null;
   return {id, opts:shuffle([{t:correct,ok:1,gloss:w.kor||""},...distract]), chosen:null, added:false};
 }
 function newSynQ(){ const s=synq; if(!s) return; let q=null,tries=0; while(!q&&tries++<15) q=synBuildQ(); if(!q) return;
@@ -2280,8 +2280,9 @@ function finishVA(){ const s=vaSession,total=s.items.length,got=s.score/10,pct=M
    ============================================================ */
 /* 독해 풀 완전 분리 — id가 4의 배수(60지문)는 모의고사 전용, 나머지(180지문)는 연습 전용.
    연습에서 미리 읽은 지문이 시험에 다시 나와 점수가 부풀지 않도록 서로 절대 섞이지 않는다. */
-function rcExamPool(){ return READING.filter(p=>p.id%4===0); }
-function rcPracticePool(){ return READING.filter(p=>p.id%4!==0); }
+// 모의고사 풀: 실전 길이(≈3,000자) 장문 지문 + 기존 시험 전용 지문
+function rcExamPool(){ return READING.filter(p=>p.longform||p.id%4===0); }
+function rcPracticePool(){ return READING.filter(p=>!p.longform&&p.id%4!==0); }
 function rcStats(){ const ids=new Set(rcPracticePool().map(p=>p.id));
   let done=0,examSeen=0,sc=0,to=0;
   for(const [id,x] of Object.entries(state.rc)){ if(!ids.has(+id)) continue;
@@ -2486,21 +2487,25 @@ function buildWK(n){
   const items=[];
   for(const w of top){
     if(items.length>=n) break;
-    const correct=w.synonyms[(Math.random()*w.synonyms.length)|0];
+    // 실전 형식: 보기 5개(A~E). 약 35%는 '뜻(정의문) 고르기' 유형으로 출제한다.
+    const defMode=(w.id%100)<35 && !!w.def;
+    const dpool=defMode?WORDS.filter(x=>!!x.def):pool;
+    const correct= defMode ? w.def : w.synonyms[(Math.random()*w.synonyms.length)|0];
     if(!correct) continue;
     const wSyn=new Set(w.synonyms.map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
     const dist=[];
-    for(const o of shuffle(pool)){
-      if(dist.length>=3) break;
+    for(const o of shuffle(dpool)){
+      if(dist.length>=4) break;
       if(o.id===w.id) continue;
-      const c=o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue;
+      const c= defMode ? o.def : o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue;
       const cl=c.toLowerCase();
       if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue;
       dist.push(c);
     }
-    if(dist.length<3) continue;
+    if(dist.length<4) continue;
     const options=shuffle([correct,...dist]);
-    items.push({section:"WK",prompt:"다음 단어와 의미가 가장 가까운 것은?",
+    items.push({section:"WK",
+      prompt: defMode?"다음 단어의 뜻으로 가장 알맞은 것은?":"다음 단어와 의미가 가장 가까운 것은?",
       stem:w.word, sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),
       options, answer:options.indexOf(correct), wordId:w.id, tier:tierOf(w),
       explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`});
@@ -2523,12 +2528,39 @@ function vaExplainHTML(a, opts){
   }
   return h;
 }
+// 실제 AFOQT 유추는 '문장완성형(A is to B as C is to ___)'이 주류(65~76%)이고,
+// '짝맞추기(A:B :: C:D)'가 나머지다. id 기준으로 7:3 비율을 고정 배분한다(같은 문항은 항상 같은 형식).
+const UPVA = s => String(s).toUpperCase();
 function vaItem(a){
-  const opts=shuffle(a.options.map(o=>({t:`${o.pair[0]} : ${o.pair[1]}`,c:!!o.correct})));
+  const relLine=`관계: ${a.relKo?a.relKo+" ("+(a.relation||"")+")":(a.relation||"")}`;
+  const cp=(a.options.find(o=>o.correct)||{}).pair;
+  if(cp && (a.id%10)<7){
+    // 오답 보기는 '오답 짝의 뒷단어'에서 뽑되, 문제에 이미 등장한 단어는 제외한다.
+    const ans=cp[1];
+    const seen=new Set([String(ans).toLowerCase(),
+      String(a.stem[0]).toLowerCase(), String(a.stem[1]).toLowerCase(), String(cp[0]).toLowerCase()]);
+    const dw=[];
+    for(const o of a.options){ if(o.correct) continue;
+      const w=o.pair[1], k=String(w).toLowerCase();
+      if(seen.has(k)) continue; seen.add(k); dw.push(w); }
+    if(dw.length<4){ for(const o of a.options){ if(o.correct) continue;   // 부족하면 앞단어에서 보충
+      const w=o.pair[0], k=String(w).toLowerCase();
+      if(seen.has(k)) continue; seen.add(k); dw.push(w); if(dw.length>=4) break; } }
+    if(dw.length>=4){
+      const opts=shuffle([ans,...dw.slice(0,4)]).map(UPVA);
+      return {section:"VA",
+        prompt:`${UPVA(a.stem[0])} is to ${UPVA(a.stem[1])} as ${UPVA(cp[0])} is to`,
+        stem:null, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
+        options:opts, answer:opts.indexOf(UPVA(ans)),
+        explain:[relLine, a.why||a.explain||"",
+                 `${a.stem[0]} : ${a.stem[1]} 의 관계를 ${cp[0]} 에 적용하면 → ${ans}`].filter(Boolean).join("\n")};
+    }
+  }
+  const opts=shuffle(a.options.map(o=>({t:`${UPVA(o.pair[0])} : ${UPVA(o.pair[1])}`,c:!!o.correct})));
   return {section:"VA",prompt:"다음과 같은 관계를 가진 짝은?",
-    stem:`${a.stem[0]} : ${a.stem[1]}`, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
+    stem:`${UPVA(a.stem[0])} : ${UPVA(a.stem[1])}`, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
     options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.c),
-    explain:[`관계: ${a.relKo?a.relKo+" ("+(a.relation||"")+")":(a.relation||"")}`,
+    explain:[relLine,
              a.why||a.explain||"",
              ...(Array.isArray(a.wrong)?a.wrong.map(w=>`✗ ${w.pair} — ${w.why}`):[])].filter(Boolean).join("\n")};
 }
@@ -2555,7 +2587,9 @@ function buildRC(n){
   const items=[];
   // 모의고사 전용 풀에서만 출제 — 지문 단위로 안 푼 것 우선 (한 지문에 문항 3~5개)
   const pool=rcExamPool();
-  const order=pickFresh(pool, pool.length, rcSeenAt);
+  // 실전 감각을 위해 장문 지문을 먼저 배치한다(안 푼 것 우선 규칙은 그대로 유지).
+  const order=pickFresh(pool, pool.length, rcSeenAt)
+    .sort((a,b)=>(b.longform?1:0)-(a.longform?1:0));
   for(const p of order){
     for(let qi=0;qi<p.questions.length;qi++){
       if(items.length>=n) break;
@@ -2575,17 +2609,23 @@ function buildWrongWK(){
     const one=buildWKfor(w); if(one) out.push(wrongTag(one,b[k]||1)); }
   return out;
 }
+// 실전 형식: 보기 5개(A~E). 약 35%는 '뜻(정의문) 고르기' — 바론 실전 단어 문항의 절반이 이 형태다.
 function buildWKfor(w){
-  const pool=WORDS.filter(x=>x.synonyms&&x.synonyms.length);
-  const correct=w.synonyms[(Math.random()*w.synonyms.length)|0]; if(!correct) return null;
-  const wSyn=new Set(w.synonyms.map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
+  const defMode = (w.id%100)<35 && !!w.def;
+  const pool=WORDS.filter(x=> defMode ? !!x.def : (x.synonyms&&x.synonyms.length));
+  const correct = defMode ? w.def : w.synonyms[(Math.random()*w.synonyms.length)|0];
+  if(!correct) return null;
+  const wSyn=new Set((w.synonyms||[]).map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
   const dist=[];
-  for(const o of shuffle(pool)){ if(dist.length>=3) break; if(o.id===w.id) continue;
-    const c=o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue; const cl=c.toLowerCase();
+  for(const o of shuffle(pool)){ if(dist.length>=4) break; if(o.id===w.id) continue;
+    const c= defMode ? o.def : o.synonyms[(Math.random()*o.synonyms.length)|0];
+    if(!c) continue; const cl=c.toLowerCase();
     if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue; dist.push(c); }
-  if(dist.length<3) return null;
+  if(dist.length<4) return null;
   const options=shuffle([correct,...dist]);
-  return {section:"WK",prompt:"다음 단어와 의미가 가장 가까운 것은?",stem:w.word,
+  return {section:"WK",
+    prompt: defMode?"다음 단어의 뜻으로 가장 알맞은 것은?":"다음 단어와 의미가 가장 가까운 것은?",
+    stem:w.word,
     sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),options,answer:options.indexOf(correct),
     wordId:w.id,tier:tierOf(w),explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`};
 }
