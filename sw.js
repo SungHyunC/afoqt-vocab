@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-78-0";  // 교재 문체 정렬(가중 출제)
+const CACHE = "afoqt-v4-79-0";  // 바론2 정답 재검증
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
