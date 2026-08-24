@@ -5878,5 +5878,305 @@
   "answer": 0,
   "explain": "(1/2) × 17.5 × 12.4 = 108.5 → 약 109 제곱인치.",
   "id": 392
+ },
+ {
+  "topic": "geometry_area",
+  "q": "A rectangular field is twice as long as it is wide and has a perimeter of 96 meters. What is the area of the field?",
+  "q_ko": "직사각형 밭의 길이가 너비의 2배이고 둘레가 96m이다. 밭의 넓이는?",
+  "options": [
+   "256 sq. m",
+   "512 sq. m",
+   "384 sq. m",
+   "1,024 sq. m",
+   "576 sq. m"
+  ],
+  "answer": 1,
+  "explain": "2(w + 2w) = 96 → 6w = 96 → w = 16, l = 32. 넓이 = 512 제곱미터.",
+  "id": 393
+ },
+ {
+  "topic": "number_properties",
+  "q": "The sum of three consecutive even integers is 78. What is the largest of the three integers?",
+  "q_ko": "연속한 세 짝수의 합이 78이다. 가장 큰 수는?",
+  "options": [
+   "24",
+   "32",
+   "28",
+   "26",
+   "30"
+  ],
+  "answer": 2,
+  "explain": "n + (n+2) + (n+4) = 78 → 3n = 72 → n = 24. 세 수는 24, 26, 28.",
+  "id": 394
+ },
+ {
+  "topic": "geometry",
+  "q": "A cube has a volume of 512 cubic inches. What is the length of one edge of the cube?",
+  "q_ko": "정육면체의 부피가 512세제곱인치이다. 한 모서리의 길이는?",
+  "options": [
+   "7 in.",
+   "8 in.",
+   "16 in.",
+   "9 in.",
+   "6 in."
+  ],
+  "answer": 1,
+  "explain": "∛512 = 8인치.",
+  "id": 395
+ },
+ {
+  "topic": "linear_equations",
+  "q": "A line passes through the point (0, 5) and has a slope of −3. What is the equation of the line?",
+  "q_ko": "점 (0, 5)를 지나고 기울기가 −3인 직선의 방정식은?",
+  "options": [
+   "y = −3x + 5",
+   "y = 3x + 5",
+   "y = 5x − 3",
+   "y = −5x + 3",
+   "y = −3x − 5"
+  ],
+  "answer": 0,
+  "explain": "y절편이 5, 기울기 −3 → y = −3x + 5.",
+  "id": 396
+ },
+ {
+  "topic": "functions",
+  "q": "If f(x) = 2x² − 5x + 1, what is the value of f(3)?",
+  "q_ko": "f(x) = 2x² − 5x + 1 일 때 f(3)의 값은?",
+  "options": [
+   "10",
+   "22",
+   "1",
+   "7",
+   "4"
+  ],
+  "answer": 4,
+  "explain": "2(9) − 5(3) + 1 = 18 − 15 + 1 = 4.",
+  "id": 397
+ },
+ {
+  "topic": "triangles",
+  "q": "The perimeter of an isosceles triangle is 38 inches, and each of its two equal sides measures 14 inches. How long is the base?",
+  "q_ko": "이등변삼각형의 둘레가 38인치이고 두 등변이 각각 14인치이다. 밑변의 길이는?",
+  "options": [
+   "12 in.",
+   "24 in.",
+   "10 in.",
+   "14 in.",
+   "8 in."
+  ],
+  "answer": 2,
+  "explain": "38 − 28 = 10인치.",
+  "id": 398
+ },
+ {
+  "topic": "equations",
+  "q": "What is the value of x if 3(x − 4) = 2(x + 5)?",
+  "q_ko": "3(x − 4) = 2(x + 5) 일 때 x의 값은?",
+  "options": [
+   "26",
+   "2",
+   "18",
+   "22",
+   "11"
+  ],
+  "answer": 3,
+  "explain": "3x − 12 = 2x + 10 → x = 22.",
+  "id": 399
+ },
+ {
+  "topic": "percentages",
+  "q": "A number is increased by 30 percent, and the result is 91. What was the original number?",
+  "q_ko": "어떤 수를 30% 늘렸더니 91이 되었다. 원래 수는?",
+  "options": [
+   "61",
+   "64",
+   "118",
+   "70",
+   "73"
+  ],
+  "answer": 3,
+  "explain": "91 ÷ 1.30 = 70.",
+  "id": 400
+ },
+ {
+  "topic": "triangles",
+  "q": "In a right triangle, one leg measures 24 and the hypotenuse measures 26. What is the length of the other leg?",
+  "q_ko": "직각삼각형에서 한 변이 24, 빗변이 26이다. 나머지 한 변의 길이는?",
+  "options": [
+   "12",
+   "8",
+   "14",
+   "18",
+   "10"
+  ],
+  "answer": 4,
+  "explain": "√(26² − 24²) = √(676 − 576) = √100 = 10.",
+  "id": 401
+ },
+ {
+  "topic": "statistics",
+  "q": "The average of five numbers is 46. When one number is removed, the average of the remaining four is 43. What number was removed?",
+  "q_ko": "다섯 수의 평균이 46이다. 한 수를 빼니 남은 네 수의 평균이 43이 되었다. 뺀 수는?",
+  "options": [
+   "43",
+   "58",
+   "55",
+   "49",
+   "52"
+  ],
+  "answer": 1,
+  "explain": "5 × 46 = 230, 4 × 43 = 172. 230 − 172 = 58.",
+  "id": 402
+ },
+ {
+  "topic": "coordinate_geometry",
+  "q": "What is the slope of a line that is perpendicular to the line y = (2/3)x − 4?",
+  "q_ko": "직선 y = (2/3)x − 4 에 수직인 직선의 기울기는?",
+  "options": [
+   "−3/2",
+   "3/2",
+   "−2/3",
+   "4",
+   "2/3"
+  ],
+  "answer": 0,
+  "explain": "수직인 직선의 기울기는 음의 역수 → −3/2.",
+  "id": 403
+ },
+ {
+  "topic": "coordinate_geometry",
+  "q": "A circle has its center at (3, −2) and a radius of 5. Which of the following points lies on the circle?",
+  "q_ko": "중심이 (3, −2)이고 반지름이 5인 원이 있다. 원 위에 있는 점은?",
+  "options": [
+   "(8, −2)",
+   "(5, 0)",
+   "(3, 2)",
+   "(−1, −2)",
+   "(0, −2)"
+  ],
+  "answer": 0,
+  "explain": "(8, −2)는 중심에서 가로로 5만큼 떨어져 있어 반지름과 같다.",
+  "id": 404
+ },
+ {
+  "topic": "exponents",
+  "q": "If 5 raised to the power of x equals 125, what is the value of x?",
+  "q_ko": "5의 x제곱이 125일 때 x의 값은?",
+  "options": [
+   "5",
+   "25",
+   "2",
+   "3",
+   "4"
+  ],
+  "answer": 3,
+  "explain": "5³ = 125이므로 x = 3.",
+  "id": 405
+ },
+ {
+  "topic": "geometry",
+  "q": "The measures of two complementary angles are in the ratio 4 to 5. What is the measure of the smaller angle?",
+  "q_ko": "서로 여각인 두 각의 비가 4:5이다. 작은 각의 크기는?",
+  "options": [
+   "36 degrees",
+   "30 degrees",
+   "40 degrees",
+   "45 degrees",
+   "50 degrees"
+  ],
+  "answer": 2,
+  "explain": "여각의 합 90도. 9등분하면 10도씩 → 작은 각 4 × 10 = 40도.",
+  "id": 406
+ },
+ {
+  "topic": "geometry_area",
+  "q": "The length of a rectangle is increased by 25 percent and its width is decreased by 20 percent. What happens to the area?",
+  "q_ko": "직사각형의 길이를 25% 늘리고 너비를 20% 줄이면 넓이는 어떻게 되는가?",
+  "options": [
+   "It decreases by 5%.",
+   "It increases by 20%.",
+   "It decreases by 20%.",
+   "It stays the same.",
+   "It increases by 5%."
+  ],
+  "answer": 3,
+  "explain": "1.25 × 0.80 = 1.00 → 넓이는 변하지 않는다.",
+  "id": 407
+ },
+ {
+  "topic": "geometry",
+  "q": "What is the sum of the measures of the interior angles of a regular hexagon?",
+  "q_ko": "정육각형의 내각의 합은?",
+  "options": [
+   "360 degrees",
+   "1,080 degrees",
+   "900 degrees",
+   "540 degrees",
+   "720 degrees"
+  ],
+  "answer": 4,
+  "explain": "(6 − 2) × 180 = 720도.",
+  "id": 408
+ },
+ {
+  "topic": "equations",
+  "q": "Solve for x:  (x ÷ 4) + 3 = 11",
+  "q_ko": "(x ÷ 4) + 3 = 11 일 때 x의 값은?",
+  "options": [
+   "56",
+   "32",
+   "8",
+   "2",
+   "24"
+  ],
+  "answer": 1,
+  "explain": "x/4 = 8 → x = 32.",
+  "id": 409
+ },
+ {
+  "topic": "probability",
+  "q": "A jar contains 5 red marbles, 7 blue marbles, and 8 green marbles. What is the probability of drawing a blue marble at random?",
+  "q_ko": "항아리에 빨강 5개, 파랑 7개, 초록 8개의 구슬이 있다. 무작위로 파랑을 뽑을 확률은?",
+  "options": [
+   "7/20",
+   "1/2",
+   "7/15",
+   "2/5",
+   "1/4"
+  ],
+  "answer": 0,
+  "explain": "전체 20개 중 파랑 7개 → 7/20.",
+  "id": 410
+ },
+ {
+  "topic": "geometry",
+  "q": "If the diameter of a sphere is doubled, the volume of the new sphere is how many times the volume of the original?",
+  "q_ko": "구의 지름을 2배로 하면 부피는 원래의 몇 배가 되는가?",
+  "options": [
+   "2",
+   "4",
+   "16",
+   "6",
+   "8"
+  ],
+  "answer": 4,
+  "explain": "부피는 반지름의 세제곱에 비례한다. 2³ = 8배.",
+  "id": 411
+ },
+ {
+  "topic": "quadratics",
+  "q": "What is the product of the roots of the equation x² − 7x + 12 = 0?",
+  "q_ko": "방정식 x² − 7x + 12 = 0 의 두 근의 곱은?",
+  "options": [
+   "−7",
+   "7",
+   "12",
+   "3",
+   "−12"
+  ],
+  "answer": 2,
+  "explain": "(x − 3)(x − 4) = 0 → 근은 3과 4. 곱은 12.",
+  "id": 412
  }
 ]

@@ -5788,5 +5788,905 @@
   "answer": 1,
   "explain": "합 19.5 ÷ 5 = 3.9파운드.",
   "id": 386
+ },
+ {
+  "topic": "money",
+  "q": "Marcus works at a hardware store and earns $16.50 per hour. Last week he worked 8 hours on Monday, 7 hours on Tuesday, and 9 hours on Wednesday. How much did he earn for those three days?",
+  "q_ko": "마커스는 철물점에서 시급 $16.50를 받는다. 지난주 월요일 8시간, 화요일 7시간, 수요일 9시간 일했다면 사흘간 번 돈은?",
+  "options": [
+   "$363.00",
+   "$396.00",
+   "$379.50",
+   "$346.50",
+   "$412.50"
+  ],
+  "answer": 1,
+  "explain": "총 24시간 × $16.50 = $396.00.",
+  "id": 387
+ },
+ {
+  "topic": "proportions",
+  "q": "Danielle is planning a party and needs 3 liters of punch for every 8 guests. If she expects 40 guests to attend, how many liters of punch should she prepare?",
+  "q_ko": "다니엘은 손님 8명당 펀치 3리터가 필요하다. 손님 40명을 예상하면 몇 리터를 준비해야 하는가?",
+  "options": [
+   "24",
+   "12",
+   "18",
+   "15",
+   "9"
+  ],
+  "answer": 3,
+  "explain": "40 ÷ 8 = 5배. 3 × 5 = 15리터.",
+  "id": 388
+ },
+ {
+  "topic": "averages",
+  "q": "Officer Reyes drove 156 miles on Monday, 214 miles on Tuesday, and 188 miles on Wednesday. What was the average number of miles he drove per day?",
+  "q_ko": "레예스 경관은 월 156마일, 화 214마일, 수 188마일을 운전했다. 하루 평균 주행 거리는?",
+  "options": [
+   "201",
+   "193",
+   "172",
+   "186",
+   "179"
+  ],
+  "answer": 3,
+  "explain": "합 558마일 ÷ 3일 = 186마일.",
+  "id": 389
+ },
+ {
+  "topic": "percentages",
+  "q": "Kayla bought a jacket at a clearance sale that was marked down from $85 to $68. What was the percent of the discount she received?",
+  "q_ko": "케일라는 $85에서 $68로 내린 재킷을 샀다. 할인율은?",
+  "options": [
+   "20%",
+   "22%",
+   "25%",
+   "15%",
+   "17%"
+  ],
+  "answer": 0,
+  "explain": "할인액 $17 ÷ 원가 $85 = 0.20 = 20%.",
+  "id": 390
+ },
+ {
+  "topic": "work_rate",
+  "q": "A landscaping crew of 4 workers can mow a large park in 6 hours. If 2 additional workers join the crew and all work at the same rate, how long will the job take?",
+  "q_ko": "조경 인부 4명이 큰 공원을 6시간에 깎는다. 같은 속도의 인부 2명이 더 합류하면 얼마나 걸리는가?",
+  "options": [
+   "4.5 hours",
+   "9 hours",
+   "4 hours",
+   "5 hours",
+   "3 hours"
+  ],
+  "answer": 2,
+  "explain": "총 작업량 = 4 × 6 = 24 인시. 6명이면 24 ÷ 6 = 4시간.",
+  "id": 391
+ },
+ {
+  "topic": "money",
+  "q": "Tyler is saving for a bicycle that costs $348. He has already saved $132 and sets aside $24 from his paycheck each week. How many more weeks must he save?",
+  "q_ko": "타일러는 $348짜리 자전거를 사려 한다. 이미 $132를 모았고 매주 $24씩 저축하면 몇 주가 더 필요한가?",
+  "options": [
+   "10",
+   "9",
+   "6",
+   "7",
+   "8"
+  ],
+  "answer": 1,
+  "explain": "남은 금액 $216 ÷ 주당 $24 = 9주.",
+  "id": 392
+ },
+ {
+  "topic": "integers",
+  "q": "A bakery sells muffins in boxes of 6 and cookies in boxes of 8. If Priya buys 5 boxes of muffins and 3 boxes of cookies for an office meeting, how many items does she have in all?",
+  "q_ko": "제과점은 머핀을 6개들이, 쿠키를 8개들이로 판다. 프리야가 머핀 5상자, 쿠키 3상자를 사면 총 몇 개인가?",
+  "options": [
+   "54",
+   "58",
+   "44",
+   "48",
+   "64"
+  ],
+  "answer": 0,
+  "explain": "머핀 30개 + 쿠키 24개 = 54개.",
+  "id": 393
+ },
+ {
+  "topic": "integers",
+  "q": "Sergeant Klein must distribute 245 rations equally among the 7 squads in his platoon. How many rations will each squad receive?",
+  "q_ko": "클라인 상사는 배급 245개를 소대의 7개 분대에 똑같이 나눠야 한다. 각 분대가 받는 양은?",
+  "options": [
+   "38",
+   "30",
+   "42",
+   "35",
+   "33"
+  ],
+  "answer": 3,
+  "explain": "245 ÷ 7 = 35개.",
+  "id": 394
+ },
+ {
+  "topic": "rates",
+  "q": "Nina's car travels 28 miles on each gallon of fuel. If her fuel tank holds 14 gallons, how far can she drive on a full tank?",
+  "q_ko": "니나의 차는 1갤런으로 28마일을 간다. 연료탱크가 14갤런이면 가득 채우고 얼마나 갈 수 있는가?",
+  "options": [
+   "392 miles",
+   "448 miles",
+   "364 miles",
+   "336 miles",
+   "420 miles"
+  ],
+  "answer": 0,
+  "explain": "28 × 14 = 392마일.",
+  "id": 395
+ },
+ {
+  "topic": "percentages",
+  "q": "A community theater sold 340 tickets on Friday night and 425 tickets on Saturday night. What was the percent increase in tickets sold from Friday to Saturday?",
+  "q_ko": "지역 극장이 금요일 밤 340장, 토요일 밤 425장을 팔았다. 금요일 대비 토요일의 증가율은?",
+  "options": [
+   "25%",
+   "35%",
+   "20%",
+   "30%",
+   "15%"
+  ],
+  "answer": 0,
+  "explain": "증가 85장 ÷ 340 = 0.25 = 25%.",
+  "id": 396
+ },
+ {
+  "topic": "ratios",
+  "q": "Devon mixes blue paint and white paint in a ratio of 3 to 5. If he needs 32 gallons of the finished mixture for a job, how many gallons of blue paint must he use?",
+  "q_ko": "데본은 파란 페인트와 흰 페인트를 3:5로 섞는다. 완성 혼합물 32갤런이 필요하면 파란 페인트는 몇 갤런인가?",
+  "options": [
+   "8",
+   "20",
+   "10",
+   "12",
+   "15"
+  ],
+  "answer": 3,
+  "explain": "전체 8등분 중 파랑 3. 32 ÷ 8 = 4 → 3 × 4 = 12갤런.",
+  "id": 397
+ },
+ {
+  "topic": "money",
+  "q": "Amara earns $12 per hour tutoring and $18 per hour coaching a youth team. Last month she tutored for 20 hours and coached for 15 hours. How much did she earn in all?",
+  "q_ko": "아마라는 과외로 시급 $12, 유소년 팀 코치로 시급 $18을 받는다. 지난달 과외 20시간, 코치 15시간을 했다면 총 수입은?",
+  "options": [
+   "$540",
+   "$420",
+   "$465",
+   "$570",
+   "$510"
+  ],
+  "answer": 4,
+  "explain": "과외 $240 + 코치 $270 = $510.",
+  "id": 398
+ },
+ {
+  "topic": "money",
+  "q": "A shipping company charges $8.00 for the first pound and $1.25 for each additional pound. What is the total charge for a package that weighs 12 pounds?",
+  "q_ko": "운송사가 첫 1파운드에 $8.00, 이후 파운드마다 $1.25를 받는다. 12파운드 소포의 총 요금은?",
+  "options": [
+   "$18.75",
+   "$21.75",
+   "$15.00",
+   "$23.00",
+   "$25.25"
+  ],
+  "answer": 1,
+  "explain": "$8.00 + 11파운드 × $1.25 = 8 + 13.75 = $21.75.",
+  "id": 399
+ },
+ {
+  "topic": "rates",
+  "q": "Lieutenant Ortega has 4 hours to inspect 32 vehicles. She inspected 12 vehicles during the first 90 minutes. How many vehicles per hour must she inspect during the time remaining?",
+  "q_ko": "오르테가 중위는 4시간 안에 차량 32대를 점검해야 한다. 첫 90분 동안 12대를 마쳤다면 남은 시간에 시간당 몇 대를 점검해야 하는가?",
+  "options": [
+   "6",
+   "7",
+   "9",
+   "8",
+   "10"
+  ],
+  "answer": 3,
+  "explain": "남은 20대를 남은 2.5시간에 → 20 ÷ 2.5 = 시간당 8대.",
+  "id": 400
+ },
+ {
+  "topic": "money",
+  "q": "Grace bought 3 notebooks at $4.25 each and 2 packs of pens at $6.80 each. If she paid with a $50 bill, how much change did she receive?",
+  "q_ko": "그레이스는 $4.25짜리 공책 3권과 $6.80짜리 펜 2팩을 샀다. $50 지폐로 냈다면 거스름돈은?",
+  "options": [
+   "$26.35",
+   "$20.15",
+   "$21.40",
+   "$23.65",
+   "$25.10"
+  ],
+  "answer": 3,
+  "explain": "공책 $12.75 + 펜 $13.60 = $26.35. $50 − $26.35 = $23.65.",
+  "id": 401
+ },
+ {
+  "topic": "rates",
+  "q": "A factory produces 1,250 parts during an 8-hour shift. If production continues at the same rate, how many parts will the factory produce during a 40-hour work week?",
+  "q_ko": "공장이 8시간 교대에 부품 1,250개를 만든다. 같은 속도라면 주 40시간에 몇 개를 만드는가?",
+  "options": [
+   "5,000",
+   "6,875",
+   "7,500",
+   "6,250",
+   "5,625"
+  ],
+  "answer": 3,
+  "explain": "40 ÷ 8 = 5배. 1,250 × 5 = 6,250개.",
+  "id": 402
+ },
+ {
+  "topic": "percentages",
+  "q": "Malik's monthly rent increased from $1,150 to $1,242 when he renewed his lease. What was the percent of the increase in his rent?",
+  "q_ko": "말릭의 월세가 재계약 때 $1,150에서 $1,242로 올랐다. 인상률은?",
+  "options": [
+   "7%",
+   "12%",
+   "9%",
+   "6%",
+   "8%"
+  ],
+  "answer": 4,
+  "explain": "인상액 $92 ÷ $1,150 = 0.08 = 8%.",
+  "id": 403
+ },
+ {
+  "topic": "integers",
+  "q": "On a field exercise, a platoon of 36 soldiers is divided into squads of 9 soldiers each. If each squad is issued 4 radios, how many radios are issued in all?",
+  "q_ko": "야외 훈련에서 36명 소대를 9명씩 분대로 나눈다. 각 분대에 무전기 4대를 지급하면 총 몇 대인가?",
+  "options": [
+   "9",
+   "20",
+   "12",
+   "16",
+   "24"
+  ],
+  "answer": 3,
+  "explain": "분대 수 36 ÷ 9 = 4개. 4 × 4 = 16대.",
+  "id": 404
+ },
+ {
+  "topic": "percentages",
+  "q": "Sophia read 45 pages of a novel on Monday evening, which was 30 percent of the whole book. How many pages does the book have?",
+  "q_ko": "소피아는 월요일 저녁에 소설 45쪽을 읽었고 이는 책 전체의 30%였다. 책은 몇 쪽인가?",
+  "options": [
+   "165",
+   "120",
+   "180",
+   "150",
+   "135"
+  ],
+  "answer": 3,
+  "explain": "45 ÷ 0.30 = 150쪽.",
+  "id": 405
+ },
+ {
+  "topic": "money",
+  "q": "A caterer charges $18 per guest plus a flat setup fee of $250. What is the total cost of catering a banquet for 75 guests?",
+  "q_ko": "출장 뷔페가 손님 1인당 $18에 준비비 $250을 별도로 받는다. 손님 75명 연회의 총비용은?",
+  "options": [
+   "$1,350",
+   "$1,850",
+   "$1,750",
+   "$1,600",
+   "$1,425"
+  ],
+  "answer": 3,
+  "explain": "75 × $18 = $1,350. 준비비 $250을 더하면 $1,600.",
+  "id": 406
+ },
+ {
+  "topic": "work_rate",
+  "q": "Two mechanics working together repair 24 engines in 6 days. Working at the same rate, how many engines can 5 mechanics repair in 9 days?",
+  "q_ko": "정비사 2명이 함께 6일에 엔진 24대를 수리한다. 같은 속도로 정비사 5명이 9일간 수리할 수 있는 엔진은?",
+  "options": [
+   "45",
+   "90",
+   "108",
+   "75",
+   "60"
+  ],
+  "answer": 1,
+  "explain": "1인 1일 = 24 ÷ (2×6) = 2대. 5 × 9 × 2 = 90대.",
+  "id": 407
+ },
+ {
+  "topic": "simple_interest",
+  "q": "Elena invested $4,500 in an account paying 4 percent simple annual interest. How much interest will she have earned after 18 months?",
+  "q_ko": "엘레나가 연 단리 4%인 계좌에 $4,500을 넣었다. 18개월 후 이자는?",
+  "options": [
+   "$225",
+   "$180",
+   "$315",
+   "$360",
+   "$270"
+  ],
+  "answer": 4,
+  "explain": "연이자 $180. 18개월 = 1.5년 → $180 × 1.5 = $270.",
+  "id": 408
+ },
+ {
+  "topic": "percentages",
+  "q": "A store's inventory contains 480 items, of which 35 percent are electronics. How many of the items in the inventory are not electronics?",
+  "q_ko": "매장 재고 480개 중 35%가 전자제품이다. 전자제품이 아닌 물건은 몇 개인가?",
+  "options": [
+   "336",
+   "360",
+   "312",
+   "288",
+   "168"
+  ],
+  "answer": 2,
+  "explain": "전자제품이 아닌 비율 65%. 480 × 0.65 = 312개.",
+  "id": 409
+ },
+ {
+  "topic": "money",
+  "q": "Captain Diaz must refuel 6 aircraft, each of which requires 340 gallons of fuel. If fuel costs $5.20 per gallon, what is the total cost of the fuel?",
+  "q_ko": "디아스 대위는 각각 340갤런이 필요한 항공기 6대에 급유해야 한다. 연료가 갤런당 $5.20이면 총비용은?",
+  "options": [
+   "$11,220",
+   "$12,240",
+   "$9,520",
+   "$8,840",
+   "$10,608"
+  ],
+  "answer": 4,
+  "explain": "총 연료 2,040갤런 × $5.20 = $10,608.",
+  "id": 410
+ },
+ {
+  "topic": "averages",
+  "q": "Jamal scored 88, 92, and 79 on his first three exams in chemistry. What score must he earn on the fourth exam to finish with an average of 87?",
+  "q_ko": "자말은 화학 시험에서 88, 92, 79점을 받았다. 평균 87점이 되려면 네 번째 시험에서 몇 점을 받아야 하는가?",
+  "options": [
+   "89",
+   "93",
+   "85",
+   "91",
+   "87"
+  ],
+  "answer": 0,
+  "explain": "필요 총점 87 × 4 = 348. 348 − 259 = 89점.",
+  "id": 411
+ },
+ {
+  "topic": "proportions",
+  "q": "A recipe that serves 4 people calls for 2 1/2 cups of rice. How many cups of rice are needed to serve 10 people using the same recipe?",
+  "q_ko": "4인분 요리법에 쌀 2와 1/2컵이 들어간다. 같은 요리법으로 10인분을 만들려면 쌀이 몇 컵 필요한가?",
+  "options": [
+   "5",
+   "7.5",
+   "5.75",
+   "7",
+   "6.25"
+  ],
+  "answer": 4,
+  "explain": "10 ÷ 4 = 2.5배. 2.5 × 2.5 = 6.25컵.",
+  "id": 412
+ },
+ {
+  "topic": "distance_rate_time",
+  "q": "Hannah drove for 3 hours at an average speed of 62 miles per hour and then for 2 hours at an average speed of 55 miles per hour. What was her average speed for the entire trip?",
+  "q_ko": "한나는 3시간을 평균 시속 62마일로, 이어 2시간을 평균 시속 55마일로 운전했다. 전체 여정의 평균 속력은?",
+  "options": [
+   "61.4 mph",
+   "58.5 mph",
+   "59.2 mph",
+   "60.0 mph",
+   "57.5 mph"
+  ],
+  "answer": 2,
+  "explain": "총 거리 186 + 110 = 296마일, 총 시간 5시간 → 59.2 mph.",
+  "id": 413
+ },
+ {
+  "topic": "percentages",
+  "q": "A construction crew poured 18 cubic yards of concrete on the first day of a job, which was 40 percent of the total amount required. How many cubic yards remain to be poured?",
+  "q_ko": "공사팀이 첫날 콘크리트 18세제곱야드를 타설했고 이는 전체의 40%였다. 남은 양은?",
+  "options": [
+   "45",
+   "27",
+   "22.5",
+   "30",
+   "18"
+  ],
+  "answer": 1,
+  "explain": "전체 = 18 ÷ 0.40 = 45. 남은 양 45 − 18 = 27세제곱야드.",
+  "id": 414
+ },
+ {
+  "topic": "algebra",
+  "q": "Tickets to a science museum cost $14 for adults and $9 for children. If a school group paid $138 for a total of 12 tickets, how many adult tickets were purchased?",
+  "q_ko": "과학관 입장권이 어른 $14, 어린이 $9이다. 단체가 12장에 $138을 냈다면 어른 표는 몇 장인가?",
+  "options": [
+   "7",
+   "8",
+   "6",
+   "4",
+   "5"
+  ],
+  "answer": 2,
+  "explain": "14a + 9(12 − a) = 138 → 5a + 108 = 138 → a = 6장.",
+  "id": 415
+ },
+ {
+  "topic": "money",
+  "q": "Isabella's phone plan costs $45 per month and includes 200 text messages, with each additional message costing $0.10. If she sent 340 messages last month, what was her bill?",
+  "q_ko": "이사벨라의 요금제는 월 $45에 문자 200건이 포함되고 초과분은 건당 $0.10이다. 지난달 340건을 보냈다면 요금은?",
+  "options": [
+   "$52.00",
+   "$79.00",
+   "$62.00",
+   "$55.00",
+   "$59.00"
+  ],
+  "answer": 4,
+  "explain": "초과 140건 × $0.10 = $14. $45 + $14 = $59.",
+  "id": 416
+ },
+ {
+  "topic": "money",
+  "q": "Coach Bennett ordered 8 jerseys at $32 each and 8 pairs of shorts at $19 each for his team. What was the total cost of the order?",
+  "q_ko": "베넷 코치가 팀을 위해 $32짜리 유니폼 8벌과 $19짜리 반바지 8벌을 주문했다. 총 주문 금액은?",
+  "options": [
+   "$424",
+   "$356",
+   "$456",
+   "$408",
+   "$382"
+  ],
+  "answer": 3,
+  "explain": "유니폼 $256 + 반바지 $152 = $408.",
+  "id": 417
+ },
+ {
+  "topic": "percentages",
+  "q": "A hotel has 240 rooms and 85 percent of them were occupied on Saturday night. How many of the hotel's rooms were vacant that night?",
+  "q_ko": "객실 240개인 호텔의 토요일 밤 투숙률이 85%였다. 빈 객실은 몇 개인가?",
+  "options": [
+   "30",
+   "36",
+   "42",
+   "24",
+   "48"
+  ],
+  "answer": 1,
+  "explain": "공실률 15%. 240 × 0.15 = 36개.",
+  "id": 418
+ },
+ {
+  "topic": "money",
+  "q": "Ravi drives 22 miles each way to work, five days a week. If his car averages 32 miles per gallon and fuel costs $3.60 per gallon, what is his weekly fuel cost?",
+  "q_ko": "라비는 주 5일 편도 22마일을 출퇴근한다. 연비 32mpg, 연료가 갤런당 $3.60이면 주간 연료비는?",
+  "options": [
+   "$31.20",
+   "$21.60",
+   "$24.75",
+   "$18.90",
+   "$27.50"
+  ],
+  "answer": 2,
+  "explain": "주행 220마일 ÷ 32 = 6.875갤런. × $3.60 = $24.75.",
+  "id": 419
+ },
+ {
+  "topic": "work_rate",
+  "q": "A tank is filled by a pump at 12 gallons per minute while a valve drains it at 4 gallons per minute. If both operate at once, how long will it take to add 320 gallons?",
+  "q_ko": "펌프가 분당 12갤런을 채우고 밸브가 분당 4갤런을 뺀다. 동시에 작동하면 320갤런을 채우는 데 얼마나 걸리는가?",
+  "options": [
+   "20 minutes",
+   "40 minutes",
+   "32 minutes",
+   "80 minutes",
+   "27 minutes"
+  ],
+  "answer": 1,
+  "explain": "순증가 8갤런/분. 320 ÷ 8 = 40분.",
+  "id": 420
+ },
+ {
+  "topic": "percentages",
+  "q": "Leah paid $1,248 for a laptop after receiving a 20 percent discount, and there was no sales tax. What was the original price of the laptop?",
+  "q_ko": "레아는 20% 할인을 받아 노트북을 $1,248에 샀고 세금은 없었다. 원래 가격은?",
+  "options": [
+   "$1,440",
+   "$1,620",
+   "$1,560",
+   "$1,398",
+   "$1,498"
+  ],
+  "answer": 2,
+  "explain": "1,248 ÷ 0.80 = $1,560.",
+  "id": 421
+ },
+ {
+  "topic": "money",
+  "q": "During a fundraiser, a service club sold 84 pies at $12 each. If the ingredients for all the pies cost $315, how much profit did the club make?",
+  "q_ko": "봉사 동아리가 모금 행사에서 $12짜리 파이 84개를 팔았다. 재료비가 총 $315였다면 순이익은?",
+  "options": [
+   "$735",
+   "$693",
+   "$1,008",
+   "$813",
+   "$588"
+  ],
+  "answer": 1,
+  "explain": "매출 $1,008 − 재료비 $315 = $693.",
+  "id": 422
+ },
+ {
+  "topic": "integers",
+  "q": "Airman Cole must load 1,860 pounds of cargo into containers that each hold 155 pounds. How many containers does he need to hold all of the cargo?",
+  "q_ko": "콜 병사는 1,860파운드 화물을 각 155파운드들이 컨테이너에 실어야 한다. 몇 개가 필요한가?",
+  "options": [
+   "15",
+   "10",
+   "13",
+   "11",
+   "12"
+  ],
+  "answer": 4,
+  "explain": "1,860 ÷ 155 = 12개.",
+  "id": 423
+ },
+ {
+  "topic": "distance_rate_time",
+  "q": "A train left the station at 6:40 A.M. and arrived at its destination at 11:25 A.M. If it traveled 380 miles, what was its average speed?",
+  "q_ko": "기차가 오전 6시 40분에 출발해 11시 25분에 도착했다. 380마일을 달렸다면 평균 속력은?",
+  "options": [
+   "72 mph",
+   "84 mph",
+   "68 mph",
+   "76 mph",
+   "80 mph"
+  ],
+  "answer": 4,
+  "explain": "소요 4시간 45분 = 4.75시간. 380 ÷ 4.75 = 80 mph.",
+  "id": 424
+ },
+ {
+  "topic": "perimeter_word_problem",
+  "q": "Marisol's rectangular garden is 24 feet long and 18 feet wide. She wants to install a border around the entire garden at $4.50 per foot. What will the border cost?",
+  "q_ko": "마리솔의 직사각형 정원은 24피트 × 18피트이다. 정원 둘레에 피트당 $4.50인 경계석을 설치하면 비용은?",
+  "options": [
+   "$286",
+   "$486",
+   "$432",
+   "$189",
+   "$378"
+  ],
+  "answer": 4,
+  "explain": "둘레 = 2(24 + 18) = 84피트. 84 × $4.50 = $378.",
+  "id": 425
+ },
+ {
+  "topic": "ratios",
+  "q": "In a survey of 600 employees at a company, 3 out of every 8 said they commute to work by train. How many of the employees surveyed commute by train?",
+  "q_ko": "직원 600명 설문에서 8명 중 3명이 기차로 출근한다고 답했다. 기차 통근자는 몇 명인가?",
+  "options": [
+   "225",
+   "275",
+   "240",
+   "180",
+   "200"
+  ],
+  "answer": 0,
+  "explain": "600 ÷ 8 = 75. 75 × 3 = 225명.",
+  "id": 426
+ },
+ {
+  "topic": "rates",
+  "q": "A bottling machine fills 45 bottles every minute. How many bottles will the machine fill in 2 hours and 20 minutes of continuous operation?",
+  "q_ko": "병입 기계가 분당 45병을 채운다. 2시간 20분 연속 가동하면 몇 병을 채우는가?",
+  "options": [
+   "5,400",
+   "6,750",
+   "5,850",
+   "7,200",
+   "6,300"
+  ],
+  "answer": 4,
+  "explain": "140분 × 45 = 6,300병.",
+  "id": 427
+ },
+ {
+  "topic": "percentages",
+  "q": "Trevor bought a used truck for $9,400 and sold it three years later for $6,580. What percent of the purchase price did he lose on the sale?",
+  "q_ko": "트레버가 중고 트럭을 $9,400에 사서 3년 뒤 $6,580에 팔았다. 구입가 대비 몇 %를 손해 봤는가?",
+  "options": [
+   "20%",
+   "30%",
+   "40%",
+   "35%",
+   "25%"
+  ],
+  "answer": 1,
+  "explain": "손실 $2,820 ÷ $9,400 = 0.30 = 30%.",
+  "id": 428
+ },
+ {
+  "topic": "money",
+  "q": "A group of 8 friends divides a $184.80 dinner bill evenly, and then each person adds a $3 tip. How much does each person pay in all?",
+  "q_ko": "친구 8명이 $184.80 저녁값을 똑같이 나눈 뒤 각자 $3씩 팁을 더한다. 1인당 지불액은?",
+  "options": [
+   "$23.10",
+   "$24.60",
+   "$26.10",
+   "$28.50",
+   "$27.35"
+  ],
+  "answer": 2,
+  "explain": "1인당 $23.10 + 팁 $3 = $26.10.",
+  "id": 429
+ },
+ {
+  "topic": "rates",
+  "q": "Professor Yang graded 18 exams during the first hour and 24 exams during the second hour. At the second-hour rate, how long will the remaining 60 exams take?",
+  "q_ko": "양 교수는 첫 시간에 시험지 18장, 둘째 시간에 24장을 채점했다. 둘째 시간 속도로 남은 60장을 채점하면 얼마나 걸리는가?",
+  "options": [
+   "2.5 hours",
+   "3.5 hours",
+   "2 hours",
+   "3 hours",
+   "4 hours"
+  ],
+  "answer": 0,
+  "explain": "60 ÷ 24 = 2.5시간.",
+  "id": 430
+ },
+ {
+  "topic": "averages",
+  "q": "A charity received donations of $2,450, $1,870, and $3,270 during three consecutive months. What was the average monthly donation over that period?",
+  "q_ko": "자선단체가 세 달 연속 $2,450, $1,870, $3,270을 기부받았다. 월평균 기부액은?",
+  "options": [
+   "$2,530",
+   "$3,795",
+   "$2,750",
+   "$2,640",
+   "$2,410"
+  ],
+  "answer": 0,
+  "explain": "합 $7,590 ÷ 3 = $2,530.",
+  "id": 431
+ },
+ {
+  "topic": "rates",
+  "q": "Kenji runs 3 laps around a track in 7 minutes and 30 seconds. Running at the same pace, how long will it take him to complete 8 laps?",
+  "q_ko": "켄지는 트랙 3바퀴를 7분 30초에 뛴다. 같은 속도로 8바퀴를 뛰면 얼마나 걸리는가?",
+  "options": [
+   "15 minutes",
+   "20 minutes",
+   "22 minutes",
+   "18 minutes",
+   "25 minutes"
+  ],
+  "answer": 1,
+  "explain": "1바퀴 150초. 150 × 8 = 1,200초 = 20분.",
+  "id": 432
+ },
+ {
+  "topic": "percentages",
+  "q": "A pharmacy marks up every item 40 percent above its wholesale cost. If an item has a wholesale cost of $25, what is its retail price?",
+  "q_ko": "약국이 모든 상품에 도매가의 40%를 붙여 판다. 도매가 $25 상품의 소매가는?",
+  "options": [
+   "$35.00",
+   "$40.00",
+   "$30.00",
+   "$32.50",
+   "$27.50"
+  ],
+  "answer": 0,
+  "explain": "25 × 1.40 = $35.00.",
+  "id": 433
+ },
+ {
+  "topic": "ratios",
+  "q": "A survey found that 2 out of every 5 households own a pet. If 1,350 households were surveyed, how many of them do not own a pet?",
+  "q_ko": "설문에서 5가구 중 2가구가 반려동물을 기른다. 1,350가구를 조사했다면 기르지 않는 가구는?",
+  "options": [
+   "1,080",
+   "675",
+   "810",
+   "540",
+   "945"
+  ],
+  "answer": 2,
+  "explain": "기르지 않는 비율 3/5. 1,350 × 3/5 = 810가구.",
+  "id": 434
+ },
+ {
+  "topic": "percentages",
+  "q": "Erin's paycheck is $1,840 before deductions. If 22 percent of her pay is withheld for taxes and benefits, what is her take-home pay?",
+  "q_ko": "에린의 세전 급여가 $1,840이다. 세금과 복리후생으로 22%가 공제되면 실수령액은?",
+  "options": [
+   "$1,472.00",
+   "$1,435.20",
+   "$1,354.60",
+   "$1,288.00",
+   "$1,518.40"
+  ],
+  "answer": 1,
+  "explain": "1,840 × 0.78 = $1,435.20.",
+  "id": 435
+ },
+ {
+  "topic": "work_rate",
+  "q": "A painting crew finishes 3 rooms in 5 hours. Working at the same rate, how many hours will the crew need to paint 12 rooms?",
+  "q_ko": "도장팀이 5시간에 방 3개를 칠한다. 같은 속도로 방 12개를 칠하려면 몇 시간이 걸리는가?",
+  "options": [
+   "20",
+   "24",
+   "18",
+   "15",
+   "36"
+  ],
+  "answer": 0,
+  "explain": "12 ÷ 3 = 4배. 5 × 4 = 20시간.",
+  "id": 436
+ },
+ {
+  "topic": "percentages",
+  "q": "A car dealer sold 45 cars in April and 60 cars in May. If the dealer's goal is a 20 percent increase from May to June, how many cars must be sold in June?",
+  "q_ko": "자동차 대리점이 4월에 45대, 5월에 60대를 팔았다. 5월 대비 6월에 20% 늘리는 것이 목표라면 몇 대를 팔아야 하는가?",
+  "options": [
+   "66",
+   "75",
+   "80",
+   "70",
+   "72"
+  ],
+  "answer": 4,
+  "explain": "60 × 1.20 = 72대.",
+  "id": 437
+ },
+ {
+  "topic": "money",
+  "q": "Nadia bought 4 pounds of apples priced at $2.40 per pound and 3 pounds of grapes priced at $3.20 per pound. How much did she spend in all?",
+  "q_ko": "나디아가 파운드당 $2.40인 사과 4파운드와 파운드당 $3.20인 포도 3파운드를 샀다. 총 지출은?",
+  "options": [
+   "$21.60",
+   "$18.40",
+   "$19.20",
+   "$22.40",
+   "$16.80"
+  ],
+  "answer": 2,
+  "explain": "사과 $9.60 + 포도 $9.60 = $19.20.",
+  "id": 438
+ },
+ {
+  "topic": "integers",
+  "q": "A shipment of 720 books is divided equally among 15 branch libraries. How many books does each branch library receive?",
+  "q_ko": "책 720권을 15개 분관 도서관에 똑같이 나눈다. 각 분관이 받는 책은 몇 권인가?",
+  "options": [
+   "36",
+   "54",
+   "48",
+   "42",
+   "60"
+  ],
+  "answer": 2,
+  "explain": "720 ÷ 15 = 48권.",
+  "id": 439
+ },
+ {
+  "topic": "unit_conversion",
+  "q": "Colonel Barrett allotted 3 hours and 20 minutes for a briefing with 10 speakers. If each speaker is given an equal amount of time, how many minutes does each have?",
+  "q_ko": "배럿 대령이 발표자 10명이 참여하는 브리핑에 3시간 20분을 배정했다. 각 발표자에게 똑같이 나누면 몇 분씩인가?",
+  "options": [
+   "22",
+   "18",
+   "20",
+   "15",
+   "25"
+  ],
+  "answer": 2,
+  "explain": "200분 ÷ 10 = 20분.",
+  "id": 440
+ },
+ {
+  "topic": "money",
+  "q": "A gym charges a one-time registration fee of $75 plus $38 per month. How much will a member pay in total for a full year of membership?",
+  "q_ko": "헬스장이 1회 등록비 $75에 월 $38을 받는다. 1년 회원권의 총 비용은?",
+  "options": [
+   "$563",
+   "$531",
+   "$494",
+   "$456",
+   "$588"
+  ],
+  "answer": 1,
+  "explain": "$75 + (12 × $38 = $456) = $531.",
+  "id": 441
+ },
+ {
+  "topic": "averages",
+  "q": "Owen scored a total of 45 points in his first 6 basketball games. To average 9 points per game over 10 games, how many points must he score in the remaining 4 games?",
+  "q_ko": "오웬은 처음 6경기에서 총 45점을 넣었다. 10경기 평균 9점이 되려면 남은 4경기에서 몇 점을 넣어야 하는가?",
+  "options": [
+   "45",
+   "36",
+   "40",
+   "54",
+   "48"
+  ],
+  "answer": 0,
+  "explain": "필요 총점 90점 − 45점 = 45점.",
+  "id": 442
+ },
+ {
+  "topic": "fractions",
+  "q": "A tailor uses 2 3/4 yards of fabric to make each jacket. How many complete jackets can be made from a bolt containing 33 yards of fabric?",
+  "q_ko": "재단사가 재킷 한 벌에 원단 2와 3/4야드를 쓴다. 33야드 원단으로 재킷을 몇 벌 만들 수 있는가?",
+  "options": [
+   "12",
+   "11",
+   "14",
+   "9",
+   "10"
+  ],
+  "answer": 0,
+  "explain": "33 ÷ 2.75 = 12벌.",
+  "id": 443
+ },
+ {
+  "topic": "money",
+  "q": "A parking garage charges $4.00 for the first hour and $2.50 for each hour after that. What is the charge for parking a car for 7 hours?",
+  "q_ko": "주차장이 첫 1시간에 $4.00, 이후 시간당 $2.50을 받는다. 7시간 주차 요금은?",
+  "options": [
+   "$17.50",
+   "$16.00",
+   "$19.00",
+   "$21.50",
+   "$24.00"
+  ],
+  "answer": 2,
+  "explain": "$4.00 + 6시간 × $2.50 = 4 + 15 = $19.00.",
+  "id": 444
+ },
+ {
+  "topic": "proportions",
+  "q": "A 6-acre field yields 2,400 bushels of wheat. At the same rate of production, how many bushels would a 15-acre field yield?",
+  "q_ko": "6에이커 밭에서 밀 2,400부셸이 난다. 같은 생산율이면 15에이커에서는 몇 부셸이 나는가?",
+  "options": [
+   "5,400",
+   "4,800",
+   "6,600",
+   "6,000",
+   "7,200"
+  ],
+  "answer": 3,
+  "explain": "에이커당 400부셸. 400 × 15 = 6,000부셸.",
+  "id": 445
+ },
+ {
+  "topic": "percentages",
+  "q": "Priyanka's savings account held $3,200. She withdrew 15 percent of the balance and later deposited $520. What is the new balance in the account?",
+  "q_ko": "프리얀카의 저축 계좌에 $3,200이 있었다. 잔액의 15%를 인출한 뒤 $520을 입금했다. 새 잔액은?",
+  "options": [
+   "$3,720",
+   "$3,440",
+   "$3,040",
+   "$2,720",
+   "$3,240"
+  ],
+  "answer": 4,
+  "explain": "인출 후 $2,720. $520 입금 → $3,240.",
+  "id": 446
  }
 ]

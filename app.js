@@ -2390,10 +2390,37 @@ function buildAV(n){
     avId:q.id, avTopic:q.topic,
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
 }
+/* 실제 교재(AFOQTGuide·Barron·Trivium)의 산수·수학은 인물과 상황이 있는 긴 문장형이 주류다
+   — AR 평균 29단어에 19%가 사람 이름으로 시작하는 시나리오. 앱 문항은 이보다 간결해서
+   그대로 뽑으면 실전보다 쉽게 읽힌다. 그래서 실전 문체에 가까운 문항을 더 자주 출제한다.
+   (물리과학은 앱 쪽이 이미 실제보다 길어 가중치를 적용하지 않는다.) */
+const MQ_CTX=/\b(store|school|team|company|worker|employee|car|truck|train|plane|flight|recipe|garden|room|farm|shop|restaurant|student|teacher|driver|pilot|customer|crew|squadron|machine|factory|hotel|library|bank|family|gym|museum|theater|bakery|pharmacy|charity|hospital)\w*/i;
+const MQ_COMMON=new Set([
+  "What","How","The","Which","Solve","Using","Simplify","Two","After","One","Working","Evaluate","Factor",
+  "Find","She","You","For","When","Given","Six","During","Approximately","Convert","Three","Expand","Express",
+  "Write","Assuming","Calculate","Four","Five","Seven","Eight","Nine","Ten","They","Last","This","That","There",
+  "Both","Each","Every","Multiply","Divide","Add","Subtract","Estimate","Round","Assume","Determine","Compute",
+  "Consider","Suppose","Rewrite","Reduce","Identify","Choose","Select","According","Between","Because","Before",
+  "Since","While","With","Without","About","Above","Below","From","Into","Over","Under","Water","Coffee","Class",
+  "Tickets","Running","Sound","Milk","Fuel","Ground","Rectangular","Together","Assume"]);
+function mqNamed(t){                       // 등장인물(고유명사) 포함 여부 — 흔한 문두 단어는 제외
+  const m=String(t).match(/\b[A-Z][a-z]{2,}\b/g)||[];
+  return m.some(x=>!MQ_COMMON.has(x));
+}
+function mqWeight(q){
+  const t=q.q||"", w=t.trim().split(/\s+/).length;
+  let s = w<18 ? 0.20 : (w<=25 ? 0.9 : (w<=34 ? 2.8 : 3.4));
+  if(mqNamed(t)) s*=3.0; else if(MQ_CTX.test(t)) s*=1.3;
+  return s;
+}
 // Generic bilingual MCQ builder (Arithmetic Reasoning / Math Knowledge / Physical Science).
 function buildMCQ(pool,section,n){
   const sec=section.toLowerCase(), rec=state.qSeen[sec]||{};
-  return pickFresh(pool, n, q=>rec[q.id]||0).map(q=>({
+  const seenAt=q=>rec[q.id]||0;
+  const picked = (section==="AR"||section==="MK")
+    ? pickFreshW(pool, n, seenAt, mqWeight)
+    : pickFresh(pool, n, seenAt);
+  return picked.map(q=>({
     section, prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:q.topic||"", qid:q.id,
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
 }
@@ -2488,7 +2515,7 @@ function buildWK(n){
   for(const w of top){
     if(items.length>=n) break;
     // 실전 형식: 보기 5개(A~E). 약 35%는 '뜻(정의문) 고르기' 유형으로 출제한다.
-    const defMode=(w.id%100)<35 && !!w.def;
+    const defMode=(w.id%100)<20 && !!w.def;
     const dpool=defMode?WORDS.filter(x=>!!x.def):pool;
     const correct= defMode ? w.def : w.synonyms[(Math.random()*w.synonyms.length)|0];
     if(!correct) continue;
@@ -2564,7 +2591,35 @@ function vaItem(a){
              a.why||a.explain||"",
              ...(Array.isArray(a.wrong)?a.wrong.map(w=>`✗ ${w.pair} — ${w.why}`):[])].filter(Boolean).join("\n")};
 }
-function buildVA(n){ return pickFresh(ANALOGIES, n, a=>{ const v=state.va[a.id]; return (v&&v.seen>0)?seenTs(v):0; }).map(vaItem); }
+// 실제 교재(AFOQTGuide·Barron·Trivium 150문항)의 관계 유형 분포에 맞춰 출제 비중을 보정한다.
+// 앱 데이터는 '직업/도구'가 과다(17% vs 5%)하고 '동의어'가 부족(10% vs 19%)해,
+// 그대로 뽑으면 실전과 체감이 달라진다.
+function vaClass(a){
+  const r=((a.relation||"")+" "+(a.relKo||"")).toLowerCase();
+  if(/degree|intensity|정도/.test(r)) return "int";
+  if(/synonym|동의/.test(r))          return "syn";
+  if(/antonym|반의/.test(r))          return "ant";
+  if(/part|whole|부분|전체/.test(r))   return "part";
+  if(/cause|effect|원인|결과/.test(r)) return "cause";
+  if(/unit|measure|단위/.test(r))      return "unit";
+  if(/group|member|집단|무리/.test(r)) return "grp";
+  if(/tool|worker|직업|도구/.test(r))  return "work";
+  return "etc";
+}
+const VA_W={syn:1.85, ant:0.75, int:1.10, work:0.30, part:0.40, cause:0.65, unit:0.90, grp:1.50, etc:1.30};
+// pickFresh 의 가중 버전 — '안 푼 것 우선' 규칙은 유지하고 그 안에서 가중 무작위로 뽑는다.
+function pickFreshW(pool, n, seenAt, weightOf){
+  const fresh=[], seen=[];
+  for(const x of pool){ const t=seenAt(x); if(t) seen.push([t,x]); else fresh.push(x); }
+  const key=x=>Math.pow(Math.random(), 1/Math.max(weightOf(x)||1, 0.01));
+  const out=fresh.map(x=>[key(x),x]).sort((a,b)=>b[0]-a[0]).slice(0,n).map(e=>e[1]);
+  if(out.length<n){ seen.sort((a,b)=>a[0]-b[0]);
+    out.push(...seen.slice(0,n-out.length).map(e=>e[1])); }
+  return out;
+}
+function buildVA(n){ return pickFreshW(ANALOGIES, n,
+  a=>{ const v=state.va[a.id]; return (v&&v.seen>0)?seenTs(v):0; },
+  a=>VA_W[vaClass(a)]||1).map(vaItem); }
 function rcItem(p,qi){
   const q=p.questions[qi];
   return {section:"RC",prompt:q.q, stem:null, sub:p.topic||"",
@@ -2611,7 +2666,7 @@ function buildWrongWK(){
 }
 // 실전 형식: 보기 5개(A~E). 약 35%는 '뜻(정의문) 고르기' — 바론 실전 단어 문항의 절반이 이 형태다.
 function buildWKfor(w){
-  const defMode = (w.id%100)<35 && !!w.def;
+  const defMode = (w.id%100)<20 && !!w.def;
   const pool=WORDS.filter(x=> defMode ? !!x.def : (x.synonyms&&x.synonyms.length));
   const correct = defMode ? w.def : w.synonyms[(Math.random()*w.synonyms.length)|0];
   if(!correct) return null;
