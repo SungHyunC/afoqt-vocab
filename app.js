@@ -2547,17 +2547,15 @@ function buildWK(n){
   const items=[];
   for(const w of top){
     if(items.length>=n) break;
-    // 실전 형식: 보기 5개(A~E). 약 35%는 '뜻(정의문) 고르기' 유형으로 출제한다.
-    const defMode=(w.id%100)<20 && !!w.def;
-    const dpool=defMode?WORDS.filter(x=>!!x.def):pool;
-    const correct= defMode ? w.def : w.synonyms[(Math.random()*w.synonyms.length)|0];
+    // 실전 형식: 보기 5개(A~E). 실제 시험(Form T)의 단어 문항은 전부 '의미가 가장 가까운 단어' 고르기다.
+    const correct= w.synonyms[(Math.random()*w.synonyms.length)|0];
     if(!correct) continue;
     const wSyn=new Set(w.synonyms.map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
     const dist=[];
-    for(const o of shuffle(dpool)){
+    for(const o of shuffle(pool)){
       if(dist.length>=4) break;
       if(o.id===w.id) continue;
-      const c= defMode ? o.def : o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue;
+      const c= o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue;
       const cl=c.toLowerCase();
       if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue;
       dist.push(c);
@@ -2565,7 +2563,7 @@ function buildWK(n){
     if(dist.length<4) continue;
     const options=shuffle([correct,...dist]);
     items.push({section:"WK",
-      prompt: defMode?"다음 단어의 뜻으로 가장 알맞은 것은?":"다음 단어와 의미가 가장 가까운 것은?",
+      prompt:"다음 단어와 의미가 가장 가까운 것은?",
       stem:w.word, sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),
       options, answer:options.indexOf(correct), wordId:w.id, tier:tierOf(w),
       explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`});
@@ -2695,22 +2693,21 @@ function buildWrongWK(){
     const one=buildWKfor(w); if(one) out.push(wrongTag(one,b[k]||1)); }
   return out;
 }
-// 실전 형식: 보기 5개(A~E). 약 35%는 '뜻(정의문) 고르기' — 바론 실전 단어 문항의 절반이 이 형태다.
+// 실전 형식: 보기 5개(A~E). 단어 문항은 항상 '의미가 가장 가까운 단어' 고르기 — 뜻(정의문) 고르기는 쓰지 않는다.
 function buildWKfor(w){
-  const defMode = (w.id%100)<20 && !!w.def;
-  const pool=WORDS.filter(x=> defMode ? !!x.def : (x.synonyms&&x.synonyms.length));
-  const correct = defMode ? w.def : w.synonyms[(Math.random()*w.synonyms.length)|0];
+  const pool=WORDS.filter(x=> x.synonyms&&x.synonyms.length);
+  const correct = w.synonyms[(Math.random()*w.synonyms.length)|0];
   if(!correct) return null;
   const wSyn=new Set((w.synonyms||[]).map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
   const dist=[];
   for(const o of shuffle(pool)){ if(dist.length>=4) break; if(o.id===w.id) continue;
-    const c= defMode ? o.def : o.synonyms[(Math.random()*o.synonyms.length)|0];
+    const c= o.synonyms[(Math.random()*o.synonyms.length)|0];
     if(!c) continue; const cl=c.toLowerCase();
     if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue; dist.push(c); }
   if(dist.length<4) return null;
   const options=shuffle([correct,...dist]);
   return {section:"WK",
-    prompt: defMode?"다음 단어의 뜻으로 가장 알맞은 것은?":"다음 단어와 의미가 가장 가까운 것은?",
+    prompt:"다음 단어와 의미가 가장 가까운 것은?",
     stem:w.word,
     sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),options,answer:options.indexOf(correct),
     wordId:w.id,tier:tierOf(w),explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`};
