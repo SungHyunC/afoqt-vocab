@@ -2589,10 +2589,13 @@ function vaExplainHTML(a, opts){
 // 실제 AFOQT 유추는 '문장완성형(A is to B as C is to ___)'이 주류(65~76%)이고,
 // '짝맞추기(A:B :: C:D)'가 나머지다. id 기준으로 7:3 비율을 고정 배분한다(같은 문항은 항상 같은 형식).
 const UPVA = s => String(s).toUpperCase();
+// 짝맞추기형은 실제 시험에서 첫 글자만 대문자로 표기된다 (예: "Borough is to City as").
+const TCVA = s => String(s).trim().split(/\s+/)
+  .map(w=>w?w[0].toUpperCase()+w.slice(1).toLowerCase():w).join(" ");
 function vaItem(a){
   const relLine=`관계: ${a.relKo?a.relKo+" ("+(a.relation||"")+")":(a.relation||"")}`;
   const cp=(a.options.find(o=>o.correct)||{}).pair;
-  if(cp && (a.id%10)<7){
+  if(cp && (a.id%20)<13){          // 문장완성 65% : 짝맞추기 35% — 현행 Form T 교재 비율
     // 오답 보기는 '오답 짝의 뒷단어'에서 뽑되, 문제에 이미 등장한 단어는 제외한다.
     const ans=cp[1];
     const seen=new Set([String(ans).toLowerCase(),
@@ -2614,9 +2617,10 @@ function vaItem(a){
                  `${a.stem[0]} : ${a.stem[1]} 의 관계를 ${cp[0]} 에 적용하면 → ${ans}`].filter(Boolean).join("\n")};
     }
   }
-  const opts=shuffle(a.options.map(o=>({t:`${UPVA(o.pair[0])} : ${UPVA(o.pair[1])}`,c:!!o.correct})));
-  return {section:"VA",prompt:"다음과 같은 관계를 가진 짝은?",
-    stem:`${UPVA(a.stem[0])} : ${UPVA(a.stem[1])}`, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
+  // 짝맞추기형: 실제 시험처럼 "X is to Y as" + 보기 "A is to B" (콜론 표기 아님)
+  const opts=shuffle(a.options.map(o=>({t:`${TCVA(o.pair[0])} is to ${TCVA(o.pair[1])}`,c:!!o.correct})));
+  return {section:"VA",prompt:`${TCVA(a.stem[0])} is to ${TCVA(a.stem[1])} as`,
+    stem:null, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
     options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.c),
     explain:[relLine,
              a.why||a.explain||"",

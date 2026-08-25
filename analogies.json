@@ -227,8 +227,8 @@
    },
    {
     "pair": [
-     "key",
-     "piano"
+     "lava",
+     "rock"
     ],
     "correct": false
    },
@@ -258,8 +258,8 @@
     "why": "개체와 그 집합체 — 유기적 부분:전체와 다름."
    },
    {
-    "pair": "key : piano",
-    "why": "기계 부품 관계 — 생물의 신체 부분과 층위가 다름."
+    "pair": "lava : rock",
+    "why": "'liquid : solid form' 관계의 짝 — 문제의 'part : whole' 관계와 다름."
    },
    {
     "pair": "page : book",
@@ -785,8 +785,8 @@
    },
    {
     "pair": [
-     "sheep",
-     "wool"
+     "crime",
+     "police"
     ],
     "correct": false
    }
@@ -806,8 +806,8 @@
     "why": "동물과 울음소리 — 얻어내는 산물이 아님."
    },
    {
-    "pair": "sheep : wool",
-    "why": "역시 원천:산물이나 매일 얻는 대응은 chicken:egg가 더 가까움."
+    "pair": "crime : police",
+    "why": "'worker : what they analyze' 관계의 짝 — 문제의 'source : product' 관계와 다름."
    },
    {
     "pair": "guard : sentry",
@@ -989,8 +989,8 @@
    },
    {
     "pair": [
-     "calf",
-     "cattle"
+     "dog",
+     "bark"
     ],
     "correct": false
    }
@@ -1010,8 +1010,8 @@
     "why": "동물과 사육 장소 — 새끼:성체가 아님."
    },
    {
-    "pair": "calf : cattle",
-    "why": "새끼:성체지만 cattle은 집합명사라 대응이 어긋남."
+    "pair": "dog : bark",
+    "why": "'relationship : meaning' 관계의 짝 — 문제의 'young : adult' 관계와 다름."
    },
    {
     "pair": "puddle : rain",
@@ -3151,8 +3151,8 @@
    },
    {
     "pair": [
-     "rain",
-     "flood"
+     "full",
+     "empty"
     ],
     "correct": false
    },
@@ -3178,8 +3178,8 @@
   "why": "DROUGHT가 길어지면 그 결과로 FAMINE이 온다. 같은 인과로 pollution이 disease를 불러오므로 정답.",
   "wrong": [
    {
-    "pair": "rain : flood",
-    "why": "인과지만 사회적 결과가 아닌 즉각 현상이라 대응이 약함."
+    "pair": "full : empty",
+    "why": "'category:example' 관계의 짝 — 문제의 'cause : effect' 관계와 다름."
    },
    {
     "pair": "hunger : food",
@@ -4307,8 +4307,8 @@
    },
    {
     "pair": [
-     "rain",
-     "flood"
+     "steam",
+     "water"
     ],
     "correct": false
    },
@@ -4338,8 +4338,8 @@
     "why": "폭풍과 동반 요소 — 산출 관계가 아님."
    },
    {
-    "pair": "rain : flood",
-    "why": "인과지만 구름:비처럼 직접 산출하는 관계는 아님."
+    "pair": "steam : water",
+    "why": "'liquid : solid form' 관계의 짝 — 문제의 'cause : effect' 관계와 다름."
    },
    {
     "pair": "sun : hot",
@@ -7095,15 +7095,15 @@
    },
    {
     "pair": [
-     "ruler",
-     "length"
+     "fleet",
+     "ship"
     ],
     "correct": false
    },
    {
     "pair": [
-     "scale",
-     "weight"
+     "burn",
+     "flammable"
     ],
     "correct": false
    },
@@ -7122,12 +7122,12 @@
   "why": "ODOMETER(주행거리계)는 DISTANCE(거리)를 재는 계기다. 같은 관계로 barometer(기압계)는 pressure(기압)를 재므로 정답.",
   "wrong": [
    {
-    "pair": "ruler : length",
-    "why": "길이를 재지만 눈금 자는 계기가 아님."
+    "pair": "fleet : ship",
+    "why": "'group : member' 관계의 짝 — 문제의 'instrument : measurement' 관계와 다름."
    },
    {
-    "pair": "scale : weight",
-    "why": "측정은 맞으나 -meter 계기류 대응이 아님."
+    "pair": "burn : flammable",
+    "why": "'characteristic : result' 관계의 짝 — 문제의 'instrument : measurement' 관계와 다름."
    },
    {
     "pair": "meter : measure",
@@ -7238,8 +7238,8 @@
    },
    {
     "pair": [
-     "rich",
-     "poor"
+     "gas",
+     "liquid"
     ],
     "correct": false
    },
@@ -7262,8 +7262,8 @@
     "why": "동사 반의어로 성향 형용사쌍이 아님."
    },
    {
-    "pair": "rich : poor",
-    "why": "재산의 많고 적음 — 소비 성향 아님."
+    "pair": "gas : liquid",
+    "why": "'preparation : event' 관계의 짝 — 문제의 'antonym' 관계와 다름."
    },
    {
     "pair": "money : bank",
@@ -9145,8 +9145,8 @@
    },
    {
     "pair": [
-     "farmer",
-     "crop"
+     "sky",
+     "high"
     ],
     "correct": false
    },
@@ -9166,8 +9166,8 @@
     "why": "직업과 도구 — 만든 물건이 아님."
    },
    {
-    "pair": "farmer : crop",
-    "why": "생산에 가깝지만 재배물이지 제작품 아님."
+    "pair": "sky : high",
+    "why": "'group : member' 관계의 짝 — 문제의 'worker : product' 관계와 다름."
    },
    {
     "pair": "loom : thread",
@@ -9628,8 +9628,8 @@
    },
    {
     "pair": [
-     "spider",
-     "web"
+     "lawyer",
+     "defendant"
     ],
     "correct": false
    }
@@ -9646,8 +9646,8 @@
     "why": "동물과 그 무기/행위 — 집이 아님."
    },
    {
-    "pair": "spider : web",
-    "why": "거미줄은 주거보다 사냥용 구조물 성격."
+    "pair": "lawyer : defendant",
+    "why": "'worker : output' 관계의 짝 — 문제의 'animal : home' 관계와 다름."
    },
    {
     "pair": "carpentry : wood",
@@ -13164,8 +13164,8 @@
    },
    {
     "pair": [
-     "rich",
-     "poor"
+     "kiln",
+     "clay"
     ],
     "correct": false
    }
@@ -13182,8 +13182,8 @@
     "why": "장소와 그 생산물 — 반의어 아님."
    },
    {
-    "pair": "rich : poor",
-    "why": "빈부 대립 — 땅의 비옥함 축이 아님."
+    "pair": "kiln : clay",
+    "why": "'tool : material' 관계의 짝 — 문제의 'antonym' 관계와 다름."
    },
    {
     "pair": "sword : wield",
@@ -16700,8 +16700,8 @@
    },
    {
     "pair": [
-     "bark",
-     "dog"
+     "engineer",
+     "machine"
     ],
     "correct": false
    }
@@ -16718,8 +16718,8 @@
     "why": "소리와 그 속성."
    },
    {
-    "pair": "bark : dog",
-    "why": "같은 소리:동물 관계지만 표준 정답은 bleat:sheep."
+    "pair": "engineer : machine",
+    "why": "'worker : plan/design' 관계의 짝 — 문제의 'sound : animal' 관계와 다름."
    },
    {
     "pair": "calendar : month",
@@ -18325,8 +18325,8 @@
    },
    {
     "pair": [
-     "flammable",
-     "burn"
+     "sand",
+     "dune"
     ],
     "correct": false
    },
@@ -18346,8 +18346,8 @@
     "why": "동작과 그 결과."
    },
    {
-    "pair": "flammable : burn",
-    "why": "문제의 FLAMMABLE을 그대로 반복함."
+    "pair": "sand : dune",
+    "why": "'place : lacking' 관계의 짝 — 문제의 'characteristic : potential' 관계와 다름."
    },
    {
     "pair": "hot : flame",
@@ -27695,8 +27695,8 @@
    },
    {
     "pair": [
-     "detest",
-     "dislike"
+     "hard",
+     "tender"
     ],
     "correct": false
    },
@@ -27726,8 +27726,8 @@
   "why": "DISLIKE(싫어하다)가 극단으로 강해진 감정이 DETEST(혐오하다)다. 같은 관계로 like가 강해지면 adore이므로 정답.",
   "wrong": [
    {
-    "pair": "detest : dislike",
-    "why": "강함:약함으로 방향이 반대인 쌍."
+    "pair": "hard : tender",
+    "why": "'worker:workplace' 관계의 짝 — 문제의 'degree / intensity' 관계와 다름."
    },
    {
     "pair": "hate : love",
@@ -27831,8 +27831,8 @@
    },
    {
     "pair": [
-     "exhausted",
-     "tired"
+     "tree",
+     "canopy"
     ],
     "correct": false
    },
@@ -27862,8 +27862,8 @@
   "why": "TIRED가 극도로 심해진 상태가 EXHAUSTED(탈진한)다. 같은 관계로 hungry가 심해지면 starving이므로 정답.",
   "wrong": [
    {
-    "pair": "exhausted : tired",
-    "why": "강함:약함으로 방향이 반대인 쌍."
+    "pair": "tree : canopy",
+    "why": "'worker:tool' 관계의 짝 — 문제의 'degree / intensity' 관계와 다름."
    },
    {
     "pair": "sleep : rest",
@@ -28314,8 +28314,8 @@
    },
    {
     "pair": [
-     "sand",
-     "glass"
+     "masonry",
+     "mason"
     ],
     "correct": false
    },
@@ -28350,8 +28350,8 @@
     "why": "양떼와 들판 — 원천:산물이 아님."
    },
    {
-    "pair": "sand : glass",
-    "why": "'raw material : refined product' 관계의 짝 — 문제의 'source : product' 관계와 다름."
+    "pair": "masonry : mason",
+    "why": "'craft : craftsman' 관계의 짝 — 문제의 'source : product' 관계와 다름."
    }
   ]
  },
@@ -34284,8 +34284,8 @@
   "options": [
    {
     "pair": [
-     "loud",
-     "quiet"
+     "sloop",
+     "ship"
     ],
     "correct": false
    },
@@ -34334,8 +34334,8 @@
     "why": "투명함과 빛 — 반대 관계가 아님."
    },
    {
-    "pair": "loud : quiet",
-    "why": "'cause:effect' 관계의 짝 — 문제의 'antonym' 관계와 다름."
+    "pair": "sloop : ship",
+    "why": "'symbol:meaning' 관계의 짝 — 문제의 'antonym' 관계와 다름."
    }
   ]
  },
@@ -36413,8 +36413,8 @@
    },
    {
     "pair": [
-     "blade",
-     "fan"
+     "building",
+     "plan"
     ],
     "correct": false
    },
@@ -36442,8 +36442,8 @@
     "why": "큰 단위와 작은 단위 — 방향이 반대."
    },
    {
-    "pair": "blade : fan",
-    "why": "'effect:cause' 관계의 짝 — 문제의 'part : whole' 관계와 다름."
+    "pair": "building : plan",
+    "why": "'action:object' 관계의 짝 — 문제의 'part : whole' 관계와 다름."
    }
   ]
  },
@@ -49255,8 +49255,8 @@
    },
    {
     "pair": [
-     "slow",
-     "sluggish"
+     "fleet",
+     "ship"
     ],
     "correct": false
    },
@@ -49282,8 +49282,8 @@
   "why": "BRISK와 QUICK은 모두 '활기차고 빠른'을 뜻하는 동의어다. 같은 관계로 lively와 swift도 '생기 있고 신속한'을 뜻하는 동의어이므로 정답.",
   "wrong": [
    {
-    "pair": "slow : sluggish",
-    "why": "동의어이나 '느림' — 빠름과 정반대."
+    "pair": "fleet : ship",
+    "why": "'group : member' 관계의 짝 — 문제의 'synonym' 관계와 다름."
    },
    {
     "pair": "dull : flat",
@@ -49731,8 +49731,8 @@
    },
    {
     "pair": [
-     "loud",
-     "noisy"
+     "victory",
+     "laurel"
     ],
     "correct": false
    },
@@ -49758,8 +49758,8 @@
   "why": "TRANQUIL과 CALM은 모두 '고요하고 차분한'을 뜻하는 동의어다. 같은 관계로 serene과 placid도 '평온한'을 뜻하는 동의어이므로 정답.",
   "wrong": [
    {
-    "pair": "loud : noisy",
-    "why": "동의어이나 '시끄러움' — 고요함과 반대."
+    "pair": "victory : laurel",
+    "why": "'symbol : meaning' 관계의 짝 — 문제의 'synonym' 관계와 다름."
    },
    {
     "pair": "wild : frantic",
@@ -51567,8 +51567,8 @@
    },
    {
     "pair": [
-     "hero",
-     "brave"
+     "canvas",
+     "gallery"
     ],
     "correct": false
    },
@@ -51598,8 +51598,8 @@
     "why": "특성:사람으로 순서가 뒤집힘."
    },
    {
-    "pair": "hero : brave",
-    "why": "사람:특성이나 결점으로 정의된 명사가 아님 — 차선."
+    "pair": "canvas : gallery",
+    "why": "'group : members' 관계의 짝 — 문제의 'person : trait' 관계와 다름."
    },
    {
     "pair": "deceitful : liar",
