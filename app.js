@@ -1959,7 +1959,11 @@ const MATH_TYPES=[
   steps:"① 현재 나이 x 설정 → ② '~년 전/후' 조건을 식으로 → ③ 방정식 풀기",
   trap:"몇 년이 지나도 두 사람의 나이 '차'는 변하지 않는다 — 이걸 쓰면 빠르다."},
  {k:"ar_unit",sec:"AR",name:"단위 환산",keys:["unit_conversion"],
-  pts:["1 ft = 12 in · 1 yd = 3 ft · 1 mi = 5,280 ft","1시간 = 3,600초 · 1 lb = 16 oz"],
+  pts:["길이: 1 ft = 12 in · 1 yd = 3 ft · 1 mi = 5,280 ft",
+   "부피: 1 gal = 4 qt = 8 pt = 128 fl oz · 1 cup = 8 fl oz",
+   "무게: 1 lb = 16 oz · 1 ton = 2,000 lb",
+   "넓이·부피: 1 sq yd = 9 sq ft · 1 cu yd = 27 cu ft · 1 cu ft = 1,728 cu in",
+   "시간·속도: 1시간 = 3,600초 · 60 mph = 88 ft/s"],
   steps:"단위를 분수로 곱해 소거: 60 mi/hr * (5280 ft/mi) ÷ (3600 s/hr) = 88 ft/s",
   trap:"곱할지 나눌지 헷갈리면 '단위가 소거되는 방향'으로 판단."},
  // ── 📐 수학 지식 (MK) ──
@@ -2972,6 +2976,51 @@ const CS_MATH=[
    "독립 사건은 확률을 곱하고, 배반 사건은 더한다",
  ]],
 ];
+/* 단위 환산 — AFOQT 산수·수학은 미국 관습단위로 나오므로 이 표를 모르면 못 푼다.
+   실제 시험에는 환산표가 주어지지 않는다. */
+const CS_UNITS=[
+ ["길이",[
+   "1 ft = 12 in · 1 yd = 3 ft = 36 in",
+   "1 mile = 5,280 ft = 1,760 yd",
+   "1 in = 2.54 cm · 1 m ≈ 3.28 ft · 1 km ≈ 0.62 mile",
+ ]],
+ ["넓이",[
+   "1 sq ft = 144 sq in · 1 sq yd = 9 sq ft",
+   "1 acre = 4,840 sq yd = 43,560 sq ft",
+   "길이가 n배면 넓이는 n^2배 (단위 환산도 제곱!)",
+ ]],
+ ["부피·액량",[
+   "1 cup = 8 fl oz · 1 pint = 2 cups = 16 fl oz",
+   "1 quart = 2 pints = 4 cups = 32 fl oz",
+   "1 gallon = 4 quarts = 8 pints = 128 fl oz",
+   "1 cu ft = 1,728 cu in · 1 cu yd = 27 cu ft",
+   "1 gallon ≈ 231 cu in · 1 cu ft ≈ 7.5 gallons",
+   "1 tbsp = 3 tsp · 1 L ≈ 1.06 quart",
+ ]],
+ ["무게",[
+   "1 lb = 16 oz · 1 ton = 2,000 lb",
+   "1 kg ≈ 2.2 lb · 물 1 gallon ≈ 8.34 lb",
+ ]],
+ ["시간",[
+   "1 hr = 60 min = 3,600 sec · 1 day = 24 hr = 1,440 min",
+   "1 week = 7 days · 1 year = 12 months = 52 weeks",
+   "분→시간은 ÷60 (예: 45분 = 0.75시간) — 소수로 바꿔야 곱셈이 편하다",
+ ]],
+ ["속도",[
+   "60 mph = 88 ft/sec  ← 외워두면 즉시 변환된다",
+   "mph → ft/sec 는 * 22/15 · ft/sec → mph 는 * 15/22",
+   "mph = miles ÷ hours (분이면 * 60/분)",
+ ]],
+ ["온도",[
+   "°F = (9/5)°C + 32 · °C = (5/9)(°F - 32)",
+   "-40°는 화씨·섭씨가 같은 유일한 온도",
+ ]],
+ ["환산하는 법",[
+   "단위를 분수로 곱해 소거한다: 60 mi/hr * (5,280 ft/mi) ÷ (3,600 s/hr) = 88 ft/s",
+   "곱할지 나눌지 헷갈리면 '없애려는 단위가 약분되는 방향'으로 세운다",
+   "큰 단위 → 작은 단위는 곱하기, 작은 단위 → 큰 단위는 나누기",
+ ]],
+];
 const CS_AV=[
  "4가지 힘: 양력↔중력 · 추력↔항력 — 등속 수평비행이면 네 힘이 평형",
  "3축 조종: 롤(세로축)=에일러론 · 피치(가로축)=엘리베이터 · 요(수직축)=러더",
@@ -3001,12 +3050,15 @@ function renderCheatsheet(){
   const paceRows=[["WK","단어",25,5],["VA","유추",25,8],["RC","독해",25,24],["AR","산수",25,29],["MK","수학",25,22],
     ["AV","항공",20,8],["TR","표읽기",40,7],["IC","계기",25,5],["BC","블록",30,4.5]]
     .map(([c,ko,n,min])=>`<tr><td>${ko}</td><td class="muted">${n}문항 · ${min}분</td><td style="text-align:right"><b>${SECRATE[c]}초</b>/문항</td></tr>`).join("");
+  const unitBlocks=CS_UNITS.map(([t,rows])=>`<div class="cs-sub">${esc(t)}</div>${rows.map(r=>`<div class="cs-f">${fmtMath(r)}</div>`).join("")}`).join("");
   const mathBlocks=CS_MATH.map(([t,rows])=>`<div class="cs-sub">${esc(t)}</div>${rows.map(r=>`<div class="cs-f">${fmtMath(r)}</div>`).join("")}`).join("");
   box.innerHTML=`
     <div class="hintbox" style="margin-bottom:14px">시험 전날 밤·시험장 가는 길에 한 번 훑는 용도예요. 제목을 누르면 접혔다 펴져요.</div>
     <details class="cs-sec" open><summary>⏱️ 과목별 시간 배분</summary><table class="cs-table">${paceRows}</table>
       <div class="guide-src">AFOQT는 오답 감점이 없어요 — 시간이 모자라면 남은 문항은 반드시 다 찍기!</div></details>
     <details class="cs-sec"><summary>🔢 수학 공식 (산수·수학지식)</summary>${mathBlocks}</details>
+    <details class="cs-sec"><summary>📏 단위 환산 — 시험지에 표가 안 나온다</summary>${unitBlocks}
+      <div class="guide-src">산수·수학 문항의 약 1/4이 미국 관습단위(갤런·피트·온스)로 나와요. 이 표는 통째로 외워야 합니다.</div></details>
     <details class="cs-sec"><summary>🔗 유추 관계 유형 — 빈도순 TOP ${Math.min(14,Object.keys(rel).length)}</summary><table class="cs-table">${relRows}</table>
       <div class="guide-src">짝의 '관계'뿐 아니라 '방향'(부분→전체 vs 전체→부분)까지 같아야 정답!</div></details>
     <details class="cs-sec"><summary>✈️ 항공 핵심 암기 ${CS_AV.length}줄</summary>${CS_AV.map(x=>`<div class="cs-f">${fmtMath(x)}</div>`).join("")}</details>
