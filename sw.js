@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-82-0";  // 독해 지문 원복
+const CACHE = "afoqt-v4-83-0";  // 모의고사 독해 지문 압축
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
