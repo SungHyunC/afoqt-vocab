@@ -2282,9 +2282,8 @@ function finishVA(){ const s=vaSession,total=s.items.length,got=s.score/10,pct=M
    ============================================================ */
 /* 독해 풀 완전 분리 — id가 4의 배수(60지문)는 모의고사 전용, 나머지(180지문)는 연습 전용.
    연습에서 미리 읽은 지문이 시험에 다시 나와 점수가 부풀지 않도록 서로 절대 섞이지 않는다. */
-// 모의고사 풀: 실전 길이(≈3,000자) 장문 지문 + 기존 시험 전용 지문
-function rcExamPool(){ return READING.filter(p=>p.longform||p.id%4===0); }
-function rcPracticePool(){ return READING.filter(p=>!p.longform&&p.id%4!==0); }
+function rcExamPool(){ return READING.filter(p=>p.id%4===0); }
+function rcPracticePool(){ return READING.filter(p=>p.id%4!==0); }
 function rcStats(){ const ids=new Set(rcPracticePool().map(p=>p.id));
   let done=0,examSeen=0,sc=0,to=0;
   for(const [id,x] of Object.entries(state.rc)){ if(!ids.has(+id)) continue;
@@ -2676,9 +2675,7 @@ function buildRC(n){
   const items=[];
   // 모의고사 전용 풀에서만 출제 — 지문 단위로 안 푼 것 우선 (한 지문에 문항 3~5개)
   const pool=rcExamPool();
-  // 실전 감각을 위해 장문 지문을 먼저 배치한다(안 푼 것 우선 규칙은 그대로 유지).
-  const order=pickFresh(pool, pool.length, rcSeenAt)
-    .sort((a,b)=>(b.longform?1:0)-(a.longform?1:0));
+  const order=pickFresh(pool, pool.length, rcSeenAt);
   for(const p of order){
     for(let qi=0;qi<p.questions.length;qi++){
       if(items.length>=n) break;
