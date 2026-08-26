@@ -719,3 +719,17 @@ sub{vertical-align:-.25em}
     border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
     background:var(--card2);color:var(--txt);font:600 11px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
 }
+
+/* ── 보기 번호 배지 (키보드 환경에서만) ── */
+@media (hover:hover) and (pointer:fine){
+  #synqChoices,#examChoices{counter-reset:chn}
+  #synqChoices .choice,#examChoices .choice{position:relative;padding-left:46px;counter-increment:chn}
+  #synqChoices .choice::before,#examChoices .choice::before{
+    content:counter(chn); position:absolute; left:13px; top:50%; transform:translateY(-50%);
+    width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line); border-bottom-width:2px; border-radius:6px;
+    background:var(--bg2); color:var(--muted);
+    font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+  #examChoices.choices-fig .choice{padding-left:16px}
+  #examChoices.choices-fig .choice::before{top:8px; transform:none}
+}

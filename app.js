@@ -1438,6 +1438,31 @@ function renderSynAt(){
   if($("#synqNext")) $("#synqNext").onclick=()=>{ if(s.pos<s.history.length-1){ s.pos++; renderSynAt(); } else { newSynQ(); } };
 }
 
+// 보기 선택형 화면(동의어 퀴즈·시험)의 키보드 조작.
+// 1~9 로 보기 선택, ←/→ 로 이동, Enter/Space 로 '다음'.
+// e.code 기준이라 한글 입력 상태에서도 그대로 동작한다.
+function wireChoiceKeys(){
+  document.addEventListener("keydown",e=>{
+    const t=e.target;
+    if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"||t.isContentEditable)) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    const vis=id=>{ const v=$(id); return v&&getComputedStyle(v).display!=="none"; };
+    let box=null,next=null,prev=null;
+    if(vis("#view-synq")&&typeof synq!=="undefined"&&synq&&$("#synqChoices")){
+      box=$("#synqChoices"); next=$("#synqNext"); prev=$("#synqPrev");
+    } else if(vis("#view-exam")&&exam&&!exam.submitted&&$("#examChoices")){
+      box=$("#examChoices"); next=$("#drillNext")||$("#examNext"); prev=$("#examPrev");
+    } else return;
+    const c=e.code;
+    const dig=/^(Digit|Numpad)([1-9])$/.exec(c);
+    if(dig){ const b=[...box.querySelectorAll(".choice")][+dig[2]-1];
+      if(b&&!b.disabled){ e.preventDefault(); b.click(); } return; }
+    if(c==="Enter"||c==="NumpadEnter"||c==="Space"||c==="ArrowRight"){
+      if(next&&!next.disabled){ e.preventDefault(); next.click(); } return; }
+    if(c==="ArrowLeft"){ if(prev&&!prev.disabled){ e.preventDefault(); prev.click(); } return; }
+  });
+}
+
 /* ============================================================
    WORD LIST
    ============================================================ */
@@ -3816,7 +3841,7 @@ function wire(){
   $("#vkMock")&&($("#vkMock").onclick=()=>startStudySet(mockWordIds(),"모의고사 단어"));
   // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
   window.addEventListener("scroll",pumpWords,true); window.addEventListener("resize",pumpWords);
-  wireStudyKeys();
+  wireStudyKeys(); wireChoiceKeys();
   { const m=$("#wordMore"); if(m) m.onclick=()=>appendWords(WORD_PAGE); }
   $$("#wordFilters .chip").forEach(c=>c.onclick=()=>{ $$("#wordFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); wordFilter=c.dataset.f; renderWords(); });
   // analogy

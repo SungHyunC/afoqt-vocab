@@ -178,7 +178,7 @@
   <div class="study-top"><button class="btn sm ghost" id="synqBack">← 어휘</button><span id="synqScore">0 / 0</span><span></span></div>
   <div id="synqSetup">
     <h2 class="section">⚡ 동의어 퀴즈</h2>
-    <p class="muted" style="margin:0 0 14px">AFOQT Word Knowledge 실전형 — 단어 하나에 <b>가장 비슷한 뜻</b>을 4개 중에서 고르면 바로 다음 문제로. 빠르게 연속 반복돼요.</p>
+    <p class="muted" style="margin:0 0 14px">AFOQT Word Knowledge 실전형 — 단어 하나에 <b>가장 비슷한 뜻</b>을 5개 중에서 고르면 바로 다음 문제로. 빠르게 연속 반복돼요.</p>
     <div class="field"><label>범위</label>
       <select id="synqScope">
         <option value="high" selected>⭐ 빈출 단어</option>
@@ -196,6 +196,7 @@
   </div>
   <div id="synqPlay" class="hidden">
     <div id="synqArea"></div>
+    <div class="kbd-hint"><span><kbd>1</kbd>~<kbd>5</kbd> 보기 선택</span><span><kbd>Space</kbd> 새 문제</span><span><kbd>←</kbd> <kbd>→</kbd> 이전·다음</span></div>
     <button class="btn ghost" id="synqStop" style="margin-top:14px">그만하기</button>
   </div>
 </main>
@@ -815,6 +816,7 @@
     </div>
     <div class="progressbar" style="margin-bottom:14px"><i id="examBar"></i></div>
     <div id="examArea"></div>
+    <div class="kbd-hint"><span><kbd>1</kbd>~<kbd>5</kbd> 보기 선택</span><span><kbd>Space</kbd> 다음 문제</span><span><kbd>←</kbd> <kbd>→</kbd> 이전·다음</span></div>
     <div class="exam-nav">
       <button class="btn ghost" id="examPrev">← 이전</button>
       <button class="btn ghost" id="examNext">다음 →</button>
