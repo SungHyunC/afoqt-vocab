@@ -816,12 +816,13 @@ function examPhase(){ const d=daysLeft();
     "📕 오답 노트 재시험",
     "📇 단어·공식 유지 복습 (확인 시험 재확인)",
     "📊 예상 점수 90%대 확인"]};
+  const ed=String(state.settings.exam_date||"").slice(5).replace("-","/").replace(/^0/,"");
   return {key:"final",name:"마무리 (D-10)",emoji:"🔥",tasks:[
     "📕 오답·빈출 단어만 빠르게",
     "🎯 가벼운 모의고사 1회",
     "📊 예상 점수 최종 확인",
     "😴 컨디션·수면 관리",
-    "✅ 9/28 응시 준비물·일정 확인"]};
+    `✅ ${ed||"시험일"} 응시 준비물·일정 확인`]};
 }
 function renderWeekPlan(){
   const box=$("#weekPlan"); if(!box) return;
