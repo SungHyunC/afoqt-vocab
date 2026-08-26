@@ -931,7 +931,7 @@ const V16_PHASE={0:["1구간 · 어휘 엔진 걸기","코어 절반 노출 + �
                  6:["2구간 · 실전 속도 붙이기","코어 완주 + 세 과목 모두 실제 시험 시간으로. 타이머를 끄지 않는다."],
                  12:["3구간 · 굳히기","신규 어휘 중단. 새로 넣으면 외운 단어가 밀린다."]};
 const V16=[
- {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 — 필터로 한 번에",go:()=>openWordsMock()},
+ {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 — 플래시카드",go:()=>startStudySet(mockWordIds(),"모의고사 단어")},
          {i:"🔗",l:"유추 훑어보기 — 관계 유형 구경",go:()=>go("vabrowse")},
          {i:"📖",l:"독해 2지문 (타이머 없이 정확도만)",go:()=>go("reading")}]},
  {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
@@ -1179,11 +1179,28 @@ function apManual(dir){ const s=ap; if(!s) return; apClearTimer();
 let session=null;
 function snapSession(){ if(!session) return; const s=session;
   state.session={queue:s.queue.slice(),idx:s.idx,plan:s.plan,studied:s.studied,correct:s.correct,
-    done:[...(s.doneSet||[])],miss:[...(s.missSet||[])],neww:[...(s.newSet||[])],day:todayStr()}; }
+    done:[...(s.doneSet||[])],miss:[...(s.missSet||[])],neww:[...(s.newSet||[])],day:todayStr(),scope:s.scope||null}; }
+// 특정 묶음만 플래시카드로 학습 (모의고사 단어, 단어장 필터 결과 등).
+// SRS 채점은 그대로 적용하되, 하루 목표(target)는 건드리지 않는다 — 별도 학습이므로.
+function mockWordIds(){ return WORDS.filter(w=>w.mock&&w.mock.length).map(w=>w.id); }
+function startStudySet(ids,label){
+  ids=[...new Set((ids||[]).filter(id=>WMAP.has(id)))];
+  if(!ids.length){ toast("학습할 단어가 없어요."); return; }
+  // 아직 안 외운 것 → 복습 기한이 지난 것 → 나머지 순
+  const rank=id=>{ const c=getCard(id); if(c.status==="new") return 0;
+    return (c.due&&new Date(c.due).getTime()<=Date.now())?1:2; };
+  const queue=ids.slice().sort((a,b)=>rank(a)-rank(b));
+  const newSet=new Set(queue.filter(id=>getCard(id).status==="new"));
+  session={queue,idx:0,plan:queue.length,studied:0,correct:0,
+    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),scope:label||"set"};
+  snapSession(); saveLocal();
+  go("study"); $("#studyDone").classList.add("hidden"); renderCard();
+  toast(`${label||"선택 묶음"} ${queue.length}개 — 신규 ${newSet.size} · 복습 ${queue.length-newSet.size}`,2800);
+}
 function startStudy(){
   // Resume an unfinished session (don't restart from scratch when you re-enter).
   const sv=state.session;
-  if(sv&&sv.day===todayStr()&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
+  if(sv&&!sv.scope&&sv.day===todayStr()&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
     session={queue:sv.queue.slice(),idx:sv.idx,plan:sv.plan,studied:sv.studied||0,correct:sv.correct||0,
       doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
       revealed:false,startTs:Date.now()};
@@ -1446,6 +1463,10 @@ function renderWords(keep){
   box.onclick=e=>{ const el=e.target.closest(".witem"); if(el) showWord(+el.dataset.id); };
   appendWords(Math.max(WORD_PAGE,prev));
   pumpWords();
+  const sbtn=$("#wordStudy");
+  if(sbtn){ sbtn.classList.toggle("hidden", wordRows.length===0);
+    sbtn.textContent=`▶︎ 이 ${wordRows.length}개로 플래시카드`;
+    sbtn.onclick=()=>startStudySet(wordRows.map(w=>w.id), wordFilter==="mock"?"모의고사 단어":"단어장 선택"); }
 }
 function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   const syn=(w.synonyms||[]).map(x=>`<span>${esc(x)}</span>`).join("");
@@ -3764,6 +3785,7 @@ function wire(){
   $("#confirmHomeBtn").onclick=()=>go("home");
   // words
   $("#wordsBack").onclick=()=>go("vocab"); $("#searchBox").oninput=e=>{ wordSearch=e.target.value.trim(); renderWords(); };
+  $("#vkMock")&&($("#vkMock").onclick=()=>startStudySet(mockWordIds(),"모의고사 단어"));
   // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
   window.addEventListener("scroll",pumpWords,true); window.addEventListener("resize",pumpWords);
   { const m=$("#wordMore"); if(m) m.onclick=()=>appendWords(WORD_PAGE); }
