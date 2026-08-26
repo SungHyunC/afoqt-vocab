@@ -1294,6 +1294,33 @@ function finishStudy(){ const s=session, secs=Math.round((Date.now()-s.startTs)/
   $("#doneMore").classList.toggle("hidden", dueCards().length===0 && newCardIds(1).length===0);
   if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); }
 
+// PC 키보드 조작 — 마우스 없이 빠르게 넘긴다.
+// Space: 뜻 보기 → (뜻이 보이는 상태에서) 알맞음으로 넘김. 1~4로 바로 채점.
+// e.code를 쓰므로 한글 입력 상태에서도 동작한다.
+function wireStudyKeys(){
+  document.addEventListener("keydown",e=>{
+    const sv=$("#view-study");
+    if(!sv||getComputedStyle(sv).display==="none") return;
+    if(!session) return;
+    const t=e.target;
+    if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.isContentEditable)) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    const done=$("#studyDone");
+    if(done&&!done.classList.contains("hidden")) return;   // 완료 화면에선 비활성
+    const id=session.queue[session.idx];
+    const grade=q=>{ if(session.revealed||session.seen) answer(id,q); else flipCard(); };
+    const c=e.code;
+    if(c==="Space"||c==="Enter"||c==="NumpadEnter"){ e.preventDefault();
+      if(!session.revealed) flipCard(); else answer(id,"good"); return; }
+    if(c==="ArrowDown"||c==="ArrowUp"){ e.preventDefault(); flipCard(); return; }
+    const dig=/^(Digit|Numpad)([1-4])$/.exec(c);
+    if(dig){ e.preventDefault(); grade(["again","hard","good","easy"][+dig[2]-1]); return; }
+    if(c==="KeyS"){ e.preventDefault(); const b=$("#starBtn"); if(b) b.click(); return; }
+    if(c==="KeyP"){ e.preventDefault(); const b=$("#studyArea .spk"); if(b) b.click(); return; }
+    if(c==="Escape"||e.key==="Escape"){ e.preventDefault(); const b=$("#studyBack"); if(b) b.click(); return; }
+  });
+}
+
 /* ============================================================
    QUIZ (WK)
    ============================================================ */
@@ -3788,6 +3815,7 @@ function wire(){
   $("#vkMock")&&($("#vkMock").onclick=()=>startStudySet(mockWordIds(),"모의고사 단어"));
   // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
   window.addEventListener("scroll",pumpWords,true); window.addEventListener("resize",pumpWords);
+  wireStudyKeys();
   { const m=$("#wordMore"); if(m) m.onclick=()=>appendWords(WORD_PAGE); }
   $$("#wordFilters .chip").forEach(c=>c.onclick=()=>{ $$("#wordFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); wordFilter=c.dataset.f; renderWords(); });
   // analogy
