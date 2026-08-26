@@ -681,3 +681,30 @@ sub{vertical-align:-.25em}
 .mock-note{font-size:12px;color:var(--muted);margin:-6px 2px 8px;padding:6px 10px;
   background:var(--card2);border-radius:9px;border:1px solid var(--line)}
 .mock-note.ai{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,var(--line))}
+
+/* ── Verbal 16일 날짜별 체크리스트 ───────────────────────── */
+.v16-list{margin-top:14px}
+.v16-ph{padding:14px 2px 7px;border-top:1px solid var(--line);margin-top:8px}
+.v16-ph:first-child{border-top:none;margin-top:0;padding-top:4px}
+.v16-ph b{display:block;font-size:13.5px;color:var(--brand2)}
+.v16-ph span{display:block;font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:2px}
+.v16-d{border:1px solid var(--line);border-radius:12px;margin-bottom:7px;overflow:hidden;background:var(--bg2)}
+.v16-d.today{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.v16-d.all{border-color:var(--ok)}
+.v16-hd{display:flex;align-items:center;gap:10px;padding:11px 13px;cursor:pointer}
+.v16-dn{font-size:13px;font-weight:800;min-width:42px;font-variant-numeric:tabular-nums;color:var(--txt)}
+.v16-d.today .v16-dn{color:var(--gold)}
+.v16-d.past:not(.all) .v16-dn{color:var(--muted)}
+.v16-dt{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;flex:1}
+.v16-dt span{opacity:.75}
+.v16-pr{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.v16-d.all .v16-pr{color:var(--ok);font-weight:700}
+.v16-ar{font-size:11px;color:var(--muted);width:12px;text-align:center}
+.v16-tasks{padding:2px 13px 11px;display:flex;flex-direction:column;gap:8px}
+.v16-t{display:flex;align-items:center;gap:10px}
+.v16-box{flex:0 0 auto;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;background:none}
+.v16-t.on .v16-box{background:var(--ok);border-color:var(--ok)}
+.v16-l{flex:1;font-size:13.5px;line-height:1.45;min-width:0}
+.v16-t.on .v16-l{color:var(--muted);text-decoration:line-through}
+.v16-go{flex:0 0 auto}

@@ -145,6 +145,7 @@ const DEFAULT_STATE = () => ({
   apExposure:{}, // 자동 넘김 노출 기록: 'YYYY-MM-DD' -> 들은 단어 수(스트릭 인정용, SRS엔 영향 X)
   badges:{},     // 달성 배지: badgeId -> 1
   dayStats:{},   // 날짜별 과목 풀이 수: 'YYYY-MM-DD' -> {WK:n,VA:n,...} (플랜 자동체크)
+  v16:null,      // Verbal 16일 체크리스트: {done:{"dayIdx:taskIdx":1}}
   plan30:null,   // 30일 완성 플랜: {start:'YYYY-MM-DD', done:{day:{taskKey:1}}}
   rootStep:0,    // 어근 추론 코치 진행 위치
   speed:{},      // 풀이 속도 누적: 'WK'|'VA'|... -> {n,ms,slow} (답한 문항 기준)
@@ -921,6 +922,117 @@ function planTasks(){
 function planEndLabel(){ const p=planState(); const d=parseDate(p.start); d.setDate(d.getDate()+planLen()-1);
   return `${d.getMonth()+1}/${d.getDate()}`; }
 function planDone(){ const p=planState(); return p.done[todayStr()]||(p.done[todayStr()]={}); }
+/* ============================================================
+   Verbal 역전 16일 — 시험일 기준 날짜별 체크리스트.
+   날짜는 exam_date에서 역산하므로 시험일을 바꿔도 자동으로 따라간다.
+   (i=0 → D-16 … i=15 → D-1)
+   ============================================================ */
+const V16_PHASE={0:["1구간 · 어휘 엔진 걸기","코어 절반 노출 + 유추 관계 체득. 독해는 시간 재지 말고 정확도만."],
+                 6:["2구간 · 실전 속도 붙이기","코어 완주 + 세 과목 모두 실제 시험 시간으로. 타이머를 끄지 않는다."],
+                 12:["3구간 · 굳히기","신규 어휘 중단. 새로 넣으면 외운 단어가 밀린다."]};
+const V16=[
+ {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 — 필터로 한 번에",go:()=>openWordsMock()},
+         {i:"🔗",l:"유추 훑어보기 — 관계 유형 구경",go:()=>go("vabrowse")},
+         {i:"📖",l:"독해 2지문 (타이머 없이 정확도만)",go:()=>go("reading")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"🔗",l:"반의어 집중 30문항 — 유추 최다 관계(10.8%)",go:()=>{go("analogy");startAnalogy(false);}},
+         {i:"📖",l:"독해 2지문",go:()=>go("reading")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}},
+         {i:"📖",l:"독해 2지문",go:()=>go("reading")},
+         {i:"📐",l:"수학 25문항 — Pilot 유지",go:()=>startExam("mk",{practice:true})}]},
+ {tasks:[{i:"📇",l:"어휘 신규 120개 — 주말 증량",go:()=>startStudy()},
+         {i:"📖",l:"독해 4지문",go:()=>go("reading")},
+         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}}]},
+ {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudy()},
+         {i:"🎯",l:"Verbal 섹터 모의고사 1회 — 오늘 점수를 남겨야 비교가 된다",go:()=>startExam("secVerbal")},
+         {i:"📊",l:"약점 리포트 확인",go:()=>go("report")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"📕",l:"어제 모의고사 오답 전부 복기",go:()=>go("report")},
+         {i:"✈️",l:"항공 20문항 — Pilot 유지",go:()=>startExam("av",{practice:true})}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"⏱️",l:"단어 시험 25문항 5분 — 모르면 즉시 찍고 넘기기",go:()=>startExam("wk")},
+         {i:"📖",l:"독해 2지문 · 지문당 4분 48초",go:()=>go("reading")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"⏱️",l:"유추 25문항 8분 실전",go:()=>startExam("va")},
+         {i:"📐",l:"수학 25문항",go:()=>startExam("mk",{practice:true})}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"⏱️",l:"독해 25문항 24분 풀세트 — 지문 하나에 4분 48초 넘기면 넘어가기",go:()=>startExam("rc")},
+         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"✅",l:"확인 시험 — 1구간에 외운 단어 검증",go:()=>go("confirm")},
+         {i:"✈️",l:"항공 20문항",go:()=>startExam("av",{practice:true})}]},
+ {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudy()},
+         {i:"🎯",l:"T01 Verbal 3과목 연속 — 유추 8분 → 단어 5분 → 독해 24분",go:()=>go("exam")},
+         {i:"📕",l:"오답 정리",go:()=>go("report")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 120개 — 코어 1,052개 완주",go:()=>startStudy()},
+         {i:"📕",l:"어제 오답 재시험",go:()=>go("report")},
+         {i:"📐",l:"수학 25문항",go:()=>startExam("mk",{practice:true})}]},
+ {tasks:[{i:"🚫",l:"신규 중단 — 학습중·복습 단어만 반복",go:()=>go("synq")},
+         {i:"🎯",l:"T02 Verbal 3과목",go:()=>go("exam")},
+         {i:"📕",l:"오답 정리",go:()=>go("report")}]},
+ {tasks:[{i:"📕",l:"오답 노트 재시험",go:()=>go("report")},
+         {i:"🎯",l:"BARRON1 Verbal",go:()=>go("exam")},
+         {i:"✈️",l:"항공 20문항",go:()=>startExam("av",{practice:true})}]},
+ {tasks:[{i:"🎯",l:"TRIVIUM1 Verbal",go:()=>go("exam")},
+         {i:"📜",l:"시험 전 요약 시트 1회독",go:()=>openCheatsheet("plan")},
+         {i:"📇",l:"흔들리는 단어만 훑기",go:()=>go("synq")}]},
+ {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 훑기",go:()=>openWordsMock()},
+         {i:"📜",l:"요약 시트 한 번 더",go:()=>openCheatsheet("plan")},
+         {i:"😴",l:"새 문제 금지 · 일찍 자기 — 전날 잠이 실력이다",go:null}]},
+];
+function v16Date(i){ const ex=parseDate(state.settings.exam_date||"2026-09-11");
+  const d=new Date(ex); d.setDate(d.getDate()-(16-i)); return todayStr(d); }
+function v16State(){ if(!state.v16) state.v16={done:{}}; if(!state.v16.done) state.v16.done={}; return state.v16; }
+function openWordsMock(){ go("words"); wordFilter="mock"; wordSearch="";
+  const sb=$("#searchBox"); if(sb) sb.value="";
+  $$("#wordFilters .chip").forEach(c=>c.classList.toggle("on",c.dataset.f==="mock"));
+  renderWords(); }
+let v16Open=null;
+function renderV16(){
+  const box=$("#v16"); if(!box) return;
+  const st=v16State(), today=todayStr();
+  let dn=0, tot=0;
+  V16.forEach((d,i)=>{ tot+=d.tasks.length; d.tasks.forEach((_,j)=>{ if(st.done[i+":"+j]) dn++; }); });
+  const pct=tot?Math.round(dn/tot*100):0;
+  const todayIdx=V16.findIndex((_,i)=>v16Date(i)===today);
+  if(v16Open===null) v16Open = todayIdx>=0 ? todayIdx : 0;
+  const rows=V16.map((d,i)=>{
+    const ds=v16Date(i), wd="일월화수목금토"[parseDate(ds).getDay()];
+    const c=d.tasks.filter((_,j)=>st.done[i+":"+j]).length, all=c===d.tasks.length;
+    const isToday=ds===today, past=ds<today && !isToday, open=v16Open===i;
+    const ph=V16_PHASE[i];
+    const head=ph?`<div class="v16-ph"><b>${esc(ph[0])}</b><span>${esc(ph[1])}</span></div>`:"";
+    const body=open?`<div class="v16-tasks">${d.tasks.map((t,j)=>{
+        const on=!!st.done[i+":"+j];
+        return `<div class="v16-t ${on?"on":""}">
+          <button class="v16-box" data-ck="${i}:${j}" aria-label="완료 표시">${on?"✓":""}</button>
+          <div class="v16-l">${t.i} ${esc(t.l)}</div>
+          ${t.go&&!on?`<button class="btn sm primary v16-go" data-go3="${i}:${j}">시작 →</button>`:""}
+        </div>`; }).join("")}</div>`:"";
+    return `${head}<div class="v16-d ${isToday?"today":""} ${past?"past":""} ${all?"all":""}" data-d="${i}">
+        <div class="v16-hd" data-tg="${i}">
+          <div class="v16-dn">D-${16-i}</div>
+          <div class="v16-dt">${ds.slice(5).replace("-","/")} <span>(${wd})</span></div>
+          <div class="v16-pr">${all?"✓ 완료":c+"/"+d.tasks.length}</div>
+          <div class="v16-ar">${open?"▾":"▸"}</div>
+        </div>${body}</div>`;
+  }).join("");
+  box.innerHTML=`<div class="row" style="justify-content:space-between;align-items:flex-start">
+      <div><div class="muted" style="font-size:13px">🗣 Verbal 역전 16일</div>
+        <div class="plan-day">${dn}<small> / ${tot} 완료</small></div>
+        <div class="muted" style="font-size:12px;margin-top:4px">어휘가 유추·단어·독해 셋 전부에 들어간다</div></div>
+      <div class="ring" style="--p:${pct}"><div class="v"><b>${pct}%</b><span>16일</span></div></div>
+    </div>
+    <div class="progressbar" style="margin-top:12px"><i style="width:${pct}%"></i></div>
+    <div class="v16-list">${rows}</div>`;
+  $$("#v16 .v16-hd").forEach(el=>el.onclick=()=>{ const i=+el.dataset.tg; v16Open=(v16Open===i?-1:i); renderV16(); });
+  $$("#v16 .v16-box").forEach(b=>b.onclick=e=>{ e.stopPropagation(); const k=b.dataset.ck;
+    if(st.done[k]) delete st.done[k]; else st.done[k]=1; saveLocal(); renderV16(); });
+  $$("#v16 .v16-go").forEach(b=>b.onclick=e=>{ e.stopPropagation();
+    const [i,j]=b.dataset.go3.split(":").map(Number); const t=V16[i].tasks[j]; if(t&&t.go) t.go(); });
+}
+
 function renderPlan(){
   const p=planState(), i=planIdx(), tasks=planTasks(), man=planDone();
   const isDone=t=>t.done||!!man[t.k];
@@ -949,6 +1061,7 @@ function renderPlan(){
   $$("#planTasks .pchk").forEach(b=>b.onclick=()=>{ const k=b.dataset.chk;
     if(man[k]) delete man[k]; else man[k]=1; saveLocal(); renderPlan(); });
   $$("#planTasks .pgo").forEach(b=>b.onclick=()=>{ const t=tasks.find(x=>x.k===b.dataset.go2); if(t&&t.go) t.go(); });
+  renderV16();
   $("#planAllDone").classList.toggle("hidden", doneN<tasks.length);
   const ps=$("#optPlanPsSj");
   if(ps){ ps.checked=flag("plan_ps_sj");

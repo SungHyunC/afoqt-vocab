@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-94-0";  // 단위 환산표 추가
+const CACHE = "afoqt-v4-95-0";  // 단위 환산표 추가
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
