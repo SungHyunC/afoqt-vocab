@@ -807,7 +807,7 @@ function examPhase(){ const d=daysLeft();
   if(d>21) return {key:"build",name:"2단계 · 드릴·속도",emoji:"💪",tasks:[
     "✅ 확인 시험으로 외운 단어 검증 (찍은 것 솎아내기)",
     "🔢 수학 실전 시험 격일 (AR·MK 번갈아)",
-    "📖 독해 24분 타이머로 실전 페이스",
+    "📖 독해 38분 타이머로 실전 페이스",
     "🔗 유추 시험 15+ 달성",
     "🎯 주 1회 전과목 모의고사 → 📊 약점 확인"]};
   if(d>10) return {key:"mock",name:"3단계 · 실전 시뮬",emoji:"🎯",tasks:[
@@ -890,7 +890,7 @@ function planTasks(){
   const rcN=clamp(Math.ceil(rcRemainQ()/planLeft()),5,32);
   t.push({k:"va",icon:"🔗",label:`유추 ${vaN}문항`,sub:"🗣 Verbal",min:Math.round(vaN*0.8),
     done:dayStat("VA")>=vaN, go:()=>{ go("analogy"); startAnalogy(false); }});
-  t.push({k:"rc",icon:"📖",label:`독해 ${rcN}문항 (24분 타이머)`,sub:"🗣 Verbal",min:Math.round(rcN*2.2),
+  t.push({k:"rc",icon:"📖",label:`독해 ${rcN}문항 (38분 타이머)`,sub:"🗣 Verbal",min:Math.round(rcN*2.2),
     done:dayStat("RC")>=rcN, go:()=>go("reading")});
   for(const x of PLAN_DAILY){
     // 표읽기·블록·계기: 외부 앱에서 연습 중이면 여기선 '했다' 체크만 (앱 내 드릴은 선택)
@@ -1812,7 +1812,7 @@ const CURR_TRACKS={
   rc:{name:"독해",icon:"📖",stages:[
     {name:"1단계 · 주제 찾기",desc:"지문의 중심 내용(main idea)만 집중 훈련",n:6,need:5,build:n=>buildRCType(["main_idea"],n)},
     {name:"2단계 · 세부·추론",desc:"세부사항과 추론 문제 풀기",n:8,need:6,build:n=>buildRCType(["detail","inference"],n)},
-    {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 24분 실전 — 15개 이상이면 졸업!",exam:"rc",need:15}]},
+    {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 38분 실전 — 15개 이상이면 졸업!",exam:"rc",need:15}]},
 };
 let curTrack="va", curSes=null;
 function getCurr(t){ return state.curr[t]||(state.curr[t]={unlocked:0,passed:{},best:{}}); }
@@ -2351,8 +2351,8 @@ const SECBUILD={ WK:n=>buildWK(n), VA:n=>buildVA(n), RC:n=>buildRC(n),
   AV:n=>buildAV(n), SJ:n=>buildSJ(n), TR:n=>buildTR(n), IC:n=>buildIC(n), BC:n=>buildBC(n) };
 // Realistic seconds-per-question per subtest (from official AFOQT time ÷ count),
 // so every preset's timer/label stays consistent with its section mix.
-// RC: 공식 시간 24분/25문항 ÷ 25 = 57.6 ≈ 58초/문항.
-const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:11, IC:12, BC:9, PS:30, SJ:131 };
+// RC: 공식 시간 38분/25문항 ÷ 25 = 91.2 ≈ 91초/문항 (Form T 팸플릿 Table 2).
+const SECRATE={ WK:12, VA:19, RC:91, AR:70, MK:53, AV:24, TR:11, IC:12, BC:9, PS:30, SJ:42 };
 // Build a preset from a list of [sectionCode, count] specs; derives timer + label.
 function composeMock(name,specs,tag){
   const secs=specs.reduce((s,[c,n])=>s+SECRATE[c]*n,0);
@@ -3047,7 +3047,8 @@ function renderCheatsheet(){
   const roots=Object.entries(ROOTIDX||{}).map(([f,e])=>({f,m:e.m,n:e.ids.length,ex:e.ids.slice(0,2).map(id=>(WMAP.get(id)||{}).word).filter(Boolean)}))
     .sort((a,b)=>b.n-a.n).slice(0,24);
   const rootRows=roots.map(r=>`<tr><td><b>${esc(r.f)}</b></td><td>${esc(r.m)}</td><td class="muted">${esc(r.ex.join(", "))}</td></tr>`).join("");
-  const paceRows=[["WK","단어",25,5],["VA","유추",25,8],["RC","독해",25,24],["AR","산수",25,29],["MK","수학",25,22],
+  const paceRows=[["WK","단어",25,5],["VA","유추",25,8],["RC","독해",25,38],["AR","산수",25,29],["MK","수학",25,22],
+    ["SJ","상황판단",50,35],["PS","물리과학",20,10],
     ["AV","항공",20,8],["TR","표읽기",40,7],["IC","계기",25,5],["BC","블록",30,4.5]]
     .map(([c,ko,n,min])=>`<tr><td>${ko}</td><td class="muted">${n}문항 · ${min}분</td><td style="text-align:right"><b>${SECRATE[c]}초</b>/문항</td></tr>`).join("");
   const unitBlocks=CS_UNITS.map(([t,rows])=>`<div class="cs-sub">${esc(t)}</div>${rows.map(r=>`<div class="cs-f">${fmtMath(r)}</div>`).join("")}`).join("");
