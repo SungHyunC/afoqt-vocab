@@ -1074,6 +1074,11 @@ function renderPlan(){
 function renderVocab(){
   const cnt=countByStatus();
   $("#vkLearned").textContent=cnt.learned; $("#vkMastered").textContent=cnt.mastered;
+  // 모의고사 묶음을 하다 말았으면 버튼에 이어서 할 위치를 표시한다.
+  { const b=$("#vkMock"), sv=state.session, n=mockWordIds().length;
+    if(b) b.textContent = (sv&&sv.scope==="모의고사 단어"&&sv.idx<sv.plan)
+      ? `📕 모의고사 단어 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
+      : `📕 모의고사 단어 플래시카드 — 실제 출제 확인된 ${n}개`; }
   $("#vkHigh").textContent=cnt.highLearned; $("#vkRemain").textContent=cnt.remaining;
   const cf=confirmPoolFirst().length, cr=confirmPoolRecheck().length;
   $("#vkConfirmSub").textContent = cr>0?`🔁 재확인 ${cr}개 대기 · 첫 확인 ${cf}개`:cf>0?`확인 대기 ${cf}개`:"확인할 단어 없음";
@@ -1183,19 +1188,42 @@ function snapSession(){ if(!session) return; const s=session;
 // 특정 묶음만 플래시카드로 학습 (모의고사 단어, 단어장 필터 결과 등).
 // SRS 채점은 그대로 적용하되, 하루 목표(target)는 건드리지 않는다 — 별도 학습이므로.
 function mockWordIds(){ return WORDS.filter(w=>w.mock&&w.mock.length).map(w=>w.id); }
+// 묶음 학습일 때만 '처음부터' 버튼을 띄운다 — 이어서 하기가 기본이므로 되돌릴 길이 필요하다.
+function updateStudyRestart(){
+  const b=$("#studyRestart"); if(!b) return;
+  const on=!!(session&&session.scope);
+  b.classList.toggle("hidden",!on);
+  if(on) b.onclick=()=>{
+    if(!confirm(`${session.scope} 학습을 처음부터 다시 시작할까요?\n지금까지의 진행 위치만 초기화되고, 외운 기록은 그대로 남습니다.`)) return;
+    const ids=session.queue.slice(), tag=session.scope;
+    session=null; state.session=null; saveLocal();
+    startStudySet(ids,tag);
+  };
+}
 function startStudySet(ids,label){
   ids=[...new Set((ids||[]).filter(id=>WMAP.has(id)))];
   if(!ids.length){ toast("학습할 단어가 없어요."); return; }
+  const tag=label||"set", sv=state.session;
+  // 하던 묶음이 남아 있으면 이어서 — 매번 처음부터 다시 시작하면 순서가 바뀌어
+  // 같은 단어를 반복하고 끝을 못 본다. 날짜가 바뀌어도 이어간다(148개는 며칠에 걸쳐 돈다).
+  if(sv&&sv.scope===tag&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
+    session={queue:sv.queue.slice(),idx:sv.idx,plan:sv.plan,studied:sv.studied||0,correct:sv.correct||0,
+      doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
+      revealed:false,startTs:Date.now(),scope:tag};
+    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
+    toast(`이어서 학습합니다 ▶ ${sv.idx+1} / ${sv.plan}`,2600);
+    return;
+  }
   // 아직 안 외운 것 → 복습 기한이 지난 것 → 나머지 순
   const rank=id=>{ const c=getCard(id); if(c.status==="new") return 0;
     return (c.due&&new Date(c.due).getTime()<=Date.now())?1:2; };
   const queue=ids.slice().sort((a,b)=>rank(a)-rank(b));
   const newSet=new Set(queue.filter(id=>getCard(id).status==="new"));
   session={queue,idx:0,plan:queue.length,studied:0,correct:0,
-    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),scope:label||"set"};
+    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),scope:tag};
   snapSession(); saveLocal();
-  go("study"); $("#studyDone").classList.add("hidden"); renderCard();
-  toast(`${label||"선택 묶음"} ${queue.length}개 — 신규 ${newSet.size} · 복습 ${queue.length-newSet.size}`,2800);
+  go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
+  toast(`${tag} ${queue.length}개 — 신규 ${newSet.size} · 복습 ${queue.length-newSet.size}`,2800);
 }
 function startStudy(){
   // Resume an unfinished session (don't restart from scratch when you re-enter).
@@ -1204,7 +1232,7 @@ function startStudy(){
     session={queue:sv.queue.slice(),idx:sv.idx,plan:sv.plan,studied:sv.studied||0,correct:sv.correct||0,
       doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
       revealed:false,startTs:Date.now()};
-    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); toast("이어서 학습합니다 ▶");
+    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart(); toast("이어서 학습합니다 ▶");
     return;
   }
   const due=dueCards(), news=newCardIds(newPerDay());
@@ -1219,7 +1247,7 @@ function startStudy(){
   // counter always agree. Set once per day.
   const d=getDay(); if(!d.target){ d.target=queue.length; }
   snapSession(); saveLocal();
-  go("study"); $("#studyDone").classList.add("hidden"); renderCard();
+  go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
   // Make the session size self-explanatory (reviews + new, not a doubled bug).
   const revCount=queue.length-newSet.size;
   toast(`오늘 ${queue.length}개 — 복습 ${revCount} · 신규 ${newSet.size}`, 2600);
@@ -1292,7 +1320,7 @@ function finishStudy(){ const s=session, secs=Math.round((Date.now()-s.startTs)/
   $("#doneSub").textContent=`${s.studied}개 학습 · 정답 ${acc}% · ${Math.round(secs/60)}분`;
   $("#studyDone").classList.remove("hidden");
   $("#doneMore").classList.toggle("hidden", dueCards().length===0 && newCardIds(1).length===0);
-  if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); }
+  if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); updateStudyRestart(); }
 
 // PC 키보드 조작 — 마우스 없이 빠르게 넘긴다.
 // Space: 뜻 보기 → (뜻이 보이는 상태에서) 알맞음으로 넘김. 1~4로 바로 채점.

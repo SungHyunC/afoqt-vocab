@@ -244,7 +244,10 @@
   <div class="study-top">
     <button class="btn sm ghost" id="studyBack">← 나가기</button>
     <span id="studyCount">0 / 0</span>
-    <span id="studyMode">복습</span>
+    <span class="row" style="gap:8px;align-items:center;justify-content:flex-end">
+      <button class="btn sm ghost hidden" id="studyRestart" title="이 묶음을 처음부터">↺ 처음부터</button>
+      <span id="studyMode">복습</span>
+    </span>
   </div>
   <div class="progressbar" style="margin-bottom:14px"><i id="studyBar"></i></div>
   <div id="studyArea"></div>
