@@ -1282,26 +1282,56 @@ function renderSynAt(){
 /* ============================================================
    WORD LIST
    ============================================================ */
-let wordFilter="all", wordSearch="";
-function renderWords(){
-  let list=WORDS.filter(w=>{ const c=getCard(w.id);
-    if(wordFilter==="starred"&&!c.starred) return false;
-    if(wordFilter==="afoqt"&&!w.afoqtCommon) return false;
-    if(wordFilter==="high"&&tierOf(w)==="std") return false;
-    if(wordFilter==="gre"&&w.source!=="gre-magoosh") return false;
-    if(["new","learning","review","mastered"].includes(wordFilter)&&c.status!==wordFilter) return false;
-    if(wordSearch){ const q=wordSearch.toLowerCase();
-      if(!(w.word.toLowerCase().includes(q)||(w.kor||"").includes(wordSearch)||(w.def||"").toLowerCase().includes(q))) return false; }
-    return true; });
-  $("#wordCount").textContent=`${list.length}개`;
-  const cap=list.slice(0,400);
-  $("#wordList").innerHTML=cap.map(w=>{ const c=getCard(w.id);
-    const lbl={new:"미학습",learning:"학습중",review:"복습",mastered:"마스터"}[c.status];
-    return `<div class="witem" data-id="${w.id}"><div style="min-width:0">
-      <div class="w">${esc(w.word)}${c.starred?' <span style="color:var(--gold)">★</span>':''}${w.source==="gre-magoosh"?'<span class="src">GRE</span>':''}${tierOf(w)==="high"?' ⭐':''}</div>
-      <div class="k">${esc(w.kor||w.def||"")}</div></div><span class="tag ${c.status}">${lbl}</span></div>`; }).join("")
-    +(list.length>400?`<div class="center muted" style="padding:12px">검색으로 좁혀보세요 (${list.length-400}개 더)</div>`:"");
-  $$("#wordList .witem").forEach(el=>el.onclick=()=>showWord(+el.dataset.id));
+let wordFilter="all", wordSearch="", wordRows=[], wordShown=0, wordPumping=false;
+const WORD_PAGE=120;   // 무한 스크롤: 한 번에 이어 붙이는 개수
+function wordMatches(w){
+  const c=getCard(w.id);
+  if(wordFilter==="starred"&&!c.starred) return false;
+  if(wordFilter==="afoqt"&&!w.afoqtCommon) return false;
+  if(wordFilter==="mock"&&!(w.mock&&w.mock.length)) return false;
+  if(wordFilter==="high"&&tierOf(w)==="std") return false;
+  if(wordFilter==="gre"&&w.source!=="gre-magoosh") return false;
+  if(["new","learning","review","mastered"].includes(wordFilter)&&c.status!==wordFilter) return false;
+  if(wordSearch){ const q=wordSearch.toLowerCase();
+    if(!(w.word.toLowerCase().includes(q)||(w.kor||"").includes(wordSearch)||(w.def||"").toLowerCase().includes(q))) return false; }
+  return true;
+}
+// 모의고사 단어 배지 — w.mock 은 그 단어가 출제된 폼 id 목록
+function mockBadge(w){ return (w.mock&&w.mock.length)?` <span title="모의고사 출제: ${esc(w.mock.join(", "))}">📕</span>`:""; }
+function wordRowHTML(w){ const c=getCard(w.id);
+  const lbl={new:"미학습",learning:"학습중",review:"복습",mastered:"마스터"}[c.status];
+  return `<div class="witem" data-id="${w.id}"><div style="min-width:0">
+      <div class="w">${esc(w.word)}${c.starred?' <span style="color:var(--gold)">★</span>':''}${mockBadge(w)}${w.source==="gre-magoosh"?'<span class="src">GRE</span>':''}${tierOf(w)==="high"?' ⭐':''}</div>
+      <div class="k">${esc(w.kor||w.def||"")}</div></div><span class="tag ${c.status}">${lbl}</span></div>`; }
+function appendWords(n){
+  const box=$("#wordList"); if(!box) return;
+  const slice=wordRows.slice(wordShown,wordShown+n);
+  if(slice.length){ box.insertAdjacentHTML("beforeend",slice.map(wordRowHTML).join("")); wordShown+=slice.length; }
+  const s=$("#wordMore"); if(!s) return;
+  const left=wordRows.length-wordShown;
+  s.style.display=left>0?"":"none";
+  s.textContent=left>0?`⌄ 더 보기 (${left}개 남음)`:"";
+}
+// 센티널이 화면 아래 400px 안에 들어오면 다음 묶음을 붙인다(스크롤/리사이즈에서 호출).
+function pumpWords(){
+  const s=$("#wordMore"); if(!s||wordShown>=wordRows.length) return;
+  if(s.getBoundingClientRect().top < window.innerHeight+400){
+    appendWords(WORD_PAGE);
+    if(!wordPumping){ wordPumping=true; requestAnimationFrame(()=>{ wordPumping=false; pumpWords(); }); }
+  }
+}
+function renderWords(keep){
+  const prev=keep?wordShown:0;
+  wordRows=WORDS.filter(wordMatches);
+  const cnt=$("#wordCount");
+  if(cnt) cnt.textContent=wordFilter==="mock"
+    ? `${wordRows.length}개 · 모의고사 6회분에 실제 출제된 단어`
+    : `${wordRows.length}개`;
+  const box=$("#wordList"); if(!box) return;
+  box.innerHTML=""; wordShown=0;
+  box.onclick=e=>{ const el=e.target.closest(".witem"); if(el) showWord(+el.dataset.id); };
+  appendWords(Math.max(WORD_PAGE,prev));
+  pumpWords();
 }
 function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   const syn=(w.synonyms||[]).map(x=>`<span>${esc(x)}</span>`).join("");
@@ -1309,6 +1339,7 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   openSheet(`<div class="row" style="justify-content:space-between;align-items:flex-start">
       <div class="word-row" style="justify-content:flex-start"><h3 style="font-size:26px">${esc(w.word)}</h3>${spkBtn(w.word)}</div><button class="btn sm ghost" id="wstar">${c.starred?'★':'☆'}</button></div>
     <div style="color:var(--brand2);font-size:12px;text-transform:uppercase">${esc(w.pos||"")}${w.source==="gre-magoosh"?" · GRE Magoosh":""}${tierOf(w)==="high"?" · ⭐빈출":""}</div>
+    ${(w.mock&&w.mock.length)?`<div class="hintbox" style="margin-top:8px;font-size:11px">📕 모의고사 출제 단어 — ${esc(w.mock.join(", "))} 단어시험에 실제로 나온 단어입니다.</div>`:""}
     ${w.afoqtCommon?`<div class="hintbox" style="margin-top:8px;font-size:11px">⭐ AFOQT 빈출 단어 — Quizlet·Barron's·커뮤니티 AFOQT 단어 목록에 등재된 단어입니다.</div>`:""}
     <div style="font-size:20px;font-weight:700;margin-top:10px">${esc(w.kor||"")}</div>
     <div class="muted" style="margin-top:6px;line-height:1.5">${esc(w.def||"")}</div>
@@ -1317,7 +1348,7 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
     ${syn?`<h2 class="section">동의어</h2><div class="syn" style="display:flex;flex-wrap:wrap;gap:6px">${syn}</div>`:""}
     ${ana?`<h2 class="section">유추 관계</h2><div style="font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);line-height:1.7">${ana}</div>`:""}
     <button class="btn ghost" id="wclose" style="margin-top:20px">닫기</button>`);
-  $("#wstar").onclick=()=>{ toggleStar(id); showWord(id); renderWords(); }; $("#wclose").onclick=closeSheet;
+  $("#wstar").onclick=()=>{ toggleStar(id); showWord(id); renderWords(true); }; $("#wclose").onclick=closeSheet;
   wireSpeakers($("#genericSheetBody"));
 }
 
@@ -2351,8 +2382,9 @@ const SECBUILD={ WK:n=>buildWK(n), VA:n=>buildVA(n), RC:n=>buildRC(n),
   AV:n=>buildAV(n), SJ:n=>buildSJ(n), TR:n=>buildTR(n), IC:n=>buildIC(n), BC:n=>buildBC(n) };
 // Realistic seconds-per-question per subtest (from official AFOQT time ÷ count),
 // so every preset's timer/label stays consistent with its section mix.
-// RC: 독해 24분/25문항 ÷ 25 = 57.6 ≈ 58초/문항 (응시자 확인 기준 — 팸플릿·문제집 표기는 38분).
-const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:11, IC:12, BC:9, PS:30, SJ:42 };
+// 출처: Pearson VUE AFOQT 시험 구조표(2026-08-06 갱신). 2015년 공군 팸플릿은 낡았음(독해 38분·상황판단 50문항으로 표기).
+// RC 25문항/24분=58초, SJ 16문항/35분=131초, BC 30문항/5분=10초.
+const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:11, IC:12, BC:10, PS:30, SJ:131 };
 // Build a preset from a list of [sectionCode, count] specs; derives timer + label.
 function composeMock(name,specs,tag){
   const secs=specs.reduce((s,[c,n])=>s+SECRATE[c]*n,0);
@@ -3048,8 +3080,8 @@ function renderCheatsheet(){
     .sort((a,b)=>b.n-a.n).slice(0,24);
   const rootRows=roots.map(r=>`<tr><td><b>${esc(r.f)}</b></td><td>${esc(r.m)}</td><td class="muted">${esc(r.ex.join(", "))}</td></tr>`).join("");
   const paceRows=[["WK","단어",25,5],["VA","유추",25,8],["RC","독해",25,24],["AR","산수",25,29],["MK","수학",25,22],
-    ["SJ","상황판단",50,35],["PS","물리과학",20,10],
-    ["AV","항공",20,8],["TR","표읽기",40,7],["IC","계기",25,5],["BC","블록",30,4.5]]
+    ["SJ","상황판단",16,35],["PS","물리과학",20,10],
+    ["AV","항공",20,8],["TR","표읽기",40,7],["IC","계기",25,5],["BC","블록",30,5]]
     .map(([c,ko,n,min])=>`<tr><td>${ko}</td><td class="muted">${n}문항 · ${min}분</td><td style="text-align:right"><b>${SECRATE[c]}초</b>/문항</td></tr>`).join("");
   const unitBlocks=CS_UNITS.map(([t,rows])=>`<div class="cs-sub">${esc(t)}</div>${rows.map(r=>`<div class="cs-f">${fmtMath(r)}</div>`).join("")}`).join("");
   const mathBlocks=CS_MATH.map(([t,rows])=>`<div class="cs-sub">${esc(t)}</div>${rows.map(r=>`<div class="cs-f">${fmtMath(r)}</div>`).join("")}`).join("");
@@ -3618,6 +3650,9 @@ function wire(){
   $("#confirmHomeBtn").onclick=()=>go("home");
   // words
   $("#wordsBack").onclick=()=>go("vocab"); $("#searchBox").oninput=e=>{ wordSearch=e.target.value.trim(); renderWords(); };
+  // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
+  window.addEventListener("scroll",pumpWords,true); window.addEventListener("resize",pumpWords);
+  { const m=$("#wordMore"); if(m) m.onclick=()=>appendWords(WORD_PAGE); }
   $$("#wordFilters .chip").forEach(c=>c.onclick=()=>{ $$("#wordFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); wordFilter=c.dataset.f; renderWords(); });
   // analogy
   $("#vaStart").onclick=()=>startAnalogy(false); $("#vaReview").onclick=()=>startAnalogy(true);
