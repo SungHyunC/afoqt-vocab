@@ -671,7 +671,7 @@ function renderHome(){
   if(mb){
     if(todayActive){
       mb.className="card motiv done";
-      mb.innerHTML=`<b>🔥 오늘 완료! ${streak}일째 이어가는 중</b> 🎉 <span class="muted">— 이 리듬 유지하면 9/28 준비 충분해요.</span>`;
+      mb.innerHTML=`<b>🔥 오늘 완료! ${streak}일째 이어가는 중</b> 🎉 <span class="muted">— 이 리듬 유지하면 시험까지 준비 충분해요.</span>`;
     } else {
       const streakTxt = streak>0
         ? `🔥 <b>${streak}일 연속</b> 중 — 오늘 하면 이어가고, 건너뛰면 끊겨요.`
