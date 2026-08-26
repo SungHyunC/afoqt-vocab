@@ -1308,7 +1308,8 @@ function wireStudyKeys(){
     const done=$("#studyDone");
     if(done&&!done.classList.contains("hidden")) return;   // 완료 화면에선 비활성
     const id=session.queue[session.idx];
-    const grade=q=>{ if(session.revealed||session.seen) answer(id,q); else flipCard(); };
+    const canGrade=()=>{ const g=$("#gradeRow"); return g&&!g.classList.contains("hidden"); };
+    const grade=q=>{ if(canGrade()) answer(id,q); else flipCard(); };
     const c=e.code;
     if(c==="Space"||c==="Enter"||c==="NumpadEnter"){ e.preventDefault();
       if(!session.revealed) flipCard(); else answer(id,"good"); return; }
