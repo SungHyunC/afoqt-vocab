@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-101-0";  // 모의고사 섹션별 타이머·실전 문항수·섹션 선택
+const CACHE = "afoqt-v4-102-0";  // 오답노트 과목 선택
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

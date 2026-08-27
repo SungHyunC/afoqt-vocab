@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.101.0";
+const VERSION = "4.102.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -3021,8 +3021,36 @@ function renderExamSetup(){
   $$("#retestList [data-retest]").forEach(b=>b.onclick=()=>startRetest(b.dataset.retest));
   const tot=WRONG_ORDER.reduce((s,k)=>s+wc[k],0); $("#retestAll").classList.toggle("hidden",tot===0);
   $("#retestAll").textContent=`🔁 전체 오답 재시험 (${tot}문제)`;
+  renderRetestPicker(wc);
   injectMockUI();   // 🔒 실전 기출 모의고사 그룹 주입(잠금/해제 상태에 따라)
   renderSecPicker();
+}
+/* ---- 오답 노트: 과목 골라서 묶어 재시험 ---- */
+let retestSel=new Set();
+function renderRetestPicker(wc){
+  const box=$("#retestPick"), wrap=$("#retestPickBox"); if(!box||!wrap) return;
+  const avail=WRONG_ORDER.filter(k=>wc[k]>0);
+  // 고를 게 2과목 이상일 때만 노출 (1과목이면 위 목록 버튼으로 충분)
+  wrap.classList.toggle("hidden", avail.length<2);
+  if(avail.length<2){ retestSel.clear(); return; }
+  for(const k of [...retestSel]) if(!avail.includes(k)) retestSel.delete(k);  // 사라진 과목 정리
+  box.innerHTML=avail.map(k=>{
+    const rep=Object.values(state.wrong[k]||{}).filter(v=>v>=2).length;
+    return `<button class="pick-chip ${retestSel.has(k)?"on":""}" data-rpick="${k}">
+      <span class="pi">${WRONG_META[k][0]}</span><b>${WRONG_META[k][1]}</b>
+      <span class="pm">${wc[k]}문제${rep?` · ❗${rep}`:""}</span></button>`; }).join("");
+  $$("#retestPick [data-rpick]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.rpick; if(retestSel.has(k)) retestSel.delete(k); else retestSel.add(k);
+    renderRetestPicker(wc); });
+  const chosen=WRONG_ORDER.filter(k=>retestSel.has(k));
+  const n=chosen.reduce((s,k)=>s+wc[k],0);
+  $("#retestPickSum").innerHTML = chosen.length
+    ? `선택 <b>${chosen.length}과목</b> · 오답 <b>${n}문제</b>${n>60?' <span style="color:var(--warn)">(최대 60문제까지 출제)</span>':""}<br>
+       <span style="font-size:11.5px">순서: ${chosen.map(k=>WRONG_META[k][1]).join(" → ")}</span>`
+    : "과목을 선택하세요";
+  $("#retestPickStart").disabled=chosen.length===0;
+  $("#retestPickStart").textContent=chosen.length
+    ? `선택한 ${chosen.length}과목 오답 재시험 (${Math.min(n,60)}문제)` : "선택한 과목 오답 재시험";
 }
 /* ============================================================
    과목 직접 고르기 — 원하는 과목만 골라 실전 형식(실전 문항수·과목별 제한시간)으로 응시
@@ -3260,12 +3288,20 @@ function recordResult(it,ok){
   }
 }
 function wrongCounts(){ const c={}; for(const k of WRONG_ORDER) c[k]=Object.keys(state.wrong[k]||{}).length; return c; }
+// kind: 과목 코드 하나("wk") | 코드 배열(["wk","rc"]) | 그 외("all") = 전체
 function startRetest(kind){
-  let items = WRONG_BUILD[kind] ? WRONG_BUILD[kind]() : WRONG_ORDER.flatMap(k=>WRONG_BUILD[k]());
+  const list = Array.isArray(kind) ? kind.filter(k=>WRONG_BUILD[k])
+             : (WRONG_BUILD[kind] ? [kind] : WRONG_ORDER);
+  // 여러 과목이면 실전 순서(WRONG_ORDER)대로 묶어 과목별 타이머가 붙게 한다
+  const ordered = WRONG_ORDER.filter(k=>list.includes(k));
+  let items = ordered.flatMap(k=>WRONG_BUILD[k]());
   if(items.length<1){ toast("오답이 없어요 👍"); return; }
   items=items.slice(0,60);
+  const name = ordered.length===1 ? `${WRONG_META[ordered[0]][1]} 오답 재시험`
+    : ordered.length<WRONG_ORDER.length ? `오답 재시험 (${ordered.map(k=>WRONG_META[k][1]).join("·")})`
+    : "오답 재시험";
   const secs=Math.max(120, items.length*25);
-  exam={key:null,name:"오답 재시험",items,idx:0,answers:new Array(items.length).fill(null),
+  exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
@@ -3951,6 +3987,7 @@ function wire(){
     if(exam.idx<hi){ exam.idx++; renderExamQ(); } };
   // 섹션 모드: 마지막 섹션이 아니면 '섹션 제출 → 다음 섹션'
   $("#pickStart")&&($("#pickStart").onclick=startPickedExam);
+  $("#retestPickStart")&&($("#retestPickStart").onclick=()=>startRetest(WRONG_ORDER.filter(k=>retestSel.has(k))));
   $("#examSubmit").onclick=()=>{ if(exam&&exam.sections&&exam.secIdx<exam.sections.length-1) advanceExamSection(false);
     else submitExam(false); };
   $("#examReviewBtn").onclick=()=>{ renderExamReview(); $("#examReviewBtn").classList.add("hidden"); $("#examReview").scrollIntoView({behavior:"smooth"}); };
