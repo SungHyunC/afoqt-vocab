@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.69.0";
+const VERSION = "4.101.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -145,6 +145,7 @@ const DEFAULT_STATE = () => ({
   apExposure:{}, // 자동 넘김 노출 기록: 'YYYY-MM-DD' -> 들은 단어 수(스트릭 인정용, SRS엔 영향 X)
   badges:{},     // 달성 배지: badgeId -> 1
   dayStats:{},   // 날짜별 과목 풀이 수: 'YYYY-MM-DD' -> {WK:n,VA:n,...} (플랜 자동체크)
+  v16:null,      // Verbal 16일 체크리스트: {done:{"dayIdx:taskIdx":1}}
   plan30:null,   // 30일 완성 플랜: {start:'YYYY-MM-DD', done:{day:{taskKey:1}}}
   rootStep:0,    // 어근 추론 코치 진행 위치
   speed:{},      // 풀이 속도 누적: 'WK'|'VA'|... -> {n,ms,slow} (답한 문항 기준)
@@ -671,7 +672,7 @@ function renderHome(){
   if(mb){
     if(todayActive){
       mb.className="card motiv done";
-      mb.innerHTML=`<b>🔥 오늘 완료! ${streak}일째 이어가는 중</b> 🎉 <span class="muted">— 이 리듬 유지하면 9/28 준비 충분해요.</span>`;
+      mb.innerHTML=`<b>🔥 오늘 완료! ${streak}일째 이어가는 중</b> 🎉 <span class="muted">— 이 리듬 유지하면 시험까지 준비 충분해요.</span>`;
     } else {
       const streakTxt = streak>0
         ? `🔥 <b>${streak}일 연속</b> 중 — 오늘 하면 이어가고, 건너뛰면 끊겨요.`
@@ -816,12 +817,13 @@ function examPhase(){ const d=daysLeft();
     "📕 오답 노트 재시험",
     "📇 단어·공식 유지 복습 (확인 시험 재확인)",
     "📊 예상 점수 90%대 확인"]};
+  const ed=String(state.settings.exam_date||"").slice(5).replace("-","/").replace(/^0/,"");
   return {key:"final",name:"마무리 (D-10)",emoji:"🔥",tasks:[
     "📕 오답·빈출 단어만 빠르게",
     "🎯 가벼운 모의고사 1회",
     "📊 예상 점수 최종 확인",
     "😴 컨디션·수면 관리",
-    "✅ 9/28 응시 준비물·일정 확인"]};
+    `✅ ${ed||"시험일"} 응시 준비물·일정 확인`]};
 }
 function renderWeekPlan(){
   const box=$("#weekPlan"); if(!box) return;
@@ -920,6 +922,117 @@ function planTasks(){
 function planEndLabel(){ const p=planState(); const d=parseDate(p.start); d.setDate(d.getDate()+planLen()-1);
   return `${d.getMonth()+1}/${d.getDate()}`; }
 function planDone(){ const p=planState(); return p.done[todayStr()]||(p.done[todayStr()]={}); }
+/* ============================================================
+   Verbal 역전 16일 — 시험일 기준 날짜별 체크리스트.
+   날짜는 exam_date에서 역산하므로 시험일을 바꿔도 자동으로 따라간다.
+   (i=0 → D-16 … i=15 → D-1)
+   ============================================================ */
+const V16_PHASE={0:["1구간 · 어휘 엔진 걸기","코어 절반 노출 + 유추 관계 체득. 독해는 시간 재지 말고 정확도만."],
+                 6:["2구간 · 실전 속도 붙이기","코어 완주 + 세 과목 모두 실제 시험 시간으로. 타이머를 끄지 않는다."],
+                 12:["3구간 · 굳히기","신규 어휘 중단. 새로 넣으면 외운 단어가 밀린다."]};
+const V16=[
+ {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 — 플래시카드",go:()=>startStudySet(mockWordIds(),"모의고사 단어")},
+         {i:"🔗",l:"유추 훑어보기 — 관계 유형 구경",go:()=>go("vabrowse")},
+         {i:"📖",l:"독해 2지문 (타이머 없이 정확도만)",go:()=>go("reading")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"🔗",l:"반의어 집중 30문항 — 유추 최다 관계(10.8%)",go:()=>{go("analogy");startAnalogy(false);}},
+         {i:"📖",l:"독해 2지문",go:()=>go("reading")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}},
+         {i:"📖",l:"독해 2지문",go:()=>go("reading")},
+         {i:"📐",l:"수학 25문항 — Pilot 유지",go:()=>startExam("mk",{practice:true})}]},
+ {tasks:[{i:"📇",l:"어휘 신규 120개 — 주말 증량",go:()=>startStudy()},
+         {i:"📖",l:"독해 4지문",go:()=>go("reading")},
+         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}}]},
+ {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudy()},
+         {i:"🎯",l:"Verbal 섹터 모의고사 1회 — 오늘 점수를 남겨야 비교가 된다",go:()=>startExam("secVerbal")},
+         {i:"📊",l:"약점 리포트 확인",go:()=>go("report")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"📕",l:"어제 모의고사 오답 전부 복기",go:()=>go("report")},
+         {i:"✈️",l:"항공 20문항 — Pilot 유지",go:()=>startExam("av",{practice:true})}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"⏱️",l:"단어 시험 25문항 5분 — 모르면 즉시 찍고 넘기기",go:()=>startExam("wk")},
+         {i:"📖",l:"독해 2지문 · 지문당 4분 48초",go:()=>go("reading")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"⏱️",l:"유추 25문항 8분 실전",go:()=>startExam("va")},
+         {i:"📐",l:"수학 25문항",go:()=>startExam("mk",{practice:true})}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"⏱️",l:"독해 25문항 24분 풀세트 — 지문 하나에 4분 48초 넘기면 넘어가기",go:()=>startExam("rc")},
+         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}}]},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+         {i:"✅",l:"확인 시험 — 1구간에 외운 단어 검증",go:()=>go("confirm")},
+         {i:"✈️",l:"항공 20문항",go:()=>startExam("av",{practice:true})}]},
+ {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudy()},
+         {i:"🎯",l:"T01 Verbal 3과목 연속 — 유추 8분 → 단어 5분 → 독해 24분",go:()=>go("exam")},
+         {i:"📕",l:"오답 정리",go:()=>go("report")}]},
+ {tasks:[{i:"📇",l:"어휘 신규 120개 — 코어 1,052개 완주",go:()=>startStudy()},
+         {i:"📕",l:"어제 오답 재시험",go:()=>go("report")},
+         {i:"📐",l:"수학 25문항",go:()=>startExam("mk",{practice:true})}]},
+ {tasks:[{i:"🚫",l:"신규 중단 — 학습중·복습 단어만 반복",go:()=>go("synq")},
+         {i:"🎯",l:"T02 Verbal 3과목",go:()=>go("exam")},
+         {i:"📕",l:"오답 정리",go:()=>go("report")}]},
+ {tasks:[{i:"📕",l:"오답 노트 재시험",go:()=>go("report")},
+         {i:"🎯",l:"BARRON1 Verbal",go:()=>go("exam")},
+         {i:"✈️",l:"항공 20문항",go:()=>startExam("av",{practice:true})}]},
+ {tasks:[{i:"🎯",l:"TRIVIUM1 Verbal",go:()=>go("exam")},
+         {i:"📜",l:"시험 전 요약 시트 1회독",go:()=>openCheatsheet("plan")},
+         {i:"📇",l:"흔들리는 단어만 훑기",go:()=>go("synq")}]},
+ {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 훑기",go:()=>openWordsMock()},
+         {i:"📜",l:"요약 시트 한 번 더",go:()=>openCheatsheet("plan")},
+         {i:"😴",l:"새 문제 금지 · 일찍 자기 — 전날 잠이 실력이다",go:null}]},
+];
+function v16Date(i){ const ex=parseDate(state.settings.exam_date||"2026-09-11");
+  const d=new Date(ex); d.setDate(d.getDate()-(16-i)); return todayStr(d); }
+function v16State(){ if(!state.v16) state.v16={done:{}}; if(!state.v16.done) state.v16.done={}; return state.v16; }
+function openWordsMock(){ go("words"); wordFilter="mock"; wordSearch="";
+  const sb=$("#searchBox"); if(sb) sb.value="";
+  $$("#wordFilters .chip").forEach(c=>c.classList.toggle("on",c.dataset.f==="mock"));
+  renderWords(); }
+let v16Open=null;
+function renderV16(){
+  const box=$("#v16"); if(!box) return;
+  const st=v16State(), today=todayStr();
+  let dn=0, tot=0;
+  V16.forEach((d,i)=>{ tot+=d.tasks.length; d.tasks.forEach((_,j)=>{ if(st.done[i+":"+j]) dn++; }); });
+  const pct=tot?Math.round(dn/tot*100):0;
+  const todayIdx=V16.findIndex((_,i)=>v16Date(i)===today);
+  if(v16Open===null) v16Open = todayIdx>=0 ? todayIdx : 0;
+  const rows=V16.map((d,i)=>{
+    const ds=v16Date(i), wd="일월화수목금토"[parseDate(ds).getDay()];
+    const c=d.tasks.filter((_,j)=>st.done[i+":"+j]).length, all=c===d.tasks.length;
+    const isToday=ds===today, past=ds<today && !isToday, open=v16Open===i;
+    const ph=V16_PHASE[i];
+    const head=ph?`<div class="v16-ph"><b>${esc(ph[0])}</b><span>${esc(ph[1])}</span></div>`:"";
+    const body=open?`<div class="v16-tasks">${d.tasks.map((t,j)=>{
+        const on=!!st.done[i+":"+j];
+        return `<div class="v16-t ${on?"on":""}">
+          <button class="v16-box" data-ck="${i}:${j}" aria-label="완료 표시">${on?"✓":""}</button>
+          <div class="v16-l">${t.i} ${esc(t.l)}</div>
+          ${t.go&&!on?`<button class="btn sm primary v16-go" data-go3="${i}:${j}">시작 →</button>`:""}
+        </div>`; }).join("")}</div>`:"";
+    return `${head}<div class="v16-d ${isToday?"today":""} ${past?"past":""} ${all?"all":""}" data-d="${i}">
+        <div class="v16-hd" data-tg="${i}">
+          <div class="v16-dn">D-${16-i}</div>
+          <div class="v16-dt">${ds.slice(5).replace("-","/")} <span>(${wd})</span></div>
+          <div class="v16-pr">${all?"✓ 완료":c+"/"+d.tasks.length}</div>
+          <div class="v16-ar">${open?"▾":"▸"}</div>
+        </div>${body}</div>`;
+  }).join("");
+  box.innerHTML=`<div class="row" style="justify-content:space-between;align-items:flex-start">
+      <div><div class="muted" style="font-size:13px">🗣 Verbal 역전 16일</div>
+        <div class="plan-day">${dn}<small> / ${tot} 완료</small></div>
+        <div class="muted" style="font-size:12px;margin-top:4px">어휘가 유추·단어·독해 셋 전부에 들어간다</div></div>
+      <div class="ring" style="--p:${pct}"><div class="v"><b>${pct}%</b><span>16일</span></div></div>
+    </div>
+    <div class="progressbar" style="margin-top:12px"><i style="width:${pct}%"></i></div>
+    <div class="v16-list">${rows}</div>`;
+  $$("#v16 .v16-hd").forEach(el=>el.onclick=()=>{ const i=+el.dataset.tg; v16Open=(v16Open===i?-1:i); renderV16(); });
+  $$("#v16 .v16-box").forEach(b=>b.onclick=e=>{ e.stopPropagation(); const k=b.dataset.ck;
+    if(st.done[k]) delete st.done[k]; else st.done[k]=1; saveLocal(); renderV16(); });
+  $$("#v16 .v16-go").forEach(b=>b.onclick=e=>{ e.stopPropagation();
+    const [i,j]=b.dataset.go3.split(":").map(Number); const t=V16[i].tasks[j]; if(t&&t.go) t.go(); });
+}
+
 function renderPlan(){
   const p=planState(), i=planIdx(), tasks=planTasks(), man=planDone();
   const isDone=t=>t.done||!!man[t.k];
@@ -948,6 +1061,7 @@ function renderPlan(){
   $$("#planTasks .pchk").forEach(b=>b.onclick=()=>{ const k=b.dataset.chk;
     if(man[k]) delete man[k]; else man[k]=1; saveLocal(); renderPlan(); });
   $$("#planTasks .pgo").forEach(b=>b.onclick=()=>{ const t=tasks.find(x=>x.k===b.dataset.go2); if(t&&t.go) t.go(); });
+  renderV16();
   $("#planAllDone").classList.toggle("hidden", doneN<tasks.length);
   const ps=$("#optPlanPsSj");
   if(ps){ ps.checked=flag("plan_ps_sj");
@@ -960,6 +1074,11 @@ function renderPlan(){
 function renderVocab(){
   const cnt=countByStatus();
   $("#vkLearned").textContent=cnt.learned; $("#vkMastered").textContent=cnt.mastered;
+  // 모의고사 묶음을 하다 말았으면 버튼에 이어서 할 위치를 표시한다.
+  { const b=$("#vkMock"), sv=state.session, n=mockWordIds().length;
+    if(b) b.textContent = (sv&&sv.scope==="모의고사 단어"&&sv.idx<sv.plan)
+      ? `📕 모의고사 단어 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
+      : `📕 모의고사 단어 플래시카드 — 실제 출제 확인된 ${n}개`; }
   $("#vkHigh").textContent=cnt.highLearned; $("#vkRemain").textContent=cnt.remaining;
   const cf=confirmPoolFirst().length, cr=confirmPoolRecheck().length;
   $("#vkConfirmSub").textContent = cr>0?`🔁 재확인 ${cr}개 대기 · 첫 확인 ${cf}개`:cf>0?`확인 대기 ${cf}개`:"확인할 단어 없음";
@@ -1065,15 +1184,55 @@ function apManual(dir){ const s=ap; if(!s) return; apClearTimer();
 let session=null;
 function snapSession(){ if(!session) return; const s=session;
   state.session={queue:s.queue.slice(),idx:s.idx,plan:s.plan,studied:s.studied,correct:s.correct,
-    done:[...(s.doneSet||[])],miss:[...(s.missSet||[])],neww:[...(s.newSet||[])],day:todayStr()}; }
+    done:[...(s.doneSet||[])],miss:[...(s.missSet||[])],neww:[...(s.newSet||[])],day:todayStr(),scope:s.scope||null}; }
+// 특정 묶음만 플래시카드로 학습 (모의고사 단어, 단어장 필터 결과 등).
+// SRS 채점은 그대로 적용하되, 하루 목표(target)는 건드리지 않는다 — 별도 학습이므로.
+function mockWordIds(){ return WORDS.filter(w=>w.mock&&w.mock.length).map(w=>w.id); }
+// 묶음 학습일 때만 '처음부터' 버튼을 띄운다 — 이어서 하기가 기본이므로 되돌릴 길이 필요하다.
+function updateStudyRestart(){
+  const b=$("#studyRestart"); if(!b) return;
+  const on=!!(session&&session.scope);
+  b.classList.toggle("hidden",!on);
+  if(on) b.onclick=()=>{
+    if(!confirm(`${session.scope} 학습을 처음부터 다시 시작할까요?\n지금까지의 진행 위치만 초기화되고, 외운 기록은 그대로 남습니다.`)) return;
+    const ids=session.queue.slice(), tag=session.scope;
+    session=null; state.session=null; saveLocal();
+    startStudySet(ids,tag);
+  };
+}
+function startStudySet(ids,label){
+  ids=[...new Set((ids||[]).filter(id=>WMAP.has(id)))];
+  if(!ids.length){ toast("학습할 단어가 없어요."); return; }
+  const tag=label||"set", sv=state.session;
+  // 하던 묶음이 남아 있으면 이어서 — 매번 처음부터 다시 시작하면 순서가 바뀌어
+  // 같은 단어를 반복하고 끝을 못 본다. 날짜가 바뀌어도 이어간다(148개는 며칠에 걸쳐 돈다).
+  if(sv&&sv.scope===tag&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
+    session={queue:sv.queue.slice(),idx:sv.idx,plan:sv.plan,studied:sv.studied||0,correct:sv.correct||0,
+      doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
+      revealed:false,startTs:Date.now(),scope:tag};
+    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
+    toast(`이어서 학습합니다 ▶ ${sv.idx+1} / ${sv.plan}`,2600);
+    return;
+  }
+  // 아직 안 외운 것 → 복습 기한이 지난 것 → 나머지 순
+  const rank=id=>{ const c=getCard(id); if(c.status==="new") return 0;
+    return (c.due&&new Date(c.due).getTime()<=Date.now())?1:2; };
+  const queue=ids.slice().sort((a,b)=>rank(a)-rank(b));
+  const newSet=new Set(queue.filter(id=>getCard(id).status==="new"));
+  session={queue,idx:0,plan:queue.length,studied:0,correct:0,
+    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),scope:tag};
+  snapSession(); saveLocal();
+  go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
+  toast(`${tag} ${queue.length}개 — 신규 ${newSet.size} · 복습 ${queue.length-newSet.size}`,2800);
+}
 function startStudy(){
   // Resume an unfinished session (don't restart from scratch when you re-enter).
   const sv=state.session;
-  if(sv&&sv.day===todayStr()&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
+  if(sv&&!sv.scope&&sv.day===todayStr()&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
     session={queue:sv.queue.slice(),idx:sv.idx,plan:sv.plan,studied:sv.studied||0,correct:sv.correct||0,
       doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
       revealed:false,startTs:Date.now()};
-    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); toast("이어서 학습합니다 ▶");
+    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart(); toast("이어서 학습합니다 ▶");
     return;
   }
   const due=dueCards(), news=newCardIds(newPerDay());
@@ -1088,7 +1247,7 @@ function startStudy(){
   // counter always agree. Set once per day.
   const d=getDay(); if(!d.target){ d.target=queue.length; }
   snapSession(); saveLocal();
-  go("study"); $("#studyDone").classList.add("hidden"); renderCard();
+  go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
   // Make the session size self-explanatory (reviews + new, not a doubled bug).
   const revCount=queue.length-newSet.size;
   toast(`오늘 ${queue.length}개 — 복습 ${revCount} · 신규 ${newSet.size}`, 2600);
@@ -1161,7 +1320,35 @@ function finishStudy(){ const s=session, secs=Math.round((Date.now()-s.startTs)/
   $("#doneSub").textContent=`${s.studied}개 학습 · 정답 ${acc}% · ${Math.round(secs/60)}분`;
   $("#studyDone").classList.remove("hidden");
   $("#doneMore").classList.toggle("hidden", dueCards().length===0 && newCardIds(1).length===0);
-  if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); }
+  if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); updateStudyRestart(); }
+
+// PC 키보드 조작 — 마우스 없이 빠르게 넘긴다.
+// Space: 뜻 보기 → (뜻이 보이는 상태에서) 알맞음으로 넘김. 1~4로 바로 채점.
+// e.code를 쓰므로 한글 입력 상태에서도 동작한다.
+function wireStudyKeys(){
+  document.addEventListener("keydown",e=>{
+    const sv=$("#view-study");
+    if(!sv||getComputedStyle(sv).display==="none") return;
+    if(!session) return;
+    const t=e.target;
+    if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.isContentEditable)) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    const done=$("#studyDone");
+    if(done&&!done.classList.contains("hidden")) return;   // 완료 화면에선 비활성
+    const id=session.queue[session.idx];
+    const canGrade=()=>{ const g=$("#gradeRow"); return g&&!g.classList.contains("hidden"); };
+    const grade=q=>{ if(canGrade()) answer(id,q); else flipCard(); };
+    const c=e.code;
+    if(c==="Space"||c==="Enter"||c==="NumpadEnter"){ e.preventDefault();
+      if(!session.revealed) flipCard(); else answer(id,"good"); return; }
+    if(c==="ArrowDown"||c==="ArrowUp"){ e.preventDefault(); flipCard(); return; }
+    const dig=/^(Digit|Numpad)([1-4])$/.exec(c);
+    if(dig){ e.preventDefault(); grade(["again","hard","good","easy"][+dig[2]-1]); return; }
+    if(c==="KeyS"){ e.preventDefault(); const b=$("#starBtn"); if(b) b.click(); return; }
+    if(c==="KeyP"){ e.preventDefault(); const b=$("#studyArea .spk"); if(b) b.click(); return; }
+    if(c==="Escape"||e.key==="Escape"){ e.preventDefault(); const b=$("#studyBack"); if(b) b.click(); return; }
+  });
+}
 
 /* ============================================================
    QUIZ (WK)
@@ -1226,14 +1413,14 @@ function synBuildQ(){
   const correct=w.synonyms[Math.random()*w.synonyms.length|0];
   const used=new Set([w.word.toLowerCase(),(correct||"").toLowerCase()]);
   const distract=[]; let guard=0;
-  while(distract.length<3 && guard++<60){
+  while(distract.length<4 && guard++<80){        // 실전과 동일하게 보기 5개(A~E)
     const oid=s.pool[Math.random()*s.pool.length|0]; if(oid===id) continue;
     const ow=WMAP.get(oid); const cand=ow.synonyms[Math.random()*ow.synonyms.length|0];
     if(!cand||used.has(cand.toLowerCase())) continue; used.add(cand.toLowerCase());
     // 각 오답 보기의 뜻(gloss) = 그 단어가 동의어인 원 단어의 한글 뜻(근사). 답한 뒤 표시용.
     distract.push({t:cand, ok:0, gloss:ow.kor||""});
   }
-  if(distract.length<3) return null;
+  if(distract.length<4) return null;
   return {id, opts:shuffle([{t:correct,ok:1,gloss:w.kor||""},...distract]), chosen:null, added:false};
 }
 function newSynQ(){ const s=synq; if(!s) return; let q=null,tries=0; while(!q&&tries++<15) q=synBuildQ(); if(!q) return;
@@ -1279,29 +1466,88 @@ function renderSynAt(){
   if($("#synqNext")) $("#synqNext").onclick=()=>{ if(s.pos<s.history.length-1){ s.pos++; renderSynAt(); } else { newSynQ(); } };
 }
 
+// 보기 선택형 화면(동의어 퀴즈·시험)의 키보드 조작.
+// 1~9 로 보기 선택, ←/→ 로 이동, Enter/Space 로 '다음'.
+// e.code 기준이라 한글 입력 상태에서도 그대로 동작한다.
+function wireChoiceKeys(){
+  document.addEventListener("keydown",e=>{
+    const t=e.target;
+    if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"||t.isContentEditable)) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    const vis=id=>{ const v=$(id); return v&&getComputedStyle(v).display!=="none"; };
+    let box=null,next=null,prev=null;
+    if(vis("#view-synq")&&typeof synq!=="undefined"&&synq&&$("#synqChoices")){
+      box=$("#synqChoices"); next=$("#synqNext"); prev=$("#synqPrev");
+    } else if(vis("#view-exam")&&exam&&!exam.submitted&&$("#examChoices")){
+      box=$("#examChoices"); next=$("#drillNext")||$("#examNext"); prev=$("#examPrev");
+    } else return;
+    const c=e.code;
+    const dig=/^(Digit|Numpad)([1-9])$/.exec(c);
+    if(dig){ const b=[...box.querySelectorAll(".choice")][+dig[2]-1];
+      if(b&&!b.disabled){ e.preventDefault(); b.click(); } return; }
+    if(c==="Enter"||c==="NumpadEnter"||c==="Space"||c==="ArrowRight"){
+      if(next&&!next.disabled){ e.preventDefault(); next.click(); } return; }
+    if(c==="ArrowLeft"){ if(prev&&!prev.disabled){ e.preventDefault(); prev.click(); } return; }
+  });
+}
+
 /* ============================================================
    WORD LIST
    ============================================================ */
-let wordFilter="all", wordSearch="";
-function renderWords(){
-  let list=WORDS.filter(w=>{ const c=getCard(w.id);
-    if(wordFilter==="starred"&&!c.starred) return false;
-    if(wordFilter==="afoqt"&&!w.afoqtCommon) return false;
-    if(wordFilter==="high"&&tierOf(w)==="std") return false;
-    if(wordFilter==="gre"&&w.source!=="gre-magoosh") return false;
-    if(["new","learning","review","mastered"].includes(wordFilter)&&c.status!==wordFilter) return false;
-    if(wordSearch){ const q=wordSearch.toLowerCase();
-      if(!(w.word.toLowerCase().includes(q)||(w.kor||"").includes(wordSearch)||(w.def||"").toLowerCase().includes(q))) return false; }
-    return true; });
-  $("#wordCount").textContent=`${list.length}개`;
-  const cap=list.slice(0,400);
-  $("#wordList").innerHTML=cap.map(w=>{ const c=getCard(w.id);
-    const lbl={new:"미학습",learning:"학습중",review:"복습",mastered:"마스터"}[c.status];
-    return `<div class="witem" data-id="${w.id}"><div style="min-width:0">
-      <div class="w">${esc(w.word)}${c.starred?' <span style="color:var(--gold)">★</span>':''}${w.source==="gre-magoosh"?'<span class="src">GRE</span>':''}${tierOf(w)==="high"?' ⭐':''}</div>
-      <div class="k">${esc(w.kor||w.def||"")}</div></div><span class="tag ${c.status}">${lbl}</span></div>`; }).join("")
-    +(list.length>400?`<div class="center muted" style="padding:12px">검색으로 좁혀보세요 (${list.length-400}개 더)</div>`:"");
-  $$("#wordList .witem").forEach(el=>el.onclick=()=>showWord(+el.dataset.id));
+let wordFilter="all", wordSearch="", wordRows=[], wordShown=0, wordPumping=false;
+const WORD_PAGE=120;   // 무한 스크롤: 한 번에 이어 붙이는 개수
+function wordMatches(w){
+  const c=getCard(w.id);
+  if(wordFilter==="starred"&&!c.starred) return false;
+  if(wordFilter==="afoqt"&&!w.afoqtCommon) return false;
+  if(wordFilter==="mock"&&!(w.mock&&w.mock.length)) return false;
+  if(wordFilter==="high"&&tierOf(w)==="std") return false;
+  if(wordFilter==="gre"&&w.source!=="gre-magoosh") return false;
+  if(["new","learning","review","mastered"].includes(wordFilter)&&c.status!==wordFilter) return false;
+  if(wordSearch){ const q=wordSearch.toLowerCase();
+    if(!(w.word.toLowerCase().includes(q)||(w.kor||"").includes(wordSearch)||(w.def||"").toLowerCase().includes(q))) return false; }
+  return true;
+}
+// 모의고사 단어 배지 — w.mock 은 그 단어가 출제된 폼 id 목록
+function mockBadge(w){ return (w.mock&&w.mock.length)?` <span title="모의고사 출제: ${esc(w.mock.join(", "))}">📕</span>`:""; }
+function wordRowHTML(w){ const c=getCard(w.id);
+  const lbl={new:"미학습",learning:"학습중",review:"복습",mastered:"마스터"}[c.status];
+  return `<div class="witem" data-id="${w.id}"><div style="min-width:0">
+      <div class="w">${esc(w.word)}${c.starred?' <span style="color:var(--gold)">★</span>':''}${mockBadge(w)}${w.source==="gre-magoosh"?'<span class="src">GRE</span>':''}${tierOf(w)==="high"?' ⭐':''}</div>
+      <div class="k">${esc(w.kor||w.def||"")}</div></div><span class="tag ${c.status}">${lbl}</span></div>`; }
+function appendWords(n){
+  const box=$("#wordList"); if(!box) return;
+  const slice=wordRows.slice(wordShown,wordShown+n);
+  if(slice.length){ box.insertAdjacentHTML("beforeend",slice.map(wordRowHTML).join("")); wordShown+=slice.length; }
+  const s=$("#wordMore"); if(!s) return;
+  const left=wordRows.length-wordShown;
+  s.style.display=left>0?"":"none";
+  s.textContent=left>0?`⌄ 더 보기 (${left}개 남음)`:"";
+}
+// 센티널이 화면 아래 400px 안에 들어오면 다음 묶음을 붙인다(스크롤/리사이즈에서 호출).
+function pumpWords(){
+  const s=$("#wordMore"); if(!s||wordShown>=wordRows.length) return;
+  if(s.getBoundingClientRect().top < window.innerHeight+400){
+    appendWords(WORD_PAGE);
+    if(!wordPumping){ wordPumping=true; requestAnimationFrame(()=>{ wordPumping=false; pumpWords(); }); }
+  }
+}
+function renderWords(keep){
+  const prev=keep?wordShown:0;
+  wordRows=WORDS.filter(wordMatches);
+  const cnt=$("#wordCount");
+  if(cnt) cnt.textContent=wordFilter==="mock"
+    ? `${wordRows.length}개 · 모의고사 6회분에 실제 출제된 단어`
+    : `${wordRows.length}개`;
+  const box=$("#wordList"); if(!box) return;
+  box.innerHTML=""; wordShown=0;
+  box.onclick=e=>{ const el=e.target.closest(".witem"); if(el) showWord(+el.dataset.id); };
+  appendWords(Math.max(WORD_PAGE,prev));
+  pumpWords();
+  const sbtn=$("#wordStudy");
+  if(sbtn){ sbtn.classList.toggle("hidden", wordRows.length===0);
+    sbtn.textContent=`▶︎ 이 ${wordRows.length}개로 플래시카드`;
+    sbtn.onclick=()=>startStudySet(wordRows.map(w=>w.id), wordFilter==="mock"?"모의고사 단어":"단어장 선택"); }
 }
 function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   const syn=(w.synonyms||[]).map(x=>`<span>${esc(x)}</span>`).join("");
@@ -1309,6 +1555,7 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   openSheet(`<div class="row" style="justify-content:space-between;align-items:flex-start">
       <div class="word-row" style="justify-content:flex-start"><h3 style="font-size:26px">${esc(w.word)}</h3>${spkBtn(w.word)}</div><button class="btn sm ghost" id="wstar">${c.starred?'★':'☆'}</button></div>
     <div style="color:var(--brand2);font-size:12px;text-transform:uppercase">${esc(w.pos||"")}${w.source==="gre-magoosh"?" · GRE Magoosh":""}${tierOf(w)==="high"?" · ⭐빈출":""}</div>
+    ${(w.mock&&w.mock.length)?`<div class="hintbox" style="margin-top:8px;font-size:11px">📕 모의고사 출제 단어 — ${esc(w.mock.join(", "))} 단어시험에 실제로 나온 단어입니다.</div>`:""}
     ${w.afoqtCommon?`<div class="hintbox" style="margin-top:8px;font-size:11px">⭐ AFOQT 빈출 단어 — Quizlet·Barron's·커뮤니티 AFOQT 단어 목록에 등재된 단어입니다.</div>`:""}
     <div style="font-size:20px;font-weight:700;margin-top:10px">${esc(w.kor||"")}</div>
     <div class="muted" style="margin-top:6px;line-height:1.5">${esc(w.def||"")}</div>
@@ -1317,7 +1564,7 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
     ${syn?`<h2 class="section">동의어</h2><div class="syn" style="display:flex;flex-wrap:wrap;gap:6px">${syn}</div>`:""}
     ${ana?`<h2 class="section">유추 관계</h2><div style="font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);line-height:1.7">${ana}</div>`:""}
     <button class="btn ghost" id="wclose" style="margin-top:20px">닫기</button>`);
-  $("#wstar").onclick=()=>{ toggleStar(id); showWord(id); renderWords(); }; $("#wclose").onclick=closeSheet;
+  $("#wstar").onclick=()=>{ toggleStar(id); showWord(id); renderWords(true); }; $("#wclose").onclick=closeSheet;
   wireSpeakers($("#genericSheetBody"));
 }
 
@@ -1959,7 +2206,11 @@ const MATH_TYPES=[
   steps:"① 현재 나이 x 설정 → ② '~년 전/후' 조건을 식으로 → ③ 방정식 풀기",
   trap:"몇 년이 지나도 두 사람의 나이 '차'는 변하지 않는다 — 이걸 쓰면 빠르다."},
  {k:"ar_unit",sec:"AR",name:"단위 환산",keys:["unit_conversion"],
-  pts:["1 ft = 12 in · 1 yd = 3 ft · 1 mi = 5,280 ft","1시간 = 3,600초 · 1 lb = 16 oz"],
+  pts:["길이: 1 ft = 12 in · 1 yd = 3 ft · 1 mi = 5,280 ft",
+   "부피: 1 gal = 4 qt = 8 pt = 128 fl oz · 1 cup = 8 fl oz",
+   "무게: 1 lb = 16 oz · 1 ton = 2,000 lb",
+   "넓이·부피: 1 sq yd = 9 sq ft · 1 cu yd = 27 cu ft · 1 cu ft = 1,728 cu in",
+   "시간·속도: 1시간 = 3,600초 · 60 mph = 88 ft/s"],
   steps:"단위를 분수로 곱해 소거: 60 mi/hr * (5280 ft/mi) ÷ (3600 s/hr) = 88 ft/s",
   trap:"곱할지 나눌지 헷갈리면 '단위가 소거되는 방향'으로 판단."},
  // ── 📐 수학 지식 (MK) ──
@@ -2021,7 +2272,9 @@ function drillTopicsMulti(sec,keys){
     section:"AV",prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:AVCAT[q.topic]||q.topic||"",
     avId:q.id,avTopic:q.topic,options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
   const pool={AR:ARITH,MK:MATHK,PS:PHYSCI}[sec]||[];
-  return shuffle(pool.filter(q=>set.has(q.topic||""))).slice(0,20).map(q=>({
+  const cand=pool.filter(q=>set.has(q.topic||""));
+  // 유형은 사용자가 골랐으니 주제 가중은 빼고, 교재 문체(긴 서술형)만 우선 출제한다.
+  return ((sec==="AR"||sec==="MK")?shuffleW(cand,mqStyleWeight):shuffle(cand)).slice(0,20).map(q=>({
     section:sec,prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:q.topic||"",qid:q.id,
     options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
 }
@@ -2345,10 +2598,8 @@ const SECBUILD={ WK:n=>buildWK(n), VA:n=>buildVA(n), RC:n=>buildRC(n),
   AV:n=>buildAV(n), SJ:n=>buildSJ(n), TR:n=>buildTR(n), IC:n=>buildIC(n), BC:n=>buildBC(n) };
 // Realistic seconds-per-question per subtest (from official AFOQT time ÷ count),
 // so every preset's timer/label stays consistent with its section mix.
-// RC: 공식 시간 24분/25문항 ÷ 25 = 57.6 ≈ 58초/문항.
-// 공식(Pearson VUE) 배분 ÷ 문항 수 = 문항당 초.
-// WK 25/5분 · VA 25/8분 · RC 25/24분 · AR 25/29분 · MK 25/22분 · AV 20/8분
-// TR 40/7분 · IC 25/5분 · BC 30/5분 · PS 20/10분 · SJ 16/35분
+// 출처: Pearson VUE AFOQT 시험 구조표(2026-08-06 갱신). 2015년 공군 팸플릿은 낡았음(독해 38분·상황판단 50문항으로 표기).
+// RC 25문항/24분=58초, SJ 16문항/35분=131초, BC 30문항/5분=10초, TR 40문항/7분=10.5초.
 const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:10.5, IC:12, BC:10, PS:30, SJ:131 };
 // Build a preset from a list of [sectionCode, count] specs; derives timer + label.
 function composeMock(name,specs,tag){
@@ -2366,9 +2617,10 @@ const EXAM_PRESETS={
   afoqtCore: composeMock("AFOQT 모의고사 (표읽기·블록·계기 제외)",
     [["VA",25],["AR",25],["WK",25],["MK",25],["RC",25],["AV",20]], "Pilot 시각과목 만점 처리"),
   // ── 섹터별 (composite-focused mocks) ──
-  secVerbal: composeMock("Verbal 섹터",       [["VA",25],["WK",25],["RC",25]],             "Verbal · 실전 문항수"),
-  secQuant:  composeMock("Quantitative 섹터", [["AR",25],["MK",25]],                       "Quant · 실전 문항수"),
-  secPilot:  composeMock("Pilot 섹터",        [["AV",20],["TR",40],["IC",25],["BC",30]],   "Pilot · 실전 문항수"),
+  // 합성점수 구성 과목 그대로 · 실전 문항수 (Pilot = MK·IC·TR·AV)
+  secVerbal: composeMock("Verbal 섹터",       [["VA",25],["WK",25],["RC",25]],           "Verbal · 실전 문항수"),
+  secQuant:  composeMock("Quantitative 섹터", [["AR",25],["MK",25]],                     "Quant · 실전 문항수"),
+  secPilot:  composeMock("Pilot 섹터",        [["MK",25],["TR",40],["IC",25],["AV",20]], "Pilot · 실전 문항수"),
   // ── 세션별 (individual subtests, real counts) ──
   wk: composeMock("Word Knowledge",          [["WK",25]]),
   va: composeMock("Verbal Analogies",        [["VA",25]]),
@@ -2393,10 +2645,69 @@ function buildAV(n){
     avId:q.id, avTopic:q.topic,
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
 }
+/* 실제 교재(AFOQTGuide·Barron·Trivium)의 산수·수학은 인물과 상황이 있는 긴 문장형이 주류다
+   — AR 평균 29단어에 19%가 사람 이름으로 시작하는 시나리오. 앱 문항은 이보다 간결해서
+   그대로 뽑으면 실전보다 쉽게 읽힌다. 그래서 실전 문체에 가까운 문항을 더 자주 출제한다.
+   (물리과학은 앱 쪽이 이미 실제보다 길어 가중치를 적용하지 않는다.) */
+const MQ_CTX=/\b(store|school|team|company|worker|employee|car|truck|train|plane|flight|recipe|garden|room|farm|shop|restaurant|student|teacher|driver|pilot|customer|crew|squadron|machine|factory|hotel|library|bank|family|gym|museum|theater|bakery|pharmacy|charity|hospital)\w*/i;
+const MQ_COMMON=new Set([
+  "What","How","The","Which","Solve","Using","Simplify","Two","After","One","Working","Evaluate","Factor",
+  "Find","She","You","For","When","Given","Six","During","Approximately","Convert","Three","Expand","Express",
+  "Write","Assuming","Calculate","Four","Five","Seven","Eight","Nine","Ten","They","Last","This","That","There",
+  "Both","Each","Every","Multiply","Divide","Add","Subtract","Estimate","Round","Assume","Determine","Compute",
+  "Consider","Suppose","Rewrite","Reduce","Identify","Choose","Select","According","Between","Because","Before",
+  "Since","While","With","Without","About","Above","Below","From","Into","Over","Under","Water","Coffee","Class",
+  "Tickets","Running","Sound","Milk","Fuel","Ground","Rectangular","Together","Assume"]);
+function mqNamed(t){                       // 등장인물(고유명사) 포함 여부 — 흔한 문두 단어는 제외
+  const m=String(t).match(/\b[A-Z][a-z]{2,}\b/g)||[];
+  return m.some(x=>!MQ_COMMON.has(x));
+}
+function mqStyleWeight(q){                 // 문체(길이·인물) 가중
+  const t=q.q||"", w=t.trim().split(/\s+/).length;
+  let s = w<18 ? 0.20 : (w<=25 ? 0.9 : (w<=34 ? 2.8 : 3.4));
+  if(mqNamed(t)) s*=3.0; else if(MQ_CTX.test(t)) s*=1.3;
+  return s;
+}
+/* 주제 가중 — 교재 278문항의 유형 분포에 맞춘다. 앱 은행은 혼합(농도)·속력·비율·통계·함수·수열이
+   교재보다 많고 백분율·돈·단위환산이 적다. 값은 문체 가중과의 상호작용까지 포함해 시뮬레이션으로 보정한 것. */
+const MQ_TOPIC_W={
+  // 산수 추론
+  "AR:age_problems":1.1, "AR:area_perimeter":0.72, "AR:area_word_problem":0.72,
+  "AR:averages":1.11, "AR:basic_probability":3.01, "AR:compound_interest":1.53,
+  "AR:distance_rate_time":0.38, "AR:fractions":0.51, "AR:geometry":0.72,
+  "AR:integers":0.51, "AR:mixtures":0.1, "AR:money":1.53,
+  "AR:number_properties":0.51, "AR:percentages":1.92, "AR:perimeter_word_problem":0.72,
+  "AR:probability":3.01, "AR:proportions":0.53, "AR:rates":0.38,
+  "AR:ratios":0.53, "AR:simple_interest":1.53, "AR:unit_conversion":3.83,
+  "AR:work_rate":0.21,
+  // 수학 지식
+  "MK:absolute_value":2.54, "MK:algebra":0.72, "MK:arithmetic":0.78,
+  "MK:circles":0.71, "MK:coordinate_geometry":1.94, "MK:equations":2.8,
+  "MK:exponents":2.11, "MK:factoring":1.04, "MK:functions":0.35,
+  "MK:geometric_series":0.59, "MK:geometry":0.71, "MK:geometry_area":0.71,
+  "MK:inequalities":2.54, "MK:linear_equations":2.8, "MK:logarithms":0.59,
+  "MK:number_properties":0.78, "MK:polynomials":1.04, "MK:quadratic_vertex":1.04,
+  "MK:quadratics":1.04, "MK:radicals":2.49, "MK:scientific_notation":2.11,
+  "MK:sequences":0.59, "MK:sequences_series":0.59, "MK:series":0.59,
+  "MK:statistics":0.16, "MK:systems":2.8, "MK:systems_of_equations":2.8,
+  "MK:triangles":0.71,
+};
+function mqWeight(q, sec){                 // 모의고사용 = 문체 x 주제
+  return mqStyleWeight(q) * (MQ_TOPIC_W[sec+":"+(q.topic||"")] ?? 1);
+}
+// 가중 무작위 정렬(A-Res) — 유형 드릴처럼 '이미 유형을 고른' 경우엔 문체 가중만 쓴다.
+function shuffleW(arr, wf){
+  return arr.map(x=>[Math.pow(Math.random(), 1/Math.max(wf(x)||1,0.01)), x])
+            .sort((a,b)=>b[0]-a[0]).map(e=>e[1]);
+}
 // Generic bilingual MCQ builder (Arithmetic Reasoning / Math Knowledge / Physical Science).
 function buildMCQ(pool,section,n){
   const sec=section.toLowerCase(), rec=state.qSeen[sec]||{};
-  return pickFresh(pool, n, q=>rec[q.id]||0).map(q=>({
+  const seenAt=q=>rec[q.id]||0;
+  const picked = (section==="AR"||section==="MK")
+    ? pickFreshW(pool, n, seenAt, q=>mqWeight(q, section))
+    : pickFresh(pool, n, seenAt);
+  return picked.map(q=>({
     section, prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:q.topic||"", qid:q.id,
     options:q.options.slice(), answer:q.answer, explain:q.explain||""}));
 }
@@ -2490,21 +2801,23 @@ function buildWK(n){
   const items=[];
   for(const w of top){
     if(items.length>=n) break;
-    const correct=w.synonyms[(Math.random()*w.synonyms.length)|0];
+    // 실전 형식: 보기 5개(A~E). 실제 시험(Form T)의 단어 문항은 전부 '의미가 가장 가까운 단어' 고르기다.
+    const correct= w.synonyms[(Math.random()*w.synonyms.length)|0];
     if(!correct) continue;
     const wSyn=new Set(w.synonyms.map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
     const dist=[];
     for(const o of shuffle(pool)){
-      if(dist.length>=3) break;
+      if(dist.length>=4) break;
       if(o.id===w.id) continue;
-      const c=o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue;
+      const c= o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue;
       const cl=c.toLowerCase();
       if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue;
       dist.push(c);
     }
-    if(dist.length<3) continue;
+    if(dist.length<4) continue;
     const options=shuffle([correct,...dist]);
-    items.push({section:"WK",prompt:"다음 단어와 의미가 가장 가까운 것은?",
+    items.push({section:"WK",
+      prompt:"다음 단어와 의미가 가장 가까운 것은?",
       stem:w.word, sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),
       options, answer:options.indexOf(correct), wordId:w.id, tier:tierOf(w),
       explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`});
@@ -2527,16 +2840,75 @@ function vaExplainHTML(a, opts){
   }
   return h;
 }
+// 실제 AFOQT 유추는 '문장완성형(A is to B as C is to ___)'이 주류(65~76%)이고,
+// '짝맞추기(A:B :: C:D)'가 나머지다. id 기준으로 7:3 비율을 고정 배분한다(같은 문항은 항상 같은 형식).
+const UPVA = s => String(s).toUpperCase();
+// 짝맞추기형은 실제 시험에서 첫 글자만 대문자로 표기된다 (예: "Borough is to City as").
+const TCVA = s => String(s).trim().split(/\s+/)
+  .map(w=>w?w[0].toUpperCase()+w.slice(1).toLowerCase():w).join(" ");
 function vaItem(a){
-  const opts=shuffle(a.options.map(o=>({t:`${o.pair[0]} : ${o.pair[1]}`,c:!!o.correct})));
-  return {section:"VA",prompt:"다음과 같은 관계를 가진 짝은?",
-    stem:`${a.stem[0]} : ${a.stem[1]}`, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
+  const relLine=`관계: ${a.relKo?a.relKo+" ("+(a.relation||"")+")":(a.relation||"")}`;
+  const cp=(a.options.find(o=>o.correct)||{}).pair;
+  if(cp && (a.id%20)<13){          // 문장완성 65% : 짝맞추기 35% — 현행 Form T 교재 비율
+    // 오답 보기는 '오답 짝의 뒷단어'에서 뽑되, 문제에 이미 등장한 단어는 제외한다.
+    const ans=cp[1];
+    const seen=new Set([String(ans).toLowerCase(),
+      String(a.stem[0]).toLowerCase(), String(a.stem[1]).toLowerCase(), String(cp[0]).toLowerCase()]);
+    const dw=[];
+    for(const o of a.options){ if(o.correct) continue;
+      const w=o.pair[1], k=String(w).toLowerCase();
+      if(seen.has(k)) continue; seen.add(k); dw.push(w); }
+    if(dw.length<4){ for(const o of a.options){ if(o.correct) continue;   // 부족하면 앞단어에서 보충
+      const w=o.pair[0], k=String(w).toLowerCase();
+      if(seen.has(k)) continue; seen.add(k); dw.push(w); if(dw.length>=4) break; } }
+    if(dw.length>=4){
+      const opts=shuffle([ans,...dw.slice(0,4)]).map(UPVA);
+      return {section:"VA",
+        prompt:`${UPVA(a.stem[0])} is to ${UPVA(a.stem[1])} as ${UPVA(cp[0])} is to`,
+        stem:null, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
+        options:opts, answer:opts.indexOf(UPVA(ans)),
+        explain:[relLine, a.why||a.explain||"",
+                 `${a.stem[0]} : ${a.stem[1]} 의 관계를 ${cp[0]} 에 적용하면 → ${ans}`].filter(Boolean).join("\n")};
+    }
+  }
+  // 짝맞추기형: 실제 시험처럼 "X is to Y as" + 보기 "A is to B" (콜론 표기 아님)
+  const opts=shuffle(a.options.map(o=>({t:`${TCVA(o.pair[0])} is to ${TCVA(o.pair[1])}`,c:!!o.correct})));
+  return {section:"VA",prompt:`${TCVA(a.stem[0])} is to ${TCVA(a.stem[1])} as`,
+    stem:null, sub:"ANALOGY", anaId:a.id, relation:a.relation||"기타",
     options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.c),
-    explain:[`관계: ${a.relKo?a.relKo+" ("+(a.relation||"")+")":(a.relation||"")}`,
+    explain:[relLine,
              a.why||a.explain||"",
              ...(Array.isArray(a.wrong)?a.wrong.map(w=>`✗ ${w.pair} — ${w.why}`):[])].filter(Boolean).join("\n")};
 }
-function buildVA(n){ return pickFresh(ANALOGIES, n, a=>{ const v=state.va[a.id]; return (v&&v.seen>0)?seenTs(v):0; }).map(vaItem); }
+// 실제 교재(AFOQTGuide·Barron·Trivium 150문항)의 관계 유형 분포에 맞춰 출제 비중을 보정한다.
+// 앱 데이터는 '직업/도구'가 과다(17% vs 5%)하고 '동의어'가 부족(10% vs 19%)해,
+// 그대로 뽑으면 실전과 체감이 달라진다.
+function vaClass(a){
+  const r=((a.relation||"")+" "+(a.relKo||"")).toLowerCase();
+  if(/degree|intensity|정도/.test(r)) return "int";
+  if(/synonym|동의/.test(r))          return "syn";
+  if(/antonym|반의/.test(r))          return "ant";
+  if(/part|whole|부분|전체/.test(r))   return "part";
+  if(/cause|effect|원인|결과/.test(r)) return "cause";
+  if(/unit|measure|단위/.test(r))      return "unit";
+  if(/group|member|집단|무리/.test(r)) return "grp";
+  if(/tool|worker|직업|도구/.test(r))  return "work";
+  return "etc";
+}
+const VA_W={syn:1.85, ant:0.75, int:1.10, work:0.30, part:0.40, cause:0.65, unit:0.90, grp:1.50, etc:1.30};
+// pickFresh 의 가중 버전 — '안 푼 것 우선' 규칙은 유지하고 그 안에서 가중 무작위로 뽑는다.
+function pickFreshW(pool, n, seenAt, weightOf){
+  const fresh=[], seen=[];
+  for(const x of pool){ const t=seenAt(x); if(t) seen.push([t,x]); else fresh.push(x); }
+  const key=x=>Math.pow(Math.random(), 1/Math.max(weightOf(x)||1, 0.01));
+  const out=fresh.map(x=>[key(x),x]).sort((a,b)=>b[0]-a[0]).slice(0,n).map(e=>e[1]);
+  if(out.length<n){ seen.sort((a,b)=>a[0]-b[0]);
+    out.push(...seen.slice(0,n-out.length).map(e=>e[1])); }
+  return out;
+}
+function buildVA(n){ return pickFreshW(ANALOGIES, n,
+  a=>{ const v=state.va[a.id]; return (v&&v.seen>0)?seenTs(v):0; },
+  a=>VA_W[vaClass(a)]||1).map(vaItem); }
 function rcItem(p,qi){
   const q=p.questions[qi];
   return {section:"RC",prompt:q.q, stem:null, sub:p.topic||"",
@@ -2579,17 +2951,22 @@ function buildWrongWK(){
     const one=buildWKfor(w); if(one) out.push(wrongTag(one,b[k]||1)); }
   return out;
 }
+// 실전 형식: 보기 5개(A~E). 단어 문항은 항상 '의미가 가장 가까운 단어' 고르기 — 뜻(정의문) 고르기는 쓰지 않는다.
 function buildWKfor(w){
-  const pool=WORDS.filter(x=>x.synonyms&&x.synonyms.length);
-  const correct=w.synonyms[(Math.random()*w.synonyms.length)|0]; if(!correct) return null;
-  const wSyn=new Set(w.synonyms.map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
+  const pool=WORDS.filter(x=> x.synonyms&&x.synonyms.length);
+  const correct = w.synonyms[(Math.random()*w.synonyms.length)|0];
+  if(!correct) return null;
+  const wSyn=new Set((w.synonyms||[]).map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
   const dist=[];
-  for(const o of shuffle(pool)){ if(dist.length>=3) break; if(o.id===w.id) continue;
-    const c=o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue; const cl=c.toLowerCase();
+  for(const o of shuffle(pool)){ if(dist.length>=4) break; if(o.id===w.id) continue;
+    const c= o.synonyms[(Math.random()*o.synonyms.length)|0];
+    if(!c) continue; const cl=c.toLowerCase();
     if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue; dist.push(c); }
-  if(dist.length<3) return null;
+  if(dist.length<4) return null;
   const options=shuffle([correct,...dist]);
-  return {section:"WK",prompt:"다음 단어와 의미가 가장 가까운 것은?",stem:w.word,
+  return {section:"WK",
+    prompt:"다음 단어와 의미가 가장 가까운 것은?",
+    stem:w.word,
     sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),options,answer:options.indexOf(correct),
     wordId:w.id,tier:tierOf(w),explain:`${w.word} = ${w.kor||""}  ·  동의어: ${w.synonyms.slice(0,4).join(", ")}`};
 }
@@ -2644,6 +3021,51 @@ function renderExamSetup(){
   $$("#retestList [data-retest]").forEach(b=>b.onclick=()=>startRetest(b.dataset.retest));
   const tot=WRONG_ORDER.reduce((s,k)=>s+wc[k],0); $("#retestAll").classList.toggle("hidden",tot===0);
   $("#retestAll").textContent=`🔁 전체 오답 재시험 (${tot}문제)`;
+  injectMockUI();   // 🔒 실전 기출 모의고사 그룹 주입(잠금/해제 상태에 따라)
+  renderSecPicker();
+}
+/* ============================================================
+   과목 직접 고르기 — 원하는 과목만 골라 실전 형식(실전 문항수·과목별 제한시간)으로 응시
+   ============================================================ */
+// 실제 시험 순서 · 공식 문항 수
+const PICK_ORDER=[["VA",25],["AR",25],["WK",25],["MK",25],["RC",25],["SJ",16],["PS",20],["AV",20],["TR",40],["IC",25],["BC",30]];
+const PICK_ICON={VA:"🔗",AR:"➗",WK:"📇",MK:"📐",RC:"📖",SJ:"🧭",PS:"🔬",AV:"🛩️",TR:"📊",IC:"🎚️",BC:"🧱"};
+let pickSel=new Set();
+function renderSecPicker(){
+  const box=$("#pickSecs"); if(!box) return;
+  box.innerHTML=PICK_ORDER.map(([c,n])=>{
+    const min=Math.round(SECRATE[c]*n/60);
+    return `<button class="pick-chip ${pickSel.has(c)?"on":""}" data-pick="${c}">
+      <span class="pi">${PICK_ICON[c]}</span><b>${SEC_KO[c]||c}</b>
+      <span class="pm">${n}문항 · ${min}분</span></button>`; }).join("");
+  $$("#pickSecs [data-pick]").forEach(b=>b.onclick=()=>{
+    const c=b.dataset.pick; if(pickSel.has(c)) pickSel.delete(c); else pickSel.add(c);
+    renderSecPicker(); });
+  const chosen=PICK_ORDER.filter(([c])=>pickSel.has(c));
+  const q=chosen.reduce((s,[,n])=>s+n,0), t=chosen.reduce((s,[c,n])=>s+SECRATE[c]*n,0);
+  $("#pickSum").innerHTML = chosen.length
+    ? `선택 <b>${chosen.length}과목</b> · <b>${q}문항</b> · <b>${fmtTime(t)}</b><br>
+       <span style="font-size:11.5px">순서: ${chosen.map(([c])=>SEC_KO[c]||c).join(" → ")}</span>`
+    : "과목을 선택하세요";
+  $("#pickStart").disabled=chosen.length===0;
+  $("#pickStart").textContent=chosen.length?`선택한 ${chosen.length}과목 시작 (${q}문항 · ${fmtTime(t)})`:"선택한 과목으로 시작";
+}
+function startPickedExam(){
+  const specs=PICK_ORDER.filter(([c])=>pickSel.has(c));
+  if(!specs.length) return;
+  const name=specs.length===1 ? `${SEC_KO[specs[0][0]]} 모의고사`
+    : `선택 모의고사 (${specs.map(([c])=>SEC_KO[c]||c).join("·")})`;
+  const p=composeMock(name, specs, "직접 선택");
+  const items=p.build();
+  if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
+  exam={key:null,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
+        secsLeft:p.secs,startSecs:p.secs,total:items.length,submitted:false,timerId:null};
+  if(specs.length>1) buildExamSections(exam);   // 과목별 타이머
+  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
+  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
+  window.scrollTo(0,0);
+  $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
+  startExamTimer(); renderExamQ();
 }
 function startExam(key,opts){
   if(key==="afoqt"&&pilotPerfect()) key="afoqtCore"; // 시각과목은 외부 앱에서 — 코어만 응시
@@ -2903,6 +3325,51 @@ const CS_MATH=[
    "독립 사건은 확률을 곱하고, 배반 사건은 더한다",
  ]],
 ];
+/* 단위 환산 — AFOQT 산수·수학은 미국 관습단위로 나오므로 이 표를 모르면 못 푼다.
+   실제 시험에는 환산표가 주어지지 않는다. */
+const CS_UNITS=[
+ ["길이",[
+   "1 ft = 12 in · 1 yd = 3 ft = 36 in",
+   "1 mile = 5,280 ft = 1,760 yd",
+   "1 in = 2.54 cm · 1 m ≈ 3.28 ft · 1 km ≈ 0.62 mile",
+ ]],
+ ["넓이",[
+   "1 sq ft = 144 sq in · 1 sq yd = 9 sq ft",
+   "1 acre = 4,840 sq yd = 43,560 sq ft",
+   "길이가 n배면 넓이는 n^2배 (단위 환산도 제곱!)",
+ ]],
+ ["부피·액량",[
+   "1 cup = 8 fl oz · 1 pint = 2 cups = 16 fl oz",
+   "1 quart = 2 pints = 4 cups = 32 fl oz",
+   "1 gallon = 4 quarts = 8 pints = 128 fl oz",
+   "1 cu ft = 1,728 cu in · 1 cu yd = 27 cu ft",
+   "1 gallon ≈ 231 cu in · 1 cu ft ≈ 7.5 gallons",
+   "1 tbsp = 3 tsp · 1 L ≈ 1.06 quart",
+ ]],
+ ["무게",[
+   "1 lb = 16 oz · 1 ton = 2,000 lb",
+   "1 kg ≈ 2.2 lb · 물 1 gallon ≈ 8.34 lb",
+ ]],
+ ["시간",[
+   "1 hr = 60 min = 3,600 sec · 1 day = 24 hr = 1,440 min",
+   "1 week = 7 days · 1 year = 12 months = 52 weeks",
+   "분→시간은 ÷60 (예: 45분 = 0.75시간) — 소수로 바꿔야 곱셈이 편하다",
+ ]],
+ ["속도",[
+   "60 mph = 88 ft/sec  ← 외워두면 즉시 변환된다",
+   "mph → ft/sec 는 * 22/15 · ft/sec → mph 는 * 15/22",
+   "mph = miles ÷ hours (분이면 * 60/분)",
+ ]],
+ ["온도",[
+   "°F = (9/5)°C + 32 · °C = (5/9)(°F - 32)",
+   "-40°는 화씨·섭씨가 같은 유일한 온도",
+ ]],
+ ["환산하는 법",[
+   "단위를 분수로 곱해 소거한다: 60 mi/hr * (5,280 ft/mi) ÷ (3,600 s/hr) = 88 ft/s",
+   "곱할지 나눌지 헷갈리면 '없애려는 단위가 약분되는 방향'으로 세운다",
+   "큰 단위 → 작은 단위는 곱하기, 작은 단위 → 큰 단위는 나누기",
+ ]],
+];
 const CS_AV=[
  "4가지 힘: 양력↔중력 · 추력↔항력 — 등속 수평비행이면 네 힘이 평형",
  "3축 조종: 롤(세로축)=에일러론 · 피치(가로축)=엘리베이터 · 요(수직축)=러더",
@@ -2930,14 +3397,18 @@ function renderCheatsheet(){
     .sort((a,b)=>b.n-a.n).slice(0,24);
   const rootRows=roots.map(r=>`<tr><td><b>${esc(r.f)}</b></td><td>${esc(r.m)}</td><td class="muted">${esc(r.ex.join(", "))}</td></tr>`).join("");
   const paceRows=[["WK","단어",25,5],["VA","유추",25,8],["RC","독해",25,24],["AR","산수",25,29],["MK","수학",25,22],
-    ["AV","항공",20,8],["TR","표읽기",40,7],["IC","계기",25,5],["BC","블록",30,5],["PS","과학",20,10],["SJ","상황",16,35]]
+    ["SJ","상황판단",16,35],["PS","물리과학",20,10],
+    ["AV","항공",20,8],["TR","표읽기",40,7],["IC","계기",25,5],["BC","블록",30,5]]
     .map(([c,ko,n,min])=>`<tr><td>${ko}</td><td class="muted">${n}문항 · ${min}분</td><td style="text-align:right"><b>${SECRATE[c]}초</b>/문항</td></tr>`).join("");
+  const unitBlocks=CS_UNITS.map(([t,rows])=>`<div class="cs-sub">${esc(t)}</div>${rows.map(r=>`<div class="cs-f">${fmtMath(r)}</div>`).join("")}`).join("");
   const mathBlocks=CS_MATH.map(([t,rows])=>`<div class="cs-sub">${esc(t)}</div>${rows.map(r=>`<div class="cs-f">${fmtMath(r)}</div>`).join("")}`).join("");
   box.innerHTML=`
     <div class="hintbox" style="margin-bottom:14px">시험 전날 밤·시험장 가는 길에 한 번 훑는 용도예요. 제목을 누르면 접혔다 펴져요.</div>
     <details class="cs-sec" open><summary>⏱️ 과목별 시간 배분</summary><table class="cs-table">${paceRows}</table>
       <div class="guide-src">AFOQT는 오답 감점이 없어요 — 시간이 모자라면 남은 문항은 반드시 다 찍기!</div></details>
     <details class="cs-sec"><summary>🔢 수학 공식 (산수·수학지식)</summary>${mathBlocks}</details>
+    <details class="cs-sec"><summary>📏 단위 환산 — 시험지에 표가 안 나온다</summary>${unitBlocks}
+      <div class="guide-src">산수·수학 문항의 약 1/4이 미국 관습단위(갤런·피트·온스)로 나와요. 이 표는 통째로 외워야 합니다.</div></details>
     <details class="cs-sec"><summary>🔗 유추 관계 유형 — 빈도순 TOP ${Math.min(14,Object.keys(rel).length)}</summary><table class="cs-table">${relRows}</table>
       <div class="guide-src">짝의 '관계'뿐 아니라 '방향'(부분→전체 vs 전체→부분)까지 같아야 정답!</div></details>
     <details class="cs-sec"><summary>✈️ 항공 핵심 암기 ${CS_AV.length}줄</summary>${CS_AV.map(x=>`<div class="cs-f">${fmtMath(x)}</div>`).join("")}</details>
@@ -2974,7 +3445,8 @@ function drillTopic(sec,topic){
     section:"AV",prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:AVCAT[q.topic]||q.topic||"",
     avId:q.id,avTopic:q.topic,options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
   const pool={AR:ARITH,MK:MATHK,PS:PHYSCI}[sec]||[];
-  return shuffle(pool.filter(q=>(q.topic||"")===topic)).slice(0,20).map(q=>({
+  const cand=pool.filter(q=>(q.topic||"")===topic);
+  return ((sec==="AR"||sec==="MK")?shuffleW(cand,mqStyleWeight):shuffle(cand)).slice(0,20).map(q=>({
     section:sec,prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:q.topic||"",qid:q.id,
     options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
 }
@@ -3155,19 +3627,22 @@ function renderSpeedStats(){
 }
 const SEC_KO={WK:"단어",VA:"유추",RC:"독해",AR:"산수",MK:"수학",PS:"과학",AV:"항공",TR:"표읽기",BC:"블록",IC:"계기",SJ:"상황"};
 // Approximate AFOQT composite -> subtest membership (unofficial).
+/* 공식 AFOQT Form T 정보 팸플릿(2015-08-01 갱신) Table 1 기준.
+   Pilot 은 수학지식·표읽기·계기·항공 4과목이며 산수(AR)·유추(VA)·블록(BC)은 포함되지 않는다.
+   물리과학(PS)과 자기기술(SDI)은 어떤 합성점수에도 들어가지 않는다. */
 const COMPOSITES=[
-  {name:"🎓 Academic Aptitude",codes:["WK","VA","RC","AR","MK"]},
-  {name:"🗣 Verbal",codes:["WK","VA","RC"]},
+  {name:"🎓 Academic Aptitude",codes:["VA","AR","WK","MK","RC"]},
+  {name:"🗣 Verbal",codes:["VA","WK","RC"]},
   {name:"🔢 Quantitative",codes:["AR","MK"]},
-  // Pilot composite = Aviation + Block Counting + Table Reading + Instrument.
-  {name:"✈️ Pilot",codes:["AV","BC","TR","IC"]},
-  {name:"🛰 CSO",codes:["WK","AR","MK","TR","BC","AV"]},
+  {name:"✈️ Pilot",codes:["MK","TR","IC","AV"]},
+  {name:"🛰 CSO",codes:["WK","MK","TR","BC"]},
+  {name:"🎯 ABM",codes:["VA","MK","TR","IC","BC","AV"]},
 ];
 // Sector mocks → which composite to show on their result screen.
 const SECTOR_COMPOSITE={
   secVerbal:{name:"🗣 Verbal",codes:["WK","VA","RC"]},
   secQuant:{name:"🔢 Quantitative",codes:["AR","MK"]},
-  secPilot:{name:"✈️ Pilot",codes:["AV","BC","TR","IC"]},
+  secPilot:{name:"✈️ Pilot",codes:["MK","TR","IC","AV"]},
 };
 /* ============================================================
    WEAKNESS REPORT (약점 리포트 — 푼 문제 기반 분석 + 바로 연습)
@@ -3475,6 +3950,7 @@ function wire(){
   $("#examNext").onclick=()=>{ if(!exam) return; const s=curExamSec(), hi=s?s.to:exam.total-1;
     if(exam.idx<hi){ exam.idx++; renderExamQ(); } };
   // 섹션 모드: 마지막 섹션이 아니면 '섹션 제출 → 다음 섹션'
+  $("#pickStart")&&($("#pickStart").onclick=startPickedExam);
   $("#examSubmit").onclick=()=>{ if(exam&&exam.sections&&exam.secIdx<exam.sections.length-1) advanceExamSection(false);
     else submitExam(false); };
   $("#examReviewBtn").onclick=()=>{ renderExamReview(); $("#examReviewBtn").classList.add("hidden"); $("#examReview").scrollIntoView({behavior:"smooth"}); };
@@ -3503,6 +3979,11 @@ function wire(){
   $("#confirmHomeBtn").onclick=()=>go("home");
   // words
   $("#wordsBack").onclick=()=>go("vocab"); $("#searchBox").oninput=e=>{ wordSearch=e.target.value.trim(); renderWords(); };
+  $("#vkMock")&&($("#vkMock").onclick=()=>startStudySet(mockWordIds(),"모의고사 단어"));
+  // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
+  window.addEventListener("scroll",pumpWords,true); window.addEventListener("resize",pumpWords);
+  wireStudyKeys(); wireChoiceKeys();
+  { const m=$("#wordMore"); if(m) m.onclick=()=>appendWords(WORD_PAGE); }
   $$("#wordFilters .chip").forEach(c=>c.onclick=()=>{ $$("#wordFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); wordFilter=c.dataset.f; renderWords(); });
   // analogy
   $("#vaStart").onclick=()=>startAnalogy(false); $("#vaReview").onclick=()=>startAnalogy(true);
@@ -3700,5 +4181,110 @@ async function boot(){
       "<button class='btn primary' style='max-width:200px;margin:16px auto' onclick='location.reload()'>새로고침</button>";
   }
 }
+/* ═══════════════════════════════════════════════════════════════════════
+   실전 기출 모의고사 (암호화·비공개)
+   - mockexams.enc.json 은 AES-GCM 으로 암호화되어 있어 공개 저장소에 올라가도
+     비밀번호 없이는 문제를 볼 수 없습니다(저작권 보호).
+   - 비밀번호 입력 → 브라우저에서 복호화 → 기존 시험 러너/채점/리뷰 재사용.
+   ═══════════════════════════════════════════════════════════════════════ */
+let MOCK=null;                                   // 복호화된 데이터(세션 메모리에만 유지)
+const MOCK_MIN={VA:8,AR:29,WK:5,MK:22,RC:24,PS:10,AV:8};   // 과목별 제한시간(분) — RC는 24분 기준
+function _mb64(b){ const s=atob(b), u=new Uint8Array(s.length); for(let i=0;i<s.length;i++) u[i]=s.charCodeAt(i); return u; }
+async function _mockKey(pw,salt,iter,hash){
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
+  return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:iter,hash},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+}
+async function mockDecrypt(pw){
+  const r=await fetch("./mockexams.enc.json",{cache:"force-cache"});
+  if(!r.ok) throw new Error("enc-fetch");
+  const j=await r.json();
+  const key=await _mockKey(pw,_mb64(j.salt),j.iter||200000,j.hash||"SHA-256");
+  const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:_mb64(j.iv)},key,_mb64(j.ct));  // 틀리면 예외
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+// 저장된 문항 → 러너 아이템으로 변환(원본 순서 유지, 셔플 없음)
+function mockToItems(sub){
+  return sub.questions.map(q=>{
+    const it={section:q.section,prompt:q.fig?"":(q.prompt||""),options:q.options.slice(),
+              answer:q.answer,explain:q.explain||"",sub:""};
+    if(q.passageText){ it.passageId=q.passageId; it.passageTitle=q.passageTitle; it.passageText=q.passageText; }
+    if(q.fig){ it.figureHTML=`<img class="mock-fig" alt="문항" src="data:image/png;base64,${q.fig}">`; }
+    return it;
+  });
+}
+function buildMockPresets(){
+  if(!MOCK||!MOCK.forms) return;
+  MOCK.forms.forEach(f=>{
+    const allSecs=f.subtests.reduce((s,st)=>s+(MOCK_MIN[st.code]||10)*60,0);
+    const allN=f.subtests.reduce((s,st)=>s+st.count,0);
+    EXAM_PRESETS["mock_"+f.id]={name:`${f.name} · 전체`,secs:allSecs,
+      build:()=>f.subtests.flatMap(mockToItems),
+      label:`${allN}문항 · ${fmtTime(allSecs)} · 실전`};
+    f.subtests.forEach(st=>{
+      const secs=(MOCK_MIN[st.code]||10)*60;
+      EXAM_PRESETS[`mock_${f.id}_${st.code}`]={name:`${f.id} · ${st.name}`,secs,
+        build:()=>mockToItems(st), label:`${st.count}문항 · ${fmtTime(secs)}`};
+    });
+  });
+}
+function mockUnlocked(){ return !!MOCK; }
+async function unlockMock(pw){
+  try{ const d=await mockDecrypt(pw); if(!d||!d.forms) return false; MOCK=d; buildMockPresets(); return true; }
+  catch(e){ return false; }
+}
+function mockModal(){
+  if($("#mockModal")) return;
+  const ov=document.createElement("div"); ov.id="mockModal"; ov.className="mock-modal";
+  ov.innerHTML=`<div class="mm-card">
+    <div class="mm-title">🔒 실전 기출 모의고사</div>
+    <div class="mm-desc">저작권 보호를 위해 비공개로 잠겨 있습니다.<br>비밀번호를 입력하세요.</div>
+    <input id="mockPw" type="password" autocomplete="off" placeholder="비밀번호">
+    <div id="mockErr" class="mm-err hidden">비밀번호가 올바르지 않습니다.</div>
+    <div class="mm-btns"><button class="btn ghost" id="mockCancel">취소</button>
+      <button class="btn primary" id="mockGo">🔓 잠금 해제</button></div></div>`;
+  document.body.appendChild(ov);
+  const close=()=>ov.remove();
+  const go=async()=>{
+    const pw=$("#mockPw").value; if(!pw) return;
+    const gb=$("#mockGo"); gb.disabled=true; gb.textContent="확인 중…"; $("#mockErr").classList.add("hidden");
+    const ok=await unlockMock(pw);
+    if(ok){ close(); toast("🔓 모의고사 잠금 해제됨"); injectMockUI(); }
+    else{ $("#mockErr").classList.remove("hidden"); gb.disabled=false; gb.textContent="🔓 잠금 해제"; $("#mockPw").select(); }
+  };
+  $("#mockCancel").onclick=close; $("#mockGo").onclick=go;
+  $("#mockPw").onkeydown=e=>{ if(e.key==="Enter") go(); };
+  ov.onclick=e=>{ if(e.target===ov) close(); };
+  setTimeout(()=>{ const i=$("#mockPw"); if(i) i.focus(); },60);
+}
+function injectMockUI(){
+  const host=$("#examSetup"); if(!host) return;
+  let box=$("#mockGroup");
+  if(!box){ box=document.createElement("div"); box.id="mockGroup";
+    const anchor=host.querySelector("h3.exam-group"); host.insertBefore(box,anchor||null); }
+  if(!mockUnlocked()){
+    box.innerHTML=`<h3 class="exam-group">🔒 실전 기출 모의고사 <span class="mock-lock">비공개</span></h3>
+      <button class="exam-preset mock-locked" id="mockUnlockBtn" style="border-color:var(--gold)">
+        <div class="ic">🔒</div><div class="meta"><b>실제 기출 3회분 · 잠금</b>
+        <div class="muted">비밀번호를 입력하면 T01·T02·T03 실전 모의고사가 열려요</div></div>
+        <div class="go">›</div></button>`;
+    const b=$("#mockUnlockBtn"); if(b) b.onclick=mockModal; return;
+  }
+  const forms=MOCK.forms.map(f=>{
+    const subBtns=f.subtests.map(st=>
+      `<button class="mock-sub" data-exam="mock_${f.id}_${st.code}">${SEC_KO[st.code]||st.code}<small>${st.count}</small></button>`).join("");
+    const pk=EXAM_PRESETS["mock_"+f.id];
+    const icon=f.icon||(f.barron?"📕":"📄");
+    const note=f.note?`<div class="mock-note ${f.answerAI?"ai":""}">${esc(f.note)}</div>`:"";
+    return `<button class="exam-preset" data-exam="mock_${f.id}" style="border-color:var(--gold)">
+        <div class="ic">${icon}</div><div class="meta"><b>${esc(f.name)} · 전체</b>
+        <div class="muted">${pk?pk.label:""}</div></div><div class="go">›</div></button>
+      ${note}<div class="mock-subs">${subBtns}</div>`;
+  }).join("");
+  box.innerHTML=`<h3 class="exam-group">📄 실전 기출 모의고사 <span class="mock-open">🔓 열림</span></h3>
+    <p class="muted" style="margin:-4px 0 10px;font-size:13px">실전 3회분 · 7과목. 전체 또는 과목별로 응시하세요.</p>${forms}`;
+  box.querySelectorAll("[data-exam]").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
+}
+
+
 document.addEventListener("DOMContentLoaded", boot);
 })();

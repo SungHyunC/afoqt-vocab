@@ -29,7 +29,9 @@
 
 <!-- ===== 30일 완성 플랜 ===== -->
 <main id="view-plan" class="view">
-  <h2 class="section" style="margin-top:0">🗓️ 완성 플랜</h2>
+  <h2 class="section" style="margin-top:0">🗣️ Verbal 역전 16일</h2>
+  <div class="card" id="v16"></div>
+  <h2 class="section">🗓️ 완성 플랜</h2>
   <div class="card" id="planHead"></div>
   <h2 class="section">오늘 할 일</h2>
   <div id="planTasks"></div>
@@ -119,7 +121,7 @@
   <div class="seccard" id="secIC"><div class="ic">🎚️</div>
     <div class="meta"><b>Instrument Comprehension</b><div class="muted">계기 해석 · 25문항·5분</div></div><div class="go">›</div></div>
   <div class="seccard" id="secBC"><div class="ic">🧱</div>
-    <div class="meta"><b>Block Counting</b><div class="muted">블록 세기 · 30문항·4.5분</div></div><div class="go">›</div></div>
+    <div class="meta"><b>Block Counting</b><div class="muted">블록 세기 · 30문항·5분</div></div><div class="go">›</div></div>
 
   <h2 class="section">🔬 기타</h2>
   <div class="seccard" id="secPS"><div class="ic">🔬</div>
@@ -148,6 +150,7 @@
     <div class="card tight stat"><div class="num" id="vkRemain">0</div><div class="lbl">남은 단어</div></div>
   </div>
   <button class="btn primary" id="vkStart" style="margin-top:16px">▶︎ 플래시카드 학습</button>
+  <button class="btn ghost" id="vkMock" style="margin-top:10px;border-color:var(--gold)">📕 모의고사 단어 플래시카드 — 실제 출제 확인된 148개</button>
   <button class="btn ghost" id="vkAuto" style="margin-top:10px;border-color:#f59e0b">🎧 자동 넘김 (운동용·핸즈프리·음성)</button>
   <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
   <button class="btn ghost" id="vkSynq" style="margin-top:10px;border-color:var(--brand2)">⚡ 동의어 퀴즈 (WK 실전형 · 빠른 반복)</button>
@@ -175,7 +178,7 @@
   <div class="study-top"><button class="btn sm ghost" id="synqBack">← 어휘</button><span id="synqScore">0 / 0</span><span></span></div>
   <div id="synqSetup">
     <h2 class="section">⚡ 동의어 퀴즈</h2>
-    <p class="muted" style="margin:0 0 14px">AFOQT Word Knowledge 실전형 — 단어 하나에 <b>가장 비슷한 뜻</b>을 4개 중에서 고르면 바로 다음 문제로. 빠르게 연속 반복돼요.</p>
+    <p class="muted" style="margin:0 0 14px">AFOQT Word Knowledge 실전형 — 단어 하나에 <b>가장 비슷한 뜻</b>을 5개 중에서 고르면 바로 다음 문제로. 빠르게 연속 반복돼요.</p>
     <div class="field"><label>범위</label>
       <select id="synqScope">
         <option value="high" selected>⭐ 빈출 단어</option>
@@ -193,6 +196,7 @@
   </div>
   <div id="synqPlay" class="hidden">
     <div id="synqArea"></div>
+    <div class="kbd-hint"><span><kbd>1</kbd>~<kbd>5</kbd> 보기 선택</span><span><kbd>Space</kbd> 새 문제</span><span><kbd>←</kbd> <kbd>→</kbd> 이전·다음</span></div>
     <button class="btn ghost" id="synqStop" style="margin-top:14px">그만하기</button>
   </div>
 </main>
@@ -240,10 +244,20 @@
   <div class="study-top">
     <button class="btn sm ghost" id="studyBack">← 나가기</button>
     <span id="studyCount">0 / 0</span>
-    <span id="studyMode">복습</span>
+    <span class="row" style="gap:8px;align-items:center;justify-content:flex-end">
+      <button class="btn sm ghost hidden" id="studyRestart" title="이 묶음을 처음부터">↺ 처음부터</button>
+      <span id="studyMode">복습</span>
+    </span>
   </div>
   <div class="progressbar" style="margin-bottom:14px"><i id="studyBar"></i></div>
   <div id="studyArea"></div>
+  <div class="kbd-hint" id="kbdHint">
+    <span><kbd>Space</kbd> 뜻 보기 → 알맞음</span>
+    <span><kbd>1</kbd> 다시 <kbd>2</kbd> 어려움 <kbd>3</kbd> 알맞음 <kbd>4</kbd> 쉬움</span>
+    <span><kbd>S</kbd> 즐겨찾기</span>
+    <span><kbd>P</kbd> 발음</span>
+    <span><kbd>Esc</kbd> 나가기</span>
+  </div>
   <div id="studyDone" class="card center hidden" style="margin-top:20px">
     <div class="big-emoji">🎉</div>
     <h2 id="doneTitle">세션 완료!</h2>
@@ -332,6 +346,7 @@
   <div class="filters" id="wordFilters">
     <button class="chip on" data-f="all">전체</button>
     <button class="chip" data-f="afoqt">⭐ AFOQT 빈출</button>
+    <button class="chip" data-f="mock">📕 모의고사 출제</button>
     <button class="chip" data-f="high">고빈출(high)</button>
     <button class="chip" data-f="gre">GRE</button>
     <button class="chip" data-f="starred">★ 즐겨찾기</button>
@@ -340,8 +355,12 @@
     <button class="chip" data-f="review">복습</button>
     <button class="chip" data-f="mastered">마스터</button>
   </div>
-  <div class="muted" id="wordCount" style="font-size:12px;margin:2px 4px 10px"></div>
+  <div class="row" style="justify-content:space-between;align-items:center;gap:10px;margin:2px 4px 10px">
+    <div class="muted" id="wordCount" style="font-size:12px"></div>
+    <button class="btn sm primary hidden" id="wordStudy" style="flex:0 0 auto"></button>
+  </div>
   <div class="wlist" id="wordList"></div>
+  <div id="wordMore" class="center muted" style="padding:16px;font-size:13px;cursor:pointer;display:none"></div>
 </main>
 
 <!-- ===== ROOTS (어원 학습) ===== -->
@@ -733,6 +752,14 @@
         <div class="last"></div></div>
       <div class="go">›</div></button>
 
+    <h3 class="exam-group">🎛️ 직접 고르기 (원하는 과목만)</h3>
+    <div class="card" style="padding:14px">
+      <div class="muted" style="font-size:12.5px;margin-bottom:10px">풀고 싶은 과목만 선택하세요. 선택한 순서와 무관하게 <b>실전 순서·실전 문항수·과목별 제한시간</b>으로 진행돼요.</div>
+      <div id="pickSecs" class="pick-secs"></div>
+      <div id="pickSum" class="muted" style="font-size:12.5px;margin-top:10px">과목을 선택하세요</div>
+      <button class="btn primary" id="pickStart" style="margin-top:10px" disabled>선택한 과목으로 시작</button>
+    </div>
+
     <h3 class="exam-group">🧩 섹터별 (합성점수)</h3>
     <button class="exam-preset" data-exam="secVerbal" style="border-color:var(--brand)"><div class="ic">🗣</div>
       <div class="meta"><b>Verbal 섹터</b><div class="muted">단어 + 유추 + 독해</div>
@@ -800,6 +827,7 @@
     </div>
     <div class="progressbar" style="margin-bottom:14px"><i id="examBar"></i></div>
     <div id="examArea"></div>
+    <div class="kbd-hint"><span><kbd>1</kbd>~<kbd>5</kbd> 보기 선택</span><span><kbd>Space</kbd> 다음 문제</span><span><kbd>←</kbd> <kbd>→</kbd> 이전·다음</span></div>
     <div class="exam-nav">
       <button class="btn ghost" id="examPrev">← 이전</button>
       <button class="btn ghost" id="examNext">다음 →</button>
