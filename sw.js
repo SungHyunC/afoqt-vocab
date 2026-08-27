@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-103-0";  // 수학 풀 정비: 중복 제거·보기 수리·오름차순·정답 균등
+const CACHE = "afoqt-v4-103-1";  // 유추 hunger:hunger 수리·독해 제목 중복 해소
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
