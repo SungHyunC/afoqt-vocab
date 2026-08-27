@@ -2250,21 +2250,6 @@
   "explain": "활주로 시작점(threshold)은 피아노 건반 모양의 세로 줄무늬로 표시하며, 착륙에 사용할 수 있는 활주로의 시작을 나타낸다."
  },
  {
-  "id": 151,
-  "topic": "traffic_pattern",
-  "q": "In a standard traffic pattern, the leg flown parallel to the landing runway in the direction opposite to landing is called the:",
-  "q_ko": "표준 장주(traffic pattern)에서 착륙 방향과 반대로 활주로와 평행하게 나는 구간을 무엇이라 하는가?",
-  "options": [
-   "Base leg",
-   "Upwind leg",
-   "At the nose",
-   "Final approach",
-   "Downwind leg"
-  ],
-  "answer": 4,
-  "explain": "다운윈드(downwind) 구간은 활주로와 평행하면서 착륙 방향과 반대로 비행하는 부분이다. 이후 base를 거쳐 final로 진입한다."
- },
- {
   "id": 152,
   "topic": "weather",
   "q": "Which cloud type is most associated with thunderstorms, turbulence, and possible hail?",
@@ -2505,21 +2490,6 @@
   "explain": "변위 시단 이전 구역은 활주(택싱), 이륙, 착륙 후 활주에는 쓸 수 있으나 착륙 접지점으로는 사용할 수 없다. 화살표는 그 한계를 표시한다."
  },
  {
-  "id": 168,
-  "topic": "weather",
-  "q": "Which cloud type is most associated with thunderstorms, turbulence, and hail?",
-  "q_ko": "뇌우, 난류, 우박과 가장 관련이 깊은 구름 유형은 무엇입니까?",
-  "options": [
-   "Decreases",
-   "Stratus",
-   "Cumulonimbus",
-   "Cirrus",
-   "Altostratus"
-  ],
-  "answer": 2,
-  "explain": "적란운(cumulonimbus)은 수직으로 크게 발달한 구름으로 뇌우, 강한 난류, 우박, 다운버스트를 동반한다. 권운, 층운 등은 보통 안정된 날씨와 관련된다."
- },
- {
   "id": 169,
   "topic": "instruments",
   "q": "The turn coordinator gives the pilot information about which two things?",
@@ -2668,21 +2638,6 @@
   ],
   "answer": 4,
   "explain": "베르누이 원리에 따르면 흐름 속도가 빨라지면 정압이 낮아진다. 날개 윗면에서 빠른 흐름으로 압력이 낮아지고, 아랫면의 상대적으로 높은 압력과의 차이가 양력을 만든다."
- },
- {
-  "id": 179,
-  "topic": "rotary_torque",
-  "q": "On a single main rotor helicopter, the tail rotor's main purpose is to do what?",
-  "q_ko": "단일 메인 로터 헬리콥터에서 테일 로터(꼬리 로터)의 주된 목적은 무엇입니까?",
-  "options": [
-   "Counteract the torque of the main rotor and control yaw",
-   "Provide most of the lift",
-   "Federal Aviation Administration",
-   "Slow the aircraft during landing",
-   "Power the main rotor"
-  ],
-  "answer": 0,
-  "explain": "메인 로터가 한 방향으로 돌면 기체는 반대 방향으로 돌려는 토크를 받는다. 테일 로터는 이 토크를 상쇄하고 안티토크 페달로 기수 방향(요)을 제어한다."
  },
  {
   "id": 180,
@@ -3388,21 +3343,6 @@
   ],
   "answer": 4,
   "explain": "컬렉티브를 올리면 모든 주 로터 블레이드의 피치가 함께 증가해 양력이 커지고 헬리콥터가 상승한다. 내리면 강하한다."
- },
- {
-  "id": 227,
-  "topic": "helicopter",
-  "q": "What is the purpose of a helicopter's tail rotor?",
-  "q_ko": "헬리콥터 꼬리 로터(tail rotor)의 목적은 무엇인가?",
-  "options": [
-   "Torque control to counteract the fuselage's tendency to rotate opposite the main rotor",
-   "To increase forward airspeed like a propeller",
-   "To replace the collective in controlling blade pitch",
-   "The force is felt 90 degrees later in the plane of rotation",
-   "To provide the primary lift for the helicopter"
-  ],
-  "answer": 0,
-  "explain": "꼬리 로터는 엔진 동력의 일부를 사용해 토크를 제어하며, 동체가 주 로터와 반대 방향으로 회전하려는 경향을 상쇄해 방향 안정성을 유지한다."
  },
  {
   "id": 228,
@@ -4573,21 +4513,6 @@
   ],
   "answer": 0,
   "explain": "MLW를 넘지 않으면 착륙 장치가 무게를 지탱할 수 있고 평소보다 긴 활주로가 필요하지 않다."
- },
- {
-  "id": 306,
-  "topic": "aerodynamics",
-  "q": "In steady, unaccelerated, straight-and-level flight, which statement about the four forces is correct?",
-  "q_ko": "정상 상태의 등속 수평 직진 비행에서 4가지 힘에 관한 설명으로 옳은 것은?",
-  "options": [
-   "Lift equals weight and thrust equals drag",
-   "Lift exceeds drag and thrust equals weight",
-   "Lift exceeds weight and thrust exceeds drag",
-   "Lift equals thrust and weight equals drag",
-   "Warmer air is less dense than cooler air"
-  ],
-  "answer": 0,
-  "explain": "가속이 없는 등속 수평 비행에서는 모든 힘이 평형을 이루므로 양력=중력, 추력=항력이다. 양력이 중력보다 커야 한다는 것은 상승(가속) 상태에 대한 오해이며, 양력과 추력은 서로 수직 방향의 힘이라 짝지어 비교하지 않는다."
  },
  {
   "id": 307,
