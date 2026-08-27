@@ -1669,8 +1669,8 @@
    },
    {
     "pair": [
-     "hunger",
-     "hunger"
+     "flour",
+     "wheat"
     ],
     "correct": false
    }
@@ -6075,8 +6075,8 @@
    },
    {
     "pair": [
-     "hunger",
-     "hunger"
+     "appetite",
+     "meal"
     ],
     "correct": false
    },
@@ -33693,8 +33693,8 @@
    },
    {
     "pair": [
-     "hunger",
-     "hunger"
+     "moist",
+     "damp"
     ],
     "correct": false
    },
@@ -72851,8 +72851,8 @@
    },
    {
     "pair": [
-     "hunger",
-     "hunger"
+     "thermometer",
+     "mercury"
     ],
     "correct": false
    },
@@ -76734,8 +76734,8 @@
    },
    {
     "pair": [
-     "hunger",
-     "hunger"
+     "overture",
+     "opera"
     ],
     "correct": false
    },
