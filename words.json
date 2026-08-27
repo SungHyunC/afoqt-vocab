@@ -848,7 +848,22 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "ant-",
+    "m": "반대 (anti-)"
+   },
+   {
+    "f": "agon",
+    "m": "겨룸, 싸움 (Gk agon: contest)"
+   },
+   {
+    "f": "-ist",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "agon(겨룸)은 agony(고통)와 같은 뿌리 — 맞서 겨루는 사람. protagonist(주인공)의 반대편."
  },
  {
   "id": 28,
@@ -1813,7 +1828,22 @@
   "tier": "std",
   "mock": [
    "BARRON2"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "con-",
+    "m": "함께"
+   },
+   {
+    "f": "cili",
+    "m": "불러 모으다 (L concilium: 모임)"
+   },
+   {
+    "f": "-ate",
+    "m": "~하다"
+   }
+  ],
+  "hook": "council(협의회)과 같은 뿌리 — 함께 불러 모아 화해시키다."
  },
  {
   "id": 59,
@@ -2041,7 +2071,22 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "con-",
+    "m": "함께"
+   },
+   {
+    "f": "ten",
+    "m": "지니다 (L tenere: hold)"
+   },
+   {
+    "f": "-ance",
+    "m": "~것"
+   }
+  ],
+  "hook": "ten(지니다) — 얼굴에 '지니고 있는' 것이 표정. contain·maintain과 한 뿌리."
  },
  {
   "id": 66,
@@ -7254,7 +7299,18 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "ten",
+    "m": "붙잡다 (L tenere: hold)"
+   },
+   {
+    "f": "-acity",
+    "m": "~한 성질"
+   }
+  ],
+  "hook": "tenere(붙잡다) — 놓지 않는 힘. tenant(세입자), retain과 한 뿌리."
  },
  {
   "id": 240,
@@ -8818,7 +8874,18 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "apt",
+    "m": "알맞은 (L aptus: fitted)"
+   },
+   {
+    "f": "-itude",
+    "m": "~한 상태"
+   }
+  ],
+  "hook": "apt(적합한), adapt(적응하다) — 딱 들어맞는 소질."
  },
  {
   "id": 299,
@@ -12193,7 +12260,18 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "rect",
+    "m": "곧은, 바른 (L rectus: straight)"
+   },
+   {
+    "f": "-ify",
+    "m": "~하게 만들다"
+   }
+  ],
+  "hook": "rect(곧은) — correct·direct와 한 뿌리. 굽은 것을 곧게 만들다."
  },
  {
   "id": 419,
@@ -14164,7 +14242,18 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "ar",
+    "m": "마르다 (L arere: be dry)"
+   },
+   {
+    "f": "-id",
+    "m": "~한"
+   }
+  ],
+  "hook": "arere(마르다) — 사막 기후를 arid climate라고 한다."
  },
  {
   "id": 499,
@@ -14605,7 +14694,22 @@
   "tier": "std",
   "mock": [
    "T01"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "bene",
+    "m": "좋게 (L bene: well)"
+   },
+   {
+    "f": "fac",
+    "m": "하다, 만들다 (L facere)"
+   },
+   {
+    "f": "-or",
+    "m": "~하는 사람"
+   }
+  ],
+  "hook": "bene(좋은)+fac(하다) — 좋은 일을 해주는 사람. benefit·factory와 한 뿌리."
  },
  {
   "id": 520,
@@ -17141,7 +17245,22 @@
   "tier": "std",
   "mock": [
    "BARRON2"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "en-",
+    "m": "안에"
+   },
+   {
+    "f": "vis",
+    "m": "보다 (L videre: see)"
+   },
+   {
+    "f": "-age",
+    "m": "~것"
+   }
+  ],
+  "hook": "vis(보다) — 머릿속에 모습을 그려 보다. vision·visible과 한 뿌리."
  },
  {
   "id": 629,
@@ -19166,7 +19285,22 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "in-",
+    "m": "아닌"
+   },
+   {
+    "f": "dol",
+    "m": "아파하다 (L dolere: feel pain)"
+   },
+   {
+    "f": "-ence",
+    "m": "~함"
+   }
+  ],
+  "hook": "dol(고통) — '아파하지 않음' → 애쓰지 않음 → 게으름. condolence(애도)와 한 뿌리."
  },
  {
   "id": 721,
@@ -19284,7 +19418,22 @@
   "tier": "std",
   "mock": [
    "T03"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "in-",
+    "m": "안으로"
+   },
+   {
+    "f": "grat",
+    "m": "기쁜, 고마운 (L gratus: pleasing)"
+   },
+   {
+    "f": "-ate",
+    "m": "~하다"
+   }
+  ],
+  "hook": "grat(기쁜) — grateful·gratitude. 남의 마음속으로 파고들어 환심을 사다."
  },
  {
   "id": 726,
@@ -19680,7 +19829,14 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "lax",
+    "m": "느슨한 (L laxus: loose)"
+   }
+  ],
+  "hook": "relax(긴장을 풀다)의 lax — 팽팽하지 않고 느슨한."
  },
  {
   "id": 741,
@@ -20137,7 +20293,18 @@
   "tier": "std",
   "mock": [
    "T03"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "mod",
+    "m": "척도, 알맞음 (L modus: measure)"
+   },
+   {
+    "f": "-icum",
+    "m": "~것"
+   }
+  ],
+  "hook": "mod(척도) — moderate·modest. '알맞은 만큼'의 아주 적은 양."
  },
  {
   "id": 763,
@@ -20311,7 +20478,22 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "neg-",
+    "m": "아니다"
+   },
+   {
+    "f": "lig",
+    "m": "고르다, 챙기다 (L legere: pick)"
+   },
+   {
+    "f": "-ence",
+    "m": "~함"
+   }
+  ],
+  "hook": "neg(아님)+lig(고르다) — 골라 챙기지 않음. neglect·select와 한 뿌리."
  },
  {
   "id": 772,
@@ -22017,7 +22199,22 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "re-",
+    "m": "다시"
+   },
+   {
+    "f": "iter",
+    "m": "다시, 길 (L iterum: again)"
+   },
+   {
+    "f": "-ate",
+    "m": "~하다"
+   }
+  ],
+  "hook": "iter(다시) — itinerary(여정)와 한 뿌리. 다시 또 말하다."
  },
  {
   "id": 847,
@@ -23111,7 +23308,18 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "tac",
+    "m": "침묵하다 (L tacere: be silent)"
+   },
+   {
+    "f": "-it",
+    "m": "~한"
+   }
+  ],
+  "hook": "tac(침묵) — taciturn(과묵한)과 한 뿌리. 말하지 않아도 통하는."
  },
  {
   "id": 898,
@@ -23467,7 +23675,22 @@
   "tier": "std",
   "mock": [
    "BARRON2"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "uni",
+    "m": "하나 (L unus)"
+   },
+   {
+    "f": "later",
+    "m": "옆, 측면 (L latus: side)"
+   },
+   {
+    "f": "-al",
+    "m": "~한"
+   }
+  ],
+  "hook": "uni(하나)+later(측) — 한쪽만. bilateral(양자간)·multilateral(다자간)의 반대."
  },
  {
   "id": 914,
@@ -25962,7 +26185,22 @@
   "tier": "std",
   "mock": [
    "BARRON2"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "contra-",
+    "m": "반대로"
+   },
+   {
+    "f": "vers",
+    "m": "돌다 (L vertere: turn)"
+   },
+   {
+    "f": "-y",
+    "m": "~함"
+   }
+  ],
+  "hook": "contra(반대)+vers(돌다) — 서로 등을 돌림. reverse·convert와 한 뿌리."
  },
  {
   "id": 1037,
@@ -26367,7 +26605,18 @@
   "tier": "std",
   "mock": [
    "T01"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "de-",
+    "m": "떨어져, 아래로"
+   },
+   {
+    "f": "stitut",
+    "m": "세우다 (L statuere: set up)"
+   }
+  ],
+  "hook": "de(떨어져)+stit(세우다) — 세워둔 자리에서 밀려남 → 아무것도 없음. institute와 한 뿌리."
  },
  {
   "id": 1056,
@@ -30170,7 +30419,18 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "solid",
+    "m": "단단한 (L solidus)"
+   },
+   {
+    "f": "-arity",
+    "m": "~한 성질"
+   }
+  ],
+  "hook": "solid(단단한) — 여럿이 단단히 하나로 뭉친 상태."
  },
  {
   "id": 1247,
@@ -30556,7 +30816,18 @@
   "tier": "std",
   "mock": [
    "T03"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "turg",
+    "m": "부풀다 (L turgere: swell)"
+   },
+   {
+    "f": "-id",
+    "m": "~한"
+   }
+  ],
+  "hook": "turgere(부풀다) — 문장이 부풀어 오른 것이 '과장된' 문체."
  },
  {
   "id": 1264,
@@ -31969,7 +32240,18 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "en-",
+    "m": "~하게 만들다"
+   },
+   {
+    "f": "rich",
+    "m": "풍부한"
+   }
+  ],
+  "hook": "en(만들다)+rich(풍부한). 모의고사 정답 짝은 enhanced."
  },
  {
   "id": 1336,
@@ -32205,7 +32487,18 @@
   "tier": "std",
   "mock": [
    "T01"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "fanci",
+    "m": "공상 (fantasy 의 축약)"
+   },
+   {
+    "f": "-ful",
+    "m": "~로 가득한"
+   }
+  ],
+  "hook": "fantasy와 같은 뿌리(Gk phantasia: 상상) — 상상으로 가득한."
  },
  {
   "id": 1349,
@@ -33932,7 +34225,18 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "por-",
+    "m": "앞으로 (pro-)"
+   },
+   {
+    "f": "tend",
+    "m": "뻗다 (L tendere: stretch)"
+   }
+  ],
+  "hook": "tend(뻗다) — 앞으로 뻗어 미리 알림. extend·intend와 한 뿌리."
  },
  {
   "id": 1440,
@@ -34469,7 +34773,18 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로"
+   },
+   {
+    "f": "vok",
+    "m": "부르다 (L vocare: call)"
+   }
+  ],
+  "hook": "voc(부르다) — 도로 불러들이다. voice·invoke·vocal과 한 뿌리."
  },
  {
   "id": 1467,
@@ -35903,7 +36218,22 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "ana-",
+    "m": "거슬러"
+   },
+   {
+    "f": "chron",
+    "m": "시간 (Gk chronos)"
+   },
+   {
+    "f": "-istic",
+    "m": "~한"
+   }
+  ],
+  "hook": "chron(시간) — chronic·chronology. 시간을 거스른 것."
  },
  {
   "id": 1539,
@@ -37772,7 +38102,22 @@
   "tier": "std",
   "mock": [
    "BARRON2"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "in-",
+    "m": "안으로"
+   },
+   {
+    "f": "cept",
+    "m": "잡다 (L capere: take)"
+   },
+   {
+    "f": "-ion",
+    "m": "~함"
+   }
+  ],
+  "hook": "cept(잡다) — 처음 붙잡는 순간이 시작. accept·receive와 한 뿌리."
  },
  {
   "id": 1636,
@@ -38315,7 +38660,18 @@
   "tier": "std",
   "mock": [
    "T01"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "miser",
+    "m": "비참한 (L miser)"
+   },
+   {
+    "f": "-ly",
+    "m": "~한"
+   }
+  ],
+  "hook": "miserable(비참한)과 한 뿌리 — 돈에 비참하게 매달리는."
  },
  {
   "id": 1661,
@@ -39259,7 +39615,18 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "tep",
+    "m": "미지근하다 (L tepere: be lukewarm)"
+   },
+   {
+    "f": "-id",
+    "m": "~한"
+   }
+  ],
+  "hook": "tepere(미지근) — 물도, 반응도 미지근한. tepid response(미온적 반응)."
  },
  {
   "id": 1711,
@@ -39659,7 +40026,18 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "vex",
+    "m": "괴롭히다 (L vexare)"
+   },
+   {
+    "f": "-atious",
+    "m": "~한"
+   }
+  ],
+  "hook": "vex(짜증나게 하다) — a vexed question(골치 아픈 문제)."
  },
  {
   "id": 1730,
@@ -39958,7 +40336,14 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "camoufler",
+    "m": "변장시키다 (Fr.)"
+   }
+  ],
+  "hook": "프랑스어 '연막을 피우다'에서 — 1차 대전 때 군사 용어로 영어에 들어왔다."
  },
  {
   "id": 1747,
@@ -40621,7 +41006,22 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "in-",
+    "m": "안으로"
+   },
+   {
+    "f": "corpor",
+    "m": "몸 (L corpus: body)"
+   },
+   {
+    "f": "-ate",
+    "m": "~하다"
+   }
+  ],
+  "hook": "corp(몸) — corpse·corporation. 하나의 몸 안으로 넣다."
  },
  {
   "id": 1783,
@@ -41056,7 +41456,14 @@
   "tier": "std",
   "mock": [
    "T03"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "bana",
+    "m": "살해자 (OE bana: killer)"
+   }
+  ],
+  "hook": "고대 영어 '죽이는 것' — the bane of my existence(내 인생의 골칫거리)."
  },
  {
   "id": 1806,
@@ -42807,7 +43214,18 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "sacro",
+    "m": "신성한 (L sacer)"
+   },
+   {
+    "f": "sanct",
+    "m": "성스러운 (L sanctus)"
+   }
+  ],
+  "hook": "sacred와 saint를 겹쳐 놓은 말 — 건드릴 수 없이 신성한."
  },
  {
   "id": 1885,
@@ -43038,7 +43456,18 @@
   "tier": "std",
   "mock": [
    "T03"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "tumult",
+    "m": "소란 (L tumultus: uproar)"
+   },
+   {
+    "f": "-uous",
+    "m": "~한"
+   }
+  ],
+  "hook": "tumere(부풀다)에서 — 감정이 부풀어 터져 나오는 소란."
  },
  {
   "id": 1897,
@@ -43224,7 +43653,22 @@
   "tier": "std",
   "mock": [
    "T03"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "xeno",
+    "m": "이방인, 낯선 (Gk xenos)"
+   },
+   {
+    "f": "phob",
+    "m": "두려움 (Gk phobos)"
+   },
+   {
+    "f": "-ia",
+    "m": "~증"
+   }
+  ],
+  "hook": "xeno(낯선)+phobia(공포) — 낯선 것에 대한 공포."
  },
  {
   "id": 1906,
@@ -44630,7 +45074,18 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "figur",
+    "m": "모양, 형상 (L figura)"
+   },
+   {
+    "f": "-ative",
+    "m": "~한"
+   }
+  ],
+  "hook": "figure(형상) — 말을 형상에 빗대는 것. 반대는 literal(문자 그대로의)."
  },
  {
   "id": 1977,
@@ -45607,7 +46062,18 @@
   "tier": "std",
   "mock": [
    "BARRON2"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "jet",
+    "m": "던지다 (L jacere: throw)"
+   },
+   {
+    "f": "-ison",
+    "m": "~함"
+   }
+  ],
+  "hook": "ject(던지다) — eject·reject·project. 배 밖으로 던져 버리다."
  },
  {
   "id": 2027,
@@ -50412,7 +50878,18 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "charis",
+    "m": "은총, 호의 (Gk charis: grace)"
+   },
+   {
+    "f": "-ma",
+    "m": "~것"
+   }
+  ],
+  "hook": "charis(은총) — 원래 '신이 준 은총'. charity와 한 뿌리."
  },
  {
   "id": 2271,
@@ -50506,7 +50983,22 @@
   "tier": "std",
   "mock": [
    "T01"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "con-",
+    "m": "함께, 완전히"
+   },
+   {
+    "f": "templ",
+    "m": "신전, 구역 (L templum)"
+   },
+   {
+    "f": "-ative",
+    "m": "~하는"
+   }
+  ],
+  "hook": "templum(신전) — 신전에서 하늘을 살피며 깊이 헤아리다."
  },
  {
   "id": 2275,
@@ -53575,7 +54067,22 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "in-",
+    "m": "위에"
+   },
+   {
+    "f": "cumb",
+    "m": "눕다, 얹히다 (L cumbere: lie down)"
+   },
+   {
+    "f": "-ent",
+    "m": "~한/사람"
+   }
+  ],
+  "hook": "cumb(눕다) — 그 자리에 얹혀 있는 사람(현직자)이자 얹힌 의무. succumb·recumbent와 한 뿌리."
  },
  {
   "id": 2438,
@@ -54129,7 +54636,22 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "per-",
+    "m": "통하여"
+   },
+   {
+    "f": "spect",
+    "m": "보다 (L specere: look)"
+   },
+   {
+    "f": "-ive",
+    "m": "~하는"
+   }
+  ],
+  "hook": "spect(보다) — inspect·spectator. 꿰뚫어 보는 방식이 관점."
  },
  {
   "id": 2468,
@@ -54186,7 +54708,22 @@
   "tier": "std",
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "pre-",
+    "m": "앞서"
+   },
+   {
+    "f": "ced",
+    "m": "가다 (L cedere: go)"
+   },
+   {
+    "f": "-ent",
+    "m": "~것"
+   }
+  ],
+  "hook": "ced(가다) — precede·proceed. 앞서 간 것이 선례."
  },
  {
   "id": 2471,
@@ -54845,7 +55382,22 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "ad-",
+    "m": "~쪽으로"
+   },
+   {
+    "f": "equ",
+    "m": "같은 (L aequus: equal)"
+   },
+   {
+    "f": "-ate",
+    "m": "~한"
+   }
+  ],
+  "hook": "equ(같은) — equal·equivalent. 필요한 만큼과 같아진 → 충분한."
  },
  {
   "id": 2507,
@@ -55855,7 +56407,18 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "pass",
+    "m": "겪다, 견디다 (L pati: suffer)"
+   },
+   {
+    "f": "-ive",
+    "m": "~하는"
+   }
+  ],
+  "hook": "pati(겪다) — passion·patient. 당하기만 하는 쪽."
  },
  {
   "id": 2556,
@@ -56180,7 +56743,22 @@
   "tier": "std",
   "mock": [
    "T02"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "trans-",
+    "m": "통과하여"
+   },
+   {
+    "f": "par",
+    "m": "나타나다 (L parere: appear)"
+   },
+   {
+    "f": "-ent",
+    "m": "~한"
+   }
+  ],
+  "hook": "trans(통과)+par(나타나다) — 빛이 통과해 드러나는. apparent와 한 뿌리."
  },
  {
   "id": 2570,
@@ -60774,7 +61352,18 @@
   "tier": "std",
   "mock": [
    "BARRON2"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "scrut",
+    "m": "샅샅이 뒤지다 (L scrutari)"
+   },
+   {
+    "f": "-iny",
+    "m": "~함"
+   }
+  ],
+  "hook": "scrutari는 원래 '넝마 더미를 뒤지다' — 그만큼 꼼꼼히 살핌."
  },
  {
   "id": 2809,
@@ -61120,7 +61709,18 @@
   "tier": "std",
   "mock": [
    "T01"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "wyn",
+    "m": "기쁨 (OE wynn: joy)"
+   },
+   {
+    "f": "-some",
+    "m": "~을 주는"
+   }
+  ],
+  "hook": "고대 영어 wynn(기쁨) + some — 기쁨을 주는, 그래서 매력적인."
  },
  {
   "id": 2827,
@@ -61365,7 +61965,18 @@
   "tier": "std",
   "mock": [
    "T03"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "af-",
+    "m": "~쪽으로 (ad-)"
+   },
+   {
+    "f": "fect",
+    "m": "하다, 만들다 (L facere)"
+   }
+  ],
+  "hook": "fac/fect(하다) — effect·perfect. 무언가에 작용을 가하다."
  },
  {
   "id": 2839,
@@ -64058,7 +64669,18 @@
   "tier": "std",
   "mock": [
    "T01"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "torr",
+    "m": "타다, 마르다 (L torrere: parch)"
+   },
+   {
+    "f": "-id",
+    "m": "~한"
+   }
+  ],
+  "hook": "torrere(태우다) — toast와 한 뿌리. 타는 듯 뜨거운."
  },
  {
   "id": 2974,
@@ -64937,7 +65559,22 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "dis-",
+    "m": "아닌"
+   },
+   {
+    "f": "consol",
+    "m": "위로하다 (L consolari)"
+   },
+   {
+    "f": "-ate",
+    "m": "~한"
+   }
+  ],
+  "hook": "console(위로하다) — 위로가 닿지 않는 상태."
  },
  {
   "id": 3019,
@@ -65567,7 +66204,18 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "itiner",
+    "m": "여정, 길 (L iter, itineris: journey)"
+   },
+   {
+    "f": "-ary",
+    "m": "~것"
+   }
+  ],
+  "hook": "iter(길) — reiterate와 한 뿌리. 길을 미리 짜 둔 것."
  },
  {
   "id": 3052,
@@ -65592,7 +66240,22 @@
   "tier": "std",
   "mock": [
    "BARRON1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "re-",
+    "m": "다시"
+   },
+   {
+    "f": "conn",
+    "m": "알다 (L cognoscere: know)"
+   },
+   {
+    "f": "-ance",
+    "m": "~함"
+   }
+  ],
+  "hook": "cogn(알다) — recognize와 한 뿌리. 미리 알아보러 나가는 것."
  },
  {
   "id": 3053,
@@ -107188,7 +107851,14 @@
   "afoqtCommon": true,
   "mock": [
    "TRIVIUM1"
-  ]
+  ],
+  "roots": [
+   {
+    "f": "jeu parti",
+    "m": "반반으로 갈린 승부 (OFr.)"
+   }
+  ],
+  "hook": "프랑스어 '어느 쪽으로 갈지 모르는 판' — 그래서 위험."
  },
  {
   "id": 4468,
