@@ -815,6 +815,12 @@
     <h2 class="section">📕 오답 노트</h2>
     <p class="muted" style="margin:0 0 10px">시험에서 틀린 문제만 모아 다시 풉니다. 맞히면 노트에서 사라져요.</p>
     <div id="retestList"></div>
+    <div class="card hidden" id="retestPickBox" style="padding:14px;margin-top:10px">
+      <div class="muted" style="font-size:12.5px;margin-bottom:10px">🎛️ <b>과목 골라서 재시험</b> — 원하는 과목의 오답만 묶어서 풀 수 있어요.</div>
+      <div id="retestPick" class="pick-secs"></div>
+      <div id="retestPickSum" class="muted" style="font-size:12.5px;margin-top:10px">과목을 선택하세요</div>
+      <button class="btn primary" id="retestPickStart" style="margin-top:10px" disabled>선택한 과목 오답 재시험</button>
+    </div>
     <button class="btn ghost" id="retestAll" style="margin-top:6px">🔁 전체 오답 재시험</button>
   </div>
 
