@@ -277,6 +277,11 @@ sub{vertical-align:-.25em}
 /* 문항별 스톱워치 칩 — 목표(실전 배분) 초과 시 경고색 */
 .qtime{float:right;font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
 .qtime.over{color:var(--warn)}
+/* 모의고사 섹션 배너 (섹션별 타이머 모드) */
+.sec-banner{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;
+  background:linear-gradient(135deg,#6366f122,#06b6d422);border:1px solid var(--brand);
+  border-radius:12px;padding:9px 12px;margin-bottom:12px;font-size:13.5px}
+.sec-banner .muted{font-size:11.5px}
 /* 유형 연습(학습 모드) 즉시 해설 카드 */
 .exam-explain{margin-top:14px;border-radius:12px;padding:13px 14px;line-height:1.6;font-size:14px;
   border:1px solid var(--line);background:var(--card2)}
