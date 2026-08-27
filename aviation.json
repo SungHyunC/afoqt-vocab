@@ -50,7 +50,7 @@
   "q": "Dihedral (upward angle of the wings) primarily improves:",
   "q_ko": "날개의 상반각(dihedral, 날개가 위로 기운 각)은 주로 무엇을 향상시키는가?",
   "options": [
-   "Fuel efficiency",
+   "Fuel efficiency gains",
    "Top speed",
    "Lateral stability",
    "Engine power",
@@ -98,7 +98,7 @@
    "Drag acts",
    "Four times as great",
    "Thrust originates",
-   "Lift is produced",
+   "All of the wing's lift is produced",
    "Weight is concentrated/balanced"
   ],
   "answer": 4,
@@ -127,7 +127,7 @@
   "options": [
    "Propeller/engine",
    "Rudder",
-   "Airfoil",
+   "Airfoil of the wings",
    "Wings",
    "Flaps"
   ],
@@ -186,7 +186,7 @@
   "q_ko": "유도 항력(induced drag)은 무엇의 부산물인가?",
   "options": [
    "High altitude",
-   "Surface friction",
+   "Surface friction effects",
    "Engine thrust",
    "The production of lift",
    "Propeller/engine"
@@ -230,7 +230,7 @@
   "q": "A stall occurs when the angle of attack exceeds the:",
   "q_ko": "실속(stall)은 받음각이 무엇을 초과할 때 발생하는가?",
   "options": [
-   "Minimum drag",
+   "Minimum drag angle of attack",
    "Cruising altitude",
    "Propeller/engine",
    "Critical angle of attack",
@@ -247,7 +247,7 @@
   "options": [
    "The elevators",
    "Diagonal axis",
-   "Vertical axis",
+   "Vertical (yaw) axis",
    "Lateral axis",
    "Longitudinal axis"
   ],
@@ -264,7 +264,7 @@
    "Fuselage nose",
    "Horizontal stabilizer (tail)",
    "Wing leading edge",
-   "Vertical stabilizer"
+   "Vertical stabilizer (tail fin)"
   ],
   "answer": 2,
   "explain": "엘리베이터는 꼬리부의 수평 안정판(horizontal stabilizer)에 부착되어 키놀이를 제어한다."
@@ -278,7 +278,7 @@
    "Control yaw",
    "Reduce fuel use",
    "Vertical axis (yaw)",
-   "Increase cruise speed",
+   "Increase cruise speed at altitude",
    "Increase lift at low speeds"
   ],
   "answer": 4,
@@ -353,7 +353,7 @@
    "Start the engine",
    "Lower the landing gear",
    "Relieve control pressure / hold a setting",
-   "Increase top speed",
+   "Increase the aircraft's maximum attainable speed",
    "Ailerons, elevator, rudder"
   ],
   "answer": 2,
@@ -395,7 +395,7 @@
   "q": "The elevator controls which motion of the aircraft?",
   "q_ko": "엘리베이터(elevator)는 항공기의 어떤 운동을 제어하는가?",
   "options": [
-   "Yaw",
+   "Yawing",
    "Slip",
    "Down",
    "Pitch",
@@ -411,7 +411,7 @@
   "q_ko": "날개의 스포일러(spoilers)는 무엇을 위해 사용되는가?",
   "options": [
    "Provide thrust",
-   "Increase lift",
+   "Increase lift during the landing roll",
    "Steer on the ground",
    "Reduce lift and increase drag",
    "Vertical stabilizer"
@@ -425,7 +425,7 @@
   "q": "Slats, located on the wing leading edge, help to:",
   "q_ko": "날개 앞전(leading edge)에 있는 슬랫(slats)은 무엇을 돕는가?",
   "options": [
-   "Increase cruise speed",
+   "Increase cruise speed at high altitude",
    "Control yaw",
    "Provide braking",
    "Roll, pitch, and yaw",
@@ -441,7 +441,7 @@
   "q_ko": "기수를 위로 올리려면 조종사는 조종간을 어떻게 움직이는가?",
   "options": [
    "Left",
-   "Forward",
+   "Fully forward",
    "Aft (back)",
    "Pitch",
    "Right"
@@ -470,7 +470,7 @@
   "q": "The heading indicator shows the aircraft's:",
   "q_ko": "방향지시계(heading indicator)는 항공기의 무엇을 보여주는가?",
   "options": [
-   "Vertical speed",
+   "Vertical speed in feet per minute",
    "Fresnel lenses",
    "Magnetic/directional heading",
    "Airspeed",
@@ -517,7 +517,7 @@
   "options": [
    "Engine RPM",
    "Magnetic north",
-   "True north",
+   "True (map) north",
    "Grid north",
    "The runway"
   ],
@@ -531,7 +531,7 @@
   "q_ko": "승강계(vertical speed indicator, VSI)는 무엇의 비율을 보여주는가?",
   "options": [
    "Climb or descent",
-   "Acceleration",
+   "Forward acceleration",
    "Turn",
    "Fuel burn",
    "90 seconds"
@@ -546,7 +546,7 @@
   "q_ko": "자세계에서 작은 비행기 모형은 무엇을 나타내는가?",
   "options": [
    "Wind direction",
-   "Horizon",
+   "Horizon reference",
    "Runway",
    "Engine RPM",
    "Actual aircraft"
@@ -560,7 +560,7 @@
   "q": "The airspeed indicator measures the aircraft's:",
   "q_ko": "속도계(airspeed indicator)는 항공기의 무엇을 측정하는가?",
   "options": [
-   "Vertical speed",
+   "Vertical speed of climb",
    "Heading",
    "Speed through the air",
    "Altitude",
@@ -578,7 +578,7 @@
    "Ram/dynamic air pressure",
    "Fresnel lenses",
    "Altitude",
-   "Static pressure",
+   "Ambient static air pressure",
    "Temperature"
   ],
   "answer": 0,
@@ -608,7 +608,7 @@
    "Rigidity in space",
    "Fuel level",
    "Engine RPM",
-   "Altitude only",
+   "Pressure altitude above sea level only",
    "Pitch and bank relative to horizon"
   ],
   "answer": 4,
@@ -621,7 +621,7 @@
   "q_ko": "선회계(turn coordinator)는 무엇에 관한 정보를 제공하는가?",
   "options": [
    "Rate of turn and coordination",
-   "Climb or descent",
+   "Rate of climb or descent in flight",
    "Airspeed",
    "Altitude",
    "Engine temperature"
@@ -652,7 +652,7 @@
   "options": [
    "Engine pressure",
    "Ambient/static air pressure",
-   "Ram air pressure",
+   "Ram air pressure in forward flight",
    "Fuel pressure",
    "Attitude indicator"
   ],
@@ -711,7 +711,7 @@
   "q_ko": "일부 헬리콥터는 서로 반대로 도는 두 개의 로터를 사용하여 무엇을 하는가?",
   "options": [
    "Engine power is lost",
-   "Increase speed only",
+   "Increase maximum forward speed only",
    "Eliminate the need for a tail rotor",
    "Save fuel only",
    "Reduce weight only"
@@ -726,7 +726,7 @@
   "q_ko": "헬리콥터의 병진 양력(translational lift)은 무엇을 얻을 때 발생하는가?",
   "options": [
    "Left hand",
-   "Altitude",
+   "Pressure altitude",
    "Forward airspeed",
    "Weight",
    "Fuel"
@@ -740,7 +740,7 @@
   "q": "The collective control changes the pitch of the main rotor blades:",
   "q_ko": "콜렉티브(collective)는 주 로터 블레이드의 피치를 어떻게 변화시키는가?",
   "options": [
-   "Individually",
+   "Individually, one blade at a time",
    "All equally at the same time",
    "Only the tail rotor",
    "Not at all",
@@ -755,8 +755,8 @@
   "q": "If the tail rotor fails in forward flight, the helicopter will tend to:",
   "q_ko": "전진 비행 중 꼬리 로터가 고장나면 헬리콥터는 어떻게 되는 경향이 있는가?",
   "options": [
-   "Relative wind",
-   "Roll inverted",
+   "Descend in a stable, controlled glide",
+   "Roll inverted rapidly",
    "Stop instantly",
    "Yaw uncontrollably",
    "Climb"
@@ -774,7 +774,7 @@
    "Climb",
    "Slow down",
    "Rotate in the opposite direction",
-   "Pitch up"
+   "Pitch up sharply toward the vertical"
   ],
   "answer": 3,
   "explain": "뉴턴의 제3법칙에 따라 주 로터가 한 방향으로 돌면 동체는 반대 방향으로 회전하려 한다. 이를 꼬리 로터가 상쇄한다."
@@ -788,7 +788,7 @@
    "Engine",
    "Landing gear",
    "Rotating main rotor blades",
-   "Tail rotor only",
+   "Tail rotor drive assembly only",
    "Lift and thrust"
   ],
   "answer": 2,
@@ -816,7 +816,7 @@
   "q_ko": "사이클릭(cyclic)은 무엇을 위해 사용되는가?",
   "options": [
    "The nose yaws to the left",
-   "Change overall lift",
+   "Change total lift produced by the rotor blades equally",
    "Counteract torque",
    "Start the engine",
    "Tilt the rotor disc for directional movement"
@@ -831,7 +831,7 @@
   "q_ko": "꼬리 로터(tail rotor)의 주요 목적은 무엇인가?",
   "options": [
    "Provide braking",
-   "Provide lift",
+   "Provide extra lift for hovering",
    "Counteract main rotor torque",
    "Yaw uncontrollably",
    "Increase speed"
@@ -846,7 +846,7 @@
   "q_ko": "한 지점에서 제자리 비행하는 헬리콥터는 무엇을 유지하는가?",
   "options": [
    "Forward thrust",
-   "A steep climb",
+   "A steep, constant-rate climb attitude",
    "Yaw uncontrollably",
    "Maximum speed",
    "A stationary position in the air"
@@ -877,7 +877,7 @@
   "options": [
    "Engine power is lost",
    "Presses left pedal",
-   "Raises the collective",
+   "Raises the collective slightly",
    "Pushes the cyclic forward",
    "Lowers the throttle"
   ],
@@ -906,7 +906,7 @@
   "q_ko": "안티토크 페달(anti-torque pedals)은 무엇을 제어하는가?",
   "options": [
    "Tail rotor thrust / yaw",
-   "Forward speed",
+   "Forward speed of the aircraft",
    "The collective",
    "Altitude",
    "Main rotor lift"
@@ -922,7 +922,7 @@
   "options": [
    "Aligned with the runway for landing",
    "After takeoff climb",
-   "Parallel to the runway",
+   "Flown parallel to the runway on downwind",
    "Wind direction and speed",
    "Perpendicular at takeoff"
   ],
@@ -935,7 +935,7 @@
   "q": "Runway numbers are based on the runway's:",
   "q_ko": "활주로 번호는 활주로의 무엇을 기준으로 하는가?",
   "options": [
-   "Length",
+   "Total length in feet",
    "Width",
    "Runway 09",
    "Magnetic heading",
@@ -1027,7 +1027,7 @@
   "options": [
    "White",
    "Blue",
-   "Red",
+   "Crimson",
    "Yellow",
    "Green"
   ],
@@ -1040,7 +1040,7 @@
   "q": "A rotating beacon at an airport with alternating white and green flashes indicates a:",
   "q_ko": "흰색과 초록색이 번갈아 깜빡이는 공항 회전 등대(beacon)는 무엇을 나타내는가?",
   "options": [
-   "Military airport",
+   "Military airfield facility",
    "Water airport",
    "Civilian land airport",
    "Closed airport",
@@ -1056,7 +1056,7 @@
   "q_ko": "공항의 바람자루(wind sock)는 무엇을 나타내는가?",
   "options": [
    "Altitude",
-   "Temperature",
+   "Outside air temperature trends",
    "Wind direction and speed",
    "Runway length",
    "1,000 feet AGL"
@@ -1115,7 +1115,7 @@
   "q": "Aircraft normally take off and land:",
   "q_ko": "항공기는 보통 어떤 바람을 맞으며 이착륙하는가?",
   "options": [
-   "With a tailwind",
+   "With a tailwind behind them",
    "Into the wind (headwind)",
    "Regardless of wind",
    "In a crosswind only",
@@ -1134,7 +1134,7 @@
    "Hold passengers",
    "Move between runway and parking",
    "Cruise",
-   "Take off"
+   "Take off when runways are congested"
   ],
   "answer": 2,
   "explain": "유도로(taxiway)는 활주로와 주기장(터미널/격납고) 사이를 지상 이동(taxi)하는 데 사용된다."
@@ -1160,7 +1160,7 @@
   "q": "Retractable landing gear is used mainly to:",
   "q_ko": "접이식 착륙장치(retractable gear)는 주로 무엇을 위해 사용되는가?",
   "options": [
-   "Improve braking",
+   "Improve braking performance",
    "Empennage (tail)",
    "Add storage",
    "Reduce drag in flight",
@@ -1179,7 +1179,7 @@
    "Fuselage",
    "Cowling",
    "A T-bar",
-   "Spar"
+   "Tail spar"
   ],
   "answer": 0,
   "explain": "미부(empennage, 꼬리날개)는 수평/수직 안정판과 엘리베이터, 러더를 포함하는 항공기 꼬리 구조이다."
@@ -1207,7 +1207,7 @@
   "options": [
    "Fuselage",
    "Empennage (tail)",
-   "Wing",
+   "Wing root section",
    "Landing gear",
    "Engine"
   ],
@@ -1235,7 +1235,7 @@
   "q": "Wing ribs primarily give the wing its:",
   "q_ko": "날개 리브(rib)는 주로 날개에 무엇을 부여하는가?",
   "options": [
-   "Fuel",
+   "Usable fuel storage capacity",
    "Color",
    "Power",
    "Shape (airfoil contour)",
@@ -1296,7 +1296,7 @@
   "q_ko": "수직 안정판(vertical stabilizer)은 어느 축의 안정성을 제공하는가?",
   "options": [
    "Vertical axis (yaw)",
-   "Lateral axis",
+   "Lateral (pitch) axis",
    "Longitudinal axis",
    "Lift axis",
    "External skin"
@@ -1386,7 +1386,7 @@
   "q_ko": "플레어(flare)는 언제 수행하는가?",
   "options": [
    "Just before touchdown on landing",
-   "During takeoff roll",
+   "During the takeoff roll before rotation",
    "During cruise",
    "At engine start",
    "Horizontal component"
@@ -1401,7 +1401,7 @@
   "q_ko": "균형 잡힌 수평 선회에서 양력은 수직 성분과 무엇으로 나뉘는가?",
   "options": [
    "Horizontal component",
-   "Thrust component",
+   "Forward thrust component",
    "Weight component",
    "Power (throttle)",
    "Drag component"
@@ -1419,7 +1419,7 @@
    "Top",
    "Power (throttle)",
    "Center",
-   "Outside of the turn"
+   "Outside (high side) of the turn"
   ],
   "answer": 0,
   "explain": "슬립(slip)에서는 뱅크에 비해 러더가 부족해 볼이 선회 안쪽(낮은 쪽)으로 떨어진다."
@@ -1447,7 +1447,7 @@
   "options": [
    "Shutting down the engine",
    "Aborting a landing and climbing away",
-   "Landing immediately",
+   "Landing immediately on the nearest runway",
    "Taxiing to parking",
    "Too much rudder for the bank"
   ],
@@ -1460,7 +1460,7 @@
   "q": "A steep turn is generally defined as a turn with a bank angle of about:",
   "q_ko": "스티프 턴(steep turn)은 일반적으로 약 몇 도의 뱅크 각을 가진 선회로 정의되는가?",
   "options": [
-   "10 degrees",
+   "10 degrees of bank",
    "2 degrees",
    "A crosswind",
    "45 degrees or more",
@@ -1476,7 +1476,7 @@
   "q_ko": "이륙 중 항공기가 지면을 떠나는 지점을 무엇이라 하는가?",
   "options": [
    "Descents",
-   "Touchdown",
+   "The touchdown point",
    "Taxi",
    "Rotation/liftoff",
    "Flare"
@@ -1491,7 +1491,7 @@
   "q_ko": "더 가파른 뱅크 선회에서 고도를 유지하려면 조종사는 일반적으로 무엇을 해야 하는가?",
   "options": [
    "Reduce power",
-   "Decrease back pressure",
+   "Decrease back pressure on the controls",
    "Horizontal component",
    "Increase back pressure / add power",
    "Lower the nose"
@@ -1521,7 +1521,7 @@
   "q_ko": "일정 속도로 강하할 때 조종사는 주로 무엇으로 강하율을 조절하는가?",
   "options": [
    "Rudder",
-   "Flaps only",
+   "The wing flaps only",
    "Ailerons only",
    "A crosswind",
    "Power (throttle)"
@@ -1537,7 +1537,7 @@
   "options": [
    "Horizontal component",
    "Cut the engine",
-   "Pull back harder",
+   "Pull back harder to raise the nose and regain lift",
    "Raise the gear",
    "Reduce angle of attack (lower the nose)"
   ],
@@ -1596,7 +1596,7 @@
   "q_ko": "항공기의 '자체 중량(empty weight)'에 일반적으로 포함되지 않는 것은?",
   "options": [
    "The airframe",
-   "The engine",
+   "The complete engine assembly",
    "Usable fuel and payload",
    "Fixed equipment",
    "Twelve seconds"
@@ -1643,7 +1643,7 @@
    "Estimated Time of Arrival",
    "Flight Altitude Adjustment",
    "Flight Approach Authority",
-   "Federal Aircraft Agency",
+   "Federal Aircraft Agency of the U.S.",
    "Federal Aviation Administration"
   ],
   "answer": 4,
@@ -1658,7 +1658,7 @@
    "Fuel prices",
    "Notices about hazards/changes",
    "Passenger lists",
-   "Weather forecasts only",
+   "Terminal area weather forecasts only",
    "Visual Flight Rules"
   ],
   "answer": 1,
@@ -1687,7 +1687,7 @@
   "options": [
    "Weight",
    "Pressure",
-   "Altitude",
+   "Altitude (feet above mean sea level)",
    "Speed (nautical miles per hour)",
    "Tail assembly"
   ],
@@ -1702,7 +1702,7 @@
   "options": [
    "Cruising",
    "True Airspeed",
-   "Taking off",
+   "Taking off and climbing out",
    "Parked, loaded, or fueled",
    "Landing"
   ],
@@ -1715,7 +1715,7 @@
   "q": "'ETA' in flight planning stands for:",
   "q_ko": "비행 계획에서 'ETA'는 무엇을 의미하는가?",
   "options": [
-   "Engine Thrust Adjustment",
+   "Engine Thrust Adjustment setting",
    "Emergency Takeoff Alert",
    "Instrument Flight Rules",
    "Extra Tank Amount",
@@ -1745,7 +1745,7 @@
   "q": "'METAR' is a report of:",
   "q_ko": "'METAR'은 무엇에 관한 보고인가?",
   "options": [
-   "Flight plans",
+   "Filed instrument flight plans",
    "Current weather observations",
    "Engine status",
    "Hot-air balloons",
@@ -1764,7 +1764,7 @@
    "The air boss",
    "Engine",
    "Cockpit",
-   "Wing"
+   "Wing structure"
   ],
   "answer": 0,
   "explain": "엠페니지(empennage)는 항공기의 꼬리 조립체(tail assembly)를 가리킨다."
@@ -1866,7 +1866,7 @@
   "q_ko": "기온과 이슬점이 매우 가까울 때 가장 직접적으로 나타나는 대기 상태는?",
   "options": [
    "Counteract main rotor torque",
-   "Clear skies and good visibility",
+   "Clear skies with unusually good visibility",
    "Strong surface winds",
    "Rising barometric pressure",
    "High likelihood of fog or low clouds"
@@ -1913,7 +1913,7 @@
    "It varies with altitude only",
    "It remains essentially constant",
    "It decreases with airspeed",
-   "It increases with airspeed",
+   "It increases in proportion to airspeed",
    "Lift, weight, thrust, drag"
   ],
   "answer": 1,
@@ -2002,7 +2002,7 @@
   "options": [
    "Decrease both lift and drag",
    "Provide directional (yaw) control",
-   "Increase speed by reducing drag",
+   "Increase the aircraft's speed by reducing overall aerodynamic drag",
    "Increase lift and drag, allowing lower approach speeds",
    "Eliminate the need for a tail rotor"
   ],
@@ -2016,7 +2016,7 @@
   "q_ko": "VFR로 운항하는 조종사는 일반적으로 최소 시정을 유지하고 구름으로부터 정해진 거리를 유지해야 한다. 이 구름 회피 규정의 주된 목적은?",
   "options": [
    "Improve radio reception",
-   "Reduce engine icing",
+   "Reduce the chance of engine and airframe icing",
    "Critical angle of attack",
    "Conserve fuel",
    "Allow time to see and avoid other traffic"
@@ -2032,7 +2032,7 @@
   "options": [
    "Reducing the weight of the aircraft",
    "Accelerating a mass of air rearward at high velocity",
-   "Spinning a large propeller",
+   "Spinning a large propeller connected to the turbine shaft",
    "Burning fuel in an external combustion chamber",
    "Positive longitudinal static stability"
   ],
@@ -2076,7 +2076,7 @@
   "q_ko": "항공기가 무게중심이 허용 한계보다 훨씬 앞쪽에 오도록 적재되면 가장 가능성 있는 영향은?",
   "options": [
    "1 mile during the day and 3 miles at night",
-   "No effect as long as total weight is within limits",
+   "No adverse effect provided the total gross weight remains within limits",
    "Excessively nose-heavy with reduced elevator authority to flare",
    "Tail-heavy and prone to spinning",
    "Increased cruise speed"
@@ -2123,7 +2123,7 @@
    "Lift suddenly decreases because the airflow separates (stall)",
    "Lift stays exactly constant",
    "At low airspeed and high angle of attack",
-   "Lift continues to increase steadily",
+   "Lift continues to increase steadily as long as power is maintained",
    "Lift converts entirely into thrust"
   ],
   "answer": 0,
@@ -2168,7 +2168,7 @@
    "To brake the main rotor during landing",
    "Increased torque tries to spin the cabin",
    "To increase forward airspeed directly",
-   "To provide most of the lift",
+   "To provide most of the lift needed to keep the helicopter airborne",
    "To counteract the torque of the main rotor and control yaw"
   ],
   "answer": 4,
@@ -2181,7 +2181,7 @@
   "q_ko": "교란을 받은 후 조종사 입력 없이 원래의 피치 자세로 돌아가려는 항공기는 어떤 특성을 가졌다고 하는가?",
   "options": [
    "Positive longitudinal static stability",
-   "Neutral lateral stability",
+   "Neutral lateral stability about the roll axis",
    "Adverse yaw",
    "Negative directional stability",
    "Ailerons, elevator, rudder"
@@ -2214,7 +2214,7 @@
    "Magnetic heading and true heading",
    "Ram (dynamic) air pressure against static air pressure",
    "Lift equals weight and thrust equals drag",
-   "Engine RPM and manifold pressure"
+   "Engine RPM readings against manifold pressure indications"
   ],
   "answer": 2,
   "explain": "대기속도계는 피토관이 받는 전압(동압+정압)과 정압포트의 정압을 비교한다. 그 차이인 동압이 속도로 환산된다."
@@ -2243,7 +2243,7 @@
    "Taxiway hold line",
    "Runway threshold (the beginning of usable runway)",
    "Closed runway",
-   "Displaced threshold",
+   "Displaced threshold relocated farther down the runway surface",
    "Ram/dynamic air pressure"
   ],
   "answer": 1,
@@ -2256,7 +2256,7 @@
   "q_ko": "뇌우, 난류, 우박 가능성과 가장 관련이 깊은 구름은 무엇인가?",
   "options": [
    "Altostratus",
-   "Stratus",
+   "Stratus layers",
    "Runway 9L",
    "Cirrus",
    "Cumulonimbus"
@@ -2304,7 +2304,7 @@
    "Distance remaining to the destination in nautical miles",
    "Magnetic bearing (radial) to or from the station",
    "Outside air temperature",
-   "Its laminar-flow wing that reduced drag"
+   "The precise GPS coordinates of other nearby traffic"
   ],
   "answer": 2,
   "explain": "VOR은 전방향 무선표지로, 항공기가 시설에 대해 어느 방위선(radial) 상에 있는지 자방위 정보를 제공한다. 거리는 DME가 제공한다."
@@ -2318,7 +2318,7 @@
    "The pilot raising the flaps",
    "Increased engine thrust near the ground",
    "Reduction of induced drag due to interference with wingtip vortices near the surface",
-   "A sudden increase in air density at low altitude",
+   "A sudden increase in air density immediately above the runway that pushes the wing upward",
    "Straight-and-level flight, turns, climbs, and descents"
   ],
   "answer": 2,
@@ -2347,7 +2347,7 @@
   "options": [
    "Chord line of the wing and the relative wind",
    "Burning fuel to inflate a balloon",
-   "Spinning a propeller in front of the aircraft only",
+   "Spinning a conventional propeller mounted in front of the aircraft only",
    "Accelerating a large mass of air rearward through the engine",
    "Using compressed springs to push air"
   ],
@@ -2451,7 +2451,7 @@
   "q_ko": "트림 탭(trim tab)은 주로 조종사에게 어떤 역할을 합니까?",
   "options": [
    "Deploy as speed brakes",
-   "Reduce stall speed / increase lift",
+   "Reduce the stall speed and increase lift during slow flight",
    "Increase the maximum bank angle",
    "Act as primary roll control",
    "Relieve continuous control pressure to hold an attitude"
@@ -2481,7 +2481,7 @@
   "q_ko": "활주로에서 변위된 활주로 시단(displaced threshold)은 실선까지 이어지는 화살표로 표시됩니다. 변위 시단 이전 구역은 어떤 운용에 사용할 수 있습니까?",
   "options": [
    "Taxi, takeoff, and landing rollout, but not as a touchdown point for landing",
-   "Touchdown for all landings",
+   "Touchdown for all normal landings whenever the pilot judges the pavement surface adequate",
    "Positive longitudinal static stability",
    "No operations of any kind",
    "Only helicopter hover taxi"
@@ -2496,7 +2496,7 @@
   "q_ko": "선회 조정계(turn coordinator)는 조종사에게 어떤 두 가지 정보를 줍니까?",
   "options": [
    "Altitude and vertical speed",
-   "Pitch attitude and bank only",
+   "Pitch attitude and bank angle only, with no rate information",
    "Airspeed and heading",
    "Rate of roll/turn and quality (coordination) of the turn",
    "A wave-off meaning 'don't land'"
@@ -2512,7 +2512,7 @@
   "options": [
    "Instrument flight rules (IFR)",
    "Groundspeed only",
-   "Exact distance to the station",
+   "Exact slant-range distance from the aircraft to the station",
    "Outside air temperature",
    "Magnetic bearing (radial) to or from the station"
   ],
@@ -2555,7 +2555,7 @@
   "q": "Rotation about the lateral axis of an aircraft is called what, and is controlled primarily by which surface?",
   "q_ko": "항공기의 가로축(lateral axis)을 중심으로 한 회전을 무엇이라 하며, 주로 어떤 조종면으로 제어합니까?",
   "options": [
-   "Pitch, controlled by the rudder",
+   "Pitch, controlled primarily by the rudder",
    "Pitch, controlled by the elevator",
    "Speed (nautical miles per hour)",
    "Roll, controlled by the ailerons",
@@ -2585,7 +2585,7 @@
   "q": "Class B airspace is generally established around what kind of location?",
   "q_ko": "B등급(Class B) 공역은 일반적으로 어떤 장소를 중심으로 설정됩니까?",
   "options": [
-   "Remote military bombing ranges",
+   "Remote military bombing and gunnery ranges",
    "Small uncontrolled grass strips",
    "Thin sheet-aluminum alloy skin",
    "The nation's busiest major airports",
@@ -2619,7 +2619,7 @@
    "Reduced longitudinal stability and a tendency to pitch up",
    "Increase back pressure / add power",
    "Inability to leave the ground",
-   "Excessive nose-heaviness"
+   "Excessive nose-heaviness requiring constant back pressure on the yoke"
   ],
   "answer": 1,
   "explain": "CG가 너무 후방이면 세로 안정성이 줄고 기수가 들리려는(pitch-up) 경향이 커져 실속 회복이 어려워질 수 있다. CG가 너무 앞이면 기수가 무거워진다."
@@ -2649,7 +2649,7 @@
    "Filing the airline's quarterly taxes",
    "Determining that the aircraft is airworthy for the flight",
    "Manufacturing replacement parts",
-   "Setting national airspace regulations"
+   "Setting the national airspace regulations that govern all flights"
   ],
   "answer": 2,
   "explain": "기장은 비행 전 항공기가 해당 비행에 감항성(airworthy)이 있는지 판단하고 안전한 운항을 보장할 최종 책임을 진다. 이는 FAA 규정의 기본 원칙이다."
@@ -2663,7 +2663,7 @@
    "Cockpit, wings, floats, jet engine, rudder, and flight computer",
    "Fuselage, wings, landing gear, powerplant, tail assembly, and flight instruments/controls",
    "Fuselage, wings, skis, propeller, canopy, and autopilot",
-   "Fuselage, rotor, landing gear, powerplant, tail assembly, and avionics",
+   "Fuselage, main rotor system, landing gear, powerplant, tail assembly, and avionics equipment",
    "Increased power required, longer runway distance, and excess stress on the structure"
   ],
   "answer": 1,
@@ -2675,7 +2675,7 @@
   "q": "What is the primary function of the fuselage?",
   "q_ko": "동체(fuselage)의 주요 기능은 무엇인가?",
   "options": [
-   "It is the main lifting surface that supports the airplane in flight",
+   "It is the main lifting surface that supports the entire airplane in flight, generating aerodynamic lift as air flows over its specially curved upper surface",
    "Increased power required, longer runway distance, and excess stress on the structure",
    "It is the rotating component that produces forward thrust",
    "It is the body of the airplane, holding the cockpit, cabin, and cargo, and serving as the attachment point for wings, tail, and landing gear",
@@ -2694,7 +2694,7 @@
    "It is a fireproof partition separating the engine compartment from the cockpit/cabin to protect occupants from engine fire",
    "It houses the bulkheads and stringers of a monocoque structure",
    "It supports the airplane's weight while on the ground",
-   "It streamlines airflow over the front-mounted engine and cools it"
+   "It streamlines the airflow passing over the front-mounted engine and directs cooling air around the cylinders to keep temperatures in range"
   ],
   "answer": 1,
   "explain": "방화벽은 엔진실과 조종석/객실을 분리하는 내화성 칸막이로, 엔진 화재로부터 탑승자를 보호한다."
@@ -2706,7 +2706,7 @@
   "q_ko": "트러스와 모노코크 동체 구조를 올바르게 구분한 설명은 무엇인가?",
   "options": [
    "Truss uses steel or aluminum tubing in triangular shapes, while monocoque uses bulkheads, stringers, and formers supporting a stressed skin",
-   "Truss uses a stressed skin over formers, while monocoque uses triangular tubing",
+   "Truss relies on a stressed skin supported by formers and stringers, while monocoque relies on steel or aluminum tubing arranged in triangular shapes",
    "Truss requires external struts, while monocoque requires no skin at all",
    "Fuselage, wings, landing gear, powerplant, tail assembly, and flight instruments/controls",
    "Truss is used only on jets, while monocoque is used only on gliders"
@@ -2724,7 +2724,7 @@
    "They retract into the fuselage to reduce drag in flight",
    "It increases with airspeed, so only small deflections are needed at high speeds",
    "They extend from about mid-wing to the wingtip and move in opposite directions to roll the airplane",
-   "They extend from the wing root to mid-wing and move down together to increase lift"
+   "They extend from near the wing root to about mid-wing and are lowered together to increase the lift the wing produces"
   ],
   "answer": 3,
   "explain": "에일러론은 날개 중앙에서 날개 끝까지 뻗어 있으며 서로 반대 방향으로 움직여 항공기를 롤(roll)시킨다."
@@ -2736,7 +2736,7 @@
   "q_ko": "플랩(flap)의 목적과 위치는 무엇인가?",
   "options": [
    "They are external struts that brace a semi-cantilever wing",
-   "They run from mid-wing to the wingtip and move in opposite directions to roll the airplane",
+   "They run from about mid-wing out to the wingtip and deflect in opposite directions to roll the airplane about its longitudinal axis",
    "They are located on the empennage and provide yaw control",
    "They run from near the wing root to about mid-wing and lower together to increase lift for takeoff and landing",
    "It increases with airspeed, so only small deflections are needed at high speeds"
@@ -2753,7 +2753,7 @@
    "Air flows faster over the more-cambered top of the wing, creating lower pressure above than below",
    "The wing root stalls before the wingtip, preserving aileron effectiveness",
    "The wing physically pushes air upward with its flat lower surface",
-   "Air flows faster under the wing, creating lower pressure below than above",
+   "Air flows faster beneath the wing's lower surface, creating lower pressure below the wing than above it",
    "The propeller forces high-pressure air over the entire wing"
   ],
   "answer": 0,
@@ -2766,7 +2766,7 @@
   "q_ko": "양력이 실제로 어떻게 발생하는지에 대한 설명은 주로 어떤 법칙에 더 기반하는가?",
   "options": [
    "Induced drag decreases and parasite drag increases",
-   "Bernoulli's Principle exclusively, at all speeds",
+   "Bernoulli's Principle exclusively, at every airspeed from slow flight to supersonic",
    "Only the ideal gas law, regardless of airspeed",
    "Kepler's Laws of planetary motion",
    "Newton's Laws, though the Bernoulli explanation is roughly adequate at low speeds"
@@ -2780,7 +2780,7 @@
   "q": "What is dihedral and why is it built into a wing?",
   "q_ko": "다이히드럴(dihedral)이란 무엇이며 날개에 적용하는 이유는?",
   "options": [
-   "The sweep angle of the wings, built in to delay shock-wave formation",
+   "The rearward sweep angle of the wings as seen from above, built into the design to delay the formation of shock waves at speeds approaching the speed of sound",
    "The upward angle of the wings from horizontal, built in for roll stability so the wing returns to its original position after displacement",
    "The chord-to-thickness ratio, built in to reduce drag at supersonic speed",
    "Increased power required, longer runway distance, and excess stress on the structure",
@@ -2796,7 +2796,7 @@
   "q_ko": "현대 고속 항공기에 가장 흔한 날개 형태는 무엇인가?",
   "options": [
    "The anhedral wing, which is required on all commercial jets",
-   "The straight wing, which gives efficient lift near the speed of sound",
+   "The straight wing, which produces highly efficient lift and remains the preferred planform even near the speed of sound",
    "Newton's Laws, though the Bernoulli explanation is roughly adequate at low speeds",
    "The swept wing, which creates less drag than straight wings and delays shock-wave formation near the speed of sound",
    "The delta wing, which is used only on small low-speed gliders"
@@ -2812,7 +2812,7 @@
   "options": [
    "Incoming air is compressed, mixed with fuel, burned, and exhausted at high speed",
    "It depends on the angle at which the pilot views the lights, though all are always on",
-   "Lower pressure ahead of the propeller pulls the airplane forward with no reaction",
+   "Lower pressure created just ahead of the spinning propeller disc pulls the airplane forward without any rearward reaction force",
    "The corkscrew action of the rotating blades pushes air backward, pushing the airplane forward per Newton's Third Law",
    "The blades spin a turbine that drives the landing gear forward"
   ],
@@ -2827,7 +2827,7 @@
   "options": [
    "The firewall channels cabin heat into the compressor",
    "It sharply increases fuel consumption and can be used only briefly",
-   "The propeller at the rear mechanically spins the compressor",
+   "The propeller mounted at the rear of the engine mechanically spins the compressor through gearing",
    "Exhaust gases turn turbine blades connected by a shaft to the compressor blades",
    "External struts brace the compressor to the fuselage"
   ],
@@ -2859,7 +2859,7 @@
    "It cools the exhaust gases too much to fly",
    "A line where magnetic variation is zero degrees",
    "It sharply increases fuel consumption and can be used only briefly",
-   "It permanently reduces the engine's maximum thrust"
+   "It permanently reduces the engine's maximum available thrust after each use"
   ],
   "answer": 3,
   "explain": "애프터버너는 터빈과 후방 배기 노즐 사이에서 연료를 추가 점화해 추력을 크게 높이지만, 연료 소비가 급증해 짧은 시간만 사용할 수 있다."
@@ -2885,7 +2885,7 @@
   "q": "What is the purpose of trim tabs on the trailing edges of the rudder, elevators, and ailerons?",
   "q_ko": "방향타, 승강타, 보조날개 뒷전에 있는 트림 탭의 목적은 무엇인가?",
   "options": [
-   "To increase the maximum speed of the aircraft",
+   "To increase the maximum speed the aircraft can safely attain in cruise",
    "The left aileron goes down, lifting the left wing",
    "To replace the rudder during a stall",
    "To serve as the primary means of rolling the aircraft",
@@ -2902,9 +2902,9 @@
   "options": [
    "By pushing hot gases backward, producing an equal and opposite forward reaction",
    "By reducing their mass until they float upward",
-   "By increasing the pressure above the wing",
+   "By increasing the pressure of the air above the wing relative to the air below it",
    "By attracting air with gravitational force",
-   "Its velocity remains constant, though it may still be moving"
+   "By deflecting the surrounding air downward with rotating wings"
   ],
   "answer": 0,
   "explain": "모든 작용에는 크기가 같고 방향이 반대인 반작용이 있다. 제트와 로켓은 뜨거운 가스를 뒤로 밀어내어 그 반작용으로 전방 추력을 얻는다."
@@ -2917,9 +2917,9 @@
   "options": [
    "About thirty-six pounds, because gravity increases with distance",
    "About one pound, because the Moon's gravity is one-sixth of Earth's",
-   "About three pounds, because the Moon has half of Earth's gravity",
+   "About three pounds, because the Moon's gravity is one-half of Earth's",
    "About six pounds, because mass and weight are identical",
-   "Its velocity remains constant, though it may still be moving"
+   "About twelve pounds, because the Moon's gravity doubles an object's weight"
   ],
   "answer": 1,
   "explain": "질량은 국소 중력과 무관한 상수지만 무게는 국소 중력의 함수다. 달 중력은 지구의 1/6이라 6파운드 물체는 달에서 약 1파운드가 된다."
@@ -2960,7 +2960,7 @@
   "q": "What causes an aerodynamic stall?",
   "q_ko": "공기역학적 실속(stall)의 원인은 무엇인가?",
   "options": [
-   "The engine running out of fuel in flight",
+   "The engine suddenly running out of usable fuel while the aircraft is in cruising flight",
    "Induced drag decreases and parasite drag increases",
    "Excessive air pressure below the wing",
    "The rudder being deflected too far",
@@ -3039,7 +3039,7 @@
    "It is unaffected by airspeed",
    "It increases with airspeed, so only small deflections are needed at high speeds",
    "It only works when the aircraft is on the ground",
-   "It decreases with airspeed, so large deflections are needed at high speeds"
+   "It decreases as airspeed rises, so progressively larger deflections are needed at high speeds"
   ],
   "answer": 2,
   "explain": "러더 효과는 대기속도가 증가할수록 커지므로, 저속에서는 큰 편향이, 고속에서는 작은 편향만 필요합니다."
@@ -3098,7 +3098,7 @@
    "Relieve continuous control pressure to hold an attitude",
    "The elevator trailing edge is forced down, producing a nose-down pitch change",
    "It locks the elevator in a neutral position",
-   "The elevator trailing edge is forced up, producing a nose-up pitch change",
+   "The elevator trailing edge is deflected upward, producing a distinct nose-up pitch change",
    "It has no effect on pitch, only on roll"
   ],
   "answer": 1,
@@ -3111,7 +3111,7 @@
   "q_ko": "비행 중 양쪽 날개에 스포일러를 동시에 전개하는 주된 기능은 무엇입니까?",
   "options": [
    "The left aileron goes down, lifting the left wing",
-   "To increase lift for a short-field takeoff",
+   "To increase lift during a short-field takeoff from a runway of limited length",
    "To reduce drag and increase cruise speed",
    "To yaw the aircraft for a coordinated turn",
    "To descend without gaining speed by reducing lift and increasing drag"
@@ -3144,7 +3144,7 @@
    "Density altitude is higher than pressure altitude",
    "They are always exactly equal",
    "Density altitude drops to sea level",
-   "Density altitude is lower than pressure altitude"
+   "Density altitude is lower than the indicated pressure altitude"
   ],
   "answer": 1,
   "explain": "밀도고도는 표준 온도 편차를 보정한 압력고도이며, 온도가 표준보다 높으면 밀도고도가 압력고도보다 높아집니다."
@@ -3156,7 +3156,7 @@
   "q_ko": "속도계에서 빨간 선(red line)은 무엇을 표시합니까?",
   "options": [
    "Vne, the never-exceed speed above which flight is prohibited",
-   "The normal operating range",
+   "The upper end of the normal operating range for routine cruise flight",
    "The rate of climb in feet per minute",
    "300 feet higher than actual altitude",
    "The flap operating range"
@@ -3170,7 +3170,7 @@
   "q": "According to the rule 'step on the ball,' how does a pilot coordinate a turn when the inclinometer's ball is deflected to one side?",
   "q_ko": "'공을 밟아라(step on the ball)'라는 규칙에 따르면, 경사계의 공이 한쪽으로 치우쳤을 때 조종사는 어떻게 선회를 조화시킵니까?",
   "options": [
-   "Apply rudder pressure on the opposite side of the ball",
+   "Apply rudder pressure on the side opposite the direction the ball is deflected",
    "Reduce aileron input until the ball centers",
    "Apply back elevator pressure until the ball centers",
    "Higher altimeter and airspeed indications than normal",
@@ -3189,7 +3189,7 @@
    "An aneroid barometer measuring atmospheric pressure",
    "The rate of climb or descent in feet per minute",
    "The difference between pitot and static pressure",
-   "The rate of turn in degrees per minute"
+   "The airplane's instantaneous rate of turn expressed in degrees per minute"
   ],
   "answer": 0,
   "explain": "자세 지시계의 자이로는 수평면에 견고히 고정되어 수평선 막대가 진짜 수평선을 나타내며, 소형 비행기와 함께 피치와 뱅크 자세를 표시합니다."
@@ -3203,7 +3203,7 @@
    "Neither the wings nor the horizon line ever moves",
    "A skid caused by too much rudder for the bank being used",
    "Both the wings and horizon line move together",
-   "The horizon line stays fixed while the wings symbol moves",
+   "The horizon line remains fixed on the instrument face while the aircraft wings symbol moves",
    "The wings symbol stays fixed and horizontal while the horizon line moves"
   ],
   "answer": 4,
@@ -3246,7 +3246,7 @@
   "q_ko": "대부분의 위치에서 컴퍼스 바늘이 진북이 아닌 자북을 가리키는 이유는 무엇인가?",
   "options": [
    "An aneroid barometer measuring atmospheric pressure",
-   "The needle is attracted to the aircraft engine",
+   "The needle is attracted to the metal mass of the aircraft engine and its mounting bolts",
    "Earth's magnetic poles do not exactly coincide with the geographic poles",
    "True north does not physically exist",
    "The compass is always installed slightly crooked"
@@ -3261,7 +3261,7 @@
   "q_ko": "방위 지시계(방향 자이로)는 자기 컴퍼스와 어떻게 다른가?",
   "options": [
    "Vne, the never-exceed speed above which flight is prohibited",
-   "It is a newer magnetic compass with a vertical card",
+   "It is simply a newer style of magnetic compass fitted with a vertical card display",
    "It is a mechanical, non-magnetic instrument unaffected by turbulence forces",
    "It is the only direction-seeking instrument required in all airplanes",
    "It points to true north instead of magnetic north"
@@ -3275,7 +3275,7 @@
   "q": "Which set correctly lists the four fundamental flight maneuvers on which all flying tasks are based?",
   "q_ko": "모든 비행 과제의 기초가 되는 네 가지 기본 비행 기동을 올바르게 나열한 것은?",
   "options": [
-   "Takeoff, cruise, approach, and landing",
+   "Takeoff, cruise flight, final approach, and landing rollout",
    "Reduce angle of attack (lower the nose)",
    "Straight-and-level flight, turns, climbs, and descents",
    "Roll, pitch, yaw, and thrust",
@@ -3291,7 +3291,7 @@
   "q_ko": "항공기는 주로 어떻게 선회하는가?",
   "options": [
    "By raising the nose with the elevator",
-   "By using the rudder alone to swing the nose around",
+   "By using rudder pressure alone to swing the nose around the turn",
    "By banking its wings in the direction of the desired turn",
    "Input opposite pressure on the controls",
    "By increasing throttle on one wing"
@@ -3309,7 +3309,7 @@
    "The lowered aileron on the rising wing creates more drag; rudder counteracts it",
    "The wings lose lift symmetrically; throttle counteracts it",
    "The horizon tilts the wrong way; the compass corrects it",
-   "The engine torque pulls the nose down; elevator counteracts it"
+   "The engine torque pulls the nose down through the turn; back elevator pressure counteracts it"
   ],
   "answer": 1,
   "explain": "올라가는 날개의 내려간 에일러론이 내려가는 날개의 올라간 에일러론보다 더 많은 항력을 만들어 선회 반대 방향으로 요잉이 생기며, 러더를 사용해 이를 상쇄하고 조화 선회를 이룬다."
@@ -3322,7 +3322,7 @@
   "options": [
    "Vx is used only during descent, not climb",
    "Vx is flown at a lower airspeed and gives the greatest altitude gain over distance",
-   "Vx gives the greatest altitude gain per unit of time",
+   "Vx gives the greatest altitude gain per unit of time, making it best for reaching cruise altitude",
    "Vx is flown at a higher airspeed than Vy",
    "Straight-and-level flight, turns, climbs, and descents"
   ],
@@ -3338,7 +3338,7 @@
    "The force is felt 90 degrees later in the plane of rotation",
    "The tail rotor pitch changes to yaw the aircraft",
    "Only one rotor blade changes pitch to bank the aircraft",
-   "The main rotor disc tilts in the direction of the stick",
+   "The main rotor disc tilts in the direction the stick is displaced, moving the helicopter that way",
    "The pitch of all main rotor blades increases together, increasing lift and climbing"
   ],
   "answer": 4,
@@ -3352,7 +3352,7 @@
   "options": [
    "The tail rotor pushes them upward",
    "Cold air makes the metal curl upward",
-   "They are rigid and bend from engine vibration",
+   "They are rigid metal structures that flex upward from engine and transmission vibration",
    "They are long, thin, flexible, and have higher lift loading toward the tips",
    "Increases the pitch angle of all blades equally"
   ],
@@ -3381,7 +3381,7 @@
   "q_ko": "헬리콥터에서 조종사가 컬렉티브와 엔진 출력을 높이면 왜 더 많은 테일 로터 페달 압력이 필요한가?",
   "options": [
    "The main rotor slows down",
-   "Lift decreases at the tail",
+   "Lift decreases sharply at the tail rotor blades",
    "Increased torque tries to spin the cabin",
    "Rotating main rotor blades",
    "The tail rotor stops turning"
@@ -3396,7 +3396,7 @@
   "q_ko": "자동회전(오토로테이션) 중에 테일 로터가 계속 요 제어를 제공하는 이유는?",
   "options": [
    "It is connected to the main rotor through a transmission",
-   "It is driven by the wind alone",
+   "It is driven by the relative wind alone as the aircraft descends",
    "Rotate in the opposite direction",
    "It has its own separate engine",
    "It runs on battery power"
@@ -3425,7 +3425,7 @@
   "q": "According to gyroscopic precession, a force applied to a spinning disc takes effect where?",
   "q_ko": "자이로스코픽 프리세션(세차운동)에 따르면, 회전하는 원판에 가해진 힘은 어디에서 효과가 나타나는가?",
   "options": [
-   "180 degrees later, opposite the rotation",
+   "180 degrees later, on the opposite side of the rotation",
    "Warmer air is less dense than cooler air",
    "At the exact point of application",
    "45 degrees before the point of application",
@@ -3441,7 +3441,7 @@
   "q_ko": "최초로 인정받은 동력 유인 비행을 이룬 사람과 장소는?",
   "options": [
    "Igor Sikorsky in Russia",
-   "The Montgolfier brothers in France",
+   "The Montgolfier brothers with their balloon in France",
    "The Wright brothers at Kitty Hawk, North Carolina",
    "Chuck Yeager at Kitty Hawk",
    "Thin sheet-aluminum alloy skin"
@@ -3471,7 +3471,7 @@
   "q_ko": "P-51 머스탱이 연합군 폭격기를 독일까지 호위할 수 있는 항속거리를 갖게 한 특징은?",
   "options": [
    "Shape (airfoil contour)",
-   "Its multi-engine configuration",
+   "Its four-engine long-range configuration",
    "Its jet engine",
    "Its tailhook design",
    "Its laminar-flow wing that reduced drag"
@@ -3501,7 +3501,7 @@
   "q_ko": "고정익 항공기는 왜 보통 맞바람을 향해 이착륙하는가?",
   "options": [
    "Hold short on the solid-line side until cleared onto the runway",
-   "To reduce airflow over the wing and lower lift",
+   "To reduce the airflow over the wing and lower lift so the aircraft settles onto the runway sooner",
    "To increase the required ground speed for safety",
    "To increase airflow over the wing and lift while reducing required ground speed",
    "To keep the compass pointed at magnetic north"
@@ -3579,7 +3579,7 @@
    "Primary Flight Control ('Pri-Fly')",
    "Bridge",
    "'m'aidez' (help me)",
-   "Combat Information Center"
+   "The Combat Information Center (CIC)"
   ],
   "answer": 1,
   "explain": "항공모함의 비행 작전 관제탑은 'Pri-Fly'라 불리는 Primary Flight Control이다."
@@ -3620,7 +3620,7 @@
   "q": "With the Fresnel lens landing system, why does only one light appear to glow at a time?",
   "q_ko": "프레넬 렌즈 착함 시스템에서 한 번에 하나의 등만 켜진 것처럼 보이는 이유는 무엇입니까?",
   "options": [
-   "Only one bulb is powered at a time to save energy",
+   "Only one bulb in the array is actually powered at any given moment to conserve the ship's energy",
    "Fog filters block all but one light",
    "It depends on the angle at which the pilot views the lights, though all are always on",
    "Higher altimeter and airspeed indications than normal",
@@ -3681,7 +3681,7 @@
   "q_ko": "해리(nautical mile)는 1,852미터에 해당하며 무엇에서 유래했습니까?",
   "options": [
    "One thousandth of the Earth's radius",
-   "The distance a ship travels in one hour",
+   "The average distance a sailing ship travels in one hour",
    "The wavelength of a marine radio signal",
    "The length of one minute of arc of a great circle",
    "Increased torque tries to spin the cabin"
@@ -3697,7 +3697,7 @@
   "options": [
    "Wind direction and speed",
    "One kilometer per hour",
-   "One statute mile per hour",
+   "One statute land mile per hour",
    "One nautical mile per hour",
    "One meter per second"
   ],
@@ -3711,7 +3711,7 @@
   "q_ko": "항공모함 부호 'CVN'은 무엇을 나타냅니까?",
   "options": [
    "A guided-missile cruiser",
-   "A nuclear ballistic missile submarine",
+   "A nuclear-powered fleet ballistic missile submarine",
    "Primary Flight Control ('Pri-Fly')",
    "A conventionally powered destroyer",
    "A multi-purpose nuclear-powered aircraft carrier"
@@ -3728,7 +3728,7 @@
    "Continue moving at constant velocity unless acted upon by an unbalanced force",
    "About one pound, because the Moon's gravity is one-sixth of Earth's",
    "Immediately reverse direction when force is removed",
-   "Gradually slow down and stop on its own",
+   "Gradually slow down and eventually come to a complete stop entirely on its own",
    "Accelerate continuously until it reaches terminal velocity"
   ],
   "answer": 0,
@@ -3819,7 +3819,7 @@
    "The ailerons at the trailing edges of the wings",
    "The rudder on the vertical stabilizer",
    "The flaps near the fuselage",
-   "The elevators on the horizontal stabilizer"
+   "The elevators on the tail's horizontal stabilizer"
   ],
   "answer": 1,
   "explain": "세로축을 중심으로 한 롤은 날개 뒷전의 에일러론을 조정하여 제어한다."
@@ -3831,7 +3831,7 @@
   "q_ko": "받음각(AOA)이란 무엇인가?",
   "options": [
    "The angle between the fuselage and the runway",
-   "The angle between the wing and the horizon",
+   "The angle between the wing's chord line and the natural horizon as seen by the pilot",
    "The angle between the direction of airflow against the wing and the chord line",
    "Induced drag decreases and parasite drag increases",
    "The angle between the propeller and the airflow"
@@ -3845,7 +3845,7 @@
   "q": "What is downwash, and how is it visible when a helicopter hovers above water?",
   "q_ko": "다운워시란 무엇이며, 헬리콥터가 물 위에서 정지비행할 때 어떻게 보이는가?",
   "options": [
-   "Upward suction of air into the rotor, visible as a spray column",
+   "Upward suction of air drawn into the rotor disc from below, visible as a rising column of spray",
    "Downward deflection of air off a rotor blade, visible as outward ripples in the water",
    "Sideways wind off the tail rotor, visible as a spinning vortex",
    "Heat exhaust from the engine, visible as steam",
@@ -3861,7 +3861,7 @@
   "q_ko": "항공기가 최대이륙중량(MTOW)을 초과하면 어떤 일이 발생하는가?",
   "options": [
    "Automatic reduction in landing gear stress",
-   "Reduced fuel consumption and shorter takeoff roll",
+   "Reduced fuel consumption and a noticeably shorter takeoff roll due to greater momentum",
    "Increased power required, longer runway distance, and excess stress on the structure",
    "Improved climb rate with no structural effect",
    "The Wright brothers at Kitty Hawk, North Carolina"
@@ -3921,7 +3921,7 @@
   "q_ko": "모노코크(monocoque) 항공기 구조는 주로 어떤 재료로 만들어지는가?",
   "options": [
    "Fabric stretched over wood",
-   "Welded steel-tubing longerons",
+   "Welded steel-tubing longeron frames",
    "Diagonal welded members",
    "Shape (airfoil contour)",
    "Thin sheet-aluminum alloy skin"
@@ -3966,7 +3966,7 @@
   "q_ko": "가변 피치 프로펠러가 고정 피치 프로펠러와 다른 점은 무엇인가?",
   "options": [
    "Allow time to see and avoid other traffic",
-   "It is set permanently by the manufacturer",
+   "Its blade angle is set permanently by the manufacturer",
    "It is always mounted at the rear of the aircraft",
    "It converts gas directly into lift",
    "The pilot can adjust the blade pitch during flight"
@@ -3983,7 +3983,7 @@
    "250 mph",
    "29.92 inches of mercury (Hg)",
    "Pressure altitude",
-   "14.7 pounds per square inch",
+   "14.7 pounds per square inch (psi)",
    "375 pph"
   ],
   "answer": 1,
@@ -4056,7 +4056,7 @@
   "q_ko": "수평 직진 비행은 어떤 조건이 충족될 때 이루어지는가?",
   "options": [
    "Thrust exceeds all other forces",
-   "Lift greatly exceeds weight",
+   "Lift greatly exceeds the aircraft's weight",
    "Drag is completely eliminated",
    "The four forces of flight are in balance",
    "Lift, weight, thrust, and drag"
@@ -4118,7 +4118,7 @@
    "To gain the most altitude in a given amount of time",
    "Input opposite pressure on the controls",
    "To clear obstructions during takeoff",
-   "To gain the most altitude over a given distance",
+   "To gain the most altitude over a given horizontal distance",
    "To descend at 500 feet per minute"
   ],
   "answer": 0,
@@ -4145,7 +4145,7 @@
   "q": "What does gyroscopic precession cause regarding a force applied to a rotating rotor?",
   "q_ko": "자이로스코프 세차운동은 회전하는 로터에 가해진 힘에 대해 무엇을 초래하는가?",
   "options": [
-   "The force is felt 180 degrees later",
+   "The force is felt 180 degrees later, on the opposite side of the disc",
    "To counteract torque and provide directional control",
    "The force is felt 90 degrees later in the plane of rotation",
    "The force is felt immediately at the point of application",
@@ -4164,7 +4164,7 @@
    "To generate forward thrust only",
    "To counteract torque and provide directional control",
    "Eliminate the need for a tail rotor",
-   "To increase main rotor lift"
+   "To increase the total lift produced by the main rotor"
   ],
   "answer": 2,
   "explain": "테일 로터는 토크를 상쇄하고 방향 제어를 제공하여 기체가 메인 로터 반대 방향으로 회전하는 것을 막습니다."
@@ -4193,7 +4193,7 @@
    "It changes only the tail rotor blade pitch",
    "It tilts the swashplate for a right turn",
    "It increases blade pitch and angle of attack to create more lift",
-   "It directs the air column aft to move forward",
+   "It directs the rotor's air column aft so the helicopter moves forward",
    "The left aileron goes down, lifting the left wing"
   ],
   "answer": 2,
@@ -4310,7 +4310,7 @@
   "q": "In a coordinated turn, where does the slip indicator ball remain?",
   "q_ko": "협조 선회(coordinated turn)에서 슬립 지시기의 볼(ball)은 어디에 머무는가?",
   "options": [
-   "Toward the outside of the turn",
+   "Deflected toward the outside of the turn",
    "At the top of the glass",
    "Toward the inside of the turn",
    "In the lowest part of the glass",
@@ -4328,7 +4328,7 @@
    "Ignore it",
    "Double it",
    "120 knots",
-   "Add it",
+   "Add it instead",
    "Subtract it"
   ],
   "answer": 4,
@@ -4387,7 +4387,7 @@
   "options": [
    "Ambient/static air pressure",
    "5 miles of visibility",
-   "A filed IFR flight plan",
+   "A filed IFR flight plan with an alternate airport",
    "Prior clearance from the controlling facility",
    "Only a transponder"
   ],
@@ -4418,7 +4418,7 @@
    "Climb immediately",
    "Change course to the right",
    "Descend immediately",
-   "Change course to the left",
+   "Change course sharply to the left",
    "Civilian land airport"
   ],
   "answer": 1,
@@ -4434,7 +4434,7 @@
    "Rotorcraft",
    "True Airspeed",
    "Hot-air balloons",
-   "Airships"
+   "Powered airships"
   ],
   "answer": 3,
   "explain": "서로 다른 종류의 우선권 순서에서 최우선은 열기구이며, 동력 항공기(비행기/회전익기)가 가장 낮다."
@@ -4449,7 +4449,7 @@
    "Captain Charles E. Yeager",
    "The Wright brothers",
    "Instrument Flight Rules",
-   "Charles A. Lindbergh"
+   "Colonel Charles A. Lindbergh"
   ],
   "answer": 1,
   "explain": "1947년 10월 14일 척 예거 대위가 로켓으로 음속 장벽을 처음 돌파했다."
@@ -4479,7 +4479,7 @@
    "Its velocity remains constant, though it may still be moving",
    "It must be at rest",
    "Lift, weight, thrust, and drag",
-   "It always slows to a stop"
+   "It always slows down gradually until it comes to a complete stop"
   ],
   "answer": 1,
   "explain": "알짜힘이 0이면 가속도가 0이므로 속도는 일정하게 유지되며, 여전히 운동 중일 수 있다."
@@ -4506,9 +4506,9 @@
   "q_ko": "최대 착륙 중량(MLW)을 초과하지 않으면 무엇이 보장되는가?",
   "options": [
    "The landing gear can support the weight and no longer-than-normal runway is needed",
-   "Its laminar-flow wing that reduced drag",
+   "A shorter takeoff roll on the next departure",
    "Increased maximum airspeed",
-   "Reduced fuel consumption in cruise",
+   "Reduced fuel consumption in cruise, since the airplane operates at a more efficient weight",
    "A higher cruising altitude"
   ],
   "answer": 0,
@@ -4552,7 +4552,7 @@
   "options": [
    "The same critical angle of attack regardless of airspeed, weight, or bank angle",
    "Total drag is at its minimum, giving the greatest gliding distance",
-   "The same indicated airspeed regardless of configuration or load factor",
+   "The same indicated airspeed regardless of flap configuration, gross weight, or load factor",
    "High pitch attitudes only, when the nose is above the horizon",
    "Low airspeeds only, when the engine can no longer sustain flight"
   ],
@@ -4565,7 +4565,7 @@
   "q": "If angle of attack, air density, and wing area remain constant and airspeed is doubled, the lift produced will be:",
   "q_ko": "받음각, 공기 밀도, 날개 면적이 일정한 상태에서 속도를 2배로 하면 발생하는 양력은?",
   "options": [
-   "Twice as great",
+   "Only twice as great",
    "Unchanged",
    "One-half as great",
    "Angle of attack",
@@ -4595,7 +4595,7 @@
   "q": "Which statement about flying at the maximum lift-to-drag (L/D max) airspeed is true?",
   "q_ko": "최대 양항비(L/Dmax) 속도로 비행하는 것에 대한 설명으로 옳은 것은?",
   "options": [
-   "Parasite drag is at its minimum value",
+   "Parasite drag has been reduced to its minimum possible value at this airspeed",
    "Less pressure than points of slower fluid speed",
    "Induced drag has been reduced to zero",
    "It is the slowest speed at which the airplane can maintain flight",
@@ -4644,7 +4644,7 @@
    "Increased downwash behind the wing, which increases total drag",
    "A reduction in parasite drag caused by the smooth surface below",
    "Interference with the formation of wingtip vortices, which reduces induced drag",
-   "A cushion of compressed air trapped between the wing and the surface"
+   "A cushion of compressed air that becomes trapped between the wing and the surface below"
   ],
   "answer": 3,
   "explain": "지면이 익단 와류와 하향세류(downwash) 형성을 방해해 유도항력이 크게 줄어드는 현상이다. '압축 공기 쿠션'은 흔한 오해다. 그 결과 정상 속도보다 느린 속도에서 부양하거나 착륙 시 뜬 채로 흘러갈(float) 수 있다."
@@ -4655,7 +4655,7 @@
   "q": "Many wings are built with washout (a lower angle of incidence at the tip than at the root). The main aerodynamic purpose of washout is to ensure that:",
   "q_ko": "많은 날개는 워시아웃(익단의 붙임각이 익근보다 작음) 구조로 제작된다. 워시아웃의 주된 공력적 목적은 무엇인가?",
   "options": [
-   "The wingtip stalls first so the nose drops immediately at the stall",
+   "The wingtip section stalls first so that the nose drops immediately and cleanly at the stall",
    "The wing root stalls before the wingtip, preserving aileron effectiveness",
    "Parasite drag is reduced during high-speed cruise",
    "The critical angle of attack of the entire wing is increased",
@@ -4671,7 +4671,7 @@
   "q_ko": "최종 접근 중 플랩을 내리면 일반적으로 어떤 효과가 있는가?",
   "options": [
    "Increases both the coefficient of lift and the stall speed",
-   "Increases the coefficient of lift and lowers drag and the stall speed",
+   "Increases the coefficient of lift while lowering both drag and the stall speed",
    "Increases the coefficient of lift and drag, and lowers the stall speed",
    "Total drag is at its minimum, giving the greatest gliding distance",
    "Lowers drag and the coefficient of lift, allowing a steeper descent"
@@ -4716,7 +4716,7 @@
   "q_ko": "조종사가 고도계를 30.15 inHg로 맞추고 출발했지만, 현재 해당 지역의 고도계 세팅은 29.85 inHg이다. 실제 고도와 비교할 때 고도계는 대략 얼마를 지시하는가?",
   "options": [
    "The same as actual altitude",
-   "300 feet lower than actual altitude",
+   "Roughly 300 feet lower than actual altitude",
    "300 feet higher than actual altitude",
    "Pitch and bank relative to horizon",
    "30 feet higher than actual altitude"
@@ -4807,7 +4807,7 @@
   "options": [
    "Apply rudder pressure on the side toward which the ball is deflected",
    "All three pitot-static instruments continue to indicate correctly",
-   "Airspeed reads lower than actual and the altimeter stays at 8,000 feet",
+   "Airspeed reads lower than the actual value and the altimeter remains frozen at 8,000 feet",
    "Airspeed reads higher than actual and the altimeter stays at 8,000 feet",
    "Airspeed reads zero while the altimeter follows the descent normally"
   ],
@@ -4974,7 +4974,7 @@
    "Green",
    "Red",
    "White",
-   "Blue"
+   "Bluish"
   ],
   "answer": 0,
   "explain": "활주로 가장자리등은 보통 흰색이지만, 계기 활주로의 마지막 2,000피트(또는 활주로 길이의 절반 중 짧은 쪽) 구간은 노란색(yellow)으로 보이는 '경고 구역(caution zone)'이다. 빨간색은 활주로 끝단 등(runway end light)의 색이다."
@@ -5032,7 +5032,7 @@
   "options": [
    "The surface up to and including 2,500 feet AGL",
    "10 NM radius, from 1,200 feet to 4,000 feet above the airport",
-   "20 NM radius, surface to 10,000 feet MSL",
+   "20 NM radius, extending from the surface up to 10,000 feet MSL",
    "5 NM radius, surface to 4,000 feet AGL",
    "10 NM radius, surface to 2,500 feet AGL"
   ],
@@ -5079,7 +5079,7 @@
    "Alternating green and yellow flashes",
    "Alternating white and yellow flashes",
    "The surface up to and including 2,500 feet AGL",
-   "Alternating red and white flashes"
+   "Alternating red and white flashes repeating at a constant, steady rotation rate"
   ],
   "answer": 0,
   "explain": "민간 육상 공항은 백색-녹색 교대 점멸이고, 군 비행장은 같은 백색-녹색이지만 백색이 두 번 빠르게 번쩍이는(dual-peaked) 것으로 구별된다. 백색-황색 교대는 수상 공항이며, 헬기장은 녹색-황색-백색 조합을 쓴다."
@@ -5091,7 +5091,7 @@
   "q_ko": "관제탑이 없는 공항에서 장주(traffic pattern)에 진입하는 표준 권고 방식은 무엇인가?",
   "options": [
    "A 45-degree entry to the downwind leg at midfield, at pattern altitude",
-   "A 90-degree entry directly onto the base leg",
+   "A 90-degree entry made directly onto the base leg while at pattern altitude",
    "The surface up to and including 2,500 feet AGL",
    "An entry on the upwind leg at 500 feet AGL",
    "A straight-in approach to final from 10 miles out"
