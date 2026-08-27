@@ -1100,11 +1100,11 @@
   "q": "A lever has its load 0.5 m from the fulcrum and the effort applied 2.0 m from the fulcrum. What is the ideal mechanical advantage?",
   "q_ko": "지레에서 짐은 받침점으로부터 0.5 m, 가해진 힘은 받침점으로부터 2.0 m 떨어져 있다. 이상적인 기계적 이점은?",
   "options": [
-   "1.5",
-   "5",
    "0.25",
+   "1.5",
+   "2.5",
    "4",
-   "2.5"
+   "5"
   ],
   "answer": 3,
   "explain": "이상 기계적 이점 = 힘팔/짐팔 = 2.0/0.5 = 4. 정답은 0이다."
@@ -1205,13 +1205,13 @@
   "q": "An atom has 11 protons, 12 neutrons, and 11 electrons. What is its mass number?",
   "q_ko": "한 원자가 양성자 11개, 중성자 12개, 전자 11개를 가지고 있다. 이 원자의 질량수는?",
   "options": [
-   "34",
-   "12",
    "11",
-   "45",
-   "23"
+   "12",
+   "23",
+   "34",
+   "45"
   ],
-  "answer": 4,
+  "answer": 2,
   "explain": "질량수 = 양성자 수 + 중성자 수 = 11 + 12 = 23. 전자는 질량수에 포함되지 않는다. 정답은 0이다."
  },
  {
@@ -1220,11 +1220,11 @@
   "q": "In the balanced reaction 2H2 + O2 -> 2H2O, how many molecules of water form from 6 molecules of hydrogen gas (with excess oxygen)?",
   "q_ko": "균형 반응식 2H2 + O2 -> 2H2O에서, 수소 기체 6분자(산소는 충분)로부터 생성되는 물 분자는 몇 개인가?",
   "options": [
-   "3",
-   "15",
-   "6",
    "2",
-   "12"
+   "3",
+   "6",
+   "12",
+   "15"
   ],
   "answer": 2,
   "explain": "비율이 2 H2 : 2 H2O = 1:1이므로 수소 6분자는 물 6분자를 만든다. 정답은 0이다."
@@ -1385,13 +1385,13 @@
   "q": "An ideal inclined plane is 6 m long and raises a load to a height of 2 m. What is its ideal mechanical advantage?",
   "q_ko": "이상적인 빗면의 길이가 6 m이고 물체를 2 m 높이까지 올린다. 이상적인 역학적 이득은?",
   "options": [
-   "12",
-   "8",
    "3",
    "4",
+   "8",
+   "12",
    "16"
   ],
-  "answer": 2,
+  "answer": 0,
   "explain": "빗면의 이상적 역학적 이득 = 빗면 길이 / 높이 = 6 / 2 = 3. 빗면이 길수록 적은 힘으로 들 수 있다."
  },
  {
@@ -1475,13 +1475,13 @@
   "q": "A neutral atom has 11 protons and 12 neutrons. How many electrons does it have?",
   "q_ko": "중성 원자가 양성자 11개와 중성자 12개를 가진다. 전자는 몇 개인가?",
   "options": [
+   "1",
    "11",
-   "23",
    "12",
-   "33",
-   "1"
+   "23",
+   "33"
   ],
-  "answer": 0,
+  "answer": 1,
   "explain": "중성 원자는 양성자 수와 전자 수가 같다. 양성자가 11개이므로 전자도 11개이다. (23은 질량수 11+12로 혼동한 실수.)"
  },
  {
@@ -1490,10 +1490,10 @@
   "q": "In the balanced reaction 2H2 + O2 -> 2H2O, how many molecules of water are produced from 4 molecules of hydrogen gas (with excess oxygen)?",
   "q_ko": "균형 맞춘 반응 2H2 + O2 -> 2H2O에서 (산소가 충분할 때) 수소 기체 분자 4개로부터 생성되는 물 분자는 몇 개인가?",
   "options": [
-   "6",
-   "4",
-   "8",
    "2",
+   "4",
+   "6",
+   "8",
    "10"
   ],
   "answer": 1,
@@ -1670,13 +1670,13 @@
   "q": "A worker uses a lever to lift a heavy rock. The effort arm is 1.2 m and the load arm is 0.3 m. What is the ideal mechanical advantage of this lever?",
   "q_ko": "작업자가 지렛대로 무거운 돌을 들어 올린다. 힘팔은 1.2 m, 짐팔은 0.3 m다. 이 지렛대의 이상적인 기계적 이득은?",
   "options": [
-   "4",
    "0.25",
+   "1.5",
    "3.6",
-   "5",
-   "1.5"
+   "4",
+   "5"
   ],
-  "answer": 0,
+  "answer": 3,
   "explain": "이상적인 기계적 이득(IMA) = 힘팔 길이 / 짐팔 길이 = 1.2 / 0.3 = 4. 즉 가한 힘의 4배의 무게를 들 수 있다."
  },
  {
@@ -1791,12 +1791,12 @@
   "q_ko": "반응 2H2 + O2 -> 2H2O에서 수소 분자 4개가 완전히 반응하려면 산소 분자 몇 개가 필요한가?",
   "options": [
    "1",
-   "10",
+   "2",
    "4",
    "8",
-   "2"
+   "10"
   ],
-  "answer": 4,
+  "answer": 1,
   "explain": "균형 잡힌 식에서 수소와 산소의 비율은 2:1이다. 수소 4분자가 반응하려면 산소는 그 절반인 2분자가 필요하다."
  },
  {
@@ -1820,13 +1820,13 @@
   "q": "A net force of 12 N acts on an object, giving it an acceleration of 3 m/s^2. What is the mass of the object?",
   "q_ko": "알짜힘 12 N이 어떤 물체에 작용하여 3 m/s^2의 가속도를 준다. 물체의 질량은?",
   "options": [
-   "42 kg",
+   "4 kg",
+   "9 kg",
    "15 kg",
    "36 kg",
-   "9 kg",
-   "4 kg"
+   "42 kg"
   ],
-  "answer": 4,
+  "answer": 0,
   "explain": "F = ma이므로 m = F/a = 12/3 = 4 kg. (36 kg은 F×a로 잘못 곱한 흔한 실수.)"
  },
  {
