@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-104-0";  // 독해 길이 편향 694문항 수리
+const CACHE = "afoqt-v4-105-0";  // 단어 출제기 품질 업그레이드
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

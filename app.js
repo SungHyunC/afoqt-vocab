@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.104.0";
+const VERSION = "4.105.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -418,7 +418,7 @@ function renderConfirm(){
   const id=q.items[q.idx], w=WMAP.get(id), isRecheck=q.recheckSet.has(id);
   $("#confirmCount").textContent=`${q.idx+1} / ${q.items.length}`; $("#confirmTag").textContent=q.sweep?"🧹 최종 스윕":isRecheck?"🔁 재확인":"✅ 첫 확인";
   $("#confirmBar").style.width=(q.idx/q.items.length*100)+"%";
-  const correct=w.kor, choices=sample(WORDS.filter(x=>x.id!==id&&x.kor),3).map(x=>x.kor);
+  const correct=w.kor, choices=korChoices(w,4);   // 뜻 겹침·의미 이웃 차단, 실전처럼 5지선다
   const opts=shuffle([correct,...choices]);
   $("#confirmArea").innerHTML=`<div class="card"><div class="q-prompt">이 단어, 진짜 뜻을 알아요? (뒤집기 없이 바로 선택)</div><div class="q-word" style="${wordFont(w.word,26)}">${esc(w.word)}</div>
     <div class="choices" id="confirmChoices">${opts.map(o=>`<button class="choice">${esc(o)}</button>`).join("")}</div></div>`;
@@ -1373,10 +1373,12 @@ function renderQuiz(){ const q=quiz; if(q.idx>=q.items.length) return finishQuiz
   if(type==="syn"&&!(w.synonyms&&w.synonyms.length)) type="e2k";
   $("#quizCount").textContent=`${q.idx+1} / ${q.items.length}`; $("#quizScore").textContent=`${q.score}점`; $("#quizBar").style.width=(q.idx/q.items.length*100)+"%";
   let prompt,qword,correct,choices;
-  if(type==="e2k"){ prompt="이 단어의 뜻은?"; qword=w.word; correct=w.kor; choices=sample(WORDS.filter(x=>x.id!==id&&x.kor),3).map(x=>x.kor); }
-  else if(type==="k2e"){ prompt="다음 뜻의 단어는?"; qword=w.kor; correct=w.word; choices=sample(WORDS.filter(x=>x.id!==id),3).map(x=>x.word); }
-  else { prompt=`"${w.word}" 와(과) 비슷한 말은?`; qword=w.word; correct=w.synonyms[Math.floor(Math.random()*w.synonyms.length)];
-    choices=sample(WORDS.filter(x=>x.id!==id&&x.synonyms&&x.synonyms.length),3).map(x=>x.synonyms[0]); }
+  if(type==="e2k"){ prompt="이 단어의 뜻은?"; qword=w.word; correct=w.kor; choices=korChoices(w,3); }
+  else if(type==="k2e"){ prompt="다음 뜻의 단어는?"; qword=w.kor; correct=w.word;
+    const wS=new Set((w.synonyms||[]).map(x=>String(x).toLowerCase()));
+    choices=shuffle(WORDS).filter(x=>x.id!==id&&!wkNeighbor(w,x,wS)).slice(0,3).map(x=>x.word); }
+  else { prompt=`"${w.word}" 와(과) 비슷한 말은?`; qword=w.word; correct=wkPickCorrect(w);
+    const d=wkDistractors(w,correct,3); choices=d?d.map(x=>x.t):sample(WORDS.filter(x=>x.id!==id&&x.synonyms&&x.synonyms.length),3).map(x=>x.synonyms[0]); }
   const opts=shuffle([correct,...choices]);
   $("#quizArea").innerHTML=`<div class="card"><div class="q-prompt">${esc(prompt)}</div><div class="q-word" style="${wordFont(qword,26)}">${esc(qword)}</div>
     <div class="choices" id="choices">${opts.map(o=>`<button class="choice">${esc(o)}</button>`).join("")}</div></div>`;
@@ -1410,18 +1412,9 @@ function startSynQuiz(){
 }
 function synBuildQ(){
   const s=synq; const id=s.pool[Math.random()*s.pool.length|0], w=WMAP.get(id); if(!w) return null;
-  const correct=w.synonyms[Math.random()*w.synonyms.length|0];
-  const used=new Set([w.word.toLowerCase(),(correct||"").toLowerCase()]);
-  const distract=[]; let guard=0;
-  while(distract.length<4 && guard++<80){        // 실전과 동일하게 보기 5개(A~E)
-    const oid=s.pool[Math.random()*s.pool.length|0]; if(oid===id) continue;
-    const ow=WMAP.get(oid); const cand=ow.synonyms[Math.random()*ow.synonyms.length|0];
-    if(!cand||used.has(cand.toLowerCase())) continue; used.add(cand.toLowerCase());
-    // 각 오답 보기의 뜻(gloss) = 그 단어가 동의어인 원 단어의 한글 뜻(근사). 답한 뒤 표시용.
-    distract.push({t:cand, ok:0, gloss:ow.kor||""});
-  }
-  if(distract.length<4) return null;
-  return {id, opts:shuffle([{t:correct,ok:1,gloss:w.kor||""},...distract]), chosen:null, added:false};
+  const correct=wkPickCorrect(w); if(!correct) return null;
+  const dist=wkDistractors(w,correct,4); if(!dist) return null;   // 의미 이웃 차단·품사 일치 (보기 5개)
+  return {id, opts:shuffle([{t:correct,ok:1,gloss:w.kor||""},...dist.map(d=>({t:d.t,ok:0,gloss:d.kor}))]), chosen:null, added:false};
 }
 function newSynQ(){ const s=synq; if(!s) return; let q=null,tries=0; while(!q&&tries++<15) q=synBuildQ(); if(!q) return;
   s.history.push(q); if(s.history.length>60) s.history.shift(); s.pos=s.history.length-1; renderSynAt(); }
@@ -2787,6 +2780,57 @@ function estPercentile(acc){
   return 99;
 }
 // Word Knowledge: choose the word most similar in meaning (real AFOQT WK format)
+/* ---- WK 보기 품질 헬퍼 ----
+   · 의미 이웃 차단: 오답 후보의 단어/동의어가 표제어의 동의어 무리와 겹치면 제외 (답 2개 방지)
+   · 품사 일치 우선: 실전처럼 보기 품사를 표제어와 맞춘다 (품사만으로 소거 불가)
+   · 한 단어 보기 우선: 구(phrase)가 섞여 길이로 티 나는 것 방지 */
+function wkPos(x){ return String((x&&x.pos)||"").toLowerCase().split(/[^a-z]/)[0]; }
+function wkNeighbor(w,o,wSyn){
+  if(wSyn.has(String(o.word).toLowerCase())) return true;
+  for(const s of (o.synonyms||[])){ const sl=String(s).toLowerCase();
+    if(sl===String(w.word).toLowerCase()||wSyn.has(sl)) return true; }
+  return false;
+}
+function wkPickCorrect(w){
+  const singles=(w.synonyms||[]).filter(s=>!/\s/.test(String(s).trim()));
+  const from=singles.length?singles:(w.synonyms||[]);
+  return from[(Math.random()*from.length)|0];
+}
+// k개의 오답을 {t:보기, kor:출처 단어 뜻}으로. 품사 일치 후보 우선, 모자라면 전체에서 보충.
+function wkDistractors(w,correct,k){
+  const wSyn=new Set((w.synonyms||[]).map(s=>String(s).toLowerCase())); wSyn.add(String(w.word).toLowerCase());
+  const p0=wkPos(w), dist=[];
+  const fill=(cands)=>{ for(const o of cands){ if(dist.length>=k) return;
+    if(o.id===w.id||!(o.synonyms&&o.synonyms.length)) continue;
+    if(wkNeighbor(w,o,wSyn)) continue;
+    const singles=o.synonyms.filter(s=>!/\s/.test(String(s).trim()));
+    const from=singles.length?singles:o.synonyms;
+    const c=from[(Math.random()*from.length)|0]; if(!c) continue;
+    const cl=String(c).toLowerCase();
+    if(wSyn.has(cl)||cl===String(correct).toLowerCase()||dist.some(d=>String(d.t).toLowerCase()===cl)) continue;
+    dist.push({t:c,kor:o.kor||""}); } };
+  const sh=shuffle(WORDS);
+  if(p0) fill(sh.filter(o=>wkPos(o)===p0));
+  if(dist.length<k) fill(sh);
+  return dist.length>=k?dist:null;
+}
+// 뜻(kor) 4지 보기: 한글 뜻 토큰이 겹치거나 동의어 무리가 겹치는 후보는 제외
+function korChoices(w,k){
+  const tok=x=>String(x||"").split(/[,\u00b7;\/()\s~\u2026]+/).filter(t=>t.length>=2);
+  const kt=new Set(tok(w.kor));
+  const wSyn=new Set((w.synonyms||[]).map(x=>String(x).toLowerCase())); wSyn.add(String(w.word).toLowerCase());
+  const out=[];
+  for(const o of shuffle(WORDS)){ if(out.length>=k) break;
+    if(o.id===w.id||!o.kor||o.kor===w.kor) continue;
+    if(tok(o.kor).some(t=>kt.has(t))) continue;
+    if(wkNeighbor(w,o,wSyn)) continue;
+    if(out.includes(o.kor)) continue;
+    out.push(o.kor); }
+  // 안전판: 후보 부족 시(사실상 불가) 조건 완화해 채움
+  if(out.length<k) for(const o of shuffle(WORDS)){ if(out.length>=k) break;
+    if(o.id!==w.id&&o.kor&&o.kor!==w.kor&&!out.includes(o.kor)) out.push(o.kor); }
+  return out;
+}
 function buildWK(n){
   const pool=WORDS.filter(w=>w.synonyms&&w.synonyms.length);
   // 티어 가중(high>mid>std)은 유지하되, 티어별로 '안 푼 것' 우선 선발.
@@ -2802,20 +2846,11 @@ function buildWK(n){
   for(const w of top){
     if(items.length>=n) break;
     // 실전 형식: 보기 5개(A~E). 실제 시험(Form T)의 단어 문항은 전부 '의미가 가장 가까운 단어' 고르기다.
-    const correct= w.synonyms[(Math.random()*w.synonyms.length)|0];
+    const correct=wkPickCorrect(w);
     if(!correct) continue;
-    const wSyn=new Set(w.synonyms.map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
-    const dist=[];
-    for(const o of shuffle(pool)){
-      if(dist.length>=4) break;
-      if(o.id===w.id) continue;
-      const c= o.synonyms[(Math.random()*o.synonyms.length)|0]; if(!c) continue;
-      const cl=c.toLowerCase();
-      if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue;
-      dist.push(c);
-    }
-    if(dist.length<4) continue;
-    const options=shuffle([correct,...dist]);
+    const dist=wkDistractors(w,correct,4);
+    if(!dist) continue;
+    const options=shuffle([correct,...dist.map(d=>d.t)]);
     items.push({section:"WK",
       prompt:"다음 단어와 의미가 가장 가까운 것은?",
       stem:w.word, sub:(w.pos||"")+(tierOf(w)==="high"?" · ⭐빈출":""),
@@ -2953,17 +2988,11 @@ function buildWrongWK(){
 }
 // 실전 형식: 보기 5개(A~E). 단어 문항은 항상 '의미가 가장 가까운 단어' 고르기 — 뜻(정의문) 고르기는 쓰지 않는다.
 function buildWKfor(w){
-  const pool=WORDS.filter(x=> x.synonyms&&x.synonyms.length);
-  const correct = w.synonyms[(Math.random()*w.synonyms.length)|0];
+  const correct=wkPickCorrect(w);
   if(!correct) return null;
-  const wSyn=new Set((w.synonyms||[]).map(s=>s.toLowerCase())); wSyn.add(w.word.toLowerCase());
-  const dist=[];
-  for(const o of shuffle(pool)){ if(dist.length>=4) break; if(o.id===w.id) continue;
-    const c= o.synonyms[(Math.random()*o.synonyms.length)|0];
-    if(!c) continue; const cl=c.toLowerCase();
-    if(wSyn.has(cl)||cl===correct.toLowerCase()||dist.some(d=>d.toLowerCase()===cl)) continue; dist.push(c); }
-  if(dist.length<4) return null;
-  const options=shuffle([correct,...dist]);
+  const dist=wkDistractors(w,correct,4);
+  if(!dist) return null;
+  const options=shuffle([correct,...dist.map(d=>d.t)]);
   return {section:"WK",
     prompt:"다음 단어와 의미가 가장 가까운 것은?",
     stem:w.word,
