@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.68.0";
+const VERSION = "4.101.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2599,8 +2599,8 @@ const SECBUILD={ WK:n=>buildWK(n), VA:n=>buildVA(n), RC:n=>buildRC(n),
 // Realistic seconds-per-question per subtest (from official AFOQT time ÷ count),
 // so every preset's timer/label stays consistent with its section mix.
 // 출처: Pearson VUE AFOQT 시험 구조표(2026-08-06 갱신). 2015년 공군 팸플릿은 낡았음(독해 38분·상황판단 50문항으로 표기).
-// RC 25문항/24분=58초, SJ 16문항/35분=131초, BC 30문항/5분=10초.
-const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:11, IC:12, BC:10, PS:30, SJ:131 };
+// RC 25문항/24분=58초, SJ 16문항/35분=131초, BC 30문항/5분=10초, TR 40문항/7분=10.5초.
+const SECRATE={ WK:12, VA:19, RC:58, AR:70, MK:53, AV:24, TR:10.5, IC:12, BC:10, PS:30, SJ:131 };
 // Build a preset from a list of [sectionCode, count] specs; derives timer + label.
 function composeMock(name,specs,tag){
   const secs=specs.reduce((s,[c,n])=>s+SECRATE[c]*n,0);
@@ -2610,15 +2610,17 @@ function composeMock(name,specs,tag){
 }
 const EXAM_PRESETS={
   // ── 전과목 통합 (full AFOQT simulation — excludes Physical Science & Situational Judgment) ──
+  // 실제 시험과 동일한 문항 수·섹션 순서. 각 섹션은 자기 시계로 진행된다.
   afoqt: composeMock("AFOQT 전체 모의고사",
-    [["WK",12],["VA",12],["RC",10],["AR",10],["MK",10],["AV",8],["TR",10],["IC",8],["BC",8]], "전 과목"),
+    [["VA",25],["AR",25],["WK",25],["MK",25],["RC",25],["AV",20],["TR",40],["IC",25],["BC",30]], "전 과목 · 실전 문항수"),
   // pilotPerfect(): 표읽기·블록·계기는 외부 앱에서 연습 → 전체 모의고사에서 제외한 코어 버전
   afoqtCore: composeMock("AFOQT 모의고사 (표읽기·블록·계기 제외)",
-    [["WK",12],["VA",12],["RC",10],["AR",10],["MK",10],["AV",8]], "Pilot 시각과목 만점 처리"),
+    [["VA",25],["AR",25],["WK",25],["MK",25],["RC",25],["AV",20]], "Pilot 시각과목 만점 처리"),
   // ── 섹터별 (composite-focused mocks) ──
-  secVerbal: composeMock("Verbal 섹터",       [["WK",12],["VA",12],["RC",12]],            "Verbal"),
-  secQuant:  composeMock("Quantitative 섹터", [["AR",12],["MK",12]],                       "Quant"),
-  secPilot:  composeMock("Pilot 섹터",        [["MK",10],["TR",10],["IC",8],["AV",8]], "Pilot"),
+  // 합성점수 구성 과목 그대로 · 실전 문항수 (Pilot = MK·IC·TR·AV)
+  secVerbal: composeMock("Verbal 섹터",       [["VA",25],["WK",25],["RC",25]],           "Verbal · 실전 문항수"),
+  secQuant:  composeMock("Quantitative 섹터", [["AR",25],["MK",25]],                     "Quant · 실전 문항수"),
+  secPilot:  composeMock("Pilot 섹터",        [["MK",25],["TR",40],["IC",25],["AV",20]], "Pilot · 실전 문항수"),
   // ── 세션별 (individual subtests, real counts) ──
   wk: composeMock("Word Knowledge",          [["WK",25]]),
   va: composeMock("Verbal Analogies",        [["VA",25]]),
@@ -3020,15 +3022,63 @@ function renderExamSetup(){
   const tot=WRONG_ORDER.reduce((s,k)=>s+wc[k],0); $("#retestAll").classList.toggle("hidden",tot===0);
   $("#retestAll").textContent=`🔁 전체 오답 재시험 (${tot}문제)`;
   injectMockUI();   // 🔒 실전 기출 모의고사 그룹 주입(잠금/해제 상태에 따라)
+  renderSecPicker();
+}
+/* ============================================================
+   과목 직접 고르기 — 원하는 과목만 골라 실전 형식(실전 문항수·과목별 제한시간)으로 응시
+   ============================================================ */
+// 실제 시험 순서 · 공식 문항 수
+const PICK_ORDER=[["VA",25],["AR",25],["WK",25],["MK",25],["RC",25],["SJ",16],["PS",20],["AV",20],["TR",40],["IC",25],["BC",30]];
+const PICK_ICON={VA:"🔗",AR:"➗",WK:"📇",MK:"📐",RC:"📖",SJ:"🧭",PS:"🔬",AV:"🛩️",TR:"📊",IC:"🎚️",BC:"🧱"};
+let pickSel=new Set();
+function renderSecPicker(){
+  const box=$("#pickSecs"); if(!box) return;
+  box.innerHTML=PICK_ORDER.map(([c,n])=>{
+    const min=Math.round(SECRATE[c]*n/60);
+    return `<button class="pick-chip ${pickSel.has(c)?"on":""}" data-pick="${c}">
+      <span class="pi">${PICK_ICON[c]}</span><b>${SEC_KO[c]||c}</b>
+      <span class="pm">${n}문항 · ${min}분</span></button>`; }).join("");
+  $$("#pickSecs [data-pick]").forEach(b=>b.onclick=()=>{
+    const c=b.dataset.pick; if(pickSel.has(c)) pickSel.delete(c); else pickSel.add(c);
+    renderSecPicker(); });
+  const chosen=PICK_ORDER.filter(([c])=>pickSel.has(c));
+  const q=chosen.reduce((s,[,n])=>s+n,0), t=chosen.reduce((s,[c,n])=>s+SECRATE[c]*n,0);
+  $("#pickSum").innerHTML = chosen.length
+    ? `선택 <b>${chosen.length}과목</b> · <b>${q}문항</b> · <b>${fmtTime(t)}</b><br>
+       <span style="font-size:11.5px">순서: ${chosen.map(([c])=>SEC_KO[c]||c).join(" → ")}</span>`
+    : "과목을 선택하세요";
+  $("#pickStart").disabled=chosen.length===0;
+  $("#pickStart").textContent=chosen.length?`선택한 ${chosen.length}과목 시작 (${q}문항 · ${fmtTime(t)})`:"선택한 과목으로 시작";
+}
+function startPickedExam(){
+  const specs=PICK_ORDER.filter(([c])=>pickSel.has(c));
+  if(!specs.length) return;
+  const name=specs.length===1 ? `${SEC_KO[specs[0][0]]} 모의고사`
+    : `선택 모의고사 (${specs.map(([c])=>SEC_KO[c]||c).join("·")})`;
+  const p=composeMock(name, specs, "직접 선택");
+  const items=p.build();
+  if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
+  exam={key:null,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
+        secsLeft:p.secs,startSecs:p.secs,total:items.length,submitted:false,timerId:null};
+  if(specs.length>1) buildExamSections(exam);   // 과목별 타이머
+  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
+  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
+  window.scrollTo(0,0);
+  $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
+  startExamTimer(); renderExamQ();
 }
 function startExam(key,opts){
   if(key==="afoqt"&&pilotPerfect()) key="afoqtCore"; // 시각과목은 외부 앱에서 — 코어만 응시
   const p=EXAM_PRESETS[key]; if(!p) return;
   const items=p.build();
   if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
-  const secs=opts&&opts.practice ? Math.round(p.secs*2.2) : p.secs;
+  const practice=!!(opts&&opts.practice);
+  const secs=practice ? Math.round(p.secs*2.2) : p.secs;
   exam={key,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
+  // 실전 AFOQT처럼 서브테스트마다 자기 시계를 준다(전체 통합 타이머 대신).
+  // 시간이 끝난 섹션은 닫히고 다음 섹션으로 — 이전 섹션으로 되돌아갈 수 없다.
+  if(!practice && p.specs && p.specs.length>1) buildExamSections(exam);
   // Activate the exam view directly — do NOT call go("exam") here, since that
   // re-runs renderExamSetup() and would wipe the exam we just built.
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
@@ -3038,13 +3088,48 @@ function startExam(key,opts){
   startExamTimer(); renderExamQ();
 }
 function fmtTime(s){ s=Math.max(0,s|0); return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
+/* ---- 섹션별 타이머 (실전 AFOQT 방식) ----
+   문항을 과목 블록으로 묶고 각 블록에 공식 배분 시간을 준다. 한 섹션이 끝나면
+   다음 섹션으로 넘어가고, 이전 섹션으로는 되돌아갈 수 없다. */
+function buildExamSections(e){
+  const secs=[]; let cur=null;
+  e.items.forEach((it,i)=>{
+    if(!cur||cur.code!==it.section){ cur={code:it.section,from:i,to:i,secs:0}; secs.push(cur); }
+    cur.to=i; cur.secs+=SECRATE[it.section]||30;
+  });
+  if(secs.length<2) return false;               // 단일 과목이면 기존 통합 타이머 유지
+  secs.forEach(s=>{ s.secs=Math.round(s.secs); s.left=s.secs; });
+  e.sections=secs; e.secIdx=0; e.idx=secs[0].from;
+  return true;
+}
+function curExamSec(){ return (exam&&exam.sections)?exam.sections[exam.secIdx]:null; }
+// 섹션 종료 → 다음 섹션으로 (마지막이면 최종 채점)
+function advanceExamSection(auto){
+  const e=exam; if(!e||!e.sections||e.submitted) return;
+  const s=e.sections[e.secIdx];
+  if(!auto){ const un=e.answers.slice(s.from,s.to+1).filter(a=>a==null).length;
+    if(un && !confirm(`이 섹션에서 ${un}문제를 안 풀었어요.\n다음 섹션으로 넘어가면 되돌아올 수 없어요. 계속할까요?`)) return; }
+  s.left=0; s.done=true;
+  e.times=e.times||new Array(e.total).fill(0);
+  if(e._openIdx!=null&&e._openAt){ e.times[e._openIdx]+=Date.now()-e._openAt; e._openIdx=null; }
+  if(e.secIdx>=e.sections.length-1){ submitExam(true); return; }
+  e.secIdx++; e.idx=e.sections[e.secIdx].from;
+  updateTimerUI();                                  // 새 섹션 시간을 즉시 반영
+  const nx=e.sections[e.secIdx];
+  toast(`${auto?"⏰ 시간 종료":"✅ 완료"} · 다음 섹션 → ${SEC_KO[nx.code]||nx.code} ${nx.to-nx.from+1}문항 ${Math.round(nx.secs/60)}분`, 3000);
+  window.scrollTo(0,0); renderExamQ();
+}
 function startExamTimer(){ stopExamTimer(); updateTimerUI();
-  exam.timerId=setInterval(()=>{ if(!exam) return stopExamTimer(); exam.secsLeft--; updateTimerUI();
-    if(exam.secsLeft<=0) submitExam(true); },1000); }
+  exam.timerId=setInterval(()=>{ if(!exam) return stopExamTimer();
+    const s=curExamSec();
+    if(s){ s.left--; updateTimerUI(); if(s.left<=0) advanceExamSection(true); }
+    else { exam.secsLeft--; updateTimerUI(); if(exam.secsLeft<=0) submitExam(true); }
+  },1000); }
 function stopExamTimer(){ if(exam&&exam.timerId){ clearInterval(exam.timerId); exam.timerId=null; } }
 function updateTimerUI(){ const t=$("#examTimer"); if(!t||!exam) return;
   if(exam.learn){ t.textContent="📚 연습"; t.classList.remove("warn"); }  // 학습 모드: 카운트다운 숨김
-  else { t.textContent=fmtTime(exam.secsLeft); t.classList.toggle("warn",exam.secsLeft<=30); }
+  else { const s=curExamSec(), left=s?s.left:exam.secsLeft;   // 섹션 타이머가 있으면 그 섹션 시간
+    t.textContent=fmtTime(left); t.classList.toggle("warn",left<=30); }
   // 문항별 스톱워치 칩: 목표(실전 배분) 초과 시 색 경고
   const chip=$("#qTimeChip"), e=exam;
   if(chip&&!e.submitted&&e._openAt&&e.times){
@@ -3053,13 +3138,18 @@ function updateTimerUI(){ const t=$("#examTimer"); if(!t||!exam) return;
     chip.textContent=`⏱ ${sec}초 / ${tgt}초`; chip.classList.toggle("over",sec>tgt); } }
 function renderExamQ(){
   const e=exam; if(!e) return;
-  e.idx=clamp(e.idx,0,e.total-1); const it=e.items[e.idx];
+  const sec=curExamSec();
+  e.idx = sec ? clamp(e.idx, sec.from, sec.to) : clamp(e.idx,0,e.total-1);
+  const it=e.items[e.idx];
   // 문항별 소요시간 추적: 화면에 떠 있던 문항의 구간을 닫고 새 문항 구간을 연다.
   const nowT=Date.now(); e.times=e.times||new Array(e.total).fill(0);
   if(e._openIdx!=null&&e._openIdx!==e.idx&&!e.submitted) e.times[e._openIdx]+=nowT-e._openAt;
   if(e._openIdx!==e.idx){ e._openIdx=e.idx; e._openAt=nowT; }
-  $("#examCount").textContent=`${e.idx+1} / ${e.total}`;
-  $("#examBar").style.width=(e.idx/e.total*100)+"%";
+  if(sec){ const n=sec.to-sec.from+1, pos=e.idx-sec.from+1;
+    $("#examCount").textContent=`${pos} / ${n}`;
+    $("#examBar").style.width=((pos-1)/n*100)+"%"; }
+  else { $("#examCount").textContent=`${e.idx+1} / ${e.total}`;
+    $("#examBar").style.width=(e.idx/e.total*100)+"%"; }
   // Section label + (for multi-section mocks) progress within the current section.
   const secKo=SEC_KO[it.section]||it.section;
   const multiSec=e._multiSec!=null?e._multiSec:(e._multiSec=new Set(e.items.map(x=>x.section)).size>1);
@@ -3096,7 +3186,12 @@ function renderExamQ(){
          <button class="btn primary" id="drillNext" style="margin-top:12px">${e.idx>=e.total-1?"채점·결과 보기 →":"다음 문제 →"}</button>
        </div>`
     : "";
-  $("#examArea").innerHTML=`${passage}<div class="card">
+  // 섹션 배너: 지금 몇 번째 과목인지 + 그 과목의 공식 문항수·배분 시간
+  const secBanner = sec ? `<div class="sec-banner">
+      <div><b>섹션 ${e.secIdx+1}/${e.sections.length} · ${SEC_KO[sec.code]||sec.code}</b>
+        <span class="muted"> ${sec.to-sec.from+1}문항 · ${Math.round(sec.secs/60)}분</span></div>
+      <div class="muted">전체 ${e.idx+1}/${e.total}</div></div>` : "";
+  $("#examArea").innerHTML=`${secBanner}${passage}<div class="card">
     <span class="exam-sec">${secChip}</span><span class="qtime" id="qTimeChip">⏱ 0초 / ${tgtSec}초</span>
     <div class="exam-prompt">${fmtMath(it.prompt)}</div>${ko}${stem}${sub}${figure}
     <div class="choices ${it.optionsHTML?"choices-fig":""}" id="examChoices">${choicesHTML}</div>${explainHTML}</div>`;
@@ -3107,19 +3202,25 @@ function renderExamQ(){
     if(e.learn){ refreshExamGrid(); renderExamQ(); return; } // 즉시 해설 노출
     $$("#examChoices .choice").forEach(b=>b.classList.toggle("sel",b===btn));
     refreshExamGrid();
-    if(e.idx<e.total-1){ setTimeout(()=>{ if(exam&&!exam.submitted&&exam.idx<exam.total-1){ exam.idx++; renderExamQ(); } },160); }
+    const lastIdx = sec ? sec.to : e.total-1;                 // 섹션 안에서만 자동 진행
+    if(e.idx<lastIdx){ setTimeout(()=>{ const s2=curExamSec(), lim=s2?s2.to:exam.total-1;
+      if(exam&&!exam.submitted&&exam.idx<lim){ exam.idx++; renderExamQ(); } },160); }
   });
   const dn=$("#drillNext"); if(dn) dn.onclick=()=>{
     if(e.idx>=e.total-1) submitExam(false);
     else { e.idx++; renderExamQ(); } };
-  $("#examPrev").disabled=e.idx===0;
-  $("#examNext").disabled=e.idx>=e.total-1;
+  $("#examPrev").disabled = sec ? e.idx<=sec.from : e.idx===0;
+  $("#examNext").disabled = sec ? e.idx>=sec.to   : e.idx>=e.total-1;
+  const sb=$("#examSubmit");
+  if(sb) sb.textContent = sec ? (e.secIdx<e.sections.length-1 ? "섹션 제출 →" : "최종 제출") : "제출";
   renderExamGrid();
 }
 function renderExamGrid(){
-  const e=exam;
-  $("#examGrid").innerHTML=e.items.map((it,i)=>
-    `<button data-i="${i}" class="${e.answers[i]!=null?"answered":""} ${i===e.idx?"cur":""}">${i+1}</button>`).join("");
+  const e=exam, s=curExamSec();
+  const from=s?s.from:0, to=s?s.to:e.total-1;                 // 현재 섹션 문항만 표시
+  let html="";
+  for(let i=from;i<=to;i++) html+=`<button data-i="${i}" class="${e.answers[i]!=null?"answered":""} ${i===e.idx?"cur":""}">${i-from+1}</button>`;
+  $("#examGrid").innerHTML=html;
   $$("#examGrid button").forEach(b=>b.onclick=()=>{ e.idx=+b.dataset.i; renderExamQ(); });
 }
 function refreshExamGrid(){ const e=exam; const b=$(`#examGrid button[data-i="${e.idx}"]`); if(b) b.classList.add("answered"); }
@@ -3383,7 +3484,9 @@ function submitExam(auto){
     const g=state.speed[it.section]||(state.speed[it.section]={n:0,ms:0,slow:0});
     g.n++; g.ms+=ms; if(ms>tgt*1.3) g.slow++; });
   const total=e.total, pct=Math.round(got/total*100);
-  const used=(e.startSecs||(EXAM_PRESETS[e.key]?EXAM_PRESETS[e.key].secs:0))-Math.max(0,e.secsLeft);
+  const used = e.sections
+    ? e.sections.reduce((a,s)=>a+(s.secs-Math.max(0,s.left)),0)   // 섹션별 실제 소요 합
+    : (e.startSecs||(EXAM_PRESETS[e.key]?EXAM_PRESETS[e.key].secs:0))-Math.max(0,e.secsLeft);
   bumpDay({studied:total,correct:got});
   if(e.key){ const prev=state.exams[e.key]||{best:0,bestTotal:total};
     state.exams[e.key]={best:Math.max(prev.best||0,got),bestTotal:total,last:got,lastTotal:total,date:todayStr()}; }
@@ -3424,7 +3527,12 @@ function submitExam(auto){
       ${compLine}
       <div class="note">※ 비공식 추정치예요. 실제 AFOQT 환산과 다르며, ${e.key==="full"?"전체 모의고사를 여러 번 볼수록":"풀 모의고사로 볼수록"} 정확해집니다.</div>`;
   }
-  $("#examTimeUsed").textContent=`소요 시간 ${fmtTime(used)}${e.secsLeft<=0?" · ⏰ 시간 종료":""}`;
+  if(e.sections){
+    // 섹션별로 얼마나 썼는지 + 시간 안에 못 끝낸 섹션 표시
+    const lines=e.sections.map(s=>{ const u=s.secs-Math.max(0,s.left), out=s.left<=0;
+      return `${SEC_KO[s.code]||s.code} ${fmtTime(u)}/${fmtTime(s.secs)}${out?"⏰":""}`; }).join(" · ");
+    $("#examTimeUsed").innerHTML=`소요 시간 ${fmtTime(used)}<br><span style="font-size:11.5px">${esc(lines)}</span>`;
+  } else $("#examTimeUsed").textContent=`소요 시간 ${fmtTime(used)}${e.secsLeft<=0?" · ⏰ 시간 종료":""}`;
   // ---- 속도 분석: 과목별 평균 vs 실전 목표 + '맞았지만 느림' ----
   const spBox=$("#examSpeed");
   if(spBox){ const keys=Object.keys(speedBySec);
@@ -3837,9 +3945,14 @@ function wire(){
   $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
   $("#examExit").onclick=()=>go("home");
   $("#examQuit").onclick=()=>{ if(!exam||exam.submitted||confirm("시험을 그만두고 나갈까요? 기록은 저장되지 않아요.")){ stopExamTimer(); exam=null; go("home"); } };
-  $("#examPrev").onclick=()=>{ if(exam&&exam.idx>0){ exam.idx--; renderExamQ(); } };
-  $("#examNext").onclick=()=>{ if(exam&&exam.idx<exam.total-1){ exam.idx++; renderExamQ(); } };
-  $("#examSubmit").onclick=()=>submitExam(false);
+  $("#examPrev").onclick=()=>{ if(!exam) return; const s=curExamSec(), lo=s?s.from:0;
+    if(exam.idx>lo){ exam.idx--; renderExamQ(); } };
+  $("#examNext").onclick=()=>{ if(!exam) return; const s=curExamSec(), hi=s?s.to:exam.total-1;
+    if(exam.idx<hi){ exam.idx++; renderExamQ(); } };
+  // 섹션 모드: 마지막 섹션이 아니면 '섹션 제출 → 다음 섹션'
+  $("#pickStart")&&($("#pickStart").onclick=startPickedExam);
+  $("#examSubmit").onclick=()=>{ if(exam&&exam.sections&&exam.secIdx<exam.sections.length-1) advanceExamSection(false);
+    else submitExam(false); };
   $("#examReviewBtn").onclick=()=>{ renderExamReview(); $("#examReviewBtn").classList.add("hidden"); $("#examReview").scrollIntoView({behavior:"smooth"}); };
   $("#examRetry").onclick=()=>{ if(exam&&exam.key) startExam(exam.key); else go("exam"); };
   $("#retestAll").onclick=()=>startRetest("all");

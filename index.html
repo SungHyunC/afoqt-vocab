@@ -121,7 +121,7 @@
   <div class="seccard" id="secIC"><div class="ic">🎚️</div>
     <div class="meta"><b>Instrument Comprehension</b><div class="muted">계기 해석 · 25문항·5분</div></div><div class="go">›</div></div>
   <div class="seccard" id="secBC"><div class="ic">🧱</div>
-    <div class="meta"><b>Block Counting</b><div class="muted">블록 세기 · 30문항·4.5분</div></div><div class="go">›</div></div>
+    <div class="meta"><b>Block Counting</b><div class="muted">블록 세기 · 30문항·5분</div></div><div class="go">›</div></div>
 
   <h2 class="section">🔬 기타</h2>
   <div class="seccard" id="secPS"><div class="ic">🔬</div>
@@ -751,6 +751,14 @@
       <div class="meta"><b>AFOQT 전체 모의고사</b><div class="muted">전 과목(과학·상황 제외) 한 번에 — 끝나면 합성점수 예측</div>
         <div class="last"></div></div>
       <div class="go">›</div></button>
+
+    <h3 class="exam-group">🎛️ 직접 고르기 (원하는 과목만)</h3>
+    <div class="card" style="padding:14px">
+      <div class="muted" style="font-size:12.5px;margin-bottom:10px">풀고 싶은 과목만 선택하세요. 선택한 순서와 무관하게 <b>실전 순서·실전 문항수·과목별 제한시간</b>으로 진행돼요.</div>
+      <div id="pickSecs" class="pick-secs"></div>
+      <div id="pickSum" class="muted" style="font-size:12.5px;margin-top:10px">과목을 선택하세요</div>
+      <button class="btn primary" id="pickStart" style="margin-top:10px" disabled>선택한 과목으로 시작</button>
+    </div>
 
     <h3 class="exam-group">🧩 섹터별 (합성점수)</h3>
     <button class="exam-preset" data-exam="secVerbal" style="border-color:var(--brand)"><div class="ic">🗣</div>
