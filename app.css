@@ -746,3 +746,12 @@ sub{vertical-align:-.25em}
 .pick-chip .pi{font-size:16px}
 .pick-chip b{font-size:13px}
 .pick-chip .pm{font-size:10.5px;color:var(--muted)}
+
+/* 시험 전날 체크리스트 (요약 시트) */
+.eve-row{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:var(--bg);
+  border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin:0 0 8px;
+  color:var(--txt);font-size:13.5px;line-height:1.35;cursor:pointer}
+.eve-row .tx{flex:1;min-width:0}
+.eve-row.on{border-color:var(--ok)}
+.eve-row.on .tx{opacity:.55;text-decoration:line-through}
+.eve-row .golink{color:var(--gold);font-size:12px;font-weight:700;white-space:nowrap;padding:4px 2px 4px 8px}
