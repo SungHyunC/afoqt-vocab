@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-111-0";  // 시험 중단 복구·wake lock·전날 체크리스트
+const CACHE = "afoqt-v4-112-0";  // 로직 감사 일괄 수리
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
@@ -28,7 +28,9 @@ const ASSETS = [
 
 self.addEventListener("install", e => {
   self.skipWaiting();
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS).catch(()=>{})));
+  // addAll은 원자적이라 하나만 404여도 전체 프리캐시가 비어버린다 — 개별로 추가
+  e.waitUntil(caches.open(CACHE).then(c =>
+    Promise.all(ASSETS.map(a => c.add(a).catch(()=>{})))));
 });
 
 // Allow the page to force an immediate activation of a waiting SW.
@@ -63,7 +65,7 @@ self.addEventListener("fetch", e => {
           caches.open(CACHE).then(c => c.put(req, copy)).catch(()=>{});
         }
         return res;
-      }).catch(() => caches.match(req))
+      }).catch(() => caches.match(req).then(m => m || new Response("offline", {status:503})))
     );
     return;
   }
@@ -77,7 +79,7 @@ self.addEventListener("fetch", e => {
           caches.open(CACHE).then(c => c.put(req, copy)).catch(()=>{});
         }
         return res;
-      }).catch(() => cached);
+      }).catch(() => cached || new Response("offline", {status:503}));
       return cached || net;
     })
   );
