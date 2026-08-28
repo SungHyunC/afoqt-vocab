@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.106.0";
+const VERSION = "4.107.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -163,6 +163,23 @@ function loadLocal(){
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{},topic:{}},state.weak||{});
   state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.qSeen=Object.assign({ar:{},mk:{},ps:{}},state.qSeen||{}); state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{}; state.badges=state.badges||{}; state.dayStats=state.dayStats||{};
   state.examHist=state.examHist||[];
+  // 1회 마이그레이션: 과거 모의고사 기록에서 통째로 건너뛴 과목(전부 미응답)을 통계에서 소급 제외
+  if(!state.migSkipFix){
+    for(const h of state.examHist){
+      if(!h||!Array.isArray(h.items)||!h.items.length) continue;
+      const bySec={}; h.items.forEach(it=>{ (bySec[it.s]=bySec[it.s]||[]).push(it); });
+      const skipped=Object.keys(bySec).filter(k=>bySec[k].every(it=>it.u==null));
+      if(!skipped.length) continue;
+      const kept=h.items.filter(it=>!skipped.includes(it.s));
+      if(!kept.length) continue;                                 // 전부 스킵이면 손대지 않음
+      h.items=kept; h.total=kept.length;
+      h.got=kept.filter(it=>it.u===it.a).length;
+      h.acc=h.got/h.total; h.pctile=estPercentile(h.acc);
+      h.bySec={}; kept.forEach(it=>{ const o=h.bySec[it.s]=h.bySec[it.s]||{got:0,total:0}; o.total++; if(it.u===it.a) o.got++; });
+      h.skipped=(h.skipped||[]).concat(skipped.filter(k=>!(h.skipped||[]).includes(k)));
+    }
+    state.migSkipFix=1; saveNow();   // 정정 결과 즉시 저장
+  }
   state.speed=state.speed||{}; state.sweepAt=state.sweepAt||{};
   state.settings=Object.assign(d.settings, state.settings||{});
 }
@@ -3530,14 +3547,27 @@ function runDrill(spec){
 }
 function submitExam(auto){
   const e=exam; if(!e||e.submitted) return;
-  if(!auto){ const un=e.answers.filter(a=>a==null).length;
-    if(un && !confirm(`아직 ${un}문제를 안 풀었어요. 그래도 제출할까요?`)) return; }
+  // 통째로 건너뛴 과목(응답 0개) = 의도적 스킵 → 채점·통계·오답노트에서 제외
+  const ansBySec={};
+  e.items.forEach((it,i)=>{ if(e.answers[i]!=null) ansBySec[it.section]=(ansBySec[it.section]||0)+1; });
+  const skipped=[...new Set(e.items.map(it=>it.section))].filter(sc=>!(ansBySec[sc]>0));
+  const counted=e.items.map((it,i)=>i).filter(i=>!skipped.includes(e.items[i].section));
+  if(!auto){ const un=counted.filter(i=>e.answers[i]==null).length;
+    const skipTxt=skipped.length?`\n(${skipped.map(k=>SEC_KO[k]||k).join("·")}은(는) 한 문제도 안 풀어 통계에서 제외돼요)`:"";
+    if(un && !confirm(`아직 ${un}문제를 안 풀었어요. 그래도 제출할까요?${skipTxt}`)) return; }
   e.submitted=true; stopExamTimer();
   // 열려 있던 문항의 시간 구간을 닫는다 (속도 분석용)
   e.times=e.times||new Array(e.total).fill(0);
   if(e._openIdx!=null&&e._openAt){ e.times[e._openIdx]+=Date.now()-e._openAt; e._openIdx=null; }
+  // 아무 문항도 안 풀었으면 기록 없이 종료
+  if(!counted.length){
+    toast("푼 문항이 없어 채점·기록 없이 종료했어요.");
+    $("#examRun").classList.add("hidden"); $("#examSetup").classList.remove("hidden");
+    exam=null; return;
+  }
+  e._skipped=skipped;
   let got=0; const bySec={};
-  e.items.forEach((it,i)=>{ const ok=e.answers[i]===it.answer; if(ok)got++;
+  counted.forEach(i=>{ const it=e.items[i]; const ok=e.answers[i]===it.answer; if(ok)got++;
     (bySec[it.section]=bySec[it.section]||{got:0,total:0}).total++; if(ok)bySec[it.section].got++;
     recordResult(it,ok); });
   // 풀이 속도 집계: 답한 문항만, 목표(실전 배분)의 1.3배 초과면 '느림'
@@ -3548,7 +3578,7 @@ function submitExam(auto){
     o.n++; o.ms+=ms; if(ms>tgt*1.3) o.slow++;
     const g=state.speed[it.section]||(state.speed[it.section]={n:0,ms:0,slow:0});
     g.n++; g.ms+=ms; if(ms>tgt*1.3) g.slow++; });
-  const total=e.total, pct=Math.round(got/total*100);
+  const total=counted.length, pct=Math.round(got/total*100);
   const used = e.sections
     ? e.sections.reduce((a,s)=>a+(s.secs-Math.max(0,s.left)),0)   // 섹션별 실제 소요 합
     : (e.startSecs||(EXAM_PRESETS[e.key]?EXAM_PRESETS[e.key].secs:0))-Math.max(0,e.secsLeft);
@@ -3556,19 +3586,20 @@ function submitExam(auto){
   if(e.key){ const prev=state.exams[e.key]||{best:0,bestTotal:total};
     state.exams[e.key]={best:Math.max(prev.best||0,got),bestTotal:total,last:got,lastTotal:total,date:todayStr()}; }
   // 문항별 상세 — 나중에 해설까지 복기할 수 있도록. 지문 본문은 passageId로 복원(용량 절약).
-  const detail=e.items.map((it,i)=>({s:it.section,q:it.prompt||"",t:it.stem||"",o:(it.options||[]).slice(),
+  const detail=counted.map(i=>{ const it=e.items[i]; return {s:it.section,q:it.prompt||"",t:it.stem||"",o:(it.options||[]).slice(),
     u:e.answers[i],a:it.answer,x:it.explain||"",p:it.passageId!=null?it.passageId:null,pt:it.passageTitle||"",
-    ms:Math.round(e.times[i]||0)}));
+    ms:Math.round(e.times[i]||0)}; });
   state.examHist.push({key:e.key||"retest",name:(EXAM_PRESETS[e.key]&&EXAM_PRESETS[e.key].name)||e.name||"모의고사",
     date:todayStr(),got,total,acc:got/total,pctile:estPercentile(got/total),ts:Date.now(),
-    secs:used,bySec:JSON.parse(JSON.stringify(bySec)),items:detail});
+    secs:used,bySec:JSON.parse(JSON.stringify(bySec)),items:detail,
+    skipped:skipped.length?skipped.slice():undefined});
   if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
   pruneExamDetail();
   saveNow();
   // render result
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
   $("#examEmoji").textContent=pct>=85?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
-  $("#examScore").textContent=`${got} / ${total} 정답 (${pct}%)`;
+  $("#examScore").textContent=`${got} / ${total} 정답 (${pct}%)`+(skipped.length?` · ${skipped.map(k=>SEC_KO[k]||k).join("·")} 건너뜀`:"");
   const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
   $("#examBreakDown").innerHTML=Object.keys(bySec).map(k=>
     `<div class="s"><b>${bySec[k].got}/${bySec[k].total}</b><span>${secName[k]||k}</span></div>`).join("");
@@ -3615,7 +3646,9 @@ function submitExam(auto){
 function renderExamReview(){
   const e=exam; if(!e) return;
   const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
+  const skip=e._skipped||[];
   $("#examReview").innerHTML=e.items.map((it,i)=>{
+    if(skip.includes(it.section)) return "";               // 통째로 건너뛴 과목은 복기에서 제외
     const pick=e.answers[i], ok=pick===it.answer;
     // Visual subtests: show the table/dial/block figure so the review makes sense.
     const figure=it.figureHTML?`<div class="exam-figure exam-figure-rev">${it.figureHTML}</div>`:"";
@@ -3814,7 +3847,7 @@ function renderExamLog(){
         const col=pct>=85?"var(--ok)":pct>=70?"var(--brand2)":pct>=50?"var(--warn)":"var(--bad)";
         return `<button class="elrow" data-i="${i}">
           <div class="elm"><div class="eln">${esc(x.name||x.key||"모의고사")}</div>
-            <div class="eld">${esc(x.date||"")}${x.secs?" · "+fmtTime(x.secs):""}${x.items?"":" · 요약만"}</div></div>
+            <div class="eld">${esc(x.date||"")}${x.secs?" · "+fmtTime(x.secs):""}${x.skipped&&x.skipped.length?" · "+x.skipped.map(k=>SEC_KO[k]||k).join("·")+" 건너뜀":""}${x.items?"":" · 요약만"}</div></div>
           <div class="elsc" style="color:${col}"><b>${x.got}/${x.total}</b><span>${pct}%${x.pctile?" · "+x.pctile+"th":""}</span></div>
           <div class="elgo">›</div></button>`; }).join("");
     $$("#elBody .elrow").forEach(b=>b.onclick=()=>{ examLogIdx=+b.dataset.i; window.scrollTo(0,0); renderExamLog(); });
@@ -3827,7 +3860,7 @@ function renderExamLog(){
   let head=`<div class="card center">
       <div style="font-size:13px;color:var(--muted)">${esc(x.name||x.key||"모의고사")}</div>
       <h2 style="margin:6px 0">${x.got} / ${x.total} 정답 (${Math.round(x.acc*100)}%)</h2>
-      <div class="muted" style="font-size:12px">${esc(x.date||"")}${x.secs?" · 소요 "+fmtTime(x.secs):""}${x.pctile?" · 예상 "+x.pctile+"th":""}</div>
+      <div class="muted" style="font-size:12px">${esc(x.date||"")}${x.secs?" · 소요 "+fmtTime(x.secs):""}${x.pctile?" · 예상 "+x.pctile+"th":""}${x.skipped&&x.skipped.length?" · "+x.skipped.map(k=>SEC_KO[k]||k).join("·")+" 건너뜀(통계 제외)":""}</div>
       ${secs?`<div class="breakdown" style="margin-top:12px">${secs}</div>`:""}</div>`;
   if(!x.items){ $("#elBody").innerHTML=head+`<div class="hintbox" style="margin-top:14px">이 회차는 오래돼서 요약만 남아 있어요(문항 상세는 최근 10회까지 보관).</div>`; return; }
   const body=x.items.map((it,i)=>{
