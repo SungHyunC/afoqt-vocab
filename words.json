@@ -5550,7 +5550,8 @@
   "hook": "무거운 짐(onus)을 지운 → 부담스럽고 벅찬",
   "mock": [
    "T03"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 179,
@@ -7296,7 +7297,7 @@
    "tenacity:irresolution::determination:wavering (antonym)"
   ],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -7310,7 +7311,8 @@
     "m": "~한 성질"
    }
   ],
-  "hook": "tenere(붙잡다) — 놓지 않는 힘. tenant(세입자), retain과 한 뿌리."
+  "hook": "tenere(붙잡다) — 놓지 않는 힘. tenant(세입자), retain과 한 뿌리.",
+  "afoqtCommon": true
  },
  {
   "id": 240,
@@ -7895,7 +7897,8 @@
   "hook": "유리처럼 반짝이는 황산(vitriol)이 살을 태우듯 → 신랄한 독설의",
   "mock": [
    "T03"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 260,
@@ -14239,7 +14242,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -14253,7 +14256,8 @@
     "m": "~한"
    }
   ],
-  "hook": "arere(마르다) — 사막 기후를 arid climate라고 한다."
+  "hook": "arere(마르다) — 사막 기후를 arid climate라고 한다.",
+  "afoqtCommon": true
  },
  {
   "id": 499,
@@ -14691,7 +14695,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T01"
   ],
@@ -14709,7 +14713,8 @@
     "m": "~하는 사람"
    }
   ],
-  "hook": "bene(좋은)+fac(하다) — 좋은 일을 해주는 사람. benefit·factory와 한 뿌리."
+  "hook": "bene(좋은)+fac(하다) — 좋은 일을 해주는 사람. benefit·factory와 한 뿌리.",
+  "afoqtCommon": true
  },
  {
   "id": 520,
@@ -16266,7 +16271,8 @@
   "hook": "온통 검게(nigr) 칠해버림 → 명예를 깎아내리다",
   "mock": [
    "T01"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 589,
@@ -19415,7 +19421,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T03"
   ],
@@ -19433,7 +19439,8 @@
     "m": "~하다"
    }
   ],
-  "hook": "grat(기쁜) — grateful·gratitude. 남의 마음속으로 파고들어 환심을 사다."
+  "hook": "grat(기쁜) — grateful·gratitude. 남의 마음속으로 파고들어 환심을 사다.",
+  "afoqtCommon": true
  },
  {
   "id": 726,
@@ -20290,7 +20297,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T03"
   ],
@@ -20304,7 +20311,8 @@
     "m": "~것"
    }
   ],
-  "hook": "mod(척도) — moderate·modest. '알맞은 만큼'의 아주 적은 양."
+  "hook": "mod(척도) — moderate·modest. '알맞은 만큼'의 아주 적은 양.",
+  "afoqtCommon": true
  },
  {
   "id": 763,
@@ -26602,7 +26610,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T01"
   ],
@@ -26616,7 +26624,8 @@
     "m": "세우다 (L statuere: set up)"
    }
   ],
-  "hook": "de(떨어져)+stit(세우다) — 세워둔 자리에서 밀려남 → 아무것도 없음. institute와 한 뿌리."
+  "hook": "de(떨어져)+stit(세우다) — 세워둔 자리에서 밀려남 → 아무것도 없음. institute와 한 뿌리.",
+  "afoqtCommon": true
  },
  {
   "id": 1056,
@@ -30416,7 +30425,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -30430,7 +30439,8 @@
     "m": "~한 성질"
    }
   ],
-  "hook": "solid(단단한) — 여럿이 단단히 하나로 뭉친 상태."
+  "hook": "solid(단단한) — 여럿이 단단히 하나로 뭉친 상태.",
+  "afoqtCommon": true
  },
  {
   "id": 1247,
@@ -30813,7 +30823,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T03"
   ],
@@ -30827,7 +30837,8 @@
     "m": "~한"
    }
   ],
-  "hook": "turgere(부풀다) — 문장이 부풀어 오른 것이 '과장된' 문체."
+  "hook": "turgere(부풀다) — 문장이 부풀어 오른 것이 '과장된' 문체.",
+  "afoqtCommon": true
  },
  {
   "id": 1264,
@@ -32484,7 +32495,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T01"
   ],
@@ -32498,7 +32509,8 @@
     "m": "~로 가득한"
    }
   ],
-  "hook": "fantasy와 같은 뿌리(Gk phantasia: 상상) — 상상으로 가득한."
+  "hook": "fantasy와 같은 뿌리(Gk phantasia: 상상) — 상상으로 가득한.",
+  "afoqtCommon": true
  },
  {
   "id": 1349,
@@ -34770,7 +34782,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -34784,7 +34796,8 @@
     "m": "부르다 (L vocare: call)"
    }
   ],
-  "hook": "voc(부르다) — 도로 불러들이다. voice·invoke·vocal과 한 뿌리."
+  "hook": "voc(부르다) — 도로 불러들이다. voice·invoke·vocal과 한 뿌리.",
+  "afoqtCommon": true
  },
  {
   "id": 1467,
@@ -38657,7 +38670,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T01"
   ],
@@ -38671,7 +38684,8 @@
     "m": "~한"
    }
   ],
-  "hook": "miserable(비참한)과 한 뿌리 — 돈에 비참하게 매달리는."
+  "hook": "miserable(비참한)과 한 뿌리 — 돈에 비참하게 매달리는.",
+  "afoqtCommon": true
  },
  {
   "id": 1661,
@@ -39612,7 +39626,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -39626,7 +39640,8 @@
     "m": "~한"
    }
   ],
-  "hook": "tepere(미지근) — 물도, 반응도 미지근한. tepid response(미온적 반응)."
+  "hook": "tepere(미지근) — 물도, 반응도 미지근한. tepid response(미온적 반응).",
+  "afoqtCommon": true
  },
  {
   "id": 1711,
@@ -41003,7 +41018,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -41021,7 +41036,8 @@
     "m": "~하다"
    }
   ],
-  "hook": "corp(몸) — corpse·corporation. 하나의 몸 안으로 넣다."
+  "hook": "corp(몸) — corpse·corporation. 하나의 몸 안으로 넣다.",
+  "afoqtCommon": true
  },
  {
   "id": 1783,
@@ -41453,7 +41469,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T03"
   ],
@@ -41463,7 +41479,8 @@
     "m": "살해자 (OE bana: killer)"
    }
   ],
-  "hook": "고대 영어 '죽이는 것' — the bane of my existence(내 인생의 골칫거리)."
+  "hook": "고대 영어 '죽이는 것' — the bane of my existence(내 인생의 골칫거리).",
+  "afoqtCommon": true
  },
  {
   "id": 1806,
@@ -43453,7 +43470,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T03"
   ],
@@ -43467,7 +43484,8 @@
     "m": "~한"
    }
   ],
-  "hook": "tumere(부풀다)에서 — 감정이 부풀어 터져 나오는 소란."
+  "hook": "tumere(부풀다)에서 — 감정이 부풀어 터져 나오는 소란.",
+  "afoqtCommon": true
  },
  {
   "id": 1897,
@@ -43650,7 +43668,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T03"
   ],
@@ -43668,7 +43686,8 @@
     "m": "~증"
    }
   ],
-  "hook": "xeno(낯선)+phobia(공포) — 낯선 것에 대한 공포."
+  "hook": "xeno(낯선)+phobia(공포) — 낯선 것에 대한 공포.",
+  "afoqtCommon": true
  },
  {
   "id": 1906,
@@ -47016,7 +47035,8 @@
   "hook": "옆에(para) 나란히 놓고 보여주는(digm) 본보기 → 모범, 패러다임",
   "mock": [
    "T03"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 2073,
@@ -50980,7 +51000,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T01"
   ],
@@ -50998,7 +51018,8 @@
     "m": "~하는"
    }
   ],
-  "hook": "templum(신전) — 신전에서 하늘을 살피며 깊이 헤아리다."
+  "hook": "templum(신전) — 신전에서 하늘을 살피며 깊이 헤아리다.",
+  "afoqtCommon": true
  },
  {
   "id": 2275,
@@ -54064,7 +54085,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -54082,7 +54103,8 @@
     "m": "~한/사람"
    }
   ],
-  "hook": "cumb(눕다) — 그 자리에 얹혀 있는 사람(현직자)이자 얹힌 의무. succumb·recumbent와 한 뿌리."
+  "hook": "cumb(눕다) — 그 자리에 얹혀 있는 사람(현직자)이자 얹힌 의무. succumb·recumbent와 한 뿌리.",
+  "afoqtCommon": true
  },
  {
   "id": 2438,
@@ -54633,7 +54655,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -54651,7 +54673,8 @@
     "m": "~하는"
    }
   ],
-  "hook": "spect(보다) — inspect·spectator. 꿰뚫어 보는 방식이 관점."
+  "hook": "spect(보다) — inspect·spectator. 꿰뚫어 보는 방식이 관점.",
+  "afoqtCommon": true
  },
  {
   "id": 2468,
@@ -55379,7 +55402,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -55397,7 +55420,8 @@
     "m": "~한"
    }
   ],
-  "hook": "equ(같은) — equal·equivalent. 필요한 만큼과 같아진 → 충분한."
+  "hook": "equ(같은) — equal·equivalent. 필요한 만큼과 같아진 → 충분한.",
+  "afoqtCommon": true
  },
  {
   "id": 2507,
@@ -56404,7 +56428,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -56418,7 +56442,8 @@
     "m": "~하는"
    }
   ],
-  "hook": "pati(겪다) — passion·patient. 당하기만 하는 쪽."
+  "hook": "pati(겪다) — passion·patient. 당하기만 하는 쪽.",
+  "afoqtCommon": true
  },
  {
   "id": 2556,
@@ -56740,7 +56765,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T02"
   ],
@@ -56758,7 +56783,8 @@
     "m": "~한"
    }
   ],
-  "hook": "trans(통과)+par(나타나다) — 빛이 통과해 드러나는. apparent와 한 뿌리."
+  "hook": "trans(통과)+par(나타나다) — 빛이 통과해 드러나는. apparent와 한 뿌리.",
+  "afoqtCommon": true
  },
  {
   "id": 2570,
@@ -61706,7 +61732,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T01"
   ],
@@ -61720,7 +61746,8 @@
     "m": "~을 주는"
    }
   ],
-  "hook": "고대 영어 wynn(기쁨) + some — 기쁨을 주는, 그래서 매력적인."
+  "hook": "고대 영어 wynn(기쁨) + some — 기쁨을 주는, 그래서 매력적인.",
+  "afoqtCommon": true
  },
  {
   "id": 2827,
@@ -61962,7 +61989,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T03"
   ],
@@ -61976,7 +62003,8 @@
     "m": "하다, 만들다 (L facere)"
    }
   ],
-  "hook": "fac/fect(하다) — effect·perfect. 무언가에 작용을 가하다."
+  "hook": "fac/fect(하다) — effect·perfect. 무언가에 작용을 가하다.",
+  "afoqtCommon": true
  },
  {
   "id": 2839,
@@ -64666,7 +64694,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "high",
   "mock": [
    "T01"
   ],
@@ -64680,7 +64708,8 @@
     "m": "~한"
    }
   ],
-  "hook": "torrere(태우다) — toast와 한 뿌리. 타는 듯 뜨거운."
+  "hook": "torrere(태우다) — toast와 한 뿌리. 타는 듯 뜨거운.",
+  "afoqtCommon": true
  },
  {
   "id": 2974,
@@ -70613,7 +70642,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "high",
   "analogyRelations": [],
   "roots": [
    {
@@ -70628,7 +70657,8 @@
   "hook": "허용(licere)을 멋대로 남용함 → 무절제하고 음란한.",
   "mock": [
    "T03"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3211,
@@ -71439,7 +71469,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "high",
   "analogyRelations": [],
   "roots": [
    {
@@ -71454,7 +71484,8 @@
   "hook": "힘(potent)을 쥔 자리에 있는 사람 → 절대 권력자.",
   "mock": [
    "T03"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3239,
@@ -90507,7 +90538,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "high",
   "analogyRelations": [],
   "roots": [
    {
@@ -90526,7 +90557,8 @@
   "hook": "자기 것으로 만들다 → 전용하다, 무단으로 차지하다",
   "mock": [
    "T02"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3861,
@@ -91843,7 +91875,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "high",
   "analogyRelations": [],
   "roots": [
    {
@@ -91858,7 +91890,8 @@
   "hook": "죄를 공식적으로 말해 지목함 → 기소하다",
   "mock": [
    "T01"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3905,
@@ -95990,7 +96023,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "high",
   "analogyRelations": [],
   "roots": [
    {
@@ -96005,7 +96038,8 @@
   "hook": "추상적인 것을 사물로 만들다 → 구체화하다",
   "mock": [
    "T03"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 4051,
@@ -108492,7 +108526,7 @@
   ],
   "category": "wk",
   "source": "barron-mfat",
-  "tier": "mid",
+  "tier": "high",
   "afoqtCommon": true,
   "roots": [
    {
@@ -111211,7 +111245,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt-mock",
-  "tier": "mid",
+  "tier": "high",
   "afoqtCommon": true,
   "roots": [
    {
@@ -111416,7 +111450,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt-mock",
-  "tier": "mid",
+  "tier": "high",
   "afoqtCommon": true,
   "roots": [
    {
@@ -111450,7 +111484,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt-mock",
-  "tier": "mid",
+  "tier": "high",
   "afoqtCommon": true,
   "roots": [
    {
@@ -111651,5 +111685,23 @@
    }
   ],
   "hook": "tradition(전해줌)과 어원이 같다 — 나라를 적에게 '넘겨주는' 것."
+ },
+ {
+  "id": 4608,
+  "word": "ENRICHED",
+  "pos": "adj",
+  "kor": "풍부해진, 질이 높아진",
+  "def": "Improved in quality or value by adding something",
+  "example": "The soil was enriched with organic compost.",
+  "synonyms": [
+   "improved",
+   "enhanced",
+   "fortified",
+   "upgraded"
+  ],
+  "category": "wk",
+  "source": "afoqt-guide",
+  "tier": "high",
+  "afoqtCommon": true
  }
 ]
