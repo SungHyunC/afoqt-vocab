@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.111.0";
+const VERSION = "4.112.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -223,13 +223,13 @@ function autoPace(){ return clamp(Math.ceil(newWordsRemaining()/daysLeft()),5,30
 function newPerDay(){ return state.settings.daily_goal>0 ? state.settings.daily_goal : autoPace(); }
 // Cards awaiting the 7-day "확인 시험" recheck are held out of the normal flashcard
 // rotation entirely (verify:"pending") — they only resurface via the confirm quiz.
-function dueCards(){ const t=Date.now(),out=[]; for(const w of WORDS){ const c=state.cards[w.id]; if(c&&c.status!=="new"&&c.verify!=="pending"&&c.due&&new Date(c.due).getTime()<=t) out.push(w.id);} return out; }
+function dueCards(){ const t=Date.now(),out=[]; for(const w of WORDS){ const c=state.cards[w.id]; if(c&&c.status!=="new"&&c.verify!=="pending"&&c.verify!=="verified"&&c.due&&new Date(c.due).getTime()<=t) out.push(w.id);} return out; }  // verified는 최종 스윕에서만 재확인 (확인 허브 안내와 일치)
 function newCardIds(limit){
   let cand=newPool();
   if(flag("high_first")) cand=[...cand].sort((a,b)=>(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)])||a.id-b.id);
   return cand.slice(0,limit).map(w=>w.id);
 }
-function plannedToday(){ return dueCards().length + newPerDay(); }
+function plannedToday(){ return dueCards().length + Math.min(newPerDay(), newWordsRemaining()); }  // 신규가 바닥나면 목표도 같이 줄어야 링/스트릭 달성 가능
 function countByStatus(){
   let learned=0,mastered=0,totalRev=0,highLearned=0,verified=0;
   for(const w of WORDS){ const c=state.cards[w.id]; if(!c||c.status==="new") continue;
@@ -350,13 +350,13 @@ function checkBadges(silent){
 function predict(id,q){ const c={...getCard(id)};
   if(q==="hard") return c.reps===0?1:Math.max(1,c.interval*1.2);
   if(q==="good") return c.reps===0?1:c.reps===1?3:c.interval*c.ease;
-  if(q==="easy") return c.reps===0?2:c.interval*c.ease*1.3; return 0; }
+  if(q==="easy") return c.reps===0?2:c.interval*(c.ease+0.15)*1.3; return 0; }  // gradeCard와 동일하게 ease 증가분 반영
 function gradeCard(id,q){ const c={...getCard(id)};
-  if(q==="again"){ c.lapses++; c.ease=Math.max(1.3,c.ease-0.2); c.interval=0; c.status="learning"; c.due=nowISO(); }
+  if(q==="again"){ c.lapses++; c.ease=Math.max(1.3,c.ease-0.2); c.interval=0; c.reps=0; c.status="learning"; c.due=nowISO(); }  // reps=0: 재학습 — 안 하면 interval이 0*ease=0에 영구 고정
   else { if(q==="hard"){ c.ease=Math.max(1.3,c.ease-0.15); c.interval=c.reps===0?1:Math.max(1,c.interval*1.2);}
     else if(q==="good"){ c.interval=c.reps===0?1:c.reps===1?3:c.interval*c.ease; }
     else { c.ease+=0.15; c.interval=c.reps===0?2:c.interval*c.ease*1.3; }
-    c.reps++; c.status=c.interval>=21?"mastered":(c.reps>=1?"review":"learning");
+    c.reps++; c.status=c.interval>=21?"mastered":(c.reps>=2?"review":"learning");  // 1회 학습=learning (확인시험 풀에 너무 일찍 들어가지 않게)
     const due=new Date(); due.setMinutes(due.getMinutes()+Math.round(c.interval*1440)); c.due=due.toISOString(); }
   setCard(id,c); }
 function fmtIv(d){ if(d<1) return "<1일"; if(d>=21) return "마스터"; return Math.round(d)+"일"; }
@@ -364,7 +364,9 @@ function fmtIv(d){ if(d<1) return "<1일"; if(d>=21) return "마스터"; return 
 // 곧바로 복습에 뜨게 함. (동의어 퀴즈 등에서 오답 시 호출)
 function markForReview(id){ const c={...getCard(id)};
   c.lapses=(c.lapses||0)+1; c.ease=Math.max(1.3,(c.ease||2.5)-0.2); c.interval=0;
-  c.status="learning"; c.due=nowISO(); c.verify=null; c.verifyDue=null; setCard(id,c); }
+  c.reps=0; c.status="learning"; c.due=nowISO(); c.verify=null; c.verifyDue=null;
+  delete state.sweepAt[id];   // 강등된 단어는 최종 스윕 대상에 다시 포함
+  setCard(id,c); }
 
 /* ============================================================
    확인 시험 (진짜 암기 검증)
@@ -513,6 +515,8 @@ async function pullAll(){
       sb.from("settings").select("*").eq("user_key",code).maybeSingle(),
       sb.from("app_state").select("*").eq("user_key",code).maybeSingle(),
     ]);
+    // supabase v2는 reject하지 않고 {error}를 돌려준다 — 에러를 무시하면 조용히 머지가 빠진다
+    if([vs,vp,dl,st,as].some(r=>r&&r.error)){ console.error("pull partial fail",vs.error||vp.error||dl.error||st.error||as.error); setSyncDot("err"); }
     if(vs.data) vs.data.forEach(mergeCard);
     if(vp.data) vp.data.forEach(mergeVerbal);
     if(dl.data) dl.data.forEach(mergeDaily);
@@ -604,19 +608,19 @@ function queuePush(table,row){ if(!sb) return; const code=syncCode();
 // instead of silently dropping every table's pending writes.
 async function flushPush(){ if(!sb) return;
   if(pushQ.vocab_state.size){ const r=[...pushQ.vocab_state.values()];
-    try{ await sb.from("vocab_state").upsert(r,{onConflict:"user_key,word_id"}); pushQ.vocab_state.clear(); }
+    try{ await sb.from("vocab_state").upsert(r,{onConflict:"user_key,word_id"}).throwOnError(); pushQ.vocab_state.clear(); }
     catch(e){ console.error("push vocab_state fail",e); setSyncDot("err"); } }
   if(pushQ.verbal_progress.size){ const r=[...pushQ.verbal_progress.values()];
-    try{ await sb.from("verbal_progress").upsert(r,{onConflict:"user_key,kind,item_id"}); pushQ.verbal_progress.clear(); }
+    try{ await sb.from("verbal_progress").upsert(r,{onConflict:"user_key,kind,item_id"}).throwOnError(); pushQ.verbal_progress.clear(); }
     catch(e){ console.error("push verbal_progress fail",e); setSyncDot("err"); } }
   if(pushQ.daily_log.size){ const r=[...pushQ.daily_log.values()];
-    try{ await sb.from("daily_log").upsert(r,{onConflict:"user_key,day"}); pushQ.daily_log.clear(); }
+    try{ await sb.from("daily_log").upsert(r,{onConflict:"user_key,day"}).throwOnError(); pushQ.daily_log.clear(); }
     catch(e){ console.error("push daily_log fail",e); setSyncDot("err"); } }
   if(pushQ.settings){ const r=pushQ.settings;
-    try{ await sb.from("settings").upsert(r,{onConflict:"user_key"}); pushQ.settings=null; }
+    try{ await sb.from("settings").upsert(r,{onConflict:"user_key"}).throwOnError(); pushQ.settings=null; }
     catch(e){ console.error("push settings fail",e); setSyncDot("err"); } }
   if(pushQ.app_state){ const r=pushQ.app_state;
-    try{ await sb.from("app_state").upsert(r,{onConflict:"user_key"}); pushQ.app_state=null; }
+    try{ await sb.from("app_state").upsert(r,{onConflict:"user_key"}).throwOnError(); pushQ.app_state=null; }
     catch(e){ console.error("push app_state fail",e); setSyncDot("err"); } }
 }
 // Upload EVERY local row. Call AFTER pullAll (so local already holds the newest of
@@ -662,6 +666,15 @@ function renderGuide(){
 }
 function go(view){
   if(ap && view!=="autoplay") apStop();  // leaving hands-free mode: stop audio/timers/wake-lock
+  // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
+  // 백그라운드에서 섹션이 넘어가거나 자동 제출되지 않게 (모의고사 화면에서 이어하기).
+  if(exam && !exam.submitted){
+    exam.times=exam.times||new Array(exam.total).fill(0);
+    if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openIdx=null; exam._openAt=null; }
+    saveExamSnap(); stopExamTimer(); examReleaseWake(); exam=null;
+    toast("⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
+  }
+  trTimerStop(); bcTimerStop(); icTimerStop();   // 시각과목 연습도 이탈 시 시계 정지(orphan 인터벌 방지)
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   const navsel=NAVPARENT[view]||view;
@@ -764,7 +777,7 @@ function renderHome(){
    - 기록이 쌓이면: 최근 정답률 추세를 선형 근사해 "이 페이스면
      시험일에 대략 몇 th" 를 보여준다 (비공식, 상승분은 보수적으로 캡).
    ============================================================ */
-function bigExams(){ return (state.examHist||[]).filter(x=>x&&(x.total||0)>=15); }
+function bigExams(){ return (state.examHist||[]).filter(x=>x&&(x.total||0)>=15&&!x.practice); }
 function scoreTrendLine(){
   const h=bigExams().slice(-10); if(h.length<2) return null;
   const t0=h[0].ts, xs=h.map(x=>(x.ts-t0)/86400000), ys=h.map(x=>x.acc);
@@ -788,6 +801,14 @@ function renderScoreProj(){
   const rec=h.slice(-5), prev=h.slice(-10,-5);
   const avg=a=>a.length?a.reduce((s,x)=>s+x.acc,0)/a.length:null;
   const accNow=avg(rec), accPrev=avg(prev);
+  if(accNow==null){   // 풀모의고사는 있는데 유효 표본(15문항+)이 없으면 진단 카드 유지 ("1th" 쓰레기 값 방지)
+    box.innerHTML=`<div class="card" style="border:1px solid var(--brand)">
+      <b>🩺 유효한 모의고사 기록이 아직 부족해요</b>
+      <div class="muted" style="font-size:12.5px;margin-top:5px;line-height:1.6">15문항 이상 응시한 기록이 쌓이면 예상 점수가 표시돼요.</div>
+      <button class="btn primary" id="diagGo" style="margin-top:12px">🩺 진단 모의고사 시작 (전 과목)</button></div>`;
+    $("#diagGo").onclick=()=>startExam("afoqt");
+    return;
+  }
   const delta=accPrev!=null?Math.round((accNow-accPrev)*100):null;
   const dleft=Math.max(0,dayDiff(todayStr(),state.settings.exam_date));
   const tl=scoreTrendLine();
@@ -1122,7 +1143,7 @@ function apReleaseWake(){ try{ apWake&&apWake.release&&apWake.release(); }catch(
 function apClearTimer(){ if(ap&&ap.t){ clearTimeout(ap.t); ap.t=null; } }
 function apStop(){ apClearTimer(); try{ window.speechSynthesis&&window.speechSynthesis.cancel(); }catch(e){} apReleaseWake(); ap=null; }
 // 이어보기 체크포인트는 로컬에만 저장(동기화 X — 플래시카드 세션과 동일 방침).
-function apSaveSession(){ if(!ap) return; state.autoplay={queue:ap.queue, idx:ap.idx, scope:ap.scope, speed:ap.speed, ko:ap.ko, loop:ap.loop}; saveLocal(); }
+function apSaveSession(){ if(!ap) return; state.autoplay={queue:ap.queue, idx:ap.idx, scope:ap.scope, speed:ap.speed, ko:ap.ko, loop:ap.loop, extra:ap.extra}; saveLocal(); }
 function renderAutoPlaySetup(){
   apStop(); $("#apSetup").classList.remove("hidden"); $("#apPlayer").classList.add("hidden"); $("#apCount").textContent="";
   const sv=state.autoplay, box=$("#apResume"); if(!box) return;
@@ -1226,19 +1247,36 @@ function updateStudyRestart(){
     startStudySet(ids,tag);
   };
 }
+// 저장된 세션 큐에서 사라진 단어 id 제거(words.json 재생성 대비) — idx도 함께 보정
+function validQueue(sv){
+  let idx=sv.idx||0; const q=[];
+  (sv.queue||[]).forEach((id,i)=>{ if(WMAP.has(id)) q.push(id); else if(i<(sv.idx||0)) idx--; });
+  return {q, idx:Math.max(0,Math.min(idx,q.length))};
+}
+// 다른 미완 세션을 덮어쓰기 전 확인 — 슬롯이 하나뿐이라 무언 덮어쓰기는 진행 위치를 날린다
+function confirmDropSession(sv,tag){
+  if(!(sv&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length)) return true;   // 미완 세션 없음
+  const cur=sv.scope||"오늘 학습";
+  if(cur===tag) return true;                                                  // 같은 덱이면 이어하기가 처리
+  return confirm(`⏸ "${cur}" 학습이 ${sv.idx}/${sv.plan}에서 멈춰 있어요.\n새로 시작하면 그 진행 위치가 사라져요. 계속할까요?\n(외운 기록은 어느 쪽이든 안전해요)`);
+}
 function startStudySet(ids,label){
   ids=[...new Set((ids||[]).filter(id=>WMAP.has(id)))];
   if(!ids.length){ toast("학습할 단어가 없어요."); return; }
   const tag=label||"set", sv=state.session;
+  if(!confirmDropSession(sv,tag)) return;
   // 하던 묶음이 남아 있으면 이어서 — 매번 처음부터 다시 시작하면 순서가 바뀌어
   // 같은 단어를 반복하고 끝을 못 본다. 날짜가 바뀌어도 이어간다(148개는 며칠에 걸쳐 돈다).
   if(sv&&sv.scope===tag&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
-    session={queue:sv.queue.slice(),idx:sv.idx,plan:sv.plan,studied:sv.studied||0,correct:sv.correct||0,
-      doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
-      revealed:false,startTs:Date.now(),scope:tag};
-    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
-    toast(`이어서 학습합니다 ▶ ${sv.idx+1} / ${sv.plan}`,2600);
-    return;
+    const vq=validQueue(sv);
+    if(vq.idx<vq.q.length){
+      session={queue:vq.q,idx:vq.idx,plan:vq.q.length,studied:sv.studied||0,correct:sv.correct||0,
+        doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
+        revealed:false,startTs:Date.now(),scope:tag};
+      go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
+      toast(`이어서 학습합니다 ▶ ${vq.idx+1} / ${vq.q.length}`,2600);
+      return;
+    }
   }
   // 아직 안 외운 것 → 복습 기한이 지난 것 → 나머지 순
   const rank=id=>{ const c=getCard(id); if(c.status==="new") return 0;
@@ -1255,12 +1293,16 @@ function startStudy(){
   // Resume an unfinished session (don't restart from scratch when you re-enter).
   const sv=state.session;
   if(sv&&!sv.scope&&sv.day===todayStr()&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
-    session={queue:sv.queue.slice(),idx:sv.idx,plan:sv.plan,studied:sv.studied||0,correct:sv.correct||0,
-      doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
-      revealed:false,startTs:Date.now()};
-    go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart(); toast("이어서 학습합니다 ▶");
-    return;
+    const vq=validQueue(sv);
+    if(vq.idx<vq.q.length){
+      session={queue:vq.q,idx:vq.idx,plan:vq.q.length,studied:sv.studied||0,correct:sv.correct||0,
+        doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
+        revealed:false,startTs:Date.now()};
+      go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart(); toast("이어서 학습합니다 ▶");
+      return;
+    }
   }
+  if(!confirmDropSession(sv,"오늘 학습")) return;   // 미완 묶음 덱 무언 덮어쓰기 방지
   const due=dueCards(), news=newCardIds(newPerDay());
   let queue=[...due,...news];
   if(!queue.length) queue=newCardIds(newPerDay());
@@ -1281,6 +1323,7 @@ function startStudy(){
 function renderCard(){
   const s=session; if(s.idx>=s.queue.length) return finishStudy();
   const id=s.queue[s.idx], w=WMAP.get(id), c=getCard(id), isN=c.status==="new";
+  if(!w){ s.idx++; return renderCard(); }   // 데이터 갱신으로 사라진 id — 건너뛰기 (TypeError 방지)
   $("#studyMode").textContent=isN?"🆕 신규":"🔁 복습";
   $("#studyCount").textContent=`${Math.min(s.studied+1,s.plan)} / ${s.plan}`;
   $("#studyBar").style.width=clamp(s.studied/s.plan*100,0,100)+"%"; s.revealed=false;
@@ -1451,7 +1494,8 @@ function answerSynQ(i){
   const w=WMAP.get(q.id), ok=q.opts[i].ok;
   s.count++; if(ok) s.correct++;
   bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
-  if(!ok){ state.wrong.wk[q.id]=1; markForReview(q.id); s.added++; q.added=true; } // 틀리면 오답노트 + 복습 자동 추가
+  if(!ok){ state.wrong.wk[q.id]=(state.wrong.wk[q.id]||0)+1; markForReview(q.id); s.added++; q.added=true; } // 틀리면 오답노트 누적 + 복습 자동 추가
+  else delete state.wrong.wk[q.id];   // 맞히면 오답노트에서 제거 (recordResult와 동일 규약)
   { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
   saveLocal(); renderSynAt();
   // 자동 넘김 옵션(기본 OFF): 최신 문제일 때만 자동으로 새 문제
@@ -1548,6 +1592,7 @@ function appendWords(n){
 }
 // 센티널이 화면 아래 400px 안에 들어오면 다음 묶음을 붙인다(스크롤/리사이즈에서 호출).
 function pumpWords(){
+  const v=$("#view-words"); if(!v||!v.classList.contains("active")) return;   // 다른 화면 스크롤에 숨은 목록이 자라는 것 방지
   const s=$("#wordMore"); if(!s||wordShown>=wordRows.length) return;
   if(s.getBoundingClientRect().top < window.innerHeight+400){
     appendWords(WORD_PAGE);
@@ -1806,6 +1851,7 @@ function startTableReading(){
     while(opts.size<5) opts.add(10+(Math.random()*90|0));
     qs.push({x:xs[xi],y:ys[yi],correct,options:shuffle([...opts])});
   }
+  trTimerStop();   // 이전 세션 타이머를 state 교체 전에 정지(orphan 방지)
   trState={xs,ys,grid,N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-tablereading").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
@@ -1937,6 +1983,7 @@ function bcSVG(fig){
 function startBlockCounting(){
   const N=10, secs=180, qs=[];
   for(let i=0;i<N;i++){ const f=genBlockFigure(); qs.push({fig:f,correct:f.touch,options:bcOptions(f.touch)}); }
+  bcTimerStop();
   bcState={N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-blockcounting").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
@@ -2147,8 +2194,8 @@ function renderCPQ(){
     if(ok) s.score++; $("#cpScore").textContent=`${s.score}개`;
     bumpDay({studied:1,correct:ok?1:0});
     if(it.sec) recordSecAcc(it.sec,ok);
-    if(it.anaId!=null){ const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok){v.correct=(v.correct||0)+1;} else {v.wrong=(v.wrong||0)+1; state.wrong.va[it.anaId]=1;} setVA(it.anaId,v); }
-    if(it.wordId!=null&&!ok) state.wrong.wk[it.wordId]=1;
+    if(it.anaId!=null){ const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok){v.correct=(v.correct||0)+1; delete state.wrong.va[it.anaId];} else {v.wrong=(v.wrong||0)+1; state.wrong.va[it.anaId]=(state.wrong.va[it.anaId]||0)+1;} setVA(it.anaId,v); }
+    if(it.wordId!=null){ if(ok) delete state.wrong.wk[it.wordId]; else state.wrong.wk[it.wordId]=(state.wrong.wk[it.wordId]||0)+1; }
     $("#cpExplain").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b><br>${fmtMath(it.explain||"")}`;
     $("#cpExplain").classList.remove("hidden");
     $("#cpNext").classList.remove("hidden");
@@ -2444,6 +2491,7 @@ function genIC(){
 }
 function startInstrument(){
   const N=12, secs=180, qs=[]; for(let i=0;i<N;i++) qs.push(genIC());
+  icTimerStop();
   icState={N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-instrument").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
@@ -2522,7 +2570,7 @@ function startAnalogy(reviewOnly=false){
 }
 function renderVA(){ const s=vaSession; if(s.idx>=s.items.length) return finishVA();
   const a=s.items[s.idx];
-  $("#vaCount").textContent=`${s.idx+1} / ${s.items.length}`; $("#vaScore").textContent=`${s.score}점`; $("#vaBar").style.width=(s.idx/s.items.length*100)+"%";
+  $("#vaCount").textContent=`${s.idx+1} / ${s.items.length}`; $("#vaScore").textContent=`${s.score}점`; $("#vaSessBar").style.width=(s.idx/s.items.length*100)+"%";
   const opts=shuffle(a.options.map((o,i)=>({...o,i})));
   const last=s.idx>=s.items.length-1;
   $("#vaArea").innerHTML=`<div class="card">
@@ -2795,10 +2843,13 @@ function buildIC(n){
 // Predicted composite percentile from accumulated per-subtest accuracy.
 // pilotPerfect(): TR/BC/IC 는 외부 앱에서 거의 만점 → 실제 문항 수만큼 만점 표본으로 넣는다.
 function compositeEst(codes){
-  let c=0,w=0; codes.forEach(s=>{
+  let c=0,w=0,realN=0; codes.forEach(s=>{
+    const o=state.secAcc[s]; const oc=o?(o.c||0):0, ow=o?(o.w||0):0;
     if(pilotPerfect()&&PILOT_VISUAL.includes(s)){ c+=PILOT_FULL[s]||25; return; }
-    const o=state.secAcc[s]; if(o){ c+=o.c||0; w+=o.w||0; } });
-  const n=c+w; if(n<5) return {pct:null,acc:null,n};
+    c+=oc; w+=ow; realN+=oc+ow; });
+  const n=c+w;
+  // 만점 처리 합성 표본은 데이터 충분성 판정에서 제외 — 실데이터 없이 99th가 뜨면 안 된다
+  if(realN<5) return {pct:null,acc:null,n:realN};
   const acc=c/n; return {pct:estPercentile(acc),acc,n};
 }
 // Rough, clearly-unofficial mapping from accuracy to an AFOQT-style percentile.
@@ -3067,7 +3118,7 @@ const WRONG_META={ wk:["📇","단어"],va:["🔗","유추"],rc:["📖","독해"
   ar:["➗","산수"],mk:["📐","수학"],ps:["🔬","과학"],av:["🛩️","항공"] };
 const WRONG_ORDER=["wk","va","rc","ar","mk","ps","av"];
 function renderExamSetup(){
-  exam=null; stopExamTimer();
+  stopExamTimer(); examReleaseWake(); exam=null;   // 순서 중요: exam=null 먼저 하면 인터벌이 영영 안 죽는다
   $("#examSetup").classList.remove("hidden"); $("#examRun").classList.add("hidden"); $("#examResult").classList.add("hidden");
   $$("#examSetup .exam-preset").forEach(btn=>{
     let k=btn.dataset.exam;
@@ -3162,6 +3213,7 @@ function renderSecPicker(){
 function startPickedExam(){
   const specs=PICK_ORDER.filter(([c])=>pickSel.has(c));
   if(!specs.length) return;
+  if(!confirmDropExamSnap()) return;
   const name=specs.length===1 ? `${SEC_KO[specs[0][0]]} 모의고사`
     : `선택 모의고사 (${specs.map(([c])=>SEC_KO[c]||c).join("·")})`;
   const p=composeMock(name, specs, "직접 선택");
@@ -3177,6 +3229,7 @@ function startPickedExam(){
   startExamTimer(); renderExamQ();
 }
 function startExam(key,opts){
+  if(!confirmDropExamSnap()) return;
   if(key==="afoqt"&&pilotPerfect()) key="afoqtCore"; // 시각과목은 외부 앱에서 — 코어만 응시
   const p=EXAM_PRESETS[key]; if(!p) return;
   const items=p.build();
@@ -3184,10 +3237,12 @@ function startExam(key,opts){
   const practice=!!(opts&&opts.practice);
   const secs=practice ? Math.round(p.secs*2.2) : p.secs;
   exam={key,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
-        secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
+        secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
+        practice:practice||undefined};
   // 실전 AFOQT처럼 서브테스트마다 자기 시계를 준다(전체 통합 타이머 대신).
   // 시간이 끝난 섹션은 닫히고 다음 섹션으로 — 이전 섹션으로 되돌아갈 수 없다.
-  if(!practice && p.specs && p.specs.length>1) buildExamSections(exam);
+  // (기출 mock처럼 specs가 없어도 문항이 다과목이면 섹션 타이머를 붙인다)
+  if(!practice && new Set(items.map(it=>it.section)).size>1) buildExamSections(exam);
   // Activate the exam view directly — do NOT call go("exam") here, since that
   // re-runs renderExamSetup() and would wipe the exam we just built.
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
@@ -3218,6 +3273,7 @@ function advanceExamSection(auto){
   const s=e.sections[e.secIdx];
   if(!auto){ const un=e.answers.slice(s.from,s.to+1).filter(a=>a==null).length;
     if(un && !confirm(`이 섹션에서 ${un}문제를 안 풀었어요.\n다음 섹션으로 넘어가면 되돌아올 수 없어요. 계속할까요?`)) return; }
+  s.leftAtDone=Math.max(0,s.left); s.autoOut=!!auto;   // 결과 화면용: 실제 남긴 시간·시간초과 여부 보존
   s.left=0; s.done=true;
   e.times=e.times||new Array(e.total).fill(0);
   if(e._openIdx!=null&&e._openAt){ e.times[e._openIdx]+=Date.now()-e._openAt; e._openIdx=null; }
@@ -3230,7 +3286,7 @@ function advanceExamSection(auto){
   window.scrollTo(0,0); renderExamQ();
 }
 function startExamTimer(){ stopExamTimer(); updateTimerUI();
-  examAcquireWake(); saveExamSnap();               // 중단 복구용 첫 스냅샷 + 화면 꺼짐 방지
+  examAcquireWake(); saveExamStatic(); saveExamSnap();   // 중단 복구용 스냅샷(정적 1회+동적) + 화면 꺼짐 방지
   exam.timerId=setInterval(()=>{ if(!exam) return stopExamTimer();
     const s=curExamSec();
     if(s){ s.left--; updateTimerUI(); if(s.left<=0) advanceExamSection(true); }
@@ -3241,31 +3297,61 @@ function stopExamTimer(){ if(exam&&exam.timerId){ clearInterval(exam.timerId); e
 /* ---- 시험 중단 복구 + 화면 꺼짐 방지 ----
    진행 중 시험을 로컬에만 스냅샷(동기화 X — 문항 전체 포함이라 크다). 앱이 죽거나
    화면이 꺼져도 모의고사 화면의 "이어서 풀기"로 그 자리부터 재개된다. */
-const EXAM_SAVE_KEY="afoqt_exam_save_v1";
+const EXAM_SAVE_KEY="afoqt_exam_save_v1";        // 정적부: 문항 전체 (시험 시작 시 1회만 기록 — 크다)
+const EXAM_SAVE_DYN=EXAM_SAVE_KEY+"_d";           // 동적부: 답·위치·남은시간 (답할 때마다 — 작다)
 let examWake=null;
-async function examAcquireWake(){ try{ if("wakeLock" in navigator && !examWake){ examWake=await navigator.wakeLock.request("screen");
-  examWake.addEventListener&&examWake.addEventListener("release",()=>{ examWake=null; }); } }catch(e){} }
+async function examAcquireWake(){ try{ if("wakeLock" in navigator && !examWake){ const wl=await navigator.wakeLock.request("screen");
+  // 요청이 오래 걸려 그 사이 시험이 끝났으면 즉시 반납 (release 이후 도착하는 lock 누수 방지)
+  if(!exam||exam.submitted){ try{ wl.release&&wl.release(); }catch(e2){} return; }
+  examWake=wl; examWake.addEventListener&&examWake.addEventListener("release",()=>{ examWake=null; }); } }catch(e){} }
 function examReleaseWake(){ try{ examWake&&examWake.release&&examWake.release(); }catch(e){} examWake=null; }
+function saveExamStatic(){
+  const e=exam; if(!e||e.submitted) return;
+  try{
+    const snap={key:e.key,name:e.name,items:e.items,total:e.total,learn:!!e.learn,
+      practice:!!e.practice,startSecs:e.startSecs,savedAt:Date.now()};
+    if(e.sections) snap.sections=e.sections.map(s=>({code:s.code,from:s.from,to:s.to,secs:s.secs}));
+    localStorage.setItem(EXAM_SAVE_KEY,JSON.stringify(snap));
+  }catch(err){ clearExamSnap(); }   // quota 초과 등 — 옛 스냅샷이 남아 엉뚱한 시험이 복원되는 것 방지
+}
 function saveExamSnap(){
   const e=exam; if(!e||e.submitted) return;
   try{
-    const snap={key:e.key,name:e.name,items:e.items,answers:e.answers,idx:e.idx,
-      secsLeft:e.secsLeft,startSecs:e.startSecs,total:e.total,learn:!!e.learn,
-      times:e.times||null,savedAt:Date.now()};
-    if(e.sections){ snap.sections=e.sections.map(s=>({code:s.code,from:s.from,to:s.to,secs:s.secs,left:s.left,done:!!s.done})); snap.secIdx=e.secIdx; }
-    localStorage.setItem(EXAM_SAVE_KEY,JSON.stringify(snap));
-  }catch(err){}
+    const dyn={answers:e.answers,idx:e.idx,secsLeft:e.secsLeft,times:e.times||null,savedAt:Date.now()};
+    if(e.sections){ dyn.secIdx=e.secIdx;
+      dyn.secDyn=e.sections.map(s=>({left:s.left,done:!!s.done,leftAtDone:s.leftAtDone,autoOut:!!s.autoOut})); }
+    localStorage.setItem(EXAM_SAVE_DYN,JSON.stringify(dyn));
+  }catch(err){ clearExamSnap(); }
 }
-function clearExamSnap(){ try{ localStorage.removeItem(EXAM_SAVE_KEY); }catch(e){} }
-function loadExamSnap(){ try{ const s=JSON.parse(localStorage.getItem(EXAM_SAVE_KEY)||"null");
-  return (s&&s.items&&s.items.length&&s.answers)?s:null; }catch(e){ return null; } }
+function clearExamSnap(){ try{ localStorage.removeItem(EXAM_SAVE_KEY); localStorage.removeItem(EXAM_SAVE_DYN); }catch(e){} }
+function loadExamSnap(){
+  try{
+    const st=JSON.parse(localStorage.getItem(EXAM_SAVE_KEY)||"null");
+    const dyn=JSON.parse(localStorage.getItem(EXAM_SAVE_DYN)||"null");
+    if(!(st&&st.items&&st.items.length&&dyn&&dyn.answers)) return null;
+    if(Date.now()-(dyn.savedAt||0)>48*3600*1000) return null;   // 이틀 지난 시험은 만료
+    return {...st,...dyn};
+  }catch(e){ return null; }
+}
+// 새 시험 시작이 하다 만 시험(답 1개 이상)을 지우게 될 때는 물어본다
+function confirmDropExamSnap(){
+  const s=loadExamSnap(); if(!s) return true;
+  const done=(s.answers||[]).filter(a=>a!=null).length;
+  if(!done) return true;
+  return confirm(`⏸ 하다 만 시험이 있어요 — "${s.name||"모의고사"}" ${done}/${s.total}문항.\n새 시험을 시작하면 사라져요. 계속할까요?`);
+}
 function resumeExamSnap(){
-  const s=loadExamSnap(); if(!s) return;
+  const s=loadExamSnap(); if(!s){ toast("이어할 시험이 없어요."); renderExamSetup(); return; }
   exam={key:s.key,name:s.name,items:s.items,idx:s.idx||0,answers:s.answers,
     secsLeft:s.secsLeft,startSecs:s.startSecs,total:s.total,submitted:false,timerId:null,
     times:s.times||undefined};
   if(s.learn) exam.learn=true;
-  if(s.sections){ exam.sections=s.sections; exam.secIdx=s.secIdx||0; }
+  if(s.practice) exam.practice=true;
+  if(s.sections){
+    exam.sections=s.sections.map((b,i)=>{ const d=(s.secDyn||[])[i]||{};
+      return {...b,left:d.left!=null?d.left:b.secs,done:!!d.done,leftAtDone:d.leftAtDone,autoOut:!!d.autoOut}; });
+    exam.secIdx=s.secIdx||0;
+  }
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
@@ -3392,7 +3478,8 @@ function recordResult(it,ok){
     if(ok) delete W.va[it.anaId]; else W.va[it.anaId]=(W.va[it.anaId]||0)+1;
     bump(K.vaRel, it.relation||"기타");
     const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok)v.correct=(v.correct||0)+1; else v.wrong=(v.wrong||0)+1; setVA(it.anaId,v);
-  } else if(it.section==="RC"&&it.passageId!=null){
+  } else if(it.section==="RC"&&it.passageId!=null&&READING.some(p=>p.id===Number(it.passageId))){
+    // 기출(mock) 지문은 READING 풀에 없어 오답노트에 넣어도 재출제 불가 — 앱 풀 지문만 기록
     const key=it.passageId+":"+(it.qIdx||0);
     if(ok) delete W.rc[key]; else W.rc[key]=(W.rc[key]||0)+1;
     bump(K.rcType, it.qType||"detail");
@@ -3415,6 +3502,7 @@ function startRetest(kind){
   const ordered = WRONG_ORDER.filter(k=>list.includes(k));
   let items = ordered.flatMap(k=>WRONG_BUILD[k]());
   if(items.length<1){ toast("오답이 없어요 👍"); return; }
+  if(!confirmDropExamSnap()) return;
   items=items.slice(0,60);
   const name = ordered.length===1 ? `${WRONG_META[ordered[0]][1]} 오답 재시험`
     : ordered.length<WRONG_ORDER.length ? `오답 재시험 (${ordered.map(k=>WRONG_META[k][1]).join("·")})`
@@ -3422,6 +3510,7 @@ function startRetest(kind){
   const secs=Math.max(120, items.length*25);
   exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
+  if(ordered.length>1) buildExamSections(exam);   // 주석대로: 다과목이면 과목별 타이머
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
@@ -3592,14 +3681,18 @@ function renderCheatsheet(){
     <details class="cs-sec"><summary>✈️ 항공 핵심 암기 ${CS_AV.length}줄</summary>${CS_AV.map(x=>`<div class="cs-f">${fmtMath(x)}</div>`).join("")}</details>
     <details class="cs-sec"><summary>📇 최빈출 어근 TOP ${roots.length}</summary><table class="cs-table">${rootRows}</table>
       <div class="guide-src">모르는 단어가 나오면 어근으로 뜻을 추론 — 어근 코치에서 훈련한 그대로!</div></details>`;
-  // 체크리스트 토글 + 바로가기
+  // 체크리스트 토글 + 바로가기 — 전체 재렌더 대신 in-place 갱신 (다른 펼친 섹션이 접히지 않게)
   $$("#csBody [data-eve]").forEach(b=>b.onclick=ev=>{
     const g=ev.target.closest("[data-evego]");
     if(g){ ev.stopPropagation();
       if(g.dataset.evego==="retest") go("exam");
       else startStudySet(wrongWordIds(),"오답 단어");
       return; }
-    const k=b.dataset.eve; ec.done[k]=!ec.done[k]; saveLocal(); renderCheatsheet(); });
+    const k=b.dataset.eve; ec.done[k]=!ec.done[k]; saveLocal();
+    b.classList.toggle("on",!!ec.done[k]);
+    const ck=b.querySelector(".ck"); if(ck) ck.textContent=ec.done[k]?"✅":"⬜";
+    const sum=$("#csEve summary"); if(sum){ const n=EVE_CHK.filter(([kk])=>ec.done[kk]).length;
+      sum.innerHTML=`🌙 시험 전날 체크리스트 ${n}/${EVE_CHK.length}${dd!=null?` · <b>D-${Math.max(0,dd)}</b>`:""}`; } });
 }
 
 /* ============================================================
@@ -3609,6 +3702,7 @@ function renderCheatsheet(){
 function startDrill(items,name,learn=true){
   items=(items||[]).slice(0,20);
   if(items.length<3){ toast("이 유형은 문제가 부족해요."); return; }
+  if(!confirmDropExamSnap()) return;
   // 학습 모드는 넉넉하게(문항당 5분) — 해설 읽는 동안 자동 제출 안 되게.
   const per=learn?300:1.5, secs=Math.max(120, Math.round(items.reduce((s,it)=>s+(SECRATE[it.section]||30)*per,0)));
   exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),learn,
@@ -3684,11 +3778,13 @@ function submitExam(auto){
     g.n++; g.ms+=ms; if(ms>tgt*1.3) g.slow++; });
   const total=counted.length, pct=Math.round(got/total*100);
   const used = e.sections
-    ? e.sections.reduce((a,s)=>a+(s.secs-Math.max(0,s.left)),0)   // 섹션별 실제 소요 합
+    ? e.sections.reduce((a,s)=>a+(s.secs-Math.max(0,s.leftAtDone!=null?s.leftAtDone:s.left)),0)   // 섹션별 실제 소요 합 (수동 제출은 남긴 시간 반영)
     : (e.startSecs||(EXAM_PRESETS[e.key]?EXAM_PRESETS[e.key].secs:0))-Math.max(0,e.secsLeft);
   bumpDay({studied:total,correct:got});
-  if(e.key){ const prev=state.exams[e.key]||{best:0,bestTotal:total};
-    state.exams[e.key]={best:Math.max(prev.best||0,got),bestTotal:total,last:got,lastTotal:total,date:todayStr()}; }
+  if(e.key&&!e.practice){ const prev=state.exams[e.key]||{};
+    const newBest=got>(prev.best||0);   // bestTotal은 그 최고점을 낸 회차의 분모를 유지 ("최고 100/25" 방지)
+    state.exams[e.key]={best:newBest?got:(prev.best||0),bestTotal:newBest?total:(prev.bestTotal||total),
+      last:got,lastTotal:total,date:todayStr()}; }
   // 문항별 상세 — 나중에 해설까지 복기할 수 있도록. 지문 본문은 passageId로 복원(용량 절약).
   const detail=counted.map(i=>{ const it=e.items[i]; return {s:it.section,q:it.prompt||"",t:it.stem||"",o:(it.options||[]).slice(),
     u:e.answers[i],a:it.answer,x:it.explain||"",p:it.passageId!=null?it.passageId:null,pt:it.passageTitle||"",
@@ -3696,6 +3792,7 @@ function submitExam(auto){
   state.examHist.push({key:e.key||"retest",name:(EXAM_PRESETS[e.key]&&EXAM_PRESETS[e.key].name)||e.name||"모의고사",
     date:todayStr(),got,total,acc:got/total,pctile:estPercentile(got/total),ts:Date.now(),
     secs:used,bySec:JSON.parse(JSON.stringify(bySec)),items:detail,
+    practice:e.practice?1:undefined,
     skipped:skipped.length?skipped.slice():undefined});
   if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
   pruneExamDetail();
@@ -3729,7 +3826,8 @@ function submitExam(auto){
   }
   if(e.sections){
     // 섹션별로 얼마나 썼는지 + 시간 안에 못 끝낸 섹션 표시
-    const lines=e.sections.map(s=>{ const u=s.secs-Math.max(0,s.left), out=s.left<=0;
+    const lines=e.sections.map(s=>{ const left=s.leftAtDone!=null?s.leftAtDone:Math.max(0,s.left);
+      const u=s.secs-left, out=s.autoOut||left<=0;   // ⏰는 진짜 시간초과일 때만
       return `${SEC_KO[s.code]||s.code} ${fmtTime(u)}/${fmtTime(s.secs)}${out?"⏰":""}`; }).join(" · ");
     $("#examTimeUsed").innerHTML=`소요 시간 ${fmtTime(used)}<br><span style="font-size:11.5px">${esc(lines)}</span>`;
   } else $("#examTimeUsed").textContent=`소요 시간 ${fmtTime(used)}${e.secsLeft<=0?" · ⏰ 시간 종료":""}`;
@@ -3993,7 +4091,8 @@ function renderExamLog(){
   $("#elWrong").onclick=()=>{ apply(true); $("#elWrong").className="btn primary sm"; $("#elAll").className="btn ghost sm"; };
 }
 function renderExamTrend(){
-  const h=state.examHist||[]; const box=$("#examTrend");
+  // 3문항짜리 드릴·연습(practice) 회차는 추이·최고 기록에서 제외 — bigExams와 같은 기준
+  const h=(state.examHist||[]).filter(x=>x&&(x.total||0)>=10&&!x.practice); const box=$("#examTrend");
   if(h.length<1){ box.innerHTML=`<div class="center muted" style="padding:8px">아직 기록이 없어요. 모의고사를 보면 정답률 추이가 그려집니다.</div>`; return; }
   const data=h.slice(-15), W=300,H=120,pad=22;
   const xs=(i)=>pad+(data.length<=1?W-2*pad:(i/(data.length-1))*(W-2*pad));
@@ -4157,7 +4256,10 @@ function wire(){
   $("#examSubmit").onclick=()=>{ if(exam&&exam.sections&&exam.secIdx<exam.sections.length-1) advanceExamSection(false);
     else submitExam(false); };
   $("#examReviewBtn").onclick=()=>{ renderExamReview(); $("#examReviewBtn").classList.add("hidden"); $("#examReview").scrollIntoView({behavior:"smooth"}); };
-  $("#examRetry").onclick=()=>{ if(exam&&exam.key) startExam(exam.key); else go("exam"); };
+  $("#examRetry").onclick=()=>{ if(exam&&exam.key){
+      if(String(exam.key).startsWith("mock_")&&!EXAM_PRESETS[exam.key]){ toast("🔒 기출 모의고사는 잠금 해제 후 다시 응시할 수 있어요."); go("exam"); return; }
+      startExam(exam.key);
+    } else go("exam"); };
   $("#retestAll").onclick=()=>startRetest("all");
   $("#examDoneHome").onclick=()=>go("home");
   $("#optHighFirst").onchange=e=>{ state.settings.high_first=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
@@ -4170,11 +4272,17 @@ function wire(){
   $("#studyBack").onclick=()=>{ session=null; go("vocab"); }; $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=startStudy;
   $("#doneQuiz").onclick=()=>{ if(poolFor("today").length<4){ toast("오늘 학습한 단어가 4개 이상이면 퀴즈를 볼 수 있어요"); return; } session=null; startQuizScope("today"); };
   // quiz
-  $("#quizBack").onclick=()=>go("vocab"); $("#quizGo").onclick=startQuiz;
+  $("#quizBack").onclick=()=>{ quiz=null;   // 안 지우면 sessionActive()가 영구 true — 홈 갱신·SW 업데이트가 멈춘다
+    $("#quizStart").classList.remove("hidden"); $("#quizDone").classList.add("hidden"); $("#quizArea").innerHTML="";
+    go("vocab"); };
+  $("#quizGo").onclick=startQuiz;
   $("#quizRetry").onclick=()=>{ $("#quizDone").classList.add("hidden"); $("#quizStart").classList.remove("hidden"); $("#quizArea").innerHTML=""; };
   $("#quizHomeBtn").onclick=()=>go("home");
   $("#vkConfirm").onclick=()=>go("confirm");
-  $("#confirmBack").onclick=()=>go("vocab"); $("#confirmGo").onclick=startConfirm;
+  $("#confirmBack").onclick=()=>{ confirmQuiz=null;
+    $("#confirmStart").classList.remove("hidden"); $("#confirmDone").classList.add("hidden"); $("#confirmArea").innerHTML="";
+    go("vocab"); };
+  $("#confirmGo").onclick=startConfirm;
   $("#sweepGo")&&($("#sweepGo").onclick=startSweep);
   $("#confirmRetryBtn").onclick=()=>{
     if(confirmMode==="sweep"&&sweepPool().length){ startSweep(); return; } // 스윕 이어서
@@ -4216,10 +4324,18 @@ function wire(){
   document.addEventListener("visibilitychange",()=>{
     // Backgrounding/lock fires this while the page is still alive — flush the
     // pending server push here so mobile "study then close" doesn't lose progress.
-    if(document.visibilityState==="hidden"){ if(exam&&!exam.submitted) saveExamSnap(); saveNow(); flushPush(); return; }
+    if(document.visibilityState==="hidden"){
+      if(exam&&!exam.submitted){
+        // 열린 문항의 시간 구간을 닫는다 — 자리 비운 10분이 그 문항 속도 기록으로 들어가지 않게
+        exam.times=exam.times||new Array(exam.total).fill(0);
+        if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openAt=null; }
+        saveExamSnap();
+      }
+      saveNow(); flushPush(); return; }
     // Wake Lock is dropped when the tab is hidden — re-acquire it on return if auto-play is running.
     if(ap && ap.playing) apAcquireWake();
-    if(exam && !exam.submitted) examAcquireWake();   // 시험 복귀 시 화면 꺼짐 방지 재획득
+    if(exam && !exam.submitted){ examAcquireWake();   // 시험 복귀: 화면 꺼짐 방지 재획득 + 스톱워치 재개
+      if(exam._openIdx!=null&&!exam._openAt) exam._openAt=Date.now(); }
     if(!sessionActive()){ lastDay=todayStr(); softRender(); }
   });
   window.addEventListener("focus",()=>{ if(!sessionActive()) softRender(); });
