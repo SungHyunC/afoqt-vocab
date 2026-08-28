@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.109.0";
+const VERSION = "4.110.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1096,6 +1096,15 @@ function renderVocab(){
     if(b) b.textContent = (sv&&sv.scope==="모의고사 단어"&&sv.idx<sv.plan)
       ? `📕 모의고사 단어 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
       : `📕 모의고사 단어 플래시카드 — 실제 출제 확인된 ${n}개`; }
+  // 오답 단어 덱 — 개수/이어하기 표시, 0개면 비활성
+  { const b=$("#vkWrong"), sv=state.session, n=wrongWordIds().length;
+    if(b){
+      b.textContent = (sv&&sv.scope==="오답 단어"&&sv.idx<sv.plan)
+        ? `📛 오답 단어 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
+        : n>0 ? `📛 오답 단어 플래시카드 — 틀린 단어 ${n}개`
+              : `📛 오답 단어 플래시카드 — 아직 틀린 단어 없음`;
+      b.disabled = n===0 && !(sv&&sv.scope==="오답 단어"&&sv.idx<sv.plan);
+    } }
   $("#vkHigh").textContent=cnt.highLearned; $("#vkRemain").textContent=cnt.remaining;
   const cf=confirmPoolFirst().length, cr=confirmPoolRecheck().length;
   $("#vkConfirmSub").textContent = cr>0?`🔁 재확인 ${cr}개 대기 · 첫 확인 ${cf}개`:cf>0?`확인 대기 ${cf}개`:"확인할 단어 없음";
@@ -1403,6 +1412,8 @@ function renderQuiz(){ const q=quiz; if(q.idx>=q.items.length) return finishQuiz
   $$("#choices .choice").forEach(btn=>btn.onclick=()=>{ if(q.answered)return; q.answered=true; const ok=btn.textContent===correct;
     $$("#choices .choice").forEach(b=>{ b.disabled=true; if(b.textContent===correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
     if(ok) q.score+=10; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+      // 오답 노트에도 반영 — 시험(recordResult)과 동일하게 맞히면 지운다
+      if(ok) delete state.wrong.wk[id]; else state.wrong.wk[id]=(state.wrong.wk[id]||0)+1;
       { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
       renderHome();
     setTimeout(()=>{ q.idx++; renderQuiz(); }, ok?550:1100); });
@@ -1511,6 +1522,7 @@ function wordMatches(w){
   if(wordFilter==="starred"&&!c.starred) return false;
   if(wordFilter==="afoqt"&&!w.afoqtCommon) return false;
   if(wordFilter==="mock"&&!(w.mock&&w.mock.length)) return false;
+  if(wordFilter==="wrong"&&!state.wrong.wk[w.id]) return false;
   if(wordFilter==="high"&&tierOf(w)==="std") return false;
   if(wordFilter==="gre"&&w.source!=="gre-magoosh") return false;
   if(["new","learning","review","mastered"].includes(wordFilter)&&c.status!==wordFilter) return false;
@@ -2997,6 +3009,12 @@ function buildRC(n){
 // 반복 오답 우선: 많이 틀린 것부터(동률은 무작위) + 2회 이상이면 ❗표시
 function wrongSorted(bucket){ return shuffle(Object.keys(bucket)).sort((a,b)=>(bucket[b]||1)-(bucket[a]||1)); }
 function wrongTag(it,n){ if(n>=2) it.sub=(it.sub?it.sub+" · ":"")+`❗${n}회 틀림`; return it; }
+// 오답 단어 플래시카드 덱 — 시험·드릴·퀴즈에서 틀린 단어 id 목록 (많이 틀린 순, synonyms 없는 단어도 포함)
+function wrongWordIds(){
+  const b=state.wrong.wk;
+  return Object.keys(b).map(Number).filter(id=>WMAP.has(id))
+    .sort((x,y)=>(b[y]||1)-(b[x]||1));
+}
 function buildWrongWK(){
   const b=state.wrong.wk, out=[];
   for(const k of wrongSorted(b)){ const w=WMAP.get(+k); if(!w||!(w.synonyms&&w.synonyms.length)) continue;
@@ -4079,6 +4097,7 @@ function wire(){
   // words
   $("#wordsBack").onclick=()=>go("vocab"); $("#searchBox").oninput=e=>{ wordSearch=e.target.value.trim(); renderWords(); };
   $("#vkMock")&&($("#vkMock").onclick=()=>startStudySet(mockWordIds(),"모의고사 단어"));
+  $("#vkWrong")&&($("#vkWrong").onclick=()=>startStudySet(wrongWordIds(),"오답 단어"));
   // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
   window.addEventListener("scroll",pumpWords,true); window.addEventListener("resize",pumpWords);
   wireStudyKeys(); wireChoiceKeys();

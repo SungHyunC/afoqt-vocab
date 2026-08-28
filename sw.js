@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-109-0";  // 단어 실전 적합성 검증·티어 재조정
+const CACHE = "afoqt-v4-110-0";  // 오답 단어 플래시카드 덱
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
