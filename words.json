@@ -1404,7 +1404,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 45,
@@ -1825,7 +1825,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "BARRON2"
   ],
@@ -2107,7 +2107,7 @@
    "craven:valiant::cowardly:brave (antonym)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 67,
@@ -2178,7 +2178,7 @@
    "dauntless:timid::intrepid:fearful (antonym)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 70,
@@ -2197,7 +2197,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 71,
@@ -2249,7 +2249,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 73,
@@ -3630,7 +3630,7 @@
    "fledgling:experienced::novice:expert (degree)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 118,
@@ -3955,7 +3955,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 129,
@@ -4007,7 +4007,7 @@
    "ignoble:noble::dishonorable:honorable (antonym)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 131,
@@ -5052,7 +5052,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 164,
@@ -5603,7 +5603,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 181,
@@ -5622,7 +5622,7 @@
    "pacifist:war::teetotaler:alcohol (avoidance)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 182,
@@ -5681,7 +5681,7 @@
    "parsimony:generosity::stinginess:lavishness (antonym)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 185,
@@ -5752,7 +5752,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 188,
@@ -6024,7 +6024,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 197,
@@ -6709,7 +6709,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 219,
@@ -7769,7 +7769,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 256,
@@ -8022,7 +8022,7 @@
    "wrath:serenity::fury:calm (antonym)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 265,
@@ -8041,7 +8041,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 266,
@@ -8441,7 +8441,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 282,
@@ -8478,7 +8478,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 284,
@@ -8497,7 +8497,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 285,
@@ -8617,7 +8617,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 289,
@@ -8874,7 +8874,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "TRIVIUM1"
   ],
@@ -8938,7 +8938,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 301,
@@ -9033,7 +9033,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 305,
@@ -9071,7 +9071,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 307,
@@ -9183,7 +9183,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 311,
@@ -9270,7 +9270,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 315,
@@ -9424,7 +9424,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 320,
@@ -9766,7 +9766,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 331,
@@ -9785,7 +9785,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 332,
@@ -9936,7 +9936,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 337,
@@ -10229,7 +10229,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 346,
@@ -10248,7 +10248,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 347,
@@ -10558,7 +10558,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 358,
@@ -10837,7 +10837,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 370,
@@ -10856,7 +10856,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 371,
@@ -11191,7 +11191,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 382,
@@ -11383,7 +11383,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 388,
@@ -11625,7 +11625,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 396,
@@ -11740,7 +11740,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 400,
@@ -12028,7 +12028,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 411,
@@ -12260,7 +12260,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "BARRON1"
   ],
@@ -12366,7 +12366,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 422,
@@ -12451,7 +12451,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 425,
@@ -12917,7 +12917,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 441,
@@ -13549,7 +13549,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 467,
@@ -13732,7 +13732,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 475,
@@ -13770,7 +13770,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 477,
@@ -13789,7 +13789,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 478,
@@ -13839,7 +13839,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 480,
@@ -13858,7 +13858,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 481,
@@ -13896,7 +13896,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 483,
@@ -13934,7 +13934,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 485,
@@ -13987,7 +13987,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 487,
@@ -14044,7 +14044,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 490,
@@ -14098,7 +14098,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 492,
@@ -14174,7 +14174,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 496,
@@ -14295,7 +14295,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 501,
@@ -14420,7 +14420,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 507,
@@ -14508,7 +14508,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 511,
@@ -14581,7 +14581,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 514,
@@ -14733,7 +14733,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 521,
@@ -14861,7 +14861,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 527,
@@ -14899,7 +14899,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 529,
@@ -15047,7 +15047,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 536,
@@ -15442,7 +15442,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 553,
@@ -15461,7 +15461,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 554,
@@ -15529,7 +15529,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 557,
@@ -15713,7 +15713,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 565,
@@ -15732,7 +15732,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 566,
@@ -15985,7 +15985,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 577,
@@ -16142,7 +16142,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 584,
@@ -16234,7 +16234,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 588,
@@ -16399,7 +16399,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 594,
@@ -16609,7 +16609,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 602,
@@ -16697,7 +16697,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 606,
@@ -16716,7 +16716,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 607,
@@ -17026,7 +17026,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 619,
@@ -17080,7 +17080,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 621,
@@ -17134,7 +17134,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 623,
@@ -17229,7 +17229,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 628,
@@ -17285,7 +17285,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 630,
@@ -17304,7 +17304,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 631,
@@ -17323,7 +17323,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 632,
@@ -17361,7 +17361,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 634,
@@ -17465,7 +17465,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 638,
@@ -17814,7 +17814,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 652,
@@ -17833,7 +17833,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 653,
@@ -17955,7 +17955,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 659,
@@ -17974,7 +17974,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 660,
@@ -18024,7 +18024,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 662,
@@ -18043,7 +18043,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 663,
@@ -18149,7 +18149,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 668,
@@ -18483,7 +18483,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 683,
@@ -18672,7 +18672,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 693,
@@ -18729,7 +18729,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 696,
@@ -18909,7 +18909,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 704,
@@ -18928,7 +18928,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 705,
@@ -18947,7 +18947,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 706,
@@ -19004,7 +19004,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 709,
@@ -19061,7 +19061,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 712,
@@ -19176,7 +19176,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 717,
@@ -19269,7 +19269,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 720,
@@ -19288,7 +19288,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "TRIVIUM1"
   ],
@@ -19383,7 +19383,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 724,
@@ -19402,7 +19402,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 725,
@@ -19640,7 +19640,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 733,
@@ -19744,7 +19744,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 737,
@@ -19833,7 +19833,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "TRIVIUM1"
   ],
@@ -19862,7 +19862,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 742,
@@ -19881,7 +19881,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 743,
@@ -19938,7 +19938,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 746,
@@ -20075,7 +20075,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 752,
@@ -20094,7 +20094,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 753,
@@ -20186,7 +20186,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 757,
@@ -20205,7 +20205,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 758,
@@ -20224,7 +20224,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 759,
@@ -20350,7 +20350,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 765,
@@ -20464,7 +20464,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 771,
@@ -20483,7 +20483,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "TRIVIUM1"
   ],
@@ -20539,7 +20539,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 774,
@@ -20558,7 +20558,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 775,
@@ -20608,7 +20608,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 777,
@@ -20734,7 +20734,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 782,
@@ -20990,7 +20990,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 794,
@@ -21040,7 +21040,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 796,
@@ -21078,7 +21078,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 798,
@@ -21150,7 +21150,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 801,
@@ -21169,7 +21169,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 802,
@@ -21280,7 +21280,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 806,
@@ -21409,7 +21409,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 812,
@@ -21428,7 +21428,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 813,
@@ -21601,7 +21601,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 820,
@@ -21709,7 +21709,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 824,
@@ -21728,7 +21728,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 825,
@@ -21804,7 +21804,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 829,
@@ -21980,7 +21980,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 837,
@@ -22185,7 +22185,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 846,
@@ -22204,7 +22204,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "TRIVIUM1"
   ],
@@ -22395,7 +22395,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 854,
@@ -22414,7 +22414,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 855,
@@ -22432,7 +22432,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 856,
@@ -22527,7 +22527,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 861,
@@ -22691,7 +22691,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 869,
@@ -22740,7 +22740,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 871,
@@ -22950,7 +22950,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 881,
@@ -22969,7 +22969,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 882,
@@ -23039,7 +23039,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 885,
@@ -23058,7 +23058,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 886,
@@ -23077,7 +23077,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 887,
@@ -23134,7 +23134,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 890,
@@ -23172,7 +23172,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 892,
@@ -23256,7 +23256,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 895,
@@ -23275,7 +23275,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 896,
@@ -23313,7 +23313,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "BARRON1"
   ],
@@ -23535,7 +23535,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 907,
@@ -24143,7 +24143,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 932,
@@ -24251,7 +24251,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 938,
@@ -24482,7 +24482,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 950,
@@ -24969,7 +24969,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 977,
@@ -26000,7 +26000,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1028,
@@ -26296,7 +26296,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1041,
@@ -26556,7 +26556,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1053,
@@ -26661,7 +26661,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1058,
@@ -26697,7 +26697,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1060,
@@ -26749,7 +26749,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1062,
@@ -26857,7 +26857,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1068,
@@ -27162,7 +27162,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1084,
@@ -27288,7 +27288,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1091,
@@ -27372,7 +27372,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1095,
@@ -27462,7 +27462,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1100,
@@ -27480,7 +27480,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1101,
@@ -27650,7 +27650,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1110,
@@ -27913,7 +27913,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1124,
@@ -28261,7 +28261,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1141,
@@ -28279,7 +28279,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1142,
@@ -28473,7 +28473,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1151,
@@ -28604,7 +28604,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1157,
@@ -28781,7 +28781,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1166,
@@ -28853,7 +28853,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1170,
@@ -28983,7 +28983,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1175,
@@ -29109,7 +29109,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1182,
@@ -29175,7 +29175,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1185,
@@ -29211,7 +29211,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1187,
@@ -29229,7 +29229,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1188,
@@ -29265,7 +29265,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1190,
@@ -29319,7 +29319,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1193,
@@ -29367,7 +29367,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1195,
@@ -29385,7 +29385,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1196,
@@ -29455,7 +29455,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1199,
@@ -29473,7 +29473,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1200,
@@ -29527,7 +29527,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1203,
@@ -29863,7 +29863,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1219,
@@ -29881,7 +29881,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1220,
@@ -29917,7 +29917,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1222,
@@ -29987,7 +29987,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1225,
@@ -30041,7 +30041,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1228,
@@ -30077,7 +30077,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1230,
@@ -30095,7 +30095,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1231,
@@ -30131,7 +30131,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1233,
@@ -30252,7 +30252,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1238,
@@ -30407,7 +30407,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1246,
@@ -30488,7 +30488,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1249,
@@ -30671,7 +30671,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1257,
@@ -30689,7 +30689,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1258,
@@ -30758,7 +30758,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1261,
@@ -30805,7 +30805,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1263,
@@ -30875,7 +30875,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1266,
@@ -30993,7 +30993,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1271,
@@ -31127,7 +31127,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1278,
@@ -31145,7 +31145,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1279,
@@ -31200,7 +31200,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1282,
@@ -31304,7 +31304,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1287,
@@ -31340,7 +31340,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1289,
@@ -31394,7 +31394,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1292,
@@ -31646,7 +31646,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1306,
@@ -31700,7 +31700,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1309,
@@ -31927,7 +31927,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1319,
@@ -32032,7 +32032,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1324,
@@ -32050,7 +32050,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1325,
@@ -32104,7 +32104,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1328,
@@ -32140,7 +32140,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1330,
@@ -32212,7 +32212,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1334,
@@ -32230,7 +32230,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1335,
@@ -32298,7 +32298,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1338,
@@ -32424,7 +32424,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1345,
@@ -32478,7 +32478,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1348,
@@ -33041,7 +33041,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1377,
@@ -33095,7 +33095,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1380,
@@ -33113,7 +33113,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1381,
@@ -33149,7 +33149,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1383,
@@ -33329,7 +33329,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1393,
@@ -33467,7 +33467,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1400,
@@ -33485,7 +33485,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1401,
@@ -33601,7 +33601,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1407,
@@ -33619,7 +33619,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1408,
@@ -33637,7 +33637,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1409,
@@ -33763,7 +33763,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1416,
@@ -34004,7 +34004,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1428,
@@ -34145,7 +34145,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1435,
@@ -34234,7 +34234,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "BARRON1"
   ],
@@ -34336,7 +34336,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1444,
@@ -34514,7 +34514,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1453,
@@ -34550,7 +34550,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1455,
@@ -34622,7 +34622,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1459,
@@ -34640,7 +34640,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1460,
@@ -34832,7 +34832,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1469,
@@ -34868,7 +34868,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1471,
@@ -35210,7 +35210,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1488,
@@ -35466,7 +35466,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1500,
@@ -35648,7 +35648,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1509,
@@ -35702,7 +35702,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1512,
@@ -35894,7 +35894,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1522,
@@ -35942,7 +35942,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1524,
@@ -35960,7 +35960,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1525,
@@ -36192,7 +36192,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1537,
@@ -36210,7 +36210,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1538,
@@ -36632,7 +36632,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1558,
@@ -36722,7 +36722,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1563,
@@ -36758,7 +36758,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1565,
@@ -36863,7 +36863,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1570,
@@ -36935,7 +36935,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1574,
@@ -36953,7 +36953,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1575,
@@ -37007,7 +37007,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1578,
@@ -37042,7 +37042,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1580,
@@ -37096,7 +37096,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1583,
@@ -37114,7 +37114,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1584,
@@ -37150,7 +37150,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1586,
@@ -37204,7 +37204,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1589,
@@ -37222,7 +37222,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1590,
@@ -37276,7 +37276,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1593,
@@ -37566,7 +37566,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1607,
@@ -37674,7 +37674,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1613,
@@ -37692,7 +37692,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1614,
@@ -37728,7 +37728,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1616,
@@ -37746,7 +37746,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1617,
@@ -37764,7 +37764,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1618,
@@ -37782,7 +37782,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1619,
@@ -37890,7 +37890,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1625,
@@ -38342,7 +38342,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1645,
@@ -38508,7 +38508,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1652,
@@ -38598,7 +38598,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1657,
@@ -38616,7 +38616,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1658,
@@ -38807,7 +38807,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1667,
@@ -38861,7 +38861,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1670,
@@ -38879,7 +38879,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1671,
@@ -38951,7 +38951,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1675,
@@ -38969,7 +38969,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1676,
@@ -39076,7 +39076,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1682,
@@ -39149,7 +39149,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1686,
@@ -39185,7 +39185,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1688,
@@ -39560,7 +39560,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1708,
@@ -39776,7 +39776,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1717,
@@ -39894,7 +39894,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1722,
@@ -39930,7 +39930,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1724,
@@ -39948,7 +39948,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1725,
@@ -40002,7 +40002,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1728,
@@ -40020,7 +40020,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1729,
@@ -40070,7 +40070,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1731,
@@ -40914,7 +40914,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1779,
@@ -40932,7 +40932,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1780,
@@ -41109,7 +41109,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1787,
@@ -41450,7 +41450,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1805,
@@ -41705,7 +41705,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1817,
@@ -42097,7 +42097,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1835,
@@ -42169,7 +42169,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1838,
@@ -42188,7 +42188,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1839,
@@ -42356,7 +42356,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1846,
@@ -42375,7 +42375,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1847,
@@ -42394,7 +42394,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1848,
@@ -42604,7 +42604,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1859,
@@ -42693,7 +42693,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1862,
@@ -42731,7 +42731,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1864,
@@ -43082,7 +43082,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1879,
@@ -43375,7 +43375,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1892,
@@ -43394,7 +43394,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1893,
@@ -43413,7 +43413,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1894,
@@ -44096,7 +44096,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1927,
@@ -44115,7 +44115,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1928,
@@ -44305,7 +44305,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1938,
@@ -44400,7 +44400,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1943,
@@ -44457,7 +44457,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1946,
@@ -44476,7 +44476,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1947,
@@ -44495,7 +44495,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1948,
@@ -44514,7 +44514,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1949,
@@ -44628,7 +44628,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1955,
@@ -44666,7 +44666,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1957,
@@ -44799,7 +44799,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1964,
@@ -44818,7 +44818,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1965,
@@ -44964,7 +44964,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1971,
@@ -45123,7 +45123,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1978,
@@ -45180,7 +45180,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1981,
@@ -45418,7 +45418,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1993,
@@ -45475,7 +45475,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 1996,
@@ -45908,7 +45908,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2018,
@@ -46021,7 +46021,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2024,
@@ -46078,7 +46078,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "BARRON2"
   ],
@@ -46187,7 +46187,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2032,
@@ -46225,7 +46225,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2034,
@@ -46381,7 +46381,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2041,
@@ -46953,7 +46953,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2070,
@@ -47124,7 +47124,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2077,
@@ -47162,7 +47162,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2079,
@@ -47257,7 +47257,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2084,
@@ -47364,7 +47364,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2089,
@@ -47534,7 +47534,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2098,
@@ -47818,7 +47818,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2113,
@@ -47932,7 +47932,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2118,
@@ -47951,7 +47951,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2119,
@@ -47989,7 +47989,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2121,
@@ -48027,7 +48027,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2123,
@@ -48552,7 +48552,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2150,
@@ -48590,7 +48590,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2152,
@@ -49322,7 +49322,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2190,
@@ -49398,7 +49398,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2194,
@@ -49417,7 +49417,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2195,
@@ -49512,7 +49512,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2200,
@@ -50101,7 +50101,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2231,
@@ -50269,7 +50269,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2239,
@@ -51037,7 +51037,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2276,
@@ -51055,7 +51055,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2277,
@@ -51485,7 +51485,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2299,
@@ -51663,7 +51663,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2309,
@@ -51807,7 +51807,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2317,
@@ -51825,7 +51825,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2318,
@@ -51895,7 +51895,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2321,
@@ -51967,7 +51967,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2325,
@@ -51985,7 +51985,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2326,
@@ -52003,7 +52003,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2327,
@@ -52091,7 +52091,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2331,
@@ -52283,7 +52283,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2341,
@@ -52390,7 +52390,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2347,
@@ -53045,7 +53045,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2382,
@@ -53275,7 +53275,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2393,
@@ -53887,7 +53887,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2427,
@@ -55806,7 +55806,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2526,
@@ -55955,7 +55955,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2533,
@@ -56107,7 +56107,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2541,
@@ -56257,7 +56257,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2547,
@@ -56390,7 +56390,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2554,
@@ -56409,7 +56409,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2555,
@@ -56493,7 +56493,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2558,
@@ -56566,7 +56566,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2561,
@@ -56585,7 +56585,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2562,
@@ -56623,7 +56623,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2564,
@@ -56746,7 +56746,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2569,
@@ -57455,7 +57455,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2605,
@@ -58025,7 +58025,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2635,
@@ -59458,7 +59458,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2710,
@@ -59477,7 +59477,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2711,
@@ -59667,7 +59667,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2721,
@@ -59762,7 +59762,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2726,
@@ -59781,7 +59781,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2727,
@@ -59951,7 +59951,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2736,
@@ -60027,7 +60027,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2740,
@@ -60293,7 +60293,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2754,
@@ -60369,7 +60369,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2758,
@@ -60480,7 +60480,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2764,
@@ -60567,7 +60567,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2768,
@@ -60586,7 +60586,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2769,
@@ -60663,7 +60663,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2773,
@@ -60717,7 +60717,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2775,
@@ -60755,7 +60755,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2777,
@@ -60774,7 +60774,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2778,
@@ -60850,7 +60850,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2782,
@@ -60907,7 +60907,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2785,
@@ -60926,7 +60926,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2786,
@@ -60945,7 +60945,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2787,
@@ -60964,7 +60964,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2788,
@@ -61033,7 +61033,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2791,
@@ -61090,7 +61090,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2794,
@@ -61375,7 +61375,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std",
+  "tier": "mid",
   "mock": [
    "BARRON2"
   ],
@@ -61484,7 +61484,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2814,
@@ -61598,7 +61598,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2820,
@@ -62552,7 +62552,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2867,
@@ -62949,7 +62949,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2888,
@@ -63131,7 +63131,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2897,
@@ -63724,7 +63724,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2926,
@@ -63762,7 +63762,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2928,
@@ -63781,7 +63781,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2929,
@@ -63963,7 +63963,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2938,
@@ -64423,7 +64423,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2961,
@@ -64480,7 +64480,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2964,
@@ -64675,7 +64675,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2973,
@@ -64747,7 +64747,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2976,
@@ -64880,7 +64880,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2983,
@@ -65032,7 +65032,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2991,
@@ -65138,7 +65138,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 2996,
@@ -66577,7 +66577,7 @@
    "overt:public::covert:secret (visibility)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 3066,
@@ -66949,7 +66949,7 @@
    "canny:strategist::clumsy:novice (quality:actor)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 3083,
@@ -67037,7 +67037,7 @@
    "debonair:diplomat::gruff:soldier (characteristic:role)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 3087,
@@ -67059,7 +67059,7 @@
    "decrepit:neglect::robust:maintenance (result of)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 3088,
@@ -67257,7 +67257,7 @@
    "capriciousness:leader::instability:unit (cause:effect)"
   ],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 3097,
@@ -67383,7 +67383,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67412,7 +67412,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67441,7 +67441,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67474,7 +67474,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67536,7 +67536,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67565,7 +67565,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67598,7 +67598,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67627,7 +67627,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67660,7 +67660,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67693,7 +67693,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67726,7 +67726,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67755,7 +67755,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67945,7 +67945,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -67974,7 +67974,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68003,7 +68003,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68065,7 +68065,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68098,7 +68098,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68131,7 +68131,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68164,7 +68164,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68391,7 +68391,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68445,7 +68445,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68507,7 +68507,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68565,7 +68565,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -68652,7 +68652,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -69466,7 +69466,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -69528,7 +69528,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -69693,7 +69693,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -69759,7 +69759,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -69896,7 +69896,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -70853,7 +70853,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -71038,7 +71038,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -71166,7 +71166,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -71261,7 +71261,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -71761,7 +71761,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -71980,7 +71980,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -72304,7 +72304,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -72432,7 +72432,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -72903,7 +72903,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -73109,7 +73109,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -73645,7 +73645,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -73678,7 +73678,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -73777,7 +73777,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -74396,7 +74396,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -74496,7 +74496,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -74529,7 +74529,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -78945,7 +78945,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "high",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -80128,7 +80128,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "high",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -80223,7 +80223,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "high",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -80405,7 +80405,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "high",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -81005,7 +81005,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "high",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -81151,7 +81151,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "high",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82006,7 +82006,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82039,7 +82039,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82068,7 +82068,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82101,7 +82101,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82200,7 +82200,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82430,7 +82430,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82690,7 +82690,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82879,7 +82879,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82912,7 +82912,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82945,7 +82945,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -82978,7 +82978,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -83007,7 +83007,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -83025,7 +83025,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -83050,7 +83050,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -83101,7 +83101,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -83134,7 +83134,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -83233,7 +83233,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -83266,7 +83266,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -83365,7 +83365,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -83394,7 +83394,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -83496,7 +83496,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "high",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -89725,7 +89725,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 3831,
@@ -89743,7 +89743,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 3832,
@@ -89762,7 +89762,7 @@
   "category": "wk",
   "analogyRelations": [],
   "source": "afoqt",
-  "tier": "std"
+  "tier": "mid"
  },
  {
   "id": 3833,
@@ -89778,7 +89778,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -89795,7 +89795,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -89887,7 +89887,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -89915,7 +89915,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -89932,7 +89932,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -89964,7 +89964,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -90273,7 +90273,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -90301,7 +90301,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -90365,7 +90365,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -90574,7 +90574,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -90823,7 +90823,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -92076,7 +92076,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -92478,7 +92478,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -92562,7 +92562,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93311,7 +93311,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93343,7 +93343,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93375,7 +93375,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93411,7 +93411,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93443,7 +93443,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -93552,7 +93552,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93584,7 +93584,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -93601,7 +93601,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93629,7 +93629,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93657,7 +93657,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93809,7 +93809,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93837,7 +93837,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93869,7 +93869,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93901,7 +93901,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -93925,7 +93925,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -94085,7 +94085,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95133,7 +95133,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95190,7 +95190,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95274,7 +95274,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95306,7 +95306,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95397,7 +95397,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95453,7 +95453,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -95470,7 +95470,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95502,7 +95502,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95534,7 +95534,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95678,7 +95678,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95706,7 +95706,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95734,7 +95734,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95762,7 +95762,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -95790,7 +95790,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -96224,7 +96224,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -96460,7 +96460,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -96597,7 +96597,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -96822,7 +96822,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -96954,7 +96954,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -97314,7 +97314,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -97346,7 +97346,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -97619,7 +97619,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -97775,7 +97775,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -98579,7 +98579,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -99607,7 +99607,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -99635,7 +99635,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -99735,7 +99735,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100077,7 +100077,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100109,7 +100109,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100141,7 +100141,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100173,7 +100173,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100281,7 +100281,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100440,7 +100440,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100532,7 +100532,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100652,7 +100652,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -100716,7 +100716,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -101226,7 +101226,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -101258,7 +101258,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": []
  },
  {
@@ -101275,7 +101275,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -101335,7 +101335,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
@@ -101367,7 +101367,7 @@
   ],
   "category": "wk",
   "source": "gre-magoosh",
-  "tier": "mid",
+  "tier": "std",
   "analogyRelations": [],
   "roots": [
    {
