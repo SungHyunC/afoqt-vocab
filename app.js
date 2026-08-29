@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.112.0";
+const VERSION = "4.113.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -696,6 +696,7 @@ function renderHome(){
   const overall=Math.round(cnt.learned/Math.max(1,WORDS.length)*100);
   const streak=computeStreak(), dueNow=dueCards().length, todayActive=dayActive(todayStr());
   $("#stStreak").textContent=streak; $("#stToday").textContent=today.studied; $("#stDue").textContent=dueNow;
+  deckBtnPaint("#btnStartNew","#btnStartRev");
   checkBadges(); // 마일스톤 달성 시 축하 토스트
   // ---- 동기부여 배너: 손실 프레이밍 + 밀린 복습 자연 경고 (스트릭 보호막 안내 포함) ----
   const mb=$("#motivBanner");
@@ -922,7 +923,7 @@ function planTasks(){
   const due=dueCards().length;
   t.push({k:"wk",icon:"📇",label:`단어 플래시카드 — 신규 ${nw} + 복습 ${due}`,sub:"📇 단어",
     min:Math.round((nw*25+due*7)/60),
-    done:(d.new_learned||0)>=nw || (coreRemain()===0&&(d.studied||0)>0), go:()=>startStudy()});
+    done:(d.new_learned||0)>=nw || (coreRemain()===0&&(d.studied||0)>0), go:()=>startStudyNew()});
   t.push({k:"syn",icon:"⚡",label:"동의어 퀴즈 20문항",sub:"📇 단어",min:10,
     done:dayStat("WK")>=20, go:()=>go("synq")});
   // 유추·독해는 남은 분량 ÷ 플랜 잔여일 → 플랜 종료일에 1회독이 끝나도록 자동 산출
@@ -972,38 +973,38 @@ const V16=[
  {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 — 플래시카드",go:()=>startStudySet(mockWordIds(),"모의고사 단어")},
          {i:"🔗",l:"유추 훑어보기 — 관계 유형 구경",go:()=>go("vabrowse")},
          {i:"📖",l:"독해 2지문 (타이머 없이 정확도만)",go:()=>go("reading")}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
          {i:"🔗",l:"반의어 집중 30문항 — 유추 최다 관계(10.8%)",go:()=>{go("analogy");startAnalogy(false);}},
          {i:"📖",l:"독해 2지문",go:()=>go("reading")}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
          {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}},
          {i:"📖",l:"독해 2지문",go:()=>go("reading")},
          {i:"📐",l:"수학 25문항 — Pilot 유지",go:()=>startExam("mk",{practice:true})}]},
- {tasks:[{i:"📇",l:"어휘 신규 120개 — 주말 증량",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 120개 — 주말 증량",go:()=>startStudyNew()},
          {i:"📖",l:"독해 4지문",go:()=>go("reading")},
          {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}}]},
- {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudyNew()},
          {i:"🎯",l:"Verbal 섹터 모의고사 1회 — 오늘 점수를 남겨야 비교가 된다",go:()=>startExam("secVerbal")},
          {i:"📊",l:"약점 리포트 확인",go:()=>go("report")}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
          {i:"📕",l:"어제 모의고사 오답 전부 복기",go:()=>go("report")},
          {i:"✈️",l:"항공 20문항 — Pilot 유지",go:()=>startExam("av",{practice:true})}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
          {i:"⏱️",l:"단어 시험 25문항 5분 — 모르면 즉시 찍고 넘기기",go:()=>startExam("wk")},
          {i:"📖",l:"독해 2지문 · 지문당 4분 48초",go:()=>go("reading")}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
          {i:"⏱️",l:"유추 25문항 8분 실전",go:()=>startExam("va")},
          {i:"📐",l:"수학 25문항",go:()=>startExam("mk",{practice:true})}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
          {i:"⏱️",l:"독해 25문항 24분 풀세트 — 지문 하나에 4분 48초 넘기면 넘어가기",go:()=>startExam("rc")},
          {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
          {i:"✅",l:"확인 시험 — 1구간에 외운 단어 검증",go:()=>go("confirm")},
          {i:"✈️",l:"항공 20문항",go:()=>startExam("av",{practice:true})}]},
- {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudyNew()},
          {i:"🎯",l:"T01 Verbal 3과목 연속 — 유추 8분 → 단어 5분 → 독해 24분",go:()=>go("exam")},
          {i:"📕",l:"오답 정리",go:()=>go("report")}]},
- {tasks:[{i:"📇",l:"어휘 신규 120개 — 코어 1,052개 완주",go:()=>startStudy()},
+ {tasks:[{i:"📇",l:"어휘 신규 120개 — 코어 1,052개 완주",go:()=>startStudyNew()},
          {i:"📕",l:"어제 오답 재시험",go:()=>go("report")},
          {i:"📐",l:"수학 25문항",go:()=>startExam("mk",{practice:true})}]},
  {tasks:[{i:"🚫",l:"신규 중단 — 학습중·복습 단어만 반복",go:()=>go("synq")},
@@ -1111,6 +1112,7 @@ function renderPlan(){
    ============================================================ */
 function renderVocab(){
   const cnt=countByStatus();
+  deckBtnPaint("#vkNew","#vkReview");
   $("#vkLearned").textContent=cnt.learned; $("#vkMastered").textContent=cnt.mastered;
   // 모의고사 묶음을 하다 말았으면 버튼에 이어서 할 위치를 표시한다.
   { const b=$("#vkMock"), sv=state.session, n=mockWordIds().length;
@@ -1320,6 +1322,34 @@ function startStudy(){
   const revCount=queue.length-newSet.size;
   toast(`오늘 ${queue.length}개 — 복습 ${revCount} · 신규 ${newSet.size}`, 2600);
 }
+// ---- 신규 / 복습 분리 덱 ----
+// 복습이 1,000개+ 쌓이면 통합 큐에서 신규가 맨 뒤에 묻힌다 — 덱을 분리해 각자 시작.
+// startStudySet 재사용: scope 이어하기·처음부터·세션 충돌 confirm·id 검증이 그대로 적용된다.
+function newDeckCount(){ return Math.min(newPerDay(), newWordsRemaining()); }
+function deckBtnPaint(newSel,revSel){
+  const sv=state.session;
+  const cont=scope=> (sv&&sv.scope===scope&&sv.queue&&sv.idx<sv.plan) ? `${sv.idx+1}/${sv.plan} 이어서` : null;
+  const newN=newDeckCount(), dueN=dueCards().length;
+  const nb=$(newSel);
+  if(nb){ const c=cont("신규 단어");
+    nb.textContent = c ? `🆕 신규 단어 — ${c}` : newN>0 ? `🆕 신규 단어 ${newN}개` : "🆕 오늘 신규 없음";
+    nb.disabled = !c && newN===0; }
+  const rb=$(revSel);
+  if(rb){ const c=cont("오늘 복습");
+    rb.textContent = c ? `🔁 복습 — ${c}` : dueN>REVIEW_CHUNK ? `🔁 복습 ${REVIEW_CHUNK}개 (대기 ${dueN})` : dueN>0 ? `🔁 복습 ${dueN}개` : "🔁 복습 없음";
+    rb.disabled = !c && dueN===0; }
+}
+function startStudyNew(){
+  const ids=newCardIds(newPerDay());
+  if(!ids.length){ toast("오늘 신규 단어가 없어요! 🎉"); return; }
+  startStudySet(ids,"신규 단어");
+}
+const REVIEW_CHUNK=150;   // 한 세션 최대 — 끝나면 다음 묶음이 자동으로 이어진다
+function startStudyReview(){
+  const due=dueCards().sort((a,b)=>new Date(getCard(a).due||0)-new Date(getCard(b).due||0)); // 오래 밀린 것부터
+  if(!due.length){ toast("복습할 카드가 없어요! 🎉"); return; }
+  startStudySet(due.slice(0,REVIEW_CHUNK),"오늘 복습");
+}
 function renderCard(){
   const s=session; if(s.idx>=s.queue.length) return finishStudy();
   const id=s.queue[s.idx], w=WMAP.get(id), c=getCard(id), isN=c.status==="new";
@@ -1388,7 +1418,9 @@ function finishStudy(){ const s=session, secs=Math.round((Date.now()-s.startTs)/
   const acc=s.studied?Math.round(s.correct/s.studied*100):0;
   $("#doneSub").textContent=`${s.studied}개 학습 · 정답 ${acc}% · ${Math.round(secs/60)}분`;
   $("#studyDone").classList.remove("hidden");
-  $("#doneMore").classList.toggle("hidden", dueCards().length===0 && newCardIds(1).length===0);
+  { const dueLeft=dueCards().length, newLeft=newDeckCount(), more=$("#doneMore");
+    more.classList.toggle("hidden", dueLeft===0 && newLeft===0);   // 남은 쪽 덱으로 원탭 전환
+    more.textContent = dueLeft>0 ? `🔁 이어서 복습 ${Math.min(dueLeft,REVIEW_CHUNK)}개` : `🆕 이어서 신규 ${newLeft}개`; }
   if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); updateStudyRestart(); }
 
 // PC 키보드 조작 — 마우스 없이 빠르게 넘긴다.
@@ -4176,7 +4208,9 @@ function wire(){
     localStorage.setItem("afoqt_nav_collapsed", c?"1":"0"); applyNavCollapsed(); };
   applyNavCollapsed();
   // home
-  $("#btnStart").onclick=startStudy; $("#btnExam").onclick=()=>go("exam");
+  $("#btnStartNew")&&($("#btnStartNew").onclick=startStudyNew);
+  $("#btnStartRev")&&($("#btnStartRev").onclick=startStudyReview);
+  $("#btnExam").onclick=()=>go("exam");
   $("#btnDaily").onclick=()=>startExam("daily");
   $("#btnCurr").onclick=()=>openCurriculum();
   $("#vkCurr").onclick=()=>openCurriculum("wk"); $("#vaCurr").onclick=()=>openCurriculum("va"); $("#rcCurr").onclick=()=>openCurriculum("rc");
@@ -4209,7 +4243,9 @@ function wire(){
   $("#icStart").onclick=startInstrument; $("#icGuide").onclick=()=>openGuide("ic");
   $("#icBack").onclick=()=>{ icTimerStop(); icState=null; go("aviation"); }; $("#icRetry").onclick=startInstrument; $("#icHome").onclick=()=>{ icState=null; go("aviation"); };
   // vocab hub
-  $("#vkStart").onclick=startStudy; $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
+  $("#vkNew")&&($("#vkNew").onclick=startStudyNew);
+  $("#vkReview")&&($("#vkReview").onclick=startStudyReview);
+  $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
   $("#vkSynq").onclick=()=>go("synq"); $("#synqGo").onclick=startSynQuiz;
   $("#synqBack").onclick=()=>{ synq=null; go("vocab"); }; $("#synqStop").onclick=()=>{ synq=null; renderSynQuiz(); };
   $("#vkAuto").onclick=()=>go("autoplay"); $("#apBack").onclick=()=>go("vocab"); $("#apGo").onclick=startAutoPlay;
@@ -4269,7 +4305,7 @@ function wire(){
   $("#optPilotPerfect")&&($("#optPilotPerfect").onchange=e=>{ state.settings.pilot_perfect=e.target.checked; saveLocal(); queuePush("settings",{});
     toast(e.target.checked?"표읽기·블록·계기를 만점으로 계산해요 ✈️":"세 과목을 다시 앱 성적으로 계산해요"); renderHome(); });
   // study
-  $("#studyBack").onclick=()=>{ session=null; go("vocab"); }; $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=startStudy;
+  $("#studyBack").onclick=()=>{ session=null; go("vocab"); }; $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=()=>{ if(dueCards().length) startStudyReview(); else startStudyNew(); };
   $("#doneQuiz").onclick=()=>{ if(poolFor("today").length<4){ toast("오늘 학습한 단어가 4개 이상이면 퀴즈를 볼 수 있어요"); return; } session=null; startQuizScope("today"); };
   // quiz
   $("#quizBack").onclick=()=>{ quiz=null;   // 안 지우면 sessionActive()가 영구 true — 홈 갱신·SW 업데이트가 멈춘다
