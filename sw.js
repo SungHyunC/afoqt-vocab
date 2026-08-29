@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-112-0";  // 로직 감사 일괄 수리
+const CACHE = "afoqt-v4-113-0";  // 신규/복습 플래시카드 분리
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
