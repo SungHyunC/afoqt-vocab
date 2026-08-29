@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.113.0";
+const VERSION = "4.114.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1335,8 +1335,10 @@ function deckBtnPaint(newSel,revSel){
     nb.textContent = c ? `🆕 신규 단어 — ${c}` : newN>0 ? `🆕 신규 단어 ${newN}개` : "🆕 오늘 신규 없음";
     nb.disabled = !c && newN===0; }
   const rb=$(revSel);
-  if(rb){ const c=cont("오늘 복습");
-    rb.textContent = c ? `🔁 복습 — ${c}` : dueN>REVIEW_CHUNK ? `🔁 복습 ${REVIEW_CHUNK}개 (대기 ${dueN})` : dueN>0 ? `🔁 복습 ${dueN}개` : "🔁 복습 없음";
+  if(rb){ const c=cont("오늘 복습"), bundles=Math.ceil(dueN/REVIEW_CHUNK);
+    rb.textContent = c ? `🔁 복습 — ${c}${bundles>1?` · 남은 ${bundles}묶음`:""}`
+      : dueN>REVIEW_CHUNK ? `🔁 복습 ${REVIEW_CHUNK}개씩 ${bundles}묶음 (총 ${dueN}개)`
+      : dueN>0 ? `🔁 복습 ${dueN}개 (마지막 묶음)` : "🔁 복습 없음";
     rb.disabled = !c && dueN===0; }
 }
 function startStudyNew(){
@@ -1420,7 +1422,8 @@ function finishStudy(){ const s=session, secs=Math.round((Date.now()-s.startTs)/
   $("#studyDone").classList.remove("hidden");
   { const dueLeft=dueCards().length, newLeft=newDeckCount(), more=$("#doneMore");
     more.classList.toggle("hidden", dueLeft===0 && newLeft===0);   // 남은 쪽 덱으로 원탭 전환
-    more.textContent = dueLeft>0 ? `🔁 이어서 복습 ${Math.min(dueLeft,REVIEW_CHUNK)}개` : `🆕 이어서 신규 ${newLeft}개`; }
+    const bundles=Math.ceil(dueLeft/REVIEW_CHUNK);
+    more.textContent = dueLeft>0 ? `🔁 이어서 복습 ${Math.min(dueLeft,REVIEW_CHUNK)}개${bundles>1?` (남은 ${bundles}묶음)`:""}` : `🆕 이어서 신규 ${newLeft}개`; }
   if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); updateStudyRestart(); }
 
 // PC 키보드 조작 — 마우스 없이 빠르게 넘긴다.
