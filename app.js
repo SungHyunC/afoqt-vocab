@@ -6,9 +6,31 @@
 (() => {
 "use strict";
 
-const VERSION = "4.116.0";
+const VERSION = "4.117.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
+
+// Verbal priority is editorial study guidance, not an official AFOQT frequency
+// statistic. P1 is backed by an included practice mock or an AFOQT-prep list;
+// P2/P3 are the remaining high/mid editorial tiers respectively.
+const VERBAL_THEMES=Object.freeze([
+  {code:"character_attitude",icon:"🧑",name:"성격·태도",desc:"성향·도덕성·행동 습관"},
+  {code:"emotion_psychology",icon:"💭",name:"감정·심리",desc:"감정·반응·정신 상태"},
+  {code:"change_quantity",icon:"📈",name:"증가·감소·변화",desc:"증감·변형·발전·쇠퇴"},
+  {code:"conflict_criticism",icon:"⚔️",name:"갈등·비판·적대",desc:"반대·공격·비난·불화"},
+  {code:"agreement_support",icon:"🤝",name:"동의·협력·지지",desc:"승인·협조·도움·확증"},
+  {code:"clarity_ambiguity",icon:"🔎",name:"정확·명확·모호",desc:"명료성·정확성·불확실성"},
+  {code:"knowledge_judgment",icon:"🧠",name:"지식·사고·판단",desc:"학습·추론·증거·판단"},
+  {code:"communication",icon:"💬",name:"말·글·의사소통",desc:"발언·설득·침묵·문체"},
+  {code:"law_power_control",icon:"⚖️",name:"법·권력·통제",desc:"규칙·명령·권한·복종"},
+  {code:"economy_value",icon:"💰",name:"경제·가치·자원",desc:"부·소비·절약·희소성"},
+  {code:"state_degree",icon:"🎚️",name:"상태·성질·정도",desc:"강도·크기·지속성·속성"},
+  {code:"movement_time",icon:"🚶",name:"이동·위치·시간",desc:"이동·방향·순서·시간"},
+  {code:"success_risk",icon:"🎯",name:"성공·실패·위험",desc:"성취·방해·회복·위험"},
+  {code:"analogy_core",icon:"🔗",name:"유추 핵심 관계어",desc:"유의·반의·원인·도구 등 관계"},
+]);
+const VERBAL_THEME_MAP=new Map(VERBAL_THEMES.map(t=>[t.code,t]));
+const VERBAL_MODE_LABEL={new:"신규 단어",due:"복습 대기",all:"전체 섞기"};
 
 /* ---------- helpers ---------- */
 const $  = (s, r=document) => r.querySelector(s);
@@ -152,6 +174,7 @@ const DEFAULT_STATE = () => ({
   sweepAt:{},    // 최종 스윕: wordId -> 마지막 스윕 통과 시각(ms)
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
+             verbal_theme_priority:2, verbal_theme_mode:"new",
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
 });
 
@@ -182,6 +205,9 @@ function loadLocal(){
   }
   state.speed=state.speed||{}; state.sweepAt=state.sweepAt||{};
   state.settings=Object.assign(d.settings, state.settings||{});
+  if(![1,2,3].includes(Number(state.settings.verbal_theme_priority))) state.settings.verbal_theme_priority=2;
+  else state.settings.verbal_theme_priority=Number(state.settings.verbal_theme_priority);
+  if(!["new","due","all"].includes(state.settings.verbal_theme_mode)) state.settings.verbal_theme_mode="new";
 }
 let saveTimer=null;
 function saveLocal(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); if(sb) queuePush("app_state"); }
@@ -216,6 +242,9 @@ function bumpDay(f){ const day=todayStr(), d=getDay(day); for(const k in f) d[k]
 const TIERRANK={high:0,mid:1,std:2};
 function isNew(w){ const c=state.cards[w.id]; return !c||c.status==="new"; }
 function tierOf(w){ return w.tier||"std"; }
+function verbalPriorityOf(w){ const p=Number(w&&w.verbalPriority); return p===1||p===2||p===3?p:null; }
+function verbalThemesOf(w){ return Array.isArray(w&&w.verbalThemes)?w.verbalThemes.filter(x=>VERBAL_THEME_MAP.has(x)):[]; }
+function hasVerbalThemeData(){ return WORDS.some(w=>verbalPriorityOf(w)&&verbalThemesOf(w).length); }
 function newPool(){ let p=WORDS.filter(isNew); if(flag("high_only")) p=p.filter(w=>tierOf(w)!=="std"); return p; }
 function daysLeft(){ return Math.max(1, dayDiff(todayStr(), state.settings.exam_date)+1); }
 function newWordsRemaining(){ return newPool().length; }
@@ -223,7 +252,8 @@ function autoPace(){ return clamp(Math.ceil(newWordsRemaining()/daysLeft()),5,30
 function newPerDay(){ return state.settings.daily_goal>0 ? state.settings.daily_goal : autoPace(); }
 // Cards awaiting the 7-day "확인 시험" recheck are held out of the normal flashcard
 // rotation entirely (verify:"pending") — they only resurface via the confirm quiz.
-function dueCards(){ const t=Date.now(),out=[]; for(const w of WORDS){ const c=state.cards[w.id]; if(c&&c.status!=="new"&&c.verify!=="pending"&&c.verify!=="verified"&&c.due&&new Date(c.due).getTime()<=t) out.push(w.id);} return out; }  // verified는 최종 스윕에서만 재확인 (확인 허브 안내와 일치)
+function isCardDue(c,t=Date.now()){ return !!(c&&c.status!=="new"&&c.verify!=="pending"&&c.verify!=="verified"&&c.due&&new Date(c.due).getTime()<=t); }
+function dueCards(){ const t=Date.now(),out=[]; for(const w of WORDS){ const c=state.cards[w.id]; if(isCardDue(c,t)) out.push(w.id);} return out; }  // verified는 최종 스윕에서만 재확인 (확인 허브 안내와 일치)
 function newCardIds(limit){
   let cand=newPool();
   if(flag("high_first")) cand=[...cand].sort((a,b)=>(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)])||a.id-b.id);
@@ -270,8 +300,8 @@ const BADGES=[
   {id:"learn500", cat:"word", icon:"📚", name:"단어 500",   d:"단어 500개 학습",   t:m=>m.learned>=500},
   {id:"learn1000",cat:"word", icon:"📚", name:"단어 1000",  d:"단어 1,000개 학습", t:m=>m.learned>=1000},
   {id:"learn2000",cat:"word", icon:"🎓", name:"단어 2000",  d:"단어 2,000개 학습", t:m=>m.learned>=2000},
-  {id:"high500",  cat:"word", icon:"⭐", name:"빈출 500",   d:"빈출 단어 500개",   t:m=>m.highLearned>=500},
-  {id:"high1245", cat:"word", icon:"🌟", name:"빈출 정복",  d:"빈출(high) 1,245개 전부", t:m=>m.highLearned>=1245},
+  {id:"high500",  cat:"word", icon:"⭐", name:"핵심 500",   d:"핵심(high+mid) 단어 500개",   t:m=>m.highLearned>=500},
+  {id:"high1245", cat:"word", icon:"🌟", name:"핵심 1,245",  d:"핵심(high+mid) 단어 1,245개", t:m=>m.highLearned>=1245},
   {id:"master50", cat:"word", icon:"⭐", name:"마스터 50",  d:"마스터 50개",       t:m=>m.mastered>=50},
   {id:"master100",cat:"word", icon:"🌟", name:"마스터 100", d:"마스터 100개",      t:m=>m.mastered>=100},
   {id:"master250",cat:"word", icon:"💎", name:"마스터 250", d:"마스터 250개",      t:m=>m.mastered>=250},
@@ -352,7 +382,11 @@ function predict(id,q){ const c={...getCard(id)};
   if(q==="good") return c.reps===0?1:c.reps===1?3:c.interval*c.ease;
   if(q==="easy") return c.reps===0?2:c.interval*(c.ease+0.15)*1.3; return 0; }  // gradeCard와 동일하게 ease 증가분 반영
 function gradeCard(id,q){ const c={...getCard(id)};
-  if(q==="again"){ c.lapses++; c.ease=Math.max(1.3,c.ease-0.2); c.interval=0; c.reps=0; c.status="learning"; c.due=nowISO(); }  // reps=0: 재학습 — 안 하면 interval이 0*ease=0에 영구 고정
+  if(q==="again"){ c.lapses++; c.ease=Math.max(1.3,c.ease-0.2); c.interval=0; c.reps=0; c.status="learning"; c.due=nowISO();
+    // An "again" grade is stronger evidence than an earlier confirmation pass.
+    // Clear both confirmation stages so an all-cards theme deck can return the
+    // word to the ordinary due queue immediately.
+    c.verify=null; c.verifyDue=null; delete state.sweepAt[id]; }  // reps=0: 재학습 — 안 하면 interval이 0*ease=0에 영구 고정
   else { if(q==="hard"){ c.ease=Math.max(1.3,c.ease-0.15); c.interval=c.reps===0?1:Math.max(1,c.interval*1.2);}
     else if(q==="good"){ c.interval=c.reps===0?1:c.reps===1?3:c.interval*c.ease; }
     else { c.ease+=0.15; c.interval=c.reps===0?2:c.interval*c.ease*1.3; }
@@ -537,7 +571,9 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
   if(r.data){ if(r.data.high_first!=null) state.settings.high_first=r.data.high_first; if(r.data.high_only!=null) state.settings.high_only=r.data.high_only;
     if(r.data.plan_ps_sj!=null) state.settings.plan_ps_sj=r.data.plan_ps_sj;
     if(r.data.hide_ko!=null) state.settings.hide_ko=r.data.hide_ko;
-    if(r.data.pilot_perfect!=null) state.settings.pilot_perfect=r.data.pilot_perfect; } }
+    if(r.data.pilot_perfect!=null) state.settings.pilot_perfect=r.data.pilot_perfect;
+    if([1,2,3].includes(Number(r.data.verbal_theme_priority))) state.settings.verbal_theme_priority=Number(r.data.verbal_theme_priority);
+    if(["new","due","all"].includes(r.data.verbal_theme_mode)) state.settings.verbal_theme_mode=r.data.verbal_theme_mode; } }
 // The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
@@ -600,7 +636,7 @@ function queuePush(table,row){ if(!sb) return; const code=syncCode();
   if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at});
-  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false},updated_at:nowISO()};
+  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode},updated_at:nowISO()};
   clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,700); }
 // Each table pushes independently and only clears its queue on confirmed success —
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
@@ -649,7 +685,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -680,7 +716,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -753,7 +789,7 @@ function renderHome(){
   const avEx=state.exams.av; const avCov=Object.keys(state.avp).length;
   const avR=AVIATION.length?avCov/AVIATION.length:0;
   $("#wkBar").style.width=Math.round(wkR*100)+"%";
-  $("#wkSub").textContent=`빈출 ${afLearned}/${afCount} · 전체 ${cnt.learned}/${WORDS.length}`;
+  $("#wkSub").textContent=`AFOQT 대비 목록 ${afLearned}/${afCount} · 전체 ${cnt.learned}/${WORDS.length}`;
   $("#vaBar").style.width=Math.round(vaR*100)+"%";
   $("#vaSub").textContent=ANALOGIES.length?`유추 ${vaSeen}/${ANALOGIES.length}`:"준비 중";
   $("#rcBar").style.width=Math.round(rcR*100)+"%";
@@ -858,7 +894,7 @@ function examPhase(){ const d=daysLeft();
     "📊 예상 점수 90%대 확인"]};
   const ed=String(state.settings.exam_date||"").slice(5).replace("-","/").replace(/^0/,"");
   return {key:"final",name:"마무리 (D-10)",emoji:"🔥",tasks:[
-    "📕 오답·빈출 단어만 빠르게",
+    "📕 오답·핵심 단어만 빠르게",
     "🎯 가벼운 모의고사 1회",
     "📊 예상 점수 최종 확인",
     "😴 컨디션·수면 관리",
@@ -1084,13 +1120,13 @@ function renderPlan(){
     <div class="row" style="justify-content:space-between;align-items:flex-start">
       <div><div class="muted" style="font-size:13px">${planLen()}일 완성 플랜</div>
         <div class="plan-day">DAY <b>${i}</b><small> / ${planLen()}</small></div>
-        <div class="muted" style="font-size:12px;margin-top:4px">시험까지 ${examLeft}일 · 빈출 단어 ${learned}/${core}</div>
+        <div class="muted" style="font-size:12px;margin-top:4px">시험까지 ${examLeft}일 · 핵심(high+mid) ${learned}/${core}</div>
         <div style="font-size:12px;margin-top:6px;color:var(--brand2);font-weight:700">⏱️ 남은 예상 ${hhmm(leftMin)}</div>
         <div class="muted" style="font-size:11px;margin-top:3px">🏁 ${planEndLabel()} 전 과목 1회독 완료 예정</div></div>
       <div class="ring" style="--p:${pct}"><div class="v"><b>${pct}%</b><span>오늘</span></div></div>
     </div>
     <div class="progressbar" style="margin-top:12px"><i style="width:${Math.round(i/planLen()*100)}%"></i></div>
-    <div class="muted" style="font-size:11px;margin-top:6px">플랜 진행 ${Math.round(i/planLen()*100)}% · 빈출 단어 ${core?Math.round(learned/core*100):0}% 완료</div>`;
+    <div class="muted" style="font-size:11px;margin-top:6px">플랜 진행 ${Math.round(i/planLen()*100)}% · 핵심(high+mid) ${core?Math.round(learned/core*100):0}% 완료</div>`;
   $("#planTasks").innerHTML=tasks.map(t=>{ const dn=isDone(t);
     return `<div class="ptask ${dn?"on":""}" data-k="${esc(t.k)}">
       <button class="pchk" data-chk="${esc(t.k)}" aria-label="완료 표시">${dn?"✓":""}</button>
@@ -1116,9 +1152,9 @@ function renderVocab(){
   $("#vkLearned").textContent=cnt.learned; $("#vkMastered").textContent=cnt.mastered;
   // 모의고사 묶음을 하다 말았으면 버튼에 이어서 할 위치를 표시한다.
   { const b=$("#vkMock"), sv=state.session, n=mockWordIds().length;
-    if(b) b.textContent = (sv&&sv.scope==="모의고사 단어"&&sv.idx<sv.plan)
+    if(b) b.textContent = (sv&&studyScopeKey(sv)==="모의고사 단어"&&sv.idx<sv.plan)
       ? `📕 모의고사 단어 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
-      : `📕 모의고사 단어 플래시카드 — 실제 출제 확인된 ${n}개`; }
+      : `📕 모의고사 단어 플래시카드 — 앱 수록 연습 세트 ${n}개`; }
   // 오답 단어 덱 — 개수/이어하기 표시, 0개면 비활성
   { const b=$("#vkWrong"), sv=state.session, n=wrongWordIds().length;
     if(b){
@@ -1132,6 +1168,85 @@ function renderVocab(){
   const cf=confirmPoolFirst().length, cr=confirmPoolRecheck().length;
   $("#vkConfirmSub").textContent = cr>0?`🔁 재확인 ${cr}개 대기 · 첫 확인 ${cf}개`:cf>0?`확인 대기 ${cf}개`:"확인할 단어 없음";
   $("#optHighFirst").checked=flag("high_first"); $("#optHighOnly").checked=flag("high_only");
+  { const b=$("#vkThemes"), sv=state.session, continuing=sv&&String(studyScopeKey(sv)||"").startsWith("theme:")&&sv.idx<(sv.plan||sv.queue?.length||0);
+    if(b) b.textContent=continuing
+      ? `🗂️ 고빈출 테마별 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
+      : `🗂️ 고빈출 테마별 플래시카드${hasVerbalThemeData()?"":" — 데이터 업데이트 필요"}`; }
+}
+
+/* ============================================================
+   VERBAL THEME DECKS
+   ============================================================ */
+let themeExpandedCode=null, renderedThemeChunks=new Map();
+function themePriorityLimit(){ const p=Number(state.settings.verbal_theme_priority); return [1,2,3].includes(p)?p:2; }
+function themeStudyMode(){ const m=state.settings.verbal_theme_mode; return ["new","due","all"].includes(m)?m:"new"; }
+function themeWords(code,limit=themePriorityLimit()){
+  return WORDS.filter(w=>{ const p=verbalPriorityOf(w); return p&&p<=limit&&verbalThemesOf(w).includes(code); })
+    .sort((a,b)=>{ const ap=verbalThemesOf(a)[0]===code?0:1, bp=verbalThemesOf(b)[0]===code?0:1;
+      return ap-bp||(verbalPriorityOf(a)-verbalPriorityOf(b))||String(a.word).localeCompare(String(b.word),"en",{sensitivity:"base"}); });
+}
+function themeModePool(rows,mode=themeStudyMode()){
+  if(mode==="new") return rows.filter(w=>getCard(w.id).status==="new");
+  if(mode==="due") return rows.filter(w=>isCardDue(state.cards[w.id]));
+  return rows.slice();
+}
+// Split a sorted list into similarly sized contiguous chunks. This avoids a
+// tiny final deck while guaranteeing that no deck exceeds 150 cards.
+function balancedThemeChunks(rows,max=150){
+  if(!rows.length) return [];
+  const n=Math.ceil(rows.length/max), base=Math.floor(rows.length/n), extra=rows.length%n, out=[];
+  let at=0; for(let i=0;i<n;i++){ const size=base+(i<extra?1:0); out.push(rows.slice(at,at+size)); at+=size; }
+  return out;
+}
+function themeStats(rows){ const t=Date.now(); let fresh=0,due=0,mastered=0;
+  for(const w of rows){ const c=getCard(w.id); if(c.status==="new") fresh++; if(isCardDue(state.cards[w.id],t)) due++; if(c.status==="mastered") mastered++; }
+  return {total:rows.length,fresh,due,mastered,pct:rows.length?Math.round(mastered/rows.length*100):0};
+}
+function themeSessionUnfinished(s){ return !!(s&&s.queue&&s.queue.length&&s.idx<s.queue.length); }
+function renderThemes(){
+  const p=themePriorityLimit(), mode=themeStudyMode();
+  const priorityLabel={1:"P1",2:"P1+P2",3:"P1+P2+P3"}[p];
+  $$('input[name="themePriority"]').forEach(x=>x.checked=Number(x.value)===p);
+  $$('input[name="themeMode"]').forEach(x=>x.checked=x.value===mode);
+  const dataNote=$("#themeDataNote"), list=$("#themeDeckList"), resume=$("#themeResume");
+  if(!list) return;
+  const sv=state.session, savedKey=studyScopeKey(sv), canResume=themeSessionUnfinished(sv)&&String(savedKey||"").startsWith("theme:");
+  if(resume){ resume.classList.toggle("hidden",!canResume);
+    if(canResume){ resume.innerHTML=`<div><b>⏸ 이어서 학습</b><span>${esc(sv.scope||"테마 덱")} · ${sv.idx+1}/${sv.plan}</span></div><span aria-hidden="true">›</span>`;
+      resume.onclick=()=>startStudySet([],sv.scope||"테마 덱",{scopeKey:savedKey,order:sv.order||"given"}); } }
+  if(!hasVerbalThemeData()){
+    if(dataNote){ dataNote.classList.remove("hidden"); dataNote.innerHTML="<b>테마 분류 데이터를 찾지 못했어요.</b><br>이전 오프라인 캐시의 words.json일 수 있습니다. 인터넷에 연결한 뒤 설정의 ‘강제 업데이트’를 실행해 주세요. 기존 플래시카드와 학습 기록은 그대로 안전합니다."; }
+    list.innerHTML=`<div class="card center theme-empty"><div class="big-emoji">🗂️</div><b>테마 덱 데이터 업데이트가 필요해요</b><p class="muted">기존 단어 데이터에는 verbalPriority / verbalThemes 필드가 없습니다.</p></div>`;
+    return;
+  }
+  if(dataNote) dataNote.classList.add("hidden");
+  renderedThemeChunks=new Map();
+  list.innerHTML=VERBAL_THEMES.map(theme=>{
+    const all=themeWords(theme.code,p), stats=themeStats(all), selected=themeModePool(all,mode), chunks=balancedThemeChunks(selected);
+    const open=themeExpandedCode===theme.code, bodyId=`theme-body-${theme.code}`;
+    const chunkHTML=chunks.length?chunks.map((chunk,i)=>{
+      const scopeKey=`theme:${theme.code}:p${p}:${mode}:chunk${i+1}`;
+      const label=`${theme.icon} ${theme.name} · ${priorityLabel} · ${VERBAL_MODE_LABEL[mode]} · 덱 ${i+1}/${chunks.length}`;
+      const key=`${theme.code}:${i}`; renderedThemeChunks.set(key,{ids:chunk.map(w=>w.id),scopeKey,label,order:mode==="all"?"shuffle":"given"});
+      const continuing=themeSessionUnfinished(sv)&&savedKey===scopeKey;
+      const first=chunk[0], last=chunk[chunk.length-1], sub=chunk.length>1?`${first.word} – ${last.word}`:first.word;
+      return `<button class="theme-chunk" data-theme-chunk="${key}" aria-label="${esc(label)}, ${chunk.length}개${continuing?", 이어서 학습":""}">
+        <span class="theme-chunk-main"><b>${chunks.length>1?`덱 ${i+1}`:"학습 시작"}</b><small>${esc(sub)}</small></span>
+        <span class="theme-chunk-count">${continuing?`${sv.idx+1}/${sv.plan} 이어서`:`${chunk.length}개`}</span><span class="theme-chevron" aria-hidden="true">›</span></button>`;
+    }).join(""):`<div class="theme-no-pool">${VERBAL_MODE_LABEL[mode]}에 해당하는 단어가 없어요.</div>`;
+    return `<section class="theme-card">
+      <button class="theme-head" data-theme-toggle="${theme.code}" aria-expanded="${open}" aria-controls="${bodyId}">
+        <span class="theme-icon" aria-hidden="true">${theme.icon}</span>
+        <span class="theme-meta"><b>${esc(theme.name)}</b><small>${esc(theme.desc)}</small>
+          <span class="theme-statline">전체 ${stats.total} · 미학습 ${stats.fresh} · 복습 ${stats.due} · 마스터 ${stats.pct}%</span>
+          <span class="theme-progress" aria-hidden="true"><i style="width:${stats.pct}%"></i></span></span>
+        <span class="theme-toggle-mark" aria-hidden="true">${open?"−":"+"}</span></button>
+      <div class="theme-body${open?"":" hidden"}" id="${bodyId}">${chunkHTML}</div></section>`;
+  }).join("");
+  $$("[data-theme-toggle]",list).forEach(b=>b.onclick=()=>{ const code=b.dataset.themeToggle;
+    themeExpandedCode=themeExpandedCode===code?null:code; renderThemes();
+    list.querySelector(`[data-theme-toggle="${code}"]`)?.focus(); });
+  $$("[data-theme-chunk]",list).forEach(b=>b.onclick=()=>{ const d=renderedThemeChunks.get(b.dataset.themeChunk); if(d) startStudySet(d.ids,d.label,{scopeKey:d.scopeKey,order:d.order}); });
 }
 
 /* ============================================================
@@ -1233,7 +1348,8 @@ function apManual(dir){ const s=ap; if(!s) return; apClearTimer();
 let session=null;
 function snapSession(){ if(!session) return; const s=session;
   state.session={queue:s.queue.slice(),idx:s.idx,plan:s.plan,studied:s.studied,correct:s.correct,
-    done:[...(s.doneSet||[])],miss:[...(s.missSet||[])],neww:[...(s.newSet||[])],day:todayStr(),scope:s.scope||null}; }
+    initialQueue:(s.initialQueue||s.queue).slice(),done:[...(s.doneSet||[])],miss:[...(s.missSet||[])],neww:[...(s.newSet||[])],
+    day:todayStr(),scope:s.scope||null,scopeKey:s.scopeKey||null,order:s.order||null}; }
 // 특정 묶음만 플래시카드로 학습 (모의고사 단어, 단어장 필터 결과 등).
 // SRS 채점은 그대로 적용하되, 하루 목표(target)는 건드리지 않는다 — 별도 학습이므로.
 function mockWordIds(){ return WORDS.filter(w=>w.mock&&w.mock.length).map(w=>w.id); }
@@ -1244,11 +1360,15 @@ function updateStudyRestart(){
   b.classList.toggle("hidden",!on);
   if(on) b.onclick=()=>{
     if(!confirm(`${session.scope} 학습을 처음부터 다시 시작할까요?\n지금까지의 진행 위치만 초기화되고, 외운 기록은 그대로 남습니다.`)) return;
-    const ids=session.queue.slice(), tag=session.scope;
+    const ids=(session.initialQueue||session.queue).slice(), tag=session.scope, key=studyScopeKey(session);
     session=null; state.session=null; saveLocal();
-    startStudySet(ids,tag);
+    // Preserve the original queue. In particular, an "전체 섞기" deck is
+    // shuffled once when created and does not reshuffle merely because the user
+    // pressed restart.
+    startStudySet(ids,tag,{scopeKey:key,order:"given"});
   };
 }
+function studyScopeKey(s){ return s&&(s.scopeKey||s.scope)||null; }
 // 저장된 세션 큐에서 사라진 단어 id 제거(words.json 재생성 대비) — idx도 함께 보정
 function validQueue(sv){
   let idx=sv.idx||0; const q=[];
@@ -1256,37 +1376,38 @@ function validQueue(sv){
   return {q, idx:Math.max(0,Math.min(idx,q.length))};
 }
 // 다른 미완 세션을 덮어쓰기 전 확인 — 슬롯이 하나뿐이라 무언 덮어쓰기는 진행 위치를 날린다
-function confirmDropSession(sv,tag){
+function confirmDropSession(sv,key,label=key){
   if(!(sv&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length)) return true;   // 미완 세션 없음
   const cur=sv.scope||"오늘 학습";
-  if(cur===tag) return true;                                                  // 같은 덱이면 이어하기가 처리
-  return confirm(`⏸ "${cur}" 학습이 ${sv.idx}/${sv.plan}에서 멈춰 있어요.\n새로 시작하면 그 진행 위치가 사라져요. 계속할까요?\n(외운 기록은 어느 쪽이든 안전해요)`);
+  if(studyScopeKey(sv)===key) return true;                                    // 같은 덱이면 이어하기가 처리
+  return confirm(`⏸ "${cur}" 학습이 ${sv.idx}/${sv.plan}에서 멈춰 있어요.\n"${label}"을 새로 시작하면 그 진행 위치가 사라져요. 계속할까요?\n(외운 기록은 어느 쪽이든 안전해요)`);
 }
-function startStudySet(ids,label){
+function startStudySet(ids,label,options={}){
+  const tag=label||"set", scopeKey=options.scopeKey||tag, order=options.order||"status", sv=state.session;
   ids=[...new Set((ids||[]).filter(id=>WMAP.has(id)))];
-  if(!ids.length){ toast("학습할 단어가 없어요."); return; }
-  const tag=label||"set", sv=state.session;
-  if(!confirmDropSession(sv,tag)) return;
   // 하던 묶음이 남아 있으면 이어서 — 매번 처음부터 다시 시작하면 순서가 바뀌어
   // 같은 단어를 반복하고 끝을 못 본다. 날짜가 바뀌어도 이어간다(148개는 며칠에 걸쳐 돈다).
-  if(sv&&sv.scope===tag&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
+  if(sv&&studyScopeKey(sv)===scopeKey&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
     const vq=validQueue(sv);
     if(vq.idx<vq.q.length){
       session={queue:vq.q,idx:vq.idx,plan:vq.q.length,studied:sv.studied||0,correct:sv.correct||0,
         doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
-        revealed:false,startTs:Date.now(),scope:tag};
+        initialQueue:(sv.initialQueue||vq.q).filter(id=>WMAP.has(id)),revealed:false,startTs:Date.now(),
+        scope:sv.scope||tag,scopeKey,order:sv.order||order};
       go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
       toast(`이어서 학습합니다 ▶ ${vq.idx+1} / ${vq.q.length}`,2600);
       return;
     }
   }
+  if(!ids.length){ toast("학습할 단어가 없어요."); return; }
+  if(!confirmDropSession(sv,scopeKey,tag)) return;
   // 아직 안 외운 것 → 복습 기한이 지난 것 → 나머지 순
   const rank=id=>{ const c=getCard(id); if(c.status==="new") return 0;
     return (c.due&&new Date(c.due).getTime()<=Date.now())?1:2; };
-  const queue=ids.slice().sort((a,b)=>rank(a)-rank(b));
+  const queue=order==="shuffle"?shuffle(ids):order==="given"?ids.slice():ids.slice().sort((a,b)=>rank(a)-rank(b));
   const newSet=new Set(queue.filter(id=>getCard(id).status==="new"));
   session={queue,idx:0,plan:queue.length,studied:0,correct:0,
-    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),scope:tag};
+    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),scope:tag,scopeKey,order,initialQueue:queue.slice()};
   snapSession(); saveLocal();
   go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
   toast(`${tag} ${queue.length}개 — 신규 ${newSet.size} · 복습 ${queue.length-newSet.size}`,2800);
@@ -1299,7 +1420,7 @@ function startStudy(){
     if(vq.idx<vq.q.length){
       session={queue:vq.q,idx:vq.idx,plan:vq.q.length,studied:sv.studied||0,correct:sv.correct||0,
         doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
-        revealed:false,startTs:Date.now()};
+        initialQueue:(sv.initialQueue||vq.q).filter(id=>WMAP.has(id)),revealed:false,startTs:Date.now()};
       go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart(); toast("이어서 학습합니다 ▶");
       return;
     }
@@ -1312,7 +1433,7 @@ function startStudy(){
   // Cards that are still "new" at session start are the new-learning portion.
   const newSet=new Set(queue.filter(id=>getCard(id).status==="new"));
   session={queue,idx:0,plan:queue.length,studied:0,correct:0,
-    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now()};
+    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),initialQueue:queue.slice()};
   // Today's goal == today's flashcard quota, so the home ring and the card
   // counter always agree. Set once per day.
   const d=getDay(); if(!d.target){ d.target=queue.length; }
@@ -1424,9 +1545,12 @@ function finishStudy(){ const s=session, secs=Math.round((Date.now()-s.startTs)/
   $("#studyDone").classList.remove("hidden");
   { const dueLeft=dueCards().length, newLeft=newDeckCount(), more=$("#doneMore");
     more.classList.toggle("hidden", dueLeft===0 && newLeft===0);   // 남은 쪽 덱으로 원탭 전환
+    more.dataset.next="";
     const bundles=Math.ceil(dueLeft/REVIEW_CHUNK), nB=newLeft>0?Math.ceil(newWordsRemaining()/newLeft):0;
     more.textContent = dueLeft>0 ? `🔁 이어서 복습 ${Math.min(dueLeft,REVIEW_CHUNK)}개${bundles>1?` (남은 ${bundles}묶음)`:""}`
       : `🆕 이어서 신규 ${newLeft}개${nB>1?` (남은 ${nB}묶음)`:""}`; }
+  if(String(studyScopeKey(s)||"").startsWith("theme:")){ const more=$("#doneMore");
+    more.classList.remove("hidden"); more.dataset.next="themes"; more.textContent="🗂️ 테마 덱 목록으로 돌아가기"; }
   if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); updateStudyRestart(); }
 
 // PC 키보드 조작 — 마우스 없이 빠르게 넘긴다.
@@ -1597,7 +1721,7 @@ function wireChoiceKeys(){
 /* ============================================================
    WORD LIST
    ============================================================ */
-let wordFilter="all", wordSearch="", wordRows=[], wordShown=0, wordPumping=false;
+let wordFilter="all", wordSearch="", wordThemeFilter="all", wordPriorityFilter=0, wordRows=[], wordShown=0, wordPumping=false;
 const WORD_PAGE=120;   // 무한 스크롤: 한 번에 이어 붙이는 개수
 function wordMatches(w){
   const c=getCard(w.id);
@@ -1608,12 +1732,15 @@ function wordMatches(w){
   if(wordFilter==="high"&&tierOf(w)==="std") return false;
   if(wordFilter==="gre"&&w.source!=="gre-magoosh") return false;
   if(["new","learning","review","mastered"].includes(wordFilter)&&c.status!==wordFilter) return false;
+  if(wordThemeFilter!=="all"&&!verbalThemesOf(w).includes(wordThemeFilter)) return false;
+  if(wordPriorityFilter){ const p=verbalPriorityOf(w); if(!p||p>wordPriorityFilter) return false; }
   if(wordSearch){ const q=wordSearch.toLowerCase();
     if(!(w.word.toLowerCase().includes(q)||(w.kor||"").includes(wordSearch)||(w.def||"").toLowerCase().includes(q))) return false; }
   return true;
 }
+function wordFilterScopeKey(){ return "words:"+JSON.stringify({status:wordFilter,theme:wordThemeFilter,priority:wordPriorityFilter,search:wordSearch.toLocaleLowerCase()}); }
 // 모의고사 단어 배지 — w.mock 은 그 단어가 출제된 폼 id 목록
-function mockBadge(w){ return (w.mock&&w.mock.length)?` <span title="모의고사 출제: ${esc(w.mock.join(", "))}">📕</span>`:""; }
+function mockBadge(w){ return (w.mock&&w.mock.length)?` <span title="앱 수록 연습 모의고사: ${esc(w.mock.join(", "))}">📕</span>`:""; }
 function wordRowHTML(w){ const c=getCard(w.id);
   const lbl={new:"미학습",learning:"학습중",review:"복습",mastered:"마스터"}[c.status];
   return `<div class="witem" data-id="${w.id}"><div style="min-width:0">
@@ -1639,20 +1766,31 @@ function pumpWords(){
 }
 function renderWords(keep){
   const prev=keep?wordShown:0;
+  if($("#wordThemeFilter")) $("#wordThemeFilter").value=wordThemeFilter;
+  if($("#wordPriorityFilter")) $("#wordPriorityFilter").value=String(wordPriorityFilter);
   wordRows=WORDS.filter(wordMatches);
   const cnt=$("#wordCount");
   if(cnt) cnt.textContent=wordFilter==="mock"
-    ? `${wordRows.length}개 · 모의고사 6회분에 실제 출제된 단어`
+    ? `${wordRows.length}개 · 앱 수록 연습 모의고사 6회분 단어`
     : `${wordRows.length}개`;
   const box=$("#wordList"); if(!box) return;
   box.innerHTML=""; wordShown=0;
   box.onclick=e=>{ const el=e.target.closest(".witem"); if(el) showWord(+el.dataset.id); };
   appendWords(Math.max(WORD_PAGE,prev));
+  if(!wordRows.length) box.innerHTML=`<div class="card center muted word-empty">선택한 검색·테마·상태 조건에 맞는 단어가 없어요.</div>`;
   pumpWords();
+  const key=wordFilterScopeKey(), sv=state.session, savedKey=studyScopeKey(sv);
+  const resume=$("#wordResume"), isLegacyWordSession=sv&&!sv.scopeKey&&sv.scope==="단어장 선택";
+  const canResumeOther=themeSessionUnfinished(sv)&&(String(savedKey||"").startsWith("words:")||isLegacyWordSession)&&savedKey!==key;
+  if(resume){ resume.classList.toggle("hidden",!canResumeOther);
+    if(canResumeOther){ resume.innerHTML=`<div><b>⏸ 단어장 학습 이어서</b><span>${esc(sv.scope||"단어장 필터")} · ${sv.idx+1}/${sv.plan}</span></div><span aria-hidden="true">›</span>`;
+      resume.onclick=()=>startStudySet([],sv.scope||"단어장 필터",{scopeKey:savedKey,order:sv.order||"given"}); } }
   const sbtn=$("#wordStudy");
-  if(sbtn){ sbtn.classList.toggle("hidden", wordRows.length===0);
-    sbtn.textContent=`▶︎ 이 ${wordRows.length}개로 플래시카드`;
-    sbtn.onclick=()=>startStudySet(wordRows.map(w=>w.id), wordFilter==="mock"?"모의고사 단어":"단어장 선택"); }
+  if(sbtn){ const continuing=themeSessionUnfinished(sv)&&savedKey===key;
+    sbtn.classList.toggle("hidden", wordRows.length===0&&!continuing);
+    sbtn.textContent=continuing?`▶︎ ${sv.idx+1}/${sv.plan} 이어서`:`▶︎ 이 ${wordRows.length}개로 플래시카드`;
+    const label=wordFilter==="mock"&&wordThemeFilter==="all"&&!wordPriorityFilter&&!wordSearch?"모의고사 단어":"단어장 필터";
+    sbtn.onclick=()=>startStudySet(wordRows.map(w=>w.id),label,{scopeKey:key}); }
 }
 function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   const syn=(w.synonyms||[]).map(x=>`<span>${esc(x)}</span>`).join("");
@@ -1660,8 +1798,8 @@ function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   openSheet(`<div class="row" style="justify-content:space-between;align-items:flex-start">
       <div class="word-row" style="justify-content:flex-start"><h3 style="font-size:26px">${esc(w.word)}</h3>${spkBtn(w.word)}</div><button class="btn sm ghost" id="wstar">${c.starred?'★':'☆'}</button></div>
     <div style="color:var(--brand2);font-size:12px;text-transform:uppercase">${esc(w.pos||"")}${w.source==="gre-magoosh"?" · GRE Magoosh":""}${tierOf(w)==="high"?" · ⭐빈출":""}</div>
-    ${(w.mock&&w.mock.length)?`<div class="hintbox" style="margin-top:8px;font-size:11px">📕 모의고사 출제 단어 — ${esc(w.mock.join(", "))} 단어시험에 실제로 나온 단어입니다.</div>`:""}
-    ${w.afoqtCommon?`<div class="hintbox" style="margin-top:8px;font-size:11px">⭐ AFOQT 빈출 단어 — Quizlet·Barron's·커뮤니티 AFOQT 단어 목록에 등재된 단어입니다.</div>`:""}
+    ${(w.mock&&w.mock.length)?`<div class="hintbox" style="margin-top:8px;font-size:11px">📕 앱 수록 연습 모의고사 — ${esc(w.mock.join(", "))} 단어시험에 포함된 단어이며 공식 AFOQT 기출 표시는 아닙니다.</div>`:""}
+    ${w.afoqtCommon?`<div class="hintbox" style="margin-top:8px;font-size:11px">⭐ AFOQT 대비 목록 등재 — Quizlet·Barron's·커뮤니티 대비 목록에 포함된 단어이며 공식 출현 빈도 통계는 아닙니다.</div>`:""}
     <div style="font-size:20px;font-weight:700;margin-top:10px">${esc(w.kor||"")}</div>
     <div class="muted" style="margin-top:6px;line-height:1.5">${esc(w.def||"")}</div>
     ${rootsHTML(w)}
@@ -2161,7 +2299,7 @@ const CURR_TRACKS={
     {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 8분 실전 — 15개 이상 맞히면 졸업!",exam:"va",need:15}]},
   wk:{name:"단어",icon:"📇",stages:[
     {name:"1단계 · 어원 기초",desc:"접두사·어근의 뜻 맞히기 — 모르는 단어 추론의 무기",n:10,need:8,build:n=>buildWKRootsQ(n)},
-    {name:"2단계 · 빈출 동의어",desc:"AFOQT 빈출 단어로 동의어 고르기 (시간 부담 없이)",n:10,need:8,build:n=>buildWKSynCurr(n)},
+    {name:"2단계 · 핵심 동의어",desc:"AFOQT 핵심(high+mid) 단어로 동의어 고르기 (시간 부담 없이)",n:10,need:8,build:n=>buildWKSynCurr(n)},
     {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 5분 실전 — 15개 이상이면 졸업!",exam:"wk",need:15}]},
   rc:{name:"독해",icon:"📖",stages:[
     {name:"1단계 · 주제 찾기",desc:"지문의 중심 내용(main idea)만 집중 훈련",n:6,need:5,build:n=>buildRCType(["main_idea"],n)},
@@ -3998,7 +4136,7 @@ const SUBTESTS=[
   {code:"IC",name:"계기 (Instrument Comp.)",go:()=>startInstrument()},
 ];
 const RC_TYPE_KO={main_idea:"주제",detail:"세부사항",inference:"추론",vocab_in_context:"문맥 어휘",tone_purpose:"어조/목적"};
-const WK_TIER_KO={high:"빈출(high)",mid:"중요(mid)",std:"일반(std)"};
+const WK_TIER_KO={high:"고빈출(high)",mid:"중요(mid)",std:"일반(std)"};
 function accPct(o){ const n=(o?.c||0)+(o?.w||0); return n?Math.round((o.c/n)*100):null; }
 // drill: "kind|arg" 스펙이 오면 그 유형만 바로 20문제 푸는 원탭 버튼을 단다.
 function repBar(label,o,drill){ const p=accPct(o); const n=(o?.c||0)+(o?.w||0); const col=p<50?"var(--bad)":p<75?"var(--warn)":"var(--ok)";
@@ -4151,7 +4289,7 @@ function renderExamTrend(){
 function renderWeakness(){
   const box=$("#weakAnalysis");
   const relName=r=>r, typeName={main_idea:"주제",detail:"세부사항",inference:"추론",vocab_in_context:"문맥 어휘",tone_purpose:"어조/목적"},
-        tierName={high:"빈출(high)",mid:"중요(mid)",std:"일반(std)"};
+        tierName={high:"고빈출(high)",mid:"중요(mid)",std:"일반(std)"};
   const collect=(obj,namer)=>Object.keys(obj).map(k=>{const o=obj[k],t=o.c+o.w;return{k,name:namer(k),acc:t?o.c/t:0,t,w:o.w};}).filter(x=>x.t>=2);
   const va=collect(state.weak.vaRel,relName).sort((a,b)=>a.acc-b.acc).slice(0,4);
   const rc=collect(state.weak.rcType,k=>typeName[k]||k).sort((a,b)=>a.acc-b.acc).slice(0,4);
@@ -4199,7 +4337,7 @@ function softRender(){
   // sync echo must not reset the analogy/reading view and kick the user out.
   if(sessionActive()) return;
   const a=$(".view.active")?.id;
-  ({"view-home":renderHome,"view-vocab":renderVocab,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-stats":renderStats}[a]||(()=>{}))(); }
+  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-stats":renderStats}[a]||(()=>{}))(); }
 window.__softRender=softRender; // test/debug hook
 
 /* ============================================================
@@ -4257,6 +4395,12 @@ function wire(){
   $("#vkAuto").onclick=()=>go("autoplay"); $("#apBack").onclick=()=>go("vocab"); $("#apGo").onclick=startAutoPlay;
   $("#apPlay").onclick=apTogglePlay; $("#apPrev").onclick=()=>apManual(-1); $("#apNext").onclick=()=>apManual(1);
   $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
+  $("#vkThemes")&&($("#vkThemes").onclick=()=>go("themes"));
+  $("#themeBack")&&($("#themeBack").onclick=()=>go("vocab"));
+  $$('input[name="themePriority"]').forEach(x=>x.onchange=e=>{ if(!e.target.checked) return;
+    state.settings.verbal_theme_priority=Number(e.target.value); themeExpandedCode=null; saveLocal(); queuePush("settings",{}); renderThemes(); });
+  $$('input[name="themeMode"]').forEach(x=>x.onchange=e=>{ if(!e.target.checked) return;
+    state.settings.verbal_theme_mode=e.target.value; themeExpandedCode=null; saveLocal(); queuePush("settings",{}); renderThemes(); });
   $("#vkGuide").onclick=()=>openGuide("wk"); $("#vaGuide").onclick=()=>openGuide("va"); $("#rcGuide").onclick=()=>openGuide("rc");
   // aviation
   $("#avFlash").onclick=()=>go("avflash"); $("#avGlossary").onclick=()=>go("avterms");
@@ -4311,7 +4455,10 @@ function wire(){
   $("#optPilotPerfect")&&($("#optPilotPerfect").onchange=e=>{ state.settings.pilot_perfect=e.target.checked; saveLocal(); queuePush("settings",{});
     toast(e.target.checked?"표읽기·블록·계기를 만점으로 계산해요 ✈️":"세 과목을 다시 앱 성적으로 계산해요"); renderHome(); });
   // study
-  $("#studyBack").onclick=()=>{ session=null; go("vocab"); }; $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=()=>{ if(dueCards().length) startStudyReview(); else startStudyNew(); };
+  $("#studyBack").onclick=()=>{ const key=studyScopeKey(session), back=String(key||"").startsWith("theme:")?"themes":String(key||"").startsWith("words:")?"words":"vocab";
+    session=null; go(back); };
+  $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=e=>{ if(e.currentTarget.dataset.next==="themes"){ go("themes"); return; }
+    if(dueCards().length) startStudyReview(); else startStudyNew(); };
   $("#doneQuiz").onclick=()=>{ if(poolFor("today").length<4){ toast("오늘 학습한 단어가 4개 이상이면 퀴즈를 볼 수 있어요"); return; } session=null; startQuizScope("today"); };
   // quiz
   $("#quizBack").onclick=()=>{ quiz=null;   // 안 지우면 sessionActive()가 영구 true — 홈 갱신·SW 업데이트가 멈춘다
@@ -4332,6 +4479,8 @@ function wire(){
   $("#confirmHomeBtn").onclick=()=>go("home");
   // words
   $("#wordsBack").onclick=()=>go("vocab"); $("#searchBox").oninput=e=>{ wordSearch=e.target.value.trim(); renderWords(); };
+  $("#wordThemeFilter")&&($("#wordThemeFilter").onchange=e=>{ wordThemeFilter=e.target.value; renderWords(); });
+  $("#wordPriorityFilter")&&($("#wordPriorityFilter").onchange=e=>{ wordPriorityFilter=Number(e.target.value)||0; renderWords(); });
   $("#vkMock")&&($("#vkMock").onclick=()=>startStudySet(mockWordIds(),"모의고사 단어"));
   $("#vkWrong")&&($("#vkWrong").onclick=()=>startStudySet(wrongWordIds(),"오답 단어"));
   // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
