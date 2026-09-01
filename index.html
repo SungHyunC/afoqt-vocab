@@ -149,13 +149,14 @@
   <div class="grid2">
     <div class="card tight stat"><div class="num" id="vkLearned">0</div><div class="lbl">학습한 단어</div></div>
     <div class="card tight stat"><div class="num" id="vkMastered">0</div><div class="lbl">마스터</div></div>
-    <div class="card tight stat"><div class="num" id="vkHigh">0</div><div class="lbl">빈출 학습</div></div>
+    <div class="card tight stat"><div class="num" id="vkHigh">0</div><div class="lbl">핵심(high+mid) 학습</div></div>
     <div class="card tight stat"><div class="num" id="vkRemain">0</div><div class="lbl">남은 단어</div></div>
   </div>
   <button class="btn primary" id="vkNew" style="margin-top:16px">🆕 신규 단어 플래시카드</button>
   <button class="btn ghost" id="vkReview" style="margin-top:10px;border-color:var(--brand2)">🔁 복습 플래시카드</button>
-  <button class="btn ghost" id="vkMock" style="margin-top:10px;border-color:var(--gold)">📕 모의고사 단어 플래시카드 — 실제 출제 확인된 148개</button>
+  <button class="btn ghost" id="vkMock" style="margin-top:10px;border-color:var(--gold)">📕 모의고사 단어 플래시카드 — 앱 수록 연습 세트 148개</button>
   <button class="btn ghost" id="vkWrong" style="margin-top:10px;border-color:#ef4444">📛 오답 단어 플래시카드</button>
+  <button class="btn ghost" id="vkThemes" style="margin-top:10px;border-color:var(--brand2)">🗂️ 고빈출 테마별 플래시카드</button>
   <button class="btn ghost" id="vkAuto" style="margin-top:10px;border-color:#f59e0b">🎧 자동 넘김 (운동용·핸즈프리·음성)</button>
   <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
   <button class="btn ghost" id="vkSynq" style="margin-top:10px;border-color:var(--brand2)">⚡ 동의어 퀴즈 (WK 실전형 · 빠른 반복)</button>
@@ -170,12 +171,42 @@
 
   <h2 class="section">학습 우선순위</h2>
   <div class="card">
-    <label class="switch-row"><span>⭐ 빈출 단어 먼저 (AFOQT/GRE 핵심)</span>
+    <label class="switch-row"><span>⭐ 핵심 단어 먼저 (high → mid → std)</span>
       <input type="checkbox" id="optHighFirst" checked></label>
-    <label class="switch-row"><span>빈출 단어만 학습 (std 제외)</span>
+    <label class="switch-row"><span>핵심(high+mid) 단어만 학습 (std 제외)</span>
       <input type="checkbox" id="optHighOnly"></label>
-    <div class="hintbox" style="margin-top:10px">빈출(high)·중요(mid)·일반(std) 순으로 외웁니다. GRE Magoosh 단어도 포함됩니다.</div>
+    <div class="hintbox" style="margin-top:10px">고빈출(high)·중요(mid)·일반(std)은 편집 등급이며 공식 AFOQT 출현 횟수가 아닙니다. 기존 high+mid 우선 학습 동작은 그대로 유지됩니다.</div>
   </div>
+</main>
+
+<!-- ===== VERBAL THEME DECKS ===== -->
+<main id="view-themes" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="themeBack">← 어휘</button><span>🗂️ 테마 덱</span><span></span></div>
+  <h2 class="theme-title">고빈출 테마별 플래시카드</h2>
+  <p class="muted theme-intro">의미군별로 집중 학습합니다. 한 단어가 보조 의미나 유추 관계에 따라 여러 덱에 들어가도 SRS 진도는 하나로 공유됩니다.</p>
+  <div class="hintbox theme-basis"><b>분류 근거</b><br>🔥 P1은 앱 수록 연습 모의고사 또는 AFOQT 대비 목록 등재, ⭐ P2는 나머지 high, 📌 P3는 나머지 mid입니다. 공식 AFOQT 기출 빈도나 출현 횟수 통계는 아닙니다.</div>
+
+  <div class="card theme-controls" aria-label="테마 덱 학습 설정">
+    <fieldset>
+      <legend>우선순위 범위</legend>
+      <div class="theme-choice-grid priority">
+        <label><input type="radio" name="themePriority" value="1"><span>🔥 최우선만<small>P1</small></span></label>
+        <label><input type="radio" name="themePriority" value="2" checked><span>⭐ 고빈출까지<small>P1+P2</small></span></label>
+        <label><input type="radio" name="themePriority" value="3"><span>📌 중요까지<small>P1+P2+P3</small></span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>학습 방식</legend>
+      <div class="theme-choice-grid">
+        <label><input type="radio" name="themeMode" value="new" checked><span>🆕 신규 단어</span></label>
+        <label><input type="radio" name="themeMode" value="due"><span>🔁 복습 대기</span></label>
+        <label><input type="radio" name="themeMode" value="all"><span>🔀 전체 섞기</span></label>
+      </div>
+    </fieldset>
+  </div>
+  <button class="theme-resume hidden" id="themeResume" type="button"></button>
+  <div class="hintbox hidden" id="themeDataNote"></div>
+  <div class="theme-deck-list" id="themeDeckList" aria-live="polite"></div>
 </main>
 
 <!-- ===== SYNONYM QUIZ (WK 실전형 · 연속) ===== -->
@@ -186,7 +217,7 @@
     <p class="muted" style="margin:0 0 14px">AFOQT Word Knowledge 실전형 — 단어 하나에 <b>가장 비슷한 뜻</b>을 5개 중에서 고르면 바로 다음 문제로. 빠르게 연속 반복돼요.</p>
     <div class="field"><label>범위</label>
       <select id="synqScope">
-        <option value="high" selected>⭐ 빈출 단어</option>
+        <option value="high" selected>⭐ 핵심 단어 (high+mid)</option>
         <option value="learned">학습한 단어</option>
         <option value="due">복습 대기 단어</option>
         <option value="today">📅 오늘 학습한 단어</option>
@@ -218,7 +249,7 @@
         <option value="learned">학습한 단어</option>
         <option value="due">복습 대기 단어</option>
         <option value="today">📅 오늘 학습한 단어</option>
-        <option value="high">⭐ 빈출 단어</option>
+        <option value="high">⭐ 핵심 단어 (high+mid)</option>
         <option value="starred">★ 즐겨찾기</option>
         <option value="all">전체 단어</option>
       </select>
@@ -290,7 +321,7 @@
       <select id="quizScope">
         <option value="today">📅 오늘 학습한 단어</option>
         <option value="learned">학습한 단어</option>
-        <option value="high">⭐ 빈출 단어</option>
+        <option value="high">⭐ 핵심 단어 (high+mid)</option>
         <option value="due">복습 대기 단어</option>
         <option value="starred">★ 즐겨찾기</option>
         <option value="all">전체 단어</option>
@@ -348,12 +379,37 @@
 <main id="view-words" class="view">
   <div class="study-top"><button class="btn sm ghost" id="wordsBack">← 어휘</button><span></span><span></span></div>
   <input class="search" id="searchBox" placeholder="🔎 단어 / 뜻 검색…">
+  <div class="word-deck-filters" aria-label="테마와 우선순위 필터">
+    <div class="field"><label for="wordThemeFilter">테마</label><select id="wordThemeFilter">
+      <option value="all">모든 테마</option>
+      <option value="character_attitude">🧑 성격·태도</option>
+      <option value="emotion_psychology">💭 감정·심리</option>
+      <option value="change_quantity">📈 증가·감소·변화</option>
+      <option value="conflict_criticism">⚔️ 갈등·비판·적대</option>
+      <option value="agreement_support">🤝 동의·협력·지지</option>
+      <option value="clarity_ambiguity">🔎 정확·명확·모호</option>
+      <option value="knowledge_judgment">🧠 지식·사고·판단</option>
+      <option value="communication">💬 말·글·의사소통</option>
+      <option value="law_power_control">⚖️ 법·권력·통제</option>
+      <option value="economy_value">💰 경제·가치·자원</option>
+      <option value="state_degree">🎚️ 상태·성질·정도</option>
+      <option value="movement_time">🚶 이동·위치·시간</option>
+      <option value="success_risk">🎯 성공·실패·위험</option>
+      <option value="analogy_core">🔗 유추 핵심 관계어</option>
+    </select></div>
+    <div class="field"><label for="wordPriorityFilter">누적 우선순위</label><select id="wordPriorityFilter">
+      <option value="0">모든 우선순위</option>
+      <option value="1">🔥 P1 최우선만</option>
+      <option value="2">⭐ P1+P2 고빈출까지</option>
+      <option value="3">📌 P1+P2+P3 중요까지</option>
+    </select></div>
+  </div>
   <div class="filters" id="wordFilters">
     <button class="chip on" data-f="all">전체</button>
-    <button class="chip" data-f="afoqt">⭐ AFOQT 빈출</button>
-    <button class="chip" data-f="mock">📕 모의고사 출제</button>
+    <button class="chip" data-f="afoqt">⭐ AFOQT 대비 목록</button>
+    <button class="chip" data-f="mock">📕 앱 수록 모의고사</button>
     <button class="chip" data-f="wrong">📛 오답</button>
-    <button class="chip" data-f="high">고빈출(high)</button>
+    <button class="chip" data-f="high">핵심(high+mid)</button>
     <button class="chip" data-f="gre">GRE</button>
     <button class="chip" data-f="starred">★ 즐겨찾기</button>
     <button class="chip" data-f="new">미학습</button>
@@ -361,6 +417,7 @@
     <button class="chip" data-f="review">복습</button>
     <button class="chip" data-f="mastered">마스터</button>
   </div>
+  <button class="theme-resume hidden" id="wordResume" type="button"></button>
   <div class="row" style="justify-content:space-between;align-items:center;gap:10px;margin:2px 4px 10px">
     <div class="muted" id="wordCount" style="font-size:12px"></div>
     <button class="btn sm primary hidden" id="wordStudy" style="flex:0 0 auto"></button>

@@ -27,12 +27,13 @@ AFOQT(미 공군 장교 자격시험) **전 과목 대비** 모바일 학습 PWA
 - 📕 **오답 노트** — 틀린 문제만 모아 재시험. **🧩 약점 분석** — 유형별 정답률로 약점 진단.
 - 📈 **점수 추이 그래프** · 📅 **오늘의 통합 학습**(전 영역 믹스) · 🔁 **자동 페이싱**(하루 권장량).
 - 🔄 **실시간 동기화**(Supabase) · 📱 **PWA/오프라인** · 💾 **진도 백업/복원**.
-- ⭐ **AFOQT 빈출 단어** 태깅 (Quizlet·Barron's·커뮤니티 목록 기반) — 빈출 우선 학습.
+- ⭐ **AFOQT 핵심 단어** 우선 학습 — 모의고사·공개 대비 목록·편집 등급을 구분한 P1~P3 누적 범위.
+- 🗂️ **Verbal 테마별 플래시카드** — 성격·감정·변화·유추 관계 등 14개 덱에서 신규/복습/전체 학습. 단어별 SRS 진도는 모든 덱에서 공유.
 
 ### 콘텐츠 분량
 | 영역 | 분량 |
 |------|------|
-| 단어 | **4,407** (빈출 785 포함) |
+| 단어 | **4,608** (`afoqtCommon` 1,019 · P1~P3 테마 대상 2,515) |
 | 유추 | **901** |
 | 독해 | **105지문 / 404문제** |
 | 항공 | 문제 **120** · 용어 **93** |
@@ -41,6 +42,41 @@ AFOQT(미 공군 장교 자격시험) **전 과목 대비** 모바일 학습 PWA
 | 어원 / 공부 가이드 | **72 / 12** |
 
 > 데이터 파일: `words.json` `analogies.json` `reading.json` `aviation.json` `aviation_terms.json` `arithmetic.json` `mathknowledge.json` `physicalscience.json` `situational.json` `roots.json` `guides.json`
+
+### Verbal 단어 우선순위와 테마 덱
+
+단어 우선순위는 공식 AFOQT 출제 횟수가 아니라 앱 데이터에 남아 있는 근거를 조합한 **학습용 편집 기준**입니다. 범위는 아래처럼 누적됩니다.
+
+| 우선순위 | 판정 기준 | 해당 / 누적 |
+|---------|----------|-------------|
+| P1 🔥 최우선 | `mock || afoqtCommon` | 1,053 / 1,053 |
+| P2 ⭐ 고빈출까지 | P1이 아니면서 `tier: high` | 445 / 1,498 |
+| P3 📌 중요까지 | P1·P2가 아니면서 `tier: mid` | 1,017 / 2,515 |
+| 테마 덱 제외 | 위 조건에 해당하지 않는 `tier: std` | 2,093 |
+
+근거에는 다음 한계가 있습니다.
+
+- `mock`은 앱에 수록한 연습 모의고사(T01~T03, Barron's, Trivium 등)의 표제어이며, 공식 AFOQT 기출 표시가 아닙니다.
+- `afoqtCommon`은 Quizlet·Barron's·커뮤니티 등 공개 AFOQT 대비 목록을 합친 태그입니다. 1,019개 전체에 대해 단어별 원본 URL이나 출처가 완전하게 보존되어 있지는 않습니다.
+- `tier`의 `high`·`mid`는 공개 목록, GRE 난도, 수동 검토를 반영한 편집 등급이며 실제 시험의 출현 빈도를 측정한 값이 아닙니다. 기존 `high+mid` 학습 범위는 앱에서 **핵심**으로 표시합니다.
+
+판정 이력은 [초기 tier 도입](https://github.com/SungHyunC/afoqt-vocab/commit/52dbe211), [AFOQT 공개 목록 반영](https://github.com/SungHyunC/afoqt-vocab/pull/14), [연습 모의고사 태깅](https://github.com/SungHyunC/afoqt-vocab/commit/51921e85), [후속 tier 재조정](https://github.com/SungHyunC/afoqt-vocab/pull/107)에서 확인할 수 있습니다. 14개 테마의 포함·제외 기준과 분포는 [`VERBAL_THEMES.md`](VERBAL_THEMES.md)에 기록했습니다.
+
+`words.json`의 모든 단어는 다음 필드를 가집니다.
+
+```json
+{
+  "verbalPriority": 1,
+  "verbalThemes": ["change_quantity", "state_degree"]
+}
+```
+
+- `verbalPriority`는 P1·P2·P3에 각각 `1`·`2`·`3`, 테마 덱 제외 단어에는 `null`입니다.
+- `verbalThemes`는 주된 뜻을 기준으로 분류한 배열입니다. P1~P3 단어는 13개 의미 테마 중 하나를 주 테마로 가지며, 뜻이 명확히 겹칠 때 보조 테마를 가질 수 있습니다.
+- `analogy_core`는 Verbal Analogies의 제시어·정답쌍 또는 `analogyRelations`에 근거한 별도 관계 태그입니다.
+- 의미 테마 코드는 `character_attitude`, `emotion_psychology`, `change_quantity`, `conflict_criticism`, `agreement_support`, `clarity_ambiguity`, `knowledge_judgment`, `communication`, `law_power_control`, `economy_value`, `state_degree`, `movement_time`, `success_risk`입니다.
+
+앱의 **🗂️ 고빈출 테마별 플래시카드**에서 누적 우선순위(P1 / P1+P2 / P1+P2+P3)와 학습 방식(신규 / 복습 대기 / 전체 섞기)을 고를 수 있습니다. 테마가 달라도 학습 상태는 같은 단어 ID에 저장되므로 SRS 진도가 중복되지 않습니다.
 
 ---
 

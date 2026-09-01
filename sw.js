@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-116-0";  // 어원·연상법 전체 보충
+const CACHE = "afoqt-v4-117-0";  // Verbal 근거 기반 테마 덱
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
