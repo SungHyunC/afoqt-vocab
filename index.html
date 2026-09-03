@@ -161,7 +161,7 @@
   <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
   <button class="synfeed-entry" id="vkSynFeed" type="button">
     <span class="synfeed-entry-icon" aria-hidden="true">∞</span>
-    <span class="synfeed-entry-copy"><b>동의어 무한 피드</b><small>우선순위를 골라 숏폼처럼 끊김 없이 암기</small></span>
+    <span class="synfeed-entry-copy"><b>동의어 무한 피드</b><small>답을 확인하고 직접 넘기는 일상 반복 학습</small></span>
     <span class="synfeed-entry-go" aria-hidden="true">›</span>
   </button>
   <button class="btn ghost" id="vkSynq" style="margin-top:10px;border-color:var(--brand2)">⚡ 동의어 퀴즈 (WK 실전형 · 빠른 반복)</button>
@@ -218,7 +218,7 @@
 <main id="view-synfeed" class="view synfeed-view">
   <div class="synfeed-topbar">
     <button class="synfeed-back" id="synfeedBack" type="button">← 어휘</button>
-    <div class="synfeed-brand"><span aria-hidden="true">∞</span> SYNONYM FEED</div>
+    <div class="synfeed-brand"><span aria-hidden="true">∞</span> <span class="synfeed-brand-full">SYNONYM FEED</span><span class="synfeed-brand-short">FEED</span></div>
     <button class="synfeed-ko-live hidden" id="synfeedKoLive" type="button" aria-pressed="true">한글 ON</button>
   </div>
 
@@ -226,31 +226,33 @@
     <div class="synfeed-hero">
       <div class="synfeed-kicker">WORD KNOWLEDGE · ENDLESS</div>
       <h2>한 문제씩, 계속.<br><span>동의어를 반사적으로</span></h2>
-      <p>정답을 고르면 바로 다음 단어로 넘어갑니다. 기본 순환은 중복 없이 돌고, 틀린 단어만 5문제 뒤 다시 나와요.</p>
+      <p>정답과 뜻을 충분히 확인한 뒤 <b>다음 문제</b>를 눌러 직접 넘기세요. 기본 순환은 중복 없이 돌고, 틀린 단어만 5문제 뒤 다시 나와요.</p>
       <div class="synfeed-lifetime">
         <span>오늘 <b id="synfeedToday">0</b>문제</span>
         <span>최고 콤보 <b id="synfeedBest">0</b></span>
       </div>
     </div>
 
-    <button class="synfeed-resume hidden" id="synfeedResume" type="button"></button>
-    <div class="synfeed-setup-card">
-      <fieldset>
-        <legend>단어 우선순위</legend>
-        <div class="synfeed-scope-grid">
-          <label><input type="radio" name="synfeedPriority" value="1"><span><b>🔥 최우선</b><small>P1 · <i id="synfeedCount1">–</i>개</small></span></label>
-          <label><input type="radio" name="synfeedPriority" value="2" checked><span><b>⭐ 고빈출까지</b><small>P1+P2 · <i id="synfeedCount2">–</i>개</small></span></label>
-          <label><input type="radio" name="synfeedPriority" value="3"><span><b>📌 중요까지</b><small>P1~P3 · <i id="synfeedCount3">–</i>개</small></span></label>
-          <label><input type="radio" name="synfeedPriority" value="4"><span><b>🌐 전체</b><small>std 포함 · <i id="synfeedCount4">–</i>개</small></span></label>
-        </div>
-      </fieldset>
-      <label class="synfeed-switch">
-        <span><b>한글 뜻 같이 보기</b><small>언제든 피드 위에서 켜고 끌 수 있어요</small></span>
-        <input type="checkbox" id="synfeedKo" checked><i aria-hidden="true"></i>
-      </label>
+    <div class="synfeed-setup-panel">
+      <button class="synfeed-resume hidden" id="synfeedResume" type="button"></button>
+      <div class="synfeed-setup-card">
+        <fieldset>
+          <legend>단어 우선순위</legend>
+          <div class="synfeed-scope-grid">
+            <label><input type="radio" name="synfeedPriority" value="1"><span><b>🔥 최우선</b><small>P1 · <i id="synfeedCount1">–</i>개</small></span></label>
+            <label><input type="radio" name="synfeedPriority" value="2" checked><span><b>⭐ 고빈출까지</b><small>P1+P2 · <i id="synfeedCount2">–</i>개</small></span></label>
+            <label><input type="radio" name="synfeedPriority" value="3"><span><b>📌 중요까지</b><small>P1~P3 · <i id="synfeedCount3">–</i>개</small></span></label>
+            <label><input type="radio" name="synfeedPriority" value="4"><span><b>🌐 전체</b><small>std 포함 · <i id="synfeedCount4">–</i>개</small></span></label>
+          </div>
+        </fieldset>
+        <label class="synfeed-switch">
+          <span><b>한글 뜻 같이 보기</b><small>언제든 피드 위에서 켜고 끌 수 있어요</small></span>
+          <input type="checkbox" id="synfeedKo" checked><i aria-hidden="true"></i>
+        </label>
+      </div>
+      <button class="synfeed-start" id="synfeedStart" type="button"><span>∞ 무한 피드 시작</span><small>시간 제한 · 문제 수 제한 없음</small></button>
+      <p class="synfeed-basis">P1~P3는 앱의 근거 기반 누적 학습 우선순위이며, 공식 AFOQT 출현 빈도 통계는 아닙니다.</p>
     </div>
-    <button class="synfeed-start" id="synfeedStart" type="button"><span>∞ 무한 피드 시작</span><small>시간 제한 · 문제 수 제한 없음</small></button>
-    <p class="synfeed-basis">P1~P3는 앱의 근거 기반 누적 학습 우선순위이며, 공식 AFOQT 출현 빈도 통계는 아닙니다.</p>
   </section>
 
   <section id="synfeedPlay" class="synfeed-play hidden">
@@ -264,7 +266,13 @@
     <div class="synfeed-progress"><i id="synfeedProgress"></i></div>
     <div class="sr-only" id="synfeedAnnounce" aria-live="polite" aria-atomic="true"></div>
     <div class="synfeed-stage" id="synfeedStage"></div>
-    <div class="synfeed-gesture">고르면 자동으로 다음 · 정답 결과를 탭하면 바로 넘기기</div>
+    <div class="synfeed-actionbar">
+      <div class="synfeed-gesture" id="synfeedGesture">
+        <span class="synfeed-hint-mobile">답을 고른 뒤 결과를 확인하고 직접 넘기세요</span>
+        <span class="synfeed-hint-desktop">숫자 1–5로 선택 · 답 확인 후 Enter / Space / → 로 다음</span>
+      </div>
+      <button class="synfeed-next hidden" id="synfeedNext" type="button"><span>다음 문제</span><span aria-hidden="true">→</span></button>
+    </div>
     <button class="synfeed-pause" id="synfeedPause" type="button">⏸ 저장하고 나가기</button>
   </section>
 </main>
