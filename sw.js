@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-122-0";  // 동기화 504 폭주 차단 · shell 5xx 캐시 fallback
+const CACHE = "afoqt-v4-123-0";  // 무한 동의어 피드 통계·이어풀기 기기 간 동기화
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

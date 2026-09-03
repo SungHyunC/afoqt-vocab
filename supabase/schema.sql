@@ -26,7 +26,8 @@ create table if not exists public.vocab_state (
 alter table public.vocab_state add column if not exists verify     text;
 alter table public.vocab_state add column if not exists verify_due timestamptz;
 
--- Verbal Analogies / Reading Comprehension 진도 (kind = 'va' | 'rc')
+-- Verbal Analogies / Reading Comprehension 진도 + 무한 동의어 피드 replica
+-- (kind = 'va' | 'rc' | 'synfeed'; synfeed item_id는 기기별 replica ID)
 create table if not exists public.verbal_progress (
   user_key    text        not null,
   kind        text        not null,
