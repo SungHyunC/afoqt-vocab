@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.119.0";
+const VERSION = "4.120.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1874,7 +1874,6 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
   if(!answered) $$("#synfeedChoices .synfeed-choice").forEach(b=>b.onclick=()=>answerSynFeed(+b.dataset.i));
   $("#synfeedSpeak").onclick=e=>speak(w.word,e); const next=$("#synfeedNext"),gesture=$("#synfeedGesture");
   next.classList.toggle("hidden",!answered); gesture.classList.toggle("hidden",answered); next.onclick=answered?()=>synFeedAdvance():null;
-  const feedback=$("#synfeedCard .synfeed-feedback"); if(feedback) requestAnimationFrame(()=>feedback.scrollIntoView({block:"nearest"}));
   const announce=$("#synfeedAnnounce"); if(announce){ const msg=answered
       ? `${ok?"정답":"오답"}. 정답은 ${correct.t}.${showKo&&w.kor?" "+w.kor:""} 다음 문제 버튼을 누르세요.`
       : `새 단어 ${w.word}.${showKo&&w.kor?" "+w.kor:""} 가장 비슷한 뜻을 고르세요.`;
