@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.121.0";
+const VERSION = "4.122.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -149,7 +149,8 @@ function wireSpeakers(root=document){ $$(".spk[data-spk]",root).forEach(b=>{ if(
    ============================================================ */
 let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], ROOTLESSONS=[], GUIDES={}, AVIATION=[], AVTERMS=[], AVBOOK=[];
 let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
-let state=null, sb=null, realtimeChan=null;
+let state=null, sb=null, realtimeChan=null, realtimeCode=null, realtimeReady=false, syncReady=false, settingsSyncUpdatedAt=0;
+let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()};
 
 const DEFAULT_STATE = () => ({
   cards:{},   // WK: id -> {status,reps,lapses,ease,interval,due,starred,updated_at}
@@ -223,7 +224,10 @@ function loadLocal(){
   if(typeof state.settings.syn_feed_korean!=="boolean") state.settings.syn_feed_korean=true;
 }
 let saveTimer=null;
-function saveLocal(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); if(sb) queuePush("app_state"); }
+// Remote merges and feed queue checkpoints still need local durability, but must
+// not dirty app_state. Otherwise our own Realtime echo schedules another upsert
+// forever (and a local-only feed advance rewrites the whole misc blob).
+function saveLocal(syncMisc=true){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); if(syncMisc&&sb) queuePush("app_state"); }
 // Write immediately. Mobile browsers freeze timers when the app is backgrounded,
 // so a debounced save can be lost — always flush on hide/pagehide (see wire()).
 function saveNow(){ clearTimeout(saveTimer); try{ localStorage.setItem(LS.state, JSON.stringify(state)); }catch(e){} }
@@ -526,7 +530,20 @@ function setSyncDot(s){ const d=$("#syncDot"); d.className="sync-dot "+s;
   $("#syncStatusText").textContent=txt; }
 
 // Load the Supabase library on demand (never blocks app startup).
-let sbLibPromise=null;
+let sbLibPromise=null,pullRetryTimer=null,pullRetryCount=0,pullRetryInFlight=null,syncInitializing=false,forceSyncRunning=false;
+function syncRetryDelay(ms){ return Math.round(ms*(0.8+Math.random()*0.4)); }
+function schedulePullRetry(){ if(!sb||syncReady||pullRetryTimer||pullRetryInFlight) return;
+  const steps=[15000,60000,300000],idx=Math.min(pullRetryCount,steps.length-1),delay=syncRetryDelay(steps[idx]);
+  pullRetryCount=Math.min(idx+1,steps.length-1);
+  pullRetryTimer=setTimeout(()=>{ pullRetryTimer=null; retryInitialPull(); },delay); }
+async function retryInitialPull(){ if(!sb||syncReady||syncInitializing||forceSyncRunning) return syncReady; if(pullRetryInFlight) return pullRetryInFlight;
+  pullRetryInFlight=(async()=>{ const pulled=await pullAll();
+    if(!pulled) return false;
+    const subscribed=await subscribeRealtime(); syncReady=true; pullRetryCount=0;
+    const pushed=await pushAllLocal(); setSyncDot(pushed&&subscribed?"on":"err"); return pushed; })();
+  try{ return await pullRetryInFlight; }
+  finally{ pullRetryInFlight=null; if(!syncReady) schedulePullRetry(); }
+}
 function loadSupabase(){
   if(window.supabase) return Promise.resolve(window.supabase);
   if(sbLibPromise) return sbLibPromise;
@@ -542,44 +559,71 @@ function loadSupabase(){
   return sbLibPromise;
 }
 
-async function initSync(){
+async function initSync(){ if(syncInitializing) return false; syncInitializing=true;
+  try{ return await initSyncRun(); } finally{ syncInitializing=false; }
+}
+async function initSyncRun(){
   if(!sbUrl()||!sbKey()){ setSyncDot("off"); return; }
   let lib;
   try{ lib=await loadSupabase(); }
-  catch(e){ console.warn("sync offline:",e.message); setSyncDot("off"); return; }
+  catch(e){ console.warn("sync offline:",e.message); sbLibPromise=null; setSyncDot("off"); return; }
   if(!lib){ setSyncDot("off"); return; }
-  try{ sb=lib.createClient(sbUrl(),sbKey(),{realtime:{params:{eventsPerSecond:5}}});
-    setSyncDot("on"); await pullAll(); pushAllLocal(); subscribeRealtime();
-  }catch(e){ console.error(e); sb=null; setSyncDot("err"); }
+  try{ sb=lib.createClient(sbUrl(),sbKey(),{realtime:{params:{eventsPerSecond:5}}}); syncReady=false; settingsSyncUpdatedAt=0;
+    setSyncDot("on"); const pulled=await pullAll();
+    // Never upload pre-pull state: a slow/failed initial pull could otherwise
+    // overwrite newer data and add load while the backend is already unhealthy.
+    if(!pulled){ subscribeRealtime(); schedulePullRetry(); setSyncDot("err"); return; }
+    // Subscribe before the (possibly multi-batch) healing upload so changes from
+    // another device are not missed while that upload is running.
+    const subscribed=await subscribeRealtime(); syncReady=true; pullRetryCount=0; clearTimeout(pullRetryTimer); pullRetryTimer=null;
+    const pushed=await pushAllLocal(); setSyncDot(pushed&&subscribed?"on":"err");
+  }catch(e){ console.error(e); syncReady=false; sb=null; setSyncDot("err"); }
+}
+async function pullSyncRows(table,code,order){ const pageSize=1000,out=[];
+  for(let from=0;;from+=pageSize){ let q=sb.from(table).select("*").eq("user_key",code);
+    for(const column of order) q=q.order(column,{ascending:true});
+    const r=await q.range(from,from+pageSize-1); if(r.error) return r;
+    const rows=r.data||[]; out.push(...rows); if(rows.length<pageSize) return {data:out,error:null}; }
 }
 async function pullAll(){
-  if(!sb) return; const code=syncCode();
+  if(!sb) return false; const code=syncCode();
   try{
     const [vs,vp,dl,st,as]=await Promise.all([
-      sb.from("vocab_state").select("*").eq("user_key",code),
-      sb.from("verbal_progress").select("*").eq("user_key",code),
-      sb.from("daily_log").select("*").eq("user_key",code),
+      pullSyncRows("vocab_state",code,["word_id"]),
+      pullSyncRows("verbal_progress",code,["kind","item_id"]),
+      pullSyncRows("daily_log",code,["day"]),
       sb.from("settings").select("*").eq("user_key",code).maybeSingle(),
       sb.from("app_state").select("*").eq("user_key",code).maybeSingle(),
     ]);
     // supabase v2는 reject하지 않고 {error}를 돌려준다 — 에러를 무시하면 조용히 머지가 빠진다
-    if([vs,vp,dl,st,as].some(r=>r&&r.error)){ console.error("pull partial fail",vs.error||vp.error||dl.error||st.error||as.error); setSyncDot("err"); }
+    const ok=![vs,vp,dl,st,as].some(r=>r&&r.error);
+    if(!ok){ console.error("pull partial fail",vs.error||vp.error||dl.error||st.error||as.error); setSyncDot("err"); }
+    if(ok) serverRowTimes={
+      vocab_state:new Map((vs.data||[]).map(r=>[String(r.word_id),syncTime(r.updated_at)])),
+      verbal_progress:new Map((vp.data||[]).map(r=>[r.kind+":"+r.item_id,syncTime(r.updated_at)])),
+      daily_log:new Map((dl.data||[]).map(r=>[r.day,syncTime(r.updated_at)]))};
     if(vs.data) vs.data.forEach(mergeCard);
     if(vp.data) vp.data.forEach(mergeVerbal);
     if(dl.data) dl.data.forEach(mergeDaily);
     if(st.data) mergeSettings(st.data);
     if(as.data&&as.data.data) mergeMisc(as.data.data);
-    saveLocal(); renderAll();
-  }catch(e){ console.error("pull fail",e); setSyncDot("err"); }
+    saveLocal(false); renderAll(); return ok;
+  }catch(e){ console.error("pull fail",e); setSyncDot("err"); return false; }
 }
+function syncTime(x){ const n=Date.parse(x); return Number.isNaN(n)?0:n; }
+function noteServerRow(table,key,updatedAt){ const m=serverRowTimes[table],t=syncTime(updatedAt); if(m&&t>(m.get(String(key))||0)) m.set(String(key),t); }
 function mergeCard(r){ const cur=state.cards[r.word_id];
-  if(!cur||new Date(r.updated_at)>new Date(cur.updated_at||0)) state.cards[r.word_id]={status:r.status,reps:r.reps,lapses:r.lapses,ease:r.ease,interval:r.interval,due:r.due,starred:r.starred,verify:r.verify||null,verifyDue:r.verify_due||null,updated_at:r.updated_at}; }
+  if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ state.cards[r.word_id]={status:r.status,reps:r.reps,lapses:r.lapses,ease:r.ease,interval:r.interval,due:r.due,starred:r.starred,verify:r.verify||null,verifyDue:r.verify_due||null,updated_at:r.updated_at}; return true; }
+  return false; }
 function mergeVerbal(r){ const tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null; if(!tgt) return;
   const cur=tgt[r.item_id]; const d=Object.assign({},r.data,{updated_at:r.updated_at});
-  if(!cur||new Date(r.updated_at)>new Date(cur.updated_at||0)) tgt[r.item_id]=d; }
+  if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ tgt[r.item_id]=d; return true; }
+  return false; }
 function mergeDaily(r){ const cur=state.daily[r.day];
-  if(!cur||new Date(r.updated_at)>new Date(cur.updated_at||0)) state.daily[r.day]={studied:r.studied,correct:r.correct,new_learned:r.new_learned,seconds:r.seconds,target:cur?.target||0,goal_met:r.goal_met,updated_at:r.updated_at}; }
-function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.daily_goal;
+  if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ state.daily[r.day]={studied:r.studied,correct:r.correct,new_learned:r.new_learned,seconds:r.seconds,target:cur?.target||0,goal_met:r.goal_met,updated_at:r.updated_at}; return true; }
+  return false; }
+function mergeSettings(r){ const rt=syncTime(r.updated_at); if(rt&&rt<=settingsSyncUpdatedAt) return false; if(rt) settingsSyncUpdatedAt=rt;
+  if(r.daily_goal!=null) state.settings.daily_goal=r.daily_goal;
   if(r.start_date) state.settings.start_date=r.start_date; if(r.exam_date) state.settings.exam_date=r.exam_date;
   if(r.data){ if(r.data.high_first!=null) state.settings.high_first=r.data.high_first; if(r.data.high_only!=null) state.settings.high_only=r.data.high_only;
     if(r.data.plan_ps_sj!=null) state.settings.plan_ps_sj=r.data.plan_ps_sj;
@@ -588,12 +632,17 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
     if([1,2,3].includes(Number(r.data.verbal_theme_priority))) state.settings.verbal_theme_priority=Number(r.data.verbal_theme_priority);
     if(["new","due","all"].includes(r.data.verbal_theme_mode)) state.settings.verbal_theme_mode=r.data.verbal_theme_mode;
     if([1,2,3,4].includes(Number(r.data.syn_feed_priority))) state.settings.syn_feed_priority=Number(r.data.syn_feed_priority);
-    if(r.data.syn_feed_korean!=null) state.settings.syn_feed_korean=!!r.data.syn_feed_korean; } }
+    if(r.data.syn_feed_korean!=null) state.settings.syn_feed_korean=!!r.data.syn_feed_korean; }
+  return true; }
 // The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
+// Detailed answers for ten full exams can approach Realtime's 1 MB row limit.
+// Keep those review details in the device backup/local state and sync summaries.
+function syncedExamHistory(){ return state.examHist.map(h=>{
+  if(!h||!h.items) return h; const summary={...h}; delete summary.items; return summary; }); }
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,examHist:state.examHist,curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt}; }
+  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,examHist:syncedExamHistory(),curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt}; }
 function mergeMisc(d){
   if(!d) return;
   // exams: keep the higher best per key
@@ -634,55 +683,129 @@ function mergeMisc(d){
     for(const day in (d.plan30.done||{})) state.plan30.done[day]=Object.assign(state.plan30.done[day]||{}, d.plan30.done[day]); }
 }
 
+function handleCardRealtime(r){ noteServerRow("vocab_state",r.word_id,r.updated_at);
+  const changed=mergeCard(r),cur=state.cards[r.word_id],pending=pushQ.vocab_state.get(r.word_id);
+  if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); saveLocal(false); softRender(); }
+  else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); }
+function handleVerbalRealtime(r){ noteServerRow("verbal_progress",r.kind+":"+r.item_id,r.updated_at);
+  const changed=mergeVerbal(r),tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null;
+  if(!tgt) return; const cur=tgt[r.item_id],key=r.kind+":"+r.item_id,pending=pushQ.verbal_progress.get(key);
+  if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("verbal_progress",{kind:r.kind,item_id:String(r.item_id),data:cur}); saveLocal(false); softRender(); }
+  else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("verbal_progress",{kind:r.kind,item_id:String(r.item_id),data:cur}); }
+function handleDailyRealtime(r){ noteServerRow("daily_log",r.day,r.updated_at);
+  const changed=mergeDaily(r),cur=state.daily[r.day],pending=pushQ.daily_log.get(r.day);
+  if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("daily_log",{day:r.day,...cur}); saveLocal(false); softRender(); }
+  else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("daily_log",{day:r.day,...cur}); }
+function handleSettingsRealtime(r){ const pending=pushQ.settings,changed=mergeSettings(r),rt=syncTime(r.updated_at);
+  if(changed){ if(pending&&syncTime(pending.updated_at)<=rt){ pushQ.settings={...r,data:r.data||{}}; if(!pushInFlight) schedulePush(pendingPushDelay()); } saveLocal(false); softRender(); }
+  else if(rt&&settingsSyncUpdatedAt>rt&&!pending) queuePush("settings",{}); }
 function subscribeRealtime(){
-  if(!sb) return; if(realtimeChan) sb.removeChannel(realtimeChan); const code=syncCode();
-  realtimeChan=sb.channel("afoqt-"+code)
-    .on("postgres_changes",{event:"*",schema:"public",table:"vocab_state",filter:`user_key=eq.${code}`},p=>{ if(p.new){mergeCard(p.new);saveLocal();softRender();}})
-    .on("postgres_changes",{event:"*",schema:"public",table:"verbal_progress",filter:`user_key=eq.${code}`},p=>{ if(p.new){mergeVerbal(p.new);saveLocal();softRender();}})
-    .on("postgres_changes",{event:"*",schema:"public",table:"daily_log",filter:`user_key=eq.${code}`},p=>{ if(p.new){mergeDaily(p.new);saveLocal();softRender();}})
-    .on("postgres_changes",{event:"*",schema:"public",table:"settings",filter:`user_key=eq.${code}`},p=>{ if(p.new){mergeSettings(p.new);saveLocal();softRender();}})
-    .on("postgres_changes",{event:"*",schema:"public",table:"app_state",filter:`user_key=eq.${code}`},p=>{ if(p.new&&p.new.data){mergeMisc(p.new.data);saveLocal();softRender();}})
-    .subscribe();
+  if(!sb) return Promise.resolve(false); const code=syncCode();
+  if(realtimeChan&&realtimeCode===code&&realtimeReady) return Promise.resolve(true);
+  if(realtimeChan) sb.removeChannel(realtimeChan); realtimeReady=false; realtimeCode=code;
+  const channel=sb.channel("afoqt-"+code)
+    // Realtime includes this client's own writes. Persist received rows locally
+    // without queueing a cloud write, or app_state echoes itself indefinitely.
+    .on("postgres_changes",{event:"*",schema:"public",table:"vocab_state",filter:`user_key=eq.${code}`},p=>{ if(p.new) handleCardRealtime(p.new); })
+    .on("postgres_changes",{event:"*",schema:"public",table:"verbal_progress",filter:`user_key=eq.${code}`},p=>{ if(p.new) handleVerbalRealtime(p.new); })
+    .on("postgres_changes",{event:"*",schema:"public",table:"daily_log",filter:`user_key=eq.${code}`},p=>{ if(p.new) handleDailyRealtime(p.new); })
+    .on("postgres_changes",{event:"*",schema:"public",table:"settings",filter:`user_key=eq.${code}`},p=>{ if(p.new) handleSettingsRealtime(p.new); })
+    // app_state's merge rules are intentionally local-only here. Writing the
+    // merged blob back from a Realtime callback can make two devices alternate
+    // forever when equal-ranked counters contain different values.
+    .on("postgres_changes",{event:"*",schema:"public",table:"app_state",filter:`user_key=eq.${code}`},p=>{ if(p.new&&p.new.data){
+      // A delayed echo of our own older blob must not resurrect a wrong-note or
+      // checklist entry that the user changed again while the write was active.
+      if(ownAppStateUpdates.has(syncTime(p.new.updated_at))) return;
+      mergeMisc(p.new.data);
+      // Refresh an already-scheduled local snapshot in place. This includes the
+      // remote data without creating a new write/timestamp from the callback.
+      if(pushQ.app_state) pushQ.app_state.data=miscBlob();
+      saveLocal(false); softRender(); }});
+  realtimeChan=channel;
+  return new Promise(resolve=>{ let settled=false;
+    const finish=ok=>{ if(settled) return; settled=true; clearTimeout(timer); resolve(ok); };
+    const timer=setTimeout(()=>finish(false),8000);
+    channel.subscribe(status=>{ if(realtimeChan!==channel) return;
+      if(status==="SUBSCRIBED"){ realtimeReady=true; finish(true); }
+      else if(["CHANNEL_ERROR","TIMED_OUT","CLOSED"].includes(status)){ realtimeReady=false; finish(false); } });
+  });
 }
 const pushQ={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map(),settings:null,app_state:null};
-let pushTimer=null;
+let pushTimer=null,pushDueAt=0,pushInFlight=null,pushRetryCount=0,pushRetryAt=0;
+const ownAppStateUpdates=new Set();
+function rememberOwnAppState(ts){ ownAppStateUpdates.add(syncTime(ts)); while(ownAppStateUpdates.size>200) ownAppStateUpdates.delete(ownAppStateUpdates.values().next().value); }
+// Keep the first dirty deadline (max-wait throttle), and never let new answers
+// pull a failed request ahead of its retry deadline.
+function schedulePush(ms){ if(!syncReady) return; const due=Math.max(Date.now()+ms,pushRetryAt||0);
+  if(pushTimer&&pushDueAt<=due) return;
+  clearTimeout(pushTimer); pushDueAt=due; pushTimer=setTimeout(()=>{ pushTimer=null; pushDueAt=0; flushPush(); },Math.max(0,due-Date.now())); }
+function hasPendingPush(){ return pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.settings||pushQ.app_state; }
+function pendingPushDelay(){ return synFeed?8000:(pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.settings?700:1200); }
 function queuePush(table,row){ if(!sb) return; const code=syncCode();
-  if(table==="app_state"){ pushQ.app_state={user_key:code,data:miscBlob(),updated_at:nowISO()}; clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,1200); return; }
-  if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at});
+  if(table==="app_state") pushQ.app_state={user_key:code,data:miscBlob(),updated_at:nowISO()};
+  else if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at||nowISO()});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
-  else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at});
-  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode,syn_feed_priority:state.settings.syn_feed_priority,syn_feed_korean:state.settings.syn_feed_korean!==false},updated_at:nowISO()};
-  clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,700); }
+  else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at||nowISO()});
+  else if(table==="settings"){ const updated_at=nowISO(); settingsSyncUpdatedAt=syncTime(updated_at);
+    pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode,syn_feed_priority:state.settings.syn_feed_priority,syn_feed_korean:state.settings.syn_feed_korean!==false},updated_at}; }
+  if(!pushInFlight) schedulePush(pendingPushDelay()); }
 // Each table pushes independently and only clears its queue on confirmed success —
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
 // fails just that one table and self-heals on the next push once the DB catches up,
 // instead of silently dropping every table's pending writes.
-async function flushPush(){ if(!sb) return;
-  if(pushQ.vocab_state.size){ const r=[...pushQ.vocab_state.values()];
-    try{ await sb.from("vocab_state").upsert(r,{onConflict:"user_key,word_id"}).throwOnError(); pushQ.vocab_state.clear(); }
-    catch(e){ console.error("push vocab_state fail",e); setSyncDot("err"); } }
-  if(pushQ.verbal_progress.size){ const r=[...pushQ.verbal_progress.values()];
-    try{ await sb.from("verbal_progress").upsert(r,{onConflict:"user_key,kind,item_id"}).throwOnError(); pushQ.verbal_progress.clear(); }
-    catch(e){ console.error("push verbal_progress fail",e); setSyncDot("err"); } }
-  if(pushQ.daily_log.size){ const r=[...pushQ.daily_log.values()];
-    try{ await sb.from("daily_log").upsert(r,{onConflict:"user_key,day"}).throwOnError(); pushQ.daily_log.clear(); }
-    catch(e){ console.error("push daily_log fail",e); setSyncDot("err"); } }
+async function flushPushMap(table,map,onConflict){ let ok=true; const entries=[...map.entries()];
+  // Initial sync can contain thousands of learned cards. Bound each REST body so
+  // it cannot monopolize a PostgREST connection or hit a gateway payload timeout.
+  for(let i=0;i<entries.length;i+=250){ const batch=entries.slice(i,i+250);
+    try{ await sb.from(table).upsert(batch.map(x=>x[1]),{onConflict}).throwOnError();
+      batch.forEach(([key,row])=>{ noteServerRow(table,key,row.updated_at); if(map.get(key)===row) map.delete(key); }); }
+    catch(e){ console.error("push "+table+" fail",e); setSyncDot("err"); ok=false; break; } }
+  return ok;
+}
+async function flushPushPass(){ let ok=true;
+  if(pushQ.vocab_state.size) ok=await flushPushMap("vocab_state",pushQ.vocab_state,"user_key,word_id")&&ok;
+  if(pushQ.verbal_progress.size) ok=await flushPushMap("verbal_progress",pushQ.verbal_progress,"user_key,kind,item_id")&&ok;
+  if(pushQ.daily_log.size) ok=await flushPushMap("daily_log",pushQ.daily_log,"user_key,day")&&ok;
   if(pushQ.settings){ const r=pushQ.settings;
-    try{ await sb.from("settings").upsert(r,{onConflict:"user_key"}).throwOnError(); pushQ.settings=null; }
-    catch(e){ console.error("push settings fail",e); setSyncDot("err"); } }
+    try{ await sb.from("settings").upsert(r,{onConflict:"user_key"}).throwOnError(); if(pushQ.settings===r) pushQ.settings=null; }
+    catch(e){ console.error("push settings fail",e); setSyncDot("err"); ok=false; } }
   if(pushQ.app_state){ const r=pushQ.app_state;
-    try{ await sb.from("app_state").upsert(r,{onConflict:"user_key"}).throwOnError(); pushQ.app_state=null; }
-    catch(e){ console.error("push app_state fail",e); setSyncDot("err"); } }
+    rememberOwnAppState(r.updated_at);
+    try{ await sb.from("app_state").upsert(r,{onConflict:"user_key"}).throwOnError(); if(pushQ.app_state===r) pushQ.app_state=null; }
+    catch(e){ console.error("push app_state fail",e); setSyncDot("err"); ok=false; } }
+  return ok;
+}
+async function flushPush(){ if(!sb||!syncReady) return false; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0;
+  if(pushInFlight) return pushInFlight;
+  let result=false;
+  pushInFlight=(async()=>{ const ok=await flushPushPass(); if(ok) setSyncDot("on"); return ok; })();
+  try{ result=await pushInFlight; return result; }
+  finally{ pushInFlight=null;
+    if(result){ pushRetryCount=0; pushRetryAt=0; if(hasPendingPush()) schedulePush(pendingPushDelay()); }
+    else if(hasPendingPush()){ const delays=[2000,5000,15000,60000],idx=Math.min(pushRetryCount,delays.length-1),delay=syncRetryDelay(delays[idx]);
+      pushRetryCount=Math.min(idx+1,delays.length-1);
+      pushRetryAt=Date.now()+delay; schedulePush(0); } }
 }
 // Upload EVERY local row. Call AFTER pullAll (so local already holds the newest of
 // both sides) — heals progress whose push was lost when the app closed before the
 // 700ms debounce fired (the common mobile "study a card then background" case).
 function pushAllLocal(){
-  if(!sb) return Promise.resolve();
-  for(const id in state.cards){ const c=state.cards[id]; if(c&&c.status&&c.status!=="new") queuePush("vocab_state",{id:+id,...c}); }
-  for(const id in state.va){ queuePush("verbal_progress",{kind:"va",item_id:String(id),data:state.va[id]}); }
-  for(const id in state.rc){ queuePush("verbal_progress",{kind:"rc",item_id:String(id),data:state.rc[id]}); }
-  for(const day in state.daily){ queuePush("daily_log",{day,...state.daily[day]}); }
+  if(!sb||!syncReady) return Promise.resolve(false);
+  // All call sites completed a full pull and have no active push. Rebuild the
+  // queue from current state so rows queued during an earlier failed pull cannot
+  // survive as stale snapshots.
+  pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.settings=null; pushQ.app_state=null;
+  // The pull above established a timestamp baseline. Heal only missing/newer
+  // local rows instead of rewriting thousands of unchanged rows on every load.
+  for(const id in state.cards){ const c=state.cards[id],m=serverRowTimes.vocab_state;
+    if(c&&c.status&&c.status!=="new"&&(!m.has(String(id))||syncTime(c.updated_at)>m.get(String(id)))) queuePush("vocab_state",{id:+id,...c}); }
+  for(const id in state.va){ const d=state.va[id],key="va:"+id,m=serverRowTimes.verbal_progress;
+    if(!m.has(key)||syncTime(d.updated_at)>m.get(key)) queuePush("verbal_progress",{kind:"va",item_id:String(id),data:d}); }
+  for(const id in state.rc){ const d=state.rc[id],key="rc:"+id,m=serverRowTimes.verbal_progress;
+    if(!m.has(key)||syncTime(d.updated_at)>m.get(key)) queuePush("verbal_progress",{kind:"rc",item_id:String(id),data:d}); }
+  for(const day in state.daily){ const d=state.daily[day],m=serverRowTimes.daily_log;
+    if(!m.has(day)||syncTime(d.updated_at)>m.get(day)) queuePush("daily_log",{day,...d}); }
   queuePush("settings",{}); queuePush("app_state");
   return flushPush();
 }
@@ -690,11 +813,19 @@ function pushAllLocal(){
 // so two devices can be compared apples-to-apples.
 async function forceSync(){
   if(!sb){ toast("오프라인 모드예요. 먼저 동기화 코드를 연결하세요."); return; }
+  if(syncInitializing||forceSyncRunning){ toast("동기화 연결 중… 잠시 후 다시 눌러주세요."); return; }
+  forceSyncRunning=true;
   toast("동기화 중…");
-  try{ await pullAll(); await pushAllLocal();
+  try{ if(pullRetryInFlight) await pullRetryInFlight; if(pushInFlight) await pushInFlight;
+    clearTimeout(pullRetryTimer); pullRetryTimer=null;
+    syncReady=false; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0; pushRetryCount=0; pushRetryAt=0;
+    const pulled=await pullAll(); if(!pulled) throw new Error("pull failure");
+    const subscribed=await subscribeRealtime(); syncReady=true; pullRetryCount=0;
+    const pushed=await pushAllLocal(); if(!pushed||!subscribed) throw new Error("sync failure");
     const c=countByStatus();
     toast(`✅ 동기화 완료 · 학습 ${c.learned}개 · 마스터 ${c.mastered}개`, 3500);
-  }catch(e){ toast("동기화 실패 — 연결 상태를 확인하세요"); }
+  }catch(e){ if(!syncReady) schedulePullRetry(); toast("동기화 실패 — 연결 상태를 확인하세요"); setSyncDot("err"); }
+  finally{ forceSyncRunning=false; }
 }
 
 /* ============================================================
@@ -1806,7 +1937,8 @@ function synFeedSessionValid(s){ if(!synFeedScopeIdsValid(s)||!(!s.current||synF
 function synFeedFreshQueue(priority,recent=[]){ const q=shuffle(synFeedPool(priority)),avoid=new Set((recent||[]).slice(-3));
   if(q.length>3&&avoid.has(q[0])){ const at=q.findIndex((id,i)=>i>0&&!avoid.has(id)); if(at>0) [q[0],q[at]]=[q[at],q[0]]; }
   return q; }
-function synFeedSave(immediate=false){ if(!synFeed) return; synFeed.updatedAt=nowISO(); state.synFeedSession=synFeed; immediate?saveNow():saveLocal(); }
+function synFeedSave(immediate=false,syncMisc=false){ if(!synFeed) return; synFeed.updatedAt=nowISO(); state.synFeedSession=synFeed;
+  if(immediate){ saveNow(); if(syncMisc&&sb) queuePush("app_state"); } else saveLocal(syncMisc); }
 function pauseSynFeed(){ if(synFeed) synFeedSave(true); synFeed=null; }
 function synFeedAdvanceBase(s){ s.cursor++;
   if(s.cursor<s.queue.length) return;
@@ -1827,14 +1959,14 @@ function startSynFeed(){ const priority=synFeedPriority(),queue=synFeedFreshQueu
     points:0,added:0,seed:(Math.random()*1000000)|0,answerSlots:[],lastAnswerSlot:null,
     current:null,startedAt:nowISO(),updatedAt:nowISO()};
   state.synFeedSession=synFeed; synFeedShowPlay(); synFeedAdvance(true); }
-function resumeSynFeed(){ const s=state.synFeedSession; if(!synFeedSessionValid(s)){ state.synFeedSession=null; saveLocal(); renderSynFeed(); return; }
+function resumeSynFeed(){ const s=state.synFeedSession; if(!synFeedSessionValid(s)){ state.synFeedSession=null; saveLocal(false); renderSynFeed(); return; }
   synFeed=s; synFeed.priority=Number(synFeed.priority); synFeed.retry=Array.isArray(synFeed.retry)?synFeed.retry:[];
   synFeed.recent=Array.isArray(synFeed.recent)?s.recent:[]; synFeed.answerSlots=Array.isArray(synFeed.answerSlots)?synFeed.answerSlots:[];
   if(synFeed.current) synFeed.lastAnswerSlot=synFeed.current.opts.findIndex(o=>o.ok);
   else if(!Number.isInteger(synFeed.lastAnswerSlot)) synFeed.lastAnswerSlot=null;
   if(synFeed.answerSlots[0]===synFeed.lastAnswerSlot) synFeed.answerSlots=[];
   state.settings.syn_feed_priority=synFeed.priority;
-  saveLocal(); queuePush("settings",{});
+  saveLocal(false); queuePush("settings",{});
   synFeedShowPlay(); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); }
 function synFeedShowPlay(){ $("#synfeedSetup").classList.add("hidden"); $("#synfeedPlay").classList.remove("hidden");
   $("#synfeedKoLive").classList.remove("hidden"); renderSynFeedKoButton(); }
@@ -1861,9 +1993,9 @@ function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#syn
 function renderSynFeedKoButton(){ const on=synFeedKorean(),b=$("#synfeedKoLive");
   b.textContent=`한글 ${on?"ON":"OFF"}`; b.setAttribute("aria-pressed",on?"true":"false"); }
 function setSynFeedKorean(on){ state.settings.syn_feed_korean=!!on; $("#synfeedKo").checked=!!on; renderSynFeedKoButton();
-  saveLocal(); queuePush("settings",{}); if(synFeed&&$("#view-synfeed").classList.contains("active")) renderSynFeedPlay(); }
+  saveLocal(false); queuePush("settings",{}); if(synFeed&&$("#view-synfeed").classList.contains("active")) renderSynFeedPlay(); }
 function setSynFeedPriority(p){ p=Number(p); if(![1,2,3,4].includes(p)) return; state.settings.syn_feed_priority=p;
-  saveLocal(); queuePush("settings",{}); }
+  saveLocal(false); queuePush("settings",{}); }
 function synFeedRecord(ok){ const s=state.synFeedStats,d=s.days[todayStr()]||(s.days[todayStr()]={n:0,c:0,bestCombo:0});
   s.total=(s.total||0)+1; if(ok) s.correct=(s.correct||0)+1; d.n=(d.n||0)+1; if(ok) d.c=(d.c||0)+1;
   s.bestCombo=Math.max(s.bestCombo||0,synFeed.combo||0); d.bestCombo=Math.max(d.bestCombo||0,synFeed.combo||0);
@@ -1879,7 +2011,10 @@ function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null
   else if(q.isRetry) delete state.wrong.wk[q.id];
   { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
   s.recent=(s.recent||[]).filter(id=>id!==q.id); s.recent.push(q.id); if(s.recent.length>3) s.recent=s.recent.slice(-3);
-  synFeedRecord(ok); synFeedSave(); renderSynFeedPlay();
+  // The feed queue/stats are local-only, but the answer also changed misc score,
+  // weakness and wrong-note data. Snapshot that cloud blob once, after every
+  // related mutation, rather than again on the following question advance.
+  synFeedRecord(ok); synFeedSave(false,true); renderSynFeedPlay();
   $("#synfeedNext")?.focus({preventScroll:true});
 }
 function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return; const w=WMAP.get(q.id); if(!w) return;
@@ -4207,7 +4342,7 @@ function submitExam(auto){
     skipped:skipped.length?skipped.slice():undefined});
   if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
   pruneExamDetail();
-  saveNow();
+  saveNow(); if(sb) queuePush("app_state");
   // render result
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
   $("#examEmoji").textContent=pct>=85?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
@@ -4554,14 +4689,17 @@ function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#
   $("#optPilotPerfect")&&($("#optPilotPerfect").checked=pilotPerfect());
   $("#setUrl").value=localStorage.getItem(LS.url)||""; $("#setKey").value=localStorage.getItem(LS.key)||"";
   $("#syncCodeView").textContent=syncCode(); $("#verLine").textContent=`v${VERSION} · 단어 ${WORDS.length} · 유추 ${ANALOGIES.length} · 독해 ${READING.length} · 항공 ${AVIATION.length}`;
-  setSyncDot(sb?"on":(sbUrl()&&sbKey()?"err":"off")); $("#settingsSheet").classList.add("open"); }
+  setSyncDot(syncReady?"on":(sbUrl()&&sbKey()?"err":"off")); $("#settingsSheet").classList.add("open"); }
 function saveSettings(){ const g=parseInt($("#setGoal").value,10); state.settings.daily_goal=isNaN(g)?0:Math.max(0,g);
   if($("#setStart").value) state.settings.start_date=$("#setStart").value; if($("#setExam").value) state.settings.exam_date=$("#setExam").value;
   const url=$("#setUrl").value.trim(),key=$("#setKey").value.trim(); let re=false;
   if(url!==(localStorage.getItem(LS.url)||"")){ localStorage.setItem(LS.url,url); re=true; }
   if(key!==(localStorage.getItem(LS.key)||"")){ localStorage.setItem(LS.key,key); re=true; }
-  saveLocal(); queuePush("settings",{}); flushPush(); $("#settingsSheet").classList.remove("open"); toast("저장됨"); renderHome();
-  if(re){ if(realtimeChan&&sb) sb.removeChannel(realtimeChan); sb=null; initSync(); } }
+  $("#settingsSheet").classList.remove("open"); toast("저장됨"); renderHome();
+  // A reload cleanly aborts the old client's requests/channels before creating
+  // one for changed credentials, so generations can never share an in-flight push.
+  if(re){ saveNow(); location.reload(); return; }
+  saveLocal(); queuePush("settings",{}); flushPush(); }
 
 /* ============================================================
    RENDER orchestration
@@ -4772,6 +4910,11 @@ function wire(){
     if(!sessionActive()){ lastDay=todayStr(); softRender(); }
   });
   window.addEventListener("focus",()=>{ if(!sessionActive()) softRender(); });
+  window.addEventListener("online",()=>{
+    if(!sb&&sbUrl()&&sbKey()){ initSync(); return; }
+    if(sb&&!syncReady){ clearTimeout(pullRetryTimer); pullRetryTimer=null; retryInitialPull(); }
+    else if(sb&&hasPendingPush()){ pushRetryCount=0; pushRetryAt=0; schedulePush(0); }
+  });
   // Day-rollover watcher: if the calendar day changes while the app is left
   // open, re-render so the recommended daily amount recalculates automatically.
   setInterval(()=>{

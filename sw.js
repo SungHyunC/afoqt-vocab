@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-121-0";  // 긴 단어 한 줄 고정 · 정답 위치 균형 배정
+const CACHE = "afoqt-v4-122-0";  // 동기화 504 폭주 차단 · shell 5xx 캐시 fallback
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
@@ -55,11 +55,14 @@ self.addEventListener("fetch", e => {
   if (url.origin !== self.location.origin) return;
 
   // App shell (html/js/css): network-first so updates show up immediately,
-  // falling back to cache when offline.
+  // falling back to cache when offline or the host returns a transient 5xx.
   const isShell = /\.(html|js|css)$/.test(url.pathname) || url.pathname.endsWith("/");
   if (isShell) {
     e.respondWith(
       fetch(req).then(res => {
+        if (res && res.status >= 500) {
+          return caches.match(req).then(cached => cached || res);
+        }
         if (res && res.status === 200) {
           const copy = res.clone();
           caches.open(CACHE).then(c => c.put(req, copy)).catch(()=>{});
