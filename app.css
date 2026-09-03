@@ -881,7 +881,8 @@ body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
 .synfeed-metrics div{text-align:center;padding:7px 3px;border:1px solid #ffffff12;border-radius:11px;background:#ffffff08}
 .synfeed-metrics b,.synfeed-metrics span{display:block}.synfeed-metrics b{font-size:16px;font-variant-numeric:tabular-nums}
 .synfeed-metrics span{font-size:10.5px;color:#94a3b8;margin-top:1px}.synfeed-metrics div:nth-child(3) b{color:#fbbf24}
-.synfeed-cycle{display:flex;justify-content:space-between;color:#94a3b8;font-size:10.5px;font-weight:800;letter-spacing:.8px;padding:0 2px 5px}
+.synfeed-cycle{display:flex;justify-content:space-between;gap:8px;color:#94a3b8;font-size:10.5px;font-weight:800;letter-spacing:.45px;padding:0 2px 5px}
+.synfeed-cycle span{white-space:nowrap;font-variant-numeric:tabular-nums}
 .synfeed-progress{height:3px;border-radius:999px;background:#ffffff12;overflow:hidden;flex:0 0 auto}
 .synfeed-progress i{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#8b5cf6,#22d3ee);transition:width .25s}
 .synfeed-stage{flex:1;min-height:0;display:flex;align-items:flex-start;padding:12px 0 5px;overflow-y:auto;
@@ -951,7 +952,7 @@ body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
   .synfeed-back,.synfeed-ko-live{padding:7px 9px;font-size:11.5px}
   .synfeed-setup{padding-top:10px}.synfeed-setup-card{padding:12px}.synfeed-scope-grid{gap:6px}
   .synfeed-scope-grid label>span{min-height:53px;padding:7px 8px}.synfeed-card{padding:15px 12px 12px;border-radius:20px}
-  .synfeed-metrics{gap:4px}.synfeed-metrics div{padding-left:1px;padding-right:1px}.synfeed-metrics b{font-size:15px}
+  .synfeed-metrics{gap:4px}.synfeed-metrics div{padding-left:1px;padding-right:1px}.synfeed-metrics b{font-size:15px}.synfeed-cycle{font-size:10px}
   .synfeed-choice{min-height:44px;padding-top:9px;padding-bottom:9px;font-size:13px}.synfeed-next{min-height:50px}
 }
 @media (max-height:700px){

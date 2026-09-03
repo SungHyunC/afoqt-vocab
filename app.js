@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.123.0";
+const VERSION = "4.124.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1423,9 +1423,9 @@ function renderVocab(){
       : `🗂️ 고빈출 테마별 플래시카드${hasVerbalThemeData()?"":" — 데이터 업데이트 필요"}`; }
   { const b=$("#vkSynFeed"), s=state.synFeedSession, can=synFeedSessionValid(s);
     if(b){ const copy=b.querySelector(".synfeed-entry-copy");
-      if(copy) copy.innerHTML=can
-        ? `<b>동의어 무한 피드 · 이어 풀기</b><small>${s.count||0}문제 · ${s.count?Math.round((s.correct||0)/s.count*100):0}% · 최고 ${s.bestCombo||0}콤보</small>`
-        : `<b>동의어 무한 피드</b><small>답을 확인하고 직접 넘기는 일상 반복 학습</small>`; } }
+      if(copy){ const m=can?synFeedSetMeta(s):null; copy.innerHTML=can
+        ? `<b>동의어 무한 피드 · 이어 풀기</b><small>SET ${m.setNo}/${m.setCount} · 문제 ${m.position}/${m.length} · 누적 ${s.count||0}문제</small>`
+        : `<b>동의어 무한 피드</b><small>답을 확인하고 직접 넘기는 일상 반복 학습</small>`; } } }
 }
 
 /* ============================================================
@@ -1949,16 +1949,21 @@ function renderSynAt(){
 
 /* ============================================================
    동의어 무한 피드 — 기존 WK 동의어 퀴즈와 완전히 분리된 일상 암기 모드.
-   우선순위별 전수 셔플 큐를 한 바퀴씩 돌고, 오답만 5문제 뒤 다시 낸다.
-   현재 큐는 기기 로컬에 저장하지만 단어 오답/SRS와 일일 활동은 공용이다.
+   우선순위별 전수 셔플 큐를 100개 SET으로 나눠 한 바퀴씩 돌고,
+   오답만 5문제 뒤 다시 낸다. 큐·통계·이어풀기는 기기 간 동기화한다.
    ============================================================ */
 const SYNFEED_LABEL={1:"🔥 최우선 P1",2:"⭐ 고빈출까지 P1+P2",3:"📌 중요까지 P1~P3",4:"🌐 전체"};
+const SYNFEED_SET_SIZE=100;
 let synFeed=null, synFeedPosIndex=null;
 function synFeedPriority(){ const p=Number(state.settings.syn_feed_priority); return [1,2,3,4].includes(p)?p:2; }
 function synFeedKorean(){ return state.settings.syn_feed_korean!==false; }
 function synFeedPool(priority=synFeedPriority()){
   return WORDS.filter(w=>Array.isArray(w.synonyms)&&w.synonyms.length&&(priority===4||(verbalPriorityOf(w)&&verbalPriorityOf(w)<=priority))).map(w=>w.id);
 }
+function synFeedSetMeta(s){ const total=Array.isArray(s&&s.queue)?s.queue.length:0;
+  if(!total) return {setNo:1,setCount:1,position:1,length:1};
+  const cursor=clamp(Number.isInteger(s.cursor)?s.cursor:0,0,total-1),setIndex=Math.floor(cursor/SYNFEED_SET_SIZE),start=setIndex*SYNFEED_SET_SIZE;
+  return {setNo:setIndex+1,setCount:Math.ceil(total/SYNFEED_SET_SIZE),position:cursor-start+1,length:Math.min(SYNFEED_SET_SIZE,total-start)}; }
 function synFeedNorm(x){ return String(x||"").trim().toLocaleLowerCase("en-US").replace(/\s+/g," "); }
 function synFeedPos(w){ const p=String(w&&w.pos||"").toLowerCase().split(/[^a-z]+/)[0];
   return p.startsWith("adj")?"adj":p.startsWith("adv")?"adv":p.startsWith("noun")?"noun":p.startsWith("verb")?"verb":p||"other"; }
@@ -2087,8 +2092,8 @@ function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#syn
   $("#synfeedKo").checked=synFeedKorean(); const d=synFeedDay(); $("#synfeedToday").textContent=(d.n||0).toLocaleString();
   $("#synfeedBest").textContent=(state.synFeedStats.bestCombo||0).toLocaleString();
   const saved=state.synFeedSession,can=synFeedSessionValid(saved),b=$("#synfeedResume"); b.classList.toggle("hidden",!can);
-  if(can){ const acc=saved.count?Math.round((saved.correct||0)/saved.count*100):0;
-    b.innerHTML=`<b>▶ 이어 풀기 · ${esc(SYNFEED_LABEL[saved.priority]||"저장된 피드")}</b><small>${saved.count||0}문제 · ${acc}% · ${saved.combo||0}콤보 · ROUND ${saved.cycle||1}</small>`; }
+  if(can){ const acc=saved.count?Math.round((saved.correct||0)/saved.count*100):0,m=synFeedSetMeta(saved);
+    b.innerHTML=`<b>▶ 이어 풀기 · ${esc(SYNFEED_LABEL[saved.priority]||"저장된 피드")}</b><small>SET ${m.setNo}/${m.setCount} · 문제 ${m.position}/${m.length} · 누적 ${saved.count||0}문제 · ${acc}%</small>`; }
 }
 function renderSynFeedKoButton(){ const on=synFeedKorean(),b=$("#synfeedKoLive");
   b.textContent=`한글 ${on?"ON":"OFF"}`; b.setAttribute("aria-pressed",on?"true":"false"); }
@@ -2118,12 +2123,12 @@ function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null
   $("#synfeedNext")?.focus({preventScroll:true});
 }
 function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return; const w=WMAP.get(q.id); if(!w) return;
-  const answered=q.chosen!=null,ok=answered&&!!q.opts[q.chosen].ok,correct=q.opts.find(o=>o.ok),showKo=synFeedKorean();
+  const answered=q.chosen!=null,ok=answered&&!!q.opts[q.chosen].ok,correct=q.opts.find(o=>o.ok),showKo=synFeedKorean(),m=synFeedSetMeta(s);
   $("#synfeedRunCount").textContent=(s.count||0).toLocaleString(); $("#synfeedRunAccuracy").textContent=s.count?Math.round(s.correct/s.count*100)+"%":"–";
   $("#synfeedRunCombo").textContent=s.combo||0; $("#synfeedRunXp").textContent=(s.points||0).toLocaleString();
-  $("#synfeedCycle").textContent=`ROUND ${s.cycle||1}${q.isRetry?" · RETRY":""}`;
-  $("#synfeedCyclePos").textContent=`${Math.min(s.cursor+1,s.queue.length).toLocaleString()} / ${s.queue.length.toLocaleString()}`;
-  $("#synfeedProgress").style.width=(Math.min(s.cursor+1,s.queue.length)/s.queue.length*100)+"%"; renderSynFeedKoButton();
+  $("#synfeedCycle").textContent=`ROUND ${s.cycle||1} · SET ${m.setNo}/${m.setCount}${q.isRetry?" · RETRY":""}`;
+  $("#synfeedCyclePos").textContent=`문제 ${m.position} / ${m.length}`;
+  $("#synfeedProgress").style.width=(m.position/m.length*100)+"%"; renderSynFeedKoButton();
   const priority=verbalPriorityOf(w),badge=priority?`${priority===1?"🔥":priority===2?"⭐":"📌"} P${priority}`:"STD";
   const choices=q.opts.map((o,i)=>{ const cls=answered?(o.ok?"correct":i===q.chosen?"wrong":""):"";
     return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o.t)}</button>`; }).join("");
