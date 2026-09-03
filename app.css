@@ -893,9 +893,9 @@ body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
 .synfeed-question-meta{display:flex;justify-content:center;gap:7px;margin-bottom:8px}
 .synfeed-badge{padding:4px 8px;border-radius:999px;background:#8b5cf620;color:#c4b5fd;border:1px solid #8b5cf64a;font-size:9px;font-weight:800}
 .synfeed-retry-badge{background:#f59e0b1f;color:#fbbf24;border-color:#f59e0b4a}
-.synfeed-wordrow{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0}
-.synfeed-word{font-size:min(var(--synfeed-word-size,42px),clamp(30px,9vw,42px));font-weight:900;line-height:1.12;text-align:center;letter-spacing:.3px;overflow-wrap:anywhere}
-.synfeed-speaker{width:44px;height:44px;flex:0 0 auto;display:grid;place-items:center;border-radius:50%;background:#ffffff0b;color:#a5f3fc;font-size:17px}
+.synfeed-wordrow{display:flex;align-items:flex-start;justify-content:center;gap:8px;min-width:0;min-height:48px;width:100%}
+.synfeed-word{min-width:0;max-width:calc(100% - 52px);white-space:nowrap;overflow:hidden;overflow-wrap:normal;font-size:min(var(--synfeed-word-size,42px),clamp(30px,9vw,42px));font-weight:900;line-height:1.12;text-align:center;letter-spacing:.3px}
+.synfeed-speaker{width:44px;height:44px;flex:0 0 auto;align-self:center;display:grid;place-items:center;border-radius:50%;background:#ffffff0b;color:#a5f3fc;font-size:17px}
 .synfeed-korean{text-align:center;color:#cbd5e1;font-size:14px;font-weight:650;margin:8px 0 0;line-height:1.4}
 .synfeed-prompt{text-align:center;color:#64748b;font-size:10.5px;margin:8px 0 13px;letter-spacing:.2px}
 .synfeed-choices{display:flex;flex-direction:column;gap:7px}
