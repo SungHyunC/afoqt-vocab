@@ -6,9 +6,9 @@
 (() => {
 "use strict";
 
-const VERSION = "4.122.0";
+const VERSION = "4.123.0";
 const CFG = window.AFOQT_CONFIG || {};
-const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
+const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
 // Verbal priority is editorial study guidance, not an official AFOQT frequency
 // statistic. P1 is backed by an included practice mock or an AFOQT-prep list;
@@ -173,14 +173,58 @@ const DEFAULT_STATE = () => ({
   rootStep:0,    // 어근 추론 코치 진행 위치
   speed:{},      // 풀이 속도 누적: 'WK'|'VA'|... -> {n,ms,slow} (답한 문항 기준)
   sweepAt:{},    // 최종 스윕: wordId -> 마지막 스윕 통과 시각(ms)
-  synFeedSession:null, // 이 기기에서 이어 푸는 독립 무한 동의어 피드 큐
-  synFeedStats:{total:0,correct:0,bestCombo:0,days:{}},
+  synFeedSession:null, // 동기화 코드의 다른 기기에서도 이어 푸는 무한 동의어 피드 큐
+  synFeedStats:{total:0,correct:0,bestCombo:0,days:{}}, // replica별 통계에서 다시 만든 화면용 합계
+  synFeedReplicas:{}, // replicaId -> 단조 통계 + 원자적 이어풀기 checkpoint
+  synFeedReplicaVersion:1,
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              verbal_theme_priority:2, verbal_theme_mode:"new",
              syn_feed_priority:2, syn_feed_korean:true,
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
 });
+
+const SYNFEED_REPLICA_VERSION=1,SYNFEED_MAX_REPLICAS=64;
+const safeSynFeedCount=v=>Number.isSafeInteger(v)&&v>=0?v:0;
+function cleanSynFeedDays(days){ const out={};
+  Object.keys(days&&typeof days==="object"&&!Array.isArray(days)?days:{}).sort().slice(-90).forEach(day=>{
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(day)) return; const x=days[day]; if(!x||typeof x!=="object") return;
+    const n=safeSynFeedCount(x.n);
+    out[day]={n,c:Math.min(n,safeSynFeedCount(x.c)),bestCombo:safeSynFeedCount(x.bestCombo)}; });
+  return out; }
+function cleanSynFeedStats(x){ const total=safeSynFeedCount(x&&x.total);
+  return {total,correct:Math.min(total,safeSynFeedCount(x&&x.correct)),bestCombo:safeSynFeedCount(x&&x.bestCombo),days:cleanSynFeedDays(x&&x.days)}; }
+function mergeSynFeedStats(a,b){ a=cleanSynFeedStats(a); b=cleanSynFeedStats(b); const days={};
+  for(const day of new Set([...Object.keys(a.days),...Object.keys(b.days)])){ const x=a.days[day]||{},y=b.days[day]||{};
+    days[day]={n:Math.max(x.n||0,y.n||0),c:Math.max(x.c||0,y.c||0),bestCombo:Math.max(x.bestCombo||0,y.bestCombo||0)};
+    days[day].c=Math.min(days[day].n,days[day].c); }
+  return {total:Math.max(a.total,b.total),correct:Math.max(a.correct,b.correct),bestCombo:Math.max(a.bestCombo,b.bestCombo),days:cleanSynFeedDays(days)}; }
+function canonicalSyncISO(x){ const t=syncTime(x); return t?new Date(t).toISOString():""; }
+function cloneSynFeedSession(s){ if(!s||typeof s!=="object"||Array.isArray(s)) return null;
+  try{ const raw=JSON.stringify(s); return raw.length<=200000?JSON.parse(raw):null; }catch{ return null; } }
+function cleanSynFeedCheckpoint(x){ x=x&&typeof x==="object"&&!Array.isArray(x)?x:{}; const session=cloneSynFeedSession(x.session);
+  const rev=safeSynFeedCount(x.rev); return {rev,clock:safeSynFeedCount(x.clock)||rev,updatedAt:canonicalSyncISO(x.updatedAt||(session&&session.updatedAt)),session}; }
+function cleanSynFeedReplica(x,rowUpdatedAt=""){ x=x&&typeof x==="object"&&!Array.isArray(x)?x:{}; const checkpoint=cleanSynFeedCheckpoint(x.checkpoint);
+  return {v:SYNFEED_REPLICA_VERSION,rev:Math.max(safeSynFeedCount(x.rev),checkpoint.rev),stats:cleanSynFeedStats(x.stats),checkpoint,
+    updated_at:canonicalSyncISO(x.updated_at||rowUpdatedAt)}; }
+function synFeedStatsEqual(a,b){ a=cleanSynFeedStats(a); b=cleanSynFeedStats(b);
+  if(a.total!==b.total||a.correct!==b.correct||a.bestCombo!==b.bestCombo) return false;
+  const ak=Object.keys(a.days),bk=Object.keys(b.days); return ak.length===bk.length&&ak.every((day,i)=>day===bk[i]&&a.days[day].n===b.days[day].n&&a.days[day].c===b.days[day].c&&a.days[day].bestCombo===b.days[day].bestCombo); }
+function synFeedReplicaEqual(a,b){ return !!(a&&b&&a.rev===b.rev&&syncTime(a.updated_at)===syncTime(b.updated_at)&&synFeedStatsEqual(a.stats,b.stats)&&
+  a.checkpoint.rev===b.checkpoint.rev&&a.checkpoint.clock===b.checkpoint.clock&&syncTime(a.checkpoint.updatedAt)===syncTime(b.checkpoint.updatedAt)); }
+function validSynFeedReplicaId(id){ return /^afd-[a-f0-9]{20}$/.test(String(id||"")); }
+function normalizeSynFeedReplicas(raw){ const own=deviceId(),entries=Object.entries(raw&&typeof raw==="object"&&!Array.isArray(raw)?raw:{})
+    .filter(([id])=>validSynFeedReplicaId(id)).map(([id,x])=>[id,cleanSynFeedReplica(x)])
+    .sort((a,b)=>syncTime(b[1].updated_at)-syncTime(a[1].updated_at));
+  const kept=entries.slice(0,SYNFEED_MAX_REPLICAS); if(!kept.some(([id])=>id===own)){ const x=entries.find(([id])=>id===own); if(x){ kept.pop(); kept.push(x); } }
+  return Object.fromEntries(kept); }
+function rebuildSynFeedStats(){ let total=0,correct=0,bestCombo=0; const days={};
+  for(const r of Object.values(state.synFeedReplicas||{})){ const x=cleanSynFeedStats(r&&r.stats);
+    total=Math.min(Number.MAX_SAFE_INTEGER,total+x.total); correct=Math.min(Number.MAX_SAFE_INTEGER,correct+x.correct); bestCombo=Math.max(bestCombo,x.bestCombo);
+    for(const [day,d] of Object.entries(x.days||{})){ const o=days[day]||(days[day]={n:0,c:0,bestCombo:0});
+      o.n=Math.min(Number.MAX_SAFE_INTEGER,o.n+d.n); o.c=Math.min(Number.MAX_SAFE_INTEGER,o.c+d.c); o.bestCombo=Math.max(o.bestCombo,d.bestCombo); } }
+  const out={total,correct:Math.min(total,correct),bestCombo,days:{}};
+  Object.keys(days).sort().slice(-90).forEach(day=>{ out.days[day]=days[day]; }); state.synFeedStats=out; return out; }
 
 function loadLocal(){
   try{ state=JSON.parse(localStorage.getItem(LS.state))||DEFAULT_STATE(); }catch{ state=DEFAULT_STATE(); }
@@ -208,13 +252,14 @@ function loadLocal(){
     state.migSkipFix=1; saveNow();   // 정정 결과 즉시 저장
   }
   state.speed=state.speed||{}; state.sweepAt=state.sweepAt||{};
-  state.synFeedSession=(state.synFeedSession&&typeof state.synFeedSession==="object")?state.synFeedSession:null;
-  state.synFeedStats=Object.assign({total:0,correct:0,bestCombo:0,days:{}},state.synFeedStats||{});
-  { const sf=state.synFeedStats,safe=v=>Number.isSafeInteger(v)&&v>=0?v:0;
-    sf.total=safe(sf.total); sf.correct=Math.min(sf.total,safe(sf.correct)); sf.bestCombo=safe(sf.bestCombo);
-    if(!sf.days||typeof sf.days!=="object"||Array.isArray(sf.days)) sf.days={};
-    for(const day of Object.keys(sf.days)){ const x=sf.days[day]; if(!x||typeof x!=="object"){ delete sf.days[day]; continue; }
-      x.n=safe(x.n); x.c=Math.min(x.n,safe(x.c)); x.bestCombo=safe(x.bestCombo); } }
+  state.synFeedSession=cloneSynFeedSession(state.synFeedSession);
+  const legacyFeedStats=cleanSynFeedStats(state.synFeedStats),migrateFeed=state.synFeedReplicaVersion!==SYNFEED_REPLICA_VERSION;
+  state.synFeedReplicas=normalizeSynFeedReplicas(state.synFeedReplicas);
+  if(migrateFeed&&(legacyFeedStats.total||Object.keys(legacyFeedStats.days).length||state.synFeedSession)){
+    const id=deviceId(),ts=nowISO(),session=cloneSynFeedSession(state.synFeedSession);
+    state.synFeedReplicas[id]={v:SYNFEED_REPLICA_VERSION,rev:1,stats:legacyFeedStats,
+      checkpoint:{rev:session?1:0,clock:session?1:0,updatedAt:session?canonicalSyncISO(session.updatedAt)||ts:"",session},updated_at:ts}; }
+  state.synFeedReplicaVersion=SYNFEED_REPLICA_VERSION; rebuildSynFeedStats();
   state.settings=Object.assign(d.settings, state.settings||{});
   if(![1,2,3].includes(Number(state.settings.verbal_theme_priority))) state.settings.verbal_theme_priority=2;
   else state.settings.verbal_theme_priority=Number(state.settings.verbal_theme_priority);
@@ -222,6 +267,7 @@ function loadLocal(){
   if(![1,2,3,4].includes(Number(state.settings.syn_feed_priority))) state.settings.syn_feed_priority=2;
   else state.settings.syn_feed_priority=Number(state.settings.syn_feed_priority);
   if(typeof state.settings.syn_feed_korean!=="boolean") state.settings.syn_feed_korean=true;
+  if(migrateFeed) saveNow();
 }
 let saveTimer=null;
 // Remote merges and feed queue checkpoints still need local durability, but must
@@ -523,6 +569,15 @@ function finishConfirm(){
    ============================================================ */
 function syncCode(){ let c=localStorage.getItem(LS.code); if(!c){ c=genCode(); localStorage.setItem(LS.code,c);} return c; }
 function genCode(){ const r=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)).replace(/-/g,""); return "afq-"+r.slice(0,16); }
+let volatileDeviceId="";
+function deviceId(){
+  try{ const saved=localStorage.getItem(LS.device); if(validSynFeedReplicaId(saved)) return saved;
+    const bytes=new Uint8Array(10); if(crypto.getRandomValues) crypto.getRandomValues(bytes);
+    else for(let i=0;i<bytes.length;i++) bytes[i]=(Math.random()*256)|0;
+    const id="afd-"+[...bytes].map(n=>n.toString(16).padStart(2,"0")).join(""); localStorage.setItem(LS.device,id); return id;
+  }catch{ if(!validSynFeedReplicaId(volatileDeviceId)){ const r=(Date.now().toString(16)+Math.random().toString(16).slice(2)+"00000000000000000000").slice(0,20); volatileDeviceId="afd-"+r; }
+    return volatileDeviceId; }
+}
 function sbUrl(){ return localStorage.getItem(LS.url)||CFG.SUPABASE_URL||""; }
 function sbKey(){ return localStorage.getItem(LS.key)||CFG.SUPABASE_ANON_KEY||""; }
 function setSyncDot(s){ const d=$("#syncDot"); d.className="sync-dot "+s;
@@ -607,6 +662,9 @@ async function pullAll(){
     if(dl.data) dl.data.forEach(mergeDaily);
     if(st.data) mergeSettings(st.data);
     if(as.data&&as.data.data) mergeMisc(as.data.data);
+    // A feed checkpoint is an atomic queue/current-question snapshot. Pick the
+    // newest valid replica only while idle; never replace a question being answered.
+    refreshSynFeedSession();
     saveLocal(false); renderAll(); return ok;
   }catch(e){ console.error("pull fail",e); setSyncDot("err"); return false; }
 }
@@ -615,7 +673,43 @@ function noteServerRow(table,key,updatedAt){ const m=serverRowTimes[table],t=syn
 function mergeCard(r){ const cur=state.cards[r.word_id];
   if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ state.cards[r.word_id]={status:r.status,reps:r.reps,lapses:r.lapses,ease:r.ease,interval:r.interval,due:r.due,starred:r.starred,verify:r.verify||null,verifyDue:r.verify_due||null,updated_at:r.updated_at}; return true; }
   return false; }
-function mergeVerbal(r){ const tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null; if(!tgt) return;
+function compareSynFeedCheckpoints(a,b){ const ar=safeSynFeedCount(a&&a.rev),br=safeSynFeedCount(b&&b.rev); if(ar!==br) return ar-br;
+  const ac=safeSynFeedCount(a&&a.clock),bc=safeSynFeedCount(b&&b.clock); if(ac!==bc) return ac-bc;
+  return syncTime(a&&a.updatedAt)-syncTime(b&&b.updatedAt); }
+function mergeSynFeedReplica(r){ const id=String(r&&r.item_id||"");
+  if(!validSynFeedReplicaId(id)||!r.data||Number(r.data.v)!==SYNFEED_REPLICA_VERSION) return {changed:false,needsPush:false};
+  state.synFeedReplicas=state.synFeedReplicas||{}; const remote=cleanSynFeedReplica(r.data,r.updated_at),rawLocal=state.synFeedReplicas[id];
+  if(!rawLocal){ state.synFeedReplicas[id]=remote; rebuildSynFeedStats(); return {changed:true,needsPush:false}; }
+  const local=cleanSynFeedReplica(rawLocal),checkpoint=compareSynFeedCheckpoints(remote.checkpoint,local.checkpoint)>0?remote.checkpoint:local.checkpoint;
+  const merged={v:SYNFEED_REPLICA_VERSION,rev:Math.max(local.rev,remote.rev),stats:mergeSynFeedStats(local.stats,remote.stats),checkpoint,
+    updated_at:syncTime(remote.updated_at)>syncTime(local.updated_at)?remote.updated_at:local.updated_at};
+  const needsPush=id===deviceId()&&!synFeedReplicaEqual(merged,remote);
+  if(needsPush){ const n=Math.max(merged.rev,merged.checkpoint.rev); merged.rev=n<Number.MAX_SAFE_INTEGER?n+1:n; merged.updated_at=nowISO(); }
+  const changed=!synFeedReplicaEqual(local,merged); if(changed){ state.synFeedReplicas[id]=merged; rebuildSynFeedStats(); }
+  return {changed,needsPush}; }
+function latestSynFeedSession(){ let best=null;
+  for(const [id,r] of Object.entries(state.synFeedReplicas||{})){ const cp=r&&r.checkpoint,s=cp&&cp.session;
+    if(!s||!synFeedSessionValid(s)) continue; const clock=safeSynFeedCount(cp.clock)||safeSynFeedCount(cp.rev),rev=safeSynFeedCount(cp.rev);
+    // Lamport order is immune to bad device clocks. Concurrent equal clocks use
+    // a stable replica-id tie break; the next save observes both and advances it.
+    if(!best||clock>best.clock||clock===best.clock&&(id>best.id||id===best.id&&rev>best.rev)) best={id,clock,rev,session:s}; }
+  return best?cloneSynFeedSession(best.session):null; }
+function refreshSynFeedSession(){ if(synFeed) return false; const next=latestSynFeedSession(),before=state.synFeedSession;
+  let same=!next&&!before; if(next&&before) try{ same=JSON.stringify(next)===JSON.stringify(before); }catch{ same=false; }
+  if(!same) state.synFeedSession=next; return !same; }
+function ownSynFeedReplica(){ state.synFeedReplicas=state.synFeedReplicas||{}; const id=deviceId();
+  if(!state.synFeedReplicas[id]) state.synFeedReplicas[id]={v:SYNFEED_REPLICA_VERSION,rev:0,stats:cleanSynFeedStats(null),checkpoint:cleanSynFeedCheckpoint(null),updated_at:""};
+  else state.synFeedReplicas[id]=cleanSynFeedReplica(state.synFeedReplicas[id]);
+  return state.synFeedReplicas[id]; }
+function nextSynFeedClock(){ let n=0; for(const r of Object.values(state.synFeedReplicas||{})) n=Math.max(n,safeSynFeedCount(r&&r.checkpoint&&r.checkpoint.clock));
+  return n<Number.MAX_SAFE_INTEGER?n+1:n; }
+function writeOwnSynFeedCheckpoint(session){ const r=ownSynFeedReplica(),ts=nowISO(),n=Math.max(r.rev,r.checkpoint.rev),rev=n<Number.MAX_SAFE_INTEGER?n+1:n;
+  const snapshot=cloneSynFeedSession(session); r.rev=rev; r.checkpoint={rev,clock:nextSynFeedClock(),updatedAt:ts,session:snapshot}; r.updated_at=ts;
+  state.synFeedSession=cloneSynFeedSession(snapshot); return r; }
+function queueSynFeedReplica(){ if(!sb) return; const id=deviceId(),raw=state.synFeedReplicas&&state.synFeedReplicas[id]; if(!raw) return;
+  const data=cleanSynFeedReplica(raw); state.synFeedReplicas[id]=data; queuePush("verbal_progress",{kind:"synfeed",item_id:id,data}); }
+function mergeVerbal(r){ if(r.kind==="synfeed") return mergeSynFeedReplica(r).changed;
+  const tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null; if(!tgt) return;
   const cur=tgt[r.item_id]; const d=Object.assign({},r.data,{updated_at:r.updated_at});
   if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ tgt[r.item_id]=d; return true; }
   return false; }
@@ -688,6 +782,8 @@ function handleCardRealtime(r){ noteServerRow("vocab_state",r.word_id,r.updated_
   if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); saveLocal(false); softRender(); }
   else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); }
 function handleVerbalRealtime(r){ noteServerRow("verbal_progress",r.kind+":"+r.item_id,r.updated_at);
+  if(r.kind==="synfeed"){ const m=mergeSynFeedReplica(r); if(m.needsPush) queueSynFeedReplica();
+    if(m.changed){ refreshSynFeedSession(); saveLocal(false); softRender(); } return; }
   const changed=mergeVerbal(r),tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null;
   if(!tgt) return; const cur=tgt[r.item_id],key=r.kind+":"+r.item_id,pending=pushQ.verbal_progress.get(key);
   if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("verbal_progress",{kind:r.kind,item_id:String(r.item_id),data:cur}); saveLocal(false); softRender(); }
@@ -804,6 +900,9 @@ function pushAllLocal(){
     if(!m.has(key)||syncTime(d.updated_at)>m.get(key)) queuePush("verbal_progress",{kind:"va",item_id:String(id),data:d}); }
   for(const id in state.rc){ const d=state.rc[id],key="rc:"+id,m=serverRowTimes.verbal_progress;
     if(!m.has(key)||syncTime(d.updated_at)>m.get(key)) queuePush("verbal_progress",{kind:"rc",item_id:String(id),data:d}); }
+  // One small row owned by this browser. Other replicas are never rewritten:
+  // their monotonic counters remain independent, so concurrent answers add up.
+  if(state.synFeedReplicas&&state.synFeedReplicas[deviceId()]) queueSynFeedReplica();
   for(const day in state.daily){ const d=state.daily[day],m=serverRowTimes.daily_log;
     if(!m.has(day)||syncTime(d.updated_at)>m.get(day)) queuePush("daily_log",{day,...d}); }
   queuePush("settings",{}); queuePush("app_state");
@@ -822,8 +921,8 @@ async function forceSync(){
     const pulled=await pullAll(); if(!pulled) throw new Error("pull failure");
     const subscribed=await subscribeRealtime(); syncReady=true; pullRetryCount=0;
     const pushed=await pushAllLocal(); if(!pushed||!subscribed) throw new Error("sync failure");
-    const c=countByStatus();
-    toast(`✅ 동기화 완료 · 학습 ${c.learned}개 · 마스터 ${c.mastered}개`, 3500);
+    const c=countByStatus(),feed=state.synFeedStats?.total||0;
+    toast(`✅ 동기화 완료 · 학습 ${c.learned}개 · 마스터 ${c.mastered}개 · 피드 ${feed}문제`, 3500);
   }catch(e){ if(!syncReady) schedulePullRetry(); toast("동기화 실패 — 연결 상태를 확인하세요"); setSyncDot("err"); }
   finally{ forceSyncRunning=false; }
 }
@@ -1931,15 +2030,17 @@ function synFeedSessionValid(s){ if(!synFeedScopeIdsValid(s)||!(!s.current||synF
   const whole=["count","correct","combo","bestCombo","points","added","seed","cycle"];
   if(whole.some(k=>typeof s[k]!=="number"||!Number.isSafeInteger(s[k])||s[k]<0)) return false;
   if(s.cycle<1||s.correct>s.count||s.combo>s.count||s.bestCombo>s.count||!synFeedAnswerSlotsValid(s)) return false;
+  if(!syncTime(s.startedAt)||!syncTime(s.updatedAt)) return false;
+  if(s.recent!=null&&(!Array.isArray(s.recent)||s.recent.length>3||s.recent.some(id=>!WMAP.has(id)))) return false;
   if(s.current){ const w=WMAP.get(s.current.id),p=w&&verbalPriorityOf(w); if(!(s.priority===4||(p&&p<=s.priority))) return false;
     if(!s.current.isRetry&&s.current.id!==s.queue[s.cursor]) return false; }
   return !s.retry||Array.isArray(s.retry)&&s.retry.length<=100&&s.retry.every(r=>r&&WMAP.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0); }
 function synFeedFreshQueue(priority,recent=[]){ const q=shuffle(synFeedPool(priority)),avoid=new Set((recent||[]).slice(-3));
   if(q.length>3&&avoid.has(q[0])){ const at=q.findIndex((id,i)=>i>0&&!avoid.has(id)); if(at>0) [q[0],q[at]]=[q[at],q[0]]; }
   return q; }
-function synFeedSave(immediate=false,syncMisc=false){ if(!synFeed) return; synFeed.updatedAt=nowISO(); state.synFeedSession=synFeed;
-  if(immediate){ saveNow(); if(syncMisc&&sb) queuePush("app_state"); } else saveLocal(syncMisc); }
-function pauseSynFeed(){ if(synFeed) synFeedSave(true); synFeed=null; }
+function synFeedSave(immediate=false,syncCloud=true){ if(!synFeed) return; synFeed.updatedAt=nowISO(); writeOwnSynFeedCheckpoint(synFeed);
+  if(immediate) saveNow(); else saveLocal(false); if(syncCloud&&sb) queueSynFeedReplica(); }
+function pauseSynFeed(){ if(synFeed){ synFeedSave(true); flushPush(); } synFeed=null; }
 function synFeedAdvanceBase(s){ s.cursor++;
   if(s.cursor<s.queue.length) return;
   s.cycle=(s.cycle||1)+1; s.cursor=0; s.queue=synFeedFreshQueue(s.priority,s.recent); }
@@ -1958,16 +2059,15 @@ function startSynFeed(){ const priority=synFeedPriority(),queue=synFeedFreshQueu
   synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,correct:0,combo:0,bestCombo:0,
     points:0,added:0,seed:(Math.random()*1000000)|0,answerSlots:[],lastAnswerSlot:null,
     current:null,startedAt:nowISO(),updatedAt:nowISO()};
-  state.synFeedSession=synFeed; synFeedShowPlay(); synFeedAdvance(true); }
-function resumeSynFeed(){ const s=state.synFeedSession; if(!synFeedSessionValid(s)){ state.synFeedSession=null; saveLocal(false); renderSynFeed(); return; }
+  synFeedShowPlay(); synFeedAdvance(true); }
+function resumeSynFeed(){ const s=cloneSynFeedSession(state.synFeedSession); if(!synFeedSessionValid(s)){ state.synFeedSession=null; saveLocal(false); renderSynFeed(); return; }
   synFeed=s; synFeed.priority=Number(synFeed.priority); synFeed.retry=Array.isArray(synFeed.retry)?synFeed.retry:[];
   synFeed.recent=Array.isArray(synFeed.recent)?s.recent:[]; synFeed.answerSlots=Array.isArray(synFeed.answerSlots)?synFeed.answerSlots:[];
   if(synFeed.current) synFeed.lastAnswerSlot=synFeed.current.opts.findIndex(o=>o.ok);
   else if(!Number.isInteger(synFeed.lastAnswerSlot)) synFeed.lastAnswerSlot=null;
   if(synFeed.answerSlots[0]===synFeed.lastAnswerSlot) synFeed.answerSlots=[];
   state.settings.syn_feed_priority=synFeed.priority;
-  saveLocal(false); queuePush("settings",{});
-  synFeedShowPlay(); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); }
+  queuePush("settings",{}); synFeedShowPlay(); if(!synFeed.current) synFeedAdvance(true); else{ synFeedSave(); renderSynFeedPlay(); } }
 function synFeedShowPlay(){ $("#synfeedSetup").classList.add("hidden"); $("#synfeedPlay").classList.remove("hidden");
   $("#synfeedKoLive").classList.remove("hidden"); renderSynFeedKoButton(); }
 let synFeedWordFitFrame=0;
@@ -1996,10 +2096,11 @@ function setSynFeedKorean(on){ state.settings.syn_feed_korean=!!on; $("#synfeedK
   saveLocal(false); queuePush("settings",{}); if(synFeed&&$("#view-synfeed").classList.contains("active")) renderSynFeedPlay(); }
 function setSynFeedPriority(p){ p=Number(p); if(![1,2,3,4].includes(p)) return; state.settings.syn_feed_priority=p;
   saveLocal(false); queuePush("settings",{}); }
-function synFeedRecord(ok){ const s=state.synFeedStats,d=s.days[todayStr()]||(s.days[todayStr()]={n:0,c:0,bestCombo:0});
-  s.total=(s.total||0)+1; if(ok) s.correct=(s.correct||0)+1; d.n=(d.n||0)+1; if(ok) d.c=(d.c||0)+1;
+function synFeedRecord(ok){ const r=ownSynFeedReplica(),s=r.stats,d=s.days[todayStr()]||(s.days[todayStr()]={n:0,c:0,bestCombo:0});
+  s.total=Math.min(Number.MAX_SAFE_INTEGER,(s.total||0)+1); if(ok) s.correct=Math.min(Number.MAX_SAFE_INTEGER,(s.correct||0)+1);
+  d.n=Math.min(Number.MAX_SAFE_INTEGER,(d.n||0)+1); if(ok) d.c=Math.min(Number.MAX_SAFE_INTEGER,(d.c||0)+1);
   s.bestCombo=Math.max(s.bestCombo||0,synFeed.combo||0); d.bestCombo=Math.max(d.bestCombo||0,synFeed.combo||0);
-  const days=Object.keys(s.days).sort(); while(days.length>90) delete s.days[days.shift()]; }
+  const days=Object.keys(s.days).sort(); while(days.length>90) delete s.days[days.shift()]; rebuildSynFeedStats(); }
 function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null||!q.opts[i]) return;
   q.chosen=i; const ok=!!q.opts[i].ok,w=WMAP.get(q.id); s.count++; if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); }
   else s.combo=0;
@@ -2011,10 +2112,9 @@ function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null
   else if(q.isRetry) delete state.wrong.wk[q.id];
   { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
   s.recent=(s.recent||[]).filter(id=>id!==q.id); s.recent.push(q.id); if(s.recent.length>3) s.recent=s.recent.slice(-3);
-  // The feed queue/stats are local-only, but the answer also changed misc score,
-  // weakness and wrong-note data. Snapshot that cloud blob once, after every
-  // related mutation, rather than again on the following question advance.
-  synFeedRecord(ok); synFeedSave(false,true); renderSynFeedPlay();
+  // Feed counters/checkpoint use a dedicated per-replica row. The ordinary
+  // score, weakness and wrong-note fields still use the shared misc snapshot.
+  synFeedRecord(ok); synFeedSave(); queuePush("app_state"); renderSynFeedPlay();
   $("#synfeedNext")?.focus({preventScroll:true});
 }
 function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return; const w=WMAP.get(q.id); if(!w) return;
@@ -4896,6 +4996,7 @@ function wire(){
     // Backgrounding/lock fires this while the page is still alive — flush the
     // pending server push here so mobile "study then close" doesn't lose progress.
     if(document.visibilityState==="hidden"){
+      if(synFeed) synFeedSave(true); // latest queue/current question + replica counters
       if(exam&&!exam.submitted){
         // 열린 문항의 시간 구간을 닫는다 — 자리 비운 10분이 그 문항 속도 기록으로 들어가지 않게
         exam.times=exam.times||new Array(exam.total).fill(0);
@@ -4921,8 +5022,9 @@ function wire(){
     if(todayStr()!==lastDay){ lastDay=todayStr(); if(!sessionActive()){ const a=$(".view.active")?.id;
       if(a==="view-home") renderHome(); else softRender(); } }
   }, 60000);
-  window.addEventListener("pagehide", ()=>{ saveNow(); flushPush(); });
-  window.addEventListener("beforeunload", ()=>{ saveNow(); flushPush(); });
+  const flushBeforeExit=()=>{ if(synFeed) synFeedSave(true); saveNow(); flushPush(); };
+  window.addEventListener("pagehide",flushBeforeExit);
+  window.addEventListener("beforeunload",flushBeforeExit);
   // Preload TTS voices (they populate asynchronously in most browsers).
   if(window.speechSynthesis){ loadVoices(); window.speechSynthesis.onvoiceschanged=loadVoices; }
 }
@@ -5055,6 +5157,7 @@ async function boot(){
       return;
     }
     WMAP=new Map(WORDS.map(w=>[w.id,w]));
+    refreshSynFeedSession(); // validate the persisted checkpoint now that word data exists
     buildRootIndex();
     ANALOGIES=await loadJSON("./analogies.json")||[];
     READING=await loadJSON("./reading.json")||[];
