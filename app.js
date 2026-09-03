@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.120.0";
+const VERSION = "4.121.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1754,13 +1754,28 @@ function synFeedDistractors(w,correct,k){
   fill(synFeedPosIndex.byPos.get(synFeedPos(w))); if(out.length<k) fill(synFeedPosIndex.all);
   return out.length===k?out:null;
 }
+// 완전 무작위는 짧은 구간에서 같은 정답 위치가 몰릴 수 있다. 10문제마다
+// 1~5번을 정확히 두 번씩 쓰되 연속 중복을 피해서 예측성 없이 균형을 맞춘다.
+function synFeedMakeAnswerSlots(last){ const source=[0,0,1,1,2,2,3,3,4,4];
+  for(let tries=0;tries<40;tries++){ const bag=shuffle(source);
+    if((last==null||bag[0]!==last)&&bag.every((x,i)=>!i||x!==bag[i-1])) return bag; }
+  let start=(Math.random()*5)|0; if(start===last) start=(start+1)%5;
+  return Array.from({length:10},(_,i)=>(start+i)%5);
+}
+function synFeedTakeAnswerSlot(s){
+  if(!s) return (Math.random()*5)|0;
+  if(!Array.isArray(s.answerSlots)||!s.answerSlots.length) s.answerSlots=synFeedMakeAnswerSlots(s.lastAnswerSlot);
+  const slot=s.answerSlots.shift(); s.lastAnswerSlot=slot; return slot;
+}
 function synFeedBuildQuestion(id,isRetry=false){ const w=WMAP.get(id); if(!w) return null;
   let terms=synFeedUniqueTerms(w.synonyms,w.word); const singles=terms.filter(t=>!/\s/.test(t)); if(singles.length) terms=singles;
   if(!terms.length) return null;
   const rot=((synFeed?.seed||0)+(synFeed?.cycle||1)+Number(id||0))%terms.length,correct=terms[rot];
   const dist=synFeedDistractors(w,correct,4); if(!dist) return null;
+  const opts=shuffle(dist.map(t=>({t,ok:false}))),slot=synFeedTakeAnswerSlot(synFeed);
+  opts.splice(slot,0,{t:correct,ok:true});
   return {id,isRetry,nonce:Date.now()+":"+Math.random().toString(36).slice(2,8),
-    opts:shuffle([{t:correct,ok:true},...dist.map(t=>({t,ok:false}))]),chosen:null,gain:0,milestone:"",added:false};
+    opts,chosen:null,gain:0,milestone:"",added:false};
 }
 function synFeedScopeIdsValid(s){ if(!s||s.v!==1||!Number.isInteger(s.priority)||![1,2,3,4].includes(s.priority)||!Array.isArray(s.queue)||!s.queue.length) return false;
   if(s.queue.length!==synFeedPool(Number(s.priority)).length||!Number.isInteger(s.cursor)||s.cursor<0||s.cursor>=s.queue.length||new Set(s.queue).size!==s.queue.length) return false;
@@ -1772,10 +1787,19 @@ function synFeedQuestionValid(q){ return !!(q&&WMAP.has(q.id)&&Array.isArray(q.o
   (q.chosen==null||(Number.isInteger(q.chosen)&&q.chosen>=0&&q.chosen<5))&&
   Number.isSafeInteger(q.gain)&&q.gain>=0&&typeof q.isRetry==="boolean"&&typeof q.added==="boolean"&&
   typeof q.nonce==="string"&&q.nonce.length<=100&&typeof q.milestone==="string"&&q.milestone.length<=100); }
+function synFeedAnswerSlotsValid(s){ const bag=s.answerSlots,last=s.lastAnswerSlot;
+  if(bag!=null){
+    if(!Array.isArray(bag)||bag.length>10||bag.some(x=>!Number.isInteger(x)||x<0||x>4)) return false;
+    const counts=[0,0,0,0,0];
+    for(let i=0;i<bag.length;i++){ if(++counts[bag[i]]>2||(i&&bag[i]===bag[i-1])) return false; }
+  }
+  if(last!=null&&(!Number.isInteger(last)||last<0||last>4)) return false;
+  return !(Array.isArray(bag)&&bag.length&&last!=null&&bag[0]===last);
+}
 function synFeedSessionValid(s){ if(!synFeedScopeIdsValid(s)||!(!s.current||synFeedQuestionValid(s.current))) return false;
   const whole=["count","correct","combo","bestCombo","points","added","seed","cycle"];
   if(whole.some(k=>typeof s[k]!=="number"||!Number.isSafeInteger(s[k])||s[k]<0)) return false;
-  if(s.cycle<1||s.correct>s.count||s.combo>s.count||s.bestCombo>s.count) return false;
+  if(s.cycle<1||s.correct>s.count||s.combo>s.count||s.bestCombo>s.count||!synFeedAnswerSlotsValid(s)) return false;
   if(s.current){ const w=WMAP.get(s.current.id),p=w&&verbalPriorityOf(w); if(!(s.priority===4||(p&&p<=s.priority))) return false;
     if(!s.current.isRetry&&s.current.id!==s.queue[s.cursor]) return false; }
   return !s.retry||Array.isArray(s.retry)&&s.retry.length<=100&&s.retry.every(r=>r&&WMAP.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0); }
@@ -1800,15 +1824,29 @@ function synFeedAdvance(initial=false){ const s=synFeed; if(!s) return;
 function startSynFeed(){ const priority=synFeedPriority(),queue=synFeedFreshQueue(priority);
   if(queue.length<5){ toast("이 범위에 동의어 단어가 부족해요."); return; }
   synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,correct:0,combo:0,bestCombo:0,
-    points:0,added:0,seed:(Math.random()*1000000)|0,current:null,startedAt:nowISO(),updatedAt:nowISO()};
+    points:0,added:0,seed:(Math.random()*1000000)|0,answerSlots:[],lastAnswerSlot:null,
+    current:null,startedAt:nowISO(),updatedAt:nowISO()};
   state.synFeedSession=synFeed; synFeedShowPlay(); synFeedAdvance(true); }
 function resumeSynFeed(){ const s=state.synFeedSession; if(!synFeedSessionValid(s)){ state.synFeedSession=null; saveLocal(); renderSynFeed(); return; }
   synFeed=s; synFeed.priority=Number(synFeed.priority); synFeed.retry=Array.isArray(synFeed.retry)?synFeed.retry:[];
-  synFeed.recent=Array.isArray(synFeed.recent)?s.recent:[]; state.settings.syn_feed_priority=synFeed.priority;
+  synFeed.recent=Array.isArray(synFeed.recent)?s.recent:[]; synFeed.answerSlots=Array.isArray(synFeed.answerSlots)?synFeed.answerSlots:[];
+  if(synFeed.current) synFeed.lastAnswerSlot=synFeed.current.opts.findIndex(o=>o.ok);
+  else if(!Number.isInteger(synFeed.lastAnswerSlot)) synFeed.lastAnswerSlot=null;
+  if(synFeed.answerSlots[0]===synFeed.lastAnswerSlot) synFeed.answerSlots=[];
+  state.settings.syn_feed_priority=synFeed.priority;
   saveLocal(); queuePush("settings",{});
   synFeedShowPlay(); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); }
 function synFeedShowPlay(){ $("#synfeedSetup").classList.add("hidden"); $("#synfeedPlay").classList.remove("hidden");
   $("#synfeedKoLive").classList.remove("hidden"); renderSynFeedKoButton(); }
+let synFeedWordFitFrame=0;
+function fitSynFeedWord(){ cancelAnimationFrame(synFeedWordFitFrame); synFeedWordFitFrame=requestAnimationFrame(()=>{
+  const el=$("#synfeedWord"),row=el&&el.parentElement,speaker=$("#synfeedSpeak"); if(!el||!row||!speaker) return;
+  el.style.fontSize="";
+  const available=Math.max(0,row.clientWidth-speaker.offsetWidth-8); if(!available) return;
+  const base=parseFloat(getComputedStyle(el).fontSize),natural=el.scrollWidth;
+  if(Number.isFinite(base)&&natural>available){ let px=Math.max(16,Math.floor(base*(available-2)/natural)); el.style.fontSize=px+"px";
+    while(px>16&&el.scrollWidth>available) el.style.fontSize=--px+"px"; }
+}); }
 function synFeedDay(){ const d=(state.synFeedStats.days||{})[todayStr()]; return d||{n:0,c:0,bestCombo:0}; }
 function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#synfeedPlay").classList.add("hidden");
   $("#synfeedKoLive").classList.add("hidden");
@@ -1865,12 +1903,13 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
     ${answered&&ok?`<span class="synfeed-points">+${q.gain}</span>`:""}
     <div class="synfeed-question-pane">
       <div class="synfeed-question-meta"><span class="synfeed-badge">${badge}</span>${q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
-      <div class="synfeed-wordrow"><div class="synfeed-word" style="--synfeed-word-size:${wordFont(w.word,42).replace("font-size:","")}">${esc(w.word)}</div><button class="synfeed-speaker" id="synfeedSpeak" type="button" aria-label="${esc(w.word)} 발음 듣기">🔊</button></div>
+      <div class="synfeed-wordrow"><div class="synfeed-word" id="synfeedWord" style="--synfeed-word-size:${wordFont(w.word,42).replace("font-size:","")}">${esc(w.word)}</div><button class="synfeed-speaker" id="synfeedSpeak" type="button" aria-label="${esc(w.word)} 발음 듣기">🔊</button></div>
       ${koLine}<div class="synfeed-prompt">가장 비슷한 뜻을 고르세요</div>
     </div>
     <div class="synfeed-answer-pane"><div class="synfeed-choices" id="synfeedChoices">${choices}</div>
       ${answerLine}${q.milestone?`<div class="synfeed-milestone">${esc(q.milestone)}</div>`:""}</div></article>`;
   if(newQuestion) stage.scrollTop=0;
+  fitSynFeedWord();
   if(!answered) $$("#synfeedChoices .synfeed-choice").forEach(b=>b.onclick=()=>answerSynFeed(+b.dataset.i));
   $("#synfeedSpeak").onclick=e=>speak(w.word,e); const next=$("#synfeedNext"),gesture=$("#synfeedGesture");
   next.classList.toggle("hidden",!answered); gesture.classList.toggle("hidden",answered); next.onclick=answered?()=>synFeedAdvance():null;
@@ -4687,6 +4726,7 @@ function wire(){
   $("#vkWrong")&&($("#vkWrong").onclick=()=>startStudySet(wrongWordIds(),"오답 단어"));
   // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
   window.addEventListener("scroll",pumpWords,true); window.addEventListener("resize",pumpWords);
+  window.addEventListener("resize",fitSynFeedWord);
   wireStudyKeys(); wireChoiceKeys();
   { const m=$("#wordMore"); if(m) m.onclick=()=>appendWords(WORD_PAGE); }
   $$("#wordFilters .chip").forEach(c=>c.onclick=()=>{ $$("#wordFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); wordFilter=c.dataset.f; renderWords(); });
