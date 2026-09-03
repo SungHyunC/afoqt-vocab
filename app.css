@@ -18,6 +18,8 @@ body{
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 a{color:var(--brand2)}
 .hidden{display:none!important}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
+  overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
 /* ---------- App header ---------- */
 .appbar{
@@ -807,3 +809,125 @@ sub{vertical-align:-.25em}
 .eve-row.on{border-color:var(--ok)}
 .eve-row.on .tx{opacity:.55;text-decoration:line-through}
 .eve-row .golink{color:var(--gold);font-size:12px;font-weight:700;white-space:nowrap;padding:4px 2px 4px 8px}
+
+/* ── 동의어 무한 피드 (기존 WK 동의어 퀴즈와 독립) ───────────── */
+.synfeed-entry{width:100%;display:flex;align-items:center;gap:12px;margin-top:10px;padding:14px 15px;
+  border:1px solid #8b5cf6;border-radius:15px;text-align:left;color:#fff;
+  background:linear-gradient(115deg,#4f46e5,#7c3aed 58%,#0891b2);box-shadow:0 8px 24px #4f46e533}
+.synfeed-entry:active{transform:scale(.985)}
+.synfeed-entry:focus-visible,.synfeed-back:focus-visible,.synfeed-ko-live:focus-visible,
+.synfeed-start:focus-visible,.synfeed-resume:focus-visible,.synfeed-pause:focus-visible,
+.synfeed-choice:focus-visible,.synfeed-speaker:focus-visible,.synfeed-feedback:focus-visible{outline:2px solid #67e8f9;outline-offset:2px}
+.synfeed-entry-icon{width:42px;height:42px;flex:0 0 auto;display:grid;place-items:center;border-radius:13px;
+  background:#ffffff1f;font-size:30px;font-weight:800;line-height:1}
+.synfeed-entry-copy{flex:1;min-width:0}.synfeed-entry-copy b{display:block;font-size:15px}
+.synfeed-entry-copy small{display:block;margin-top:3px;font-size:11px;color:#e0e7ff;line-height:1.3}
+.synfeed-entry-go{font-size:28px;color:#cffafe}
+
+body.synfeed-mode{padding:0!important;background:#080d1d}
+body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
+#view-synfeed.view.active{display:flex;flex-direction:column;width:100%;max-width:620px;min-height:100dvh;
+  height:100vh;height:100dvh;overflow:hidden;
+  padding:calc(10px + env(safe-area-inset-top,0px)) 14px calc(16px + env(safe-area-inset-bottom,0px));
+  background:radial-gradient(circle at 50% -10%,#4f46e54a,transparent 36%),#080d1d}
+.synfeed-topbar{height:44px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;flex:0 0 auto}
+.synfeed-back,.synfeed-ko-live{min-height:44px;border:1px solid #ffffff1a;border-radius:999px;padding:7px 11px;
+  color:#cbd5e1;background:#ffffff0b;font-size:12px;font-weight:700}
+.synfeed-back{justify-self:start}.synfeed-ko-live{justify-self:end;color:#a5f3fc;border-color:#06b6d466}
+.synfeed-ko-live[aria-pressed="false"]{color:#94a3b8;border-color:#ffffff1a}
+.synfeed-brand{font-size:11px;font-weight:900;letter-spacing:1.2px;color:#c4b5fd;white-space:nowrap}
+.synfeed-brand span{font-size:17px;vertical-align:-1px}
+.synfeed-setup{flex:1;min-height:0;display:flex;flex-direction:column;padding:20px 0 4px;overflow-y:auto;
+  overscroll-behavior:contain;scrollbar-width:none}.synfeed-setup::-webkit-scrollbar{display:none}
+.synfeed-hero{text-align:center;padding:10px 7px 19px}
+.synfeed-kicker{font-size:10px;font-weight:800;letter-spacing:1.7px;color:#22d3ee}
+.synfeed-hero h2{font-size:34px;line-height:1.14;letter-spacing:-1.2px;margin:10px 0 10px}
+.synfeed-hero h2 span{background:linear-gradient(90deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+.synfeed-hero p{max-width:460px;margin:0 auto;color:#94a3b8;font-size:13px;line-height:1.6}
+.synfeed-lifetime{display:flex;justify-content:center;gap:9px;margin-top:15px}
+.synfeed-lifetime span{padding:7px 11px;border:1px solid #ffffff14;border-radius:999px;background:#ffffff09;
+  color:#94a3b8;font-size:11px}.synfeed-lifetime b{color:#e2e8f0;font-size:13px}
+.synfeed-setup-card{padding:15px;border:1px solid #ffffff18;border-radius:20px;background:#111a31d9;box-shadow:0 20px 50px #0005}
+.synfeed-setup-card fieldset{border:0;padding:0;margin:0}.synfeed-setup-card legend{padding:0 0 9px;color:#94a3b8;font-size:11px;font-weight:800}
+.synfeed-scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.synfeed-scope-grid label{position:relative;cursor:pointer;min-width:0}.synfeed-scope-grid input{position:absolute;opacity:0;pointer-events:none}
+.synfeed-scope-grid label>span{min-height:58px;display:flex;flex-direction:column;justify-content:center;padding:9px 11px;
+  border:1px solid #334155;border-radius:13px;background:#0b1225;color:#cbd5e1}
+.synfeed-scope-grid label b{font-size:12.5px}.synfeed-scope-grid label small{font-size:10px;color:#94a3b8;margin-top:3px}
+.synfeed-scope-grid label i{font-style:normal}.synfeed-scope-grid input:checked+span{border-color:#8b5cf6;
+  background:linear-gradient(135deg,#4f46e533,#0891b226);box-shadow:0 0 0 1px #8b5cf6 inset;color:#fff}
+.synfeed-scope-grid input:focus-visible+span{outline:2px solid #67e8f9;outline-offset:2px}
+.synfeed-switch{display:flex;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid #ffffff12;cursor:pointer}
+.synfeed-switch>span{flex:1;min-width:0}.synfeed-switch b,.synfeed-switch small{display:block}
+.synfeed-switch b{font-size:13px}.synfeed-switch small{font-size:10.5px;color:#94a3b8;margin-top:2px}
+.synfeed-switch input{position:absolute;opacity:0;pointer-events:none}.synfeed-switch>i{position:relative;width:46px;height:26px;flex:0 0 auto;
+  border-radius:999px;background:#334155;transition:.2s}.synfeed-switch>i::after{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;
+  border-radius:50%;background:#fff;transition:.2s}.synfeed-switch input:checked+i{background:linear-gradient(90deg,#7c3aed,#06b6d4)}
+.synfeed-switch input:checked+i::after{transform:translateX(20px)}.synfeed-switch input:focus-visible+i{outline:2px solid #67e8f9;outline-offset:2px}
+.synfeed-start,.synfeed-resume{width:100%;border-radius:16px;color:#fff;text-align:center}
+.synfeed-start{margin-top:12px;padding:15px;background:linear-gradient(100deg,#7c3aed,#4f46e5 48%,#0891b2);box-shadow:0 10px 30px #4f46e54a}
+.synfeed-start span,.synfeed-start small{display:block}.synfeed-start span{font-size:16px;font-weight:850}.synfeed-start small{font-size:10px;color:#e0e7ff;margin-top:3px}
+.synfeed-resume{margin-top:12px;padding:12px 14px;border:1px solid #22d3ee66;background:#06b6d417;text-align:left}
+.synfeed-resume b,.synfeed-resume small{display:block}.synfeed-resume b{font-size:13px}.synfeed-resume small{margin-top:3px;color:#94a3b8;font-size:10.5px}
+.synfeed-basis{text-align:center;color:#94a3b8;font-size:10px;line-height:1.5;margin:12px 7px 0}
+
+.synfeed-play{flex:1;display:flex;flex-direction:column;min-height:0;padding-top:8px}
+.synfeed-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:2px 0 9px}
+.synfeed-metrics div{text-align:center;padding:7px 3px;border:1px solid #ffffff12;border-radius:11px;background:#ffffff08}
+.synfeed-metrics b,.synfeed-metrics span{display:block}.synfeed-metrics b{font-size:16px;font-variant-numeric:tabular-nums}
+.synfeed-metrics span{font-size:9px;color:#94a3b8;margin-top:1px}.synfeed-metrics div:nth-child(3) b{color:#fbbf24}
+.synfeed-cycle{display:flex;justify-content:space-between;color:#94a3b8;font-size:9px;font-weight:800;letter-spacing:.8px;padding:0 2px 5px}
+.synfeed-progress{height:3px;border-radius:999px;background:#ffffff12;overflow:hidden;flex:0 0 auto}
+.synfeed-progress i{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#8b5cf6,#22d3ee);transition:width .25s}
+.synfeed-stage{flex:1;min-height:0;display:flex;align-items:flex-start;padding:12px 0 5px;overflow-y:auto;
+  overscroll-behavior:contain;scrollbar-width:none}.synfeed-stage::-webkit-scrollbar{display:none}
+.synfeed-card{position:relative;width:100%;padding:20px 17px 16px;border:1px solid #ffffff19;border-radius:24px;
+  margin:auto 0;background:linear-gradient(155deg,#18213a,#0e172c 62%,#111827);box-shadow:0 24px 65px #0008;animation:synfeedIn .22s ease-out}
+.synfeed-card.is-correct{animation:synfeedOk .48s ease}.synfeed-card.is-wrong{animation:synfeedWrong .4s ease}
+.synfeed-question-meta{display:flex;justify-content:center;gap:7px;margin-bottom:8px}
+.synfeed-badge{padding:4px 8px;border-radius:999px;background:#8b5cf620;color:#c4b5fd;border:1px solid #8b5cf64a;font-size:9px;font-weight:800}
+.synfeed-retry-badge{background:#f59e0b1f;color:#fbbf24;border-color:#f59e0b4a}
+.synfeed-wordrow{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0}
+.synfeed-word{font-size:34px;font-weight:900;line-height:1.12;text-align:center;letter-spacing:.3px;overflow-wrap:anywhere}
+.synfeed-speaker{width:44px;height:44px;flex:0 0 auto;display:grid;place-items:center;border-radius:50%;background:#ffffff0b;color:#a5f3fc;font-size:17px}
+.synfeed-korean{text-align:center;color:#cbd5e1;font-size:14px;font-weight:650;margin:8px 0 0;line-height:1.4}
+.synfeed-prompt{text-align:center;color:#64748b;font-size:10.5px;margin:8px 0 13px;letter-spacing:.2px}
+.synfeed-choices{display:flex;flex-direction:column;gap:7px}
+.synfeed-choice{position:relative;width:100%;min-height:48px;padding:11px 14px 11px 47px;border:1px solid #ffffff12;border-radius:13px;
+  background:#ffffff0a;color:#e2e8f0;text-align:left;font-size:14px;font-weight:700;line-height:1.25;transition:transform .08s,border-color .15s,background .15s}
+.synfeed-choice::before{content:attr(data-key);position:absolute;left:13px;top:50%;transform:translateY(-50%);width:23px;height:23px;
+  display:grid;place-items:center;border:1px solid #475569;border-radius:7px;color:#94a3b8;background:#0b1225;font-size:10px}
+.synfeed-choice:active:not(:disabled){transform:scale(.985)}.synfeed-choice:disabled{opacity:1}
+.synfeed-choice.correct{border-color:#22c55e;background:#16a34a24;color:#dcfce7}.synfeed-choice.correct::before{content:"✓";color:#86efac;border-color:#22c55e}
+.synfeed-choice.wrong{border-color:#ef4444;background:#dc262628;color:#fee2e2}.synfeed-choice.wrong::before{content:"×";color:#fca5a5;border-color:#ef4444}
+.synfeed-feedback{margin-top:10px;padding:10px 12px;border-radius:12px;background:#ffffff09;border-left:3px solid #22c55e;font-size:11.5px;line-height:1.45}
+.synfeed-feedback.wrong{border-color:#ef4444}.synfeed-feedback strong{font-size:13px}.synfeed-feedback .answer{color:#a5f3fc;font-weight:800}
+.synfeed-feedback .ko{display:block;color:#cbd5e1;margin-top:2px}.synfeed-feedback .retry{display:block;color:#fbbf24;margin-top:3px}
+.synfeed-points{position:absolute;right:15px;top:14px;color:#86efac;font-size:13px;font-weight:900;animation:synfeedPop .55s ease-out}
+.synfeed-milestone{text-align:center;color:#fbbf24;font-size:11px;font-weight:800;margin-top:6px;animation:synfeedPop .55s ease-out}
+.synfeed-gesture{text-align:center;color:#94a3b8;font-size:9.5px;line-height:1.4;margin:1px 0 7px}
+.synfeed-pause{align-self:center;min-height:44px;padding:6px 13px;color:#94a3b8;font-size:11px}
+@keyframes synfeedIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes synfeedOk{35%{box-shadow:0 0 0 2px #22c55e,0 24px 65px #0008}to{box-shadow:0 24px 65px #0008}}
+@keyframes synfeedWrong{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+@keyframes synfeedPop{from{opacity:0;transform:translateY(7px) scale(.8)}to{opacity:1;transform:none}}
+
+@media (max-width:360px){
+  #view-synfeed.view.active{padding-left:10px;padding-right:10px}.synfeed-hero h2{font-size:29px}
+  .synfeed-setup{padding-top:10px}.synfeed-setup-card{padding:12px}.synfeed-scope-grid{gap:6px}
+  .synfeed-scope-grid label>span{min-height:53px;padding:7px 8px}.synfeed-card{padding:15px 12px 12px;border-radius:20px}
+  .synfeed-word{font-size:30px}.synfeed-choice{min-height:44px;padding-top:9px;padding-bottom:9px;font-size:13px}
+}
+@media (max-height:700px){
+  .synfeed-setup{padding-top:4px}.synfeed-hero{padding:2px 5px 10px}.synfeed-kicker,.synfeed-hero>p{display:none}
+  .synfeed-hero h2{font-size:27px;margin:3px 0 5px}.synfeed-lifetime{margin-top:8px}
+  .synfeed-start{padding:12px}.synfeed-basis{margin-top:8px}
+  .synfeed-play{padding-top:3px}.synfeed-metrics div{padding:5px 2px}.synfeed-stage{padding-top:7px}
+  .synfeed-card{padding-top:13px;padding-bottom:11px}.synfeed-question-meta{margin-bottom:5px}.synfeed-prompt{margin:5px 0 8px}
+  .synfeed-choices{gap:5px}.synfeed-choice{min-height:44px;padding-top:8px;padding-bottom:8px}.synfeed-feedback{padding:7px 10px;margin-top:7px}
+}
+body.synfeed-mode .toast{left:50%}
+@media (prefers-reduced-motion:reduce){
+  .synfeed-card,.synfeed-card.is-correct,.synfeed-card.is-wrong,.synfeed-points,.synfeed-milestone{animation:none}
+  .synfeed-progress i,.synfeed-switch>i,.synfeed-switch>i::after{transition:none}
+}
