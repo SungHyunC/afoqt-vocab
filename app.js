@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.117.0";
+const VERSION = "4.118.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -172,9 +172,12 @@ const DEFAULT_STATE = () => ({
   rootStep:0,    // 어근 추론 코치 진행 위치
   speed:{},      // 풀이 속도 누적: 'WK'|'VA'|... -> {n,ms,slow} (답한 문항 기준)
   sweepAt:{},    // 최종 스윕: wordId -> 마지막 스윕 통과 시각(ms)
+  synFeedSession:null, // 이 기기에서 이어 푸는 독립 무한 동의어 피드 큐
+  synFeedStats:{total:0,correct:0,bestCombo:0,days:{}},
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              verbal_theme_priority:2, verbal_theme_mode:"new",
+             syn_feed_priority:2, syn_feed_korean:true,
              start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
 });
 
@@ -204,10 +207,20 @@ function loadLocal(){
     state.migSkipFix=1; saveNow();   // 정정 결과 즉시 저장
   }
   state.speed=state.speed||{}; state.sweepAt=state.sweepAt||{};
+  state.synFeedSession=(state.synFeedSession&&typeof state.synFeedSession==="object")?state.synFeedSession:null;
+  state.synFeedStats=Object.assign({total:0,correct:0,bestCombo:0,days:{}},state.synFeedStats||{});
+  { const sf=state.synFeedStats,safe=v=>Number.isSafeInteger(v)&&v>=0?v:0;
+    sf.total=safe(sf.total); sf.correct=Math.min(sf.total,safe(sf.correct)); sf.bestCombo=safe(sf.bestCombo);
+    if(!sf.days||typeof sf.days!=="object"||Array.isArray(sf.days)) sf.days={};
+    for(const day of Object.keys(sf.days)){ const x=sf.days[day]; if(!x||typeof x!=="object"){ delete sf.days[day]; continue; }
+      x.n=safe(x.n); x.c=Math.min(x.n,safe(x.c)); x.bestCombo=safe(x.bestCombo); } }
   state.settings=Object.assign(d.settings, state.settings||{});
   if(![1,2,3].includes(Number(state.settings.verbal_theme_priority))) state.settings.verbal_theme_priority=2;
   else state.settings.verbal_theme_priority=Number(state.settings.verbal_theme_priority);
   if(!["new","due","all"].includes(state.settings.verbal_theme_mode)) state.settings.verbal_theme_mode="new";
+  if(![1,2,3,4].includes(Number(state.settings.syn_feed_priority))) state.settings.syn_feed_priority=2;
+  else state.settings.syn_feed_priority=Number(state.settings.syn_feed_priority);
+  if(typeof state.settings.syn_feed_korean!=="boolean") state.settings.syn_feed_korean=true;
 }
 let saveTimer=null;
 function saveLocal(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); if(sb) queuePush("app_state"); }
@@ -573,7 +586,9 @@ function mergeSettings(r){ if(r.daily_goal!=null) state.settings.daily_goal=r.da
     if(r.data.hide_ko!=null) state.settings.hide_ko=r.data.hide_ko;
     if(r.data.pilot_perfect!=null) state.settings.pilot_perfect=r.data.pilot_perfect;
     if([1,2,3].includes(Number(r.data.verbal_theme_priority))) state.settings.verbal_theme_priority=Number(r.data.verbal_theme_priority);
-    if(["new","due","all"].includes(r.data.verbal_theme_mode)) state.settings.verbal_theme_mode=r.data.verbal_theme_mode; } }
+    if(["new","due","all"].includes(r.data.verbal_theme_mode)) state.settings.verbal_theme_mode=r.data.verbal_theme_mode;
+    if([1,2,3,4].includes(Number(r.data.syn_feed_priority))) state.settings.syn_feed_priority=Number(r.data.syn_feed_priority);
+    if(r.data.syn_feed_korean!=null) state.settings.syn_feed_korean=!!r.data.syn_feed_korean; } }
 // The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
 // neither device clobbers the other.
@@ -636,7 +651,7 @@ function queuePush(table,row){ if(!sb) return; const code=syncCode();
   if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at});
-  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode},updated_at:nowISO()};
+  else if(table==="settings") pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode,syn_feed_priority:state.settings.syn_feed_priority,syn_feed_korean:state.settings.syn_feed_korean!==false},updated_at:nowISO()};
   clearTimeout(pushTimer); pushTimer=setTimeout(flushPush,700); }
 // Each table pushes independently and only clears its queue on confirmed success —
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
@@ -685,7 +700,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -701,6 +716,8 @@ function renderGuide(){
     ((g.sources&&g.sources.length)?`<div class="guide-src"><b>참고:</b> ${g.sources.map(esc).join(" · ")}</div>`:"");
 }
 function go(view){
+  if(synFeed && view!=="synfeed") pauseSynFeed(); // 독립 피드 이탈 시 자동 넘김을 멈추고 정확히 이어서 저장
+  if(synq && view!=="synq") synq=null;            // 기존 동의어 퀴즈 자동 넘김도 다른 화면 뒤에서 계속되지 않게 정리
   if(ap && view!=="autoplay") apStop();  // leaving hands-free mode: stop audio/timers/wake-lock
   // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
   // 백그라운드에서 섹션이 넘어가거나 자동 제출되지 않게 (모의고사 화면에서 이어하기).
@@ -711,12 +728,14 @@ function go(view){
     toast("⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
   }
   trTimerStop(); bcTimerStop(); icTimerStop();   // 시각과목 연습도 이탈 시 시계 정지(orphan 인터벌 방지)
+  document.body.classList.toggle("synfeed-mode",view==="synfeed");
+  const themeMeta=$("meta[name='theme-color']"); if(themeMeta) themeMeta.setAttribute("content",view==="synfeed"?"#080d1d":"#4f46e5");
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -1172,6 +1191,11 @@ function renderVocab(){
     if(b) b.textContent=continuing
       ? `🗂️ 고빈출 테마별 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
       : `🗂️ 고빈출 테마별 플래시카드${hasVerbalThemeData()?"":" — 데이터 업데이트 필요"}`; }
+  { const b=$("#vkSynFeed"), s=state.synFeedSession, can=synFeedSessionValid(s);
+    if(b){ const copy=b.querySelector(".synfeed-entry-copy");
+      if(copy) copy.innerHTML=can
+        ? `<b>동의어 무한 피드 · 이어 풀기</b><small>${s.count||0}문제 · ${s.count?Math.round((s.correct||0)/s.count*100):0}% · 최고 ${s.bestCombo||0}콤보</small>`
+        : `<b>동의어 무한 피드</b><small>우선순위를 골라 숏폼처럼 끊김 없이 암기</small>`; } }
 }
 
 /* ============================================================
@@ -1693,6 +1717,164 @@ function renderSynAt(){
   if($("#synqNext")) $("#synqNext").onclick=()=>{ if(s.pos<s.history.length-1){ s.pos++; renderSynAt(); } else { newSynQ(); } };
 }
 
+/* ============================================================
+   동의어 무한 피드 — 기존 WK 동의어 퀴즈와 완전히 분리된 일상 암기 모드.
+   우선순위별 전수 셔플 큐를 한 바퀴씩 돌고, 오답만 5문제 뒤 다시 낸다.
+   현재 큐는 기기 로컬에 저장하지만 단어 오답/SRS와 일일 활동은 공용이다.
+   ============================================================ */
+const SYNFEED_LABEL={1:"🔥 최우선 P1",2:"⭐ 고빈출까지 P1+P2",3:"📌 중요까지 P1~P3",4:"🌐 전체"};
+let synFeed=null, synFeedTimer=null, synFeedPosIndex=null;
+function synFeedPriority(){ const p=Number(state.settings.syn_feed_priority); return [1,2,3,4].includes(p)?p:2; }
+function synFeedKorean(){ return state.settings.syn_feed_korean!==false; }
+function synFeedPool(priority=synFeedPriority()){
+  return WORDS.filter(w=>Array.isArray(w.synonyms)&&w.synonyms.length&&(priority===4||(verbalPriorityOf(w)&&verbalPriorityOf(w)<=priority))).map(w=>w.id);
+}
+function synFeedNorm(x){ return String(x||"").trim().toLocaleLowerCase("en-US").replace(/\s+/g," "); }
+function synFeedPos(w){ const p=String(w&&w.pos||"").toLowerCase().split(/[^a-z]+/)[0];
+  return p.startsWith("adj")?"adj":p.startsWith("adv")?"adv":p.startsWith("noun")?"noun":p.startsWith("verb")?"verb":p||"other"; }
+function buildSynFeedIndex(){ synFeedPosIndex={all:[],byPos:new Map()};
+  for(const w of WORDS){ if(!w||!Array.isArray(w.synonyms)||!w.synonyms.length) continue;
+    synFeedPosIndex.all.push(w); const p=synFeedPos(w),a=synFeedPosIndex.byPos.get(p)||[]; a.push(w); synFeedPosIndex.byPos.set(p,a); } }
+function synFeedUniqueTerms(xs,word){ const seen=new Set(),out=[],wn=synFeedNorm(word);
+  for(const x of (xs||[])){ const t=String(x||"").trim(),n=synFeedNorm(t); if(!n||n===wn||seen.has(n)) continue; seen.add(n); out.push(t); }
+  return out; }
+function synFeedDistractors(w,correct,k){
+  if(!synFeedPosIndex) buildSynFeedIndex();
+  const target=new Set([w.word,...(w.synonyms||[])].map(synFeedNorm).filter(Boolean));
+  const usedTerms=new Set([synFeedNorm(correct)]),usedSources=new Set(),out=[];
+  const fill=rows=>{ if(!rows||!rows.length) return; const start=(Math.random()*rows.length)|0;
+    for(let z=0;z<rows.length&&out.length<k;z++){ const o=rows[(start+z)%rows.length];
+      if(!o||o.id===w.id||usedSources.has(o.id)) continue;
+      const cluster=[o.word,...(o.synonyms||[])].map(synFeedNorm).filter(Boolean);
+      if(cluster.some(x=>target.has(x))) continue;
+      let terms=synFeedUniqueTerms(o.synonyms,o.word); const singles=terms.filter(t=>!/\s/.test(t)); if(singles.length) terms=singles;
+      if(!terms.length) continue; const off=(Math.random()*terms.length)|0; let pick="";
+      for(let j=0;j<terms.length;j++){ const t=terms[(off+j)%terms.length],n=synFeedNorm(t); if(!target.has(n)&&!usedTerms.has(n)){ pick=t; break; } }
+      if(!pick) continue; usedSources.add(o.id); usedTerms.add(synFeedNorm(pick)); out.push(pick); } };
+  fill(synFeedPosIndex.byPos.get(synFeedPos(w))); if(out.length<k) fill(synFeedPosIndex.all);
+  return out.length===k?out:null;
+}
+function synFeedBuildQuestion(id,isRetry=false){ const w=WMAP.get(id); if(!w) return null;
+  let terms=synFeedUniqueTerms(w.synonyms,w.word); const singles=terms.filter(t=>!/\s/.test(t)); if(singles.length) terms=singles;
+  if(!terms.length) return null;
+  const rot=((synFeed?.seed||0)+(synFeed?.cycle||1)+Number(id||0))%terms.length,correct=terms[rot];
+  const dist=synFeedDistractors(w,correct,4); if(!dist) return null;
+  return {id,isRetry,nonce:Date.now()+":"+Math.random().toString(36).slice(2,8),
+    opts:shuffle([{t:correct,ok:true},...dist.map(t=>({t,ok:false}))]),chosen:null,gain:0,milestone:"",added:false};
+}
+function synFeedScopeIdsValid(s){ if(!s||s.v!==1||!Number.isInteger(s.priority)||![1,2,3,4].includes(s.priority)||!Array.isArray(s.queue)||!s.queue.length) return false;
+  if(s.queue.length!==synFeedPool(Number(s.priority)).length||!Number.isInteger(s.cursor)||s.cursor<0||s.cursor>=s.queue.length||new Set(s.queue).size!==s.queue.length) return false;
+  return s.queue.every(id=>{ const w=WMAP.get(id),p=w&&verbalPriorityOf(w); return !!(w&&w.synonyms&&w.synonyms.length&&(s.priority===4||(p&&p<=s.priority))); }); }
+function synFeedQuestionValid(q){ return !!(q&&WMAP.has(q.id)&&Array.isArray(q.opts)&&q.opts.length===5&&
+  q.opts.every(o=>o&&typeof o.t==="string"&&o.t.trim()&&o.t.length<=200&&typeof o.ok==="boolean")&&
+  q.opts.filter(o=>o.ok).length===1&&new Set(q.opts.map(o=>synFeedNorm(o.t))).size===5&&
+  q.opts.every(o=>o.ok===new Set(WMAP.get(q.id).synonyms.map(synFeedNorm)).has(synFeedNorm(o.t)))&&
+  (q.chosen==null||(Number.isInteger(q.chosen)&&q.chosen>=0&&q.chosen<5))&&
+  Number.isSafeInteger(q.gain)&&q.gain>=0&&typeof q.isRetry==="boolean"&&typeof q.added==="boolean"&&
+  typeof q.nonce==="string"&&q.nonce.length<=100&&typeof q.milestone==="string"&&q.milestone.length<=100); }
+function synFeedSessionValid(s){ if(!synFeedScopeIdsValid(s)||!(!s.current||synFeedQuestionValid(s.current))) return false;
+  const whole=["count","correct","combo","bestCombo","points","added","seed","cycle"];
+  if(whole.some(k=>typeof s[k]!=="number"||!Number.isSafeInteger(s[k])||s[k]<0)) return false;
+  if(s.cycle<1||s.correct>s.count||s.combo>s.count||s.bestCombo>s.count) return false;
+  if(s.current){ const w=WMAP.get(s.current.id),p=w&&verbalPriorityOf(w); if(!(s.priority===4||(p&&p<=s.priority))) return false;
+    if(!s.current.isRetry&&s.current.id!==s.queue[s.cursor]) return false; }
+  return !s.retry||Array.isArray(s.retry)&&s.retry.length<=100&&s.retry.every(r=>r&&WMAP.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0); }
+function synFeedFreshQueue(priority,recent=[]){ const q=shuffle(synFeedPool(priority)),avoid=new Set((recent||[]).slice(-3));
+  if(q.length>3&&avoid.has(q[0])){ const at=q.findIndex((id,i)=>i>0&&!avoid.has(id)); if(at>0) [q[0],q[at]]=[q[at],q[0]]; }
+  return q; }
+function synFeedSave(immediate=false){ if(!synFeed) return; synFeed.updatedAt=nowISO(); state.synFeedSession=synFeed; immediate?saveNow():saveLocal(); }
+function synFeedClearTimer(){ clearTimeout(synFeedTimer); synFeedTimer=null; }
+function pauseSynFeed(){ synFeedClearTimer(); if(synFeed) synFeedSave(true); synFeed=null; }
+function synFeedAdvanceBase(s){ s.cursor++;
+  if(s.cursor<s.queue.length) return;
+  s.cycle=(s.cycle||1)+1; s.cursor=0; s.queue=synFeedFreshQueue(s.priority,s.recent); }
+function synFeedAdvance(initial=false){ const s=synFeed; if(!s) return; synFeedClearTimer();
+  if(!initial&&(!s.current||s.current.chosen==null)) return; // 자동 전환과 빠른 탭이 겹쳐도 새 문제를 건너뛰지 않는다
+  if(!initial&&s.current&&!s.current.isRetry) synFeedAdvanceBase(s);
+  for(let tries=0;tries<30;tries++){
+    const ri=(s.retry||[]).findIndex(r=>r&&r.dueAt<=s.count&&WMAP.has(r.id));
+    if(ri>=0){ const r=s.retry.splice(ri,1)[0],q=synFeedBuildQuestion(r.id,true); if(q){ s.current=q; synFeedSave(); renderSynFeedPlay(); return; } continue; }
+    const q=synFeedBuildQuestion(s.queue[s.cursor],false); if(q){ s.current=q; synFeedSave(); renderSynFeedPlay(); return; }
+    synFeedAdvanceBase(s);
+  }
+  toast("문제를 만들지 못했어요. 범위를 다시 골라주세요."); pauseSynFeed(); renderSynFeed(); }
+function startSynFeed(){ const priority=synFeedPriority(),queue=synFeedFreshQueue(priority);
+  if(queue.length<5){ toast("이 범위에 동의어 단어가 부족해요."); return; }
+  synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,correct:0,combo:0,bestCombo:0,
+    points:0,added:0,seed:(Math.random()*1000000)|0,current:null,startedAt:nowISO(),updatedAt:nowISO()};
+  state.synFeedSession=synFeed; synFeedShowPlay(); synFeedAdvance(true); }
+function resumeSynFeed(){ const s=state.synFeedSession; if(!synFeedSessionValid(s)){ state.synFeedSession=null; saveLocal(); renderSynFeed(); return; }
+  synFeed=s; synFeed.priority=Number(synFeed.priority); synFeed.retry=Array.isArray(synFeed.retry)?synFeed.retry:[];
+  synFeed.recent=Array.isArray(synFeed.recent)?s.recent:[]; state.settings.syn_feed_priority=synFeed.priority;
+  saveLocal(); queuePush("settings",{});
+  synFeedShowPlay(); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); }
+function synFeedShowPlay(){ $("#synfeedSetup").classList.add("hidden"); $("#synfeedPlay").classList.remove("hidden");
+  $("#synfeedKoLive").classList.remove("hidden"); renderSynFeedKoButton(); }
+function synFeedDay(){ const d=(state.synFeedStats.days||{})[todayStr()]; return d||{n:0,c:0,bestCombo:0}; }
+function renderSynFeed(){ synFeedClearTimer(); $("#synfeedSetup").classList.remove("hidden"); $("#synfeedPlay").classList.add("hidden");
+  $("#synfeedKoLive").classList.add("hidden");
+  const p=synFeedPriority(),counts={}; [1,2,3,4].forEach(n=>{ counts[n]=synFeedPool(n).length; const el=$("#synfeedCount"+n); if(el) el.textContent=counts[n].toLocaleString(); });
+  $$('#view-synfeed input[name="synfeedPriority"]').forEach(x=>x.checked=Number(x.value)===p);
+  $("#synfeedKo").checked=synFeedKorean(); const d=synFeedDay(); $("#synfeedToday").textContent=(d.n||0).toLocaleString();
+  $("#synfeedBest").textContent=(state.synFeedStats.bestCombo||0).toLocaleString();
+  const saved=state.synFeedSession,can=synFeedSessionValid(saved),b=$("#synfeedResume"); b.classList.toggle("hidden",!can);
+  if(can){ const acc=saved.count?Math.round((saved.correct||0)/saved.count*100):0;
+    b.innerHTML=`<b>▶ 이어 풀기 · ${esc(SYNFEED_LABEL[saved.priority]||"저장된 피드")}</b><small>${saved.count||0}문제 · ${acc}% · ${saved.combo||0}콤보 · ROUND ${saved.cycle||1}</small>`; }
+}
+function renderSynFeedKoButton(){ const on=synFeedKorean(),b=$("#synfeedKoLive");
+  b.textContent=`한글 ${on?"ON":"OFF"}`; b.setAttribute("aria-pressed",on?"true":"false"); }
+function setSynFeedKorean(on){ state.settings.syn_feed_korean=!!on; $("#synfeedKo").checked=!!on; renderSynFeedKoButton();
+  saveLocal(); queuePush("settings",{}); if(synFeed&&$("#view-synfeed").classList.contains("active")) renderSynFeedPlay(); }
+function setSynFeedPriority(p){ p=Number(p); if(![1,2,3,4].includes(p)) return; state.settings.syn_feed_priority=p;
+  saveLocal(); queuePush("settings",{}); }
+function synFeedRecord(ok){ const s=state.synFeedStats,d=s.days[todayStr()]||(s.days[todayStr()]={n:0,c:0,bestCombo:0});
+  s.total=(s.total||0)+1; if(ok) s.correct=(s.correct||0)+1; d.n=(d.n||0)+1; if(ok) d.c=(d.c||0)+1;
+  s.bestCombo=Math.max(s.bestCombo||0,synFeed.combo||0); d.bestCombo=Math.max(d.bestCombo||0,synFeed.combo||0);
+  const days=Object.keys(s.days).sort(); while(days.length>90) delete s.days[days.shift()]; }
+function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null||!q.opts[i]) return;
+  q.chosen=i; const ok=!!q.opts[i].ok,w=WMAP.get(q.id); s.count++; if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); }
+  else s.combo=0;
+  q.gain=ok?10+Math.min(20,Math.max(0,s.combo-1)*2):0; s.points=(s.points||0)+q.gain;
+  if(ok&&([5,10,20].includes(s.combo)||s.combo>0&&s.combo%50===0)) q.milestone=`✨ ${s.combo}연속 정답!`;
+  bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+  if(!ok){ state.wrong.wk[q.id]=(state.wrong.wk[q.id]||0)+1; markForReview(q.id); s.added=(s.added||0)+1; q.added=true;
+    s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:s.count+5}); }
+  else if(q.isRetry) delete state.wrong.wk[q.id];
+  { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+  s.recent=(s.recent||[]).filter(id=>id!==q.id); s.recent.push(q.id); if(s.recent.length>3) s.recent=s.recent.slice(-3);
+  synFeedRecord(ok); synFeedSave(); renderSynFeedPlay();
+  synFeedTimer=setTimeout(()=>{ if(synFeed===s&&s.current&&s.current.nonce===q.nonce) synFeedAdvance(); },ok?800:1450);
+}
+function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return; const w=WMAP.get(q.id); if(!w) return;
+  const answered=q.chosen!=null,ok=answered&&!!q.opts[q.chosen].ok,correct=q.opts.find(o=>o.ok),showKo=synFeedKorean();
+  $("#synfeedRunCount").textContent=(s.count||0).toLocaleString(); $("#synfeedRunAccuracy").textContent=s.count?Math.round(s.correct/s.count*100)+"%":"–";
+  $("#synfeedRunCombo").textContent=s.combo||0; $("#synfeedRunXp").textContent=(s.points||0).toLocaleString();
+  $("#synfeedCycle").textContent=`ROUND ${s.cycle||1}${q.isRetry?" · RETRY":""}`;
+  $("#synfeedCyclePos").textContent=`${Math.min(s.cursor+1,s.queue.length).toLocaleString()} / ${s.queue.length.toLocaleString()}`;
+  $("#synfeedProgress").style.width=(Math.min(s.cursor+1,s.queue.length)/s.queue.length*100)+"%"; renderSynFeedKoButton();
+  const priority=verbalPriorityOf(w),badge=priority?`${priority===1?"🔥":priority===2?"⭐":"📌"} P${priority}`:"STD";
+  const choices=q.opts.map((o,i)=>{ const cls=answered?(o.ok?"correct":i===q.chosen?"wrong":""):"";
+    return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o.t)}</button>`; }).join("");
+  const koLine=showKo&&w.kor?`<div class="synfeed-korean">${esc(w.kor)}</div>`:"";
+  const answerLine=answered?`<button class="synfeed-feedback ${ok?"":"wrong"}" id="synfeedNext" type="button">
+      <strong>${ok?"✅ 정답":"❌ 정답은"} <span class="answer">${esc(correct.t)}</span></strong>
+      ${showKo&&w.kor?`<span class="ko">${esc(w.word)} · ${esc(w.kor)}</span>`:""}
+      ${!ok?`<span class="retry">복습 큐 저장 · 5문제 뒤 다시 출제</span>`:`<span class="ko">탭해서 바로 계속</span>`}
+    </button>`:"";
+  $("#synfeedStage").innerHTML=`<article class="synfeed-card ${answered?(ok?"is-correct":"is-wrong"):""}" id="synfeedCard">
+    <div class="synfeed-question-meta"><span class="synfeed-badge">${badge}</span>${q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
+    ${answered&&ok?`<span class="synfeed-points">+${q.gain}</span>`:""}
+    <div class="synfeed-wordrow"><div class="synfeed-word" style="${wordFont(w.word,34)}">${esc(w.word)}</div><button class="synfeed-speaker" id="synfeedSpeak" type="button" aria-label="${esc(w.word)} 발음 듣기">🔊</button></div>
+    ${koLine}<div class="synfeed-prompt">가장 비슷한 뜻을 고르세요</div><div class="synfeed-choices" id="synfeedChoices">${choices}</div>
+    ${answerLine}${q.milestone?`<div class="synfeed-milestone">${esc(q.milestone)}</div>`:""}</article>`;
+  if(!answered) $$("#synfeedChoices .synfeed-choice").forEach(b=>b.onclick=()=>answerSynFeed(+b.dataset.i));
+  $("#synfeedSpeak").onclick=e=>speak(w.word,e); const next=$("#synfeedNext"); if(next) next.onclick=()=>synFeedAdvance();
+  const announce=$("#synfeedAnnounce"); if(announce){ const msg=answered
+      ? `${ok?"정답":"오답"}. 정답은 ${correct.t}.${showKo&&w.kor?" "+w.kor:""}`
+      : `새 단어 ${w.word}.${showKo&&w.kor?" "+w.kor:""} 가장 비슷한 뜻을 고르세요.`;
+    if(announce.textContent!==msg) announce.textContent=msg; }
+}
+
 // 보기 선택형 화면(동의어 퀴즈·시험)의 키보드 조작.
 // 1~9 로 보기 선택, ←/→ 로 이동, Enter/Space 로 '다음'.
 // e.code 기준이라 한글 입력 상태에서도 그대로 동작한다.
@@ -1703,7 +1885,15 @@ function wireChoiceKeys(){
     if(e.metaKey||e.ctrlKey||e.altKey) return;
     const vis=id=>{ const v=$(id); return v&&getComputedStyle(v).display!=="none"; };
     let box=null,next=null,prev=null;
-    if(vis("#view-synq")&&typeof synq!=="undefined"&&synq&&$("#synqChoices")){
+    if(vis("#view-synfeed")&&synFeed&&$("#synfeedChoices")){
+      const c=e.code,dig=/^(Digit|Numpad)([1-5])$/.exec(c);
+      if(dig){ const b=[...$("#synfeedChoices").querySelectorAll(".synfeed-choice")][+dig[2]-1];
+        if(b&&!b.disabled){ e.preventDefault(); b.click(); } return; }
+      if(c==="Enter"||c==="NumpadEnter"||c==="Space"||c==="ArrowRight"||c==="ArrowUp"){
+        if(t&&t.tagName==="BUTTON") return; // 포커스된 토글·발음·나가기 버튼의 기본 키 동작을 가로채지 않는다
+        if(synFeed.current&&synFeed.current.chosen!=null){ e.preventDefault(); synFeedAdvance(); } return; }
+      if(c==="Escape"){ e.preventDefault(); go("vocab"); } return;
+    } else if(vis("#view-synq")&&typeof synq!=="undefined"&&synq&&$("#synqChoices")){
       box=$("#synqChoices"); next=$("#synqNext"); prev=$("#synqPrev");
     } else if(vis("#view-exam")&&exam&&!exam.submitted&&$("#examChoices")){
       box=$("#examChoices"); next=$("#drillNext")||$("#examNext"); prev=$("#examPrev");
@@ -4337,7 +4527,7 @@ function softRender(){
   // sync echo must not reset the analogy/reading view and kick the user out.
   if(sessionActive()) return;
   const a=$(".view.active")?.id;
-  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-stats":renderStats}[a]||(()=>{}))(); }
+  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-stats":renderStats}[a]||(()=>{}))(); }
 window.__softRender=softRender; // test/debug hook
 
 /* ============================================================
@@ -4390,6 +4580,12 @@ function wire(){
   $("#vkNew")&&($("#vkNew").onclick=startStudyNew);
   $("#vkReview")&&($("#vkReview").onclick=startStudyReview);
   $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
+  $("#vkSynFeed").onclick=()=>go("synfeed");
+  $("#synfeedBack").onclick=()=>go("vocab"); $("#synfeedPause").onclick=()=>go("vocab");
+  $("#synfeedStart").onclick=startSynFeed; $("#synfeedResume").onclick=resumeSynFeed;
+  $$('#view-synfeed input[name="synfeedPriority"]').forEach(x=>x.onchange=e=>{ if(e.target.checked) setSynFeedPriority(e.target.value); });
+  $("#synfeedKo").onchange=e=>setSynFeedKorean(e.target.checked);
+  $("#synfeedKoLive").onclick=()=>setSynFeedKorean(!synFeedKorean());
   $("#vkSynq").onclick=()=>go("synq"); $("#synqGo").onclick=startSynQuiz;
   $("#synqBack").onclick=()=>{ synq=null; go("vocab"); }; $("#synqStop").onclick=()=>{ synq=null; renderSynQuiz(); };
   $("#vkAuto").onclick=()=>go("autoplay"); $("#apBack").onclick=()=>go("vocab"); $("#apGo").onclick=startAutoPlay;
@@ -4548,7 +4744,7 @@ let lastDay=todayStr();
    ============================================================ */
 // Register the service worker and auto-apply updates so users never get stuck
 // on a stale cached version (no need for ?v= cache-busting URLs).
-function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz||!!trState||!!bcState||!!icState||!!(curSes&&!curSes.done); }
+function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz||!!synq||!!synFeed||!!trState||!!bcState||!!icState||!!(curSes&&!curSes.done); }
 // Nuke all caches + service workers and hard-reload — guarantees the latest
 // version, fixing any "I still see the old app" situation. Learning data lives
 // in localStorage, which is NOT touched here.
