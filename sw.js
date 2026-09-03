@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-118-0";  // 독립형 동의어 무한 피드
+const CACHE = "afoqt-v4-119-0";  // 동의어 피드 수동 넘김 + 반응형 UI
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

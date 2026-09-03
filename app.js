@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.118.0";
+const VERSION = "4.119.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -716,7 +716,7 @@ function renderGuide(){
     ((g.sources&&g.sources.length)?`<div class="guide-src"><b>참고:</b> ${g.sources.map(esc).join(" · ")}</div>`:"");
 }
 function go(view){
-  if(synFeed && view!=="synfeed") pauseSynFeed(); // 독립 피드 이탈 시 자동 넘김을 멈추고 정확히 이어서 저장
+  if(synFeed && view!=="synfeed") pauseSynFeed(); // 독립 피드 이탈 시 현재 문제를 그대로 이어서 저장
   if(synq && view!=="synq") synq=null;            // 기존 동의어 퀴즈 자동 넘김도 다른 화면 뒤에서 계속되지 않게 정리
   if(ap && view!=="autoplay") apStop();  // leaving hands-free mode: stop audio/timers/wake-lock
   // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
@@ -1195,7 +1195,7 @@ function renderVocab(){
     if(b){ const copy=b.querySelector(".synfeed-entry-copy");
       if(copy) copy.innerHTML=can
         ? `<b>동의어 무한 피드 · 이어 풀기</b><small>${s.count||0}문제 · ${s.count?Math.round((s.correct||0)/s.count*100):0}% · 최고 ${s.bestCombo||0}콤보</small>`
-        : `<b>동의어 무한 피드</b><small>우선순위를 골라 숏폼처럼 끊김 없이 암기</small>`; } }
+        : `<b>동의어 무한 피드</b><small>답을 확인하고 직접 넘기는 일상 반복 학습</small>`; } }
 }
 
 /* ============================================================
@@ -1723,7 +1723,7 @@ function renderSynAt(){
    현재 큐는 기기 로컬에 저장하지만 단어 오답/SRS와 일일 활동은 공용이다.
    ============================================================ */
 const SYNFEED_LABEL={1:"🔥 최우선 P1",2:"⭐ 고빈출까지 P1+P2",3:"📌 중요까지 P1~P3",4:"🌐 전체"};
-let synFeed=null, synFeedTimer=null, synFeedPosIndex=null;
+let synFeed=null, synFeedPosIndex=null;
 function synFeedPriority(){ const p=Number(state.settings.syn_feed_priority); return [1,2,3,4].includes(p)?p:2; }
 function synFeedKorean(){ return state.settings.syn_feed_korean!==false; }
 function synFeedPool(priority=synFeedPriority()){
@@ -1783,18 +1783,17 @@ function synFeedFreshQueue(priority,recent=[]){ const q=shuffle(synFeedPool(prio
   if(q.length>3&&avoid.has(q[0])){ const at=q.findIndex((id,i)=>i>0&&!avoid.has(id)); if(at>0) [q[0],q[at]]=[q[at],q[0]]; }
   return q; }
 function synFeedSave(immediate=false){ if(!synFeed) return; synFeed.updatedAt=nowISO(); state.synFeedSession=synFeed; immediate?saveNow():saveLocal(); }
-function synFeedClearTimer(){ clearTimeout(synFeedTimer); synFeedTimer=null; }
-function pauseSynFeed(){ synFeedClearTimer(); if(synFeed) synFeedSave(true); synFeed=null; }
+function pauseSynFeed(){ if(synFeed) synFeedSave(true); synFeed=null; }
 function synFeedAdvanceBase(s){ s.cursor++;
   if(s.cursor<s.queue.length) return;
   s.cycle=(s.cycle||1)+1; s.cursor=0; s.queue=synFeedFreshQueue(s.priority,s.recent); }
-function synFeedAdvance(initial=false){ const s=synFeed; if(!s) return; synFeedClearTimer();
-  if(!initial&&(!s.current||s.current.chosen==null)) return; // 자동 전환과 빠른 탭이 겹쳐도 새 문제를 건너뛰지 않는다
+function synFeedAdvance(initial=false){ const s=synFeed; if(!s) return;
+  if(!initial&&(!s.current||s.current.chosen==null)) return; // 빠른 연속 입력에도 미응답 문제를 건너뛰지 않는다
   if(!initial&&s.current&&!s.current.isRetry) synFeedAdvanceBase(s);
   for(let tries=0;tries<30;tries++){
     const ri=(s.retry||[]).findIndex(r=>r&&r.dueAt<=s.count&&WMAP.has(r.id));
-    if(ri>=0){ const r=s.retry.splice(ri,1)[0],q=synFeedBuildQuestion(r.id,true); if(q){ s.current=q; synFeedSave(); renderSynFeedPlay(); return; } continue; }
-    const q=synFeedBuildQuestion(s.queue[s.cursor],false); if(q){ s.current=q; synFeedSave(); renderSynFeedPlay(); return; }
+    if(ri>=0){ const r=s.retry.splice(ri,1)[0],q=synFeedBuildQuestion(r.id,true); if(q){ s.current=q; synFeedSave(); renderSynFeedPlay(); if(!initial) $("#synfeedChoices .synfeed-choice")?.focus({preventScroll:true}); return; } continue; }
+    const q=synFeedBuildQuestion(s.queue[s.cursor],false); if(q){ s.current=q; synFeedSave(); renderSynFeedPlay(); if(!initial) $("#synfeedChoices .synfeed-choice")?.focus({preventScroll:true}); return; }
     synFeedAdvanceBase(s);
   }
   toast("문제를 만들지 못했어요. 범위를 다시 골라주세요."); pauseSynFeed(); renderSynFeed(); }
@@ -1811,7 +1810,7 @@ function resumeSynFeed(){ const s=state.synFeedSession; if(!synFeedSessionValid(
 function synFeedShowPlay(){ $("#synfeedSetup").classList.add("hidden"); $("#synfeedPlay").classList.remove("hidden");
   $("#synfeedKoLive").classList.remove("hidden"); renderSynFeedKoButton(); }
 function synFeedDay(){ const d=(state.synFeedStats.days||{})[todayStr()]; return d||{n:0,c:0,bestCombo:0}; }
-function renderSynFeed(){ synFeedClearTimer(); $("#synfeedSetup").classList.remove("hidden"); $("#synfeedPlay").classList.add("hidden");
+function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#synfeedPlay").classList.add("hidden");
   $("#synfeedKoLive").classList.add("hidden");
   const p=synFeedPriority(),counts={}; [1,2,3,4].forEach(n=>{ counts[n]=synFeedPool(n).length; const el=$("#synfeedCount"+n); if(el) el.textContent=counts[n].toLocaleString(); });
   $$('#view-synfeed input[name="synfeedPriority"]').forEach(x=>x.checked=Number(x.value)===p);
@@ -1843,7 +1842,7 @@ function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null
   { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
   s.recent=(s.recent||[]).filter(id=>id!==q.id); s.recent.push(q.id); if(s.recent.length>3) s.recent=s.recent.slice(-3);
   synFeedRecord(ok); synFeedSave(); renderSynFeedPlay();
-  synFeedTimer=setTimeout(()=>{ if(synFeed===s&&s.current&&s.current.nonce===q.nonce) synFeedAdvance(); },ok?800:1450);
+  $("#synfeedNext")?.focus({preventScroll:true});
 }
 function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return; const w=WMAP.get(q.id); if(!w) return;
   const answered=q.chosen!=null,ok=answered&&!!q.opts[q.chosen].ok,correct=q.opts.find(o=>o.ok),showKo=synFeedKorean();
@@ -1856,21 +1855,28 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
   const choices=q.opts.map((o,i)=>{ const cls=answered?(o.ok?"correct":i===q.chosen?"wrong":""):"";
     return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o.t)}</button>`; }).join("");
   const koLine=showKo&&w.kor?`<div class="synfeed-korean">${esc(w.kor)}</div>`:"";
-  const answerLine=answered?`<button class="synfeed-feedback ${ok?"":"wrong"}" id="synfeedNext" type="button">
+  const answerLine=answered?`<div class="synfeed-feedback ${ok?"":"wrong"}">
       <strong>${ok?"✅ 정답":"❌ 정답은"} <span class="answer">${esc(correct.t)}</span></strong>
       ${showKo&&w.kor?`<span class="ko">${esc(w.word)} · ${esc(w.kor)}</span>`:""}
-      ${!ok?`<span class="retry">복습 큐 저장 · 5문제 뒤 다시 출제</span>`:`<span class="ko">탭해서 바로 계속</span>`}
-    </button>`:"";
-  $("#synfeedStage").innerHTML=`<article class="synfeed-card ${answered?(ok?"is-correct":"is-wrong"):""}" id="synfeedCard">
-    <div class="synfeed-question-meta"><span class="synfeed-badge">${badge}</span>${q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
+      ${!ok?`<span class="retry">복습 큐 저장 · 5문제 뒤 다시 출제</span>`:`<span class="ko">뜻을 확인한 뒤 아래 버튼으로 계속하세요</span>`}
+    </div>`:"";
+  const stage=$("#synfeedStage"),newQuestion=stage.dataset.questionNonce!==q.nonce; stage.dataset.questionNonce=q.nonce;
+  stage.innerHTML=`<article class="synfeed-card ${answered?(ok?"is-correct":"is-wrong"):""}" id="synfeedCard">
     ${answered&&ok?`<span class="synfeed-points">+${q.gain}</span>`:""}
-    <div class="synfeed-wordrow"><div class="synfeed-word" style="${wordFont(w.word,34)}">${esc(w.word)}</div><button class="synfeed-speaker" id="synfeedSpeak" type="button" aria-label="${esc(w.word)} 발음 듣기">🔊</button></div>
-    ${koLine}<div class="synfeed-prompt">가장 비슷한 뜻을 고르세요</div><div class="synfeed-choices" id="synfeedChoices">${choices}</div>
-    ${answerLine}${q.milestone?`<div class="synfeed-milestone">${esc(q.milestone)}</div>`:""}</article>`;
+    <div class="synfeed-question-pane">
+      <div class="synfeed-question-meta"><span class="synfeed-badge">${badge}</span>${q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
+      <div class="synfeed-wordrow"><div class="synfeed-word" style="--synfeed-word-size:${wordFont(w.word,42).replace("font-size:","")}">${esc(w.word)}</div><button class="synfeed-speaker" id="synfeedSpeak" type="button" aria-label="${esc(w.word)} 발음 듣기">🔊</button></div>
+      ${koLine}<div class="synfeed-prompt">가장 비슷한 뜻을 고르세요</div>
+    </div>
+    <div class="synfeed-answer-pane"><div class="synfeed-choices" id="synfeedChoices">${choices}</div>
+      ${answerLine}${q.milestone?`<div class="synfeed-milestone">${esc(q.milestone)}</div>`:""}</div></article>`;
+  if(newQuestion) stage.scrollTop=0;
   if(!answered) $$("#synfeedChoices .synfeed-choice").forEach(b=>b.onclick=()=>answerSynFeed(+b.dataset.i));
-  $("#synfeedSpeak").onclick=e=>speak(w.word,e); const next=$("#synfeedNext"); if(next) next.onclick=()=>synFeedAdvance();
+  $("#synfeedSpeak").onclick=e=>speak(w.word,e); const next=$("#synfeedNext"),gesture=$("#synfeedGesture");
+  next.classList.toggle("hidden",!answered); gesture.classList.toggle("hidden",answered); next.onclick=answered?()=>synFeedAdvance():null;
+  const feedback=$("#synfeedCard .synfeed-feedback"); if(feedback) requestAnimationFrame(()=>feedback.scrollIntoView({block:"nearest"}));
   const announce=$("#synfeedAnnounce"); if(announce){ const msg=answered
-      ? `${ok?"정답":"오답"}. 정답은 ${correct.t}.${showKo&&w.kor?" "+w.kor:""}`
+      ? `${ok?"정답":"오답"}. 정답은 ${correct.t}.${showKo&&w.kor?" "+w.kor:""} 다음 문제 버튼을 누르세요.`
       : `새 단어 ${w.word}.${showKo&&w.kor?" "+w.kor:""} 가장 비슷한 뜻을 고르세요.`;
     if(announce.textContent!==msg) announce.textContent=msg; }
 }
@@ -1890,6 +1896,7 @@ function wireChoiceKeys(){
       if(dig){ const b=[...$("#synfeedChoices").querySelectorAll(".synfeed-choice")][+dig[2]-1];
         if(b&&!b.disabled){ e.preventDefault(); b.click(); } return; }
       if(c==="Enter"||c==="NumpadEnter"||c==="Space"||c==="ArrowRight"||c==="ArrowUp"){
+        if(e.repeat){ e.preventDefault(); return; } // 길게 누른 키가 결과 화면을 곧바로 넘기지 않게 한다
         if(t&&t.tagName==="BUTTON") return; // 포커스된 토글·발음·나가기 버튼의 기본 키 동작을 가로채지 않는다
         if(synFeed.current&&synFeed.current.chosen!=null){ e.preventDefault(); synFeedAdvance(); } return; }
       if(c==="Escape"){ e.preventDefault(); go("vocab"); } return;
