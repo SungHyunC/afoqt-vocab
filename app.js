@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.126.0";
+const VERSION = "4.127.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -149,7 +149,7 @@ function wireSpeakers(root=document){ $$(".spk[data-spk]",root).forEach(b=>{ if(
    ============================================================ */
 let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], ROOTLESSONS=[], GUIDES={}, AVIATION=[], AVTERMS=[], AVBOOK=[];
 let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
-let BARRON_AR=null, BARRON_MK=null;
+let BARRON_AR=null, BARRON_MK=null, BARRON_FULL_AR=null, BARRON_FULL_MK=null;
 let state=null, sb=null, realtimeChan=null, realtimeCode=null, realtimeReady=false, syncReady=false, settingsSyncUpdatedAt=0;
 let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()};
 
@@ -741,9 +741,17 @@ function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak
   wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,examHist:syncedExamHistory(),curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt}; }
 function mergeMisc(d){
   if(!d) return;
-  // exams: keep the higher best per key
+  // exams: 최고점과 최근 회차를 따로 병합한다. 최근 회차는 updated_at 기준이라
+  // 최고점보다 낮게 다시 응시해도 다른 기기의 카드에 정확히 반영된다.
   for(const k in (d.exams||{})){ const r=d.exams[k],c=state.exams[k];
-    if(!c||(r.best||0)>(c.best||0)) state.exams[k]={...c,...r}; }
+    if(!c){ state.exams[k]={...r}; continue; }
+    const merged={...c},remoteBest=(r.best||0)>(c.best||0);
+    if(remoteBest){ merged.best=r.best; merged.bestTotal=r.bestTotal; }
+    const rt=syncTime(r.updated_at),ct=syncTime(c.updated_at);
+    if(rt>ct||(!rt&&!ct&&remoteBest)){
+      merged.last=r.last; merged.lastTotal=r.lastTotal; merged.date=r.date; }
+    if(rt>ct) merged.updated_at=r.updated_at;
+    state.exams[k]=merged; }
   // curr: max unlocked, union passed, max best per stage
   for(const t in (d.curr||{})){ const r=d.curr[t]; const c=state.curr[t]||(state.curr[t]={unlocked:0,passed:{},best:{}});
     c.unlocked=Math.max(c.unlocked||0,r.unlocked||0);
@@ -954,11 +962,14 @@ function go(view){
   // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
   // 백그라운드에서 섹션이 넘어가거나 자동 제출되지 않게 (모의고사 화면에서 이어하기).
   if(exam && !exam.submitted){
-    const pausedMathBank=isMathBankKey(exam.key),pausedMathStyle=isMathStyleKey(exam.key);
-    exam.times=exam.times||new Array(exam.total).fill(0);
-    if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openIdx=null; exam._openAt=null; }
-    saveExamSnap(); stopExamTimer(); examReleaseWake(); exam=null;
-    toast(pausedMathBank?"⏸ SET 일시정지 — 수학 화면에서 이어서 풀 수 있어요":pausedMathStyle?"⏸ 유형 연습 일시정지 — Barron 스타일 화면에서 이어서 풀 수 있어요":"⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
+    const pausedMathBank=isMathBankKey(exam.key),pausedMathFull=isMathFullKey(exam.key),pausedBarron=isBarronMathKey(exam.key);
+    settleExamClock();
+    if(exam&&!exam.submitted){
+      exam.times=exam.times||new Array(exam.total).fill(0);
+      if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openIdx=null; exam._openAt=null; }
+      exam._timerAt=null; saveExamSnap(); stopExamTimer(); examReleaseWake(); exam=null;
+      toast(pausedMathBank?"⏸ SET 일시정지 — 수학 화면에서 이어서 풀 수 있어요":pausedMathFull?"⏸ 실전 SET 일시정지 — Barron 스타일 화면에서 이어서 풀 수 있어요":pausedBarron?"⏸ 유형 연습 일시정지 — Barron 스타일 화면에서 이어서 풀 수 있어요":"⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
+    } else exam=null;
   }
   trTimerStop(); bcTimerStop(); icTimerStop();   // 시각과목 연습도 이탈 시 시계 정지(orphan 인터벌 방지)
   document.body.classList.toggle("synfeed-mode",view==="synfeed");
@@ -3033,15 +3044,25 @@ function renderMathTypes(){
 // 배열 순서와 키에 버전을 고정해 같은 SET의 문제·점수 의미가 다시 열어도 변하지 않는다.
 const MATH_BANK_SET_SIZE=25,MATH_BANK_SET_VERSION=1;
 const MATH_BANK_META={AR:{icon:"➗",name:"Arithmetic Reasoning",ko:"산수 추론"},MK:{icon:"📐",name:"Math Knowledge",ko:"수학 지식"}};
+const MATH_STYLE_FALLBACK={
+  AR:{percent_money:"퍼센트·가격·급여",rate_time:"속력·시간·연료·생산",ratio_scale:"비율·배분·축척",units_measure:"단위 환산·측정",averages_totals:"평균·합계·복합 비용",applied_geometry:"둘레·넓이·부피"},
+  MK:{algebra_expressions:"대수식·대입·전개",equations_inequalities:"방정식·연립·부등식",exponents_numbers:"지수·근호·수 성질",factoring_polynomials:"인수분해·다항식",plane_geometry:"평면기하·좌표",solid_probability:"입체·확률·경우의 수"}
+};
 let mathBankOpenSec="AR";
 function isMathBankKey(key){ return /^mathbank_(ar|mk)_v\d+_\d+$/.test(String(key||"")); }
 const MATH_STYLE_VERSION=1;
+const MATH_FULL_VERSION=1;
 let mathStyleOpenSec="AR";
 function isMathStyleKey(key){ return /^mathstyle_(ar|mk)_v\d+_[a-z0-9_]+$/.test(String(key||"")); }
-function mathExamReturnView(key){ return isMathStyleKey(key)?"barronmath":isMathBankKey(key)?"math":"home"; }
+function isMathFullKey(key){ return /^mathfull_(ar|mk)_v\d+_[a-z0-9_]+$/.test(String(key||"")); }
+function isBarronMathKey(key){ return isMathStyleKey(key)||isMathFullKey(key); }
+function mathExamReturnView(key){ return isBarronMathKey(key)?"barronmath":isMathBankKey(key)?"math":"home"; }
 function mathStyleData(sec){ return sec==="AR"?BARRON_AR:sec==="MK"?BARRON_MK:null; }
 function mathStyleTypes(sec){ const d=mathStyleData(sec); return d&&Array.isArray(d.types)?d.types:[]; }
 function mathStyleQuestions(sec){ const d=mathStyleData(sec); return d&&Array.isArray(d.questions)?d.questions:[]; }
+function mathFullData(sec){ return sec==="AR"?BARRON_FULL_AR:sec==="MK"?BARRON_FULL_MK:null; }
+function mathFullSets(sec){ const d=mathFullData(sec); return d&&Array.isArray(d.sets)?d.sets:[]; }
+function mathFullQuestions(sec){ return mathFullSets(sec).flatMap(s=>Array.isArray(s.questions)?s.questions:[]); }
 function validMathStyleData(d,sec){
   if(!d||!Array.isArray(d.types)||!Array.isArray(d.questions)||!d.types.length||!d.questions.length) return false;
   const types=new Set(d.types.map(t=>String(t&&t.id||""))); if(types.has("")||types.size!==d.types.length) return false;
@@ -3050,7 +3071,8 @@ function validMathStyleData(d,sec){
     Array.isArray(q.options)&&q.options.length===5&&new Set(q.options.map(String)).size===5&&
     Number.isInteger(q.answer)&&q.answer>=0&&q.answer<5&&typeof q.explain==="string");
 }
-function mathStyleType(sec,typeId){ return mathStyleTypes(sec).find(t=>t.id===typeId)||null; }
+function mathStyleType(sec,typeId){ const found=mathStyleTypes(sec).find(t=>t&&t.id===typeId); if(found) return found;
+  const name=MATH_STYLE_FALLBACK[sec]&&MATH_STYLE_FALLBACK[sec][typeId]; return name?{id:typeId,name_ko:name}:null; }
 function mathStyleTypeName(type){ return (type&&(type.name_ko||type.name))||""; }
 function mathStyleTopicName(sec,topic){
   const raw=String(topic||""); if(!raw.startsWith("barron:")) return raw;
@@ -3069,6 +3091,24 @@ function registerMathStylePresets(){ for(const sec of ["AR","MK"]){ const meta=M
     const key=mathStylePresetKey(sec,type.id),secs=Math.max(120,items.length*300);
     EXAM_PRESETS[key]={name:`Barron 스타일 · ${meta.ko} · ${mathStyleTypeName(type)}`,secs,learn:true,
       build:()=>mathStyleItems(sec,type.id),label:`${items.length}문항 · 문제마다 즉시 해설`}; } } }
+function validMathFullData(d,sec){
+  if(!d||d.section!==sec||!Array.isArray(d.sets)||!d.sets.length) return false;
+  const typeIds=new Set(Object.keys(MATH_STYLE_FALLBACK[sec]||{})),setIds=new Set(),qids=new Set();
+  if(!typeIds.size) return false;
+  return d.sets.every(s=>s&&typeof s.id==="string"&&s.id&&!setIds.has(s.id)&&setIds.add(s.id)&&
+    typeof s.name_ko==="string"&&Number.isFinite(s.timeSeconds)&&s.timeSeconds>0&&
+    Array.isArray(s.questions)&&s.questions.length===25&&s.questions.every(q=>q&&q.section===sec&&
+      typeIds.has(String(q.typeId||""))&&typeof q.id==="string"&&!qids.has(q.id)&&qids.add(q.id)&&
+      typeof q.q==="string"&&typeof q.q_ko==="string"&&Array.isArray(q.options)&&q.options.length===5&&
+      new Set(q.options.map(String)).size===5&&Number.isInteger(q.answer)&&q.answer>=0&&q.answer<5&&typeof q.explain==="string"));
+}
+function mathFullPresetKey(sec,setId){ return `mathfull_${sec.toLowerCase()}_v${MATH_FULL_VERSION}_${setId}`; }
+function mathFullItems(set){ return set.questions.map(q=>mathStyleItem(q,set.section||q.section)); }
+function registerMathFullPresets(){ for(const sec of ["AR","MK"]){ const meta=MATH_BANK_META[sec];
+  for(const set of mathFullSets(sec)){ const key=mathFullPresetKey(sec,set.id),items=mathFullItems(set);
+    if(items.length!==25) continue;
+    EXAM_PRESETS[key]={name:`Barron 스타일 실전 · ${meta.ko} · ${set.name_ko}`,secs:set.timeSeconds,
+      build:()=>mathFullItems(set),label:`25문항 · ${fmtTime(set.timeSeconds)} · 실전 흐름`}; } } }
 function mathBankSetKey(sec,no){ return `mathbank_${sec.toLowerCase()}_v${MATH_BANK_SET_VERSION}_${String(no).padStart(2,"0")}`; }
 function mathBankSets(sec){ const pool=sec==="AR"?ARITH:sec==="MK"?MATHK:[],out=[];
   for(let from=0;from<pool.length;from+=MATH_BANK_SET_SIZE){ const no=out.length+1;
@@ -3102,15 +3142,26 @@ function renderMathBankSets(){ const host=$("#mathBankSets"); if(!host) return;
   $$("#mathBankSets [data-bank-group]").forEach(d=>d.ontoggle=()=>{ if(!d.open) return; mathBankOpenSec=d.dataset.bankGroup;
     $$("#mathBankSets [data-bank-group]").forEach(other=>{ if(other!==d) other.open=false; }); }); }
 function renderBarronMathResume(){ const box=$("#barronMathResume"),snap=loadExamSnap(),done=(snap&&snap.answers||[]).filter(a=>a!=null).length;
-  if(!box||!snap||!isMathStyleKey(snap.key)||!done){ if(box){ box.classList.add("hidden"); box.innerHTML=""; } return; }
-  mathStyleOpenSec=String(snap.key).match(/^mathstyle_(ar|mk)_/)?.[1].toUpperCase()||mathStyleOpenSec;
-  box.classList.remove("hidden"); box.innerHTML=`<div class="card math-bank-resume"><b>⏸ 하다 만 Barron 스타일 유형 연습이 있어요</b>
-    <div class="muted" style="font-size:12.5px;margin-top:4px">${esc(snap.name||"유형별 연습")} · ${done}/${snap.total}문항 답함</div>
+  if(!box||!snap||!isBarronMathKey(snap.key)){ if(box){ box.classList.add("hidden"); box.innerHTML=""; } return; }
+  mathStyleOpenSec=String(snap.key).match(/^math(?:style|full)_(ar|mk)_/)?.[1].toUpperCase()||mathStyleOpenSec;
+  const full=isMathFullKey(snap.key),kind=full?"실전 25문항 SET":"유형 연습";
+  box.classList.remove("hidden"); box.innerHTML=`<div class="card math-bank-resume"><b>⏸ 하다 만 Barron 스타일 ${kind}이 있어요</b>
+    <div class="muted" style="font-size:12.5px;margin-top:4px">${esc(snap.name||kind)} · ${done}/${snap.total}문항 답함</div>
     <div class="row"><button class="btn primary sm" id="barronMathResumeGo">▶ 이어서</button><button class="btn ghost sm" id="barronMathResumeDrop">버리기</button></div></div>`;
   $("#barronMathResumeGo").onclick=resumeExamSnap; $("#barronMathResumeDrop").onclick=()=>{
-    if(confirm("저장된 유형 연습을 버릴까요? 되돌릴 수 없어요.")){ clearExamSnap(); renderBarronMath(); } }; }
+    if(confirm(`저장된 ${kind}을 버릴까요? 되돌릴 수 없어요.`)){ clearExamSnap(); renderBarronMath(); } }; }
+function renderBarronFullSets(){ const host=$("#barronFullSets"); if(!host) return;
+  const cards=["AR","MK"].flatMap(sec=>{ const meta=MATH_BANK_META[sec]; return mathFullSets(sec).map(set=>{
+    const key=mathFullPresetKey(sec,set.id),r=state.exams[key],result=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:"미응시";
+    return `<button class="barron-full-card ${r?"done":""}" type="button" data-math-full="${esc(key)}">
+      <span class="barron-full-icon" aria-hidden="true">${meta.icon}</span><span class="meta"><b>${esc(meta.name)} · ${esc(set.name_ko)}</b>
+      <span>${esc(set.description||"긴 상황형과 응용 문제를 실제 섹션 순서처럼 섞은 실전 세트")}</span>
+      <small>25문항 · ${fmtTime(set.timeSeconds)} · ${esc(result)}</small></span><span class="go">›</span></button>`; }); });
+  host.innerHTML=cards.length?`<div class="barron-full-grid">${cards.join("")}</div>`:
+    `<div class="barron-style-error">실전 25문항 세트를 불러오지 못했어요.<br>네트워크를 확인하고 새로고침해 주세요.</div>`;
+  $$("#barronFullSets [data-math-full]").forEach(b=>b.onclick=()=>startExam(b.dataset.mathFull)); }
 function renderBarronMath(){
-  registerMathStylePresets(); renderBarronMathResume();
+  registerMathStylePresets(); registerMathFullPresets(); renderBarronMathResume(); renderBarronFullSets();
   const host=$("#barronMathBody"); if(!host) return;
   const groups=["AR","MK"].map(sec=>{ const meta=MATH_BANK_META[sec],types=mathStyleTypes(sec),questions=mathStyleQuestions(sec);
     if(!types.length||!questions.length) return `<section class="barron-style-group"><div class="barron-style-error">${meta.icon} ${meta.name} 자체 제작 문제를 불러오지 못했어요.<br>네트워크를 확인하고 새로고침해 주세요.</div></section>`;
@@ -3869,8 +3920,8 @@ function buildWrongAV(){
     avId:q.id, avTopic:q.topic, options:q.options.slice(), answer:q.answer, explain:q.explain||""}, b[q.id]||1));
 }
 const WRONG_BUILD={ wk:buildWrongWK, va:buildWrongVA, rc:buildWrongRC,
-  ar:()=>buildWrongMCQ([...ARITH,...mathStyleQuestions("AR")],"AR","ar"),
-  mk:()=>buildWrongMCQ([...MATHK,...mathStyleQuestions("MK")],"MK","mk"),
+  ar:()=>buildWrongMCQ([...ARITH,...mathStyleQuestions("AR"),...mathFullQuestions("AR")],"AR","ar"),
+  mk:()=>buildWrongMCQ([...MATHK,...mathStyleQuestions("MK"),...mathFullQuestions("MK")],"MK","mk"),
   ps:()=>buildWrongMCQ(PHYSCI,"PS","ps"), av:buildWrongAV };
 const WRONG_META={ wk:["📇","단어"],va:["🔗","유추"],rc:["📖","독해"],
   ar:["➗","산수"],mk:["📐","수학"],ps:["🔬","과학"],av:["🛩️","항공"] };
@@ -4043,12 +4094,27 @@ function advanceExamSection(auto){
   toast(`${auto?"⏰ 시간 종료":"✅ 완료"} · 다음 섹션 → ${SEC_KO[nx.code]||nx.code} ${nx.to-nx.from+1}문항 ${Math.round(nx.secs/60)}분`, 3000);
   window.scrollTo(0,0); renderExamQ();
 }
+function consumeExamSeconds(elapsed){
+  while(elapsed>0&&exam&&!exam.submitted){
+    const s=curExamSec(),left=s?s.left:exam.secsLeft,use=Math.min(Math.max(0,left),elapsed);
+    if(s) s.left-=use; else exam.secsLeft-=use; elapsed-=use;
+    if((s?s.left:exam.secsLeft)<=0){ if(s) advanceExamSection(true); else submitExam(true); }
+    else break;
+  }
+}
+function settleExamClock(now=Date.now()){
+  if(!exam||exam.submitted||!exam._timerAt) return;
+  if(now<exam._timerAt){ exam._timerAt=now; return; }
+  const elapsed=Math.floor((now-exam._timerAt)/1000); if(elapsed<1) return;
+  exam._timerAt+=elapsed*1000; consumeExamSeconds(elapsed);
+  if(exam&&!exam.submitted) updateTimerUI();
+}
 function startExamTimer(){ stopExamTimer(); updateTimerUI();
+  exam._timerAt=Date.now();
   examAcquireWake(); saveExamStatic(); saveExamSnap();   // 중단 복구용 스냅샷(정적 1회+동적) + 화면 꺼짐 방지
   exam.timerId=setInterval(()=>{ if(!exam) return stopExamTimer();
-    const s=curExamSec();
-    if(s){ s.left--; updateTimerUI(); if(s.left<=0) advanceExamSection(true); }
-    else { exam.secsLeft--; updateTimerUI(); if(exam.secsLeft<=0) submitExam(true); }
+    // 브라우저가 백그라운드 타이머를 늦춰도 호출 횟수가 아니라 실제 경과 초를 차감한다.
+    settleExamClock();
     if(exam&&!exam.submitted&&((exam._tick=(exam._tick||0)+1)%5===0)) saveExamSnap();  // 5초마다 남은 시간 갱신
   },1000); }
 function stopExamTimer(){ if(exam&&exam.timerId){ clearInterval(exam.timerId); exam.timerId=null; } }
@@ -4075,7 +4141,8 @@ function saveExamStatic(){
 function saveExamSnap(){
   const e=exam; if(!e||e.submitted) return;
   try{
-    const dyn={answers:e.answers,idx:e.idx,secsLeft:e.secsLeft,times:e.times||null,savedAt:Date.now()};
+    const dyn={answers:e.answers,idx:e.idx,secsLeft:e.secsLeft,times:e.times||null,
+      timerAt:e._timerAt||null,savedAt:Date.now()};
     if(e.sections){ dyn.secIdx=e.secIdx;
       dyn.secDyn=e.sections.map(s=>({left:s.left,done:!!s.done,leftAtDone:s.leftAtDone,autoOut:!!s.autoOut})); }
     localStorage.setItem(EXAM_SAVE_DYN,JSON.stringify(dyn));
@@ -4091,15 +4158,17 @@ function loadExamSnap(){
     return {...st,...dyn};
   }catch(e){ return null; }
 }
-// 새 시험 시작이 하다 만 시험(답 1개 이상)을 지우게 될 때는 물어본다
+// 새 시험 시작이 하다 만 시험을 지우게 될 때는 물어본다. 실전 25문항 SET은
+// 0문항 상태에서도 타이머가 시작되므로 스냅샷을 보호한다.
 function confirmDropExamSnap(){
   const s=loadExamSnap(); if(!s) return true;
   const done=(s.answers||[]).filter(a=>a!=null).length;
-  if(!done) return true;
+  if(!done&&!isMathFullKey(s.key)) return true;
   return confirm(`⏸ 하다 만 시험이 있어요 — "${s.name||"모의고사"}" ${done}/${s.total}문항.\n새 시험을 시작하면 사라져요. 계속할까요?`);
 }
 function resumeExamSnap(){
   const s=loadExamSnap(); if(!s){ toast("이어할 시험이 없어요."); renderExamSetup(); return; }
+  const offlineElapsed=!s.learn&&s.timerAt?Math.max(0,Math.floor((Date.now()-s.timerAt)/1000)):0;
   exam={key:s.key,name:s.name,items:s.items,idx:s.idx||0,answers:s.answers,
     secsLeft:s.secsLeft,startSecs:s.startSecs,total:s.total,submitted:false,timerId:null,
     times:s.times||undefined};
@@ -4114,8 +4183,8 @@ function resumeExamSnap(){
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
   $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
-  startExamTimer(); renderExamQ();
-  toast("⏸ 저장된 지점부터 이어서 시작해요.");
+  renderExamQ(); if(offlineElapsed) consumeExamSeconds(offlineElapsed);
+  if(exam&&!exam.submitted){ startExamTimer(); renderExamQ(); toast("⏸ 저장된 지점부터 이어서 시작해요."); }
 }
 function updateTimerUI(){ const t=$("#examTimer"); if(!t||!exam) return;
   if(exam.learn){ t.textContent="📚 연습"; t.classList.remove("warn"); }  // 학습 모드: 카운트다운 숨김
@@ -4544,7 +4613,7 @@ function submitExam(auto){
   if(e.key&&!e.practice){ const prev=state.exams[e.key]||{};
     const newBest=got>(prev.best||0);   // bestTotal은 그 최고점을 낸 회차의 분모를 유지 ("최고 100/25" 방지)
     state.exams[e.key]={best:newBest?got:(prev.best||0),bestTotal:newBest?total:(prev.bestTotal||total),
-      last:got,lastTotal:total,date:todayStr()}; }
+      last:got,lastTotal:total,date:todayStr(),updated_at:nowISO()}; }
   // 문항별 상세 — 나중에 해설까지 복기할 수 있도록. 지문 본문은 passageId로 복원(용량 절약).
   const detail=counted.map(i=>{ const it=e.items[i]; return {s:it.section,q:it.prompt||"",t:it.stem||"",o:(it.options||[]).slice(),
     u:e.answers[i],a:it.answer,x:it.explain||"",p:it.passageId!=null?it.passageId:null,pt:it.passageTitle||"",
@@ -4607,7 +4676,7 @@ function submitExam(auto){
         <div class="row" style="gap:6px;flex-wrap:wrap;justify-content:center">${lines}</div>
         ${slowOK>0?`<div class="muted" style="font-size:11.5px;margin-top:6px">🐢 맞았지만 느렸던 문항 <b>${slowOK}개</b> — 실전에선 시간 부족이 될 수 있어요. 해설에서 🐢 표시를 확인!</div>`:`<div class="muted" style="font-size:11.5px;margin-top:6px">✅ 페이스 좋아요 — 이 속도면 실전 시간 안에 들어와요.</div>`}`; } }
   $("#examReview").innerHTML=""; $("#examReviewBtn").classList.remove("hidden");
-  $("#examDoneHome").textContent=isMathStyleKey(e.key)?"Barron 스타일 유형 목록으로":isMathBankKey(e.key)?"수학 SET 목록으로":"홈으로";
+  $("#examDoneHome").textContent=isBarronMathKey(e.key)?"Barron 스타일 목록으로":isMathBankKey(e.key)?"수학 SET 목록으로":"홈으로";
   window.scrollTo(0,0);
 }
 function renderExamReview(){
@@ -5121,10 +5190,11 @@ function wire(){
     if(document.visibilityState==="hidden"){
       if(synFeed) synFeedSave(true); // latest queue/current question + replica counters
       if(exam&&!exam.submitted){
+        settleExamClock();
         // 열린 문항의 시간 구간을 닫는다 — 자리 비운 10분이 그 문항 속도 기록으로 들어가지 않게
-        exam.times=exam.times||new Array(exam.total).fill(0);
-        if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openAt=null; }
-        saveExamSnap();
+        if(exam&&!exam.submitted){ exam.times=exam.times||new Array(exam.total).fill(0);
+          if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openAt=null; }
+          saveExamSnap(); }
       }
       saveNow(); flushPush(); return; }
     // Wake Lock is dropped when the tab is hidden — re-acquire it on return if auto-play is running.
@@ -5145,7 +5215,9 @@ function wire(){
     if(todayStr()!==lastDay){ lastDay=todayStr(); if(!sessionActive()){ const a=$(".view.active")?.id;
       if(a==="view-home") renderHome(); else softRender(); } }
   }, 60000);
-  const flushBeforeExit=()=>{ if(synFeed) synFeedSave(true); saveNow(); flushPush(); };
+  const flushBeforeExit=()=>{ if(synFeed) synFeedSave(true);
+    if(exam&&!exam.submitted){ settleExamClock(); if(exam&&!exam.submitted) saveExamSnap(); }
+    saveNow(); flushPush(); };
   window.addEventListener("pagehide",flushBeforeExit);
   window.addEventListener("beforeunload",flushBeforeExit);
   // Preload TTS voices (they populate asynchronously in most browsers).
@@ -5293,10 +5365,13 @@ async function boot(){
     ARITH=await loadJSON("./arithmetic.json")||[];
     MATHK=await loadJSON("./mathknowledge.json")||[];
     registerMathBankPresets();
-    { const [barAr,barMk]=await Promise.all([loadJSON("./barron_style_arithmetic.json"),loadJSON("./barron_style_mathknowledge.json")]);
+    { const [barAr,barMk,fullAr,fullMk]=await Promise.all([loadJSON("./barron_style_arithmetic.json"),loadJSON("./barron_style_mathknowledge.json"),
+        loadJSON("./barron_style_full_arithmetic.json"),loadJSON("./barron_style_full_mathknowledge.json")]);
       BARRON_AR=validMathStyleData(barAr,"AR")?barAr:null;
       BARRON_MK=validMathStyleData(barMk,"MK")?barMk:null;
-      registerMathStylePresets(); }
+      BARRON_FULL_AR=validMathFullData(fullAr,"AR")?fullAr:null;
+      BARRON_FULL_MK=validMathFullData(fullMk,"MK")?fullMk:null;
+      registerMathStylePresets(); registerMathFullPresets(); }
     PHYSCI=await loadJSON("./physicalscience.json")||[];
     SITJUD=await loadJSON("./situational.json")||[];
     $("#boot").classList.remove("active"); go("home");

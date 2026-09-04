@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-126-0";  // Barron 스타일 자체 제작 수학 유형별 연습
+const CACHE = "afoqt-v4-127-0";  // Barron 스타일 실전 25문항 SET
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
@@ -21,6 +21,8 @@ const ASSETS = [
   "./mathknowledge.json",
   "./barron_style_arithmetic.json",
   "./barron_style_mathknowledge.json",
+  "./barron_style_full_arithmetic.json",
+  "./barron_style_full_mathknowledge.json",
   "./physicalscience.json",
   "./situational.json",
   "./mockexams.enc.json",
