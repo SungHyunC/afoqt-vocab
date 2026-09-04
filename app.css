@@ -741,6 +741,29 @@ sub{vertical-align:-.25em}
   background:var(--card2);border-radius:9px;border:1px solid var(--line)}
 .mock-note.ai{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,var(--line))}
 
+/* ---------- fixed math question-bank sets ---------- */
+.math-bank-sets{display:flex;flex-direction:column;gap:10px}
+.math-bank-group{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.math-bank-group>summary{display:flex;align-items:center;gap:10px;padding:14px 15px;cursor:pointer;list-style:none;font-weight:800}
+.math-bank-group>summary::-webkit-details-marker{display:none}
+.math-bank-group>summary::after{content:"▾";margin-left:auto;color:var(--muted);transition:transform .18s}
+.math-bank-group:not([open])>summary::after{transform:rotate(-90deg)}
+.math-bank-summary{min-width:0;flex:1}
+.math-bank-summary b,.math-bank-summary span{display:block}
+.math-bank-summary span{font-size:11.5px;color:var(--muted);font-weight:500;margin-top:2px}
+.math-bank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:8px;padding:0 12px 12px}
+.math-bank-set{min-width:0;text-align:left;padding:11px 10px;border:1.5px solid var(--line);border-radius:12px;background:var(--card2);color:var(--txt)}
+.math-bank-set:active{transform:scale(.98)}
+.math-bank-set.done{border-color:color-mix(in srgb,var(--ok) 48%,var(--line))}
+.math-bank-set-top{display:flex;align-items:center;justify-content:space-between;gap:5px}
+.math-bank-set-top b{font-size:14px;font-variant-numeric:tabular-nums}
+.math-bank-set-top i{font-style:normal;color:var(--ok);font-size:12px}
+.math-bank-set>span:not(.math-bank-set-top){display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.math-bank-set small{display:block;color:var(--brand2);font-size:10.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.math-bank-resume{border-color:var(--gold);padding:14px;margin-bottom:10px}
+.math-bank-resume .row{gap:8px;margin-top:10px}
+.math-bank-resume .btn{flex:1}
+
 /* ── Verbal 16일 날짜별 체크리스트 ───────────────────────── */
 .v16-list{margin-top:14px}
 .v16-ph{padding:14px 2px 7px;border-top:1px solid var(--line);margin-top:8px}

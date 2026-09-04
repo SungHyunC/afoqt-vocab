@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.124.0";
+const VERSION = "4.125.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -952,10 +952,11 @@ function go(view){
   // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
   // 백그라운드에서 섹션이 넘어가거나 자동 제출되지 않게 (모의고사 화면에서 이어하기).
   if(exam && !exam.submitted){
+    const pausedMathBank=isMathBankKey(exam.key);
     exam.times=exam.times||new Array(exam.total).fill(0);
     if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openIdx=null; exam._openAt=null; }
     saveExamSnap(); stopExamTimer(); examReleaseWake(); exam=null;
-    toast("⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
+    toast(pausedMathBank?"⏸ SET 일시정지 — 수학 화면에서 이어서 풀 수 있어요":"⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
   }
   trTimerStop(); bcTimerStop(); icTimerStop();   // 시각과목 연습도 이탈 시 시계 정지(orphan 인터벌 방지)
   document.body.classList.toggle("synfeed-mode",view==="synfeed");
@@ -3026,8 +3027,47 @@ function renderMathTypes(){
   $$("#mtBody [data-mt]").forEach(b=>b.onclick=()=>{ const g=MATH_TYPES.find(x=>x.k===b.dataset.mt); if(!g) return;
     startDrill(drillTopicsMulti(g.sec,g.keys), `유형 드릴 · ${g.name}`); });
 }
-// Dedicated 수학 hub (bottom-nav tab) — Math Knowledge + Arithmetic practice/exam.
+// 공개 수학 문제은행을 Barron 과목별 버튼처럼 고정 25문항 회차로 나눈다.
+// 배열 순서와 키에 버전을 고정해 같은 SET의 문제·점수 의미가 다시 열어도 변하지 않는다.
+const MATH_BANK_SET_SIZE=25,MATH_BANK_SET_VERSION=1;
+const MATH_BANK_META={AR:{icon:"➗",name:"Arithmetic Reasoning",ko:"산수 추론"},MK:{icon:"📐",name:"Math Knowledge",ko:"수학 지식"}};
+let mathBankOpenSec="AR";
+function isMathBankKey(key){ return /^mathbank_(ar|mk)_v\d+_\d+$/.test(String(key||"")); }
+function mathBankSetKey(sec,no){ return `mathbank_${sec.toLowerCase()}_v${MATH_BANK_SET_VERSION}_${String(no).padStart(2,"0")}`; }
+function mathBankSets(sec){ const pool=sec==="AR"?ARITH:sec==="MK"?MATHK:[],out=[];
+  for(let from=0;from<pool.length;from+=MATH_BANK_SET_SIZE){ const no=out.length+1;
+    out.push({sec,no,key:mathBankSetKey(sec,no),from:from+1,to:Math.min(from+MATH_BANK_SET_SIZE,pool.length),questions:pool.slice(from,from+MATH_BANK_SET_SIZE)}); }
+  return out; }
+function mathBankItems(set){ return set.questions.map(q=>({section:set.sec,prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:q.topic||"",qid:q.id,
+  options:q.options.slice(),answer:q.answer,explain:q.explain||""})); }
+function registerMathBankPresets(){ for(const sec of ["AR","MK"]){ const meta=MATH_BANK_META[sec];
+  for(const set of mathBankSets(sec)){ const secs=SECRATE[sec]*set.questions.length;
+    EXAM_PRESETS[set.key]={name:`문제은행 · ${meta.ko} SET ${String(set.no).padStart(2,"0")}`,secs,
+      build:()=>mathBankItems(set),label:`${set.questions.length}문항 · ${fmtTime(secs)} · 고정 회차`}; } } }
+function renderMathBankResume(){ const box=$("#mathBankResume"),snap=loadExamSnap(),done=(snap&&snap.answers||[]).filter(a=>a!=null).length;
+  if(!box||!snap||!isMathBankKey(snap.key)||!done){ if(box){ box.classList.add("hidden"); box.innerHTML=""; } return; }
+  mathBankOpenSec=String(snap.key).match(/^mathbank_(ar|mk)_/)?.[1].toUpperCase()||mathBankOpenSec;
+  box.classList.remove("hidden"); box.innerHTML=`<div class="card math-bank-resume"><b>⏸ 하다 만 수학 SET이 있어요</b>
+    <div class="muted" style="font-size:12.5px;margin-top:4px">${esc(snap.name||"수학 문제은행")} · ${done}/${snap.total}문항 답함</div>
+    <div class="row"><button class="btn primary sm" id="mathBankResumeGo">▶ 이어서</button><button class="btn ghost sm" id="mathBankResumeDrop">버리기</button></div></div>`;
+  $("#mathBankResumeGo").onclick=resumeExamSnap; $("#mathBankResumeDrop").onclick=()=>{
+    if(confirm("저장된 수학 SET을 버릴까요? 되돌릴 수 없어요.")){ clearExamSnap(); renderMath(); } }; }
+function renderMathBankSets(){ const host=$("#mathBankSets"); if(!host) return;
+  host.innerHTML=["AR","MK"].map(sec=>{ const meta=MATH_BANK_META[sec],sets=mathBankSets(sec),attempted=sets.filter(s=>state.exams[s.key]).length;
+    const buttons=sets.map(set=>{ const r=state.exams[set.key],secs=SECRATE[sec]*set.questions.length;
+      const result=r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:"미응시";
+      return `<button class="math-bank-set ${r?"done":""}" type="button" data-math-bank="${sec}" data-set="${set.no}" data-exam="${set.key}" aria-label="${meta.ko} SET ${set.no}, ${set.questions.length}문항">
+        <span class="math-bank-set-top"><b>SET ${String(set.no).padStart(2,"0")}</b><i>${r?"✓":""}</i></span>
+        <span>${set.questions.length}문항 · ${fmtTime(secs)}</span><small>${result}</small></button>`; }).join("");
+    return `<details class="math-bank-group" data-bank-group="${sec}" ${mathBankOpenSec===sec?"open":""}>
+      <summary><span aria-hidden="true">${meta.icon}</span><span class="math-bank-summary"><b>${meta.name}</b><span>${sets.length} SET · ${sets.reduce((n,s)=>n+s.questions.length,0)}문제 · 응시 ${attempted}/${sets.length}</span></span></summary>
+      <div class="math-bank-grid">${buttons}</div></details>`; }).join("");
+  $$("#mathBankSets [data-exam]").forEach(b=>b.onclick=()=>{ mathBankOpenSec=b.dataset.mathBank; startExam(b.dataset.exam); });
+  $$("#mathBankSets [data-bank-group]").forEach(d=>d.ontoggle=()=>{ if(!d.open) return; mathBankOpenSec=d.dataset.bankGroup;
+    $$("#mathBankSets [data-bank-group]").forEach(other=>{ if(other!==d) other.open=false; }); }); }
+// Dedicated 수학 hub (bottom-nav tab) — fixed bank sets + random practice/exam.
 function renderMath(){
+  registerMathBankPresets(); renderMathBankResume(); renderMathBankSets();
   $("#mkCount").textContent=MATHK.length; $("#arCount").textContent=ARITH.length;
   const line=(el,key)=>{ const r=state.exams[key];
     $(el).textContent = r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:"아직 기록 없음"; };
@@ -4494,6 +4534,7 @@ function submitExam(auto){
         <div class="row" style="gap:6px;flex-wrap:wrap;justify-content:center">${lines}</div>
         ${slowOK>0?`<div class="muted" style="font-size:11.5px;margin-top:6px">🐢 맞았지만 느렸던 문항 <b>${slowOK}개</b> — 실전에선 시간 부족이 될 수 있어요. 해설에서 🐢 표시를 확인!</div>`:`<div class="muted" style="font-size:11.5px;margin-top:6px">✅ 페이스 좋아요 — 이 속도면 실전 시간 안에 들어와요.</div>`}`; } }
   $("#examReview").innerHTML=""; $("#examReviewBtn").classList.remove("hidden");
+  $("#examDoneHome").textContent=isMathBankKey(e.key)?"수학 SET 목록으로":"홈으로";
   window.scrollTo(0,0);
 }
 function renderExamReview(){
@@ -4815,7 +4856,7 @@ function softRender(){
   // sync echo must not reset the analogy/reading view and kick the user out.
   if(sessionActive()) return;
   const a=$(".view.active")?.id;
-  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-stats":renderStats}[a]||(()=>{}))(); }
+  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-math":renderMath,"view-stats":renderStats}[a]||(()=>{}))(); }
 window.__softRender=softRender; // test/debug hook
 
 /* ============================================================
@@ -4915,7 +4956,8 @@ function wire(){
   // exam
   $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
   $("#examExit").onclick=()=>go("home");
-  $("#examQuit").onclick=()=>{ if(!exam||exam.submitted||confirm("시험을 그만두고 나갈까요? 기록은 저장되지 않아요.")){ stopExamTimer(); clearExamSnap(); examReleaseWake(); exam=null; go("home"); } };
+  $("#examQuit").onclick=()=>{ if(!exam||exam.submitted||confirm("시험을 그만두고 나갈까요? 기록은 저장되지 않아요.")){
+    const back=exam&&isMathBankKey(exam.key)?"math":"home"; stopExamTimer(); clearExamSnap(); examReleaseWake(); exam=null; go(back); } };
   $("#examPrev").onclick=()=>{ if(!exam) return; const s=curExamSec(), lo=s?s.from:0;
     if(exam.idx>lo){ exam.idx--; renderExamQ(); } };
   $("#examNext").onclick=()=>{ if(!exam) return; const s=curExamSec(), hi=s?s.to:exam.total-1;
@@ -4931,7 +4973,7 @@ function wire(){
       startExam(exam.key);
     } else go("exam"); };
   $("#retestAll").onclick=()=>startRetest("all");
-  $("#examDoneHome").onclick=()=>go("home");
+  $("#examDoneHome").onclick=()=>go(exam&&isMathBankKey(exam.key)?"math":"home");
   $("#optHighFirst").onchange=e=>{ state.settings.high_first=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optShowKo")&&($("#optShowKo").onchange=e=>{ state.settings.hide_ko=!e.target.checked; saveLocal(); queuePush("settings",{});
@@ -5174,6 +5216,7 @@ async function boot(){
     AVBOOK=await loadJSON("./aviation_book.json")||[];
     ARITH=await loadJSON("./arithmetic.json")||[];
     MATHK=await loadJSON("./mathknowledge.json")||[];
+    registerMathBankPresets();
     PHYSCI=await loadJSON("./physicalscience.json")||[];
     SITJUD=await loadJSON("./situational.json")||[];
     $("#boot").classList.remove("active"); go("home");
