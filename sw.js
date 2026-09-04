@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-124-0";  // 무한 동의어 피드 100문제 SET 표시
+const CACHE = "afoqt-v4-125-0";  // 수학 문제은행 고정 회차별 SET
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
