@@ -1,0 +1,1070 @@
+{
+  "version": 1,
+  "notice": "Barron 계열 산술 추론의 출제 유형만 참고하여 문장, 인물, 상황, 수치, 선택지와 해설을 모두 새로 만든 독립 연습 문항입니다. 원문 문제를 재현하지 않습니다.",
+  "types": [
+    {
+      "id": "percent_money",
+      "name": "Percent, Price & Pay",
+      "name_ko": "퍼센트·가격·급여",
+      "description": "할인·인상·세금·수수료·급여에서 기준량과 적용 순서를 판단",
+      "count": 10
+    },
+    {
+      "id": "rate_time",
+      "name": "Rate, Time & Fuel",
+      "name_ko": "속력·시간·연료·생산",
+      "description": "거리·속력·시간, 연료 소비, 순작업률과 생산률의 다단계 계산",
+      "count": 10
+    },
+    {
+      "id": "ratio_scale",
+      "name": "Ratio, Sharing & Scale",
+      "name_ko": "비율·배분·축척",
+      "description": "비의 합, 비례 배분, 지도·모형 축척과 혼합 비율",
+      "count": 10
+    },
+    {
+      "id": "units_measure",
+      "name": "Units & Measurement",
+      "name_ko": "단위 환산·측정",
+      "description": "길이·무게·부피·시간 단위와 제곱단위 변환",
+      "count": 10
+    },
+    {
+      "id": "averages_totals",
+      "name": "Averages, Totals & Combined Costs",
+      "name_ko": "평균·합계·복합 비용",
+      "description": "평균에서 합계·누락값을 역산하고 여러 비용을 합산·분배",
+      "count": 10
+    },
+    {
+      "id": "applied_geometry",
+      "name": "Applied Geometry",
+      "name_ko": "둘레·넓이·부피",
+      "description": "생활 문맥의 둘레·넓이·부피와 복합 도형·비용 계산",
+      "count": 10
+    }
+  ],
+  "questions": [
+    {
+      "id": "bmd_ar_percent_money_001",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "successive_discount_tax",
+      "q": "A computer monitor listed at $640 is discounted 15 percent. An 8 percent sales tax is then applied to the discounted price. What is the final price?",
+      "q_ko": "정가가 $640인 컴퓨터 모니터를 15% 할인한 뒤 할인된 가격에 8%의 판매세를 부과한다. 최종 가격은 얼마인가?",
+      "options": [
+        "$587.52",
+        "$544.00",
+        "$598.40",
+        "$576.00",
+        "$627.20"
+      ],
+      "answer": 0,
+      "explain": "할인가=640×0.85=$544.00. 판매세를 포함하면 544×1.08=$587.52이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_002",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "payroll_deductions",
+      "q": "Jordan's gross paycheck is $1,960. Twelve percent is withheld for federal tax, 6 percent for retirement, and $74 for insurance. What is Jordan's take-home pay?",
+      "q_ko": "Jordan의 세전 급여는 $1,960이다. 연방세로 12%, 퇴직연금으로 6%, 보험료로 $74가 공제된다. 실수령액은 얼마인가?",
+      "options": [
+        "$1,459.20",
+        "$1,533.20",
+        "$1,607.20",
+        "$1,651.20",
+        "$1,812.00"
+      ],
+      "answer": 1,
+      "explain": "비율 공제 후 금액=1,960×(1-0.12-0.06)=$1,607.20. 여기서 보험료 $74를 빼면 $1,533.20이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_003",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "percent_increase",
+      "q": "A warehouse raised the price of a safety lamp from $48.00 to $54.60. By what percent did the price increase?",
+      "q_ko": "창고에서 안전등 가격을 $48.00에서 $54.60으로 올렸다. 가격은 몇 퍼센트 인상되었는가?",
+      "options": [
+        "12.0%",
+        "13.2%",
+        "13.75%",
+        "15.0%",
+        "16.25%"
+      ],
+      "answer": 2,
+      "explain": "인상액은 54.60-48.00=$6.60이다. 원래 가격을 기준으로 6.60÷48.00×100=13.75%이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_004",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "salary_commission",
+      "q": "A salesperson receives a weekly base pay of $420 plus a 7 percent commission on sales. If the salesperson sells $6,800 worth of goods in one week, what is the total pay?",
+      "q_ko": "한 판매원은 주급 $420에 매출액의 7%를 수수료로 받는다. 한 주에 $6,800어치를 판매했다면 총 급여는 얼마인가?",
+      "options": [
+        "$476",
+        "$826",
+        "$868",
+        "$896",
+        "$1,246"
+      ],
+      "answer": 3,
+      "explain": "수수료=6,800×0.07=$476. 기본급을 더하면 420+476=$896이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_005",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "markup_coupon",
+      "q": "A furniture shop marks a desk that cost the shop $375 up by 32 percent. A customer then uses a $25 coupon. How much does the customer pay before tax?",
+      "q_ko": "가구점은 원가가 $375인 책상에 32%의 마진을 붙인다. 고객이 $25 쿠폰을 사용하면 세전 지불액은 얼마인가?",
+      "options": [
+        "$425",
+        "$445",
+        "$455",
+        "$495",
+        "$470"
+      ],
+      "answer": 4,
+      "explain": "표시 가격=375×1.32=$495. 쿠폰 $25를 빼면 $470이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_006",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "reverse_discount",
+      "q": "After a 10 percent discount, a laptop costs $918 before tax. What was its price before the discount?",
+      "q_ko": "노트북을 10% 할인한 세전 가격이 $918이다. 할인 전 가격은 얼마였는가?",
+      "options": [
+        "$1,020",
+        "$1,009.80",
+        "$1,010",
+        "$1,018",
+        "$1,080"
+      ],
+      "answer": 0,
+      "explain": "$918은 원래 가격의 90%이므로 원래 가격=918÷0.90=$1,020이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_007",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "tax_and_tip",
+      "q": "A restaurant bill is $83.50 before tax and tip. The diners leave an 18 percent tip on the bill and pay 7 percent tax on the same pretax amount. What is the total?",
+      "q_ko": "식당의 세금 및 팁 전 금액은 $83.50이다. 손님들은 이 금액의 18%를 팁으로 내고 같은 세전 금액에 7%의 세금을 낸다. 총액은 얼마인가?",
+      "options": [
+        "$98.53",
+        "$104.38",
+        "$105.84",
+        "$106.21",
+        "$108.55"
+      ],
+      "answer": 1,
+      "explain": "팁과 세금은 모두 세전 금액 기준이므로 총액=83.50×(1+0.18+0.07)=83.50×1.25=$104.375, 즉 $104.38이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_008",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "percent_growth",
+      "q": "A cadet's savings increased from $1,250 to $1,437.50. What was the percent increase in the savings?",
+      "q_ko": "한 사관후보생의 저축액이 $1,250에서 $1,437.50으로 늘었다. 저축액의 증가율은 몇 퍼센트인가?",
+      "options": [
+        "12%",
+        "13.5%",
+        "15%",
+        "17.5%",
+        "18.75%"
+      ],
+      "answer": 2,
+      "explain": "증가액=1,437.50-1,250=$187.50. 증가율=187.50÷1,250×100=15%이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_009",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "percent_then_subtract",
+      "q": "A concert sold 72 percent of its 850 tickets. Later, 34 of those purchases were refunded. How many paid tickets remained?",
+      "q_ko": "한 공연에서 전체 850장의 표 중 72%가 판매되었다. 이후 그중 34장이 환불되었다면 유효한 유료 표는 몇 장 남았는가?",
+      "options": [
+        "544",
+        "568",
+        "612",
+        "578",
+        "646"
+      ],
+      "answer": 3,
+      "explain": "처음 판매된 표=850×0.72=612장. 환불된 34장을 빼면 612-34=578장이다."
+    },
+    {
+      "id": "bmd_ar_percent_money_010",
+      "section": "AR",
+      "typeId": "percent_money",
+      "topic": "overtime_pay",
+      "q": "A technician earns $22.40 per regular hour and one and one-half times that rate for authorized overtime. What is the pay for a week with 36 regular hours and 6 overtime hours?",
+      "q_ko": "한 기술자는 정규 근무에 시간당 $22.40을 받고 승인된 초과근무에는 그 1.5배를 받는다. 정규 36시간과 초과근무 6시간을 일한 주의 급여는 얼마인가?",
+      "options": [
+        "$873.60",
+        "$940.80",
+        "$974.40",
+        "$1,075.20",
+        "$1,008.00"
+      ],
+      "answer": 4,
+      "explain": "정규 급여=36×22.40=$806.40. 초과근무 시급=22.40×1.5=$33.60이므로 초과 급여=6×33.60=$201.60. 합계는 $1,008.00이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_001",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "two_leg_distance",
+      "q": "A vehicle travels for 3 hours at 72 miles per hour and then for 1.5 hours at 58 miles per hour. How far does it travel in all?",
+      "q_ko": "한 차량이 시속 72마일로 3시간, 이어서 시속 58마일로 1.5시간 이동했다. 총 이동 거리는 얼마인가?",
+      "options": [
+        "303 miles",
+        "281 miles",
+        "292 miles",
+        "310 miles",
+        "324 miles"
+      ],
+      "answer": 0,
+      "explain": "첫 구간은 72×3=216마일, 둘째 구간은 58×1.5=87마일이다. 총 거리는 216+87=303마일이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_002",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "net_fill_rate",
+      "q": "A pump adds 18 gallons of water per minute while a drain removes 5 gallons per minute. If both are open, how long will it take the water level to rise by 455 gallons?",
+      "q_ko": "펌프는 분당 18갤런을 넣고 배수구는 분당 5갤런을 뺀다. 둘 다 열려 있을 때 물의 양이 455갤런 늘어나는 데 몇 분이 걸리는가?",
+      "options": [
+        "25 minutes",
+        "35 minutes",
+        "39 minutes",
+        "45 minutes",
+        "65 minutes"
+      ],
+      "answer": 1,
+      "explain": "순유입률=18-5=분당 13갤런. 걸리는 시간=455÷13=35분이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_003",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "elapsed_time",
+      "q": "A flight departs at 8:35 A.M. and remains in the air for 2 hours 48 minutes. At what time does it land?",
+      "q_ko": "한 항공편이 오전 8시 35분에 출발해 2시간 48분 동안 비행한다. 착륙 시각은 언제인가?",
+      "options": [
+        "10:53 A.M.",
+        "11:13 A.M.",
+        "11:23 A.M.",
+        "11:33 A.M.",
+        "12:23 P.M."
+      ],
+      "answer": 2,
+      "explain": "8:35에 2시간을 더하면 10:35이고, 48분을 더하면 11:23 A.M.이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_004",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "fuel_efficiency",
+      "q": "A delivery van travels 286 miles using 11 gallons of fuel. What is its average fuel efficiency for the trip?",
+      "q_ko": "배달 밴이 연료 11갤런으로 286마일을 이동했다. 이 이동에서 평균 연비는 얼마인가?",
+      "options": [
+        "22 mpg",
+        "24 mpg",
+        "25 mpg",
+        "26 mpg",
+        "28 mpg"
+      ],
+      "answer": 3,
+      "explain": "평균 연비=이동 거리÷사용 연료=286÷11=26mpg이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_005",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "production_rate",
+      "q": "A machine stamps 168 parts in 14 minutes. At the same rate, how many parts will it stamp in 45 minutes?",
+      "q_ko": "한 기계가 14분 동안 부품 168개를 찍어 낸다. 같은 속도라면 45분 동안 몇 개를 생산하는가?",
+      "options": [
+        "420",
+        "480",
+        "504",
+        "525",
+        "540"
+      ],
+      "answer": 4,
+      "explain": "분당 생산량=168÷14=12개. 45분 동안 12×45=540개를 생산한다."
+    },
+    {
+      "id": "bmd_ar_rate_time_006",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "average_speed",
+      "q": "A cyclist rides 12 miles at 16 miles per hour and then 18 miles at 24 miles per hour. What is the average speed for the entire ride?",
+      "q_ko": "한 자전거 이용자가 12마일을 시속 16마일로, 이어서 18마일을 시속 24마일로 달렸다. 전체 주행의 평균 속력은 얼마인가?",
+      "options": [
+        "20 mph",
+        "19 mph",
+        "21 mph",
+        "22 mph",
+        "24 mph"
+      ],
+      "answer": 0,
+      "explain": "각 구간 시간은 12÷16=0.75시간, 18÷24=0.75시간이다. 평균 속력=총 30마일÷총 1.5시간=20mph이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_007",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "worker_production",
+      "q": "Six workers package 420 boxes in 3.5 hours. At the same rate per worker, how many boxes can 9 workers package in 4 hours?",
+      "q_ko": "근로자 6명이 3.5시간 동안 상자 420개를 포장한다. 근로자 1인당 작업 속도가 같다면 9명이 4시간 동안 몇 개를 포장하는가?",
+      "options": [
+        "630",
+        "720",
+        "756",
+        "840",
+        "960"
+      ],
+      "answer": 1,
+      "explain": "처음 작업량은 6×3.5=21인시이므로 1인시당 420÷21=20상자이다. 9명이 4시간 일하면 9×4×20=720상자이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_008",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "consumption_time",
+      "q": "A backup generator has 1,260 gallons of fuel and consumes fuel at a constant rate of 42 gallons per hour. How many hours can it run?",
+      "q_ko": "비상 발전기에 연료 1,260갤런이 있고 시간당 42갤런을 일정하게 소비한다. 몇 시간 동안 가동할 수 있는가?",
+      "options": [
+        "24 hours",
+        "28 hours",
+        "30 hours",
+        "32 hours",
+        "35 hours"
+      ],
+      "answer": 2,
+      "explain": "가동 시간=전체 연료÷시간당 소비량=1,260÷42=30시간이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_009",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "remaining_distance_rate",
+      "q": "A train must travel 410 miles. It covers the first 2.5 hours at 68 miles per hour and must finish the remaining distance in 3 hours. What speed is required for the remaining distance?",
+      "q_ko": "열차가 총 410마일을 이동해야 한다. 첫 2.5시간은 시속 68마일로 달렸고 남은 거리를 3시간에 끝내야 한다. 남은 구간에서 필요한 속력은 얼마인가?",
+      "options": [
+        "72 mph",
+        "76 mph",
+        "78 mph",
+        "80 mph",
+        "82 mph"
+      ],
+      "answer": 3,
+      "explain": "첫 구간 거리=68×2.5=170마일. 남은 거리=410-170=240마일이므로 필요한 속력=240÷3=80mph이다."
+    },
+    {
+      "id": "bmd_ar_rate_time_010",
+      "section": "AR",
+      "typeId": "rate_time",
+      "topic": "flight_fuel_requirement",
+      "q": "An aircraft burns 84 gallons of fuel per hour. How much fuel must it have to fly for 2 hours 15 minutes and still land with 24 gallons remaining?",
+      "q_ko": "한 항공기가 시간당 84갤런의 연료를 소비한다. 2시간 15분을 비행하고 착륙 시 24갤런을 남기려면 출발할 때 연료가 얼마나 있어야 하는가?",
+      "options": [
+        "189 gallons",
+        "195 gallons",
+        "204 gallons",
+        "210 gallons",
+        "213 gallons"
+      ],
+      "answer": 4,
+      "explain": "2시간 15분=2.25시간이므로 비행 중 소비량=84×2.25=189갤런. 남겨야 할 24갤런을 더하면 213갤런이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_001",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "part_to_whole_ratio",
+      "q": "Red, white, and blue signal flags are packed in the ratio 3:5:7. If a crate holds 90 flags, how many of them are blue?",
+      "q_ko": "빨강, 흰색, 파랑 신호 깃발을 3:5:7의 비율로 포장한다. 한 상자에 깃발이 90개 있다면 파랑 깃발은 몇 개인가?",
+      "options": [
+        "42",
+        "30",
+        "35",
+        "45",
+        "49"
+      ],
+      "answer": 0,
+      "explain": "비의 합은 3+5+7=15이고 한 단위는 90÷15=6개이다. 파랑 깃발은 7×6=42개이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_002",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "map_scale",
+      "q": "On a navigation map, 1.5 centimeters represents 24 kilometers. Two checkpoints are 7.5 centimeters apart on the map. What is their actual distance?",
+      "q_ko": "항법 지도에서 1.5cm가 실제 24km를 나타낸다. 지도상 두 검문 지점이 7.5cm 떨어져 있다면 실제 거리는 얼마인가?",
+      "options": [
+        "96 km",
+        "120 km",
+        "128 km",
+        "144 km",
+        "180 km"
+      ],
+      "answer": 1,
+      "explain": "7.5cm는 1.5cm의 5배이므로 실제 거리는 24×5=120km이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_003",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "ratio_distribution",
+      "q": "Three project teams divide a $9,900 bonus in the ratio 4:3:2. How much does the team with the middle share receive?",
+      "q_ko": "세 프로젝트 팀이 $9,900의 보너스를 4:3:2의 비율로 나눈다. 중간 몫을 받는 팀은 얼마를 받는가?",
+      "options": [
+        "$2,200",
+        "$2,970",
+        "$3,300",
+        "$3,600",
+        "$4,400"
+      ],
+      "answer": 2,
+      "explain": "비의 합은 9이고 한 단위는 9,900÷9=$1,100이다. 중간 몫은 3×1,100=$3,300이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_004",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "blueprint_scale",
+      "q": "A blueprint uses a scale of 3/8 inch for every 2 feet. How long should a line be on the blueprint to represent a 14-foot wall?",
+      "q_ko": "한 설계도는 실제 2피트마다 3/8인치의 축척을 사용한다. 14피트 벽은 설계도에서 몇 인치 길이의 선으로 나타내야 하는가?",
+      "options": [
+        "1 3/4 in.",
+        "2 1/4 in.",
+        "2 1/2 in.",
+        "2 5/8 in.",
+        "3 1/8 in."
+      ],
+      "answer": 3,
+      "explain": "14피트는 2피트의 7배이다. 설계도 길이=7×3/8=21/8=2 5/8인치이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_005",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "ratio_from_total",
+      "q": "The ratio of trainees to instructors at a workshop is 18:1. If 114 people attend altogether, how many are instructors?",
+      "q_ko": "한 교육 과정에서 훈련생과 교관의 비는 18:1이다. 총 114명이 참석했다면 교관은 몇 명인가?",
+      "options": [
+        "4",
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 4,
+      "explain": "전체 비는 18+1=19단위이다. 114÷19=6이므로 교관은 6명이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_006",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "mixture_ratio",
+      "q": "A concrete mix uses cement, sand, and gravel in the ratio 2:3:5. If the mix contains 18 cubic yards of sand, how many cubic yards of material are in the full mix?",
+      "q_ko": "콘크리트 혼합물에서 시멘트, 모래, 자갈의 비는 2:3:5이다. 모래가 18세제곱야드 들어 있다면 전체 혼합물은 몇 세제곱야드인가?",
+      "options": [
+        "60 cubic yards",
+        "48 cubic yards",
+        "54 cubic yards",
+        "72 cubic yards",
+        "90 cubic yards"
+      ],
+      "answer": 0,
+      "explain": "모래 3단위가 18이므로 한 단위는 6이다. 전체 비는 10단위이므로 전체 양은 10×6=60세제곱야드이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_007",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "model_scale",
+      "q": "A model aircraft is built at a scale of 1:32. If the real aircraft has a 48-foot wingspan, what is the model's wingspan in inches?",
+      "q_ko": "모형 항공기가 1:32 축척으로 제작된다. 실제 항공기의 날개폭이 48피트라면 모형의 날개폭은 몇 인치인가?",
+      "options": [
+        "16 in.",
+        "18 in.",
+        "20 in.",
+        "24 in.",
+        "32 in."
+      ],
+      "answer": 1,
+      "explain": "모형 날개폭=48÷32=1.5피트. 1.5×12=18인치이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_008",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "profit_sharing",
+      "q": "Two partners divide a $21,600 profit in proportion to investments made in the ratio 5:7. How much does the partner with the larger investment receive?",
+      "q_ko": "두 동업자가 투자금 비율 5:7에 따라 $21,600의 이익을 나눈다. 더 많이 투자한 동업자는 얼마를 받는가?",
+      "options": [
+        "$9,000",
+        "$10,800",
+        "$12,600",
+        "$14,400",
+        "$15,120"
+      ],
+      "answer": 2,
+      "explain": "비의 합은 12이고 큰 몫은 7/12이다. 21,600×7/12=$12,600이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_009",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "solution_ratio",
+      "q": "A cleaning solution contains water and concentrate in the ratio 11:4. If there are 37.5 liters of solution, how many liters are concentrate?",
+      "q_ko": "세척액에서 물과 농축액의 비는 11:4이다. 세척액이 총 37.5리터라면 농축액은 몇 리터인가?",
+      "options": [
+        "7.5 L",
+        "8.5 L",
+        "9 L",
+        "10 L",
+        "11 L"
+      ],
+      "answer": 3,
+      "explain": "전체 비는 15단위이고 한 단위는 37.5÷15=2.5리터이다. 농축액은 4×2.5=10리터이다."
+    },
+    {
+      "id": "bmd_ar_ratio_scale_010",
+      "section": "AR",
+      "typeId": "ratio_scale",
+      "topic": "dimension_ratio",
+      "q": "The length and width of a rectangular training field are in the ratio 7:4. If its perimeter is 66 meters, what is its width?",
+      "q_ko": "직사각형 훈련장의 길이와 너비의 비는 7:4이다. 둘레가 66미터라면 너비는 얼마인가?",
+      "options": [
+        "8 m",
+        "10 m",
+        "11 m",
+        "14 m",
+        "12 m"
+      ],
+      "answer": 4,
+      "explain": "둘레는 2×(7+4)=22단위이므로 한 단위는 66÷22=3미터이다. 너비는 4×3=12미터이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_001",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "feet_to_inches",
+      "q": "A storage cabinet is 5 feet 8 inches tall. What is its height in inches?",
+      "q_ko": "보관함의 높이가 5피트 8인치이다. 이를 인치로 나타내면 얼마인가?",
+      "options": [
+        "68 in.",
+        "60 in.",
+        "64 in.",
+        "66 in.",
+        "72 in."
+      ],
+      "answer": 0,
+      "explain": "5피트=5×12=60인치이고, 여기에 8인치를 더하면 68인치이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_002",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "gallons_to_quarts",
+      "q": "A container holds 3.75 gallons of coolant. How many quarts of coolant does it hold?",
+      "q_ko": "한 용기에 냉각수 3.75갤런이 들어 있다. 이는 몇 쿼트인가?",
+      "options": [
+        "12 quarts",
+        "15 quarts",
+        "16 quarts",
+        "18 quarts",
+        "20 quarts"
+      ],
+      "answer": 1,
+      "explain": "1갤런=4쿼트이므로 3.75×4=15쿼트이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_003",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "hours_to_minutes",
+      "q": "A maintenance inspection lasts 2 hours 42 minutes. How many minutes does the inspection last?",
+      "q_ko": "정비 검사가 2시간 42분 동안 진행된다. 검사 시간은 총 몇 분인가?",
+      "options": [
+        "142 minutes",
+        "152 minutes",
+        "162 minutes",
+        "172 minutes",
+        "182 minutes"
+      ],
+      "answer": 2,
+      "explain": "2시간=120분이다. 120+42=162분이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_004",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "pounds_to_ounces",
+      "q": "A parcel weighs 7.5 pounds. What is its weight in ounces?",
+      "q_ko": "소포의 무게가 7.5파운드이다. 이를 온스로 나타내면 얼마인가?",
+      "options": [
+        "96 oz.",
+        "108 oz.",
+        "112 oz.",
+        "120 oz.",
+        "128 oz."
+      ],
+      "answer": 3,
+      "explain": "1파운드=16온스이므로 7.5×16=120온스이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_005",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "kilometers_to_meters",
+      "q": "A marked section of a course is 2.4 kilometers long. How many meters long is that section?",
+      "q_ko": "코스의 표시된 구간 길이가 2.4킬로미터이다. 이 구간은 몇 미터인가?",
+      "options": [
+        "24 m",
+        "240 m",
+        "2,040 m",
+        "2,140 m",
+        "2,400 m"
+      ],
+      "answer": 4,
+      "explain": "1킬로미터=1,000미터이므로 2.4×1,000=2,400미터이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_006",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "square_feet_to_yards",
+      "q": "A room measures 18 feet by 14 feet. How many square yards of carpet are needed to cover the room exactly?",
+      "q_ko": "방의 크기가 18피트×14피트이다. 방을 정확히 덮으려면 카펫이 몇 제곱야드 필요한가?",
+      "options": [
+        "28 sq. yd.",
+        "24 sq. yd.",
+        "32 sq. yd.",
+        "36 sq. yd.",
+        "42 sq. yd."
+      ],
+      "answer": 0,
+      "explain": "방의 넓이=18×14=252제곱피트이다. 1제곱야드=9제곱피트이므로 252÷9=28제곱야드이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_007",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "tons_to_pounds",
+      "q": "A shipment weighs 2 tons 650 pounds. What is its total weight in pounds?",
+      "q_ko": "한 화물의 무게가 2톤 650파운드이다. 총무게는 몇 파운드인가?",
+      "options": [
+        "4,000 lb.",
+        "4,650 lb.",
+        "4,300 lb.",
+        "5,300 lb.",
+        "5,650 lb."
+      ],
+      "answer": 1,
+      "explain": "1톤=2,000파운드이므로 2톤=4,000파운드이다. 4,000+650=4,650파운드이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_008",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "ounces_to_quarts",
+      "q": "A dispenser contains 96 fluid ounces of soap. How many quarts does it contain?",
+      "q_ko": "한 디스펜서에 액량 96온스의 비누가 들어 있다. 이는 몇 쿼트인가?",
+      "options": [
+        "2 quarts",
+        "2.5 quarts",
+        "3 quarts",
+        "3.5 quarts",
+        "4 quarts"
+      ],
+      "answer": 2,
+      "explain": "1쿼트=32액량온스이므로 96÷32=3쿼트이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_009",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "mph_to_feet_per_second",
+      "q": "A vehicle moves at 54 miles per hour. Using 5,280 feet per mile, what is its speed in feet per second?",
+      "q_ko": "한 차량이 시속 54마일로 이동한다. 1마일을 5,280피트로 볼 때 초속 몇 피트인가?",
+      "options": [
+        "72.0 ft/sec",
+        "75.6 ft/sec",
+        "78.0 ft/sec",
+        "79.2 ft/sec",
+        "81.0 ft/sec"
+      ],
+      "answer": 3,
+      "explain": "54mph=54×5,280=285,120피트/시간이다. 1시간=3,600초이므로 285,120÷3,600=79.2피트/초이다."
+    },
+    {
+      "id": "bmd_ar_units_measure_010",
+      "section": "AR",
+      "typeId": "units_measure",
+      "topic": "days_to_hours",
+      "q": "A continuous test runs for 2 days 18 hours. How many hours does the test run?",
+      "q_ko": "연속 시험이 2일 18시간 동안 진행된다. 시험은 총 몇 시간 진행되는가?",
+      "options": [
+        "42 hours",
+        "48 hours",
+        "54 hours",
+        "60 hours",
+        "66 hours"
+      ],
+      "answer": 4,
+      "explain": "2일=2×24=48시간이다. 48+18=66시간이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_001",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "simple_average",
+      "q": "A student earns scores of 78, 84, 91, and 87 on four quizzes. What is the average score?",
+      "q_ko": "한 학생이 네 번의 퀴즈에서 78점, 84점, 91점, 87점을 받았다. 평균 점수는 얼마인가?",
+      "options": [
+        "85",
+        "83",
+        "84",
+        "86",
+        "87"
+      ],
+      "answer": 0,
+      "explain": "점수 합은 78+84+91+87=340이다. 평균=340÷4=85이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_002",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "missing_value_average",
+      "q": "A trainee must average 72 points over five drills. The first four scores are 68, 75, 70, and 79. What score is needed on the fifth drill?",
+      "q_ko": "한 훈련생이 다섯 번의 훈련에서 평균 72점을 받아야 한다. 첫 네 점수가 68, 75, 70, 79라면 다섯 번째에 몇 점이 필요한가?",
+      "options": [
+        "66",
+        "68",
+        "70",
+        "72",
+        "74"
+      ],
+      "answer": 1,
+      "explain": "필요한 총점=72×5=360점. 첫 네 점수 합은 292점이므로 필요한 점수=360-292=68점이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_003",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "combined_purchase",
+      "q": "A repair kit contains 4 bolts costing $2.35 each, 3 washers costing $1.20 each, and a toolbox costing $18.75. What is the total cost?",
+      "q_ko": "수리 키트에는 개당 $2.35인 볼트 4개, 개당 $1.20인 와셔 3개, $18.75인 공구함이 들어 있다. 총비용은 얼마인가?",
+      "options": [
+        "$29.40",
+        "$30.55",
+        "$31.75",
+        "$32.95",
+        "$35.15"
+      ],
+      "answer": 2,
+      "explain": "볼트 비용=4×2.35=$9.40, 와셔 비용=3×1.20=$3.60이다. 총비용=9.40+3.60+18.75=$31.75이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_004",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "average_group_size",
+      "q": "Three departments have 24, 31, and 29 employees. What is the average number of employees per department?",
+      "q_ko": "세 부서의 직원 수가 각각 24명, 31명, 29명이다. 부서당 평균 직원 수는 몇 명인가?",
+      "options": [
+        "26",
+        "27",
+        "29",
+        "28",
+        "30"
+      ],
+      "answer": 3,
+      "explain": "전체 직원 수=24+31+29=84명. 평균=84÷3=28명이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_005",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "target_weekly_average",
+      "q": "The average high temperature for the first six days of a week is 62 degrees. What must the seventh day's high be for the seven-day average to be 64 degrees?",
+      "q_ko": "한 주의 첫 6일 최고기온 평균이 62도이다. 7일 평균이 64도가 되려면 마지막 날의 최고기온은 몇 도여야 하는가?",
+      "options": [
+        "68°",
+        "70°",
+        "72°",
+        "74°",
+        "76°"
+      ],
+      "answer": 4,
+      "explain": "첫 6일 합=62×6=372도이고, 7일 목표 합=64×7=448도이다. 마지막 날은 448-372=76도이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_006",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "fare_total",
+      "q": "Seven adults buy bus tickets for $18.50 each and five children buy tickets for $11.25 each. If the group also pays a $9.75 booking fee, what is the total cost?",
+      "q_ko": "성인 7명은 각 $18.50, 어린이 5명은 각 $11.25의 버스표를 산다. 단체가 예약 수수료 $9.75도 낸다면 총비용은 얼마인가?",
+      "options": [
+        "$195.50",
+        "$185.75",
+        "$190.25",
+        "$199.75",
+        "$204.50"
+      ],
+      "answer": 0,
+      "explain": "성인 표=7×18.50=$129.50, 어린이 표=5×11.25=$56.25이다. 수수료까지 더하면 129.50+56.25+9.75=$195.50이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_007",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "production_average",
+      "q": "A machine produces 38, 42, 35, 45, and 40 units during five consecutive hours. What is the average hourly output?",
+      "q_ko": "한 기계가 연속 5시간 동안 각각 38개, 42개, 35개, 45개, 40개를 생산했다. 시간당 평균 생산량은 얼마인가?",
+      "options": [
+        "39 units",
+        "40 units",
+        "41 units",
+        "42 units",
+        "43 units"
+      ],
+      "answer": 1,
+      "explain": "생산량 합=38+42+35+45+40=200개이다. 시간당 평균=200÷5=40개이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_008",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "required_final_score",
+      "q": "To average 88 on five exams, a student has scores of 84, 91, 86, and 87 on the first four. What score is required on the fifth exam?",
+      "q_ko": "다섯 시험의 평균을 88점으로 만들려는 학생이 첫 네 시험에서 84, 91, 86, 87점을 받았다. 다섯 번째에 몇 점이 필요한가?",
+      "options": [
+        "88",
+        "90",
+        "92",
+        "94",
+        "96"
+      ],
+      "answer": 2,
+      "explain": "목표 총점=88×5=440점이고 현재 합은 84+91+86+87=348점이다. 필요한 점수=440-348=92점이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_009",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "missing_total_value",
+      "q": "A store's average daily revenue over four days is $1,515. Revenue was $1,240, $1,580, and $1,695 on three of the days. What was the revenue on the fourth day?",
+      "q_ko": "한 상점의 4일간 하루 평균 매출은 $1,515이다. 그중 3일의 매출이 $1,240, $1,580, $1,695였다면 나머지 하루의 매출은 얼마인가?",
+      "options": [
+        "$1,485",
+        "$1,505",
+        "$1,525",
+        "$1,545",
+        "$1,575"
+      ],
+      "answer": 3,
+      "explain": "4일 총매출=1,515×4=$6,060. 알려진 3일 합=1,240+1,580+1,695=$4,515이므로 나머지는 6,060-4,515=$1,545이다."
+    },
+    {
+      "id": "bmd_ar_averages_totals_010",
+      "section": "AR",
+      "typeId": "averages_totals",
+      "topic": "average_cost_per_person",
+      "q": "Six coworkers order lunches costing $94.50 in all and pay a delivery fee of $13.50. If they divide the entire charge equally, how much does each person pay?",
+      "q_ko": "직장 동료 6명이 총 $94.50어치의 점심을 주문하고 배달료 $13.50을 낸다. 전체 금액을 똑같이 나누면 한 사람당 얼마를 내는가?",
+      "options": [
+        "$15.75",
+        "$16.50",
+        "$17.25",
+        "$17.75",
+        "$18.00"
+      ],
+      "answer": 4,
+      "explain": "전체 비용=94.50+13.50=$108.00이다. 한 사람당 비용=108÷6=$18.00이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_001",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "rectangle_perimeter",
+      "q": "A rectangular equipment yard is 38 meters long and 24 meters wide. How many meters of fencing are needed to enclose it?",
+      "q_ko": "직사각형 장비 보관장이 길이 38미터, 너비 24미터이다. 전체를 둘러싸려면 울타리가 몇 미터 필요한가?",
+      "options": [
+        "124 m",
+        "62 m",
+        "96 m",
+        "112 m",
+        "128 m"
+      ],
+      "answer": 0,
+      "explain": "직사각형의 둘레=2×(38+24)=2×62=124미터이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_002",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "area_coverage",
+      "q": "A floor is 15 feet long and 12 feet wide. Each package of tiles covers 1.5 square feet. How many packages are needed to cover the floor?",
+      "q_ko": "바닥의 길이는 15피트, 너비는 12피트이다. 타일 한 묶음이 1.5제곱피트를 덮는다면 바닥 전체에 몇 묶음이 필요한가?",
+      "options": [
+        "108",
+        "120",
+        "135",
+        "150",
+        "180"
+      ],
+      "answer": 1,
+      "explain": "바닥 넓이=15×12=180제곱피트이다. 필요한 묶음 수=180÷1.5=120개이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_003",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "rectangular_prism_volume",
+      "q": "A rectangular storage tank is 8 feet long, 5 feet wide, and 3.5 feet deep. What is its volume?",
+      "q_ko": "직육면체 저장 탱크의 길이가 8피트, 너비가 5피트, 깊이가 3.5피트이다. 부피는 얼마인가?",
+      "options": [
+        "112 cu. ft.",
+        "126 cu. ft.",
+        "140 cu. ft.",
+        "156 cu. ft.",
+        "160 cu. ft."
+      ],
+      "answer": 2,
+      "explain": "직육면체의 부피=8×5×3.5=140세제곱피트이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_004",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "triangle_area",
+      "q": "A triangular fabric panel has a base of 18 inches and a perpendicular height of 11 inches. What is its area?",
+      "q_ko": "삼각형 천 패널의 밑변이 18인치이고 수직 높이가 11인치이다. 넓이는 얼마인가?",
+      "options": [
+        "88 sq. in.",
+        "90 sq. in.",
+        "96 sq. in.",
+        "99 sq. in.",
+        "198 sq. in."
+      ],
+      "answer": 3,
+      "explain": "삼각형의 넓이=1/2×18×11=99제곱인치이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_005",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "circle_circumference",
+      "q": "A circular platform has a diameter of 14 feet. Using 22/7 for pi, what is the platform's circumference?",
+      "q_ko": "원형 플랫폼의 지름이 14피트이다. 원주율을 22/7로 사용할 때 둘레는 얼마인가?",
+      "options": [
+        "22 ft.",
+        "28 ft.",
+        "38 ft.",
+        "42 ft.",
+        "44 ft."
+      ],
+      "answer": 4,
+      "explain": "원의 둘레=π×지름=(22/7)×14=44피트이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_006",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "square_from_area",
+      "q": "A square landing pad has an area of 324 square meters. What is its perimeter?",
+      "q_ko": "정사각형 착륙장의 넓이가 324제곱미터이다. 둘레는 얼마인가?",
+      "options": [
+        "72 m",
+        "54 m",
+        "64 m",
+        "81 m",
+        "96 m"
+      ],
+      "answer": 0,
+      "explain": "한 변의 길이는 √324=18미터이다. 둘레=4×18=72미터이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_007",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "composite_area_subtraction",
+      "q": "A rectangular lawn is 27 meters by 16 meters. A 6-meter by 4-meter patio occupies part of it. How many square meters of lawn remain?",
+      "q_ko": "직사각형 잔디밭이 27미터×16미터이고 그 일부에 6미터×4미터의 테라스가 있다. 남은 잔디밭의 넓이는 몇 제곱미터인가?",
+      "options": [
+        "396 sq. m",
+        "408 sq. m",
+        "412 sq. m",
+        "426 sq. m",
+        "432 sq. m"
+      ],
+      "answer": 1,
+      "explain": "전체 넓이=27×16=432제곱미터, 테라스 넓이=6×4=24제곱미터이다. 남은 넓이=432-24=408제곱미터이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_008",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "composite_area_addition",
+      "q": "An L-shaped floor can be divided into a 12-foot by 8-foot rectangle and a 5-foot by 4-foot rectangle with no overlap. What is the floor's area?",
+      "q_ko": "L자형 바닥을 서로 겹치지 않는 12피트×8피트 직사각형과 5피트×4피트 직사각형으로 나눌 수 있다. 바닥의 넓이는 얼마인가?",
+      "options": [
+        "104 sq. ft.",
+        "108 sq. ft.",
+        "116 sq. ft.",
+        "120 sq. ft.",
+        "128 sq. ft."
+      ],
+      "answer": 2,
+      "explain": "두 직사각형의 넓이는 12×8=96, 5×4=20제곱피트이다. 겹치지 않으므로 전체 넓이=96+20=116제곱피트이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_009",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "isosceles_perimeter",
+      "q": "An isosceles triangular frame has a perimeter of 64 inches. Each of its two equal sides is 23 inches long. How long is the third side?",
+      "q_ko": "이등변삼각형 틀의 둘레가 64인치이고 같은 두 변의 길이가 각각 23인치이다. 나머지 한 변의 길이는 얼마인가?",
+      "options": [
+        "16 in.",
+        "17 in.",
+        "19 in.",
+        "18 in.",
+        "20 in."
+      ],
+      "answer": 3,
+      "explain": "같은 두 변의 합은 23+23=46인치이다. 셋째 변=64-46=18인치이다."
+    },
+    {
+      "id": "bmd_ar_applied_geometry_010",
+      "section": "AR",
+      "typeId": "applied_geometry",
+      "topic": "perimeter_cost",
+      "q": "A rectangular garden is 30 feet long and 22 feet wide, with a 4-foot entrance that will not be bordered. If a stone border costs $12.50 per foot, what will the border cost?",
+      "q_ko": "직사각형 정원이 길이 30피트, 너비 22피트이고 테두리를 두르지 않을 4피트 폭의 입구가 있다. 돌 테두리가 피트당 $12.50라면 비용은 얼마인가?",
+      "options": [
+        "$650",
+        "$975",
+        "$1,100",
+        "$1,300",
+        "$1,250"
+      ],
+      "answer": 4,
+      "explain": "정원의 전체 둘레=2×(30+22)=104피트이다. 입구 4피트를 빼면 100피트이므로 비용=100×$12.50=$1,250이다."
+    }
+  ]
+}

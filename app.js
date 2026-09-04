@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.125.0";
+const VERSION = "4.126.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -149,6 +149,7 @@ function wireSpeakers(root=document){ $$(".spk[data-spk]",root).forEach(b=>{ if(
    ============================================================ */
 let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], ROOTLESSONS=[], GUIDES={}, AVIATION=[], AVTERMS=[], AVBOOK=[];
 let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
+let BARRON_AR=null, BARRON_MK=null;
 let state=null, sb=null, realtimeChan=null, realtimeCode=null, realtimeReady=false, syncReady=false, settingsSyncUpdatedAt=0;
 let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()};
 
@@ -408,6 +409,7 @@ const BADGES=[
 ];
 function badgeMetrics(){
   const c=countByStatus(), hist=state.examHist||[], D=state.daily||{};
+  const mockHist=hist.filter(x=>x&&!x.practice&&!x.learn);
   const secN=k=>{ const o=state.secAcc[k]; return o?(o.c||0)+(o.w||0):0; };
   const wrongLeft=Object.values(state.wrong||{}).reduce((a,o)=>a+Object.keys(o||{}).length,0);
   const h=new Date().getHours();
@@ -416,8 +418,8 @@ function badgeMetrics(){
     streak:computeStreak(), learned:c.learned, mastered:c.mastered, highLearned:c.highLearned,
     verified:c.verified, totalRev:c.totalRev,
     activeDays:Object.keys(D).filter(k=>(D[k].studied||0)>0).length,
-    mocks:hist.length, fullMock:hist.filter(x=>x&&String(x.key||"").startsWith("afoqt")).length,
-    bestAcc:hist.length?Math.max(...hist.map(x=>x.acc||0)):0,
+    mocks:mockHist.length, fullMock:mockHist.filter(x=>String(x.key||"").startsWith("afoqt")).length,
+    bestAcc:mockHist.length?Math.max(...mockHist.map(x=>x.acc||0)):0,
     dayMax:Object.values(D).reduce((m,d)=>Math.max(m,d.studied||0),0),
     secMax:Object.values(D).reduce((m,d)=>Math.max(m,d.seconds||0),0),
     listen:Object.values(state.apExposure||{}).reduce((a,b)=>a+(b||0),0),
@@ -930,7 +932,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -952,11 +954,11 @@ function go(view){
   // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
   // 백그라운드에서 섹션이 넘어가거나 자동 제출되지 않게 (모의고사 화면에서 이어하기).
   if(exam && !exam.submitted){
-    const pausedMathBank=isMathBankKey(exam.key);
+    const pausedMathBank=isMathBankKey(exam.key),pausedMathStyle=isMathStyleKey(exam.key);
     exam.times=exam.times||new Array(exam.total).fill(0);
     if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openIdx=null; exam._openAt=null; }
     saveExamSnap(); stopExamTimer(); examReleaseWake(); exam=null;
-    toast(pausedMathBank?"⏸ SET 일시정지 — 수학 화면에서 이어서 풀 수 있어요":"⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
+    toast(pausedMathBank?"⏸ SET 일시정지 — 수학 화면에서 이어서 풀 수 있어요":pausedMathStyle?"⏸ 유형 연습 일시정지 — Barron 스타일 화면에서 이어서 풀 수 있어요":"⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
   }
   trTimerStop(); bcTimerStop(); icTimerStop();   // 시각과목 연습도 이탈 시 시계 정지(orphan 인터벌 방지)
   document.body.classList.toggle("synfeed-mode",view==="synfeed");
@@ -966,7 +968,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -1064,7 +1066,7 @@ function renderHome(){
    - 기록이 쌓이면: 최근 정답률 추세를 선형 근사해 "이 페이스면
      시험일에 대략 몇 th" 를 보여준다 (비공식, 상승분은 보수적으로 캡).
    ============================================================ */
-function bigExams(){ return (state.examHist||[]).filter(x=>x&&(x.total||0)>=15&&!x.practice); }
+function bigExams(){ return (state.examHist||[]).filter(x=>x&&(x.total||0)>=15&&!x.practice&&!x.learn); }
 function scoreTrendLine(){
   const h=bigExams().slice(-10); if(h.length<2) return null;
   const t0=h[0].ts, xs=h.map(x=>(x.ts-t0)/86400000), ys=h.map(x=>x.acc);
@@ -1241,7 +1243,7 @@ function planTasks(){
   }
   if(i%7===0){ const today=todayStr();
     t.push({k:"mock",icon:"🎯",label:"모의고사 1회 (시간측정)",sub:"🏁 주간 점검",min:180,
-      done:(state.examHist||[]).some(x=>x&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
+      done:(state.examHist||[]).some(x=>x&&!x.practice&&!x.learn&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
   return t;
 }
 function planEndLabel(){ const p=planState(); const d=parseDate(p.start); d.setDate(d.getDate()+planLen()-1);
@@ -3033,6 +3035,40 @@ const MATH_BANK_SET_SIZE=25,MATH_BANK_SET_VERSION=1;
 const MATH_BANK_META={AR:{icon:"➗",name:"Arithmetic Reasoning",ko:"산수 추론"},MK:{icon:"📐",name:"Math Knowledge",ko:"수학 지식"}};
 let mathBankOpenSec="AR";
 function isMathBankKey(key){ return /^mathbank_(ar|mk)_v\d+_\d+$/.test(String(key||"")); }
+const MATH_STYLE_VERSION=1;
+let mathStyleOpenSec="AR";
+function isMathStyleKey(key){ return /^mathstyle_(ar|mk)_v\d+_[a-z0-9_]+$/.test(String(key||"")); }
+function mathExamReturnView(key){ return isMathStyleKey(key)?"barronmath":isMathBankKey(key)?"math":"home"; }
+function mathStyleData(sec){ return sec==="AR"?BARRON_AR:sec==="MK"?BARRON_MK:null; }
+function mathStyleTypes(sec){ const d=mathStyleData(sec); return d&&Array.isArray(d.types)?d.types:[]; }
+function mathStyleQuestions(sec){ const d=mathStyleData(sec); return d&&Array.isArray(d.questions)?d.questions:[]; }
+function validMathStyleData(d,sec){
+  if(!d||!Array.isArray(d.types)||!Array.isArray(d.questions)||!d.types.length||!d.questions.length) return false;
+  const types=new Set(d.types.map(t=>String(t&&t.id||""))); if(types.has("")||types.size!==d.types.length) return false;
+  const ids=new Set(); return d.questions.every(q=>q&&q.section===sec&&types.has(String(q.typeId||""))&&
+    typeof q.id==="string"&&!ids.has(q.id)&&ids.add(q.id)&&typeof q.q==="string"&&typeof q.q_ko==="string"&&
+    Array.isArray(q.options)&&q.options.length===5&&new Set(q.options.map(String)).size===5&&
+    Number.isInteger(q.answer)&&q.answer>=0&&q.answer<5&&typeof q.explain==="string");
+}
+function mathStyleType(sec,typeId){ return mathStyleTypes(sec).find(t=>t.id===typeId)||null; }
+function mathStyleTypeName(type){ return (type&&(type.name_ko||type.name))||""; }
+function mathStyleTopicName(sec,topic){
+  const raw=String(topic||""); if(!raw.startsWith("barron:")) return raw;
+  const id=raw.slice(7),t=mathStyleType(sec,id); return t?mathStyleTypeName(t):id;
+}
+function mathStylePresetKey(sec,typeId){ return `mathstyle_${sec.toLowerCase()}_v${MATH_STYLE_VERSION}_${typeId}`; }
+function mathStyleItem(q,sec=q.section){
+  const type=mathStyleType(sec,q.typeId),name=mathStyleTypeName(type)||q.styleName||q.topic||q.typeId||"";
+  return {section:sec,prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:name,qid:q.id,
+    weakKey:q.typeId?`barron:${q.typeId}`:undefined,styleType:q.typeId||undefined,
+    options:q.options.slice(),answer:q.answer,explain:q.explain||""};
+}
+function mathStyleItems(sec,typeId){ return mathStyleQuestions(sec).filter(q=>q.typeId===typeId).map(q=>mathStyleItem(q,sec)); }
+function registerMathStylePresets(){ for(const sec of ["AR","MK"]){ const meta=MATH_BANK_META[sec];
+  for(const type of mathStyleTypes(sec)){ const items=mathStyleItems(sec,type.id); if(items.length<3) continue;
+    const key=mathStylePresetKey(sec,type.id),secs=Math.max(120,items.length*300);
+    EXAM_PRESETS[key]={name:`Barron 스타일 · ${meta.ko} · ${mathStyleTypeName(type)}`,secs,learn:true,
+      build:()=>mathStyleItems(sec,type.id),label:`${items.length}문항 · 문제마다 즉시 해설`}; } } }
 function mathBankSetKey(sec,no){ return `mathbank_${sec.toLowerCase()}_v${MATH_BANK_SET_VERSION}_${String(no).padStart(2,"0")}`; }
 function mathBankSets(sec){ const pool=sec==="AR"?ARITH:sec==="MK"?MATHK:[],out=[];
   for(let from=0;from<pool.length;from+=MATH_BANK_SET_SIZE){ const no=out.length+1;
@@ -3065,6 +3101,34 @@ function renderMathBankSets(){ const host=$("#mathBankSets"); if(!host) return;
   $$("#mathBankSets [data-exam]").forEach(b=>b.onclick=()=>{ mathBankOpenSec=b.dataset.mathBank; startExam(b.dataset.exam); });
   $$("#mathBankSets [data-bank-group]").forEach(d=>d.ontoggle=()=>{ if(!d.open) return; mathBankOpenSec=d.dataset.bankGroup;
     $$("#mathBankSets [data-bank-group]").forEach(other=>{ if(other!==d) other.open=false; }); }); }
+function renderBarronMathResume(){ const box=$("#barronMathResume"),snap=loadExamSnap(),done=(snap&&snap.answers||[]).filter(a=>a!=null).length;
+  if(!box||!snap||!isMathStyleKey(snap.key)||!done){ if(box){ box.classList.add("hidden"); box.innerHTML=""; } return; }
+  mathStyleOpenSec=String(snap.key).match(/^mathstyle_(ar|mk)_/)?.[1].toUpperCase()||mathStyleOpenSec;
+  box.classList.remove("hidden"); box.innerHTML=`<div class="card math-bank-resume"><b>⏸ 하다 만 Barron 스타일 유형 연습이 있어요</b>
+    <div class="muted" style="font-size:12.5px;margin-top:4px">${esc(snap.name||"유형별 연습")} · ${done}/${snap.total}문항 답함</div>
+    <div class="row"><button class="btn primary sm" id="barronMathResumeGo">▶ 이어서</button><button class="btn ghost sm" id="barronMathResumeDrop">버리기</button></div></div>`;
+  $("#barronMathResumeGo").onclick=resumeExamSnap; $("#barronMathResumeDrop").onclick=()=>{
+    if(confirm("저장된 유형 연습을 버릴까요? 되돌릴 수 없어요.")){ clearExamSnap(); renderBarronMath(); } }; }
+function renderBarronMath(){
+  registerMathStylePresets(); renderBarronMathResume();
+  const host=$("#barronMathBody"); if(!host) return;
+  const groups=["AR","MK"].map(sec=>{ const meta=MATH_BANK_META[sec],types=mathStyleTypes(sec),questions=mathStyleQuestions(sec);
+    if(!types.length||!questions.length) return `<section class="barron-style-group"><div class="barron-style-error">${meta.icon} ${meta.name} 자체 제작 문제를 불러오지 못했어요.<br>네트워크를 확인하고 새로고침해 주세요.</div></section>`;
+    const attempted=types.filter(t=>state.exams[mathStylePresetKey(sec,t.id)]).length;
+    const cards=types.map(type=>{ const key=mathStylePresetKey(sec,type.id),n=questions.filter(q=>q.typeId===type.id).length,r=state.exams[key];
+      const weak=(state.weak.topic||{})[`${sec}:barron:${type.id}`],tried=(weak?.c||0)+(weak?.w||0);
+      const acc=tried?`${Math.round((weak.c||0)/tried*100)}% (${tried}문제 누적)`:"누적 기록 없음";
+      const score=r?`최고 ${r.best}/${r.bestTotal} · ${acc}`:acc;
+      return `<button class="barron-style-card ${r?"done":""}" type="button" data-math-style="${esc(key)}" data-style-sec="${sec}">
+        <span class="meta"><b>${esc(mathStyleTypeName(type))}</b><span>${esc(type.description||type.desc||"")}</span><small>${n}문항 · 즉시 해설 · ${esc(score)}</small></span><span class="go">›</span></button>`; }).join("");
+    return `<details class="barron-style-group" data-style-group="${sec}" ${mathStyleOpenSec===sec?"open":""}>
+      <summary><span aria-hidden="true">${meta.icon}</span><span class="math-bank-summary"><b>${meta.name}</b><span>${types.length}유형 · ${questions.length}문제 · 응시 ${attempted}/${types.length}</span></span></summary>
+      <div class="barron-style-grid">${cards}</div></details>`; });
+  host.innerHTML=`<div class="barron-style-groups">${groups.join("")}</div>`;
+  $$("#barronMathBody [data-math-style]").forEach(b=>b.onclick=()=>{ mathStyleOpenSec=b.dataset.styleSec; startExam(b.dataset.mathStyle); });
+  $$("#barronMathBody [data-style-group]").forEach(d=>d.ontoggle=()=>{ if(!d.open) return; mathStyleOpenSec=d.dataset.styleGroup;
+    $$("#barronMathBody [data-style-group]").forEach(other=>{ if(other!==d) other.open=false; }); });
+}
 // Dedicated 수학 hub (bottom-nav tab) — fixed bank sets + random practice/exam.
 function renderMath(){
   registerMathBankPresets(); renderMathBankResume(); renderMathBankSets();
@@ -3791,10 +3855,12 @@ function buildWrongRC(){
 }
 // Retest the exact wrong MCQ questions (산수/수학/과학), rebuilt from their pool by id.
 function buildWrongMCQ(pool,section,bucket){
-  const b=state.wrong[bucket]||{}; const map=new Map(pool.map(q=>[q.id,q]));
-  return wrongSorted(b).map(k=>map.get(+k)).filter(Boolean).map(q=>wrongTag({
-    section, prompt:q.q, promptKo:q.q_ko||"", stem:null, sub:q.topic||"", qid:q.id,
-    options:q.options.slice(), answer:q.answer, explain:q.explain||""}, b[q.id]||1));
+  const b=state.wrong[bucket]||{}; const map=new Map(pool.map(q=>[String(q.id),q]));
+  return wrongSorted(b).map(k=>map.get(String(k))).filter(Boolean).map(q=>{
+    const it=q.typeId?mathStyleItem(q,section):{
+      section,prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:q.topic||"",qid:q.id,
+      options:q.options.slice(),answer:q.answer,explain:q.explain||""};
+    return wrongTag(it,b[q.id]||1); });
 }
 function buildWrongAV(){
   const b=state.wrong.av||{}; const map=new Map(AVIATION.map(q=>[q.id,q]));
@@ -3803,7 +3869,8 @@ function buildWrongAV(){
     avId:q.id, avTopic:q.topic, options:q.options.slice(), answer:q.answer, explain:q.explain||""}, b[q.id]||1));
 }
 const WRONG_BUILD={ wk:buildWrongWK, va:buildWrongVA, rc:buildWrongRC,
-  ar:()=>buildWrongMCQ(ARITH,"AR","ar"), mk:()=>buildWrongMCQ(MATHK,"MK","mk"),
+  ar:()=>buildWrongMCQ([...ARITH,...mathStyleQuestions("AR")],"AR","ar"),
+  mk:()=>buildWrongMCQ([...MATHK,...mathStyleQuestions("MK")],"MK","mk"),
   ps:()=>buildWrongMCQ(PHYSCI,"PS","ps"), av:buildWrongAV };
 const WRONG_META={ wk:["📇","단어"],va:["🔗","유추"],rc:["📖","독해"],
   ar:["➗","산수"],mk:["📐","수학"],ps:["🔬","과학"],av:["🛩️","항공"] };
@@ -3925,15 +3992,15 @@ function startExam(key,opts){
   const p=EXAM_PRESETS[key]; if(!p) return;
   const items=p.build();
   if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
-  const practice=!!(opts&&opts.practice);
-  const secs=practice ? Math.round(p.secs*2.2) : p.secs;
+  const practice=!!(opts&&opts.practice),learn=!!(p.learn||(opts&&opts.learn));
+  const secs=learn ? Math.max(120,items.length*300) : practice ? Math.round(p.secs*2.2) : p.secs;
   exam={key,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
-        practice:practice||undefined};
+        practice:practice||undefined,learn:learn||undefined};
   // 실전 AFOQT처럼 서브테스트마다 자기 시계를 준다(전체 통합 타이머 대신).
   // 시간이 끝난 섹션은 닫히고 다음 섹션으로 — 이전 섹션으로 되돌아갈 수 없다.
   // (기출 mock처럼 specs가 없어도 문항이 다과목이면 섹션 타이머를 붙인다)
-  if(!practice && new Set(items.map(it=>it.section)).size>1) buildExamSections(exam);
+  if(!practice&&!learn && new Set(items.map(it=>it.section)).size>1) buildExamSections(exam);
   // Activate the exam view directly — do NOT call go("exam") here, since that
   // re-runs renderExamSetup() and would wipe the exam we just built.
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
@@ -4158,7 +4225,7 @@ function recordResult(it,ok){
   recordSecAcc(it.section, ok);
   const bump=(obj,cat)=>{ const o=obj[cat]||(obj[cat]={c:0,w:0}); if(ok)o.c++; else o.w++; };
   // per-topic weakness for the topic-based MCQ subtests
-  const topic=(it.section==="AV"?it.avTopic:it.sub)||"";
+  const topic=(it.weakKey||(it.section==="AV"?it.avTopic:it.sub))||"";
   if(["AR","MK","PS","AV"].includes(it.section)&&topic) bump(K.topic||(K.topic={}), it.section+":"+topic);
   // 오답 노트는 틀린 '횟수'를 누적한다(1→2→…) — 반복해서 틀리는 문제를 강조·우선 재출제.
   if(it.section==="WK"&&it.wordId!=null){
@@ -4415,6 +4482,8 @@ function drillTopic(sec,topic){
   if(sec==="AV") return shuffle(AVIATION.filter(q=>(q.topic||"")===topic)).slice(0,20).map(q=>({
     section:"AV",prompt:q.q,promptKo:q.q_ko||"",stem:null,sub:AVCAT[q.topic]||q.topic||"",
     avId:q.id,avTopic:q.topic,options:q.options.slice(),answer:q.answer,explain:q.explain||""}));
+  if((sec==="AR"||sec==="MK")&&String(topic).startsWith("barron:"))
+    return mathStyleItems(sec,String(topic).slice(7));
   const pool={AR:ARITH,MK:MATHK,PS:PHYSCI}[sec]||[];
   const cand=pool.filter(q=>(q.topic||"")===topic);
   return ((sec==="AR"||sec==="MK")?shuffleW(cand,mqStyleWeight):shuffle(cand)).slice(0,20).map(q=>({
@@ -4432,7 +4501,7 @@ function runDrill(spec){
   if(kind==="rc") startDrill(drillRCType(a),`약점 드릴 · 독해 ${RC_TYPE_KO[a]||a}`);
   else if(kind==="va") startDrill(drillVARel(a),`약점 드릴 · 유추 ${a}`);
   else if(kind==="wk") startDrill(drillWKTier(a),`약점 드릴 · 단어 ${WK_TIER_KO[a]||a}`);
-  else if(kind==="topic") startDrill(drillTopic(a,b),`약점 드릴 · ${SEC_KO[a]||a} — ${b}`);
+  else if(kind==="topic") startDrill(drillTopic(a,b),`약점 드릴 · ${SEC_KO[a]||a} — ${mathStyleTopicName(a,b)}`);
 }
 function submitExam(auto){
   const e=exam; if(!e||e.submitted) return;
@@ -4481,9 +4550,9 @@ function submitExam(auto){
     u:e.answers[i],a:it.answer,x:it.explain||"",p:it.passageId!=null?it.passageId:null,pt:it.passageTitle||"",
     ms:Math.round(e.times[i]||0)}; });
   state.examHist.push({key:e.key||"retest",name:(EXAM_PRESETS[e.key]&&EXAM_PRESETS[e.key].name)||e.name||"모의고사",
-    date:todayStr(),got,total,acc:got/total,pctile:estPercentile(got/total),ts:Date.now(),
+    date:todayStr(),got,total,acc:got/total,pctile:e.learn?undefined:estPercentile(got/total),ts:Date.now(),
     secs:used,bySec:JSON.parse(JSON.stringify(bySec)),items:detail,
-    practice:e.practice?1:undefined,
+    practice:e.practice?1:undefined,learn:e.learn?1:undefined,
     skipped:skipped.length?skipped.slice():undefined});
   if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
   pruneExamDetail();
@@ -4499,7 +4568,11 @@ function submitExam(auto){
   const acc=got/total, pctile=estPercentile(acc), multi=Object.keys(bySec).length>1;
   const secLines=Object.keys(bySec).map(k=>`${secName[k]||k} ${Math.round(bySec[k].got/bySec[k].total*100)}%`).join(" · ");
   const proj=$("#examProjection"); proj.classList.remove("hidden");
-  if(e.key==="afoqt"||e.key==="afoqtCore"){
+  if(e.learn){
+    proj.innerHTML=`<div class="lbl">유형 연습 결과</div>
+      <div class="big">${pct}<span style="font-size:16px">%</span></div>
+      <div class="note">문제마다 확인한 해설을 바탕으로 틀린 문제를 오답 노트에서 다시 풀 수 있어요.</div>`;
+  } else if(e.key==="afoqt"||e.key==="afoqtCore"){
     const compLines=COMPOSITES.map(c=>{ const ce=compositeEst(c.codes); return `<div class="row" style="justify-content:space-between"><span>${c.name}</span><b>${ce.pct==null?"–":ce.pct+"th"}</b></div>`; }).join("");
     proj.innerHTML=`<div class="lbl">예상 AFOQT 합성점수 백분위</div>
       <div class="seclist" style="text-align:left;margin-top:6px">${compLines}</div>
@@ -4534,7 +4607,7 @@ function submitExam(auto){
         <div class="row" style="gap:6px;flex-wrap:wrap;justify-content:center">${lines}</div>
         ${slowOK>0?`<div class="muted" style="font-size:11.5px;margin-top:6px">🐢 맞았지만 느렸던 문항 <b>${slowOK}개</b> — 실전에선 시간 부족이 될 수 있어요. 해설에서 🐢 표시를 확인!</div>`:`<div class="muted" style="font-size:11.5px;margin-top:6px">✅ 페이스 좋아요 — 이 속도면 실전 시간 안에 들어와요.</div>`}`; } }
   $("#examReview").innerHTML=""; $("#examReviewBtn").classList.remove("hidden");
-  $("#examDoneHome").textContent=isMathBankKey(e.key)?"수학 SET 목록으로":"홈으로";
+  $("#examDoneHome").textContent=isMathStyleKey(e.key)?"Barron 스타일 유형 목록으로":isMathBankKey(e.key)?"수학 SET 목록으로":"홈으로";
   window.scrollTo(0,0);
 }
 function renderExamReview(){
@@ -4654,9 +4727,10 @@ const SUBTESTS=[
 const RC_TYPE_KO={main_idea:"주제",detail:"세부사항",inference:"추론",vocab_in_context:"문맥 어휘",tone_purpose:"어조/목적"};
 const WK_TIER_KO={high:"고빈출(high)",mid:"중요(mid)",std:"일반(std)"};
 function accPct(o){ const n=(o?.c||0)+(o?.w||0); return n?Math.round((o.c/n)*100):null; }
-// drill: "kind|arg" 스펙이 오면 그 유형만 바로 20문제 푸는 원탭 버튼을 단다.
+// drill: "kind|arg" 스펙이 오면 그 유형만 바로 푸는 원탭 버튼을 단다.
 function repBar(label,o,drill){ const p=accPct(o); const n=(o?.c||0)+(o?.w||0); const col=p<50?"var(--bad)":p<75?"var(--warn)":"var(--ok)";
-  const btn=drill?`<button class="drillbtn" data-drill="${esc(drill)}">20문제 ›</button>`:"";
+  const styleDrill=String(drill||"").includes("barron%3A")||String(drill||"").includes("barron:");
+  const btn=drill?`<button class="drillbtn" data-drill="${esc(drill)}">${styleDrill?"유형 연습":"20문제"} ›</button>`:"";
   return `<div class="rep-row ${drill?"has-drill":""}"><div class="lab"><span>${esc(label)}</span><span class="muted">${p}% · ${o.w||0}틀림/${n}</span></div>
     <div class="row" style="gap:8px;align-items:center"><div class="progressbar mini" style="flex:1"><i style="width:${p}%;background:${col}"></i></div>${btn}</div></div>`; }
 function openReport(){ go("report"); }
@@ -4678,13 +4752,13 @@ function renderReport(){
   const topicBySec={}; for(const [k,o] of Object.entries(state.weak.topic||{})){ const i=k.indexOf(":"); const sec=k.slice(0,i),t=k.slice(i+1); (topicBySec[sec]=topicBySec[sec]||[]).push({t,o,a:accPct(o),n:o.c+o.w}); }
   const secKoName={AR:"산수",MK:"수학",PS:"과학",AV:"항공"};
   const topicBlocks=Object.keys(topicBySec).map(sec=>{ const arr=topicBySec[sec].filter(x=>x.n>=2).sort((a,b)=>a.a-b.a).slice(0,4);
-    return arr.length?`<div class="rep-sub">${secKoName[sec]||sec} — 약한 주제</div>${arr.map(x=>repBar(x.t,x.o,`topic|${enc(sec)}|${enc(x.t)}`)).join("")}`:""; }).join("");
+    return arr.length?`<div class="rep-sub">${secKoName[sec]||sec} — 약한 주제</div>${arr.map(x=>repBar(mathStyleTopicName(sec,x.t),x.o,`topic|${enc(sec)}|${enc(x.t)}`)).join("")}`:""; }).join("");
   // 가장 약한 '유형' 하나 — 히어로에서 원탭으로 바로 20문제
   const typeCands=[];
   for(const [k,o] of Object.entries(state.weak.wkTier||{})){ const n=(o.c||0)+(o.w||0); if(n>=3) typeCands.push({a:o.c/n,n,drill:`wk|${enc(k)}`,label:`단어 ${WK_TIER_KO[k]||k}`}); }
   for(const [k,o] of Object.entries(state.weak.vaRel||{})){ const n=(o.c||0)+(o.w||0); if(n>=3) typeCands.push({a:o.c/n,n,drill:`va|${enc(k)}`,label:`유추 「${k}」`}); }
   for(const [k,o] of Object.entries(state.weak.rcType||{})){ const n=(o.c||0)+(o.w||0); if(n>=3) typeCands.push({a:o.c/n,n,drill:`rc|${enc(k)}`,label:`독해 ${RC_TYPE_KO[k]||k}`}); }
-  for(const [k,o] of Object.entries(state.weak.topic||{})){ const n=(o.c||0)+(o.w||0); if(n>=3){ const i=k.indexOf(":"); typeCands.push({a:o.c/n,n,drill:`topic|${enc(k.slice(0,i))}|${enc(k.slice(i+1))}`,label:`${secKoName[k.slice(0,i)]||k.slice(0,i)} 「${k.slice(i+1)}」`}); } }
+  for(const [k,o] of Object.entries(state.weak.topic||{})){ const n=(o.c||0)+(o.w||0); if(n>=3){ const i=k.indexOf(":"),sec=k.slice(0,i),topic=k.slice(i+1); typeCands.push({a:o.c/n,n,drill:`topic|${enc(sec)}|${enc(topic)}`,label:`${secKoName[sec]||sec} 「${mathStyleTopicName(sec,topic)}」`}); } }
   typeCands.sort((x,y)=>x.a-y.a);
   const wt=typeCands.length&&typeCands[0].a<0.85?typeCands[0]:null;
   const wc=wrongCounts(), wtot=WRONG_ORDER.reduce((s,k)=>s+wc[k],0);
@@ -4742,7 +4816,7 @@ function renderExamLog(){
         return `<button class="elrow" data-i="${i}">
           <div class="elm"><div class="eln">${esc(x.name||x.key||"모의고사")}</div>
             <div class="eld">${esc(x.date||"")}${x.secs?" · "+fmtTime(x.secs):""}${x.skipped&&x.skipped.length?" · "+x.skipped.map(k=>SEC_KO[k]||k).join("·")+" 건너뜀":""}${x.items?"":" · 요약만"}</div></div>
-          <div class="elsc" style="color:${col}"><b>${x.got}/${x.total}</b><span>${pct}%${x.pctile?" · "+x.pctile+"th":""}</span></div>
+          <div class="elsc" style="color:${col}"><b>${x.got}/${x.total}</b><span>${pct}%${x.pctile&&!x.learn?" · "+x.pctile+"th":""}</span></div>
           <div class="elgo">›</div></button>`; }).join("");
     $$("#elBody .elrow").forEach(b=>b.onclick=()=>{ examLogIdx=+b.dataset.i; window.scrollTo(0,0); renderExamLog(); });
     return;
@@ -4754,7 +4828,7 @@ function renderExamLog(){
   let head=`<div class="card center">
       <div style="font-size:13px;color:var(--muted)">${esc(x.name||x.key||"모의고사")}</div>
       <h2 style="margin:6px 0">${x.got} / ${x.total} 정답 (${Math.round(x.acc*100)}%)</h2>
-      <div class="muted" style="font-size:12px">${esc(x.date||"")}${x.secs?" · 소요 "+fmtTime(x.secs):""}${x.pctile?" · 예상 "+x.pctile+"th":""}${x.skipped&&x.skipped.length?" · "+x.skipped.map(k=>SEC_KO[k]||k).join("·")+" 건너뜀(통계 제외)":""}</div>
+      <div class="muted" style="font-size:12px">${esc(x.date||"")}${x.secs?" · 소요 "+fmtTime(x.secs):""}${x.pctile&&!x.learn?" · 예상 "+x.pctile+"th":""}${x.skipped&&x.skipped.length?" · "+x.skipped.map(k=>SEC_KO[k]||k).join("·")+" 건너뜀(통계 제외)":""}</div>
       ${secs?`<div class="breakdown" style="margin-top:12px">${secs}</div>`:""}</div>`;
   if(!x.items){ $("#elBody").innerHTML=head+`<div class="hintbox" style="margin-top:14px">이 회차는 오래돼서 요약만 남아 있어요(문항 상세는 최근 10회까지 보관).</div>`; return; }
   const body=x.items.map((it,i)=>{
@@ -4784,7 +4858,7 @@ function renderExamLog(){
 }
 function renderExamTrend(){
   // 3문항짜리 드릴·연습(practice) 회차는 추이·최고 기록에서 제외 — bigExams와 같은 기준
-  const h=(state.examHist||[]).filter(x=>x&&(x.total||0)>=10&&!x.practice); const box=$("#examTrend");
+  const h=(state.examHist||[]).filter(x=>x&&(x.total||0)>=10&&!x.practice&&!x.learn); const box=$("#examTrend");
   if(h.length<1){ box.innerHTML=`<div class="center muted" style="padding:8px">아직 기록이 없어요. 모의고사를 보면 정답률 추이가 그려집니다.</div>`; return; }
   const data=h.slice(-15), W=300,H=120,pad=22;
   const xs=(i)=>pad+(data.length<=1?W-2*pad:(i/(data.length-1))*(W-2*pad));
@@ -4856,7 +4930,7 @@ function softRender(){
   // sync echo must not reset the analogy/reading view and kick the user out.
   if(sessionActive()) return;
   const a=$(".view.active")?.id;
-  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-math":renderMath,"view-stats":renderStats}[a]||(()=>{}))(); }
+  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-math":renderMath,"view-barronmath":renderBarronMath,"view-stats":renderStats}[a]||(()=>{}))(); }
 window.__softRender=softRender; // test/debug hook
 
 /* ============================================================
@@ -4883,6 +4957,8 @@ function wire(){
   // 수학 유형별 공략
   $("#btnMathTypes")&&($("#btnMathTypes").onclick=()=>go("mathtypes"));
   $("#mtBack")&&($("#mtBack").onclick=()=>go("math"));
+  $("#btnBarronMath")&&($("#btnBarronMath").onclick=()=>go("barronmath"));
+  $("#bmBack")&&($("#bmBack").onclick=()=>go("math"));
   // 요약 시트
   $("#btnCheatsheet")&&($("#btnCheatsheet").onclick=()=>openCheatsheet("exam"));
   $("#btnCheatsheet2")&&($("#btnCheatsheet2").onclick=()=>openCheatsheet("stats"));
@@ -4957,7 +5033,7 @@ function wire(){
   $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
   $("#examExit").onclick=()=>go("home");
   $("#examQuit").onclick=()=>{ if(!exam||exam.submitted||confirm("시험을 그만두고 나갈까요? 기록은 저장되지 않아요.")){
-    const back=exam&&isMathBankKey(exam.key)?"math":"home"; stopExamTimer(); clearExamSnap(); examReleaseWake(); exam=null; go(back); } };
+    const back=exam?mathExamReturnView(exam.key):"home"; stopExamTimer(); clearExamSnap(); examReleaseWake(); exam=null; go(back); } };
   $("#examPrev").onclick=()=>{ if(!exam) return; const s=curExamSec(), lo=s?s.from:0;
     if(exam.idx>lo){ exam.idx--; renderExamQ(); } };
   $("#examNext").onclick=()=>{ if(!exam) return; const s=curExamSec(), hi=s?s.to:exam.total-1;
@@ -4973,7 +5049,7 @@ function wire(){
       startExam(exam.key);
     } else go("exam"); };
   $("#retestAll").onclick=()=>startRetest("all");
-  $("#examDoneHome").onclick=()=>go(exam&&isMathBankKey(exam.key)?"math":"home");
+  $("#examDoneHome").onclick=()=>go(exam?mathExamReturnView(exam.key):"home");
   $("#optHighFirst").onchange=e=>{ state.settings.high_first=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optShowKo")&&($("#optShowKo").onchange=e=>{ state.settings.hide_ko=!e.target.checked; saveLocal(); queuePush("settings",{});
@@ -5217,6 +5293,10 @@ async function boot(){
     ARITH=await loadJSON("./arithmetic.json")||[];
     MATHK=await loadJSON("./mathknowledge.json")||[];
     registerMathBankPresets();
+    { const [barAr,barMk]=await Promise.all([loadJSON("./barron_style_arithmetic.json"),loadJSON("./barron_style_mathknowledge.json")]);
+      BARRON_AR=validMathStyleData(barAr,"AR")?barAr:null;
+      BARRON_MK=validMathStyleData(barMk,"MK")?barMk:null;
+      registerMathStylePresets(); }
     PHYSCI=await loadJSON("./physicalscience.json")||[];
     SITJUD=await loadJSON("./situational.json")||[];
     $("#boot").classList.remove("active"); go("home");
