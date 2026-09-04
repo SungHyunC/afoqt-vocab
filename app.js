@@ -6,9 +6,9 @@
 (() => {
 "use strict";
 
-const VERSION = "4.127.0";
+const VERSION = "4.128.0";
 const CFG = window.AFOQT_CONFIG || {};
-const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", url:"afoqt_sb_url", key:"afoqt_sb_key" };
+const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
 // Verbal priority is editorial study guidance, not an official AFOQT frequency
 // statistic. P1 is backed by an included practice mock or an AFOQT-prep list;
@@ -150,7 +150,8 @@ function wireSpeakers(root=document){ $$(".spk[data-spk]",root).forEach(b=>{ if(
 let WORDS=[], WMAP=new Map(), ANALOGIES=[], READING=[], ROOTS=[], ROOTLESSONS=[], GUIDES={}, AVIATION=[], AVTERMS=[], AVBOOK=[];
 let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
 let BARRON_AR=null, BARRON_MK=null, BARRON_FULL_AR=null, BARRON_FULL_MK=null;
-let state=null, sb=null, realtimeChan=null, realtimeCode=null, realtimeReady=false, syncReady=false, settingsSyncUpdatedAt=0;
+let state=null, sb=null, realtimeChan=null, realtimeCode=null, realtimeReady=false, syncReady=false, syncInitialSettled=false, settingsSyncUpdatedAt=0;
+let syncSessionCode="",syncSessionUrl="",syncSessionKey="",syncSessionImportMark="",syncCodeMismatch=false,suppressPersistenceForReload=false;
 let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()};
 
 const DEFAULT_STATE = () => ({
@@ -178,6 +179,7 @@ const DEFAULT_STATE = () => ({
   synFeedStats:{total:0,correct:0,bestCombo:0,days:{}}, // replica별 통계에서 다시 만든 화면용 합계
   synFeedReplicas:{}, // replicaId -> 단조 통계 + 원자적 이어풀기 checkpoint
   synFeedReplicaVersion:1,
+  synFeedSyncCode:"", // 다른 동기화 코드의 로컬 checkpoint가 섞이지 않게 소유 코드 기록
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   settings:{ daily_goal:0, high_first:true, high_only:false,
              verbal_theme_priority:2, verbal_theme_mode:"new",
@@ -203,6 +205,33 @@ function mergeSynFeedStats(a,b){ a=cleanSynFeedStats(a); b=cleanSynFeedStats(b);
 function canonicalSyncISO(x){ const t=syncTime(x); return t?new Date(t).toISOString():""; }
 function cloneSynFeedSession(s){ if(!s||typeof s!=="object"||Array.isArray(s)) return null;
   try{ const raw=JSON.stringify(s); return raw.length<=200000?JSON.parse(raw):null; }catch{ return null; } }
+function newSynFeedRunId(){ const bytes=new Uint8Array(10);
+  if(crypto.getRandomValues) crypto.getRandomValues(bytes); else for(let i=0;i<bytes.length;i++) bytes[i]=(Math.random()*256)|0;
+  return "sfr-"+[...bytes].map(n=>n.toString(16).padStart(2,"0")).join(""); }
+function synFeedRunId(s){ const id=String(s&&s.runId||""); if(/^sfr-[a-f0-9]{20}$/.test(id)) return id;
+  return `legacy:${String(s&&s.startedAt||"")}|${safeSynFeedCount(s&&s.priority)}|${safeSynFeedCount(s&&s.seed)}`; }
+function synFeedReplaces(s){ const seen=new Set(),out=[]; for(const id of (Array.isArray(s&&s.replaces)?s.replaces:[])){
+  const x=String(id||""); if(!x||x.length>200||seen.has(x)) continue; seen.add(x); out.push(x); if(out.length>=8) break; } return out; }
+// count는 답을 고를 때, phase는 다음 문제로 넘어갈 때 각각 1칸씩 증가한다.
+// 같은 피드에서는 벽시계/revision보다 이 단조 진행도를 먼저 비교해야 오래 열린
+// 다른 기기 탭이 최신 진도를 되감지 않는다.
+function synFeedProgressRank(s){ const count=safeSynFeedCount(s&&s.count),waiting=!!(s&&s.current&&s.current.chosen==null);
+  return Math.min(Number.MAX_SAFE_INTEGER,count*2+(waiting?1:0)); }
+function synFeedSessionEqual(a,b){ try{ return JSON.stringify(a||null)===JSON.stringify(b||null); }catch{ return false; } }
+function compareSynFeedCandidates(a,b){ if(!a) return b?-1:0; if(!b) return 1;
+  const aid=synFeedRunId(a.session),bid=synFeedRunId(b.session);
+  // runEpoch is a Lamport generation for explicit, confirmed replacements.
+  // Keep it as the single ordering rule between explicit runs. Pairwise
+  // `replaces` edges can form a non-transitive A>B>C>A cycle when corrupt or
+  // pre-release epoch-0 checkpoints coexist, making the winner arrival-order
+  // dependent. Legacy/epoch-tied runs safely fall back to real progress.
+  if(aid!==bid){ const ae=safeSynFeedCount(a.session&&a.session.runEpoch),be=safeSynFeedCount(b.session&&b.session.runEpoch);
+    if(ae!==be) return ae-be; }
+  const ap=synFeedProgressRank(a.session),bp=synFeedProgressRank(b.session); if(ap!==bp) return ap-bp;
+  const ac=safeSynFeedCount(a.clock),bc=safeSynFeedCount(b.clock); if(ac!==bc) return ac-bc;
+  const av=safeSynFeedCount(a.rev),bv=safeSynFeedCount(b.rev); if(av!==bv) return av-bv;
+  const at=syncTime(a.updatedAt||(a.session&&a.session.updatedAt)),bt=syncTime(b.updatedAt||(b.session&&b.session.updatedAt)); if(at!==bt) return at-bt;
+  return String(a.id||"").localeCompare(String(b.id||"")); }
 function cleanSynFeedCheckpoint(x){ x=x&&typeof x==="object"&&!Array.isArray(x)?x:{}; const session=cloneSynFeedSession(x.session);
   const rev=safeSynFeedCount(x.rev); return {rev,clock:safeSynFeedCount(x.clock)||rev,updatedAt:canonicalSyncISO(x.updatedAt||(session&&session.updatedAt)),session}; }
 function cleanSynFeedReplica(x,rowUpdatedAt=""){ x=x&&typeof x==="object"&&!Array.isArray(x)?x:{}; const checkpoint=cleanSynFeedCheckpoint(x.checkpoint);
@@ -212,11 +241,15 @@ function synFeedStatsEqual(a,b){ a=cleanSynFeedStats(a); b=cleanSynFeedStats(b);
   if(a.total!==b.total||a.correct!==b.correct||a.bestCombo!==b.bestCombo) return false;
   const ak=Object.keys(a.days),bk=Object.keys(b.days); return ak.length===bk.length&&ak.every((day,i)=>day===bk[i]&&a.days[day].n===b.days[day].n&&a.days[day].c===b.days[day].c&&a.days[day].bestCombo===b.days[day].bestCombo); }
 function synFeedReplicaEqual(a,b){ return !!(a&&b&&a.rev===b.rev&&syncTime(a.updated_at)===syncTime(b.updated_at)&&synFeedStatsEqual(a.stats,b.stats)&&
-  a.checkpoint.rev===b.checkpoint.rev&&a.checkpoint.clock===b.checkpoint.clock&&syncTime(a.checkpoint.updatedAt)===syncTime(b.checkpoint.updatedAt)); }
+  a.checkpoint.rev===b.checkpoint.rev&&a.checkpoint.clock===b.checkpoint.clock&&syncTime(a.checkpoint.updatedAt)===syncTime(b.checkpoint.updatedAt)&&
+  synFeedSessionEqual(a.checkpoint.session,b.checkpoint.session)); }
 function validSynFeedReplicaId(id){ return /^afd-[a-f0-9]{20}$/.test(String(id||"")); }
 function normalizeSynFeedReplicas(raw){ const own=deviceId(),entries=Object.entries(raw&&typeof raw==="object"&&!Array.isArray(raw)?raw:{})
     .filter(([id])=>validSynFeedReplicaId(id)).map(([id,x])=>[id,cleanSynFeedReplica(x)])
-    .sort((a,b)=>syncTime(b[1].updated_at)-syncTime(a[1].updated_at));
+    .sort((a,b)=>{ const ac=a[1].checkpoint,bc=b[1].checkpoint;
+      if(ac.session&&bc.session) return compareSynFeedCandidates({id:b[0],session:bc.session,clock:bc.clock,rev:bc.rev,updatedAt:bc.updatedAt},
+        {id:a[0],session:ac.session,clock:ac.clock,rev:ac.rev,updatedAt:ac.updatedAt});
+      if(ac.session||bc.session) return ac.session?-1:1; return syncTime(b[1].updated_at)-syncTime(a[1].updated_at); });
   const kept=entries.slice(0,SYNFEED_MAX_REPLICAS); if(!kept.some(([id])=>id===own)){ const x=entries.find(([id])=>id===own); if(x){ kept.pop(); kept.push(x); } }
   return Object.fromEntries(kept); }
 function rebuildSynFeedStats(){ let total=0,correct=0,bestCombo=0; const days={};
@@ -226,6 +259,25 @@ function rebuildSynFeedStats(){ let total=0,correct=0,bestCombo=0; const days={}
       o.n=Math.min(Number.MAX_SAFE_INTEGER,o.n+d.n); o.c=Math.min(Number.MAX_SAFE_INTEGER,o.c+d.c); o.bestCombo=Math.max(o.bestCombo,d.bestCombo); } }
   const out={total,correct:Math.min(total,correct),bestCombo,days:{}};
   Object.keys(days).sort().slice(-90).forEach(day=>{ out.days[day]=days[day]; }); state.synFeedStats=out; return out; }
+function synFeedEmergencyKey(code){ return LS.synfeed+":"+encodeURIComponent(String(code||"")); }
+function clearSynFeedEmergency(code=boundSyncCode()){ try{ localStorage.removeItem(synFeedEmergencyKey(code));
+  const legacy=JSON.parse(localStorage.getItem(LS.synfeed)||"null"); if(!legacy||legacy.code===code) localStorage.removeItem(LS.synfeed); }catch{} }
+function saveSynFeedEmergency(){ try{ if(suppressPersistenceForReload||syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()) return;
+  const id=deviceId(),raw=state&&state.synFeedReplicas&&state.synFeedReplicas[id]; if(!raw) return;
+  const replicas={[id]:cleanSynFeedReplica(raw)},best=latestSynFeedCandidate();
+  if(best&&validSynFeedReplicaId(best.id)&&state.synFeedReplicas[best.id]) replicas[best.id]=cleanSynFeedReplica(state.synFeedReplicas[best.id]);
+  const payload={v:1,code:boundSyncCode(),deviceId:id,replica:replicas[id],replicas,savedAt:nowISO()};
+  localStorage.setItem(synFeedEmergencyKey(payload.code),JSON.stringify(payload)); }catch(e){ console.warn("synfeed emergency save failed",e); } }
+function restoreSynFeedEmergency(code){ try{ let fromLegacy=false;
+  let b=JSON.parse(localStorage.getItem(synFeedEmergencyKey(code))||"null");
+  if(!b){ b=JSON.parse(localStorage.getItem(LS.synfeed)||"null"); fromLegacy=!!b; }
+  if(!b||b.v!==1||b.code!==code) return false;
+  if(fromLegacy){ localStorage.setItem(synFeedEmergencyKey(code),JSON.stringify(b)); localStorage.removeItem(LS.synfeed); }
+  const rows=b.replicas&&typeof b.replicas==="object"&&!Array.isArray(b.replicas)?Object.entries(b.replicas):[[b.deviceId,b.replica]];
+  let changed=false; for(const [id,replica] of rows){ if(!validSynFeedReplicaId(id)||!replica) continue;
+    changed=mergeSynFeedReplica({item_id:id,data:replica,updated_at:b.savedAt}).changed||changed; }
+  return changed;
+  }catch(e){ console.warn("synfeed emergency restore failed",e); return false; } }
 
 function loadLocal(){
   try{ state=JSON.parse(localStorage.getItem(LS.state))||DEFAULT_STATE(); }catch{ state=DEFAULT_STATE(); }
@@ -253,6 +305,11 @@ function loadLocal(){
     state.migSkipFix=1; saveNow();   // 정정 결과 즉시 저장
   }
   state.speed=state.speed||{}; state.sweepAt=state.sweepAt||{};
+  const activeSyncCode=syncCode(),savedFeedCode=typeof state.synFeedSyncCode==="string"?state.synFeedSyncCode:"";
+  syncSessionCode=activeSyncCode; syncSessionUrl=sbUrl(); syncSessionKey=sbKey(); syncSessionImportMark=localStorage.getItem(LS.import)||""; syncCodeMismatch=false;
+  const feedCodeChanged=!!savedFeedCode&&savedFeedCode!==activeSyncCode;
+  if(feedCodeChanged){ state.synFeedSession=null; state.synFeedStats=cleanSynFeedStats(null); state.synFeedReplicas={}; }
+  state.synFeedSyncCode=activeSyncCode;
   state.synFeedSession=cloneSynFeedSession(state.synFeedSession);
   const legacyFeedStats=cleanSynFeedStats(state.synFeedStats),migrateFeed=state.synFeedReplicaVersion!==SYNFEED_REPLICA_VERSION;
   state.synFeedReplicas=normalizeSynFeedReplicas(state.synFeedReplicas);
@@ -260,7 +317,8 @@ function loadLocal(){
     const id=deviceId(),ts=nowISO(),session=cloneSynFeedSession(state.synFeedSession);
     state.synFeedReplicas[id]={v:SYNFEED_REPLICA_VERSION,rev:1,stats:legacyFeedStats,
       checkpoint:{rev:session?1:0,clock:session?1:0,updatedAt:session?canonicalSyncISO(session.updatedAt)||ts:"",session},updated_at:ts}; }
-  state.synFeedReplicaVersion=SYNFEED_REPLICA_VERSION; rebuildSynFeedStats();
+  state.synFeedReplicaVersion=SYNFEED_REPLICA_VERSION;
+  const emergencyRestored=restoreSynFeedEmergency(activeSyncCode); rebuildSynFeedStats();
   state.settings=Object.assign(d.settings, state.settings||{});
   if(![1,2,3].includes(Number(state.settings.verbal_theme_priority))) state.settings.verbal_theme_priority=2;
   else state.settings.verbal_theme_priority=Number(state.settings.verbal_theme_priority);
@@ -268,16 +326,20 @@ function loadLocal(){
   if(![1,2,3,4].includes(Number(state.settings.syn_feed_priority))) state.settings.syn_feed_priority=2;
   else state.settings.syn_feed_priority=Number(state.settings.syn_feed_priority);
   if(typeof state.settings.syn_feed_korean!=="boolean") state.settings.syn_feed_korean=true;
-  if(migrateFeed) saveNow();
+  if(migrateFeed||feedCodeChanged||!savedFeedCode||emergencyRestored) saveNow();
 }
-let saveTimer=null;
+let saveTimer=null,localSaveWarned=false;
 // Remote merges and feed queue checkpoints still need local durability, but must
 // not dirty app_state. Otherwise our own Realtime echo schedules another upsert
 // forever (and a local-only feed advance rewrites the whole misc blob).
-function saveLocal(syncMisc=true){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); if(syncMisc&&sb) queuePush("app_state"); }
+function saveLocal(syncMisc=true){ if(suppressPersistenceForReload||syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()) return;
+  clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,150); if(syncMisc&&sb) queuePush("app_state"); }
 // Write immediately. Mobile browsers freeze timers when the app is backgrounded,
 // so a debounced save can be lost — always flush on hide/pagehide (see wire()).
-function saveNow(){ clearTimeout(saveTimer); try{ localStorage.setItem(LS.state, JSON.stringify(state)); }catch(e){} }
+function saveNow(){ clearTimeout(saveTimer); if(suppressPersistenceForReload||syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()) return;
+  try{ localStorage.setItem(LS.state, JSON.stringify(state)); }
+  catch(e){ console.error("local progress save failed",e); if(!localSaveWarned){ localSaveWarned=true;
+      setTimeout(()=>toast("⚠️ 이 기기의 저장 공간이 부족해요. 진도 백업 후 브라우저 저장 공간을 확인해 주세요.",5000),0); } } }
 function flag(k){ return !!state.settings[k]; }
 // 표읽기·블록·계기(Pilot 시각과목)를 외부 앱에서 연습 중 → 만점 처리 (기본 ON, 설정에서 해제)
 const PILOT_VISUAL=["TR","BC","IC"], PILOT_FULL={TR:40,BC:30,IC:25};
@@ -570,6 +632,13 @@ function finishConfirm(){
    SUPABASE SYNC
    ============================================================ */
 function syncCode(){ let c=localStorage.getItem(LS.code); if(!c){ c=genCode(); localStorage.setItem(LS.code,c);} return c; }
+// Bind every request in this page lifetime to the code loaded at boot. Another
+// tab can change the shared localStorage value before its storage event reaches
+// us; reading syncCode() dynamically here would briefly upload the old in-memory
+// state into the new account.
+function boundSyncCode(){ return syncSessionCode||syncCode(); }
+function syncCodeChangedElsewhere(){ try{ return !!syncSessionCode&&localStorage.getItem(LS.code)!==syncSessionCode; }catch{ return false; } }
+function importHandoffChanged(){ try{ return !!syncSessionCode&&(localStorage.getItem(LS.import)||"")!==syncSessionImportMark; }catch{ return false; } }
 function genCode(){ const r=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)).replace(/-/g,""); return "afq-"+r.slice(0,16); }
 let volatileDeviceId="";
 function deviceId(){
@@ -582,8 +651,10 @@ function deviceId(){
 }
 function sbUrl(){ return localStorage.getItem(LS.url)||CFG.SUPABASE_URL||""; }
 function sbKey(){ return localStorage.getItem(LS.key)||CFG.SUPABASE_ANON_KEY||""; }
+function boundSbUrl(){ return syncSessionUrl||sbUrl(); }
+function boundSbKey(){ return syncSessionKey||sbKey(); }
 function setSyncDot(s){ const d=$("#syncDot"); d.className="sync-dot "+s;
-  const txt={on:`✅ 연결됨 · 코드 ${syncCode()}`,off:"오프라인 모드 (이 기기에만 저장)",err:"⚠️ 동기화 오류 — 키 확인 필요"}[s];
+  const txt={on:`✅ 연결됨 · 코드 ${boundSyncCode()}`,syncing:"⏳ PC·모바일 진도를 확인하는 중…",off:"오프라인 모드 (이 기기에만 저장)",err:"⚠️ 동기화 오류 — 연결 상태 확인 필요"}[s];
   $("#syncStatusText").textContent=txt; }
 
 // Load the Supabase library on demand (never blocks app startup).
@@ -594,12 +665,13 @@ function schedulePullRetry(){ if(!sb||syncReady||pullRetryTimer||pullRetryInFlig
   pullRetryCount=Math.min(idx+1,steps.length-1);
   pullRetryTimer=setTimeout(()=>{ pullRetryTimer=null; retryInitialPull(); },delay); }
 async function retryInitialPull(){ if(!sb||syncReady||syncInitializing||forceSyncRunning) return syncReady; if(pullRetryInFlight) return pullRetryInFlight;
-  pullRetryInFlight=(async()=>{ const pulled=await pullAll();
+  setSyncDot("syncing"); pullRetryInFlight=(async()=>{ const pulled=await pullAll();
     if(!pulled) return false;
     const subscribed=await subscribeRealtime(); syncReady=true; pullRetryCount=0;
     const pushed=await pushAllLocal(); setSyncDot(pushed&&subscribed?"on":"err"); return pushed; })();
+  softRender();
   try{ return await pullRetryInFlight; }
-  finally{ pullRetryInFlight=null; if(!syncReady) schedulePullRetry(); }
+  finally{ pullRetryInFlight=null; if(!syncReady) schedulePullRetry(); softRender(); }
 }
 function loadSupabase(){
   if(window.supabase) return Promise.resolve(window.supabase);
@@ -617,16 +689,18 @@ function loadSupabase(){
 }
 
 async function initSync(){ if(syncInitializing) return false; syncInitializing=true;
-  try{ return await initSyncRun(); } finally{ syncInitializing=false; }
+  try{ return await initSyncRun(); }
+  finally{ syncInitializing=false; syncInitialSettled=true; if(state) softRender(); }
 }
 async function initSyncRun(){
-  if(!sbUrl()||!sbKey()){ setSyncDot("off"); return; }
+  if(!boundSbUrl()||!boundSbKey()){ setSyncDot("off"); return; }
+  setSyncDot("syncing");
   let lib;
   try{ lib=await loadSupabase(); }
   catch(e){ console.warn("sync offline:",e.message); sbLibPromise=null; setSyncDot("off"); return; }
   if(!lib){ setSyncDot("off"); return; }
-  try{ sb=lib.createClient(sbUrl(),sbKey(),{realtime:{params:{eventsPerSecond:5}}}); syncReady=false; settingsSyncUpdatedAt=0;
-    setSyncDot("on"); const pulled=await pullAll();
+  try{ sb=lib.createClient(boundSbUrl(),boundSbKey(),{realtime:{params:{eventsPerSecond:5}}}); syncReady=false; settingsSyncUpdatedAt=0;
+    setSyncDot("syncing"); const pulled=await pullAll();
     // Never upload pre-pull state: a slow/failed initial pull could otherwise
     // overwrite newer data and add load while the backend is already unhealthy.
     if(!pulled){ subscribeRealtime(); schedulePullRetry(); setSyncDot("err"); return; }
@@ -643,7 +717,8 @@ async function pullSyncRows(table,code,order){ const pageSize=1000,out=[];
     const rows=r.data||[]; out.push(...rows); if(rows.length<pageSize) return {data:out,error:null}; }
 }
 async function pullAll(){
-  if(!sb) return false; const code=syncCode();
+  if(!sb||syncCodeMismatch||syncCodeChangedElsewhere()) return false; const code=boundSyncCode();
+  synFeedRemoteFresh=false;
   try{
     const [vs,vp,dl,st,as]=await Promise.all([
       pullSyncRows("vocab_state",code,["word_id"]),
@@ -664,41 +739,85 @@ async function pullAll(){
     if(dl.data) dl.data.forEach(mergeDaily);
     if(st.data) mergeSettings(st.data);
     if(as.data&&as.data.data) mergeMisc(as.data.data);
-    // A feed checkpoint is an atomic queue/current-question snapshot. Pick the
-    // newest valid replica only while idle; never replace a question being answered.
-    refreshSynFeedSession();
+    // Pick the furthest valid checkpoint. If this tab was left open on an older
+    // question, move it forward too so it cannot overwrite another device later.
+    const feedRefresh=refreshSynFeedSession(true); compactSynFeedReplicas();
+    if(!vp.error){ synFeedLastPullAt=Date.now(); synFeedRemoteFresh=true; }
+    if(feedRefresh.activeChanged){ toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요.");
+      if($("#view-synfeed")?.classList.contains("active")){ if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); } }
     saveLocal(false); renderAll(); return ok;
-  }catch(e){ console.error("pull fail",e); setSyncDot("err"); return false; }
+  }catch(e){ synFeedRemoteFresh=false; console.error("pull fail",e); setSyncDot("err"); return false; }
+}
+let synFeedForegroundPullInFlight=null,synFeedLastPullAt=0,synFeedRemoteFresh=false,synFeedWasBackgrounded=false,windowBlurredAt=0;
+// Realtime change feeds are not replayed after a phone/desktop tab has been
+// suspended. On foreground, fetch only the tiny per-device feed rows (not all
+// vocabulary progress) before accepting the next answer.
+function pullSynFeedOnForeground(){
+  if(!sb||!syncReady||syncCodeMismatch||syncCodeChangedElsewhere()||document.visibilityState==="hidden") return Promise.resolve(false);
+  if(synFeedForegroundPullInFlight) return synFeedForegroundPullInFlight;
+  synFeedRemoteFresh=false;
+  synFeedForegroundPullInFlight=(async()=>{ try{
+    const r=await sb.from("verbal_progress").select("*").eq("user_key",boundSyncCode()).eq("kind","synfeed");
+    if(r.error) throw r.error;
+    for(const row of (r.data||[])){ noteServerRow("verbal_progress",row.kind+":"+row.item_id,row.updated_at);
+      const merged=mergeSynFeedReplica(row); if(merged.needsPush) queueSynFeedReplica(); }
+    const feedRefresh=refreshSynFeedSession(true); compactSynFeedReplicas(); synFeedLastPullAt=Date.now(); synFeedRemoteFresh=true; saveLocal(false);
+    if(feedRefresh.activeChanged){ toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요.");
+      if($("#view-synfeed")?.classList.contains("active")){ if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); } }
+    setSyncDot("on"); softRender(); return true;
+  }catch(e){ synFeedRemoteFresh=false; console.warn("synfeed foreground pull failed",e); setSyncDot("err"); return false; }
+  finally{ synFeedForegroundPullInFlight=null; softRender(); } })();
+  softRender(); return synFeedForegroundPullInFlight;
 }
 function syncTime(x){ const n=Date.parse(x); return Number.isNaN(n)?0:n; }
 function noteServerRow(table,key,updatedAt){ const m=serverRowTimes[table],t=syncTime(updatedAt); if(m&&t>(m.get(String(key))||0)) m.set(String(key),t); }
 function mergeCard(r){ const cur=state.cards[r.word_id];
   if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ state.cards[r.word_id]={status:r.status,reps:r.reps,lapses:r.lapses,ease:r.ease,interval:r.interval,due:r.due,starred:r.starred,verify:r.verify||null,verifyDue:r.verify_due||null,updated_at:r.updated_at}; return true; }
   return false; }
-function compareSynFeedCheckpoints(a,b){ const ar=safeSynFeedCount(a&&a.rev),br=safeSynFeedCount(b&&b.rev); if(ar!==br) return ar-br;
+function compareSynFeedCheckpoints(a,b,id=""){ const as=a&&a.session,bs=b&&b.session;
+  if(as&&bs){ const byProgress=compareSynFeedCandidates(
+    {id,session:as,clock:a.clock,rev:a.rev,updatedAt:a.updatedAt},
+    {id,session:bs,clock:b.clock,rev:b.rev,updatedAt:b.updatedAt}); if(byProgress) return byProgress; }
+  else if(as||bs) return as?1:-1;
   const ac=safeSynFeedCount(a&&a.clock),bc=safeSynFeedCount(b&&b.clock); if(ac!==bc) return ac-bc;
+  const ar=safeSynFeedCount(a&&a.rev),br=safeSynFeedCount(b&&b.rev); if(ar!==br) return ar-br;
   return syncTime(a&&a.updatedAt)-syncTime(b&&b.updatedAt); }
 function mergeSynFeedReplica(r){ const id=String(r&&r.item_id||"");
   if(!validSynFeedReplicaId(id)||!r.data||Number(r.data.v)!==SYNFEED_REPLICA_VERSION) return {changed:false,needsPush:false};
   state.synFeedReplicas=state.synFeedReplicas||{}; const remote=cleanSynFeedReplica(r.data,r.updated_at),rawLocal=state.synFeedReplicas[id];
   if(!rawLocal){ state.synFeedReplicas[id]=remote; rebuildSynFeedStats(); return {changed:true,needsPush:false}; }
-  const local=cleanSynFeedReplica(rawLocal),checkpoint=compareSynFeedCheckpoints(remote.checkpoint,local.checkpoint)>0?remote.checkpoint:local.checkpoint;
+  const local=cleanSynFeedReplica(rawLocal),checkpoint=compareSynFeedCheckpoints(remote.checkpoint,local.checkpoint,id)>0?remote.checkpoint:local.checkpoint;
   const merged={v:SYNFEED_REPLICA_VERSION,rev:Math.max(local.rev,remote.rev),stats:mergeSynFeedStats(local.stats,remote.stats),checkpoint,
     updated_at:syncTime(remote.updated_at)>syncTime(local.updated_at)?remote.updated_at:local.updated_at};
   const needsPush=id===deviceId()&&!synFeedReplicaEqual(merged,remote);
   if(needsPush){ const n=Math.max(merged.rev,merged.checkpoint.rev); merged.rev=n<Number.MAX_SAFE_INTEGER?n+1:n; merged.updated_at=nowISO(); }
   const changed=!synFeedReplicaEqual(local,merged); if(changed){ state.synFeedReplicas[id]=merged; rebuildSynFeedStats(); }
   return {changed,needsPush}; }
-function latestSynFeedSession(){ let best=null;
+function latestSynFeedCandidate(){ let best=null;
   for(const [id,r] of Object.entries(state.synFeedReplicas||{})){ const cp=r&&r.checkpoint,s=cp&&cp.session;
-    if(!s||!synFeedSessionValid(s)) continue; const clock=safeSynFeedCount(cp.clock)||safeSynFeedCount(cp.rev),rev=safeSynFeedCount(cp.rev);
-    // Lamport order is immune to bad device clocks. Concurrent equal clocks use
-    // a stable replica-id tie break; the next save observes both and advances it.
-    if(!best||clock>best.clock||clock===best.clock&&(id>best.id||id===best.id&&rev>best.rev)) best={id,clock,rev,session:s}; }
-  return best?cloneSynFeedSession(best.session):null; }
-function refreshSynFeedSession(){ if(synFeed) return false; const next=latestSynFeedSession(),before=state.synFeedSession;
-  let same=!next&&!before; if(next&&before) try{ same=JSON.stringify(next)===JSON.stringify(before); }catch{ same=false; }
-  if(!same) state.synFeedSession=next; return !same; }
+    if(!s) continue; const repaired=repairSynFeedSession(s); if(!repaired) continue;
+    const candidate={id,clock:safeSynFeedCount(cp.clock)||safeSynFeedCount(cp.rev),rev:safeSynFeedCount(cp.rev),updatedAt:cp.updatedAt,session:repaired};
+    if(!best||compareSynFeedCandidates(candidate,best)>0) best=candidate; }
+  return best; }
+function latestSynFeedSession(){ const best=latestSynFeedCandidate(); return best?cloneSynFeedSession(best.session):null; }
+function refreshSynFeedSession(adoptActive=false){ const best=latestSynFeedCandidate(),next=best?cloneSynFeedSession(best.session):null;
+  if(synFeed){ if(!adoptActive||!best) return {changed:false,activeChanged:false};
+    const own=state.synFeedReplicas&&state.synFeedReplicas[deviceId()],cp=own&&own.checkpoint;
+    const active={id:deviceId(),clock:safeSynFeedCount(cp&&cp.clock),rev:safeSynFeedCount(cp&&cp.rev),updatedAt:cp&&cp.updatedAt,session:synFeed};
+    if(compareSynFeedCandidates(best,active)>0&&!synFeedSessionEqual(next,synFeed)){
+      synFeed=next; state.synFeedSession=cloneSynFeedSession(next); return {changed:true,activeChanged:true}; }
+    state.synFeedSession=cloneSynFeedSession(synFeed); return {changed:false,activeChanged:false}; }
+  const before=state.synFeedSession,same=synFeedSessionEqual(next,before);
+  if(!same) state.synFeedSession=next; return {changed:!same,activeChanged:false}; }
+function compactSynFeedReplicas(){ const rows=Object.entries(state.synFeedReplicas||{}).map(([id,r])=>[id,cleanSynFeedReplica(r)]);
+  const ranked=rows.filter(([,r])=>r.checkpoint.session).map(([id,r])=>({id,clock:r.checkpoint.clock,rev:r.checkpoint.rev,
+    updatedAt:r.checkpoint.updatedAt,session:repairSynFeedSession(r.checkpoint.session)})).filter(x=>x.session)
+    .sort((a,b)=>compareSynFeedCandidates(b,a));
+  const keepSessions=new Set(ranked.slice(0,8).map(x=>x.id)); keepSessions.add(deviceId());
+  for(const [id,r] of rows){ if(r.checkpoint.session&&!keepSessions.has(id)) r.checkpoint={...r.checkpoint,session:null}; }
+  const byRecent=[...rows].sort((a,b)=>syncTime(b[1].updated_at)-syncTime(a[1].updated_at));
+  const order=[...new Set([...ranked.map(x=>x.id),deviceId(),...byRecent.map(([id])=>id)])].slice(0,SYNFEED_MAX_REPLICAS),map=new Map(rows);
+  state.synFeedReplicas=Object.fromEntries(order.filter(id=>map.has(id)).map(id=>[id,map.get(id)])); rebuildSynFeedStats(); }
 function ownSynFeedReplica(){ state.synFeedReplicas=state.synFeedReplicas||{}; const id=deviceId();
   if(!state.synFeedReplicas[id]) state.synFeedReplicas[id]={v:SYNFEED_REPLICA_VERSION,rev:0,stats:cleanSynFeedStats(null),checkpoint:cleanSynFeedCheckpoint(null),updated_at:""};
   else state.synFeedReplicas[id]=cleanSynFeedReplica(state.synFeedReplicas[id]);
@@ -793,7 +912,10 @@ function handleCardRealtime(r){ noteServerRow("vocab_state",r.word_id,r.updated_
   else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); }
 function handleVerbalRealtime(r){ noteServerRow("verbal_progress",r.kind+":"+r.item_id,r.updated_at);
   if(r.kind==="synfeed"){ const m=mergeSynFeedReplica(r); if(m.needsPush) queueSynFeedReplica();
-    if(m.changed){ refreshSynFeedSession(); saveLocal(false); softRender(); } return; }
+    if(m.changed){ const feedRefresh=refreshSynFeedSession(true); compactSynFeedReplicas(); saveLocal(false);
+      if(feedRefresh.activeChanged){ toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요.");
+        if($("#view-synfeed")?.classList.contains("active")){ if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); } }
+      softRender(); } return; }
   const changed=mergeVerbal(r),tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null;
   if(!tgt) return; const cur=tgt[r.item_id],key=r.kind+":"+r.item_id,pending=pushQ.verbal_progress.get(key);
   if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("verbal_progress",{kind:r.kind,item_id:String(r.item_id),data:cur}); saveLocal(false); softRender(); }
@@ -806,7 +928,7 @@ function handleSettingsRealtime(r){ const pending=pushQ.settings,changed=mergeSe
   if(changed){ if(pending&&syncTime(pending.updated_at)<=rt){ pushQ.settings={...r,data:r.data||{}}; if(!pushInFlight) schedulePush(pendingPushDelay()); } saveLocal(false); softRender(); }
   else if(rt&&settingsSyncUpdatedAt>rt&&!pending) queuePush("settings",{}); }
 function subscribeRealtime(){
-  if(!sb) return Promise.resolve(false); const code=syncCode();
+  if(!sb||syncCodeMismatch||syncCodeChangedElsewhere()) return Promise.resolve(false); const code=boundSyncCode();
   if(realtimeChan&&realtimeCode===code&&realtimeReady) return Promise.resolve(true);
   if(realtimeChan) sb.removeChannel(realtimeChan); realtimeReady=false; realtimeCode=code;
   const channel=sb.channel("afoqt-"+code)
@@ -848,7 +970,7 @@ function schedulePush(ms){ if(!syncReady) return; const due=Math.max(Date.now()+
   clearTimeout(pushTimer); pushDueAt=due; pushTimer=setTimeout(()=>{ pushTimer=null; pushDueAt=0; flushPush(); },Math.max(0,due-Date.now())); }
 function hasPendingPush(){ return pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.settings||pushQ.app_state; }
 function pendingPushDelay(){ return synFeed?8000:(pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.settings?700:1200); }
-function queuePush(table,row){ if(!sb) return; const code=syncCode();
+function queuePush(table,row){ if(!sb||suppressPersistenceForReload||syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()) return; const code=boundSyncCode();
   if(table==="app_state") pushQ.app_state={user_key:code,data:miscBlob(),updated_at:nowISO()};
   else if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at||nowISO()});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
@@ -856,6 +978,14 @@ function queuePush(table,row){ if(!sb) return; const code=syncCode();
   else if(table==="settings"){ const updated_at=nowISO(); settingsSyncUpdatedAt=syncTime(updated_at);
     pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode,syn_feed_priority:state.settings.syn_feed_priority,syn_feed_korean:state.settings.syn_feed_korean!==false},updated_at}; }
   if(!pushInFlight) schedulePush(pendingPushDelay()); }
+// Mobile browsers may terminate ordinary async work immediately after pagehide.
+// Send the single small feed row with keepalive as a last safety copy; the normal
+// queue remains intact and heals it on the next launch if this request still fails.
+function flushSynFeedKeepalive(allowBoundCodeSwitch=false){ const row=pushQ.verbal_progress.get("synfeed:"+deviceId()),url=boundSbUrl(),key=boundSbKey();
+  if(suppressPersistenceForReload||importHandoffChanged()||!syncReady||(!allowBoundCodeSwitch&&(syncCodeMismatch||syncCodeChangedElsewhere()))||!row||row.user_key!==boundSyncCode()||!url||!key) return;
+  try{ fetch(url.replace(/\/+$/,"")+"/rest/v1/verbal_progress?on_conflict=user_key%2Ckind%2Citem_id",{
+    method:"POST",keepalive:true,headers:{apikey:key,Authorization:"Bearer "+key,"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"},body:JSON.stringify(row)
+  }).catch(()=>{}); }catch{} }
 // Each table pushes independently and only clears its queue on confirmed success —
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
 // fails just that one table and self-heals on the next push once the DB catches up,
@@ -882,7 +1012,7 @@ async function flushPushPass(){ let ok=true;
     catch(e){ console.error("push app_state fail",e); setSyncDot("err"); ok=false; } }
   return ok;
 }
-async function flushPush(){ if(!sb||!syncReady) return false; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0;
+async function flushPush(){ if(!sb||!syncReady||suppressPersistenceForReload||syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()) return false; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0;
   if(pushInFlight) return pushInFlight;
   let result=false;
   pushInFlight=(async()=>{ const ok=await flushPushPass(); if(ok) setSyncDot("on"); return ok; })();
@@ -924,7 +1054,7 @@ async function forceSync(){
   if(!sb){ toast("오프라인 모드예요. 먼저 동기화 코드를 연결하세요."); return; }
   if(syncInitializing||forceSyncRunning){ toast("동기화 연결 중… 잠시 후 다시 눌러주세요."); return; }
   forceSyncRunning=true;
-  toast("동기화 중…");
+  setSyncDot("syncing"); softRender(); toast("동기화 중…");
   try{ if(pullRetryInFlight) await pullRetryInFlight; if(pushInFlight) await pushInFlight;
     clearTimeout(pullRetryTimer); pullRetryTimer=null;
     syncReady=false; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0; pushRetryCount=0; pushRetryAt=0;
@@ -934,7 +1064,7 @@ async function forceSync(){
     const c=countByStatus(),feed=state.synFeedStats?.total||0;
     toast(`✅ 동기화 완료 · 학습 ${c.learned}개 · 마스터 ${c.mastered}개 · 피드 ${feed}문제`, 3500);
   }catch(e){ if(!syncReady) schedulePullRetry(); toast("동기화 실패 — 연결 상태를 확인하세요"); setSyncDot("err"); }
-  finally{ forceSyncRunning=false; }
+  finally{ forceSyncRunning=false; softRender(); }
 }
 
 /* ============================================================
@@ -1435,7 +1565,7 @@ function renderVocab(){
     if(b) b.textContent=continuing
       ? `🗂️ 고빈출 테마별 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
       : `🗂️ 고빈출 테마별 플래시카드${hasVerbalThemeData()?"":" — 데이터 업데이트 필요"}`; }
-  { const b=$("#vkSynFeed"), s=state.synFeedSession, can=synFeedSessionValid(s);
+  { const b=$("#vkSynFeed"), s=repairSynFeedSession(state.synFeedSession), can=!!s;
     if(b){ const copy=b.querySelector(".synfeed-entry-copy");
       if(copy){ const m=can?synFeedSetMeta(s):null; copy.innerHTML=can
         ? `<b>동의어 무한 피드 · 이어 풀기</b><small>SET ${m.setNo}/${m.setCount} · 문제 ${m.position}/${m.length} · 누적 ${s.count||0}문제</small>`
@@ -1968,7 +2098,16 @@ function renderSynAt(){
    ============================================================ */
 const SYNFEED_LABEL={1:"🔥 최우선 P1",2:"⭐ 고빈출까지 P1+P2",3:"📌 중요까지 P1~P3",4:"🌐 전체"};
 const SYNFEED_SET_SIZE=100;
+const SYNFEED_REMOTE_FRESH_MS=30000;
 let synFeed=null, synFeedPosIndex=null;
+function synFeedSyncPending(){ return !!(boundSbUrl()&&boundSbKey())&&(!syncInitialSettled||syncInitializing||forceSyncRunning||!!pullRetryInFlight||!!synFeedForegroundPullInFlight); }
+function guardSynFeedInitialSync(){ if(!synFeedSyncPending()) return true;
+  toast("⏳ PC·모바일 진도를 먼저 불러오는 중이에요. 잠시만 기다려 주세요."); return false; }
+function guardSynFeedNewRun(){ if(!guardSynFeedInitialSync()) return false;
+  if(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)){ toast("⚠️ 처음부터 시작은 PC·모바일 진도를 확인한 뒤 가능해요. 연결 후 다시 시도해 주세요."); return false; }
+  if(boundSbUrl()&&boundSbKey()&&Date.now()-synFeedLastPullAt>SYNFEED_REMOTE_FRESH_MS){ pullSynFeedOnForeground();
+    toast("⏳ 새 피드를 만들기 전에 다른 기기의 최신 위치를 확인해요. 확인 후 다시 눌러 주세요."); return false; }
+  return true; }
 function synFeedPriority(){ const p=Number(state.settings.syn_feed_priority); return [1,2,3,4].includes(p)?p:2; }
 function synFeedKorean(){ return state.settings.syn_feed_korean!==false; }
 function synFeedPool(priority=synFeedPriority()){
@@ -2050,20 +2189,53 @@ function synFeedSessionValid(s){ if(!synFeedScopeIdsValid(s)||!(!s.current||synF
   if(whole.some(k=>typeof s[k]!=="number"||!Number.isSafeInteger(s[k])||s[k]<0)) return false;
   if(s.cycle<1||s.correct>s.count||s.combo>s.count||s.bestCombo>s.count||!synFeedAnswerSlotsValid(s)) return false;
   if(!syncTime(s.startedAt)||!syncTime(s.updatedAt)) return false;
+  if(s.runId!=null&&!/^sfr-[a-f0-9]{20}$/.test(String(s.runId))) return false;
+  if(s.runEpoch!=null&&(!Number.isSafeInteger(s.runEpoch)||s.runEpoch<0)) return false;
+  if(s.replaces!=null&&(!Array.isArray(s.replaces)||s.replaces.length>8||s.replaces.some(id=>typeof id!=="string"||!id||id.length>200)||new Set(s.replaces).size!==s.replaces.length)) return false;
   if(s.recent!=null&&(!Array.isArray(s.recent)||s.recent.length>3||s.recent.some(id=>!WMAP.has(id)))) return false;
   if(s.current){ const w=WMAP.get(s.current.id),p=w&&verbalPriorityOf(w); if(!(s.priority===4||(p&&p<=s.priority))) return false;
     if(!s.current.isRetry&&s.current.id!==s.queue[s.cursor]) return false; }
   return !s.retry||Array.isArray(s.retry)&&s.retry.length<=100&&s.retry.every(r=>r&&WMAP.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0); }
+// 단어 파일이 업데이트되어 항목이 추가·삭제되거나 동의어 선지가 바뀌어도
+// 누적 풀이 수를 버리지 않는다. 이미 돈 순서는 유지하고 새 ID만 끝에 붙이며,
+// 더는 유효하지 않은 현재 문제만 같은 위치에서 다시 만든다.
+function repairSynFeedSession(raw){ const s=cloneSynFeedSession(raw); if(!s||s.v!==1||![1,2,3,4].includes(Number(s.priority))) return null;
+  s.priority=Number(s.priority); const pool=synFeedPool(s.priority); if(pool.length<5||!Array.isArray(s.queue)||!s.queue.length) return null;
+  const allowed=new Set(pool),seen=new Set(),oldCursor=Number.isInteger(s.cursor)?clamp(s.cursor,0,s.queue.length-1):0,done=[],pending=[];
+  const add=(id,target)=>{ if(!allowed.has(id)||seen.has(id)) return; seen.add(id); target.push(id); };
+  s.queue.slice(0,oldCursor).forEach(id=>add(id,done)); s.queue.slice(oldCursor).forEach(id=>add(id,pending));
+  pool.forEach(id=>add(id,pending)); s.queue=[...done,...pending]; if(!s.queue.length) return null;
+  if(done.length>=s.queue.length){ const cycle=Number.isSafeInteger(s.cycle)&&s.cycle>=1?s.cycle:1;
+    s.cycle=cycle<Number.MAX_SAFE_INTEGER?cycle+1:cycle; s.queue=pool.slice(); s.cursor=0; }
+  else s.cursor=done.length;
+  s.recent=Array.isArray(s.recent)?s.recent.filter(id=>allowed.has(id)).slice(-3):[];
+  s.retry=Array.isArray(s.retry)?s.retry.filter(r=>r&&allowed.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0).slice(-100):[];
+  const rebuildAnsweredBase=!!(s.current&&!s.current.isRetry&&s.current.chosen!=null&&allowed.has(s.current.id)&&s.queue[s.cursor]===s.current.id&&!synFeedQuestionValid(s.current));
+  if(s.current&&(!allowed.has(s.current.id)||!synFeedQuestionValid(s.current))) s.current=null;
+  if(rebuildAnsweredBase){ if(s.cursor+1<s.queue.length) s.cursor++; else{ s.cycle++; s.cursor=0; s.queue=pool.slice(); } }
+  if(s.current&&!s.current.isRetry&&s.current.id!==s.queue[s.cursor]) s.current=null;
+  if(!synFeedAnswerSlotsValid(s)){ s.answerSlots=[]; s.lastAnswerSlot=null; }
+  if(s.runId!=null&&!/^sfr-[a-f0-9]{20}$/.test(String(s.runId))) delete s.runId;
+  s.replaces=synFeedReplaces(s); if(!s.replaces.length) delete s.replaces;
+  return synFeedSessionValid(s)?s:null; }
 function synFeedFreshQueue(priority,recent=[]){ const q=shuffle(synFeedPool(priority)),avoid=new Set((recent||[]).slice(-3));
   if(q.length>3&&avoid.has(q[0])){ const at=q.findIndex((id,i)=>i>0&&!avoid.has(id)); if(at>0) [q[0],q[at]]=[q[at],q[0]]; }
   return q; }
-function synFeedSave(immediate=false,syncCloud=true){ if(!synFeed) return; synFeed.updatedAt=nowISO(); writeOwnSynFeedCheckpoint(synFeed);
-  if(immediate) saveNow(); else saveLocal(false); if(syncCloud&&sb) queueSynFeedReplica(); }
-function pauseSynFeed(){ if(synFeed){ synFeedSave(true); flushPush(); } synFeed=null; }
+function synFeedSave(immediate=false,syncCloud=true,changed=true){ if(!synFeed) return;
+  if(changed){ synFeed.updatedAt=nowISO(); writeOwnSynFeedCheckpoint(synFeed); }
+  else state.synFeedSession=cloneSynFeedSession(synFeed);
+  saveSynFeedEmergency(); if(immediate) saveNow(); else saveLocal(false); if(changed&&syncCloud&&sb) queueSynFeedReplica(); }
+function reconcileSynFeedBeforeInput(){ if(syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()){ toast("다른 탭의 동기화 설정이 바뀌어 안전하게 다시 불러옵니다."); return false; }
+  if(synFeedSyncPending()){ toast("⏳ 다른 기기의 최신 문제 위치를 확인 중이에요."); return false; }
+  const r=refreshSynFeedSession(true); if(!r.activeChanged) return true;
+  saveNow(); toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요."); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); return false; }
+function pauseSynFeed(){ if(synFeed) synFeedSave(true,false,false); synFeed=null;
+  refreshSynFeedSession(); compactSynFeedReplicas(); saveNow(); flushSynFeedKeepalive(); flushPush(); }
 function synFeedAdvanceBase(s){ s.cursor++;
   if(s.cursor<s.queue.length) return;
   s.cycle=(s.cycle||1)+1; s.cursor=0; s.queue=synFeedFreshQueue(s.priority,s.recent); }
 function synFeedAdvance(initial=false){ const s=synFeed; if(!s) return;
+  if(!initial&&!reconcileSynFeedBeforeInput()) return;
   if(!initial&&(!s.current||s.current.chosen==null)) return; // 빠른 연속 입력에도 미응답 문제를 건너뛰지 않는다
   if(!initial&&s.current&&!s.current.isRetry) synFeedAdvanceBase(s);
   for(let tries=0;tries<30;tries++){
@@ -2073,20 +2245,28 @@ function synFeedAdvance(initial=false){ const s=synFeed; if(!s) return;
     synFeedAdvanceBase(s);
   }
   toast("문제를 만들지 못했어요. 범위를 다시 골라주세요."); pauseSynFeed(); renderSynFeed(); }
-function startSynFeed(){ const priority=synFeedPriority(),queue=synFeedFreshQueue(priority);
+function startSynFeed(){ if(!guardSynFeedNewRun()) return; refreshSynFeedSession();
+  const previous=repairSynFeedSession(state.synFeedSession),priority=synFeedPriority(),queue=synFeedFreshQueue(priority);
   if(queue.length<5){ toast("이 범위에 동의어 단어가 부족해요."); return; }
+  if(previous){ const m=synFeedSetMeta(previous);
+    if(!confirm(`이어 풀던 기록이 있어요 (SET ${m.setNo}/${m.setCount}, 문제 ${m.position}/${m.length}, 누적 ${previous.count||0}문제).\n처음부터 새 피드를 만들까요?`)) return; }
+  // A truly first/empty-server run stays epoch 0. An older device may still
+  // upload a high-progress legacy checkpoint after a delayed/failed push; real
+  // progress must beat this blank run. Only an explicit, confirmed replacement
+  // of a known checkpoint advances the generation.
+  const replaces=previous?[synFeedRunId(previous),...synFeedReplaces(previous)].slice(0,8):[],runEpoch=previous?nextSynFeedClock():0;
   synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,correct:0,combo:0,bestCombo:0,
     points:0,added:0,seed:(Math.random()*1000000)|0,answerSlots:[],lastAnswerSlot:null,
-    current:null,startedAt:nowISO(),updatedAt:nowISO()};
+    current:null,runId:newSynFeedRunId(),runEpoch,replaces,startedAt:nowISO(),updatedAt:nowISO()};
   synFeedShowPlay(); synFeedAdvance(true); }
-function resumeSynFeed(){ const s=cloneSynFeedSession(state.synFeedSession); if(!synFeedSessionValid(s)){ state.synFeedSession=null; saveLocal(false); renderSynFeed(); return; }
+function resumeSynFeed(){ if(!guardSynFeedInitialSync()) return; refreshSynFeedSession(); const s=repairSynFeedSession(state.synFeedSession); if(!s){ state.synFeedSession=null; saveLocal(false); renderSynFeed(); return; }
   synFeed=s; synFeed.priority=Number(synFeed.priority); synFeed.retry=Array.isArray(synFeed.retry)?synFeed.retry:[];
   synFeed.recent=Array.isArray(synFeed.recent)?s.recent:[]; synFeed.answerSlots=Array.isArray(synFeed.answerSlots)?synFeed.answerSlots:[];
   if(synFeed.current) synFeed.lastAnswerSlot=synFeed.current.opts.findIndex(o=>o.ok);
   else if(!Number.isInteger(synFeed.lastAnswerSlot)) synFeed.lastAnswerSlot=null;
   if(synFeed.answerSlots[0]===synFeed.lastAnswerSlot) synFeed.answerSlots=[];
   state.settings.syn_feed_priority=synFeed.priority;
-  queuePush("settings",{}); synFeedShowPlay(); if(!synFeed.current) synFeedAdvance(true); else{ synFeedSave(); renderSynFeedPlay(); } }
+  queuePush("settings",{}); synFeedShowPlay(); if(!synFeed.current) synFeedAdvance(true); else{ synFeedSave(false,false,false); renderSynFeedPlay(); } }
 function synFeedShowPlay(){ $("#synfeedSetup").classList.add("hidden"); $("#synfeedPlay").classList.remove("hidden");
   $("#synfeedKoLive").classList.remove("hidden"); renderSynFeedKoButton(); }
 let synFeedWordFitFrame=0;
@@ -2105,9 +2285,14 @@ function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#syn
   $$('#view-synfeed input[name="synfeedPriority"]').forEach(x=>x.checked=Number(x.value)===p);
   $("#synfeedKo").checked=synFeedKorean(); const d=synFeedDay(); $("#synfeedToday").textContent=(d.n||0).toLocaleString();
   $("#synfeedBest").textContent=(state.synFeedStats.bestCombo||0).toLocaleString();
-  const saved=state.synFeedSession,can=synFeedSessionValid(saved),b=$("#synfeedResume"); b.classList.toggle("hidden",!can);
+  const saved=repairSynFeedSession(state.synFeedSession),can=!!saved,syncing=synFeedSyncPending(),startBlocked=syncing||!!(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)),b=$("#synfeedResume"),start=$("#synfeedStart"); b.classList.toggle("hidden",!can);
+  b.disabled=syncing; start.disabled=startBlocked; start.classList.toggle("has-resume",can);
   if(can){ const acc=saved.count?Math.round((saved.correct||0)/saved.count*100):0,m=synFeedSetMeta(saved);
     b.innerHTML=`<b>▶ 이어 풀기 · ${esc(SYNFEED_LABEL[saved.priority]||"저장된 피드")}</b><small>SET ${m.setNo}/${m.setCount} · 문제 ${m.position}/${m.length} · 누적 ${saved.count||0}문제 · ${acc}%</small>`; }
+  start.innerHTML=syncing?`<span>⏳ 동기화된 진도 확인 중</span><small>PC·모바일 기록을 합친 뒤 시작할 수 있어요</small>`:startBlocked?
+    `<span>연결 후 새 피드 시작 가능</span><small>기존 기기의 진도를 먼저 보호하고 있어요</small>`:can?
+    `<span>처음부터 새 피드 만들기</span><small>이어풀기 기록이 있으므로 확인 후 새로 시작해요</small>`:
+    `<span>∞ 무한 피드 시작</span><small>100문제씩 SET · 전체 범위는 계속 이어짐</small>`;
 }
 function renderSynFeedKoButton(){ const on=synFeedKorean(),b=$("#synfeedKoLive");
   b.textContent=`한글 ${on?"ON":"OFF"}`; b.setAttribute("aria-pressed",on?"true":"false"); }
@@ -2121,6 +2306,7 @@ function synFeedRecord(ok){ const r=ownSynFeedReplica(),s=r.stats,d=s.days[today
   s.bestCombo=Math.max(s.bestCombo||0,synFeed.combo||0); d.bestCombo=Math.max(d.bestCombo||0,synFeed.combo||0);
   const days=Object.keys(s.days).sort(); while(days.length>90) delete s.days[days.shift()]; rebuildSynFeedStats(); }
 function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null||!q.opts[i]) return;
+  if(!reconcileSynFeedBeforeInput()) return;
   q.chosen=i; const ok=!!q.opts[i].ok,w=WMAP.get(q.id); s.count++; if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); }
   else s.combo=0;
   q.gain=ok?10+Math.min(20,Math.max(0,s.combo-1)*2):0; s.points=(s.points||0)+q.gain;
@@ -4977,8 +5163,8 @@ function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#
   $("#optShowKo")&&($("#optShowKo").checked=!flag("hide_ko"));
   $("#optPilotPerfect")&&($("#optPilotPerfect").checked=pilotPerfect());
   $("#setUrl").value=localStorage.getItem(LS.url)||""; $("#setKey").value=localStorage.getItem(LS.key)||"";
-  $("#syncCodeView").textContent=syncCode(); $("#verLine").textContent=`v${VERSION} · 단어 ${WORDS.length} · 유추 ${ANALOGIES.length} · 독해 ${READING.length} · 항공 ${AVIATION.length}`;
-  setSyncDot(syncReady?"on":(sbUrl()&&sbKey()?"err":"off")); $("#settingsSheet").classList.add("open"); }
+  $("#syncCodeView").textContent=boundSyncCode(); $("#verLine").textContent=`v${VERSION} · 단어 ${WORDS.length} · 유추 ${ANALOGIES.length} · 독해 ${READING.length} · 항공 ${AVIATION.length}`;
+  setSyncDot(syncReady?"on":(synFeedSyncPending()?"syncing":(boundSbUrl()&&boundSbKey()?"err":"off"))); $("#settingsSheet").classList.add("open"); }
 function saveSettings(){ const g=parseInt($("#setGoal").value,10); state.settings.daily_goal=isNaN(g)?0:Math.max(0,g);
   if($("#setStart").value) state.settings.start_date=$("#setStart").value; if($("#setExam").value) state.settings.exam_date=$("#setExam").value;
   const url=$("#setUrl").value.trim(),key=$("#setKey").value.trim(); let re=false;
@@ -5006,6 +5192,18 @@ window.__softRender=softRender; // test/debug hook
    WIRING
    ============================================================ */
 function wire(){
+  // localStorage is shared by same-origin tabs. If another tab switches the
+  // sync code, stop this tab before its old in-memory state can be persisted or
+  // queued under the newly selected account.
+  window.addEventListener("storage",e=>{
+    if(e.key===LS.import&&e.newValue){ suppressPersistenceForReload=true; clearTimeout(saveTimer); saveTimer=null;
+      clearTimeout(pushTimer); pushTimer=null; pushDueAt=0; clearTimeout(pullRetryTimer); pullRetryTimer=null; location.reload(); return; }
+    if(![LS.code,LS.url,LS.key].includes(e.key)||!syncSessionCode) return;
+    const changed=e.key===LS.code?localStorage.getItem(LS.code)!==syncSessionCode:
+      e.key===LS.url?sbUrl()!==syncSessionUrl:sbKey()!==syncSessionKey;
+    if(!changed) return;
+    flushSynFeedKeepalive(true); syncCodeMismatch=true; clearTimeout(saveTimer); saveTimer=null; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0;
+    clearTimeout(pullRetryTimer); pullRetryTimer=null; toast("동기화 설정이 바뀌어 안전하게 다시 불러옵니다."); location.reload(); });
   $$("#nav button[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
   // 사이드바 접기/펴기(넓은 화면). 상태 기억.
   const applyNavCollapsed=()=>{ const c=localStorage.getItem("afoqt_nav_collapsed")==="1";
@@ -5174,11 +5372,13 @@ function wire(){
   $("#btnSettings").onclick=openSettings; $("#closeSettings").onclick=()=>$("#settingsSheet").classList.remove("open");
   $("#settingsSheet").onclick=e=>{ if(e.target.id==="settingsSheet") $("#settingsSheet").classList.remove("open"); };
   $("#saveSettings").onclick=saveSettings;
-  $("#copyCode").onclick=()=>{ navigator.clipboard?.writeText(syncCode()); toast("동기화 코드 복사됨"); };
-  $("#newCode").onclick=()=>{ if(confirm("새 동기화 코드를 만들면 이 기기는 새 데이터로 시작합니다. 계속할까요?")){ localStorage.setItem(LS.code,genCode()); location.reload(); } };
-  $("#enterCode").onclick=()=>{ const c=prompt("다른 기기와 동기화할 코드를 입력하세요:",syncCode()); if(c&&c.trim()){ localStorage.setItem(LS.code,c.trim()); toast("코드 적용 — 동기화 중…"); location.reload(); } };
+  $("#copyCode").onclick=()=>{ navigator.clipboard?.writeText(boundSyncCode()); toast("동기화 코드 복사됨"); };
+  $("#newCode").onclick=()=>{ if(confirm("새 동기화 코드를 만들면 이 기기는 새 데이터로 시작합니다. 계속할까요?")){ flushSynFeedKeepalive(); localStorage.setItem(LS.code,genCode()); location.reload(); } };
+  $("#enterCode").onclick=()=>{ const c=prompt("다른 기기와 동기화할 코드를 입력하세요:",boundSyncCode()); if(c&&c.trim()){ flushSynFeedKeepalive(); localStorage.setItem(LS.code,c.trim()); toast("코드 적용 — 동기화 중…"); location.reload(); } };
   $("#forceSync").onclick=forceSync;
-  $("#resetAll").onclick=()=>{ if(confirm("이 기기의 학습 기록을 모두 지웁니다. 계속할까요?")){ state=DEFAULT_STATE(); saveLocal(); toast("초기화됨"); $("#settingsSheet").classList.remove("open"); go("home"); } };
+  $("#resetAll").onclick=()=>{ if(confirm("이 기기의 학습 기록을 모두 지웁니다. 계속할까요?")){ clearSynFeedEmergency(); synFeed=null;
+      clearTimeout(saveTimer); clearTimeout(pushTimer); pushTimer=null; pushDueAt=0; pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.settings=null; pushQ.app_state=null;
+      state=DEFAULT_STATE(); state.synFeedSyncCode=boundSyncCode(); saveNow(); toast("초기화됨"); $("#settingsSheet").classList.remove("open"); go("home"); } };
   $("#forceUpdate").onclick=forceUpdate;
   // Flush pending saves before the app is backgrounded/closed (mobile-safe).
   // On returning to the app, refresh the active hub so today's count and the
@@ -5188,7 +5388,10 @@ function wire(){
     // Backgrounding/lock fires this while the page is still alive — flush the
     // pending server push here so mobile "study then close" doesn't lose progress.
     if(document.visibilityState==="hidden"){
-      if(synFeed) synFeedSave(true); // latest queue/current question + replica counters
+      synFeedWasBackgrounded=true; synFeedRemoteFresh=false;
+      if(suppressPersistenceForReload||syncCodeMismatch) return;
+      if(synFeed){ synFeedSave(true,false,false); flushSynFeedKeepalive(); } // 저장만 하며 stale clock은 올리지 않음
+      else flushSynFeedKeepalive();
       if(exam&&!exam.submitted){
         settleExamClock();
         // 열린 문항의 시간 구간을 닫는다 — 자리 비운 10분이 그 문항 속도 기록으로 들어가지 않게
@@ -5197,15 +5400,19 @@ function wire(){
           saveExamSnap(); }
       }
       saveNow(); flushPush(); return; }
+    if(synFeedWasBackgrounded){ synFeedWasBackgrounded=false; pullSynFeedOnForeground(); }
     // Wake Lock is dropped when the tab is hidden — re-acquire it on return if auto-play is running.
     if(ap && ap.playing) apAcquireWake();
     if(exam && !exam.submitted){ examAcquireWake();   // 시험 복귀: 화면 꺼짐 방지 재획득 + 스톱워치 재개
       if(exam._openIdx!=null&&!exam._openAt) exam._openAt=Date.now(); }
     if(!sessionActive()){ lastDay=todayStr(); softRender(); }
   });
-  window.addEventListener("focus",()=>{ if(!sessionActive()) softRender(); });
+  window.addEventListener("blur",()=>{ windowBlurredAt=Date.now(); });
+  window.addEventListener("focus",()=>{ if(syncCodeMismatch) return;
+    if(windowBlurredAt&&Date.now()-windowBlurredAt>1000&&Date.now()-synFeedLastPullAt>3000) pullSynFeedOnForeground();
+    windowBlurredAt=0; if(!sessionActive()) softRender(); });
   window.addEventListener("online",()=>{
-    if(!sb&&sbUrl()&&sbKey()){ initSync(); return; }
+    if(!sb&&boundSbUrl()&&boundSbKey()){ initSync(); return; }
     if(sb&&!syncReady){ clearTimeout(pullRetryTimer); pullRetryTimer=null; retryInitialPull(); }
     else if(sb&&hasPendingPush()){ pushRetryCount=0; pushRetryAt=0; schedulePush(0); }
   });
@@ -5215,7 +5422,7 @@ function wire(){
     if(todayStr()!==lastDay){ lastDay=todayStr(); if(!sessionActive()){ const a=$(".view.active")?.id;
       if(a==="view-home") renderHome(); else softRender(); } }
   }, 60000);
-  const flushBeforeExit=()=>{ if(synFeed) synFeedSave(true);
+  const flushBeforeExit=()=>{ if(suppressPersistenceForReload||syncCodeMismatch) return; if(synFeed) synFeedSave(true,false,false); flushSynFeedKeepalive();
     if(exam&&!exam.submitted){ settleExamClock(); if(exam&&!exam.submitted) saveExamSnap(); }
     saveNow(); flushPush(); };
   window.addEventListener("pagehide",flushBeforeExit);
@@ -5237,7 +5444,7 @@ function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSessi
 // Backup: download the full local state as a JSON file (offline safety net).
 function exportProgress(){
   saveNow();
-  const data=JSON.stringify({app:"afoqt-vocab",v:VERSION,code:syncCode(),ts:Date.now(),state},null,2);
+  const data=JSON.stringify({app:"afoqt-vocab",v:VERSION,code:boundSyncCode(),ts:Date.now(),state},null,2);
   const url=URL.createObjectURL(new Blob([data],{type:"application/json"}));
   const a=document.createElement("a"); a.href=url; a.download=`afoqt-backup-${todayStr()}.json`;
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -5250,15 +5457,31 @@ function importProgress(file){
     const d=JSON.parse(r.result); const st=d.state||d;
     if(!st||typeof st!=="object"||(!st.cards&&!st.settings&&!st.daily)){ toast("올바른 백업 파일이 아니에요"); return; }
     if(!confirm("이 백업으로 현재 기기의 진도를 덮어씁니다. 계속할까요?")) return;
-    localStorage.setItem(LS.state, JSON.stringify(st));
-    if(d.code) localStorage.setItem(LS.code, d.code);
+    // The old page's delayed save/pagehide handlers must not overwrite the
+    // imported snapshot during the short reload handoff. Commit both storage
+    // values before deleting the old emergency checkpoint; roll back a partial
+    // quota/storage failure so ordinary saving can continue.
+    const oldState=state,oldFeed=synFeed,oldStateRaw=localStorage.getItem(LS.state),oldCodeRaw=localStorage.getItem(LS.code),oldImportRaw=localStorage.getItem(LS.import);
+    const targetCode=String(d.code||boundSyncCode()),importMark=JSON.stringify({v:1,code:targetCode,nonce:Date.now()+":"+Math.random().toString(36).slice(2)});
+    suppressPersistenceForReload=true; clearTimeout(saveTimer); saveTimer=null; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0;
+    clearTimeout(pullRetryTimer); pullRetryTimer=null;
+    try{ localStorage.setItem(LS.import,importMark); localStorage.setItem(LS.state,JSON.stringify(st)); if(d.code) localStorage.setItem(LS.code,d.code); }
+    catch(e){ try{ if(oldStateRaw==null) localStorage.removeItem(LS.state); else localStorage.setItem(LS.state,oldStateRaw);
+        if(oldCodeRaw==null) localStorage.removeItem(LS.code); else localStorage.setItem(LS.code,oldCodeRaw);
+        if(oldImportRaw==null) localStorage.removeItem(LS.import); else localStorage.setItem(LS.import,oldImportRaw); }catch{}
+      state=oldState; synFeed=oldFeed; suppressPersistenceForReload=false; saveLocal(false);
+      if(sb&&!syncReady) schedulePullRetry(); else if(sb&&hasPendingPush()) schedulePush(0); throw e; }
+    state=st; synFeed=null; clearSynFeedEmergency(targetCode);
     toast("복원 완료 — 새로고침합니다"); setTimeout(()=>location.reload(),700);
-  }catch(e){ console.error(e); toast("복원 실패: 파일을 읽을 수 없어요"); } };
+  }catch(e){ console.error(e); toast("복원 실패: 백업 파일과 브라우저 저장 공간을 확인해 주세요"); } };
   r.readAsText(file);
 }
 async function forceUpdate(){
   toast("최신 버전을 받는 중…");
   try{
+    if(synFeed){ synFeedSave(true,false,false); flushSynFeedKeepalive(); }
+    saveNow();
+    if(sb&&syncReady&&hasPendingPush()) await Promise.race([flushPush(),new Promise(resolve=>setTimeout(resolve,1800))]);
     if("serviceWorker" in navigator){
       const regs=await navigator.serviceWorker.getRegistrations();
       await Promise.all(regs.map(r=>r.unregister()));
@@ -5352,7 +5575,7 @@ async function boot(){
       return;
     }
     WMAP=new Map(WORDS.map(w=>[w.id,w]));
-    refreshSynFeedSession(); // validate the persisted checkpoint now that word data exists
+    refreshSynFeedSession(); compactSynFeedReplicas(); saveNow(); // 데이터 변경에도 가장 먼 유효 checkpoint 복구
     buildRootIndex();
     ANALOGIES=await loadJSON("./analogies.json")||[];
     READING=await loadJSON("./reading.json")||[];
