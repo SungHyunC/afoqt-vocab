@@ -1,0 +1,441 @@
+{
+  "version": 1,
+  "section": "AR",
+  "notice": "Barron 계열 및 실제 AFOQT 산술 추론의 문장 길이, 유형 분포, 난이도 흐름과 다단계 풀이 방식을 참고해 문장, 인물, 상황, 수치, 선택지와 해설을 모두 새로 만든 독립 모의 세트입니다. 원문 문제를 복제하거나 재현하지 않습니다.",
+  "sets": [
+    {
+      "id": "realistic_01",
+      "name": "Realistic Full-Section Set 01",
+      "name_ko": "실전형 전체 섹션 SET 01",
+      "description": "짧은 워밍업과 긴 문장형, 1~3단계 계산을 섞은 Arithmetic Reasoning 25문항 고정 세트",
+      "timeSeconds": 1740,
+      "questions": [
+        {
+          "id": "bmd_ar_full_01_01",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "direct_discount_amount",
+          "q": "A jacket originally priced at $240 is discounted 25 percent. How much is the discount?",
+          "q_ko": "원래 가격이 $240인 재킷을 25% 할인한다. 할인액은 얼마인가?",
+          "options": [
+            "$45",
+            "$50",
+            "$60",
+            "$72",
+            "$180"
+          ],
+          "answer": 2,
+          "explain": "할인액은 원래 가격의 25%이므로 $240×0.25=$60이다."
+        },
+        {
+          "id": "bmd_ar_full_01_02",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "percent_then_remainder",
+          "q": "A squadron sells 240 meal tickets during a fundraiser. Adult volunteers buy 35 percent of them. How many tickets do other people buy?",
+          "q_ko": "한 비행대가 모금 행사에서 식권 240장을 판매한다. 성인 자원봉사자들이 그중 35%를 샀다면, 다른 사람들이 산 식권은 몇 장인가?",
+          "options": [
+            "156 tickets",
+            "84 tickets",
+            "144 tickets",
+            "168 tickets",
+            "204 tickets"
+          ],
+          "answer": 0,
+          "explain": "성인 자원봉사자가 구매한 수는 240×0.35=84장이다. 따라서 나머지 사람들이 구매한 수는 240-84=156장이다."
+        },
+        {
+          "id": "bmd_ar_full_01_03",
+          "section": "AR",
+          "typeId": "rate_time",
+          "topic": "distance_rate_time",
+          "q": "A patrol vehicle travels at 52 miles per hour for 2 hours 15 minutes without stopping. How far does it travel?",
+          "q_ko": "순찰 차량이 정차하지 않고 2시간 15분 동안 시속 52마일로 주행한다. 이동한 거리는 몇 마일인가?",
+          "options": [
+            "104 miles",
+            "112 miles",
+            "114 miles",
+            "120 miles",
+            "117 miles"
+          ],
+          "answer": 4,
+          "explain": "15분은 0.25시간이므로 주행 시간은 2.25시간이다. 거리=속력×시간=52×2.25=117마일이다."
+        },
+        {
+          "id": "bmd_ar_full_01_04",
+          "section": "AR",
+          "typeId": "ratio_scale",
+          "topic": "part_to_whole_ratio",
+          "q": "First-aid boxes and repair boxes are stored in a 5:3 ratio. If there are 144 boxes, how many are repair boxes?",
+          "q_ko": "구급 상자와 수리 상자를 5:3의 비율로 보관한다. 상자가 144개라면 수리 상자는 몇 개인가?",
+          "options": [
+            "45 boxes",
+            "54 boxes",
+            "60 boxes",
+            "72 boxes",
+            "90 boxes"
+          ],
+          "answer": 1,
+          "explain": "비율의 전체 단위 수는 5+3=8이다. 한 단위는 144÷8=18개이므로 수리 상자는 3×18=54개이다."
+        },
+        {
+          "id": "bmd_ar_full_01_05",
+          "section": "AR",
+          "typeId": "averages_totals",
+          "topic": "simple_average",
+          "q": "A clerk processes 46, 51, 43, and 52 travel vouchers in four hours. What is the average number processed per hour?",
+          "q_ko": "한 서기가 4시간 동안 각각 46장, 51장, 43장, 52장의 출장 전표를 처리했다. 시간당 평균 처리량은 얼마인가?",
+          "options": [
+            "46 vouchers",
+            "47 vouchers",
+            "49 vouchers",
+            "48 vouchers",
+            "50 vouchers"
+          ],
+          "answer": 3,
+          "explain": "처리한 전표의 합은 46+51+43+52=192장이다. 4시간의 평균은 192÷4=48장이다."
+        },
+        {
+          "id": "bmd_ar_full_01_06",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "markup_then_discount",
+          "q": "A base exchange marks up a $480 field radio by 25 percent. During a sale, the marked price is discounted 15 percent. What is the price before tax?",
+          "q_ko": "기지 매점이 $480짜리 야전 무전기에 25%의 마진을 붙인다. 할인 행사에서 표시 가격을 15% 할인한다면 세전 가격은 얼마인가?",
+          "options": [
+            "$495",
+            "$510",
+            "$528",
+            "$540",
+            "$552"
+          ],
+          "answer": 1,
+          "explain": "표시 가격은 480×1.25=$600이다. 여기에 15% 할인을 적용하면 600×0.85=$510이다."
+        },
+        {
+          "id": "bmd_ar_full_01_07",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "discount_then_coupon",
+          "q": "Before a base bookstore's holiday sale, a flight manual is priced at $68. The store reduces the price by 15 percent, and an employee then applies a $6 coupon. What price does the employee pay before tax?",
+          "q_ko": "기지 서점의 연휴 할인 전에 비행 교범 가격은 $68이다. 서점이 가격을 15% 할인하고 직원이 이어서 $6 쿠폰을 사용한다면 세전 지불액은 얼마인가?",
+          "options": [
+            "$47.60",
+            "$51.20",
+            "$52.00",
+            "$57.80",
+            "$51.80"
+          ],
+          "answer": 4,
+          "explain": "15% 할인액은 68×0.15=$10.20이므로 할인가는 $57.80이다. 쿠폰 $6를 더 빼면 $57.80-$6=$51.80이다."
+        },
+        {
+          "id": "bmd_ar_full_01_08",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "sales_commission",
+          "q": "A ticket agent earns a 6 percent commission on $4,750 in sales. How much commission does the agent earn?",
+          "q_ko": "한 표 판매원이 $4,750의 매출에 대해 6%의 수수료를 받는다. 수수료는 얼마인가?",
+          "options": [
+            "$240",
+            "$270",
+            "$285",
+            "$300",
+            "$315"
+          ],
+          "answer": 2,
+          "explain": "수수료는 매출의 6%이므로 $4,750×0.06=$285이다."
+        },
+        {
+          "id": "bmd_ar_full_01_09",
+          "section": "AR",
+          "typeId": "rate_time",
+          "topic": "two_leg_travel_time",
+          "q": "A shuttle must travel 168 miles. It covers the first 72 miles at 48 miles per hour and the remaining distance at 64 miles per hour. How long does the entire trip take?",
+          "q_ko": "셔틀버스가 총 168마일을 이동해야 한다. 처음 72마일은 시속 48마일로, 나머지 거리는 시속 64마일로 이동한다면 전체 이동 시간은 얼마인가?",
+          "options": [
+            "3 hours",
+            "2 hours 45 minutes",
+            "3 hours 15 minutes",
+            "3 hours 30 minutes",
+            "4 hours"
+          ],
+          "answer": 0,
+          "explain": "첫 구간 시간은 72÷48=1.5시간이다. 남은 거리는 168-72=96마일이고, 둘째 구간 시간은 96÷64=1.5시간이다. 합계는 3시간이다."
+        },
+        {
+          "id": "bmd_ar_full_01_10",
+          "section": "AR",
+          "typeId": "ratio_scale",
+          "topic": "three_way_distribution",
+          "q": "A fund of $18,900 is divided among operations, training, and outreach in the ratio 7:5:3. How much is assigned to training?",
+          "q_ko": "기금 $18,900을 운영, 훈련, 대외 활동에 7:5:3의 비율로 나눈다. 훈련에 배정되는 금액은 얼마인가?",
+          "options": [
+            "$3,780",
+            "$5,040",
+            "$5,670",
+            "$6,300",
+            "$8,820"
+          ],
+          "answer": 3,
+          "explain": "비율의 합은 7+5+3=15이고 훈련 몫은 5/15이다. 따라서 18,900×5/15=$6,300이다."
+        },
+        {
+          "id": "bmd_ar_full_01_11",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "overtime_and_deduction",
+          "q": "A technician earns $19.20 per hour for 40 regular hours and one and one-half times that rate for 6 overtime hours. If $86 is deducted from the gross pay, what is the technician's take-home pay?",
+          "q_ko": "한 기술자가 정규 근무 40시간에는 시간당 $19.20을 받고, 초과근무 6시간에는 그 시급의 1.5배를 받는다. 총급여에서 $86가 공제된다면 실수령액은 얼마인가?",
+          "options": [
+            "$768.00",
+            "$796.80",
+            "$835.20",
+            "$940.80",
+            "$854.80"
+          ],
+          "answer": 4,
+          "explain": "정규 급여는 40×19.20=$768.00이다. 초과근무 급여는 6×(19.20×1.5)=$172.80이므로 총급여는 $940.80이다. 공제 후 금액은 940.80-86=$854.80이다."
+        },
+        {
+          "id": "bmd_ar_full_01_12",
+          "section": "AR",
+          "typeId": "units_measure",
+          "topic": "weight_conversion_then_subtract",
+          "q": "A truck carries 3 tons 480 pounds. After 1,250 pounds are unloaded, how many pounds remain? Use 2,000 pounds per ton.",
+          "q_ko": "트럭에 3톤 480파운드가 실려 있다. 1,250파운드를 내린 뒤 몇 파운드가 남는가? 1톤은 2,000파운드로 계산한다.",
+          "options": [
+            "4,750 pounds",
+            "4,980 pounds",
+            "5,150 pounds",
+            "5,230 pounds",
+            "5,480 pounds"
+          ],
+          "answer": 3,
+          "explain": "처음 무게는 3×2,000+480=6,480파운드이다. 1,250파운드를 내리면 6,480-1,250=5,230파운드가 남는다."
+        },
+        {
+          "id": "bmd_ar_full_01_13",
+          "section": "AR",
+          "typeId": "averages_totals",
+          "topic": "missing_value_from_average",
+          "q": "The average duration of six equipment inspections is 74 minutes. The first five inspections take 68, 77, 71, 83, and 72 minutes. How long does the sixth inspection take?",
+          "q_ko": "장비 점검 6회의 평균 소요 시간이 74분이다. 처음 5회의 소요 시간이 각각 68분, 77분, 71분, 83분, 72분이라면 여섯 번째 점검은 몇 분 걸렸는가?",
+          "options": [
+            "71 minutes",
+            "73 minutes",
+            "74 minutes",
+            "76 minutes",
+            "78 minutes"
+          ],
+          "answer": 1,
+          "explain": "6회의 총시간은 74×6=444분이다. 처음 5회의 합은 68+77+71+83+72=371분이므로 여섯 번째 시간은 444-371=73분이다."
+        },
+        {
+          "id": "bmd_ar_full_01_14",
+          "section": "AR",
+          "typeId": "applied_geometry",
+          "topic": "area_less_openings_coverage",
+          "q": "A rectangular hangar wall is 48 feet long and 18 feet high. Two doors, each 12 feet by 10 feet, will not be painted. If one gallon covers 104 square feet, how many gallons are needed?",
+          "q_ko": "직사각형 격납고 벽은 길이 48피트, 높이 18피트이다. 각각 12피트×10피트인 문 2개는 칠하지 않는다. 페인트 1갤런으로 104제곱피트를 칠할 수 있다면 몇 갤런이 필요한가?",
+          "options": [
+            "6 gallons",
+            "7 gallons",
+            "8 gallons",
+            "9 gallons",
+            "10 gallons"
+          ],
+          "answer": 0,
+          "explain": "벽 전체 면적은 48×18=864제곱피트이고, 두 문의 면적은 2×12×10=240제곱피트이다. 칠할 면적은 864-240=624제곱피트이므로 624÷104=6갤런이 필요하다."
+        },
+        {
+          "id": "bmd_ar_full_01_15",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "budget_percentage",
+          "q": "A department sets aside 17 percent of its $8,400 monthly operating budget for replacement supplies. How much money is set aside for those supplies during the month?",
+          "q_ko": "한 부서가 월 운영 예산 $8,400의 17%를 교체용 보급품에 배정한다. 그 달에 해당 보급품에 배정되는 금액은 얼마인가?",
+          "options": [
+            "$1,260",
+            "$1,344",
+            "$1,428",
+            "$1,512",
+            "$6,972"
+          ],
+          "answer": 2,
+          "explain": "배정액은 월 예산의 17%이므로 $8,400×0.17=$1,428이다."
+        },
+        {
+          "id": "bmd_ar_full_01_16",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "reverse_budget_after_costs",
+          "q": "A club spends 18 percent of its original grant on administrative costs and then spends $1,260 on equipment. If $5,300 remains after both expenses, what was the original grant?",
+          "q_ko": "한 동아리가 원래 지원금의 18%를 행정 비용으로 쓰고, 이어서 장비에 $1,260을 쓴다. 두 비용을 모두 지출한 뒤 $5,300이 남았다면 원래 지원금은 얼마였는가?",
+          "options": [
+            "$8,000",
+            "$7,680",
+            "$7,820",
+            "$8,560",
+            "$9,260"
+          ],
+          "answer": 0,
+          "explain": "원래 지원금을 G라고 하면 행정 비용 후에는 0.82G가 남는다. 0.82G-1,260=5,300이므로 0.82G=6,560이고, G=6,560÷0.82=$8,000이다."
+        },
+        {
+          "id": "bmd_ar_full_01_17",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "split_rates_pay",
+          "q": "During one workweek, Ramon earns $18.50 per hour for 34 regular hours and $27.75 per hour for 5 overtime hours. What is his total pay before deductions?",
+          "q_ko": "한 주 동안 Ramon은 정규 근무 34시간에 시간당 $18.50을 받고, 초과근무 5시간에 시간당 $27.75를 받는다. 공제 전 총급여는 얼마인가?",
+          "options": [
+            "$629.00",
+            "$740.00",
+            "$767.75",
+            "$786.25",
+            "$906.50"
+          ],
+          "answer": 2,
+          "explain": "정규 급여는 34×$18.50=$629.00이고 초과근무 급여는 5×$27.75=$138.75이다. 합계는 $629.00+$138.75=$767.75이다."
+        },
+        {
+          "id": "bmd_ar_full_01_18",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "sales_tax_total",
+          "q": "A repair shop charges $365 for an equipment rental before tax. If the local sales-tax rate is 8 percent, what total amount must the customer pay?",
+          "q_ko": "수리점에서 장비 대여료로 세전 $365를 청구한다. 지역 판매세율이 8%라면 고객이 지불해야 할 총액은 얼마인가?",
+          "options": [
+            "$29.20",
+            "$373.00",
+            "$386.80",
+            "$394.20",
+            "$423.40"
+          ],
+          "answer": 3,
+          "explain": "세금을 포함한 총액은 세전 가격의 108%이므로 $365×1.08=$394.20이다."
+        },
+        {
+          "id": "bmd_ar_full_01_19",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "salary_plus_commission",
+          "q": "During a regional sales campaign, a representative receives a fixed weekly salary of $620 plus a 4 percent commission on $18,750 in completed orders. No other bonuses or deductions apply. What is the representative's total pay for the week?",
+          "q_ko": "지역 판매 행사 동안 한 판매원은 고정 주급 $620과 완료된 주문 $18,750의 4%를 수수료로 받는다. 다른 보너스나 공제는 없다. 그 주의 총급여는 얼마인가?",
+          "options": [
+            "$750",
+            "$1,120",
+            "$1,250",
+            "$1,500",
+            "$1,370"
+          ],
+          "answer": 4,
+          "explain": "수수료는 $18,750×0.04=$750이다. 고정 주급을 더하면 총급여는 $620+$750=$1,370이다."
+        },
+        {
+          "id": "bmd_ar_full_01_20",
+          "section": "AR",
+          "typeId": "rate_time",
+          "topic": "two_speed_fuel_with_reserve",
+          "q": "An aircraft flies the first 120 miles of a 360-mile trip at 120 mph and the rest at 160 mph. It burns 18 gallons per hour and must land with a 12-gallon reserve. How much fuel is required at departure?",
+          "q_ko": "항공기가 총 360마일 중 처음 120마일은 시속 120마일로, 나머지는 시속 160마일로 비행한다. 시간당 18갤런을 소모하고 12갤런을 남겨 착륙해야 한다면 출발 시 필요한 연료는 얼마인가?",
+          "options": [
+            "45 gallons",
+            "57 gallons",
+            "60 gallons",
+            "63 gallons",
+            "75 gallons"
+          ],
+          "answer": 1,
+          "explain": "첫 구간은 120÷120=1시간, 나머지 240마일은 240÷160=1.5시간이므로 총 2.5시간이다. 사용 연료는 2.5×18=45갤런이고 예비 연료 12갤런을 더하면 57갤런이다."
+        },
+        {
+          "id": "bmd_ar_full_01_21",
+          "section": "AR",
+          "typeId": "percent_money",
+          "topic": "bulk_discount_shipping",
+          "q": "A training center orders 45 workbooks at $16 each for an upcoming course. The supplier discounts the merchandise total by 10 percent, then adds a flat $28 shipping charge. What final amount does the center pay?",
+          "q_ko": "한 훈련 센터가 예정된 과정을 위해 권당 $16인 교재 45권을 주문한다. 공급업체가 상품 총액을 10% 할인한 뒤 배송료 $28을 더한다면 센터가 지불할 최종 금액은 얼마인가?",
+          "options": [
+            "$648",
+            "$664",
+            "$668",
+            "$676",
+            "$720"
+          ],
+          "answer": 3,
+          "explain": "상품 총액은 45×$16=$720이고 10% 할인 후에는 $720×0.90=$648이다. 배송료를 더하면 $648+$28=$676이다."
+        },
+        {
+          "id": "bmd_ar_full_01_22",
+          "section": "AR",
+          "typeId": "averages_totals",
+          "topic": "weighted_group_average",
+          "q": "In one training class, 18 cadets average 84 points on a test. In another class, 12 cadets average 76 points. What is the average score for all 30 cadets combined?",
+          "q_ko": "한 훈련반에서 사관후보생 18명의 시험 평균은 84점이고, 다른 반에서 12명의 평균은 76점이다. 전체 30명의 합산 평균 점수는 얼마인가?",
+          "options": [
+            "79.2 points",
+            "80.8 points",
+            "81.0 points",
+            "82.0 points",
+            "83.2 points"
+          ],
+          "answer": 1,
+          "explain": "첫 반의 총점은 18×84=1,512점이고 둘째 반은 12×76=912점이다. 합계 2,424점을 30명으로 나누면 2,424÷30=80.8점이다."
+        },
+        {
+          "id": "bmd_ar_full_01_23",
+          "section": "AR",
+          "typeId": "applied_geometry",
+          "topic": "volume_containers_total_cost",
+          "q": "A rectangular excavation is 16 feet long, 9 feet wide, and 2.5 feet deep. Gravel is sold in containers holding 12 cubic feet each, at $27.50 per container. What will it cost to fill the excavation completely?",
+          "q_ko": "직육면체 모양의 굴착부는 길이 16피트, 너비 9피트, 깊이 2.5피트이다. 자갈은 한 통에 12세제곱피트씩, 통당 $27.50에 판매된다. 굴착부를 완전히 채우는 비용은 얼마인가?",
+          "options": [
+            "$825.00",
+            "$742.50",
+            "$792.00",
+            "$900.00",
+            "$990.00"
+          ],
+          "answer": 0,
+          "explain": "굴착부 부피는 16×9×2.5=360세제곱피트이다. 필요한 통 수는 360÷12=30통이고, 비용은 30×$27.50=$825.00이다."
+        },
+        {
+          "id": "bmd_ar_full_01_24",
+          "section": "AR",
+          "typeId": "ratio_scale",
+          "topic": "ratio_share_then_fraction_removed",
+          "q": "Medical, food, and radio supplies weigh 672 pounds in a 4:7:3 ratio. If 2/7 of the food is transferred, how many pounds of food remain?",
+          "q_ko": "의료품, 식량, 무전 장비의 무게 합계가 672파운드이고 비율은 4:7:3이다. 식량의 2/7를 옮겼다면 몇 파운드가 남는가?",
+          "options": [
+            "192 pounds",
+            "216 pounds",
+            "224 pounds",
+            "288 pounds",
+            "240 pounds"
+          ],
+          "answer": 4,
+          "explain": "비율의 합은 14이고 식량의 처음 무게는 672×7/14=336파운드이다. 2/7를 옮기면 5/7가 남으므로 336×5/7=240파운드이다."
+        },
+        {
+          "id": "bmd_ar_full_01_25",
+          "section": "AR",
+          "typeId": "averages_totals",
+          "topic": "simple_average",
+          "q": "Over five consecutive weeks, a pilot records 14, 18, 16, 20, and 17 hours of flight time in a training log. If the weekly entries are weighted equally, what is the average number of flight hours recorded per week?",
+          "q_ko": "한 조종사가 연속 5주 동안 훈련 기록에 비행시간을 각각 14시간, 18시간, 16시간, 20시간, 17시간으로 적었다. 각 주를 동일하게 반영할 때 주당 평균 비행시간은 얼마인가?",
+          "options": [
+            "15 hours",
+            "16 hours",
+            "17 hours",
+            "18 hours",
+            "19 hours"
+          ],
+          "answer": 2,
+          "explain": "5주간 총 비행시간은 14+18+16+20+17=85시간이다. 주당 평균은 85÷5=17시간이다."
+        }
+      ]
+    }
+  ]
+}

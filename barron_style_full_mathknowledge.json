@@ -1,0 +1,291 @@
+{
+  "version": 1,
+  "section": "MK",
+  "notice": "Barron 모의고사의 출제 범위, 문장 길이, 난이도 흐름을 분석해 새로 제작한 독립 실전 문항입니다. 원문 문장, 수치, 선지는 복제하지 않았습니다.",
+  "sets": [
+    {
+      "id": "realistic_01",
+      "name": "Realistic Full-Section Set 01",
+      "name_ko": "실전형 전체 섹션 SET 01",
+      "description": "기초 수 감각에서 대수와 기하를 거쳐 후반 다단계 응용으로 이어지는 고정 25문항 세트",
+      "timeSeconds": 1320,
+      "questions": [
+        {
+          "id": "bmd_mk_full_01_01",
+          "section": "MK",
+          "typeId": "exponents_numbers",
+          "topic": "Factorials",
+          "q": "A cadet reduces the factorial expression 6!/(4! · 2!). Which result is correct?",
+          "q_ko": "한 생도가 계승식 6!/(4! · 2!)을 계산하려고 한다. 올바른 결과는?",
+          "options": ["30", "12", "15", "6", "24"],
+          "answer": 2,
+          "explain": "6! = 6 · 5 · 4!이므로 6!/(4! · 2!) = (6 · 5)/2 = 15이다."
+        },
+        {
+          "id": "bmd_mk_full_01_02",
+          "section": "MK",
+          "typeId": "exponents_numbers",
+          "topic": "Reciprocals",
+          "q": "The product of a nonzero number n and −3/8 is 1. What is n?",
+          "q_ko": "0이 아닌 수 n과 −3/8의 곱이 1일 때, n의 값은?",
+          "options": ["−8/3", "8/3", "−3/8", "3/8", "−24"],
+          "answer": 0,
+          "explain": "(−3/8)n = 1의 양변에 −8/3을 곱하면 n = −8/3이다. 서로 곱해 1이 되는 두 수는 서로의 역수이다."
+        },
+        {
+          "id": "bmd_mk_full_01_03",
+          "section": "MK",
+          "typeId": "exponents_numbers",
+          "topic": "Decimal Place Value",
+          "q": "In the decimal 47.0635, what value does the digit 6 represent?",
+          "q_ko": "소수 47.0635에서 숫자 6이 나타내는 값은?",
+          "options": ["0.6", "0.006", "6", "0.0006", "0.06"],
+          "answer": 4,
+          "explain": "소수점 오른쪽 첫째 자리는 소수 첫째 자리, 둘째 자리는 소수 둘째 자리이다. 6은 소수 둘째 자리에 있으므로 6/100 = 0.06을 나타낸다."
+        },
+        {
+          "id": "bmd_mk_full_01_04",
+          "section": "MK",
+          "typeId": "exponents_numbers",
+          "topic": "Prime Factorization",
+          "q": "Which expression is the complete prime factorization of 756?",
+          "q_ko": "756을 완전히 소인수분해한 식은?",
+          "options": ["2 · 3³ · 14", "2² · 3³ · 7", "2² · 3² · 7", "2³ · 3³ · 7", "2² · 3 · 7²"],
+          "answer": 1,
+          "explain": "756을 2로 두 번 나누면 189이고, 189 = 3³ · 7이다. 따라서 756 = 2² · 3³ · 7이며 모든 인수가 소수이다."
+        },
+        {
+          "id": "bmd_mk_full_01_05",
+          "section": "MK",
+          "typeId": "equations_inequalities",
+          "topic": "Linear Equations",
+          "q": "If 4(2x − 3) = 5x + 18, what is the value of x?",
+          "q_ko": "4(2x − 3) = 5x + 18일 때, x의 값은?",
+          "options": ["−10", "2", "6", "10", "18"],
+          "answer": 3,
+          "explain": "왼쪽을 전개하면 8x − 12 = 5x + 18이다. 양변을 정리하면 3x = 30이므로 x = 10이다."
+        },
+        {
+          "id": "bmd_mk_full_01_06",
+          "section": "MK",
+          "typeId": "algebra_expressions",
+          "topic": "Formula Evaluation",
+          "q": "A maintenance formula is C = 3r² − 2rs + s². What is C when r = −2 and s = 5?",
+          "q_ko": "정비 계산식이 C = 3r² − 2rs + s²일 때, r = −2이고 s = 5이면 C의 값은?",
+          "options": ["37", "57", "−33", "17", "45"],
+          "answer": 1,
+          "explain": "r² = 4, rs = −10, s² = 25이다. 대입하면 C = 3(4) − 2(−10) + 25 = 12 + 20 + 25 = 57이다."
+        },
+        {
+          "id": "bmd_mk_full_01_07",
+          "section": "MK",
+          "typeId": "equations_inequalities",
+          "topic": "Systems of Equations",
+          "q": "If x + y = 17 and 2x − y = 7, what is the value of x?",
+          "q_ko": "x + y = 17이고 2x − y = 7일 때, x의 값은?",
+          "options": ["5", "7", "9", "10", "8"],
+          "answer": 4,
+          "explain": "두 식을 더하면 y가 소거되어 3x = 24가 된다. 따라서 x = 8이다."
+        },
+        {
+          "id": "bmd_mk_full_01_08",
+          "section": "MK",
+          "typeId": "exponents_numbers",
+          "topic": "Square Root Estimation",
+          "q": "Between which two consecutive integers does √135 lie?",
+          "q_ko": "√135는 어떤 연속된 두 정수 사이에 있는가?",
+          "options": ["9 and 10", "10 and 11", "11 and 12", "12 and 13", "13 and 14"],
+          "answer": 2,
+          "explain": "11² = 121이고 12² = 144이다. 121 < 135 < 144이므로 11 < √135 < 12이다."
+        },
+        {
+          "id": "bmd_mk_full_01_09",
+          "section": "MK",
+          "typeId": "exponents_numbers",
+          "topic": "Exponent Rules",
+          "q": "For nonzero x and y, simplify (x³y⁻²)²/(x⁻¹y).",
+          "q_ko": "x와 y가 0이 아닐 때, (x³y⁻²)²/(x⁻¹y)를 간단히 하면?",
+          "options": ["x⁷/y⁵", "x⁵/y³", "x⁶/y⁵", "x⁷/y³", "x⁵/y⁵"],
+          "answer": 0,
+          "explain": "분자는 x⁶y⁻⁴이다. x⁻¹y로 나누면 지수를 빼서 x^(6−(−1))y^(−4−1) = x⁷y⁻⁵ = x⁷/y⁵이다."
+        },
+        {
+          "id": "bmd_mk_full_01_10",
+          "section": "MK",
+          "typeId": "equations_inequalities",
+          "topic": "Quadratic Equations",
+          "q": "One solution of x² − kx − 18 = 0 is x = 6. What is the value of k?",
+          "q_ko": "x² − kx − 18 = 0의 한 해가 x = 6일 때, k의 값은?",
+          "options": ["−6", "−3", "0", "3", "6"],
+          "answer": 3,
+          "explain": "x = 6을 대입하면 36 − 6k − 18 = 0이다. 따라서 18 − 6k = 0, 6k = 18이므로 k = 3이다."
+        },
+        {
+          "id": "bmd_mk_full_01_11",
+          "section": "MK",
+          "typeId": "factoring_polynomials",
+          "topic": "Polynomial Division",
+          "q": "The polynomial x³ − 4x² − 7x + 10 has x − 1 as a factor. When that factor is removed, which quadratic factor remains?",
+          "q_ko": "다항식 x³ − 4x² − 7x + 10은 x − 1을 인수로 갖는다. 이 인수를 제외했을 때 남는 이차식 인수는?",
+          "options": ["x² − 5x − 10", "x² − 3x + 10", "x² + 3x − 10", "x² − 4x − 10", "x² − 3x − 10"],
+          "answer": 4,
+          "explain": "x³ − 4x² − 7x + 10을 x − 1로 조립제법하면 계수 1, −4, −7, 10이 차례로 1, −3, −10, 나머지 0이 된다. 따라서 몫이자 남는 인수는 x² − 3x − 10이다."
+        },
+        {
+          "id": "bmd_mk_full_01_12",
+          "section": "MK",
+          "typeId": "factoring_polynomials",
+          "topic": "Greatest Common Monomial Factor",
+          "q": "What is the greatest common monomial factor of 18a³b², 30a²b⁴, and 42a⁴b?",
+          "q_ko": "18a³b², 30a²b⁴, 42a⁴b의 최대공약단항식은?",
+          "options": ["6ab", "6a²b", "3a²b²", "6a²b²", "12a²b"],
+          "answer": 1,
+          "explain": "계수 18, 30, 42의 최대공약수는 6이다. 공통 문자에서는 가장 작은 지수를 택하므로 a는 a², b는 b¹이다. 따라서 최대공약단항식은 6a²b이다."
+        },
+        {
+          "id": "bmd_mk_full_01_13",
+          "section": "MK",
+          "typeId": "equations_inequalities",
+          "topic": "Linear Inequalities",
+          "q": "Which inequality describes all solutions of 3 − 2(4x − 1) ≤ 15?",
+          "q_ko": "부등식 3 − 2(4x − 1) ≤ 15의 모든 해를 나타낸 것은?",
+          "options": ["x ≤ −5/4", "x > −5/4", "x ≤ 5/4", "x ≥ −5/4", "x ≥ −10"],
+          "answer": 3,
+          "explain": "전개하면 5 − 8x ≤ 15이고, 따라서 −8x ≤ 10이다. 음수 −8로 나누면 부등호 방향이 바뀌어 x ≥ −10/8 = −5/4이다."
+        },
+        {
+          "id": "bmd_mk_full_01_14",
+          "section": "MK",
+          "typeId": "plane_geometry",
+          "topic": "Regular Polygons",
+          "q": "A floor is covered with tiles shaped like regular hexagons. What is the measure of each interior angle of one tile?",
+          "q_ko": "바닥을 정육각형 모양의 타일로 덮으려고 한다. 타일 하나의 각 내각의 크기는?",
+          "options": ["120°", "60°", "108°", "135°", "150°"],
+          "answer": 0,
+          "explain": "정n각형의 한 내각은 (n − 2) · 180°/n이다. n = 6이면 4 · 180°/6 = 120°이다."
+        },
+        {
+          "id": "bmd_mk_full_01_15",
+          "section": "MK",
+          "typeId": "plane_geometry",
+          "topic": "Triangle Angles",
+          "q": "An isosceles triangle has a vertex angle of 38°. One of its equal sides is extended past a base vertex. What is the exterior angle formed there?",
+          "q_ko": "이등변삼각형의 꼭지각이 38°이다. 같은 길이인 두 변 중 하나를 밑각의 꼭짓점 너머로 연장했을 때, 그곳에 생기는 외각의 크기는?",
+          "options": ["71°", "90°", "109°", "142°", "152°"],
+          "answer": 2,
+          "explain": "두 밑각은 같으므로 각각 (180° − 38°)/2 = 71°이다. 밑각과 이웃한 외각은 보각이므로 180° − 71° = 109°이다."
+        },
+        {
+          "id": "bmd_mk_full_01_16",
+          "section": "MK",
+          "typeId": "plane_geometry",
+          "topic": "Arc Length",
+          "q": "A circular antenna dish has a diameter of 18 inches. If exactly one-fourth of its outer rim must be replaced, what length of rim is needed?",
+          "q_ko": "원형 안테나 접시의 지름이 18인치이다. 바깥 테두리의 정확히 1/4을 교체하려면 필요한 테두리의 길이는?",
+          "options": ["9π/2 inches", "9π inches", "18π inches", "3π/2 inches", "81π/4 inches"],
+          "answer": 0,
+          "explain": "원의 둘레는 πd = 18π인치이다. 그중 1/4은 (1/4)(18π) = 9π/2인치이다."
+        },
+        {
+          "id": "bmd_mk_full_01_17",
+          "section": "MK",
+          "typeId": "plane_geometry",
+          "topic": "Coordinate Area",
+          "q": "On a coordinate map, a triangular restricted zone has vertices at (−2, 1), (6, 1), and (1, 5). What is the area of the zone?",
+          "q_ko": "좌표 지도에서 삼각형 모양의 제한 구역의 세 꼭짓점이 (−2, 1), (6, 1), (1, 5)에 있다. 이 구역의 넓이는?",
+          "options": ["8 square units", "12 square units", "14 square units", "16 square units", "20 square units"],
+          "answer": 3,
+          "explain": "(−2, 1)과 (6, 1)을 잇는 수평선을 밑변으로 잡으면 길이는 8이다. 세 번째 꼭짓점 (1, 5)에서 y = 1인 밑변까지의 높이는 4이므로 넓이는 (1/2) · 8 · 4 = 16제곱단위이다."
+        },
+        {
+          "id": "bmd_mk_full_01_18",
+          "section": "MK",
+          "typeId": "plane_geometry",
+          "topic": "Pythagorean Theorem",
+          "q": "A rectangular display frame is 20 inches wide and 21 inches high. What is the length of a diagonal brace running from one corner to the opposite corner?",
+          "q_ko": "직사각형 전시 프레임의 너비가 20인치이고 높이가 21인치이다. 한 꼭짓점에서 맞은편 꼭짓점까지 설치하는 대각선 지지대의 길이는?",
+          "options": ["28 inches", "29 inches", "30 inches", "39 inches", "41 inches"],
+          "answer": 1,
+          "explain": "대각선 길이를 d라 하면 피타고라스 정리에 따라 d² = 20² + 21² = 400 + 441 = 841이다. 따라서 d = √841 = 29인치이다."
+        },
+        {
+          "id": "bmd_mk_full_01_19",
+          "section": "MK",
+          "typeId": "algebra_expressions",
+          "topic": "Expression Modeling",
+          "q": "A storage display has five rows of supply cases. The first row contains n cases, and each row below it contains 3 more cases than the row above. Which expression gives the total number of cases?",
+          "q_ko": "보급품 진열대에 상자가 5줄 놓여 있다. 첫째 줄에는 n개의 상자가 있고, 그 아래의 각 줄에는 바로 위 줄보다 상자가 3개씩 더 있다. 전체 상자 수를 나타내는 식은?",
+          "options": ["5n + 12", "5n + 15", "n + 30", "15n + 30", "5n + 30"],
+          "answer": 4,
+          "explain": "각 줄의 상자 수는 n, n + 3, n + 6, n + 9, n + 12이다. 이를 더하면 5n + (3 + 6 + 9 + 12) = 5n + 30이다."
+        },
+        {
+          "id": "bmd_mk_full_01_20",
+          "section": "MK",
+          "typeId": "solid_probability",
+          "topic": "Rectangular Prism Packing",
+          "q": "The inside of a rectangular shipping crate measures 24 inches by 18 inches by 15 inches. Identical boxes measuring 6 inches by 3 inches by 5 inches are packed with corresponding edges parallel. How many boxes fill the crate exactly?",
+          "q_ko": "직육면체 운송 상자의 내부 크기가 24인치 × 18인치 × 15인치이다. 6인치 × 3인치 × 5인치인 동일한 작은 상자를 각 대응 모서리가 평행하도록 넣을 때, 큰 상자를 빈틈없이 채우는 작은 상자의 수는?",
+          "options": ["48", "54", "72", "80", "90"],
+          "answer": 2,
+          "explain": "각 방향으로 들어가는 수는 24/6 = 4개, 18/3 = 6개, 15/5 = 3개이다. 따라서 전체는 4 · 6 · 3 = 72개이다."
+        },
+        {
+          "id": "bmd_mk_full_01_21",
+          "section": "MK",
+          "typeId": "solid_probability",
+          "topic": "Cylinder Volume",
+          "q": "A cylindrical tank has an inside radius of 6 feet and a height of 10 feet. If it is filled to 75% of its total capacity, what volume of liquid does it contain?",
+          "q_ko": "원기둥형 탱크의 내부 반지름이 6피트이고 높이가 10피트이다. 전체 용량의 75%까지 채웠다면 들어 있는 액체의 부피는?",
+          "options": ["90π cubic feet", "180π cubic feet", "240π cubic feet", "270π cubic feet", "360π cubic feet"],
+          "answer": 3,
+          "explain": "전체 부피는 πr²h = π(6²)(10) = 360π세제곱피트이다. 75%는 3/4이므로 액체 부피는 (3/4)(360π) = 270π세제곱피트이다."
+        },
+        {
+          "id": "bmd_mk_full_01_22",
+          "section": "MK",
+          "typeId": "solid_probability",
+          "topic": "Inclusive Probability",
+          "q": "One integer is selected at random from the integers 1 through 30. What is the probability that the selected integer is divisible by 4 or by 6?",
+          "q_ko": "1부터 30까지의 정수 중 하나를 무작위로 고른다. 선택한 정수가 4 또는 6으로 나누어떨어질 확률은?",
+          "options": ["2/15", "1/4", "1/3", "2/5", "1/2"],
+          "answer": 2,
+          "explain": "30 이하의 4의 배수는 7개, 6의 배수는 5개이다. 두 목록에 중복되는 12의 배수 2개를 한 번 빼면 유리한 정수는 7 + 5 − 2 = 10개이다. 확률은 10/30 = 1/3이다."
+        },
+        {
+          "id": "bmd_mk_full_01_23",
+          "section": "MK",
+          "typeId": "solid_probability",
+          "topic": "Combinations",
+          "q": "A training unit has 7 qualified instructors. How many different three-person review panels can be chosen if the order in which the instructors are selected does not matter?",
+          "q_ko": "한 훈련 부대에 자격을 갖춘 교관 7명이 있다. 선발 순서를 구분하지 않고 3명으로 구성된 심사조를 만들 수 있는 서로 다른 방법의 수는?",
+          "options": ["21", "28", "42", "210", "35"],
+          "answer": 4,
+          "explain": "순서를 구분하지 않으므로 조합을 사용한다. 7C3 = (7 · 6 · 5)/(3 · 2 · 1) = 35가지이다."
+        },
+        {
+          "id": "bmd_mk_full_01_24",
+          "section": "MK",
+          "typeId": "equations_inequalities",
+          "topic": "Mixture Equations",
+          "q": "A technician mixes a 30% cleaning solution with a 60% cleaning solution to prepare 18 liters of a 50% solution. How many liters of the 60% solution must be used?",
+          "q_ko": "기술자가 농도 30% 세척액과 농도 60% 세척액을 섞어 농도 50% 세척액 18리터를 만들려고 한다. 60% 세척액은 몇 리터가 필요한가?",
+          "options": ["6 liters", "12 liters", "8 liters", "10 liters", "14 liters"],
+          "answer": 1,
+          "explain": "60% 용액을 x리터라 하면 30% 용액은 18 − x리터이다. 0.60x + 0.30(18 − x) = 0.50(18)이므로 0.30x = 3.60, 따라서 x = 12리터이다."
+        },
+        {
+          "id": "bmd_mk_full_01_25",
+          "section": "MK",
+          "typeId": "plane_geometry",
+          "topic": "Composite Area",
+          "q": "A rectangular practice field has a length three times its width and a perimeter of 160 yards. A circular landing marker with radius 6 yards is painted entirely inside the field. What area of the field remains unpainted?",
+          "q_ko": "직사각형 연습장의 길이는 너비의 3배이고 둘레는 160야드이다. 반지름이 6야드인 원형 착륙 표지를 연습장 안에 완전히 칠했다면, 칠하지 않은 연습장의 넓이는?",
+          "options": ["1,200 − 36π square yards", "1,200 − 12π square yards", "600 − 36π square yards", "1,200 − 72π square yards", "600 − 18π square yards"],
+          "answer": 0,
+          "explain": "너비를 w라 하면 길이는 3w이고, 둘레는 2(3w + w) = 8w = 160이므로 w = 20, 길이는 60이다. 직사각형 넓이는 1,200이고 원의 넓이는 π(6²) = 36π이므로 남은 넓이는 1,200 − 36π제곱야드이다."
+        }
+      ]
+    }
+  ]
+}

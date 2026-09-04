@@ -772,6 +772,21 @@ sub{vertical-align:-.25em}
   background:linear-gradient(120deg,color-mix(in srgb,var(--gold) 13%,var(--card)),var(--card));line-height:1.55}
 .barron-style-notice b{font-size:14px;color:var(--txt)}
 .barron-style-notice span{font-size:12.5px;color:var(--muted)}
+.barron-full-intro{margin:-3px 0 10px;font-size:12.5px;line-height:1.55}
+.barron-full-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.barron-full-card{display:flex;align-items:center;gap:11px;min-width:0;padding:15px 13px;text-align:left;
+  border:1.5px solid color-mix(in srgb,var(--gold) 55%,var(--line));border-radius:15px;
+  background:linear-gradient(120deg,color-mix(in srgb,var(--gold) 11%,var(--card2)),var(--card2));color:var(--txt)}
+.barron-full-card:active{transform:scale(.985)}
+.barron-full-card.done{border-color:color-mix(in srgb,var(--ok) 55%,var(--line))}
+.barron-full-icon{display:grid;place-items:center;width:36px;height:36px;flex:0 0 36px;border-radius:11px;
+  background:color-mix(in srgb,var(--gold) 17%,var(--card));font-size:19px}
+.barron-full-card .meta{min-width:0;flex:1}
+.barron-full-card .meta b,.barron-full-card .meta span,.barron-full-card .meta small{display:block}
+.barron-full-card .meta b{font-size:14px}
+.barron-full-card .meta span{margin-top:4px;color:var(--muted);font-size:11.5px;line-height:1.45}
+.barron-full-card .meta small{margin-top:6px;color:var(--brand2);font-size:10.5px}
+.barron-full-card .go{font-size:24px;color:var(--muted)}
 .barron-style-groups{display:flex;flex-direction:column;gap:12px}
 .barron-style-group{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
 .barron-style-group>summary{display:flex;align-items:center;gap:10px;padding:14px 15px;cursor:pointer;list-style:none}
@@ -791,7 +806,8 @@ sub{vertical-align:-.25em}
 .barron-style-card .meta small{margin-top:5px;color:var(--brand2);font-size:10.5px}
 .barron-style-card .go{font-size:22px;color:var(--muted)}
 .barron-style-error{padding:18px;text-align:center;color:var(--muted)}
-@media(max-width:520px){.barron-style-grid{grid-template-columns:1fr}.barron-style-card{padding:12px 11px}}
+@media(max-width:620px){.barron-full-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.barron-style-grid{grid-template-columns:1fr}.barron-style-card{padding:12px 11px}.barron-full-card{padding:13px 11px}}
 
 /* ── Verbal 16일 날짜별 체크리스트 ───────────────────────── */
 .v16-list{margin-top:14px}
