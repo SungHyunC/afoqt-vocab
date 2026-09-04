@@ -535,6 +535,7 @@
     <div class="card tight stat"><div class="num" id="arCount">0</div><div class="lbl">산수 문제</div></div>
   </div>
   <button class="btn primary" id="btnMathTypes" style="margin-top:14px;border:0;background:linear-gradient(90deg,var(--brand),var(--brand2))">📚 유형별 공략 — 개념·공식·예제 + 유형 드릴 (두 과목 전체)</button>
+  <button class="btn barron-style-entry" id="btnBarronMath" style="margin-top:10px">📕 Barron 스타일 유형별 연습 — 자체 제작 120문제</button>
 
   <h2 class="section">📕 문제은행 회차별 풀기</h2>
   <p class="muted" style="margin:0 0 10px">바론 과목별 문제처럼 전체 문제은행을 <b>고정 SET</b>으로 나눴어요. 같은 SET은 언제 다시 풀어도 같은 문제와 순서로 나옵니다.</p>
@@ -559,6 +560,17 @@
   <div class="study-top"><button class="btn sm ghost" id="mtBack">← 수학</button><span>📚 유형별 공략</span><span></span></div>
   <div class="hintbox" style="margin-bottom:12px">유형을 누르면 개념·공식 → 푸는 순서 → 함정 → 예제가 펼쳐져요. 각 유형 아래 버튼으로 <b>그 유형만 20문제</b> 바로 풀 수 있어요. 정답률 칩은 내가 푼 기록 기준이에요.</div>
   <div id="mtBody"></div>
+</main>
+
+<!-- ===== BARRON-STYLE MATH (유형 구조를 참고한 자체 제작 문제) ===== -->
+<main id="view-barronmath" class="view">
+  <div class="study-top"><button class="btn sm ghost" id="bmBack">← 수학</button><span>📕 Barron 스타일 유형별 연습</span><span></span></div>
+  <div class="barron-style-notice">
+    <b>모두 앱에서 새로 만든 문제예요.</b>
+    <span>암호화 모의고사에서는 자주 나오는 유형·난이도·풀이 단계만 분석했습니다. 원문 문장·수치·이름·선지는 복제하지 않았습니다.</span>
+  </div>
+  <div id="barronMathResume" class="hidden"></div>
+  <div id="barronMathBody"></div>
 </main>
 
 <main id="view-aviation" class="view">

@@ -764,6 +764,35 @@ sub{vertical-align:-.25em}
 .math-bank-resume .row{gap:8px;margin-top:10px}
 .math-bank-resume .btn{flex:1}
 
+/* ---------- Barron-style original math drills ---------- */
+.barron-style-entry{border:1px solid color-mix(in srgb,var(--gold) 70%,var(--line));
+  background:linear-gradient(100deg,color-mix(in srgb,var(--gold) 18%,var(--card)),var(--card));color:var(--txt)}
+.barron-style-notice{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;padding:14px 15px;
+  border:1px solid color-mix(in srgb,var(--gold) 58%,var(--line));border-radius:15px;
+  background:linear-gradient(120deg,color-mix(in srgb,var(--gold) 13%,var(--card)),var(--card));line-height:1.55}
+.barron-style-notice b{font-size:14px;color:var(--txt)}
+.barron-style-notice span{font-size:12.5px;color:var(--muted)}
+.barron-style-groups{display:flex;flex-direction:column;gap:12px}
+.barron-style-group{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.barron-style-group>summary{display:flex;align-items:center;gap:10px;padding:14px 15px;cursor:pointer;list-style:none}
+.barron-style-group>summary::-webkit-details-marker{display:none}
+.barron-style-group>summary::after{content:"▾";margin-left:auto;color:var(--muted);transition:transform .18s}
+.barron-style-group:not([open])>summary::after{transform:rotate(-90deg)}
+.barron-style-group .math-bank-summary{font-weight:800}
+.barron-style-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px;padding:0 12px 12px}
+.barron-style-card{display:flex;align-items:center;gap:10px;width:100%;min-width:0;padding:13px 12px;text-align:left;
+  border:1.5px solid var(--line);border-radius:13px;background:var(--card2);color:var(--txt)}
+.barron-style-card:active{transform:scale(.985)}
+.barron-style-card.done{border-color:color-mix(in srgb,var(--ok) 48%,var(--line))}
+.barron-style-card .meta{min-width:0;flex:1}
+.barron-style-card .meta b,.barron-style-card .meta span,.barron-style-card .meta small{display:block}
+.barron-style-card .meta b{font-size:14px}
+.barron-style-card .meta span{margin-top:3px;color:var(--muted);font-size:11.5px;line-height:1.4}
+.barron-style-card .meta small{margin-top:5px;color:var(--brand2);font-size:10.5px}
+.barron-style-card .go{font-size:22px;color:var(--muted)}
+.barron-style-error{padding:18px;text-align:center;color:var(--muted)}
+@media(max-width:520px){.barron-style-grid{grid-template-columns:1fr}.barron-style-card{padding:12px 11px}}
+
 /* ── Verbal 16일 날짜별 체크리스트 ───────────────────────── */
 .v16-list{margin-top:14px}
 .v16-ph{padding:14px 2px 7px;border-top:1px solid var(--line);margin-top:8px}
