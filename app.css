@@ -33,6 +33,7 @@ a{color:var(--brand2)}
 .appbar .sub{font-size:11px;color:var(--muted);font-weight:500}
 .sync-dot{width:9px;height:9px;border-radius:50%;background:var(--muted);flex:0 0 auto}
 .sync-dot.on{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.sync-dot.syncing{background:var(--gold);box-shadow:0 0 8px var(--gold)}
 .sync-dot.off{background:var(--muted)}
 .sync-dot.err{background:var(--bad)}
 .icon-btn{padding:8px;border-radius:10px;font-size:18px;color:var(--muted)}
@@ -939,6 +940,8 @@ body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
 .synfeed-switch input:checked+i::after{transform:translateX(20px)}.synfeed-switch input:focus-visible+i{outline:2px solid #67e8f9;outline-offset:2px}
 .synfeed-start,.synfeed-resume{width:100%;border-radius:16px;color:#fff;text-align:center}
 .synfeed-start{margin-top:12px;padding:15px;background:linear-gradient(100deg,#7c3aed,#4f46e5 48%,#0891b2);box-shadow:0 10px 30px #4f46e54a}
+.synfeed-start.has-resume{background:#ffffff0b;border:1px solid #ffffff2b;box-shadow:none;color:#cbd5e1}
+.synfeed-start:disabled,.synfeed-resume:disabled{opacity:.58;cursor:wait;transform:none}
 .synfeed-start span,.synfeed-start small{display:block}.synfeed-start span{font-size:16px;font-weight:850}.synfeed-start small{font-size:10px;color:#e0e7ff;margin-top:3px}
 .synfeed-resume{margin:12px 0 10px;padding:12px 14px;border:1px solid #22d3ee66;background:#06b6d417;text-align:left}
 .synfeed-resume b,.synfeed-resume small{display:block}.synfeed-resume b{font-size:13px}.synfeed-resume small{margin-top:3px;color:#94a3b8;font-size:10.5px}

@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-127-0";  // Barron 스타일 실전 25문항 SET
+const CACHE = "afoqt-v4-128-0";  // 무한 동의어 기기 간 이어풀기 보호
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
