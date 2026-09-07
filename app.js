@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.128.0";
+const VERSION = "4.129.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -675,6 +675,7 @@ async function retryInitialPull(){ if(!sb||syncReady||syncInitializing||forceSyn
 }
 function loadSupabase(){
   if(window.supabase) return Promise.resolve(window.supabase);
+  if(navigator.onLine===false) return Promise.reject(new Error("offline"));   // 12초 CDN 타임아웃을 기다리지 않는다
   if(sbLibPromise) return sbLibPromise;
   sbLibPromise=new Promise((resolve,reject)=>{
     const s=document.createElement("script");
@@ -2100,10 +2101,21 @@ const SYNFEED_LABEL={1:"🔥 최우선 P1",2:"⭐ 고빈출까지 P1+P2",3:"📌
 const SYNFEED_SET_SIZE=100;
 const SYNFEED_REMOTE_FRESH_MS=30000;
 let synFeed=null, synFeedPosIndex=null;
-function synFeedSyncPending(){ return !!(boundSbUrl()&&boundSbKey())&&(!syncInitialSettled||syncInitializing||forceSyncRunning||!!pullRetryInFlight||!!synFeedForegroundPullInFlight); }
+// 오프라인이면 다른 기기 진도를 받을 길이 없으므로 입력을 막지 않는다.
+// (막으면 비행기·지하철에서 피드가 통째로 먹통이 된다. 온라인 복귀 시 기존
+//  reconcile 경로가 원격 진도를 다시 맞춘다.)
+function synFeedSyncPending(){ if(navigator.onLine===false) return false;
+  return !!(boundSbUrl()&&boundSbKey())&&(!syncInitialSettled||syncInitializing||forceSyncRunning||!!pullRetryInFlight||!!synFeedForegroundPullInFlight); }
 function guardSynFeedInitialSync(){ if(!synFeedSyncPending()) return true;
   toast("⏳ PC·모바일 진도를 먼저 불러오는 중이에요. 잠시만 기다려 주세요."); return false; }
 function guardSynFeedNewRun(){ if(!guardSynFeedInitialSync()) return false;
+  // 오프라인(비행기·지하철): 원격 진도를 확인할 수 없다. 로컬에 이어풀 기록이 없을 때만
+  // 새 피드를 허용한다 — 빈 런은 runEpoch 0이라 나중에 올라오는 실제 진도가 항상 이긴다.
+  if(navigator.onLine===false){
+    if(repairSynFeedSession(state.synFeedSession)){
+      toast("📴 오프라인이에요. 지금은 '이어 풀기'로 진행하고, 새 피드는 연결된 뒤에 만들어 주세요.",3200); return false; }
+    return true;
+  }
   if(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)){ toast("⚠️ 처음부터 시작은 PC·모바일 진도를 확인한 뒤 가능해요. 연결 후 다시 시도해 주세요."); return false; }
   if(boundSbUrl()&&boundSbKey()&&Date.now()-synFeedLastPullAt>SYNFEED_REMOTE_FRESH_MS){ pullSynFeedOnForeground();
     toast("⏳ 새 피드를 만들기 전에 다른 기기의 최신 위치를 확인해요. 확인 후 다시 눌러 주세요."); return false; }
@@ -2209,7 +2221,11 @@ function repairSynFeedSession(raw){ const s=cloneSynFeedSession(raw); if(!s||s.v
     s.cycle=cycle<Number.MAX_SAFE_INTEGER?cycle+1:cycle; s.queue=pool.slice(); s.cursor=0; }
   else s.cursor=done.length;
   s.recent=Array.isArray(s.recent)?s.recent.filter(id=>allowed.has(id)).slice(-3):[];
-  s.retry=Array.isArray(s.retry)?s.retry.filter(r=>r&&allowed.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0).slice(-100):[];
+  // 대기열 상한: dueAt이 이른(=먼저 다시 나와야 할) 순으로 남긴다 — 예전엔 최신 100개만 남겨
+  // 가장 오래 기다린 오답이 먼저 잘렸다.
+  s.retry=Array.isArray(s.retry)?s.retry.filter(r=>r&&allowed.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0).sort((a,b)=>a.dueAt-b.dueAt).slice(0,100):[];
+  if(!Number.isSafeInteger(s.baseCount)||s.baseCount<0) s.baseCount=safeSynFeedCount(s.count);   // 구버전 세션 이어받기
+  if(!Number.isSafeInteger(s.retryStreak)||s.retryStreak<0) s.retryStreak=0;
   const rebuildAnsweredBase=!!(s.current&&!s.current.isRetry&&s.current.chosen!=null&&allowed.has(s.current.id)&&s.queue[s.cursor]===s.current.id&&!synFeedQuestionValid(s.current));
   if(s.current&&(!allowed.has(s.current.id)||!synFeedQuestionValid(s.current))) s.current=null;
   if(rebuildAnsweredBase){ if(s.cursor+1<s.queue.length) s.cursor++; else{ s.cycle++; s.cursor=0; s.queue=pool.slice(); } }
@@ -2234,14 +2250,20 @@ function pauseSynFeed(){ if(synFeed) synFeedSave(true,false,false); synFeed=null
 function synFeedAdvanceBase(s){ s.cursor++;
   if(s.cursor<s.queue.length) return;
   s.cycle=(s.cycle||1)+1; s.cursor=0; s.queue=synFeedFreshQueue(s.priority,s.recent); }
+// 재출제 간격은 '새 문제'를 센 baseCount 기준이다. count(모든 응답)로 재면
+// 재출제 자체가 카운터를 올려 대기열이 5개만 넘어도 매번 재출제만 나오고
+// 새 단어 진도(cursor)가 멈춘다. 연속 재출제도 SYNFEED_RETRY_STREAK 개로 제한한다.
+const SYNFEED_RETRY_GAP=5, SYNFEED_RETRY_STREAK=2;
+function synFeedBase(s){ return Number.isSafeInteger(s&&s.baseCount)?s.baseCount:safeSynFeedCount(s&&s.count); }
 function synFeedAdvance(initial=false){ const s=synFeed; if(!s) return;
   if(!initial&&!reconcileSynFeedBeforeInput()) return;
   if(!initial&&(!s.current||s.current.chosen==null)) return; // 빠른 연속 입력에도 미응답 문제를 건너뛰지 않는다
   if(!initial&&s.current&&!s.current.isRetry) synFeedAdvanceBase(s);
   for(let tries=0;tries<30;tries++){
-    const ri=(s.retry||[]).findIndex(r=>r&&r.dueAt<=s.count&&WMAP.has(r.id));
-    if(ri>=0){ const r=s.retry.splice(ri,1)[0],q=synFeedBuildQuestion(r.id,true); if(q){ s.current=q; synFeedSave(); renderSynFeedPlay(); if(!initial) $("#synfeedChoices .synfeed-choice")?.focus({preventScroll:true}); return; } continue; }
-    const q=synFeedBuildQuestion(s.queue[s.cursor],false); if(q){ s.current=q; synFeedSave(); renderSynFeedPlay(); if(!initial) $("#synfeedChoices .synfeed-choice")?.focus({preventScroll:true}); return; }
+    const base=synFeedBase(s), allowRetry=(safeSynFeedCount(s.retryStreak))<SYNFEED_RETRY_STREAK;
+    const ri=allowRetry?(s.retry||[]).findIndex(r=>r&&r.dueAt<=base&&WMAP.has(r.id)):-1;
+    if(ri>=0){ const r=s.retry.splice(ri,1)[0],q=synFeedBuildQuestion(r.id,true); if(q){ s.current=q; s.retryStreak=safeSynFeedCount(s.retryStreak)+1; synFeedSave(); renderSynFeedPlay(); if(!initial) $("#synfeedChoices .synfeed-choice")?.focus({preventScroll:true}); return; } continue; }
+    const q=synFeedBuildQuestion(s.queue[s.cursor],false); if(q){ s.current=q; s.retryStreak=0; synFeedSave(); renderSynFeedPlay(); if(!initial) $("#synfeedChoices .synfeed-choice")?.focus({preventScroll:true}); return; }
     synFeedAdvanceBase(s);
   }
   toast("문제를 만들지 못했어요. 범위를 다시 골라주세요."); pauseSynFeed(); renderSynFeed(); }
@@ -2255,7 +2277,7 @@ function startSynFeed(){ if(!guardSynFeedNewRun()) return; refreshSynFeedSession
   // progress must beat this blank run. Only an explicit, confirmed replacement
   // of a known checkpoint advances the generation.
   const replaces=previous?[synFeedRunId(previous),...synFeedReplaces(previous)].slice(0,8):[],runEpoch=previous?nextSynFeedClock():0;
-  synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,correct:0,combo:0,bestCombo:0,
+  synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,baseCount:0,retryStreak:0,correct:0,combo:0,bestCombo:0,
     points:0,added:0,seed:(Math.random()*1000000)|0,answerSlots:[],lastAnswerSlot:null,
     current:null,runId:newSynFeedRunId(),runEpoch,replaces,startedAt:nowISO(),updatedAt:nowISO()};
   synFeedShowPlay(); synFeedAdvance(true); }
@@ -2285,7 +2307,11 @@ function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#syn
   $$('#view-synfeed input[name="synfeedPriority"]').forEach(x=>x.checked=Number(x.value)===p);
   $("#synfeedKo").checked=synFeedKorean(); const d=synFeedDay(); $("#synfeedToday").textContent=(d.n||0).toLocaleString();
   $("#synfeedBest").textContent=(state.synFeedStats.bestCombo||0).toLocaleString();
-  const saved=repairSynFeedSession(state.synFeedSession),can=!!saved,syncing=synFeedSyncPending(),startBlocked=syncing||!!(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)),b=$("#synfeedResume"),start=$("#synfeedStart"); b.classList.toggle("hidden",!can);
+  const saved=repairSynFeedSession(state.synFeedSession),can=!!saved,syncing=synFeedSyncPending();
+  // 오프라인: 이어 풀기는 항상, 새 시작은 로컬 기록이 없을 때만 (guardSynFeedNewRun과 같은 규칙)
+  const offline=navigator.onLine===false;
+  const startBlocked=offline?can:(syncing||!!(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)));
+  const b=$("#synfeedResume"),start=$("#synfeedStart"); b.classList.toggle("hidden",!can);
   b.disabled=syncing; start.disabled=startBlocked; start.classList.toggle("has-resume",can);
   if(can){ const acc=saved.count?Math.round((saved.correct||0)/saved.count*100):0,m=synFeedSetMeta(saved);
     b.innerHTML=`<b>▶ 이어 풀기 · ${esc(SYNFEED_LABEL[saved.priority]||"저장된 피드")}</b><small>SET ${m.setNo}/${m.setCount} · 문제 ${m.position}/${m.length} · 누적 ${saved.count||0}문제 · ${acc}%</small>`; }
@@ -2307,13 +2333,15 @@ function synFeedRecord(ok){ const r=ownSynFeedReplica(),s=r.stats,d=s.days[today
   const days=Object.keys(s.days).sort(); while(days.length>90) delete s.days[days.shift()]; rebuildSynFeedStats(); }
 function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null||!q.opts[i]) return;
   if(!reconcileSynFeedBeforeInput()) return;
-  q.chosen=i; const ok=!!q.opts[i].ok,w=WMAP.get(q.id); s.count++; if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); }
+  q.chosen=i; const ok=!!q.opts[i].ok,w=WMAP.get(q.id); s.count++;
+  if(!q.isRetry) s.baseCount=synFeedBase(s)+1;   // 새 문제만 세는 진행도(재출제 간격 기준)
+  if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); }
   else s.combo=0;
   q.gain=ok?10+Math.min(20,Math.max(0,s.combo-1)*2):0; s.points=(s.points||0)+q.gain;
   if(ok&&([5,10,20].includes(s.combo)||s.combo>0&&s.combo%50===0)) q.milestone=`✨ ${s.combo}연속 정답!`;
   bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
   if(!ok){ state.wrong.wk[q.id]=(state.wrong.wk[q.id]||0)+1; markForReview(q.id); s.added=(s.added||0)+1; q.added=true;
-    s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:s.count+5}); }
+    s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:synFeedBase(s)+SYNFEED_RETRY_GAP}); }
   else if(q.isRetry) delete state.wrong.wk[q.id];
   { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
   s.recent=(s.recent||[]).filter(id=>id!==q.id); s.recent.push(q.id); if(s.recent.length>3) s.recent=s.recent.slice(-3);
