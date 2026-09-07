@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.129.0";
+const VERSION = "4.130.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2361,9 +2361,12 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
   const choices=q.opts.map((o,i)=>{ const cls=answered?(o.ok?"correct":i===q.chosen?"wrong":""):"";
     return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o.t)}</button>`; }).join("");
   const koLine=showKo&&w.kor?`<div class="synfeed-korean">${esc(w.kor)}</div>`:"";
+  // 답한 뒤에는 한글 설정과 무관하게 뜻·어원을 보여준다. 한글 OFF(실전 조건)로 풀면서도
+  // 모르던 단어를 그 자리에서 익히게 하는 게 핵심 — 안 그러면 틀리기만 하고 배우질 못한다.
+  const hookLine=answered&&w.hook?`<span class="ko">🧠 ${esc(w.hook)}</span>`:"";
   const answerLine=answered?`<div class="synfeed-feedback ${ok?"":"wrong"}">
       <strong>${ok?"✅ 정답":"❌ 정답은"} <span class="answer">${esc(correct.t)}</span></strong>
-      ${showKo&&w.kor?`<span class="ko">${esc(w.word)} · ${esc(w.kor)}</span>`:""}
+      ${w.kor?`<span class="ko">${esc(w.word)} · ${esc(w.kor)}</span>`:""}${hookLine}
       ${!ok?`<span class="retry">복습 큐 저장 · 5문제 뒤 다시 출제</span>`:`<span class="ko">뜻을 확인한 뒤 아래 버튼으로 계속하세요</span>`}
     </div>`:"";
   const stage=$("#synfeedStage"),newQuestion=stage.dataset.questionNonce!==q.nonce; stage.dataset.questionNonce=q.nonce;
