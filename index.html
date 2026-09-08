@@ -741,6 +741,7 @@
 <!-- ===== WEAKNESS REPORT (약점 리포트) ===== -->
 <main id="view-report" class="view">
   <div class="study-top"><button class="btn sm ghost" id="repBack">← 뒤로</button><span>🔍 약점 리포트</span><span></span></div>
+  <button class="btn ghost" data-study-export style="margin-bottom:12px">📤 LLM용 풀이 기록 내보내기</button>
   <div id="repBody"></div>
 </main>
 
@@ -1059,6 +1060,7 @@
       <button class="btn ghost sm" id="importProg" style="flex:1">⬆️ 진도 복원</button>
     </div>
     <input type="file" id="importFile" accept="application/json,.json" style="display:none">
+    <button class="btn ghost" data-study-export style="margin-top:10px">📤 LLM용 풀이 기록 내보내기</button>
     <button class="btn ghost" id="forceUpdate" style="margin-top:10px">🔄 강제 업데이트 (최신 버전 받기)</button>
     <button class="btn ghost" id="closeSettings" style="margin-top:10px">닫기</button>
     <button class="btn ghost" id="resetAll" style="margin-top:10px;color:var(--bad)">⚠️ 학습 기록 초기화</button>
@@ -1083,6 +1085,7 @@
 <!-- config + app load first so the app always boots, even if the CDN is slow/blocked.
      Supabase is loaded separately and never blocks startup (see loadSupabase in app.js). -->
 <script src="./config.js"></script>
+<script src="./study-export.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>

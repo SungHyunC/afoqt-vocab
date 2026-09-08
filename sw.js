@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-130-0";  // 무한 동의어 기기 간 이어풀기 보호
+const CACHE = "afoqt-v4-131-0";  // LLM용 풀이 기록 내보내기
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
@@ -7,6 +7,7 @@ const ASSETS = [
   "./index.html",
   "./app.css",
   "./app.js",
+  "./study-export.js",
   "./config.js",
   "./words.json",
   "./analogies.json",
