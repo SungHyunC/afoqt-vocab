@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.130.0";
+const VERSION = "4.131.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -5314,6 +5314,7 @@ function wire(){
   $("#bcStart").onclick=startBlockCounting; $("#bcGuide").onclick=()=>openGuide("bc");
   $("#bcBack").onclick=()=>{ bcTimerStop(); bcState=null; go("aviation"); }; $("#bcRetry").onclick=startBlockCounting; $("#bcHome").onclick=()=>{ bcState=null; go("aviation"); };
   $("#exportProg").onclick=exportProgress;
+  $$("[data-study-export]").forEach(b=>b.onclick=openStudyExport);
   $("#importProg").onclick=()=>$("#importFile").click();
   $("#importFile").onchange=e=>{ if(e.target.files&&e.target.files[0]) importProgress(e.target.files[0]); e.target.value=""; };
   $("#avtSearch").oninput=e=>{ avtSearch=e.target.value.trim(); renderAvTerms(); };
@@ -5473,6 +5474,35 @@ function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSessi
 // version, fixing any "I still see the old app" situation. Learning data lives
 // in localStorage, which is NOT touched here.
 // Backup: download the full local state as a JSON file (offline safety net).
+function openStudyExport(){
+  if(!window.AFOQTStudyExport){ toast("내보내기 파일을 불러오지 못했어요. 새로고침 후 다시 시도하세요."); return; }
+  const report=window.AFOQTStudyExport.build(state,{wk:WORDS,va:ANALOGIES,rc:READING,
+    ar:[...ARITH,...mathStyleQuestions("AR"),...mathFullQuestions("AR")],
+    mk:[...MATHK,...mathStyleQuestions("MK"),...mathFullQuestions("MK")],ps:PHYSCI,av:AVIATION},VERSION);
+  const text=window.AFOQTStudyExport.markdown(report), n=report.summary;
+  openSheet(`<h3>📤 LLM용 풀이 기록 내보내기</h3>
+    <p>시험 ${n.exams}회 중 상세 ${n.examsWithDetails}회 · ${n.detailedQuestions}문항<br>학습·오답 참고 항목 ${n.referenceItems}개</p>
+    <p class="muted">문제·보기·내 답·정답·해설·풀이 시간과 약점 통계, 분석 요청문을 함께 담습니다. 파일을 LLM에 첨부하거나 내용을 붙여넣으세요.</p>
+    <div class="hintbox">최근 10회 중 이 기기에 남은 시험 상세를 추출합니다. 다른 기기에서 푼 시험은 그 기기에서 내보내세요. 일반 퀴즈의 개별 답, 오래된 상세, 그림·표는 없을 수 있습니다.<br>기존 진도를 변경하지 않으며 동기화 코드는 포함하지 않습니다. 복원용 파일은 설정의 ‘진도 백업’을 이용하세요.</div>
+    <button class="btn primary" id="studyExportMD" style="margin-top:12px">⬇️ LLM용 파일 (.md)</button>
+    <button class="btn ghost" id="studyExportCopy" style="margin-top:10px">📋 분석 요청 + 기록 복사</button>
+    <button class="btn ghost" id="studyExportJSON" style="margin-top:10px">⬇️ 구조화 데이터 (.json)</button>
+    <p class="muted" id="studyExportStatus" role="status">${(new Blob([text]).size/1024).toFixed(0)} KB · 내용이 길면 파일 첨부를 이용하세요.</p>
+    <button class="btn ghost" id="studyExportClose">닫기</button>`);
+  const download=(body,ext,type)=>{
+    const url=URL.createObjectURL(new Blob([body],{type})),a=document.createElement("a");
+    a.href=url; a.download=`afoqt-study-${todayStr()}.${ext}`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+    $("#studyExportStatus").textContent="파일 다운로드를 요청했어요.";
+  };
+  $("#studyExportMD").onclick=()=>download(text,"md","text/markdown;charset=utf-8");
+  $("#studyExportJSON").onclick=()=>download(JSON.stringify(report,null,2),"json","application/json");
+  $("#studyExportCopy").onclick=async()=>{ try{
+    await navigator.clipboard.writeText(text);
+    const status=$("#studyExportStatus"); if(status) status.textContent="복사했어요. LLM에 붙여넣으세요.";
+  }catch{ const status=$("#studyExportStatus"); if(status) status.textContent="복사가 차단됐어요. LLM용 파일을 다운로드해 첨부하세요."; } };
+  $("#studyExportClose").onclick=closeSheet;
+}
 function exportProgress(){
   saveNow();
   const data=JSON.stringify({app:"afoqt-vocab",v:VERSION,code:boundSyncCode(),ts:Date.now(),state},null,2);
