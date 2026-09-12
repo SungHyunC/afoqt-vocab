@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.132.0";
+const VERSION = "4.133.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2233,6 +2233,9 @@ function repairSynFeedSession(raw){ const s=cloneSynFeedSession(raw); if(!s||s.v
   s.retry=Array.isArray(s.retry)?s.retry.filter(r=>r&&allowed.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0).sort((a,b)=>a.dueAt-b.dueAt).slice(0,100):[];
   if(!Number.isSafeInteger(s.baseCount)||s.baseCount<0) s.baseCount=safeSynFeedCount(s.count);   // 구버전 세션 이어받기
   if(!Number.isSafeInteger(s.retryStreak)||s.retryStreak<0) s.retryStreak=0;
+  if(!Number.isSafeInteger(s.firstCount)||s.firstCount<0){ s.firstCount=safeSynFeedCount(s.count); s.firstCorrect=Math.min(s.firstCount,safeSynFeedCount(s.correct)); }
+  if(!Number.isSafeInteger(s.firstCorrect)||s.firstCorrect<0||s.firstCorrect>s.firstCount) s.firstCorrect=Math.min(s.firstCount,safeSynFeedCount(s.correct));
+  if(!Number.isSafeInteger(s.hintCount)||s.hintCount<0||s.hintCount>s.firstCount) s.hintCount=Math.min(s.firstCount,safeSynFeedCount(s.hintCount));
   const rebuildAnsweredBase=!!(s.current&&!s.current.isRetry&&s.current.chosen!=null&&allowed.has(s.current.id)&&s.queue[s.cursor]===s.current.id&&!synFeedQuestionValid(s.current));
   if(s.current&&(!allowed.has(s.current.id)||!synFeedQuestionValid(s.current))) s.current=null;
   if(rebuildAnsweredBase){ if(s.cursor+1<s.queue.length) s.cursor++; else{ s.cycle++; s.cursor=0; s.queue=pool.slice(); } }
@@ -2284,7 +2287,7 @@ function startSynFeed(){ if(!guardSynFeedNewRun()) return; refreshSynFeedSession
   // progress must beat this blank run. Only an explicit, confirmed replacement
   // of a known checkpoint advances the generation.
   const replaces=previous?[synFeedRunId(previous),...synFeedReplaces(previous)].slice(0,8):[],runEpoch=previous?nextSynFeedClock():0;
-  synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,baseCount:0,retryStreak:0,correct:0,combo:0,bestCombo:0,
+  synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,baseCount:0,retryStreak:0,firstCount:0,firstCorrect:0,hintCount:0,correct:0,combo:0,bestCombo:0,
     points:0,added:0,seed:(Math.random()*1000000)|0,answerSlots:[],lastAnswerSlot:null,
     current:null,runId:newSynFeedRunId(),runEpoch,replaces,startedAt:nowISO(),updatedAt:nowISO()};
   synFeedShowPlay(); synFeedAdvance(true); }
@@ -2320,7 +2323,8 @@ function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#syn
   const startBlocked=offline?can:(syncing||!!(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)));
   const b=$("#synfeedResume"),start=$("#synfeedStart"); b.classList.toggle("hidden",!can);
   b.disabled=syncing; start.disabled=startBlocked; start.classList.toggle("has-resume",can);
-  if(can){ const acc=saved.count?Math.round((saved.correct||0)/saved.count*100):0,m=synFeedSetMeta(saved);
+  if(can){ const fc=safeSynFeedCount(saved.firstCount)||saved.count||0,fk=Number.isSafeInteger(saved.firstCount)?safeSynFeedCount(saved.firstCorrect):(saved.correct||0);
+    const acc=fc?Math.round(fk/fc*100):0,m=synFeedSetMeta(saved);
     b.innerHTML=`<b>▶ 이어 풀기 · ${esc(SYNFEED_LABEL[saved.priority]||"저장된 피드")}</b><small>SET ${m.setNo}/${m.setCount} · 문제 ${m.position}/${m.length} · 누적 ${saved.count||0}문제 · ${acc}%</small>`; }
   start.innerHTML=syncing?`<span>⏳ 동기화된 진도 확인 중</span><small>PC·모바일 기록을 합친 뒤 시작할 수 있어요</small>`:startBlocked?
     `<span>연결 후 새 피드 시작 가능</span><small>기존 기기의 진도를 먼저 보호하고 있어요</small>`:can?
@@ -2340,17 +2344,26 @@ function synFeedRecord(ok){ const r=ownSynFeedReplica(),s=r.stats,d=s.days[today
   const days=Object.keys(s.days).sort(); while(days.length>90) delete s.days[days.shift()]; rebuildSynFeedStats(); }
 function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null||!q.opts[i]) return;
   if(!reconcileSynFeedBeforeInput()) return;
-  q.chosen=i; const ok=!!q.opts[i].ok,w=WMAP.get(q.id); s.count++;
+  q.chosen=i; const ok=!!q.opts[i].ok,w=WMAP.get(q.id),hinted=synFeedKorean(); s.count++;
   if(!q.isRetry) s.baseCount=synFeedBase(s)+1;   // 새 문제만 세는 진행도(재출제 간격 기준)
+  // 정답률은 '첫 시도'(재출제 제외)만 센다 — 5문제 전에 답을 본 단어를 다시 맞힌 건 실력이 아니다.
+  // 한글 힌트를 보고 답한 건 따로 세어 화면 라벨로 알린다.
+  if(!q.isRetry){ s.firstCount=safeSynFeedCount(s.firstCount)+1; if(ok) s.firstCorrect=safeSynFeedCount(s.firstCorrect)+1;
+    if(hinted) s.hintCount=safeSynFeedCount(s.hintCount)+1; }
+  q.hinted=hinted;
   if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); }
   else s.combo=0;
   q.gain=ok?10+Math.min(20,Math.max(0,s.combo-1)*2):0; s.points=(s.points||0)+q.gain;
   if(ok&&([5,10,20].includes(s.combo)||s.combo>0&&s.combo%50===0)) q.milestone=`✨ ${s.combo}연속 정답!`;
-  bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+  bumpDay({studied:1,correct:ok?1:0});
+  // 예상 점수(secAcc WK)·약점 티어에는 실전 조건(한글 OFF, 첫 시도) 답만 반영 —
+  // 뜻을 보고 고른 답과 재출제 답이 섞이면 Verbal 예상 점수가 부풀려진다.
+  const skillSample=!q.isRetry&&!hinted;
+  if(skillSample) recordSecAcc("WK",ok);
   if(!ok){ state.wrong.wk[q.id]=(state.wrong.wk[q.id]||0)+1; markForReview(q.id); s.added=(s.added||0)+1; q.added=true;
     s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:synFeedBase(s)+SYNFEED_RETRY_GAP}); }
   else if(q.isRetry) delete state.wrong.wk[q.id];
-  { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+  if(skillSample){ const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
   s.recent=(s.recent||[]).filter(id=>id!==q.id); s.recent.push(q.id); if(s.recent.length>3) s.recent=s.recent.slice(-3);
   // Feed counters/checkpoint use a dedicated per-replica row. The ordinary
   // score, weakness and wrong-note fields still use the shared misc snapshot.
@@ -2359,7 +2372,10 @@ function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null
 }
 function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return; const w=WMAP.get(q.id); if(!w) return;
   const answered=q.chosen!=null,ok=answered&&!!q.opts[q.chosen].ok,correct=q.opts.find(o=>o.ok),showKo=synFeedKorean(),m=synFeedSetMeta(s);
-  $("#synfeedRunCount").textContent=(s.count||0).toLocaleString(); $("#synfeedRunAccuracy").textContent=s.count?Math.round(s.correct/s.count*100)+"%":"–";
+  $("#synfeedRunCount").textContent=(s.count||0).toLocaleString();
+  { const fc=safeSynFeedCount(s.firstCount),fk=safeSynFeedCount(s.firstCorrect),hint=safeSynFeedCount(s.hintCount);
+    $("#synfeedRunAccuracy").textContent=fc?Math.round(fk/fc*100)+"%":"–";
+    const lbl=$("#synfeedRunAccuracyLabel"); if(lbl) lbl.textContent=hint?`정답률 · 힌트 ${hint}`:"실전 정답률"; }
   $("#synfeedRunCombo").textContent=s.combo||0; $("#synfeedRunXp").textContent=(s.points||0).toLocaleString();
   $("#synfeedCycle").textContent=`ROUND ${s.cycle||1} · SET ${m.setNo}/${m.setCount}${q.isRetry?" · RETRY":""}`;
   $("#synfeedCyclePos").textContent=`문제 ${m.position} / ${m.length}`;
