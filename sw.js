@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-133-0";  // 무한 피드 정답률: 첫 시도 기준, 예상 점수엔 실전 조건 답만
+const CACHE = "afoqt-v4-134-0";  // 무한 피드: 세트 마무리(재도전 정리 후 다음 세트)
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
