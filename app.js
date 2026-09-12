@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.133.0";
+const VERSION = "4.134.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2233,6 +2233,8 @@ function repairSynFeedSession(raw){ const s=cloneSynFeedSession(raw); if(!s||s.v
   s.retry=Array.isArray(s.retry)?s.retry.filter(r=>r&&allowed.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0).sort((a,b)=>a.dueAt-b.dueAt).slice(0,100):[];
   if(!Number.isSafeInteger(s.baseCount)||s.baseCount<0) s.baseCount=safeSynFeedCount(s.count);   // 구버전 세션 이어받기
   if(!Number.isSafeInteger(s.retryStreak)||s.retryStreak<0) s.retryStreak=0;
+  s.wrap=Array.isArray(s.wrap)?s.wrap.filter(id=>allowed.has(id)).slice(0,100):null; if(s.wrap&&!s.wrap.length) s.wrap=null;
+  s.wrapOwed=!!s.wrapOwed; if(!Number.isSafeInteger(s.wrapTotal)||s.wrapTotal<0) s.wrapTotal=s.wrap?s.wrap.length:0;
   if(!Number.isSafeInteger(s.firstCount)||s.firstCount<0){ s.firstCount=safeSynFeedCount(s.count); s.firstCorrect=Math.min(s.firstCount,safeSynFeedCount(s.correct)); }
   if(!Number.isSafeInteger(s.firstCorrect)||s.firstCorrect<0||s.firstCorrect>s.firstCount) s.firstCorrect=Math.min(s.firstCount,safeSynFeedCount(s.correct));
   if(!Number.isSafeInteger(s.hintCount)||s.hintCount<0||s.hintCount>s.firstCount) s.hintCount=Math.min(s.firstCount,safeSynFeedCount(s.hintCount));
@@ -2265,11 +2267,24 @@ function synFeedAdvanceBase(s){ s.cursor++;
 // 새 단어 진도(cursor)가 멈춘다. 연속 재출제도 SYNFEED_RETRY_STREAK 개로 제한한다.
 const SYNFEED_RETRY_GAP=5, SYNFEED_RETRY_STREAK=2;
 function synFeedBase(s){ return Number.isSafeInteger(s&&s.baseCount)?s.baseCount:safeSynFeedCount(s&&s.count); }
+// 세트(100문제)는 자기 오답을 안고 끝난다: 마지막 새 문제를 풀고 나면 그 세트에서 쌓인
+// 재도전을 '세트 마무리'로 전부 한 번씩 낸 뒤에야 다음 세트로 넘어간다. 안 그러면 재도전이
+// 다음 세트로 흘러넘쳐 SET 2 첫 문제부터 SET 1 오답이 나오고, 세트 단위가 의미를 잃는다.
+function synFeedLastOfSet(s){ return (s.cursor+1)%SYNFEED_SET_SIZE===0||s.cursor+1>=s.queue.length; }
 function synFeedAdvance(initial=false){ const s=synFeed; if(!s) return;
   if(!initial&&!reconcileSynFeedBeforeInput()) return;
   if(!initial&&(!s.current||s.current.chosen==null)) return; // 빠른 연속 입력에도 미응답 문제를 건너뛰지 않는다
-  if(!initial&&s.current&&!s.current.isRetry) synFeedAdvanceBase(s);
+  if(!initial&&s.current&&!s.current.isRetry){
+    if(synFeedLastOfSet(s)&&!(Array.isArray(s.wrap)&&s.wrap.length)&&!s.wrapOwed&&(s.retry||[]).length){
+      s.wrap=s.retry.map(r=>r.id); s.wrapTotal=s.wrap.length; s.retry=[]; s.wrapOwed=true; s.retryStreak=0; }
+    else synFeedAdvanceBase(s);
+  }
   for(let tries=0;tries<30;tries++){
+    // 세트 마무리 중: 대기열을 순서대로 한 번씩 (간격·연속 상한 무시). 또 틀리면 다음 세트의 재도전으로 간다.
+    if(Array.isArray(s.wrap)&&s.wrap.length){ const id=s.wrap.shift(); if(!WMAP.has(id)) continue;
+      const q=synFeedBuildQuestion(id,true); if(!q) continue; q.wrap=true; s.current=q; synFeedSave(); renderSynFeedPlay();
+      if(!initial) $("#synfeedChoices .synfeed-choice")?.focus({preventScroll:true}); return; }
+    if(s.wrapOwed){ s.wrapOwed=false; s.wrap=null; s.wrapTotal=0; synFeedAdvanceBase(s); }
     const base=synFeedBase(s), allowRetry=(safeSynFeedCount(s.retryStreak))<SYNFEED_RETRY_STREAK;
     const ri=allowRetry?(s.retry||[]).findIndex(r=>r&&r.dueAt<=base&&WMAP.has(r.id)):-1;
     if(ri>=0){ const r=s.retry.splice(ri,1)[0],q=synFeedBuildQuestion(r.id,true); if(q){ s.current=q; s.retryStreak=safeSynFeedCount(s.retryStreak)+1; synFeedSave(); renderSynFeedPlay(); if(!initial) $("#synfeedChoices .synfeed-choice")?.focus({preventScroll:true}); return; } continue; }
@@ -2377,9 +2392,14 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
     $("#synfeedRunAccuracy").textContent=fc?Math.round(fk/fc*100)+"%":"–";
     const lbl=$("#synfeedRunAccuracyLabel"); if(lbl) lbl.textContent=hint?`정답률 · 힌트 ${hint}`:"실전 정답률"; }
   $("#synfeedRunCombo").textContent=s.combo||0; $("#synfeedRunXp").textContent=(s.points||0).toLocaleString();
-  $("#synfeedCycle").textContent=`ROUND ${s.cycle||1} · SET ${m.setNo}/${m.setCount}${q.isRetry?" · RETRY":""}`;
-  $("#synfeedCyclePos").textContent=`문제 ${m.position} / ${m.length}`;
-  $("#synfeedProgress").style.width=(m.position/m.length*100)+"%"; renderSynFeedKoButton();
+  const wrapping=!!q.wrap||(Array.isArray(s.wrap)&&s.wrap.length>0),pending=(s.retry||[]).length+(Array.isArray(s.wrap)?s.wrap.length:0);
+  $("#synfeedCycle").textContent=`ROUND ${s.cycle||1} · SET ${m.setNo}/${m.setCount}${wrapping?" · 세트 마무리":q.isRetry?" · RETRY":""}`;
+  if(wrapping){ const total=Math.max(1,safeSynFeedCount(s.wrapTotal)),done=Math.max(0,total-(Array.isArray(s.wrap)?s.wrap.length:0)-(q.chosen==null?1:0));
+    $("#synfeedCyclePos").textContent=`재도전 ${Math.min(total,done+1)} / ${total}`;
+    $("#synfeedProgress").style.width=(Math.min(total,done+1)/total*100)+"%"; }
+  else{ $("#synfeedCyclePos").textContent=`문제 ${m.position} / ${m.length}${pending?` · 재도전 대기 ${pending}`:""}`;
+    $("#synfeedProgress").style.width=(m.position/m.length*100)+"%"; }
+  renderSynFeedKoButton();
   const priority=verbalPriorityOf(w),badge=priority?`${priority===1?"🔥":priority===2?"⭐":"📌"} P${priority}`:"STD";
   const choices=q.opts.map((o,i)=>{ const cls=answered?(o.ok?"correct":i===q.chosen?"wrong":""):"";
     return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o.t)}</button>`; }).join("");
@@ -2390,13 +2410,13 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
   const answerLine=answered?`<div class="synfeed-feedback ${ok?"":"wrong"}">
       <strong>${ok?"✅ 정답":"❌ 정답은"} <span class="answer">${esc(correct.t)}</span></strong>
       ${w.kor?`<span class="ko">${esc(w.word)} · ${esc(w.kor)}</span>`:""}${hookLine}
-      ${!ok?`<span class="retry">복습 큐 저장 · 5문제 뒤 다시 출제</span>`:`<span class="ko">뜻을 확인한 뒤 아래 버튼으로 계속하세요</span>`}
+      ${!ok?`<span class="retry">${q.wrap?"복습 큐 저장 · 다음 세트에서 다시 출제":"복습 큐 저장 · 5문제 뒤 다시 출제 (세트 끝에 남은 건 마무리로 정리)"}</span>`:`<span class="ko">뜻을 확인한 뒤 아래 버튼으로 계속하세요</span>`}
     </div>`:"";
   const stage=$("#synfeedStage"),newQuestion=stage.dataset.questionNonce!==q.nonce; stage.dataset.questionNonce=q.nonce;
   stage.innerHTML=`<article class="synfeed-card ${answered?(ok?"is-correct":"is-wrong"):""}" id="synfeedCard">
     ${answered&&ok?`<span class="synfeed-points">+${q.gain}</span>`:""}
     <div class="synfeed-question-pane">
-      <div class="synfeed-question-meta"><span class="synfeed-badge">${badge}</span>${q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
+      <div class="synfeed-question-meta"><span class="synfeed-badge">${badge}</span>${q.wrap?`<span class="synfeed-badge synfeed-retry-badge">세트 마무리 · 다시 도전</span>`:q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
       <div class="synfeed-wordrow"><div class="synfeed-word" id="synfeedWord" style="--synfeed-word-size:${wordFont(w.word,42).replace("font-size:","")}">${esc(w.word)}</div><button class="synfeed-speaker" id="synfeedSpeak" type="button" aria-label="${esc(w.word)} 발음 듣기">🔊</button></div>
       ${koLine}<div class="synfeed-prompt">가장 비슷한 뜻을 고르세요</div>
     </div>
