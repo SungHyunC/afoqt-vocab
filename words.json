@@ -1125,7 +1125,8 @@
    "capricious",
    "whimsical",
    "haphazard",
-   "erratic"
+   "erratic",
+   "selected at random"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -1610,7 +1611,8 @@
    "hostile",
    "combative",
    "pugnacious",
-   "warlike"
+   "warlike",
+   "antagonistic"
   ],
   "category": "wk",
   "analogyRelations": [
@@ -1992,7 +1994,8 @@
    "prudent",
    "wary",
    "careful",
-   "discreet"
+   "discreet",
+   "guarded"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -2459,7 +2462,8 @@
    "expression",
    "visage",
    "approve",
-   "sanction"
+   "sanction",
+   "facial expression"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -6142,7 +6146,8 @@
    "capricious",
    "erratic",
    "changeable",
-   "unpredictable"
+   "unpredictable",
+   "unpredictably changeable"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -6673,7 +6678,8 @@
    "oppressive",
    "taxing",
    "demanding",
-   "heavy"
+   "heavy",
+   "difficult"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -7359,7 +7365,8 @@
    "overabundance",
    "surplus",
    "profusion",
-   "glut"
+   "glut",
+   "abundance"
   ],
   "category": "wk",
   "analogyRelations": [
@@ -7906,7 +7913,8 @@
    "intractable",
    "defiant",
    "uncooperative",
-   "unruly"
+   "unruly",
+   "rebellious"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -9608,7 +9616,8 @@
    "scathing",
    "venomous",
    "bitter",
-   "sharp"
+   "sharp",
+   "acerbic"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -10995,7 +11004,8 @@
    "ability",
    "gift",
    "flair",
-   "knack"
+   "knack",
+   "capacity to learn"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -11958,7 +11968,8 @@
    "naive",
    "trusting",
    "unsuspecting",
-   "innocent"
+   "innocent",
+   "naïve"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -13997,7 +14008,8 @@
    "unconcerned",
    "detached",
    "unmoved",
-   "aloof"
+   "aloof",
+   "disinterested"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -14441,7 +14453,8 @@
    "shun",
    "banish",
    "isolate",
-   "reject"
+   "reject",
+   "exile"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -14582,7 +14595,8 @@
    "exemplar",
    "ideal",
    "epitome",
-   "standard"
+   "standard",
+   "prototype"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -14887,7 +14901,8 @@
    "believable",
    "reasonable",
    "convincing",
-   "probable"
+   "probable",
+   "likely"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -16445,7 +16460,8 @@
    "ardent",
    "enthusiastic",
    "passionate",
-   "dedicated"
+   "dedicated",
+   "impassioned"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -22607,7 +22623,8 @@
    "visualize",
    "envision",
    "foresee",
-   "contemplate"
+   "contemplate",
+   "conceive"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -25865,7 +25882,8 @@
    "curry favor",
    "toady",
    "fawn",
-   "cozy up"
+   "cozy up",
+   "charm"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -26414,7 +26432,8 @@
    "loose",
    "lenient",
    "negligent",
-   "careless"
+   "careless",
+   "permissive"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -27154,7 +27173,8 @@
    "bit",
    "trace",
    "scrap",
-   "little"
+   "little",
+   "fraction"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -28548,7 +28568,8 @@
    "prevalent",
    "ubiquitous",
    "omnipresent",
-   "rampant"
+   "rampant",
+   "permeating"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -28788,7 +28809,8 @@
    "cumbersome",
    "laborious",
    "tedious",
-   "clumsy"
+   "clumsy",
+   "weighty"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -31778,7 +31800,8 @@
    "unspoken",
    "unstated",
    "understood",
-   "implied"
+   "implied",
+   "silent"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -40138,7 +40161,8 @@
    "extravagant",
    "generous",
    "opulent",
-   "bestow"
+   "bestow",
+   "elaborate"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -43684,7 +43708,8 @@
    "audacity",
    "rashness",
    "boldness",
-   "nerve"
+   "nerve",
+   "presumptuous daring"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -46640,7 +46665,8 @@
   "synonyms": [
    "imaginary",
    "whimsical",
-   "dreamy"
+   "dreamy",
+   "imaginative"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -49600,7 +49626,8 @@
    "foretell",
    "predict",
    "foreshadow",
-   "augur"
+   "augur",
+   "give warning beforehand"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -50532,7 +50559,8 @@
    "cancel",
    "withdraw",
    "annul",
-   "rescind"
+   "rescind",
+   "retract"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -59753,7 +59781,8 @@
    "disguise",
    "concealment",
    "coloring",
-   "cover"
+   "cover",
+   "conceal"
   ],
   "category": "va",
   "analogyRelations": [],
@@ -64810,7 +64839,8 @@
    "chaotic",
    "noisy",
    "stormy",
-   "uproarious"
+   "uproarious",
+   "volatile"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -67508,7 +67538,8 @@
    "symbolic",
    "allegorical",
    "non-literal",
-   "poetic"
+   "poetic",
+   "nonliteral"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -77298,7 +77329,8 @@
    "charm",
    "appeal",
    "magnetism",
-   "allure"
+   "allure",
+   "attractiveness"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -77404,7 +77436,8 @@
    "favorable",
    "beneficial",
    "helpful",
-   "promoting"
+   "promoting",
+   "contributive"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -77751,7 +77784,8 @@
    "unoriginal",
    "imitative",
    "secondhand",
-   "copied"
+   "copied",
+   "following from"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -83879,7 +83913,8 @@
    "viewpoint",
    "standpoint",
    "outlook",
-   "angle"
+   "angle",
+   "position"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -86840,7 +86875,8 @@
    "submissive",
    "compliant",
    "resigned",
-   "indifferent"
+   "indifferent",
+   "unassertive"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -95338,7 +95374,8 @@
    "inspection",
    "investigation",
    "analysis",
-   "review"
+   "review",
+   "careful inspection"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -102256,7 +102293,8 @@
    "dejected",
    "gloomy",
    "heartbroken",
-   "inconsolable"
+   "inconsolable",
+   "hopelessly sad"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -103406,7 +103444,8 @@
    "scouting",
    "survey",
    "inspection",
-   "exploration"
+   "exploration",
+   "surveying expedition"
   ],
   "category": "wk",
   "analogyRelations": [
@@ -108542,7 +108581,8 @@
    "vacuity",
    "foolishness",
    "silliness",
-   "triviality"
+   "triviality",
+   "statement lacking sense"
   ],
   "category": "wk",
   "source": "gre-magoosh",
@@ -108952,7 +108992,8 @@
    "lascivious",
    "lewd",
    "dissolute",
-   "debauched"
+   "debauched",
+   "depraved"
   ],
   "category": "wk",
   "source": "gre-magoosh",
@@ -109910,7 +109951,8 @@
    "ruler",
    "monarch",
    "sovereign",
-   "despot"
+   "despot",
+   "leader"
   ],
   "category": "wk",
   "source": "gre-magoosh",
@@ -132006,7 +132048,8 @@
   "synonyms": [
    "seize",
    "commandeer",
-   "usurp"
+   "usurp",
+   "hijack"
   ],
   "category": "wk",
   "source": "gre-magoosh",
@@ -138364,7 +138407,8 @@
   "synonyms": [
    "concretize",
    "materialize",
-   "objectify"
+   "objectify",
+   "make real"
   ],
   "category": "wk",
   "source": "gre-magoosh",
@@ -143310,7 +143354,8 @@
   "synonyms": [
    "approval",
    "sanction",
-   "endorsement"
+   "endorsement",
+   "signature"
   ],
   "category": "wk",
   "source": "gre-magoosh",
@@ -152777,7 +152822,8 @@
    "lawsuit",
    "legal action",
    "court case",
-   "proceedings"
+   "proceedings",
+   "legal case"
   ],
   "category": "wk",
   "source": "barron-mfat",
@@ -156063,7 +156109,8 @@
   "synonyms": [
    "address the court",
    "make a formal statement",
-   "speak formally"
+   "speak formally",
+   "address"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156101,7 +156148,8 @@
    "forward",
    "preceding",
    "prior",
-   "earlier"
+   "earlier",
+   "before"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156551,7 +156599,8 @@
    "plentiful",
    "ample",
    "copious",
-   "bountiful"
+   "bountiful",
+   "fruitful"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156588,7 +156637,8 @@
    "verbosity",
    "wordiness",
    "long-windedness",
-   "garrulity"
+   "garrulity",
+   "redundancy"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156630,7 +156680,8 @@
    "inflexible",
    "hardened",
    "ossified",
-   "stiff"
+   "stiff",
+   "having hardened arteries"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156707,7 +156758,8 @@
    "absentee",
    "shirker",
    "malingerer",
-   "delinquent"
+   "delinquent",
+   "absent"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156741,7 +156793,8 @@
    "padding",
    "verbosity",
    "phrasing",
-   "jargon"
+   "jargon",
+   "circumlocution"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156779,7 +156832,8 @@
    "complete",
    "unconditional",
    "utter",
-   "unqualified"
+   "unqualified",
+   "definitive"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156854,7 +156908,8 @@
    "vital",
    "decisive",
    "essential",
-   "pivotal"
+   "pivotal",
+   "most important"
   ],
   "category": "wk",
   "analogyRelations": [],
@@ -156934,7 +156989,8 @@
    "determine",
    "pinpoint",
    "analyze",
-   "detect"
+   "detect",
+   "identify a situation"
   ],
   "category": "wk",
   "analogyRelations": [],

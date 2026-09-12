@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.134.0";
+const VERSION = "4.135.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
