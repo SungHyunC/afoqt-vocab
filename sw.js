@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-135-0";  // 기출 WK 정답어 56개 동의어 보강
+const CACHE = "afoqt-v4-136-0";  // 무한 피드 12초 타이머 모드
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

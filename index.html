@@ -249,6 +249,10 @@
           <span><b>한글 뜻 같이 보기</b><small>언제든 피드 위에서 켜고 끌 수 있어요</small></span>
           <input type="checkbox" id="synfeedKo" checked><i aria-hidden="true"></i>
         </label>
+        <label class="synfeed-switch">
+          <span><b>⏱ 12초 타이머 (실전 페이스)</b><small>실제 WK는 5분에 25문항 · 시간이 다 되면 오답 처리 후 5문제 뒤 재도전</small></span>
+          <input type="checkbox" id="synfeedTimerOpt"><i aria-hidden="true"></i>
+        </label>
       </div>
       <button class="synfeed-start" id="synfeedStart" type="button"><span>∞ 무한 피드 시작</span><small>100문제씩 SET · 전체 범위는 계속 이어짐</small></button>
       <p class="synfeed-basis">P1~P3는 앱의 근거 기반 누적 학습 우선순위이며, 공식 AFOQT 출현 빈도 통계는 아닙니다.</p>
@@ -262,7 +266,7 @@
       <div><b id="synfeedRunCombo">0</b><span>콤보</span></div>
       <div><b id="synfeedRunXp">0</b><span>포인트</span></div>
     </div>
-    <div class="synfeed-cycle"><span id="synfeedCycle">ROUND 1 · SET 1/1</span><span id="synfeedCyclePos">문제 1 / 100</span></div>
+    <div class="synfeed-cycle"><span id="synfeedCycle">ROUND 1 · SET 1/1</span><span id="synfeedCyclePos">문제 1 / 100</span><button class="synfeed-timer hidden" id="synfeedTimer" type="button" title="탭하면 타이머 끄기">⏱ 12초</button></div>
     <div class="synfeed-progress"><i id="synfeedProgress"></i></div>
     <div class="sr-only" id="synfeedAnnounce" aria-live="polite" aria-atomic="true"></div>
     <div class="synfeed-stage" id="synfeedStage"></div>

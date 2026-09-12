@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.135.0";
+const VERSION = "4.136.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2122,6 +2122,25 @@ function guardSynFeedNewRun(){ if(!guardSynFeedInitialSync()) return false;
   return true; }
 function synFeedPriority(){ const p=Number(state.settings.syn_feed_priority); return [1,2,3,4].includes(p)?p:2; }
 function synFeedKorean(){ return state.settings.syn_feed_korean!==false; }
+// 12초 타이머 모드(실전 WK: 5분/25문항). 시간이 다 되면 그 문제는 미응답=오답으로 처리한다.
+const SYNFEED_TIMER_SECS=12;
+function synFeedTimerOn(){ return state.settings.syn_feed_timer===true; }
+let synFeedTimerId=null, synFeedDeadline=0;
+function synFeedTimerStop(){ if(synFeedTimerId){ clearInterval(synFeedTimerId); synFeedTimerId=null; } synFeedDeadline=0; }
+function synFeedTimerStart(){ synFeedTimerStop(); const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null||!synFeedTimerOn()) return;
+  synFeedDeadline=Date.now()+SYNFEED_TIMER_SECS*1000; synFeedTimerPaint();
+  synFeedTimerId=setInterval(()=>{ if(!synFeed||synFeed.current!==q||q.chosen!=null){ synFeedTimerStop(); return; }
+    if(Date.now()>=synFeedDeadline){ synFeedTimerStop(); synFeedTimeout(); return; } synFeedTimerPaint(); },100); }
+function synFeedTimerPaint(){ const el=$("#synfeedTimer"); if(!el) return; const q=synFeed&&synFeed.current;
+  const on=synFeedTimerOn(); el.classList.toggle("hidden",!on); if(!on) return;
+  if(!q||q.chosen!=null||!synFeedDeadline){ el.textContent="⏱ 12초"; el.classList.remove("warn"); return; }
+  const left=Math.max(0,synFeedDeadline-Date.now()); el.textContent=`⏱ ${(left/1000).toFixed(1)}`; el.classList.toggle("warn",left<=4000); }
+// 시간 초과: 오답 보기 하나를 고른 것으로 기록(첫 시도 오답 → 5문제 뒤 재도전) — 실전에서 못 푼 문항과 같다.
+function synFeedTimeout(){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null) return;
+  const wrongIdx=q.opts.findIndex(o=>!o.ok); if(wrongIdx<0) return; q.timedOut=true; answerSynFeed(wrongIdx); }
+function setSynFeedTimer(on){ state.settings.syn_feed_timer=!!on; const c=$("#synfeedTimerOpt"); if(c) c.checked=!!on;
+  saveLocal(false); queuePush("settings",{});
+  if(on) synFeedTimerStart(); else synFeedTimerStop(); synFeedTimerPaint(); }
 function synFeedPool(priority=synFeedPriority()){
   return WORDS.filter(w=>Array.isArray(w.synonyms)&&w.synonyms.length&&(priority===4||(verbalPriorityOf(w)&&verbalPriorityOf(w)<=priority))).map(w=>w.id);
 }
@@ -2257,7 +2276,7 @@ function reconcileSynFeedBeforeInput(){ if(syncCodeMismatch||syncCodeChangedElse
   if(synFeedSyncPending()){ toast("⏳ 다른 기기의 최신 문제 위치를 확인 중이에요."); return false; }
   const r=refreshSynFeedSession(true); if(!r.activeChanged) return true;
   saveNow(); toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요."); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); return false; }
-function pauseSynFeed(){ if(synFeed) synFeedSave(true,false,false); synFeed=null;
+function pauseSynFeed(){ synFeedTimerStop(); if(synFeed) synFeedSave(true,false,false); synFeed=null;
   refreshSynFeedSession(); compactSynFeedReplicas(); saveNow(); flushSynFeedKeepalive(); flushPush(); }
 function synFeedAdvanceBase(s){ s.cursor++;
   if(s.cursor<s.queue.length) return;
@@ -2330,7 +2349,7 @@ function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#syn
   $("#synfeedKoLive").classList.add("hidden");
   const p=synFeedPriority(),counts={}; [1,2,3,4].forEach(n=>{ counts[n]=synFeedPool(n).length; const el=$("#synfeedCount"+n); if(el) el.textContent=counts[n].toLocaleString(); });
   $$('#view-synfeed input[name="synfeedPriority"]').forEach(x=>x.checked=Number(x.value)===p);
-  $("#synfeedKo").checked=synFeedKorean(); const d=synFeedDay(); $("#synfeedToday").textContent=(d.n||0).toLocaleString();
+  $("#synfeedKo").checked=synFeedKorean(); { const c=$("#synfeedTimerOpt"); if(c) c.checked=synFeedTimerOn(); } const d=synFeedDay(); $("#synfeedToday").textContent=(d.n||0).toLocaleString();
   $("#synfeedBest").textContent=(state.synFeedStats.bestCombo||0).toLocaleString();
   const saved=repairSynFeedSession(state.synFeedSession),can=!!saved,syncing=synFeedSyncPending();
   // 오프라인: 이어 풀기는 항상, 새 시작은 로컬 기록이 없을 때만 (guardSynFeedNewRun과 같은 규칙)
@@ -2359,6 +2378,7 @@ function synFeedRecord(ok){ const r=ownSynFeedReplica(),s=r.stats,d=s.days[today
   const days=Object.keys(s.days).sort(); while(days.length>90) delete s.days[days.shift()]; rebuildSynFeedStats(); }
 function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null||!q.opts[i]) return;
   if(!reconcileSynFeedBeforeInput()) return;
+  synFeedTimerStop();
   q.chosen=i; const ok=!!q.opts[i].ok,w=WMAP.get(q.id),hinted=synFeedKorean(); s.count++;
   if(!q.isRetry) s.baseCount=synFeedBase(s)+1;   // 새 문제만 세는 진행도(재출제 간격 기준)
   // 정답률은 '첫 시도'(재출제 제외)만 센다 — 5문제 전에 답을 본 단어를 다시 맞힌 건 실력이 아니다.
@@ -2401,14 +2421,14 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
     $("#synfeedProgress").style.width=(m.position/m.length*100)+"%"; }
   renderSynFeedKoButton();
   const priority=verbalPriorityOf(w),badge=priority?`${priority===1?"🔥":priority===2?"⭐":"📌"} P${priority}`:"STD";
-  const choices=q.opts.map((o,i)=>{ const cls=answered?(o.ok?"correct":i===q.chosen?"wrong":""):"";
+  const choices=q.opts.map((o,i)=>{ const cls=answered?(o.ok?"correct":(i===q.chosen&&!q.timedOut)?"wrong":""):"";
     return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o.t)}</button>`; }).join("");
   const koLine=showKo&&w.kor?`<div class="synfeed-korean">${esc(w.kor)}</div>`:"";
   // 답한 뒤에는 한글 설정과 무관하게 뜻·어원을 보여준다. 한글 OFF(실전 조건)로 풀면서도
   // 모르던 단어를 그 자리에서 익히게 하는 게 핵심 — 안 그러면 틀리기만 하고 배우질 못한다.
   const hookLine=answered&&w.hook?`<span class="ko">🧠 ${esc(w.hook)}</span>`:"";
   const answerLine=answered?`<div class="synfeed-feedback ${ok?"":"wrong"}">
-      <strong>${ok?"✅ 정답":"❌ 정답은"} <span class="answer">${esc(correct.t)}</span></strong>
+      <strong>${ok?"✅ 정답":q.timedOut?"⏱ 시간 초과 — 정답은":"❌ 정답은"} <span class="answer">${esc(correct.t)}</span></strong>
       ${w.kor?`<span class="ko">${esc(w.word)} · ${esc(w.kor)}</span>`:""}${hookLine}
       ${!ok?`<span class="retry">${q.wrap?"복습 큐 저장 · 다음 세트에서 다시 출제":"복습 큐 저장 · 5문제 뒤 다시 출제 (세트 끝에 남은 건 마무리로 정리)"}</span>`:`<span class="ko">뜻을 확인한 뒤 아래 버튼으로 계속하세요</span>`}
     </div>`:"";
@@ -2423,6 +2443,8 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
     <div class="synfeed-answer-pane"><div class="synfeed-choices" id="synfeedChoices">${choices}</div>
       ${answerLine}${q.milestone?`<div class="synfeed-milestone">${esc(q.milestone)}</div>`:""}</div></article>`;
   if(newQuestion) stage.scrollTop=0;
+  if(!answered&&(newQuestion||!synFeedTimerId)) synFeedTimerStart(); else if(answered) synFeedTimerStop();
+  synFeedTimerPaint();
   fitSynFeedWord();
   if(!answered) $$("#synfeedChoices .synfeed-choice").forEach(b=>b.onclick=()=>answerSynFeed(+b.dataset.i));
   $("#synfeedSpeak").onclick=e=>speak(w.word,e); const next=$("#synfeedNext"),gesture=$("#synfeedGesture");
@@ -5334,6 +5356,8 @@ function wire(){
   $$('#view-synfeed input[name="synfeedPriority"]').forEach(x=>x.onchange=e=>{ if(e.target.checked) setSynFeedPriority(e.target.value); });
   $("#synfeedKo").onchange=e=>setSynFeedKorean(e.target.checked);
   $("#synfeedKoLive").onclick=()=>setSynFeedKorean(!synFeedKorean());
+  $("#synfeedTimerOpt")&&($("#synfeedTimerOpt").onchange=e=>setSynFeedTimer(e.target.checked));
+  $("#synfeedTimer")&&($("#synfeedTimer").onclick=()=>{ setSynFeedTimer(false); toast("⏱ 타이머 끔 — 설정에서 다시 켤 수 있어요"); });
   $("#vkSynq").onclick=()=>go("synq"); $("#synqGo").onclick=startSynQuiz;
   $("#synqBack").onclick=()=>{ synq=null; go("vocab"); }; $("#synqStop").onclick=()=>{ synq=null; renderSynQuiz(); };
   $("#vkAuto").onclick=()=>go("autoplay"); $("#apBack").onclick=()=>go("vocab"); $("#apGo").onclick=startAutoPlay;
@@ -5465,7 +5489,7 @@ function wire(){
     // Backgrounding/lock fires this while the page is still alive — flush the
     // pending server push here so mobile "study then close" doesn't lose progress.
     if(document.visibilityState==="hidden"){
-      synFeedWasBackgrounded=true; synFeedRemoteFresh=false;
+      synFeedWasBackgrounded=true; synFeedRemoteFresh=false; synFeedTimerStop();   // 자리 비운 시간이 문제 시간으로 흐르지 않게
       if(suppressPersistenceForReload||syncCodeMismatch) return;
       if(synFeed){ synFeedSave(true,false,false); flushSynFeedKeepalive(); } // 저장만 하며 stale clock은 올리지 않음
       else flushSynFeedKeepalive();
@@ -5477,7 +5501,8 @@ function wire(){
           saveExamSnap(); }
       }
       saveNow(); flushPush(); return; }
-    if(synFeedWasBackgrounded){ synFeedWasBackgrounded=false; pullSynFeedOnForeground(); }
+    if(synFeedWasBackgrounded){ synFeedWasBackgrounded=false; pullSynFeedOnForeground();
+      if(synFeed&&synFeed.current&&synFeed.current.chosen==null&&$("#view-synfeed")?.classList.contains("active")) synFeedTimerStart(); }
     // Wake Lock is dropped when the tab is hidden — re-acquire it on return if auto-play is running.
     if(ap && ap.playing) apAcquireWake();
     if(exam && !exam.submitted){ examAcquireWake();   // 시험 복귀: 화면 꺼짐 방지 재획득 + 스톱워치 재개

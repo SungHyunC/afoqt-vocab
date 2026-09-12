@@ -954,6 +954,8 @@ body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
 .synfeed-metrics span{font-size:10.5px;color:#94a3b8;margin-top:1px}.synfeed-metrics div:nth-child(3) b{color:#fbbf24}
 .synfeed-cycle{display:flex;justify-content:space-between;gap:8px;color:#94a3b8;font-size:10.5px;font-weight:800;letter-spacing:.45px;padding:0 2px 5px}
 .synfeed-cycle span{white-space:nowrap;font-variant-numeric:tabular-nums}
+.synfeed-timer{margin-left:auto;background:#0f172a;color:#a5f3fc;border:1px solid #06b6d466;border-radius:999px;padding:2px 9px;font:inherit;font-variant-numeric:tabular-nums;min-width:64px;text-align:center;cursor:pointer}
+.synfeed-timer.warn{color:#fecaca;border-color:#ef4444aa;background:#ef44441a}
 .synfeed-progress{height:3px;border-radius:999px;background:#ffffff12;overflow:hidden;flex:0 0 auto}
 .synfeed-progress i{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#8b5cf6,#22d3ee);transition:width .25s}
 .synfeed-stage{flex:1;min-height:0;display:flex;align-items:flex-start;padding:12px 0 5px;overflow-y:auto;
