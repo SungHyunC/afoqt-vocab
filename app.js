@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.131.0";
+const VERSION = "4.132.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2142,16 +2142,23 @@ function synFeedDistractors(w,correct,k){
   if(!synFeedPosIndex) buildSynFeedIndex();
   const target=new Set([w.word,...(w.synonyms||[])].map(synFeedNorm).filter(Boolean));
   const usedTerms=new Set([synFeedNorm(correct)]),usedSources=new Set(),out=[];
-  const fill=rows=>{ if(!rows||!rows.length) return; const start=(Math.random()*rows.length)|0;
+  // 정답이 다단어("island chain")인데 오답이 전부 한 단어면 형식만으로 답이 드러난다 —
+  // 그런 표제어(16개)는 오답도 다단어를 먼저 찾고, 모자랄 때만 한 단어로 채운다.
+  const wantMulti=/\s/.test(String(correct).trim());
+  const fill=(rows,multiOnly)=>{ if(!rows||!rows.length) return; const start=(Math.random()*rows.length)|0;
     for(let z=0;z<rows.length&&out.length<k;z++){ const o=rows[(start+z)%rows.length];
       if(!o||o.id===w.id||usedSources.has(o.id)) continue;
       const cluster=[o.word,...(o.synonyms||[])].map(synFeedNorm).filter(Boolean);
       if(cluster.some(x=>target.has(x))) continue;
-      let terms=synFeedUniqueTerms(o.synonyms,o.word); const singles=terms.filter(t=>!/\s/.test(t)); if(singles.length) terms=singles;
+      let terms=synFeedUniqueTerms(o.synonyms,o.word);
+      if(multiOnly){ terms=terms.filter(t=>/\s/.test(t)); }
+      else { const singles=terms.filter(t=>!/\s/.test(t)); if(singles.length) terms=singles; }
       if(!terms.length) continue; const off=(Math.random()*terms.length)|0; let pick="";
       for(let j=0;j<terms.length;j++){ const t=terms[(off+j)%terms.length],n=synFeedNorm(t); if(!target.has(n)&&!usedTerms.has(n)){ pick=t; break; } }
       if(!pick) continue; usedSources.add(o.id); usedTerms.add(synFeedNorm(pick)); out.push(pick); } };
-  fill(synFeedPosIndex.byPos.get(synFeedPos(w))); if(out.length<k) fill(synFeedPosIndex.all);
+  const same=synFeedPosIndex.byPos.get(synFeedPos(w));
+  if(wantMulti){ fill(same,true); if(out.length<k) fill(synFeedPosIndex.all,true); }
+  if(out.length<k) fill(same,false); if(out.length<k) fill(synFeedPosIndex.all,false);
   return out.length===k?out:null;
 }
 // 완전 무작위는 짧은 구간에서 같은 정답 위치가 몰릴 수 있다. 10문제마다
@@ -2406,7 +2413,9 @@ function wireChoiceKeys(){
         if(b&&!b.disabled){ e.preventDefault(); b.click(); } return; }
       if(c==="Enter"||c==="NumpadEnter"||c==="Space"||c==="ArrowRight"||c==="ArrowUp"){
         if(e.repeat){ e.preventDefault(); return; } // 길게 누른 키가 결과 화면을 곧바로 넘기지 않게 한다
-        if(t&&t.tagName==="BUTTON") return; // 포커스된 토글·발음·나가기 버튼의 기본 키 동작을 가로채지 않는다
+        // Enter/Space는 포커스된 버튼(토글·발음·나가기·다음)의 기본 동작에 맡긴다. 화살표는 버튼에
+        // 기본 동작이 없으므로 여기서 처리해야 한다 — 답한 뒤 포커스가 '다음 문제'로 가 있어 →가 먹통이었다.
+        if(t&&t.tagName==="BUTTON"&&(c==="Enter"||c==="NumpadEnter"||c==="Space")) return;
         if(synFeed.current&&synFeed.current.chosen!=null){ e.preventDefault(); synFeedAdvance(); } return; }
       if(c==="Escape"){ e.preventDefault(); go("vocab"); } return;
     } else if(vis("#view-synq")&&typeof synq!=="undefined"&&synq&&$("#synqChoices")){
