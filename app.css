@@ -971,7 +971,14 @@ body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
 .synfeed-word{min-width:0;max-width:calc(100% - 52px);white-space:nowrap;overflow:hidden;overflow-wrap:normal;font-size:min(var(--synfeed-word-size,42px),clamp(30px,9vw,42px));font-weight:900;line-height:1.12;text-align:center;letter-spacing:.3px}
 /* 유추 피드 프롬프트: 한 단어가 아니라 문장이라 줄바꿈 허용 (synfeed-word의 nowrap/overflow 금지) */
 .vafeed-prompt{width:100%;white-space:normal;overflow:visible;overflow-wrap:break-word;font-size:clamp(19px,4.6vw,26px);font-weight:900;line-height:1.35;text-align:center;letter-spacing:.2px}
-.vafeed-prompt .as{color:#94a3b8;font-weight:600;font-size:.82em;margin-right:.25em}
+/* 유추 프롬프트 그리드: [왼단어(오른정렬)] [is to] [오른단어(왼정렬)] 두 줄 — 축이 맞아 짝 관계가 바로 읽힌다 */
+.vap{display:grid;grid-template-columns:auto auto auto;justify-content:center;align-items:center;column-gap:10px;row-gap:5px;width:100%;margin:2px 0 4px}
+.vap-w{font-size:clamp(18px,4.6vw,24px);font-weight:800;letter-spacing:.2px;line-height:1.25;white-space:nowrap;min-width:0;color:#f8fafc}
+.vap-w.l{text-align:right}.vap-w.r{text-align:left}
+.vap-rel{font-size:11.5px;font-weight:700;color:#94a3b8;letter-spacing:.5px;white-space:nowrap;padding:3px 7px;border-radius:999px;background:#ffffff0a;justify-self:center}
+.vap-blank{display:inline-block;min-width:2.4em;padding:0 .35em;border:2px dashed #22d3ee88;border-radius:8px;color:#67e8f9;text-align:center;justify-self:start}
+.vap-as{grid-column:1/-1;font-size:11.5px;color:#a5b4fc;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;text-align:center;margin:1px 0}
+.vap-opt-rel{font-style:normal;font-weight:500;color:#94a3b8;font-size:.85em;margin:0 .3em}
 .synfeed-speaker{width:44px;height:44px;flex:0 0 auto;align-self:center;display:grid;place-items:center;border-radius:50%;background:#ffffff0b;color:#a5f3fc;font-size:17px}
 .synfeed-korean{text-align:center;color:#cbd5e1;font-size:14px;font-weight:650;margin:8px 0 0;line-height:1.4}
 .synfeed-prompt{text-align:center;color:#64748b;font-size:10.5px;margin:8px 0 13px;letter-spacing:.2px}
