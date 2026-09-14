@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.138.0";
+const VERSION = "4.139.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2559,6 +2559,21 @@ function answerVaFeed(i){ const s=vaFeed,q=s&&s.current; if(!q||q.chosen!=null||
   if(!ok){ s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:vaFeedBase(s)+VAFEED_GAP}); }
   if(!q.isRetry) s.baseCount=vaFeedBase(s)+1; s.lastId=q.id;
   vaFeedRecordStat(ok,s.combo); vaFeedSave(); queuePush("app_state"); renderVaFeedPlay(); $("#vafeedNext")?.focus({preventScroll:true}); }
+// 유추 프롬프트를 "A is to B / as / C is to ?" 그리드로 — 짝이 세로로 정렬돼 관계가 한눈에 보인다
+function vaFeedPromptHTML(it){ const p=String(it.prompt||"");
+  // 하나의 3열 그리드(단어 | is to | 단어)에 두 줄을 넣어 'is to' 축이 자동 정렬된다
+  const cell=(a,b,blank)=>`<span class="vap-w l">${esc(a)}</span><span class="vap-rel">is to</span><span class="vap-w r${blank?" vap-blank":""}">${blank?"?":esc(b)}</span>`;
+  let m=/^(.+?) is to (.+?) as (.+?) is to$/.exec(p);
+  if(m) return `<div class="vap">${cell(m[1],m[2])}<div class="vap-as">as</div>${cell(m[3],"",true)}</div>`;
+  m=/^(.+?) is to (.+?) as$/.exec(p);
+  if(m) return `<div class="vap">${cell(m[1],m[2])}<div class="vap-as">as ↓ 아래에서 같은 관계의 짝</div></div>`;
+  return `<div class="vafeed-prompt">${esc(p)}</div>`; }
+// 폭이 모자라면 말줄임 대신 단어 글자 크기를 줄인다(두 줄 동일 크기 유지 → 축 정렬 보존)
+let vaPromptFitFrame=0;
+function fitVaPrompt(){ cancelAnimationFrame(vaPromptFitFrame); vaPromptFitFrame=requestAnimationFrame(()=>{
+  const g=$("#vafeedStage .vap"); if(!g) return; const ws=[...g.querySelectorAll(".vap-w")]; if(!ws.length) return;
+  ws.forEach(w=>w.style.fontSize=""); let px=parseFloat(getComputedStyle(ws[0]).fontSize)||24;
+  for(let i=0;i<14&&px>13&&g.scrollWidth>g.clientWidth+1;i++){ px-=1; ws.forEach(w=>w.style.fontSize=px+"px"); } }); }
 function renderVaFeedPlay(){ const s=vaFeed,q=s&&s.current; if(!s||!q) return; const it=q.it,a=ANALOGIES.find(x=>x.id===q.id)||{};
   const answered=q.chosen!=null,ok=answered&&q.chosen===it.answer,m=vaFeedSetMeta(s);
   $("#vafeedRunCount").textContent=(s.count||0).toLocaleString();
@@ -2570,7 +2585,7 @@ function renderVaFeedPlay(){ const s=vaFeed,q=s&&s.current; if(!s||!q) return; c
     $("#vafeedCyclePos").textContent=`재도전 ${Math.min(total,done+1)} / ${total}`; $("#vafeedProgress").style.width=(Math.min(total,done+1)/total*100)+"%"; }
   else { $("#vafeedCyclePos").textContent=`문제 ${m.position} / ${m.length}${pending?` · 재도전 대기 ${pending}`:""}`; $("#vafeedProgress").style.width=(m.position/m.length*100)+"%"; }
   const choices=it.options.map((o,i)=>{ const cls=answered?(i===it.answer?"correct":(i===q.chosen&&!q.timedOut)?"wrong":""):"";
-    return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o)}</button>`; }).join("");
+    return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o).replace(/ is to /," <i class=\"vap-opt-rel\">is to</i> ")}</button>`; }).join("");
   const rel=a.relKo?`${a.relKo}${a.relation?" · "+a.relation:""}`:(a.relation||"");
   const lines=answered?String(it.explain||"").split("\n").filter(Boolean).slice(1):[];   // 첫 줄(관계)은 따로 강조
   const feedback=answered?`<div class="synfeed-feedback ${ok?"":"wrong"}">
@@ -2583,12 +2598,12 @@ function renderVaFeedPlay(){ const s=vaFeed,q=s&&s.current; if(!s||!q) return; c
     ${answered&&ok?`<span class="synfeed-points">+${q.gain}</span>`:""}
     <div class="synfeed-question-pane">
       <div class="synfeed-question-meta"><span class="synfeed-badge">${esc(a.tier==="high"?"⭐ 빈출":"ANALOGY")}</span>${q.wrap?`<span class="synfeed-badge synfeed-retry-badge">세트 마무리 · 다시 도전</span>`:q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
-      <div class="vafeed-prompt">${esc(it.prompt).replace(/ as /, '<br><span class="as">as</span> ').replace(/ as$/, '<br><span class="as">as</span>')}</div>
+      ${vaFeedPromptHTML(it)}
       <div class="synfeed-prompt">같은 관계의 짝을 고르세요</div>
     </div>
     <div class="synfeed-answer-pane"><div class="synfeed-choices" id="vafeedChoices">${choices}</div>
       ${feedback}${q.milestone?`<div class="synfeed-milestone">${esc(q.milestone)}</div>`:""}</div></article>`;
-  if(newQ) stage.scrollTop=0;
+  if(newQ) stage.scrollTop=0; fitVaPrompt();
   if(!answered&&(newQ||!vaFeedTimerId)) vaFeedTimerStart(); else if(answered) vaFeedTimerStop(); vaFeedTimerPaint();
   if(!answered) $$("#vafeedChoices .synfeed-choice").forEach(b=>b.onclick=()=>answerVaFeed(+b.dataset.i));
   const next=$("#vafeedNext"),gesture=$("#vafeedGesture"); next.classList.toggle("hidden",!answered); gesture.classList.toggle("hidden",answered); next.onclick=answered?()=>vaFeedAdvance():null; }
