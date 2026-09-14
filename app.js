@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.137.0";
+const VERSION = "4.138.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2583,7 +2583,7 @@ function renderVaFeedPlay(){ const s=vaFeed,q=s&&s.current; if(!s||!q) return; c
     ${answered&&ok?`<span class="synfeed-points">+${q.gain}</span>`:""}
     <div class="synfeed-question-pane">
       <div class="synfeed-question-meta"><span class="synfeed-badge">${esc(a.tier==="high"?"⭐ 빈출":"ANALOGY")}</span>${q.wrap?`<span class="synfeed-badge synfeed-retry-badge">세트 마무리 · 다시 도전</span>`:q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
-      <div class="synfeed-word" style="font-size:22px;line-height:1.35">${esc(it.prompt)}</div>
+      <div class="vafeed-prompt">${esc(it.prompt).replace(/ as /, '<br><span class="as">as</span> ').replace(/ as$/, '<br><span class="as">as</span>')}</div>
       <div class="synfeed-prompt">같은 관계의 짝을 고르세요</div>
     </div>
     <div class="synfeed-answer-pane"><div class="synfeed-choices" id="vafeedChoices">${choices}</div>
