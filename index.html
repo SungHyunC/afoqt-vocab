@@ -281,6 +281,53 @@
   </section>
 </main>
 
+
+<!-- ===== VA 무한 피드 ===== -->
+<main id="view-vafeed" class="view synfeed-view">
+  <div class="synfeed-topbar">
+    <button class="synfeed-back" id="vafeedBack" type="button">← 유추</button>
+    <div class="synfeed-brand"><span aria-hidden="true">∞</span> <span class="synfeed-brand-full">ANALOGY FEED</span><span class="synfeed-brand-short">FEED</span></div>
+    <span></span>
+  </div>
+  <section id="vafeedSetup" class="synfeed-setup">
+    <div class="synfeed-hero">
+      <div class="synfeed-kicker">VERBAL ANALOGIES · ENDLESS</div>
+      <h2>한 문제씩, 계속.<br><span>관계 유형을 반사적으로</span></h2>
+      <p>답한 뒤 <b>관계 유형</b>과 해설을 확인하고 <b>다음 문제</b>로 넘기세요. 전체 <b id="vafeedCount">–</b>문항을 100개씩 SET으로 돌고, 틀린 문제만 5문제 뒤 다시 나와요.</p>
+      <div class="synfeed-lifetime"><span>오늘 <b id="vafeedToday">0</b>문제</span><span>최고 콤보 <b id="vafeedBest">0</b></span></div>
+    </div>
+    <div class="synfeed-setup-panel">
+      <button class="synfeed-resume hidden" id="vafeedResume" type="button"></button>
+      <div class="synfeed-setup-card">
+        <label class="synfeed-switch" style="margin-top:0;padding-top:0;border-top:0">
+          <span><b>⏱ 19초 타이머 (실전 페이스)</b><small>실제 VA는 8분에 25문항 · 시간이 다 되면 오답 처리 후 5문제 뒤 재도전</small></span>
+          <input type="checkbox" id="vafeedTimerOpt"><i aria-hidden="true"></i>
+        </label>
+      </div>
+      <button class="synfeed-start" id="vafeedStart" type="button"><span>∞ 유추 무한 피드 시작</span><small>100문제씩 SET · 전체를 계속 이어감</small></button>
+    </div>
+  </section>
+  <section id="vafeedPlay" class="synfeed-play hidden">
+    <div class="synfeed-metrics" aria-label="현재 피드 기록">
+      <div><b id="vafeedRunCount">0</b><span>누적 풀이</span></div>
+      <div><b id="vafeedRunAccuracy">–</b><span>실전 정답률</span></div>
+      <div><b id="vafeedRunCombo">0</b><span>콤보</span></div>
+      <div><b id="vafeedRunXp">0</b><span>포인트</span></div>
+    </div>
+    <div class="synfeed-cycle"><span id="vafeedCycle">ROUND 1 · SET 1/1</span><span id="vafeedCyclePos">문제 1 / 100</span><button class="synfeed-timer hidden" id="vafeedTimer" type="button" title="탭하면 타이머 끄기">⏱ 19초</button></div>
+    <div class="synfeed-progress"><i id="vafeedProgress"></i></div>
+    <div class="synfeed-stage" id="vafeedStage"></div>
+    <div class="synfeed-actionbar">
+      <div class="synfeed-gesture" id="vafeedGesture">
+        <span class="synfeed-hint-mobile">답을 고른 뒤 관계 유형을 확인하고 직접 넘기세요</span>
+        <span class="synfeed-hint-desktop">숫자 1–5로 선택 · 답 확인 후 Enter / Space / → 로 다음</span>
+      </div>
+      <button class="synfeed-next hidden" id="vafeedNext" type="button"><span>다음 문제</span><span aria-hidden="true">→</span></button>
+    </div>
+    <button class="synfeed-pause" id="vafeedPause" type="button">⏸ 저장하고 나가기</button>
+  </section>
+</main>
+
 <!-- ===== SYNONYM QUIZ (WK 실전형 · 연속) ===== -->
 <main id="view-synq" class="view">
   <div class="study-top"><button class="btn sm ghost" id="synqBack">← 어휘</button><span id="synqScore">0 / 0</span><span></span></div>
@@ -772,6 +819,7 @@
       <div class="card tight stat"><div class="num" id="vaAcc">–</div><div class="lbl">정답률</div></div>
     </div>
     <button class="btn primary" id="vaStart" style="margin-top:16px">▶︎ 유추 연습 시작</button>
+    <button class="synfeed-entry" id="vaFeedBtn" type="button" style="margin-top:10px"><b>∞ 유추 무한 피드</b><small>100문제 SET · 틀리면 5문제 뒤 재도전 · 19초 실전 타이머 옵션</small></button>
     <button class="btn ghost" id="vaBrowse" style="margin-top:10px;border-color:#22c55e">📖 문제 훑어보기 (정답·해설 같이·시간無)</button>
     <button class="btn ghost" id="vaGuide" style="margin-top:10px">📘 유추 공부 가이드</button>
     <button class="btn ghost" id="vaCurr" style="margin-top:10px">🎓 커리큘럼 (관계 분류부터)</button>

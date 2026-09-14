@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.136.0";
+const VERSION = "4.137.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -858,9 +858,14 @@ function mergeSettings(r){ const rt=syncTime(r.updated_at); if(rt&&rt<=settingsS
 function syncedExamHistory(){ return state.examHist.map(h=>{
   if(!h||!h.items) return h; const summary={...h}; delete summary.items; return summary; }); }
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,examHist:syncedExamHistory(),curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt}; }
+  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,examHist:syncedExamHistory(),curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt,vaFeedSession:state.vaFeedSession||null,vaFeedStats:state.vaFeedStats||null}; }
 function mergeMisc(d){
   if(!d) return;
+  // VA 피드: 진행(count)이 더 큰 쪽, 같으면 최신 저장본. 통계는 필드별 최대.
+  if(d.vaFeedSession&&typeof d.vaFeedSession==="object"){ const r=d.vaFeedSession,c=state.vaFeedSession;
+    const rc=safeSynFeedCount(r.count),cc=safeSynFeedCount(c&&c.count);
+    if(!c||rc>cc||(rc===cc&&syncTime(r.updatedAt)>syncTime(c.updatedAt))) state.vaFeedSession=cloneSynFeedSession(r); }
+  if(d.vaFeedStats) state.vaFeedStats=mergeSynFeedStats(state.vaFeedStats,d.vaFeedStats);
   // exams: 최고점과 최근 회차를 따로 병합한다. 최근 회차는 updated_at 기준이라
   // 최고점보다 낮게 다시 응시해도 다른 기기의 카드에 정확히 반영된다.
   for(const k in (d.exams||{})){ const r=d.exams[k],c=state.exams[k];
@@ -1071,7 +1076,7 @@ async function forceSync(){
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vafeed:"analogy",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -1088,6 +1093,7 @@ function renderGuide(){
 }
 function go(view){
   if(synFeed && view!=="synfeed") pauseSynFeed(); // 독립 피드 이탈 시 현재 문제를 그대로 이어서 저장
+  if(vaFeed && view!=="vafeed") vaFeedPause();
   if(synq && view!=="synq") synq=null;            // 기존 동의어 퀴즈 자동 넘김도 다른 화면 뒤에서 계속되지 않게 정리
   if(ap && view!=="autoplay") apStop();  // leaving hands-free mode: stop audio/timers/wake-lock
   // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
@@ -1103,14 +1109,15 @@ function go(view){
     } else exam=null;
   }
   trTimerStop(); bcTimerStop(); icTimerStop();   // 시각과목 연습도 이탈 시 시계 정지(orphan 인터벌 방지)
-  document.body.classList.toggle("synfeed-mode",view==="synfeed");
-  const themeMeta=$("meta[name='theme-color']"); if(themeMeta) themeMeta.setAttribute("content",view==="synfeed"?"#080d1d":"#4f46e5");
+  const feedMode=view==="synfeed"||view==="vafeed";
+  document.body.classList.toggle("synfeed-mode",feedMode);
+  const themeMeta=$("meta[name='theme-color']"); if(themeMeta) themeMeta.setAttribute("content",feedMode?"#080d1d":"#4f46e5");
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,vafeed:renderVaFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath}[view]||(()=>{}))();
 }
 
 /* ============================================================
@@ -2455,6 +2462,137 @@ function renderSynFeedPlay(){ const s=synFeed,q=s&&s.current; if(!s||!q) return;
     if(announce.textContent!==msg) announce.textContent=msg; }
 }
 
+/* ============================================================
+   VA 무한 피드 (유추) — 동의어 피드와 같은 골격: 100문제 SET · 틀리면 5문제 뒤 재도전 ·
+   세트 마무리 · 첫 시도 정답률 · 19초 타이머(실전 VA 8분/25문항) · 이어풀기.
+   동기화는 misc 블롭으로 단순화(진행이 더 큰 쪽 유지) — 동의어 피드의 replica 기계는 쓰지 않는다.
+   ============================================================ */
+const VAFEED_SET=100, VAFEED_GAP=5, VAFEED_STREAK=2, VAFEED_TIMER_SECS=19;
+let vaFeed=null, vaFeedTimerId=null, vaFeedDeadline=0;
+function vaFeedTimerOn(){ return state.settings.va_feed_timer===true; }
+function vaFeedPool(){ return ANALOGIES.map(a=>a.id); }
+function vaFeedBase(s){ return Number.isSafeInteger(s&&s.baseCount)?s.baseCount:safeSynFeedCount(s&&s.count); }
+function vaFeedSetMeta(s){ const total=Array.isArray(s&&s.queue)?s.queue.length:0; if(!total) return {setNo:1,setCount:1,position:1,length:1};
+  const cursor=clamp(Number.isInteger(s.cursor)?s.cursor:0,0,total-1),si=Math.floor(cursor/VAFEED_SET),start=si*VAFEED_SET;
+  return {setNo:si+1,setCount:Math.ceil(total/VAFEED_SET),position:cursor-start+1,length:Math.min(VAFEED_SET,total-start)}; }
+function vaFeedLastOfSet(s){ return (s.cursor+1)%VAFEED_SET===0||s.cursor+1>=s.queue.length; }
+function vaFeedStats(){ state.vaFeedStats=cleanSynFeedStats(state.vaFeedStats); return state.vaFeedStats; }
+function vaFeedRecordStat(ok,combo){ const st=vaFeedStats(),d=st.days[todayStr()]||(st.days[todayStr()]={n:0,c:0,bestCombo:0});
+  st.total++; d.n++; if(ok){ st.correct++; d.c++; } st.bestCombo=Math.max(st.bestCombo,combo||0); d.bestCombo=Math.max(d.bestCombo,combo||0);
+  const days=Object.keys(st.days).sort(); while(days.length>90) delete st.days[days.shift()]; }
+function vaFeedQuestionValid(q){ const it=q&&q.it; return !!(q&&Number.isInteger(q.id)&&it&&Array.isArray(it.options)&&it.options.length===5&&
+  it.options.every(o=>typeof o==="string"&&o.trim())&&Number.isInteger(it.answer)&&it.answer>=0&&it.answer<5&&typeof it.prompt==="string"&&
+  (q.chosen==null||(Number.isInteger(q.chosen)&&q.chosen>=0&&q.chosen<5))); }
+// 저장본 복원: 유추 데이터가 바뀌어도 진행을 버리지 않는다(동의어 피드 repair와 같은 규칙)
+function vaFeedRepair(raw){ const s=cloneSynFeedSession(raw); if(!s||s.v!==1||!Array.isArray(s.queue)||!s.queue.length) return null;
+  const pool=vaFeedPool(); if(pool.length<5) return null; const allowed=new Set(pool),seen=new Set(),done=[],pending=[];
+  const oldCursor=clamp(Number.isInteger(s.cursor)?s.cursor:0,0,s.queue.length-1);
+  const add=(id,t)=>{ if(!allowed.has(id)||seen.has(id)) return; seen.add(id); t.push(id); };
+  s.queue.slice(0,oldCursor).forEach(id=>add(id,done)); s.queue.slice(oldCursor).forEach(id=>add(id,pending)); pool.forEach(id=>add(id,pending));
+  s.queue=[...done,...pending]; if(!s.queue.length) return null;
+  s.cycle=Number.isSafeInteger(s.cycle)&&s.cycle>=1?s.cycle:1;
+  if(done.length>=s.queue.length){ s.cycle++; s.queue=shuffle(pool); s.cursor=0; } else s.cursor=done.length;
+  const rawFirst=Number.isSafeInteger(raw.firstCount), rawBase=Number.isSafeInteger(raw.baseCount);
+  ["count","correct","combo","bestCombo","points","firstCount","firstCorrect","hintCount","baseCount","retryStreak","wrapTotal"].forEach(k=>{ s[k]=safeSynFeedCount(s[k]); });
+  s.correct=Math.min(s.correct,s.count); if(!rawBase) s.baseCount=s.count; if(!rawFirst){ s.firstCount=s.count; s.firstCorrect=s.correct; } s.firstCorrect=Math.min(s.firstCorrect,s.firstCount);
+  s.retry=Array.isArray(s.retry)?s.retry.filter(r=>r&&allowed.has(r.id)&&Number.isSafeInteger(r.dueAt)&&r.dueAt>=0).sort((a,b)=>a.dueAt-b.dueAt).slice(0,100):[];
+  s.wrap=Array.isArray(s.wrap)?s.wrap.filter(id=>allowed.has(id)).slice(0,100):null; if(s.wrap&&!s.wrap.length) s.wrap=null; s.wrapOwed=!!s.wrapOwed;
+  if(s.current&&(!allowed.has(s.current.id)||!vaFeedQuestionValid(s.current))) s.current=null;
+  if(s.current&&!s.current.isRetry&&s.current.id!==s.queue[s.cursor]) s.current=null;
+  if(!syncTime(s.updatedAt)) s.updatedAt=nowISO(); return s; }
+function vaFeedBuild(id,isRetry){ const a=ANALOGIES.find(x=>x.id===id); if(!a) return null; const it=vaItem(a);
+  if(!it||!Array.isArray(it.options)||it.options.length!==5||it.answer<0) return null;
+  return {id,isRetry:!!isRetry,it,chosen:null,gain:0,milestone:"",nonce:Date.now()+":"+Math.random().toString(36).slice(2,8)}; }
+function vaFeedSave(immediate=false){ if(!vaFeed) return; vaFeed.updatedAt=nowISO(); state.vaFeedSession=cloneSynFeedSession(vaFeed); if(immediate) saveNow(); else saveLocal(); }
+function vaFeedPause(){ vaFeedTimerStop(); if(vaFeed) vaFeedSave(true); vaFeed=null; }
+function vaFeedAdvanceBase(s){ s.cursor++; if(s.cursor<s.queue.length) return; s.cycle=(s.cycle||1)+1; s.cursor=0;
+  const q=shuffle(vaFeedPool()); if(q.length>1&&q[0]===s.lastId){ [q[0],q[1]]=[q[1],q[0]]; } s.queue=q; }
+function vaFeedAdvance(initial=false){ const s=vaFeed; if(!s) return;
+  if(!initial&&(!s.current||s.current.chosen==null)) return;
+  if(!initial&&s.current&&!s.current.isRetry){
+    if(vaFeedLastOfSet(s)&&!(Array.isArray(s.wrap)&&s.wrap.length)&&!s.wrapOwed&&(s.retry||[]).length){
+      s.wrap=s.retry.map(r=>r.id); s.wrapTotal=s.wrap.length; s.retry=[]; s.wrapOwed=true; s.retryStreak=0; }
+    else vaFeedAdvanceBase(s); }
+  for(let tries=0;tries<30;tries++){
+    if(Array.isArray(s.wrap)&&s.wrap.length){ const id=s.wrap.shift(); const q=vaFeedBuild(id,true); if(!q) continue; q.wrap=true; s.current=q; vaFeedSave(); renderVaFeedPlay(); return; }
+    if(s.wrapOwed){ s.wrapOwed=false; s.wrap=null; s.wrapTotal=0; vaFeedAdvanceBase(s); }
+    const base=vaFeedBase(s), allowRetry=safeSynFeedCount(s.retryStreak)<VAFEED_STREAK;
+    const ri=allowRetry?(s.retry||[]).findIndex(r=>r&&r.dueAt<=base):-1;
+    if(ri>=0){ const r=s.retry.splice(ri,1)[0],q=vaFeedBuild(r.id,true); if(q){ s.current=q; s.retryStreak=safeSynFeedCount(s.retryStreak)+1; vaFeedSave(); renderVaFeedPlay(); return; } continue; }
+    const q=vaFeedBuild(s.queue[s.cursor],false); if(q){ s.current=q; s.retryStreak=0; vaFeedSave(); renderVaFeedPlay(); return; }
+    vaFeedAdvanceBase(s); }
+  toast("문제를 만들지 못했어요."); vaFeedPause(); renderVaFeed(); }
+function startVaFeed(){ const pool=vaFeedPool(); if(pool.length<5){ toast("유추 데이터가 부족해요."); return; }
+  const prev=vaFeedRepair(state.vaFeedSession);
+  if(prev){ const m=vaFeedSetMeta(prev); if(!confirm(`이어 풀던 기록이 있어요 (SET ${m.setNo}/${m.setCount}, 문제 ${m.position}/${m.length}, 누적 ${prev.count||0}문제).\n처음부터 새 피드를 만들까요?`)) return; }
+  vaFeed={v:1,queue:shuffle(pool),cursor:0,cycle:1,retry:[],count:0,baseCount:0,retryStreak:0,firstCount:0,firstCorrect:0,correct:0,combo:0,bestCombo:0,points:0,current:null,startedAt:nowISO(),updatedAt:nowISO()};
+  vaFeedShowPlay(); vaFeedAdvance(true); }
+function resumeVaFeed(){ const s=vaFeedRepair(state.vaFeedSession); if(!s){ state.vaFeedSession=null; saveLocal(); renderVaFeed(); return; }
+  vaFeed=s; vaFeedShowPlay(); if(!vaFeed.current) vaFeedAdvance(true); else renderVaFeedPlay(); }
+function vaFeedShowPlay(){ $("#vafeedSetup").classList.add("hidden"); $("#vafeedPlay").classList.remove("hidden"); }
+function renderVaFeed(){ $("#vafeedSetup").classList.remove("hidden"); $("#vafeedPlay").classList.add("hidden");
+  const st=vaFeedStats(),d=st.days[todayStr()]||{n:0}; $("#vafeedToday").textContent=(d.n||0).toLocaleString(); $("#vafeedBest").textContent=(st.bestCombo||0).toLocaleString();
+  $("#vafeedCount").textContent=ANALOGIES.length.toLocaleString(); { const c=$("#vafeedTimerOpt"); if(c) c.checked=vaFeedTimerOn(); }
+  const saved=vaFeedRepair(state.vaFeedSession),can=!!saved,b=$("#vafeedResume"),start=$("#vafeedStart"); b.classList.toggle("hidden",!can); start.classList.toggle("has-resume",can);
+  if(can){ const fc=saved.firstCount||0,acc=fc?Math.round(saved.firstCorrect/fc*100):0,m=vaFeedSetMeta(saved);
+    b.innerHTML=`<b>▶ 이어 풀기</b><small>SET ${m.setNo}/${m.setCount} · 문제 ${m.position}/${m.length} · 누적 ${saved.count||0}문제 · ${acc}%</small>`; }
+  start.innerHTML=can?`<span>처음부터 새 피드 만들기</span><small>이어풀기 기록이 있으므로 확인 후 새로 시작해요</small>`:`<span>∞ 유추 무한 피드 시작</span><small>100문제씩 SET · 1,130문항 전체를 계속 이어감</small>`; }
+// 타이머(19초): 시간 초과 = 미응답 = 오답
+function vaFeedTimerStop(){ if(vaFeedTimerId){ clearInterval(vaFeedTimerId); vaFeedTimerId=null; } vaFeedDeadline=0; }
+function vaFeedTimerPaint(){ const el=$("#vafeedTimer"); if(!el) return; const q=vaFeed&&vaFeed.current,on=vaFeedTimerOn(); el.classList.toggle("hidden",!on); if(!on) return;
+  if(!q||q.chosen!=null||!vaFeedDeadline){ el.textContent=`⏱ ${VAFEED_TIMER_SECS}초`; el.classList.remove("warn"); return; }
+  const left=Math.max(0,vaFeedDeadline-Date.now()); el.textContent=`⏱ ${(left/1000).toFixed(1)}`; el.classList.toggle("warn",left<=5000); }
+function vaFeedTimerStart(){ vaFeedTimerStop(); const q=vaFeed&&vaFeed.current; if(!q||q.chosen!=null||!vaFeedTimerOn()) return;
+  vaFeedDeadline=Date.now()+VAFEED_TIMER_SECS*1000; vaFeedTimerPaint();
+  vaFeedTimerId=setInterval(()=>{ if(!vaFeed||vaFeed.current!==q||q.chosen!=null){ vaFeedTimerStop(); return; }
+    if(Date.now()>=vaFeedDeadline){ vaFeedTimerStop(); const wi=q.it.options.findIndex((_,i)=>i!==q.it.answer); if(wi>=0){ q.timedOut=true; answerVaFeed(wi); } return; } vaFeedTimerPaint(); },100); }
+function setVaFeedTimer(on){ state.settings.va_feed_timer=!!on; const c=$("#vafeedTimerOpt"); if(c) c.checked=!!on; saveLocal(); queuePush("settings",{}); if(on) vaFeedTimerStart(); else vaFeedTimerStop(); vaFeedTimerPaint(); }
+function answerVaFeed(i){ const s=vaFeed,q=s&&s.current; if(!q||q.chosen!=null||!q.it.options[i]) return; vaFeedTimerStop();
+  q.chosen=i; const ok=i===q.it.answer; s.count++;
+  if(!q.isRetry){ s.firstCount=safeSynFeedCount(s.firstCount)+1; if(ok) s.firstCorrect=safeSynFeedCount(s.firstCorrect)+1; }
+  if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); } else s.combo=0;
+  q.gain=ok?10+Math.min(20,Math.max(0,s.combo-1)*2):0; s.points=(s.points||0)+q.gain;
+  if(ok&&([5,10,20].includes(s.combo)||s.combo>0&&s.combo%50===0)) q.milestone=`✨ ${s.combo}연속 정답!`;
+  bumpDay({studied:1,correct:ok?1:0});
+  // 첫 시도만 실력 표본(secAcc VA·약점 관계유형·state.va)에 반영 — recordResult가 오답노트까지 처리
+  if(!q.isRetry) recordResult(q.it,ok); else { if(ok) delete state.wrong.va[q.id]; else state.wrong.va[q.id]=(state.wrong.va[q.id]||0)+1; }
+  if(!ok){ s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:vaFeedBase(s)+VAFEED_GAP}); }
+  if(!q.isRetry) s.baseCount=vaFeedBase(s)+1; s.lastId=q.id;
+  vaFeedRecordStat(ok,s.combo); vaFeedSave(); queuePush("app_state"); renderVaFeedPlay(); $("#vafeedNext")?.focus({preventScroll:true}); }
+function renderVaFeedPlay(){ const s=vaFeed,q=s&&s.current; if(!s||!q) return; const it=q.it,a=ANALOGIES.find(x=>x.id===q.id)||{};
+  const answered=q.chosen!=null,ok=answered&&q.chosen===it.answer,m=vaFeedSetMeta(s);
+  $("#vafeedRunCount").textContent=(s.count||0).toLocaleString();
+  { const fc=safeSynFeedCount(s.firstCount),fk=safeSynFeedCount(s.firstCorrect); $("#vafeedRunAccuracy").textContent=fc?Math.round(fk/fc*100)+"%":"–"; }
+  $("#vafeedRunCombo").textContent=s.combo||0; $("#vafeedRunXp").textContent=(s.points||0).toLocaleString();
+  const wrapping=!!q.wrap||(Array.isArray(s.wrap)&&s.wrap.length>0),pending=(s.retry||[]).length+(Array.isArray(s.wrap)?s.wrap.length:0);
+  $("#vafeedCycle").textContent=`ROUND ${s.cycle||1} · SET ${m.setNo}/${m.setCount}${wrapping?" · 세트 마무리":q.isRetry?" · RETRY":""}`;
+  if(wrapping){ const total=Math.max(1,safeSynFeedCount(s.wrapTotal)),done=Math.max(0,total-(Array.isArray(s.wrap)?s.wrap.length:0)-(q.chosen==null?1:0));
+    $("#vafeedCyclePos").textContent=`재도전 ${Math.min(total,done+1)} / ${total}`; $("#vafeedProgress").style.width=(Math.min(total,done+1)/total*100)+"%"; }
+  else { $("#vafeedCyclePos").textContent=`문제 ${m.position} / ${m.length}${pending?` · 재도전 대기 ${pending}`:""}`; $("#vafeedProgress").style.width=(m.position/m.length*100)+"%"; }
+  const choices=it.options.map((o,i)=>{ const cls=answered?(i===it.answer?"correct":(i===q.chosen&&!q.timedOut)?"wrong":""):"";
+    return `<button class="synfeed-choice ${cls}" data-i="${i}" data-key="${i+1}" ${answered?"disabled":""}>${esc(o)}</button>`; }).join("");
+  const rel=a.relKo?`${a.relKo}${a.relation?" · "+a.relation:""}`:(a.relation||"");
+  const lines=answered?String(it.explain||"").split("\n").filter(Boolean).slice(1):[];   // 첫 줄(관계)은 따로 강조
+  const feedback=answered?`<div class="synfeed-feedback ${ok?"":"wrong"}">
+      <strong>${ok?"✅ 정답":q.timedOut?"⏱ 시간 초과 — 정답은":"❌ 정답은"} <span class="answer">${esc(it.options[it.answer])}</span></strong>
+      ${rel?`<span class="ko">🔗 관계: ${esc(rel)}</span>`:""}${lines.map(l=>`<span class="ko">${esc(l)}</span>`).join("")}
+      ${!ok?`<span class="retry">${q.wrap?"복습 큐 저장 · 다음 세트에서 다시 출제":"복습 큐 저장 · 5문제 뒤 다시 출제 (세트 끝에 남은 건 마무리로 정리)"}</span>`:`<span class="ko">관계 유형을 확인한 뒤 아래 버튼으로 계속하세요</span>`}
+    </div>`:"";
+  const stage=$("#vafeedStage"),newQ=stage.dataset.questionNonce!==q.nonce; stage.dataset.questionNonce=q.nonce;
+  stage.innerHTML=`<article class="synfeed-card ${answered?(ok?"is-correct":"is-wrong"):""}">
+    ${answered&&ok?`<span class="synfeed-points">+${q.gain}</span>`:""}
+    <div class="synfeed-question-pane">
+      <div class="synfeed-question-meta"><span class="synfeed-badge">${esc(a.tier==="high"?"⭐ 빈출":"ANALOGY")}</span>${q.wrap?`<span class="synfeed-badge synfeed-retry-badge">세트 마무리 · 다시 도전</span>`:q.isRetry?`<span class="synfeed-badge synfeed-retry-badge">다시 도전</span>`:""}</div>
+      <div class="synfeed-word" style="font-size:22px;line-height:1.35">${esc(it.prompt)}</div>
+      <div class="synfeed-prompt">같은 관계의 짝을 고르세요</div>
+    </div>
+    <div class="synfeed-answer-pane"><div class="synfeed-choices" id="vafeedChoices">${choices}</div>
+      ${feedback}${q.milestone?`<div class="synfeed-milestone">${esc(q.milestone)}</div>`:""}</div></article>`;
+  if(newQ) stage.scrollTop=0;
+  if(!answered&&(newQ||!vaFeedTimerId)) vaFeedTimerStart(); else if(answered) vaFeedTimerStop(); vaFeedTimerPaint();
+  if(!answered) $$("#vafeedChoices .synfeed-choice").forEach(b=>b.onclick=()=>answerVaFeed(+b.dataset.i));
+  const next=$("#vafeedNext"),gesture=$("#vafeedGesture"); next.classList.toggle("hidden",!answered); gesture.classList.toggle("hidden",answered); next.onclick=answered?()=>vaFeedAdvance():null; }
+
 // 보기 선택형 화면(동의어 퀴즈·시험)의 키보드 조작.
 // 1~9 로 보기 선택, ←/→ 로 이동, Enter/Space 로 '다음'.
 // e.code 기준이라 한글 입력 상태에서도 그대로 동작한다.
@@ -2465,17 +2603,19 @@ function wireChoiceKeys(){
     if(e.metaKey||e.ctrlKey||e.altKey) return;
     const vis=id=>{ const v=$(id); return v&&getComputedStyle(v).display!=="none"; };
     let box=null,next=null,prev=null;
-    if(vis("#view-synfeed")&&synFeed&&$("#synfeedChoices")){
+    const feedView=(vis("#view-synfeed")&&synFeed&&$("#synfeedChoices"))?"syn":(vis("#view-vafeed")&&vaFeed&&$("#vafeedChoices"))?"va":null;
+    if(feedView){
+      const F=feedView==="syn"?{box:"#synfeedChoices",cur:()=>synFeed.current,adv:synFeedAdvance,back:"vocab"}:{box:"#vafeedChoices",cur:()=>vaFeed.current,adv:vaFeedAdvance,back:"analogy"};
       const c=e.code,dig=/^(Digit|Numpad)([1-5])$/.exec(c);
-      if(dig){ const b=[...$("#synfeedChoices").querySelectorAll(".synfeed-choice")][+dig[2]-1];
+      if(dig){ const b=[...$(F.box).querySelectorAll(".synfeed-choice")][+dig[2]-1];
         if(b&&!b.disabled){ e.preventDefault(); b.click(); } return; }
       if(c==="Enter"||c==="NumpadEnter"||c==="Space"||c==="ArrowRight"||c==="ArrowUp"){
         if(e.repeat){ e.preventDefault(); return; } // 길게 누른 키가 결과 화면을 곧바로 넘기지 않게 한다
         // Enter/Space는 포커스된 버튼(토글·발음·나가기·다음)의 기본 동작에 맡긴다. 화살표는 버튼에
         // 기본 동작이 없으므로 여기서 처리해야 한다 — 답한 뒤 포커스가 '다음 문제'로 가 있어 →가 먹통이었다.
         if(t&&t.tagName==="BUTTON"&&(c==="Enter"||c==="NumpadEnter"||c==="Space")) return;
-        if(synFeed.current&&synFeed.current.chosen!=null){ e.preventDefault(); synFeedAdvance(); } return; }
-      if(c==="Escape"){ e.preventDefault(); go("vocab"); } return;
+        const cq=F.cur(); if(cq&&cq.chosen!=null){ e.preventDefault(); F.adv(); } return; }
+      if(c==="Escape"){ e.preventDefault(); go(F.back); } return;
     } else if(vis("#view-synq")&&typeof synq!=="undefined"&&synq&&$("#synqChoices")){
       box=$("#synqChoices"); next=$("#synqNext"); prev=$("#synqPrev");
     } else if(vis("#view-exam")&&exam&&!exam.submitted&&$("#examChoices")){
@@ -5353,6 +5493,12 @@ function wire(){
   $("#vkSynFeed").onclick=()=>go("synfeed");
   $("#synfeedBack").onclick=()=>go("vocab"); $("#synfeedPause").onclick=()=>go("vocab");
   $("#synfeedStart").onclick=startSynFeed; $("#synfeedResume").onclick=resumeSynFeed;
+  // VA 무한 피드
+  $("#vaFeedBtn")&&($("#vaFeedBtn").onclick=()=>go("vafeed"));
+  $("#vafeedBack")&&($("#vafeedBack").onclick=()=>go("analogy")); $("#vafeedPause")&&($("#vafeedPause").onclick=()=>go("analogy"));
+  $("#vafeedStart")&&($("#vafeedStart").onclick=startVaFeed); $("#vafeedResume")&&($("#vafeedResume").onclick=resumeVaFeed);
+  $("#vafeedTimerOpt")&&($("#vafeedTimerOpt").onchange=e=>setVaFeedTimer(e.target.checked));
+  $("#vafeedTimer")&&($("#vafeedTimer").onclick=()=>{ setVaFeedTimer(false); toast("⏱ 타이머 끔 — 설정에서 다시 켤 수 있어요"); });
   $$('#view-synfeed input[name="synfeedPriority"]').forEach(x=>x.onchange=e=>{ if(e.target.checked) setSynFeedPriority(e.target.value); });
   $("#synfeedKo").onchange=e=>setSynFeedKorean(e.target.checked);
   $("#synfeedKoLive").onclick=()=>setSynFeedKorean(!synFeedKorean());
@@ -5489,7 +5635,7 @@ function wire(){
     // Backgrounding/lock fires this while the page is still alive — flush the
     // pending server push here so mobile "study then close" doesn't lose progress.
     if(document.visibilityState==="hidden"){
-      synFeedWasBackgrounded=true; synFeedRemoteFresh=false; synFeedTimerStop();   // 자리 비운 시간이 문제 시간으로 흐르지 않게
+      synFeedWasBackgrounded=true; synFeedRemoteFresh=false; synFeedTimerStop(); vaFeedTimerStop(); if(vaFeed) vaFeedSave(true);   // 자리 비운 시간이 문제 시간으로 흐르지 않게
       if(suppressPersistenceForReload||syncCodeMismatch) return;
       if(synFeed){ synFeedSave(true,false,false); flushSynFeedKeepalive(); } // 저장만 하며 stale clock은 올리지 않음
       else flushSynFeedKeepalive();
@@ -5503,6 +5649,7 @@ function wire(){
       saveNow(); flushPush(); return; }
     if(synFeedWasBackgrounded){ synFeedWasBackgrounded=false; pullSynFeedOnForeground();
       if(synFeed&&synFeed.current&&synFeed.current.chosen==null&&$("#view-synfeed")?.classList.contains("active")) synFeedTimerStart(); }
+    if(vaFeed&&vaFeed.current&&vaFeed.current.chosen==null&&$("#view-vafeed")?.classList.contains("active")) vaFeedTimerStart();
     // Wake Lock is dropped when the tab is hidden — re-acquire it on return if auto-play is running.
     if(ap && ap.playing) apAcquireWake();
     if(exam && !exam.submitted){ examAcquireWake();   // 시험 복귀: 화면 꺼짐 방지 재획득 + 스톱워치 재개
@@ -5524,7 +5671,7 @@ function wire(){
     if(todayStr()!==lastDay){ lastDay=todayStr(); if(!sessionActive()){ const a=$(".view.active")?.id;
       if(a==="view-home") renderHome(); else softRender(); } }
   }, 60000);
-  const flushBeforeExit=()=>{ if(suppressPersistenceForReload||syncCodeMismatch) return; if(synFeed) synFeedSave(true,false,false); flushSynFeedKeepalive();
+  const flushBeforeExit=()=>{ if(suppressPersistenceForReload||syncCodeMismatch) return; if(synFeed) synFeedSave(true,false,false); if(vaFeed) vaFeedSave(true); flushSynFeedKeepalive();
     if(exam&&!exam.submitted){ settleExamClock(); if(exam&&!exam.submitted) saveExamSnap(); }
     saveNow(); flushPush(); };
   window.addEventListener("pagehide",flushBeforeExit);
@@ -5539,7 +5686,7 @@ let lastDay=todayStr();
    ============================================================ */
 // Register the service worker and auto-apply updates so users never get stuck
 // on a stale cached version (no need for ?v= cache-busting URLs).
-function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz||!!synq||!!synFeed||!!trState||!!bcState||!!icState||!!(curSes&&!curSes.done); }
+function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz||!!synq||!!synFeed||!!vaFeed||!!trState||!!bcState||!!icState||!!(curSes&&!curSes.done); }
 // Nuke all caches + service workers and hard-reload — guarantees the latest
 // version, fixing any "I still see the old app" situation. Learning data lives
 // in localStorage, which is NOT touched here.
