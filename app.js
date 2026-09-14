@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.139.0";
+const VERSION = "4.140.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -4829,6 +4829,23 @@ const CS_MATH=[
    "원: 둘레 2*pi*r · 넓이 pi*r^2 · 부채꼴은 중심각/360° 비례",
    "사다리꼴 = (윗변+아랫변)*높이 ÷ 2 · 원기둥 V = pi*r^2h · 구 V = 4/3 pi*r^3",
    "직육면체 대각선 = sqrt(a^2 + b^2 + c^2)",
+   "n각형 내각의 합 = (n-2) * 180° · 정n각형 한 내각 = (n-2)*180° / n",
+   "겉넓이: 정육면체 6a^2 · 직육면체 2(ab+bc+ca) · 원기둥 2*pi*r^2 + 2*pi*rh",
+   "원뿔 V = 1/3 pi*r^2h · 각뿔 V = 1/3 * 밑넓이 * 높이",
+   "닮음: 길이가 k배면 넓이는 k^2배, 부피는 k^3배",
+ ]],
+ ["좌표기하 (직선·점)",[
+   "기울기 m = (y_2 - y_1) / (x_2 - x_1)",
+   "직선: y = mx + b (b는 y절편) · 한 점 지날 때 y - y_1 = m(x - x_1)",
+   "두 점 거리 = sqrt((x_2-x_1)^2 + (y_2-y_1)^2) · 중점 = ((x_1+x_2)/2, (y_1+y_2)/2)",
+   "평행이면 기울기 같다 · 수직이면 기울기 곱이 -1",
+   "x절편은 y=0 대입, y절편은 x=0 대입",
+ ]],
+ ["수의 성질",[
+   "소수: 1과 자기 자신만 약수 (2는 유일한 짝수 소수)",
+   "배수 판정: 2(짝수) · 3(자릿수 합) · 4(끝 두 자리) · 5(0·5) · 9(자릿수 합) · 10(끝 0)",
+   "n! = 1*2*...*n (0! = 1) · |x| 는 항상 0 이상",
+   "짝*짝=짝 · 홀*홀=홀 · 짝+홀=홀",
  ]],
  ["확률·경우의 수",[
    "순열 nPr = n!/(n-r)! · 조합 nCr = n!/(r!(n-r)!)",
