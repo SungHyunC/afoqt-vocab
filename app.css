@@ -972,8 +972,13 @@ body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
 /* 유추 피드 프롬프트: 한 단어가 아니라 문장이라 줄바꿈 허용 (synfeed-word의 nowrap/overflow 금지) */
 .vafeed-prompt{width:100%;white-space:normal;overflow:visible;overflow-wrap:break-word;font-size:clamp(19px,4.6vw,26px);font-weight:900;line-height:1.35;text-align:center;letter-spacing:.2px}
 /* 유추 프롬프트 그리드: [왼단어(오른정렬)] [is to] [오른단어(왼정렬)] 두 줄 — 축이 맞아 짝 관계가 바로 읽힌다 */
-.vap{display:grid;grid-template-columns:auto auto auto;justify-content:center;align-items:center;column-gap:10px;row-gap:5px;width:100%;margin:2px 0 4px}
-.vap-w{font-size:clamp(18px,4.6vw,24px);font-weight:800;letter-spacing:.2px;line-height:1.25;white-space:nowrap;min-width:0;color:#f8fafc}
+/* minmax(0,1fr) 이어야 칸이 줄어들 수 있다 — auto 트랙은 내용보다 좁아지지 않아
+   nowrap 텍스트가 칸 밖으로 넘쳐 옆 단어와 겹쳤다(RICHTER SCALE / MAGNITUDE). */
+.vap{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:10px;row-gap:5px;width:100%;margin:2px 0 4px}
+/* 여러 단어(RICHTER SCALE)는 단어 경계에서 줄바꿈해 큰 글자를 유지하고,
+   한 단어가 칸보다 넓을 때만 JS가 글자를 줄인다(fitVaPrompt). */
+.vap-w{font-size:clamp(17px,4.6vw,24px);font-weight:800;letter-spacing:.2px;line-height:1.25;white-space:normal;overflow-wrap:normal;min-width:0;color:#f8fafc}
+.vap-w.break{overflow-wrap:anywhere}
 .vap-w.l{text-align:right}.vap-w.r{text-align:left}
 .vap-rel{font-size:11.5px;font-weight:700;color:#94a3b8;letter-spacing:.5px;white-space:nowrap;padding:3px 7px;border-radius:999px;background:#ffffff0a;justify-self:center}
 .vap-blank{display:inline-block;min-width:2.4em;padding:0 .35em;border:2px dashed #22d3ee88;border-radius:8px;color:#67e8f9;text-align:center;justify-self:start}
@@ -1019,6 +1024,8 @@ body.synfeed-mode>.appbar,body.synfeed-mode>.nav{display:none!important}
   .synfeed-play{max-width:920px;padding-top:14px}.synfeed-metrics{max-width:620px;width:100%;margin:2px auto 12px}
   .synfeed-cycle,.synfeed-progress{width:100%}.synfeed-stage{padding:16px 0 8px}
   .synfeed-card{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(360px,1.2fr);align-items:start;gap:24px;padding:24px}
+  /* 유추는 문장 프롬프트(A is to B as C is to ?)라 질문 칸이 더 넓어야 글자가 안 줄어든다 */
+  #vafeedStage .synfeed-card{grid-template-columns:minmax(300px,1.15fr) minmax(320px,1fr)}
   .synfeed-question-pane{display:flex;min-height:250px;align-self:stretch;flex-direction:column;align-items:center;justify-content:flex-start;padding:12px 24px 0 0;border-right:1px solid #ffffff14}
   .synfeed-question-meta{margin-bottom:14px}.synfeed-prompt{margin:12px 0 0}.synfeed-word{font-size:min(var(--synfeed-word-size,42px),42px)}
   .synfeed-actionbar{min-height:58px}.synfeed-gesture{min-height:56px}.synfeed-hint-mobile{display:none}.synfeed-hint-desktop{display:inline}

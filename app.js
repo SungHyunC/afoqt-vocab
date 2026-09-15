@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.141.0";
+const VERSION = "4.142.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -2570,10 +2570,17 @@ function vaFeedPromptHTML(it){ const p=String(it.prompt||"");
   return `<div class="vafeed-prompt">${esc(p)}</div>`; }
 // 폭이 모자라면 말줄임 대신 단어 글자 크기를 줄인다(두 줄 동일 크기 유지 → 축 정렬 보존)
 let vaPromptFitFrame=0;
+// 칸에 안 들어가면 줄바꿈되기 전에 글자를 줄여 한 줄로 맞춘다(두 줄 동일 크기 → 축 정렬 유지).
+// 최소 크기에서도 안 되면 그때는 줄바꿈 — 겹치는 일은 없다.
 function fitVaPrompt(){ cancelAnimationFrame(vaPromptFitFrame); vaPromptFitFrame=requestAnimationFrame(()=>{
   const g=$("#vafeedStage .vap"); if(!g) return; const ws=[...g.querySelectorAll(".vap-w")]; if(!ws.length) return;
-  ws.forEach(w=>w.style.fontSize=""); let px=parseFloat(getComputedStyle(ws[0]).fontSize)||24;
-  for(let i=0;i<14&&px>13&&g.scrollWidth>g.clientWidth+1;i++){ px-=1; ws.forEach(w=>w.style.fontSize=px+"px"); } }); }
+  ws.forEach(w=>{ w.style.fontSize=""; w.classList.remove("break"); });
+  // 가로로 넘치는 건 '한 단어가 칸보다 넓을 때'뿐이다(여러 단어는 이미 줄바꿈됨) → 그때만 축소
+  const over=()=>ws.some(w=>w.scrollWidth>w.clientWidth+1);
+  let px=parseFloat(getComputedStyle(ws[0]).fontSize)||24;
+  for(let i=0;i<24&&px>16&&over();i++){ px-=1; ws.forEach(w=>w.style.fontSize=px+"px"); }
+  if(over()) ws.forEach(w=>w.classList.add("break"));   // 최소 크기에서도 안 들어가면 단어 중간에서라도 자른다
+}); }
 function renderVaFeedPlay(){ const s=vaFeed,q=s&&s.current; if(!s||!q) return; const it=q.it,a=ANALOGIES.find(x=>x.id===q.id)||{};
   const answered=q.chosen!=null,ok=answered&&q.chosen===it.answer,m=vaFeedSetMeta(s);
   $("#vafeedRunCount").textContent=(s.count||0).toLocaleString();
