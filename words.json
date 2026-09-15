@@ -2731,10 +2731,11 @@
    }
   ],
   "hook": "뒤로 날라(fer) 두다 → 미루다; 나를 낮춰 상대에게 맡기다 → 따르다",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "movement_time"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 73,
@@ -13696,8 +13697,9 @@
    }
   ],
   "hook": "신을 넘보다 몰락하는 그리스 비극 주인공의 교만 → 오만",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 374,
@@ -18418,10 +18420,11 @@
    }
   ],
   "hook": "상대 생각 쪽으로(as) 마음이 기울다(sent) → 동의, 동의하다",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "agreement_support"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 507,
@@ -26177,10 +26180,11 @@
    }
   ],
   "hook": "끝(terminus)낼 수 없는(in) → 끝없는 (terminal과 동족)",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "movement_time"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 733,
@@ -29373,10 +29377,11 @@
    }
   ],
   "hook": "제자리에 알맞게(proprius) 들어맞음 → 적절함, 예의 (proper와 동족)",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 825,
@@ -31444,10 +31449,11 @@
    }
   ],
   "hook": "서로 이기려 애쓰다(strive) 부딪힘 → 갈등, 분쟁",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "conflict_criticism"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 887,
@@ -31682,10 +31688,11 @@
    }
   ],
   "hook": "발(plant)을 아래로(sub) 걸어 넘어뜨리고 그 자리를 차지 → 밀어내고 대체하다",
-  "verbalPriority": 2,
+  "verbalPriority": 1,
   "verbalThemes": [
    "change_quantity"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 894,
@@ -32974,11 +32981,12 @@
    }
   ],
   "hook": "끓어오르는 열심(zēlos) → 열의, 열정 (jealous와 동족)",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "emotion_psychology",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 932,
@@ -36851,8 +36859,9 @@
    }
   ],
   "hook": "모든 것을 다 씻어(lug) 쓸어가는(de) 물 → 홍수",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1050,
@@ -38590,8 +38599,9 @@
    }
   ],
   "hook": "지나치게 가득(full) 담아 느끼한 → 과장된 (칭찬)",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1103,
@@ -40703,8 +40713,9 @@
    }
   ],
   "hook": "잘게 줄인(minut) → 아주 작은; 시간을 잘게 쪼갠 것이 분(minute)",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1169,
@@ -41333,10 +41344,11 @@
    }
   ],
   "hook": "위에서(over) 내리누르는(bear) → 거만한, 위압적인",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1188,
@@ -44106,11 +44118,12 @@
    }
   ],
   "hook": "힘(val)이 넘치는 기개 → 용맹 (value, valid와 동족)",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "success_risk",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1271,
@@ -45002,8 +45015,9 @@
    }
   ],
   "hook": "말(cheval) 탄 기사(chevalier)다운 → 기사도적인, 예의 바른",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1299,
@@ -50296,10 +50310,11 @@
    }
   ],
   "hook": "다시(re) 가득(plen) 채우다 → 보충하다 (plenty와 동족)",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "change_quantity"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1459,
@@ -54314,11 +54329,12 @@
    }
   ],
   "hook": "진짜에 맞대어(counter) 본떠 만든(feit) → 가짜의, 위조하다",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "clarity_ambiguity",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1580,
@@ -59706,8 +59722,9 @@
    }
   ],
   "hook": "땅(terra) 위에서 사는 → 육상의",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1744,
@@ -63909,8 +63926,9 @@
    }
   ],
   "hook": "내가 서 있는 한가운데(mi)의 장소(lieu) → 둘러싼 환경, 분위기",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1870,
@@ -64522,8 +64540,9 @@
    }
   ],
   "hook": "느림(slow)이 가득한 → 나무늘보(sloth)처럼 나태한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1887,
@@ -69425,10 +69444,11 @@
    }
   ],
   "hook": "노동(labor)이 잔뜩 드는 → 힘든, 고된",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "state_degree"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 2032,
@@ -76031,8 +76051,9 @@
    }
   ],
   "hook": "직접 본 게 아니라 남이 말하는(say) 걸 들은(hear) 것 → 소문, 풍문",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 2232,
@@ -92650,10 +92671,11 @@
    }
   ],
   "hook": "상대의 말을 비틀어(tort) 곧장 되던지다(re) → 쏘아붙이다, 반박하다",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "communication"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 2727,
@@ -112696,10 +112718,11 @@
    }
   ],
   "hook": "아는 범위 밖까지 값을 채워 넣음 → 외삽·추정하다",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "knowledge_judgment"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3315,
@@ -113523,10 +113546,11 @@
    }
   ],
   "hook": "'마시자(lampons)!' 후렴을 외치며 신나게 조롱하던 풍자시 → 신랄한 풍자",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "conflict_criticism"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3338,
@@ -118169,10 +118193,11 @@
    }
   ],
   "hook": "인간(anthrop)을 미워하는(mis) → 인간 혐오적인",
-  "verbalPriority": 2,
+  "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3471,
@@ -123927,8 +123952,9 @@
    }
   ],
   "hook": "색(chrom)이 없는(a-) → 무채색의",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 3633,
@@ -134754,10 +134780,11 @@
    }
   ],
   "hook": "'세렌딥의 세 왕자'가 우연히 행운을 얻듯 → 뜻밖에 좋은 것을 발견하는.",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "success_risk"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3940,
@@ -141144,10 +141171,11 @@
    }
   ],
   "hook": "통째로 깎아낸 하나의 돌덩이 → 획일적이고 견고한",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "state_degree"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 4129,
@@ -141249,11 +141277,12 @@
    }
   ],
   "hook": "이름을 지어 불러주는 일 → 명명법, 술어 체계",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "communication",
    "knowledge_judgment"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 4132,
@@ -144235,10 +144264,11 @@
    }
   ],
   "hook": "의식의 문턱 아래에서 작용하는 → 잠재의식적인",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "knowledge_judgment"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 4220,
@@ -157378,5 +157408,1795 @@
    "change_quantity",
    "economy_value"
   ]
+ },
+ {
+  "id": 4609,
+  "word": "CONCURRENT",
+  "pos": "adjective",
+  "kor": "동시에 일어나는, 동시 발생의",
+  "def": "Happening or existing at the same time",
+  "example": "He served two concurrent sentences, so the terms ran together.",
+  "synonyms": [
+   "simultaneous",
+   "coinciding",
+   "synchronous",
+   "contemporaneous",
+   "parallel"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "con-",
+    "m": "함께 (together)"
+   },
+   {
+    "f": "curr",
+    "m": "달리다 (run)"
+   },
+   {
+    "f": "-ent",
+    "m": "~하는 (형용사)"
+   }
+  ],
+  "hook": "함께(con) 달리는(curr) → 동시에 일어나는",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time",
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4610,
+  "word": "PATRIARCH",
+  "pos": "noun",
+  "kor": "가장, 족장, 원로",
+  "def": "The male head of a family or tribe; a venerable old man",
+  "example": "The patriarch of the clan settled every dispute himself.",
+  "synonyms": [
+   "elder",
+   "forefather",
+   "chieftain",
+   "founder",
+   "progenitor"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "patri",
+    "m": "아버지 (father)"
+   },
+   {
+    "f": "arch",
+    "m": "우두머리, 다스리다 (ruler)"
+   }
+  ],
+  "hook": "아버지(patri)가 다스리는(arch) 자리 → 가장·족장",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "law_power_control",
+   "character_attitude"
+  ]
+ },
+ {
+  "id": 4611,
+  "word": "QUALITATIVE",
+  "pos": "adjective",
+  "kor": "질적인, 성질에 관한",
+  "def": "Relating to the quality or character of something rather than its quantity",
+  "example": "The study offered qualitative insight, not hard numbers.",
+  "synonyms": [
+   "descriptive",
+   "subjective",
+   "evaluative",
+   "categorical",
+   "interpretive"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "qual",
+    "m": "성질, 어떠함 (of what kind)"
+   },
+   {
+    "f": "-ative",
+    "m": "~에 관한 (형용사)"
+   }
+  ],
+  "hook": "quality(질)에 관한 → 양이 아니라 질을 따지는",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "knowledge_judgment",
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4612,
+  "word": "EXPROPRIATE",
+  "pos": "verb",
+  "kor": "몰수하다, (국가가) 수용하다",
+  "def": "To take property from its owner, especially for public use",
+  "example": "The state expropriated the farmland to build the runway.",
+  "synonyms": [
+   "confiscate",
+   "seize",
+   "requisition",
+   "dispossess",
+   "appropriate"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "ex-",
+    "m": "밖으로 (out)"
+   },
+   {
+    "f": "propri",
+    "m": "자기 것, 소유 (one's own)"
+   },
+   {
+    "f": "-ate",
+    "m": "~하다 (동사)"
+   }
+  ],
+  "hook": "남의 소유(propri)를 밖으로(ex) 빼내다 → 몰수하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "law_power_control",
+   "economy_value"
+  ]
+ },
+ {
+  "id": 4613,
+  "word": "EBB",
+  "pos": "verb",
+  "kor": "(조수가) 빠지다, 쇠퇴하다",
+  "def": "To recede, as the tide; to decline or fade away",
+  "example": "His enthusiasm ebbed as the meeting dragged on.",
+  "synonyms": [
+   "recede",
+   "decline",
+   "wane",
+   "subside",
+   "dwindle"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "ebb",
+    "m": "썰물 (OE ebba: 밀물 flow의 반대)"
+   }
+  ],
+  "hook": "밀물(flow)의 반대 → 물이 빠지듯 서서히 쇠퇴하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "change_quantity",
+   "movement_time"
+  ]
+ },
+ {
+  "id": 4614,
+  "word": "DAUB",
+  "pos": "verb",
+  "kor": "처바르다, 덧칠하다",
+  "def": "To smear or coat a surface with a thick, sticky substance",
+  "example": "She daubed plaster over the cracked wall.",
+  "synonyms": [
+   "smear",
+   "plaster",
+   "slather",
+   "coat",
+   "smudge"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "mid",
+  "roots": [
+   {
+    "f": "daub",
+    "m": "회칠하다 (L dealbare: 하얗게 바르다)"
+   }
+  ],
+  "hook": "회반죽을 하얗게(alb) 처바르다 → 덧칠하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time"
+  ]
+ },
+ {
+  "id": 4615,
+  "word": "DISTEND",
+  "pos": "verb",
+  "kor": "부풀리다, 팽창시키다",
+  "def": "To swell or cause to swell by pressure from inside",
+  "example": "Gas distended the balloon until it nearly burst.",
+  "synonyms": [
+   "swell",
+   "bloat",
+   "inflate",
+   "expand",
+   "dilate"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "dis-",
+    "m": "따로, 벌려 (apart)"
+   },
+   {
+    "f": "tend",
+    "m": "뻗다, 늘이다 (stretch)"
+   }
+  ],
+  "hook": "벌려서(dis) 늘이다(tend) → 속에서 밀려 부풀다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "change_quantity",
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4616,
+  "word": "GAFFE",
+  "pos": "noun",
+  "kor": "실언, 실수",
+  "def": "An embarrassing blunder, especially a social or verbal one",
+  "example": "Calling the host by the wrong name was an awkward gaffe.",
+  "synonyms": [
+   "blunder",
+   "slip",
+   "misstep",
+   "indiscretion",
+   "faux pas"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "gaffe",
+    "m": "갈고리 (Fr: 배를 끌어당기는 갈고리)"
+   }
+  ],
+  "hook": "갈고리에 걸려 넘어지듯 말이 걸리다 → 실언",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication",
+   "success_risk"
+  ]
+ },
+ {
+  "id": 4617,
+  "word": "PAPAL",
+  "pos": "adjective",
+  "kor": "교황의",
+  "def": "Relating to the pope or the papacy",
+  "example": "The papal decree was read aloud in every parish.",
+  "synonyms": [
+   "pontifical",
+   "ecclesiastical",
+   "clerical",
+   "priestly"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "mid",
+  "roots": [
+   {
+    "f": "pap",
+    "m": "교황, 아버지 (L papa: father)"
+   },
+   {
+    "f": "-al",
+    "m": "~의 (형용사)"
+   }
+  ],
+  "hook": "papa(아버지)라 불린 교황 → 교황의",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "law_power_control"
+  ]
+ },
+ {
+  "id": 4618,
+  "word": "TARRY",
+  "pos": "verb",
+  "kor": "꾸물거리다, 머무르다",
+  "def": "To delay or linger; to stay longer than intended",
+  "example": "Do not tarry — the briefing starts in five minutes.",
+  "synonyms": [
+   "linger",
+   "dawdle",
+   "loiter",
+   "delay",
+   "dally"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "tarry",
+    "m": "지체하다 (ME tarien: 늦추다)"
+   }
+  ],
+  "hook": "떠나지 않고 늦게(tarry) 남다 → 꾸물거리다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time",
+   "character_attitude"
+  ]
+ },
+ {
+  "id": 4619,
+  "word": "HOOPLA",
+  "pos": "noun",
+  "kor": "야단법석, 대소동",
+  "def": "Noisy excitement or exaggerated publicity",
+  "example": "Amid all the hoopla, the actual announcement was brief.",
+  "synonyms": [
+   "commotion",
+   "fanfare",
+   "hype",
+   "ballyhoo",
+   "fuss"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "mid",
+  "roots": [
+   {
+    "f": "hoopla",
+    "m": "후프 던지기 놀이의 외침 (Fr houp-là)"
+   }
+  ],
+  "hook": "후프 던지며 떠드는 놀이판 → 야단법석",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication",
+   "emotion_psychology"
+  ]
+ },
+ {
+  "id": 4620,
+  "word": "DOCTRINAIRE",
+  "pos": "adjective",
+  "kor": "교조적인, 원칙만 고집하는",
+  "def": "Rigidly insisting on a theory without regard to practical results",
+  "example": "His doctrinaire approach ignored what actually worked in the field.",
+  "synonyms": [
+   "dogmatic",
+   "rigid",
+   "inflexible",
+   "uncompromising",
+   "dictatorial"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "doctrin",
+    "m": "교리, 가르침 (doctrine)"
+   },
+   {
+    "f": "-aire",
+    "m": "~하는 사람·성향 (Fr)"
+   }
+  ],
+  "hook": "교리(doctrine)만 끝까지 고집하는 → 교조적인",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "character_attitude",
+   "knowledge_judgment"
+  ]
+ },
+ {
+  "id": 4621,
+  "word": "PLUMOSE",
+  "pos": "adjective",
+  "kor": "깃털 같은, 솜털이 난",
+  "def": "Feathery; having feathers or featherlike parts",
+  "example": "The seed carried a plumose tuft that caught the wind.",
+  "synonyms": [
+   "feathery",
+   "feathered",
+   "downy",
+   "plumed",
+   "fluffy"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "mid",
+  "roots": [
+   {
+    "f": "plum",
+    "m": "깃털 (L pluma: feather)"
+   },
+   {
+    "f": "-ose",
+    "m": "~이 많은 (형용사)"
+   }
+  ],
+  "hook": "깃털(plume)이 많은 → 깃털 같은",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4622,
+  "word": "VAGARY",
+  "pos": "noun",
+  "kor": "변덕, 종잡을 수 없는 변화",
+  "def": "An unpredictable or capricious change or action",
+  "example": "Farmers are at the mercy of the vagaries of the weather.",
+  "synonyms": [
+   "whim",
+   "caprice",
+   "quirk",
+   "fancy",
+   "fluctuation"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "vag",
+    "m": "떠돌다, 헤매다 (L vagari: wander)"
+   },
+   {
+    "f": "-ary",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "이리저리 떠도는(vag) 마음 → 변덕",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "change_quantity",
+   "character_attitude"
+  ]
+ },
+ {
+  "id": 4623,
+  "word": "CALAMARI",
+  "pos": "noun",
+  "kor": "오징어 (요리)",
+  "def": "Squid, especially prepared as food",
+  "example": "They ordered fried calamari as an appetizer.",
+  "synonyms": [
+   "squid",
+   "cuttlefish",
+   "cephalopod",
+   "seafood"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "calamari",
+    "m": "오징어 (It calamaro < L calamus: 갈대 펜 — 먹물 때문)"
+   }
+  ],
+  "hook": "먹물을 쓰는 펜(calamus) → 먹물 뿜는 오징어",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4624,
+  "word": "TEENSY",
+  "pos": "adjective",
+  "kor": "아주 작은",
+  "def": "Extremely small (informal)",
+  "example": "There was only a teensy bit of fuel left.",
+  "synonyms": [
+   "tiny",
+   "minuscule",
+   "diminutive",
+   "wee",
+   "petite"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "teensy",
+    "m": "teeny + tiny 가 합쳐진 구어"
+   }
+  ],
+  "hook": "teeny와 tiny를 합친 말 → 아주 작은",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4625,
+  "word": "ALMS",
+  "pos": "noun",
+  "kor": "자선금, 구호품",
+  "def": "Money or goods given to the poor as charity",
+  "example": "Pilgrims stopped to give alms at the temple gate.",
+  "synonyms": [
+   "charity",
+   "donation",
+   "handout",
+   "offering",
+   "contribution"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "alms",
+    "m": "연민 (Gk eleemosyne: 동정심)"
+   }
+  ],
+  "hook": "연민(eleemosyne)에서 나온 돈 → 자선금",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "agreement_support",
+   "economy_value"
+  ]
+ },
+ {
+  "id": 4626,
+  "word": "LYRICAL",
+  "pos": "adjective",
+  "kor": "서정적인, 감정이 풍부한",
+  "def": "Expressing emotion in a beautiful, songlike way",
+  "example": "The essay turned lyrical whenever he described home.",
+  "synonyms": [
+   "poetic",
+   "expressive",
+   "melodic",
+   "songlike",
+   "emotional"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "lyr",
+    "m": "수금, 리라 (Gk lyra)"
+   },
+   {
+    "f": "-ical",
+    "m": "~의 (형용사)"
+   }
+  ],
+  "hook": "리라(lyre)에 맞춰 부르던 노래 → 서정적인",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication",
+   "emotion_psychology"
+  ]
+ },
+ {
+  "id": 4627,
+  "word": "MONIKER",
+  "pos": "noun",
+  "kor": "별명, 이름",
+  "def": "A name or nickname",
+  "example": "The pilot earned the moniker \"Ghost\" after that flight.",
+  "synonyms": [
+   "nickname",
+   "alias",
+   "sobriquet",
+   "epithet",
+   "label"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "moniker",
+    "m": "이름 (19세기 은어: monogram에서 온 것으로 추정)"
+   }
+  ],
+  "hook": "이름표(monogram)처럼 붙는 것 → 별명",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication"
+  ]
+ },
+ {
+  "id": 4628,
+  "word": "REGALE",
+  "pos": "verb",
+  "kor": "즐겁게 하다, 융숭히 대접하다",
+  "def": "To entertain lavishly with talk, food, or drink",
+  "example": "He regaled the squadron with stories from training.",
+  "synonyms": [
+   "entertain",
+   "amuse",
+   "delight",
+   "divert",
+   "feast"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "regal",
+    "m": "왕의 (royal)"
+   },
+   {
+    "f": "-e",
+    "m": "~하다 (Fr régaler)"
+   }
+  ],
+  "hook": "왕(regal)처럼 대접하다 → 즐겁게 해주다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "emotion_psychology",
+   "agreement_support"
+  ]
+ },
+ {
+  "id": 4629,
+  "word": "SHIRK",
+  "pos": "verb",
+  "kor": "회피하다, 기피하다",
+  "def": "To avoid or neglect a duty or responsibility",
+  "example": "No one may shirk watch duty, however tired.",
+  "synonyms": [
+   "evade",
+   "dodge",
+   "avoid",
+   "neglect",
+   "duck"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "shirk",
+    "m": "슬쩍 피하다 (17C: 기생충처럼 빌붙다 shark에서)"
+   }
+  ],
+  "hook": "맡은 일에서 슬쩍 빠지다 → 회피하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "character_attitude",
+   "conflict_criticism"
+  ]
+ },
+ {
+  "id": 4630,
+  "word": "SUBTERRANEAN",
+  "pos": "adjective",
+  "kor": "지하의, 땅속의",
+  "def": "Existing or operating beneath the earth's surface",
+  "example": "A subterranean tunnel linked the two hangars.",
+  "synonyms": [
+   "underground",
+   "buried",
+   "sunken",
+   "subsurface",
+   "hidden"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "sub-",
+    "m": "아래 (under)"
+   },
+   {
+    "f": "terra",
+    "m": "땅, 흙 (earth)"
+   },
+   {
+    "f": "-an",
+    "m": "~의 (형용사)"
+   }
+  ],
+  "hook": "땅(terra) 아래(sub)에 있는 → 지하의",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4631,
+  "word": "BASTILLE",
+  "pos": "noun",
+  "kor": "요새 감옥",
+  "def": "A fortress used as a prison",
+  "example": "The rebels stormed the bastille and freed the prisoners.",
+  "synonyms": [
+   "prison",
+   "fortress",
+   "jail",
+   "stronghold",
+   "dungeon"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "mid",
+  "roots": [
+   {
+    "f": "bastille",
+    "m": "요새 (Fr bastir: 짓다 — 파리 바스티유 감옥)"
+   }
+  ],
+  "hook": "파리의 바스티유 → 요새로 지은 감옥",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "law_power_control"
+  ]
+ },
+ {
+  "id": 4632,
+  "word": "EXCULPATORY",
+  "pos": "adjective",
+  "kor": "무죄를 입증하는, 혐의를 벗기는",
+  "def": "Tending to clear someone of blame or guilt",
+  "example": "The video was exculpatory and the charges were dropped.",
+  "synonyms": [
+   "exonerating",
+   "vindicating",
+   "absolving",
+   "acquitting",
+   "clearing"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "ex-",
+    "m": "밖으로 (out)"
+   },
+   {
+    "f": "culp",
+    "m": "죄, 잘못 (L culpa: fault)"
+   },
+   {
+    "f": "-atory",
+    "m": "~하는 (형용사)"
+   }
+  ],
+  "hook": "죄(culpa)에서 밖으로(ex) 빼내는 → 무죄를 입증하는",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "law_power_control",
+   "knowledge_judgment"
+  ]
+ },
+ {
+  "id": 4633,
+  "word": "LURCH",
+  "pos": "verb",
+  "kor": "휘청거리다, 갑자기 기울다",
+  "def": "To make an abrupt, unsteady movement",
+  "example": "The truck lurched forward when the clutch slipped.",
+  "synonyms": [
+   "stagger",
+   "stumble",
+   "reel",
+   "totter",
+   "pitch"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "lurch",
+    "m": "배가 갑자기 기욺 (16C 항해 용어)"
+   }
+  ],
+  "hook": "배가 파도에 기우뚱하듯 → 휘청거리다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time"
+  ]
+ },
+ {
+  "id": 4634,
+  "word": "PARSE",
+  "pos": "verb",
+  "kor": "분석하다, 낱낱이 뜯어보다",
+  "def": "To analyze something by breaking it into parts",
+  "example": "Analysts parsed the report line by line.",
+  "synonyms": [
+   "analyze",
+   "dissect",
+   "examine",
+   "interpret",
+   "scrutinize"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "pars",
+    "m": "부분 (L pars: part — pars orationis 품사)"
+   }
+  ],
+  "hook": "부분(pars)으로 쪼개어 보다 → 분석하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "knowledge_judgment",
+   "communication"
+  ]
+ },
+ {
+  "id": 4635,
+  "word": "HONE",
+  "pos": "verb",
+  "kor": "갈다, (실력을) 연마하다",
+  "def": "To sharpen; to refine or perfect a skill over time",
+  "example": "She honed her navigation skills on night flights.",
+  "synonyms": [
+   "sharpen",
+   "refine",
+   "polish",
+   "perfect",
+   "whet"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "hone",
+    "m": "숫돌 (OE han: stone)"
+   }
+  ],
+  "hook": "숫돌(hone)에 갈다 → 실력을 연마하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "success_risk",
+   "change_quantity"
+  ]
+ },
+ {
+  "id": 4636,
+  "word": "POSITIVE",
+  "pos": "adjective",
+  "kor": "긍정적인, 확신하는",
+  "def": "Constructive or favorable; fully confident",
+  "example": "She was positive that the checklist had been completed.",
+  "synonyms": [
+   "certain",
+   "confident",
+   "affirmative",
+   "favorable",
+   "optimistic"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "posit",
+    "m": "놓다, 두다 (L ponere: place)"
+   },
+   {
+    "f": "-ive",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "분명히 놓인(posit) 사실 → 확신하는·긍정적인"
+ },
+ {
+  "id": 4637,
+  "word": "UNPLEASANT",
+  "pos": "adjective",
+  "kor": "불쾌한, 싫은",
+  "def": "Causing discomfort or displeasure",
+  "example": "An unpleasant smell filled the cockpit.",
+  "synonyms": [
+   "disagreeable",
+   "distasteful",
+   "offensive",
+   "nasty",
+   "irksome"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "un-",
+    "m": "아닌 (not)"
+   },
+   {
+    "f": "pleas",
+    "m": "기쁘게 하다 (please)"
+   },
+   {
+    "f": "-ant",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "기쁘게(please) 하지 않는(un) → 불쾌한"
+ },
+ {
+  "id": 4638,
+  "word": "TELL",
+  "pos": "verb",
+  "kor": "말하다, 알리다",
+  "def": "To communicate information to someone",
+  "example": "Tell the tower we are ready for departure.",
+  "synonyms": [
+   "inform",
+   "relate",
+   "narrate",
+   "disclose",
+   "recount"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "tell",
+    "m": "세다·말하다 (OE tellan — teller와 같은 뿌리)"
+   }
+  ],
+  "hook": "하나씩 세듯(tell) 풀어놓다 → 말하다"
+ },
+ {
+  "id": 4639,
+  "word": "DISASTER",
+  "pos": "noun",
+  "kor": "재난, 참사",
+  "def": "A sudden event causing great damage or loss",
+  "example": "The flood was the worst disaster in the region's history.",
+  "synonyms": [
+   "catastrophe",
+   "calamity",
+   "tragedy",
+   "cataclysm",
+   "misfortune"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "dis-",
+    "m": "나쁜, 어긋난 (bad)"
+   },
+   {
+    "f": "aster",
+    "m": "별 (star)"
+   }
+  ],
+  "hook": "별(aster)이 어긋난(dis) 불운 → 재난"
+ },
+ {
+  "id": 4640,
+  "word": "REPLY",
+  "pos": "verb",
+  "kor": "대답하다, 응답",
+  "def": "To answer or respond",
+  "example": "He replied within seconds of the radio call.",
+  "synonyms": [
+   "answer",
+   "respond",
+   "retort",
+   "rejoin",
+   "acknowledge"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "re-",
+    "m": "되돌려 (back)"
+   },
+   {
+    "f": "ply",
+    "m": "접다 (L plicare: fold)"
+   }
+  ],
+  "hook": "말을 되(re) 접어(ply) 보내다 → 대답하다"
+ },
+ {
+  "id": 4641,
+  "word": "REPLACE",
+  "pos": "verb",
+  "kor": "대체하다, 교체하다",
+  "def": "To take the place of, or put something new in place of",
+  "example": "We replaced the worn tire before the next sortie.",
+  "synonyms": [
+   "substitute",
+   "supplant",
+   "swap",
+   "succeed",
+   "displace"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "re-",
+    "m": "다시 (again)"
+   },
+   {
+    "f": "place",
+    "m": "자리에 놓다 (place)"
+   }
+  ],
+  "hook": "그 자리(place)에 다시(re) 놓다 → 대체하다"
+ },
+ {
+  "id": 4642,
+  "word": "DIFFICULT",
+  "pos": "adjective",
+  "kor": "어려운, 까다로운",
+  "def": "Hard to do, deal with, or understand",
+  "example": "The approach is difficult in crosswinds.",
+  "synonyms": [
+   "hard",
+   "arduous",
+   "demanding",
+   "challenging",
+   "laborious"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "dis-",
+    "m": "아닌 (not)"
+   },
+   {
+    "f": "fac",
+    "m": "하다, 만들다 (L facilis: easy)"
+   }
+  ],
+  "hook": "쉽지(facil) 않은(dif) → 어려운"
+ },
+ {
+  "id": 4643,
+  "word": "CROOKED",
+  "pos": "adjective",
+  "kor": "구부러진, 부정직한",
+  "def": "Bent or twisted; dishonest",
+  "example": "A crooked official was quietly removed.",
+  "synonyms": [
+   "bent",
+   "twisted",
+   "dishonest",
+   "corrupt",
+   "askew"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "crook",
+    "m": "갈고리, 굽은 지팡이 (hook)"
+   },
+   {
+    "f": "-ed",
+    "m": "~된 (형용사)"
+   }
+  ],
+  "hook": "갈고리(crook)처럼 굽은 → 구부러진·비뚤어진"
+ },
+ {
+  "id": 4644,
+  "word": "POSSESS",
+  "pos": "verb",
+  "kor": "소유하다, 지니다",
+  "def": "To have or own something",
+  "example": "He possesses the qualifications for the billet.",
+  "synonyms": [
+   "own",
+   "hold",
+   "have",
+   "retain",
+   "command"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "pos",
+    "m": "힘, 능력 (L potis: able)"
+   },
+   {
+    "f": "sess",
+    "m": "앉다 (L sedere: sit)"
+   }
+  ],
+  "hook": "힘으로(pos) 눌러앉다(sess) → 소유하다"
+ },
+ {
+  "id": 4645,
+  "word": "GAWK",
+  "pos": "verb",
+  "kor": "멍하니 쳐다보다",
+  "def": "To stare openly and stupidly",
+  "example": "Crowds gawked at the jets on the ramp.",
+  "synonyms": [
+   "stare",
+   "gape",
+   "gaze",
+   "ogle",
+   "goggle"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "gawk",
+    "m": "멍청이 (17C gawk: 어수룩한 사람)"
+   }
+  ],
+  "hook": "어수룩하게(gawk) 입 벌리고 보다 → 멍하니 쳐다보다"
+ },
+ {
+  "id": 4646,
+  "word": "OUTSTANDING",
+  "pos": "adjective",
+  "kor": "뛰어난; 미해결의",
+  "def": "Exceptionally good; or still unresolved or unpaid",
+  "example": "An outstanding record — though one debt remains outstanding.",
+  "synonyms": [
+   "excellent",
+   "exceptional",
+   "remarkable",
+   "unpaid",
+   "unresolved"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "out-",
+    "m": "밖으로 (out)"
+   },
+   {
+    "f": "standing",
+    "m": "서 있는 (standing)"
+   }
+  ],
+  "hook": "밖으로(out) 튀어나와 서 있는 → 뛰어난 / 아직 남은"
+ },
+ {
+  "id": 4647,
+  "word": "HALT",
+  "pos": "verb",
+  "kor": "멈추다, 정지시키다",
+  "def": "To stop or bring to a stop",
+  "example": "The controller halted all traffic on the runway.",
+  "synonyms": [
+   "stop",
+   "cease",
+   "arrest",
+   "suspend",
+   "terminate"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "halt",
+    "m": "멈춤 (Ger Halt machen: 서다)"
+   }
+  ],
+  "hook": "독일어 구령 Halt! → 멈추다"
+ },
+ {
+  "id": 4648,
+  "word": "CRY",
+  "pos": "verb",
+  "kor": "울다, 외치다",
+  "def": "To shed tears; to shout loudly",
+  "example": "He cried out a warning over the intercom.",
+  "synonyms": [
+   "weep",
+   "sob",
+   "shout",
+   "exclaim",
+   "wail"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "cry",
+    "m": "외치다 (L quiritare: 도와달라 외치다)"
+   }
+  ],
+  "hook": "도와달라 외치다(quiritare) → 울다·외치다"
+ },
+ {
+  "id": 4649,
+  "word": "RETAIN",
+  "pos": "verb",
+  "kor": "유지하다, 간직하다",
+  "def": "To keep possession of; to continue to hold",
+  "example": "The alloy retains its strength at high temperature.",
+  "synonyms": [
+   "keep",
+   "preserve",
+   "maintain",
+   "hold",
+   "withhold"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "re-",
+    "m": "뒤로, 계속 (back)"
+   },
+   {
+    "f": "tain",
+    "m": "잡다, 쥐다 (L tenere: hold)"
+   }
+  ],
+  "hook": "계속(re) 붙잡고(tain) 있다 → 유지하다"
+ },
+ {
+  "id": 4650,
+  "word": "CHERISH",
+  "pos": "verb",
+  "kor": "소중히 여기다, 간직하다",
+  "def": "To hold dear; to care for tenderly",
+  "example": "He cherished the letters from his squadron.",
+  "synonyms": [
+   "treasure",
+   "prize",
+   "value",
+   "adore",
+   "nurture"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "cher",
+    "m": "소중한, 비싼 (Fr cher: dear)"
+   },
+   {
+    "f": "-ish",
+    "m": "~하다 (동사)"
+   }
+  ],
+  "hook": "소중한(cher) 것으로 대하다 → 아끼다"
+ },
+ {
+  "id": 4651,
+  "word": "MARK",
+  "pos": "noun",
+  "kor": "표시, 자국; 표시하다",
+  "def": "A visible sign or trace; to make such a sign",
+  "example": "Mark the checkpoint on the chart.",
+  "synonyms": [
+   "sign",
+   "trace",
+   "stamp",
+   "indicate",
+   "label"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "mark",
+    "m": "경계 표시 (OE mearc: boundary)"
+   }
+  ],
+  "hook": "경계(mearc)를 그어 표시하다 → 표시·자국"
+ },
+ {
+  "id": 4652,
+  "word": "PLACE",
+  "pos": "noun",
+  "kor": "장소; 놓다",
+  "def": "A particular position or location; to put in position",
+  "example": "Place the beacon at the edge of the field.",
+  "synonyms": [
+   "location",
+   "spot",
+   "site",
+   "position",
+   "set"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "place",
+    "m": "넓은 길·광장 (Gk plateia: 넓은)"
+   }
+  ],
+  "hook": "넓은 광장(plateia) → 자리·장소"
+ },
+ {
+  "id": 4653,
+  "word": "MUTE",
+  "pos": "adjective",
+  "kor": "말없는, 무음의; 소리를 죽이다",
+  "def": "Silent; refraining from speech; to soften or silence a sound",
+  "example": "He stayed mute throughout the debriefing.",
+  "synonyms": [
+   "silent",
+   "speechless",
+   "voiceless",
+   "quiet",
+   "muffle"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "mut",
+    "m": "말 없는 (L mutus: silent)"
+   }
+  ],
+  "hook": "소리를 내지 않는(mutus) → 말없는·음소거"
+ },
+ {
+  "id": 4654,
+  "word": "CHOOSE",
+  "pos": "verb",
+  "kor": "고르다, 선택하다",
+  "def": "To pick out or select from alternatives",
+  "example": "Choose the runway with the shorter crosswind.",
+  "synonyms": [
+   "select",
+   "pick",
+   "elect",
+   "opt",
+   "designate"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "choose",
+    "m": "고르다 (OE ceosan: taste, try — 맛보고 고르다)"
+   }
+  ],
+  "hook": "맛보고(ceosan) 고르다 → 선택하다"
+ },
+ {
+  "id": 4655,
+  "word": "DASH",
+  "pos": "verb",
+  "kor": "돌진하다; 내던지다, 좌절시키다",
+  "def": "To run quickly; to hurl or shatter, or to destroy hopes",
+  "example": "The delay dashed any hope of an early takeoff.",
+  "synonyms": [
+   "sprint",
+   "bolt",
+   "hurl",
+   "shatter",
+   "ruin"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "dash",
+    "m": "세게 치다 (ME daschen: strike)"
+   }
+  ],
+  "hook": "세게 치듯 내닫다 → 돌진하다 / 희망을 깨뜨리다"
+ },
+ {
+  "id": 4656,
+  "word": "JUDGE",
+  "pos": "verb",
+  "kor": "판단하다, 심판하다",
+  "def": "To form an opinion or decision about something",
+  "example": "Judge the distance before committing to the turn.",
+  "synonyms": [
+   "assess",
+   "evaluate",
+   "appraise",
+   "adjudicate",
+   "deem"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "jud",
+    "m": "법 (L jus: law)"
+   },
+   {
+    "f": "dic",
+    "m": "말하다 (L dicere: say)"
+   }
+  ],
+  "hook": "법(jus)을 말하는(dic) 사람 → 판단·심판하다"
+ },
+ {
+  "id": 4657,
+  "word": "MIGHTY",
+  "pos": "adjective",
+  "kor": "강력한, 거대한",
+  "def": "Possessing great power or strength",
+  "example": "A mighty engine pushed the aircraft off the deck.",
+  "synonyms": [
+   "powerful",
+   "strong",
+   "formidable",
+   "potent",
+   "forceful"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "might",
+    "m": "힘 (OE miht: power)"
+   },
+   {
+    "f": "-y",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "힘(might)이 가득한 → 강력한"
+ },
+ {
+  "id": 4658,
+  "word": "SUBSTANDARD",
+  "pos": "adjective",
+  "kor": "표준 이하의, 불량한",
+  "def": "Below an accepted standard of quality",
+  "example": "The substandard weld failed inspection.",
+  "synonyms": [
+   "inferior",
+   "deficient",
+   "inadequate",
+   "poor",
+   "shoddy"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "sub-",
+    "m": "아래 (under)"
+   },
+   {
+    "f": "standard",
+    "m": "기준 (standard)"
+   }
+  ],
+  "hook": "기준(standard) 아래(sub) → 표준 이하의"
+ },
+ {
+  "id": 4659,
+  "word": "PROMPT",
+  "pos": "adjective",
+  "kor": "즉각적인; 자극하다, 유도하다",
+  "def": "Done without delay; to cause or urge an action",
+  "example": "A prompt response prevented the incident.",
+  "synonyms": [
+   "immediate",
+   "punctual",
+   "swift",
+   "spur",
+   "induce"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "pro-",
+    "m": "앞으로 (forward)"
+   },
+   {
+    "f": "empt",
+    "m": "취하다 (L emere: take)"
+   }
+  ],
+  "hook": "앞서(pro) 집어드는(empt) → 즉각적인·부추기다"
+ },
+ {
+  "id": 4660,
+  "word": "HATE",
+  "pos": "verb",
+  "kor": "미워하다, 싫어하다",
+  "def": "To feel intense dislike for",
+  "example": "He hated the paperwork more than the flying.",
+  "synonyms": [
+   "loathe",
+   "detest",
+   "abhor",
+   "despise",
+   "dislike"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "hate",
+    "m": "미움 (OE hete: hatred)"
+   }
+  ],
+  "hook": "깊은 미움(hete) → 미워하다"
+ },
+ {
+  "id": 4661,
+  "word": "STUTTER",
+  "pos": "verb",
+  "kor": "말을 더듬다",
+  "def": "To speak with involuntary repetitions of sounds",
+  "example": "He stuttered slightly when startled.",
+  "synonyms": [
+   "stammer",
+   "falter",
+   "splutter",
+   "hesitate",
+   "mumble"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "stut",
+    "m": "부딪히다 (ME stutten: 걸리다)"
+   },
+   {
+    "f": "-er",
+    "m": "반복 (반복 동사)"
+   }
+  ],
+  "hook": "말이 자꾸 걸려(stut) 반복되다 → 더듬다"
+ },
+ {
+  "id": 4662,
+  "word": "REFLECT",
+  "pos": "verb",
+  "kor": "반사하다; 곰곰이 생각하다",
+  "def": "To throw back light or sound; to think carefully",
+  "example": "Reflect on what the debrief revealed.",
+  "synonyms": [
+   "mirror",
+   "echo",
+   "ponder",
+   "contemplate",
+   "consider"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "re-",
+    "m": "되돌려 (back)"
+   },
+   {
+    "f": "flect",
+    "m": "구부리다 (L flectere: bend)"
+   }
+  ],
+  "hook": "빛을 되(re) 꺾다(flect) → 반사하다 / 생각을 되짚다"
+ },
+ {
+  "id": 4663,
+  "word": "PREVENT",
+  "pos": "verb",
+  "kor": "막다, 예방하다",
+  "def": "To keep something from happening",
+  "example": "The checklist prevents avoidable errors.",
+  "synonyms": [
+   "avert",
+   "forestall",
+   "impede",
+   "thwart",
+   "preclude"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "pre-",
+    "m": "미리 (before)"
+   },
+   {
+    "f": "vent",
+    "m": "오다 (L venire: come)"
+   }
+  ],
+  "hook": "오기(vent) 전에(pre) 미리 막다 → 예방하다"
+ },
+ {
+  "id": 4664,
+  "word": "IMMOBILE",
+  "pos": "adjective",
+  "kor": "움직이지 않는, 고정된",
+  "def": "Not moving or able to be moved",
+  "example": "The jammed rudder left the surface immobile.",
+  "synonyms": [
+   "motionless",
+   "stationary",
+   "fixed",
+   "static",
+   "inert"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "im-",
+    "m": "아닌 (not)"
+   },
+   {
+    "f": "mob",
+    "m": "움직이다 (L movere: move)"
+   }
+  ],
+  "hook": "움직이지(mob) 않는(im) → 고정된"
+ },
+ {
+  "id": 4665,
+  "word": "SHABBY",
+  "pos": "adjective",
+  "kor": "초라한, 낡은; 치사한",
+  "def": "Worn and run-down; or mean and unfair",
+  "example": "The shabby uniform gave a poor impression.",
+  "synonyms": [
+   "worn",
+   "tattered",
+   "dilapidated",
+   "seedy",
+   "mean"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "shab",
+    "m": "딱지, 옴 (OE sceabb: scab)"
+   },
+   {
+    "f": "-y",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "딱지(scab)투성이처럼 해진 → 초라한"
+ },
+ {
+  "id": 4666,
+  "word": "LUXURIOUS",
+  "pos": "adjective",
+  "kor": "호화로운, 사치스러운",
+  "def": "Extremely comfortable and expensive",
+  "example": "The suite was far too luxurious for a training trip.",
+  "synonyms": [
+   "lavish",
+   "opulent",
+   "plush",
+   "sumptuous",
+   "extravagant"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "luxur",
+    "m": "과잉, 사치 (L luxus: excess)"
+   },
+   {
+    "f": "-ious",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "넘치는(luxus) 것으로 가득한 → 호화로운"
+ },
+ {
+  "id": 4667,
+  "word": "DEVASTATION",
+  "pos": "noun",
+  "kor": "황폐, 참화",
+  "def": "Severe and widespread destruction",
+  "example": "The storm left devastation across the coast.",
+  "synonyms": [
+   "destruction",
+   "ruin",
+   "desolation",
+   "havoc",
+   "wreckage"
+  ],
+  "category": "wk",
+  "source": "crackasvab-wk",
+  "tier": "std",
+  "roots": [
+   {
+    "f": "de-",
+    "m": "완전히 (completely)"
+   },
+   {
+    "f": "vast",
+    "m": "텅 빈, 황량한 (L vastus: empty)"
+   },
+   {
+    "f": "-ation",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "완전히(de) 텅 비게(vast) 만듦 → 황폐·참화"
  }
 ]
