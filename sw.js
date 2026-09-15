@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-140-0";  // 요약시트 수학 공식 보강(좌표기하·수의 성질·겉넓이)
+const CACHE = "afoqt-v4-141-0";  // AFOQT WK 목록 대조 — 59단어 추가·30단어 P1 승격
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
