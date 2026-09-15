@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-142-0";  // 유추 피드 긴 단어 겹침 수정
+const CACHE = "afoqt-v4-143-0";  // CloudTest WK/VA 대조 — 11단어 추가·45단어 P1 승격
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

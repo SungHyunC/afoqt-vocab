@@ -2406,10 +2406,11 @@
    }
   ],
   "hook": "서로(con) 둘둘 말려(volut) 엉킴 → 복잡하게 뒤얽힌",
-  "verbalPriority": 2,
+  "verbalPriority": 1,
   "verbalThemes": [
    "state_degree"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 64,
@@ -3419,8 +3420,9 @@
    }
   ],
   "hook": "원하는 결과를 밖으로(ef) 만들어내는(fic) → 효과적인",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 92,
@@ -3761,8 +3763,9 @@
    }
   ],
   "hook": "빗대어 말한(ainos) 수수께끼 같은 → 불가사의한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 101,
@@ -5465,8 +5468,9 @@
    }
   ],
   "hook": "걱정(souci)이 없는(in) → 태평한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 146,
@@ -7349,10 +7353,11 @@
    }
   ],
   "hook": "김빠지게 납작한(flat) 말 → 진부한 말, 상투적 표현",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "communication"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 197,
@@ -7899,8 +7904,9 @@
    }
   ],
   "hook": "풍차를 거인으로 알고 돌진한 돈키호테처럼 → 비현실적으로 이상적인",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 212,
@@ -9460,8 +9466,9 @@
    }
   ],
   "hook": "진실(veri)과 비슷함(simil) → 사실 같아 보임, 진실성",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 255,
@@ -9848,11 +9855,12 @@
    }
   ],
   "hook": "열정(zelos)이 지나쳐 타협을 모르는 자 → 광신자, 열성파",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 266,
@@ -12954,11 +12962,12 @@
    }
   ],
   "hook": "당장 하라고 몰아붙임(ig) → 긴급한",
-  "verbalPriority": 2,
+  "verbalPriority": 1,
   "verbalThemes": [
    "movement_time",
    "state_degree"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 352,
@@ -13432,8 +13441,9 @@
    }
   ],
   "hook": "말(loqu)을 크게(grand) 부풀리는 → 과장된, 허풍스러운",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 366,
@@ -13562,10 +13572,11 @@
    }
   ],
   "hook": "갈매기처럼 던져 주는 대로 꿀꺽 삼키는(gull) → 잘 속는",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 370,
@@ -15178,8 +15189,9 @@
    }
   ],
   "hook": "앞으로 내동댕이쳐진(flig) → 바닥까지 타락한 → 방탕한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 415,
@@ -15648,8 +15660,9 @@
    }
   ],
   "hook": "속임수(dul) 없이(se) 우직하게 일하는 → 부지런한, 끈기 있는",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 428,
@@ -27716,10 +27729,11 @@
    }
   ],
   "hook": "위에다(ob) 어둠(fusc)을 덮어씌움 → 모호하게 하다",
-  "verbalPriority": 2,
+  "verbalPriority": 1,
   "verbalThemes": [
    "clarity_ambiguity"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 778,
@@ -31246,12 +31260,13 @@
    }
   ],
   "hook": "흩뿌려져(spars) 듬성듬성한 → 희박한, 드문",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "state_degree",
    "economy_value",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 881,
@@ -32548,8 +32563,9 @@
    }
   ],
   "hook": "참(ver)으로 가득한(acious) → 진실한, 정확한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 919,
@@ -33870,8 +33886,9 @@
    }
   ],
   "hook": "납 추(plomb)를 드리운 듯 수직으로 흔들림 없는 → 침착함",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 958,
@@ -34423,8 +34440,9 @@
    }
   ],
   "hook": "내용이 서로 딱 붙어(her) 함께(co) 이어지는 → 일관성 있는",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 976,
@@ -34592,10 +34610,11 @@
    }
   ],
   "hook": "조용해(qui)져 버림 → 잠자코 받아들이다",
-  "verbalPriority": 2,
+  "verbalPriority": 1,
   "verbalThemes": [
    "agreement_support"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 981,
@@ -41608,11 +41627,12 @@
    }
   ],
   "hook": "끝까지(per) 버티고 서 있는(sist) → 끈질긴, 지속적인",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1196,
@@ -44788,10 +44808,11 @@
    }
   ],
   "hook": "전쟁(bellum)을 벌이고 싶어 하는 → 호전적인 (rebel과 동족)",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "conflict_criticism"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1292,
@@ -44825,8 +44846,9 @@
    }
   ],
   "hook": "좋게(bene) 작용하는(fic) → 유익한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1293,
@@ -46663,11 +46685,12 @@
    }
   ],
   "hook": "정도(정상 범위) 밖으로(extra) 떠도는(vag) → 낭비적인, 사치스러운",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "economy_value",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1348,
@@ -55540,11 +55563,12 @@
    }
   ],
   "hook": "열매를 주렁주렁 맺는(fecundus) → 비옥한, 다산의",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "state_degree",
    "change_quantity"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1617,
@@ -57728,8 +57752,9 @@
    }
   ],
   "hook": "담력(anim)이 아주 작은(pusill) → 소심한, 겁쟁이의",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1683,
@@ -63140,12 +63165,13 @@
    }
   ],
   "hook": "꽃(flor)이 활짝 피어나다 → 번영하다, 번성하다",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "success_risk",
    "change_quantity",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 1847,
@@ -63894,8 +63920,9 @@
    }
   ],
   "hook": "그림 속 늘 눈물짓는 막달라 마리아(Maudlin)처럼 → 눈물 나게 감상적인",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1869,
@@ -68242,8 +68269,9 @@
    }
   ],
   "hook": "배우(histrio)처럼 과장되게 구는 → 연극적인, 과장된",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 1998,
@@ -75102,8 +75130,9 @@
    }
   ],
   "hook": "더 높게(hance) 만들다 → 향상시키다",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 2202,
@@ -84969,8 +84998,9 @@
    }
   ],
   "hook": "살아(viv) 움직이는 듯한 → 생생한, 선명한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 2499,
@@ -94872,8 +94902,9 @@
    }
   ],
   "hook": "말이 앞으로 줄줄 흘러넘치는(lix) → 장황한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 2792,
@@ -96492,8 +96523,9 @@
    }
   ],
   "hook": "아주 앞선(ante) 시대에 속한 → 고대의",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 2842,
@@ -99108,8 +99140,9 @@
    }
   ],
   "hook": "빛(luc)이 완전히 통과하는(pel) → 투명한, 명확한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 2922,
@@ -101768,8 +101801,9 @@
    }
   ],
   "hook": "아무리 휘저어도(turb) 흔들리지 않는(im) → 평온한, 침착한",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 3002,
@@ -107752,8 +107786,9 @@
    }
   ],
   "hook": "빛(fulg)이 밖으로 뿜어져 나옴 → 눈부시게 빛나는.",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 3175,
@@ -109572,11 +109607,12 @@
    }
   ],
   "hook": "대들며(ob-) 소리치는(strep) → 떠들썩하고 통제 안 되는.",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude",
    "communication"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3227,
@@ -109647,8 +109683,9 @@
    }
   ],
   "hook": "온(pan) 사람이 모인 자리(agyris)에서 하는 연설 → 공개 찬사.",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 3229,
@@ -110032,10 +110069,11 @@
    }
   ],
   "hook": "머리(caput)부터 앞으로 곤두박질치는 → 가파르고 급작스러운.",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "success_risk"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3240,
@@ -111140,10 +111178,11 @@
    }
   ],
   "hook": "원래 믿음에서 떨어져 나와 선 사람 → 배교자, 변절자",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "knowledge_judgment"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3272,
@@ -113519,8 +113558,9 @@
    }
   ],
   "hook": "눈물(lachrym)이 많은 → 잘 우는, 슬픈",
-  "verbalPriority": null,
-  "verbalThemes": []
+  "verbalPriority": 1,
+  "verbalThemes": [],
+  "afoqtCommon": true
  },
  {
   "id": 3337,
@@ -114662,10 +114702,11 @@
    }
   ],
   "hook": "뒤로 한데 치워 감춰둔(re+con+dit) → 아무나 모르는 심오하고 난해한",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "clarity_ambiguity"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3369,
@@ -115141,10 +115182,11 @@
    }
   ],
   "hook": "여신 베누스(Venus)를 향한 사랑과 경배 → 깊은 존경, 숭배",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "emotion_psychology"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3383,
@@ -115671,12 +115713,13 @@
    }
   ],
   "hook": "위쪽으로(ad) 기어오르다(scand) → 상승하다",
-  "verbalPriority": 2,
+  "verbalPriority": 1,
   "verbalThemes": [
    "movement_time",
    "change_quantity",
    "analogy_core"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3398,
@@ -117460,10 +117503,11 @@
    }
   ],
   "hook": "돌처럼 그대로 서 있어(stol) 미동도 없음 → 감정 없는, 둔감한",
-  "verbalPriority": 2,
+  "verbalPriority": 1,
   "verbalThemes": [
    "emotion_psychology"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 3450,
@@ -137190,10 +137234,11 @@
    }
   ],
   "hook": "속이 텅 비어 영양가 없는 → 내용이 빈약하고 유치한",
-  "verbalPriority": 3,
+  "verbalPriority": 1,
   "verbalThemes": [
    "state_degree"
-  ]
+  ],
+  "afoqtCommon": true
  },
  {
   "id": 4012,
@@ -159198,5 +159243,404 @@
    }
   ],
   "hook": "완전히(de) 텅 비게(vast) 만듦 → 황폐·참화"
+ },
+ {
+  "id": 4668,
+  "word": "EXTROVERT",
+  "pos": "noun",
+  "kor": "외향적인 사람",
+  "def": "An outgoing person who gains energy from social interaction",
+  "example": "As an extrovert, she thrived in the crowded briefing room.",
+  "synonyms": [
+   "socializer",
+   "mixer",
+   "gregarious person",
+   "people person"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "extro-",
+    "m": "바깥으로 (outward)"
+   },
+   {
+    "f": "vert",
+    "m": "돌리다 (L vertere: turn)"
+   }
+  ],
+  "hook": "관심을 바깥으로(extro) 돌리는(vert) 사람 → 외향적인 사람",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "character_attitude"
+  ]
+ },
+ {
+  "id": 4669,
+  "word": "CACOPHONOUS",
+  "pos": "adjective",
+  "kor": "불협화음의, 귀에 거슬리는",
+  "def": "Harsh and jarring in sound; discordant",
+  "example": "The hangar was cacophonous with engines and shouted orders.",
+  "synonyms": [
+   "discordant",
+   "jarring",
+   "grating",
+   "strident",
+   "raucous"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "caco-",
+    "m": "나쁜 (Gk kakos: bad)"
+   },
+   {
+    "f": "phon",
+    "m": "소리 (Gk phone: sound)"
+   },
+   {
+    "f": "-ous",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "나쁜(caco) 소리(phon) → 귀에 거슬리는",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "conflict_criticism",
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4670,
+  "word": "HARMONY",
+  "pos": "noun",
+  "kor": "조화, 화합",
+  "def": "Agreement or pleasing combination of parts",
+  "example": "The crews worked in harmony throughout the exercise.",
+  "synonyms": [
+   "accord",
+   "concord",
+   "unity",
+   "agreement",
+   "concordance"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "harmon",
+    "m": "맞춤, 이음매 (Gk harmonia: joining)"
+   },
+   {
+    "f": "-y",
+    "m": "~것 (명사)"
+   }
+  ],
+  "hook": "딱 들어맞게(harmonia) 이어진 상태 → 조화",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "agreement_support"
+  ]
+ },
+ {
+  "id": 4671,
+  "word": "VITUPERATIVE",
+  "pos": "adjective",
+  "kor": "독설의, 욕설을 퍼붓는",
+  "def": "Bitterly abusive in language",
+  "example": "His vituperative review left nothing standing.",
+  "synonyms": [
+   "abusive",
+   "scathing",
+   "caustic",
+   "censorious",
+   "reviling"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "vitu",
+    "m": "흠, 결점 (L vitium: fault)"
+   },
+   {
+    "f": "per",
+    "m": "준비하다·다루다 (L parare)"
+   },
+   {
+    "f": "-ative",
+    "m": "~하는 (형용사)"
+   }
+  ],
+  "hook": "흠(vitium)만 들추어 퍼붓는 → 독설의",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "conflict_criticism",
+   "communication"
+  ]
+ },
+ {
+  "id": 4672,
+  "word": "PEDAGOGICAL",
+  "pos": "adjective",
+  "kor": "교육의, 교수법의",
+  "def": "Relating to teaching or the methods of teaching",
+  "example": "The instructor explained the pedagogical reason for the drill.",
+  "synonyms": [
+   "educational",
+   "instructional",
+   "academic",
+   "didactic",
+   "scholastic"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "ped",
+    "m": "아이 (Gk pais: child)"
+   },
+   {
+    "f": "agog",
+    "m": "이끌다 (Gk agein: lead)"
+   },
+   {
+    "f": "-ical",
+    "m": "~의 (형용사)"
+   }
+  ],
+  "hook": "아이(ped)를 이끄는(agog) 일 → 교육의",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "knowledge_judgment"
+  ]
+ },
+ {
+  "id": 4673,
+  "word": "EFFULGENCE",
+  "pos": "noun",
+  "kor": "광휘, 눈부신 빛",
+  "def": "Brilliant radiance; a shining forth of light",
+  "example": "The effulgence of the flare lit the whole field.",
+  "synonyms": [
+   "radiance",
+   "brilliance",
+   "luminosity",
+   "splendor",
+   "brightness"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "mid",
+  "roots": [
+   {
+    "f": "ef-",
+    "m": "밖으로 (ex-: out)"
+   },
+   {
+    "f": "fulg",
+    "m": "빛나다 (L fulgere: shine)"
+   },
+   {
+    "f": "-ence",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "빛이(fulg) 밖으로(ef) 터져 나옴 → 눈부신 광휘",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4674,
+  "word": "EXULTANT",
+  "pos": "adjective",
+  "kor": "환희에 찬, 의기양양한",
+  "def": "Triumphantly joyful",
+  "example": "The exultant crew celebrated the successful recovery.",
+  "synonyms": [
+   "jubilant",
+   "triumphant",
+   "elated",
+   "rejoicing",
+   "overjoyed"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "ex-",
+    "m": "밖으로 (out)"
+   },
+   {
+    "f": "sult",
+    "m": "뛰다 (L salire: leap)"
+   },
+   {
+    "f": "-ant",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "기뻐서 밖으로(ex) 뛰어오르는(sult) → 환희에 찬",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
+ },
+ {
+  "id": 4675,
+  "word": "EGOISTIC",
+  "pos": "adjective",
+  "kor": "이기적인, 자기중심의",
+  "def": "Concerned only with one's own interests",
+  "example": "His egoistic decisions cost the team dearly.",
+  "synonyms": [
+   "selfish",
+   "self-centered",
+   "narcissistic",
+   "self-serving",
+   "egocentric"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "ego",
+    "m": "나 (L ego: I)"
+   },
+   {
+    "f": "-istic",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "나(ego)만 생각하는 → 이기적인",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "character_attitude"
+  ]
+ },
+ {
+  "id": 4676,
+  "word": "DISQUIETUDE",
+  "pos": "noun",
+  "kor": "불안, 동요",
+  "def": "A state of uneasiness or anxiety",
+  "example": "A quiet disquietude spread through the ready room.",
+  "synonyms": [
+   "unease",
+   "anxiety",
+   "agitation",
+   "restlessness",
+   "apprehension"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "high",
+  "roots": [
+   {
+    "f": "dis-",
+    "m": "아닌 (not)"
+   },
+   {
+    "f": "quiet",
+    "m": "고요 (L quietus: calm)"
+   },
+   {
+    "f": "-ude",
+    "m": "~함 (명사)"
+   }
+  ],
+  "hook": "고요하지(quiet) 않은(dis) 상태 → 불안",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
+ },
+ {
+  "id": 4677,
+  "word": "SAPID",
+  "pos": "adjective",
+  "kor": "맛이 좋은; 흥미로운",
+  "def": "Having a strong, pleasant flavor; not insipid",
+  "example": "A sapid stew after two weeks of rations.",
+  "synonyms": [
+   "flavorful",
+   "tasty",
+   "savory",
+   "palatable",
+   "appetizing"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "mid",
+  "roots": [
+   {
+    "f": "sap",
+    "m": "맛보다, 알다 (L sapere: taste)"
+   },
+   {
+    "f": "-id",
+    "m": "~한 (형용사)"
+   }
+  ],
+  "hook": "맛이(sap) 살아 있는 → 맛깔난 (insipid의 반대)",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
+ },
+ {
+  "id": 4678,
+  "word": "NORMALCY",
+  "pos": "noun",
+  "kor": "정상 상태",
+  "def": "The condition of being normal or usual",
+  "example": "Flight operations returned to normalcy by evening.",
+  "synonyms": [
+   "normality",
+   "regularity",
+   "routine",
+   "ordinariness",
+   "stability"
+  ],
+  "category": "wk",
+  "source": "cloudtest-wk",
+  "tier": "mid",
+  "roots": [
+   {
+    "f": "norm",
+    "m": "기준, 자 (L norma: carpenter's square)"
+   },
+   {
+    "f": "-alcy",
+    "m": "~한 상태 (명사)"
+   }
+  ],
+  "hook": "기준(norma)에 맞는 상태 → 정상",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
  }
 ]
