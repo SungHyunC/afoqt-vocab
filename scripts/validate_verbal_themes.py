@@ -20,14 +20,14 @@ ROOT = Path(__file__).resolve().parents[1]
 WORDS_PATH = ROOT / "words.json"
 ANALOGIES_PATH = ROOT / "analogies.json"
 
-EXPECTED_TOTAL = 4_608
-EXPECTED_PRIORITY_COUNTS = {1: 1_053, 2: 445, 3: 1_017, None: 2_093}
-EXPECTED_ANALOGY_CORE = 348
+EXPECTED_TOTAL = 4_678
+EXPECTED_PRIORITY_COUNTS = {1: 1_198, 2: 437, 3: 984, None: 2_059}
+EXPECTED_ANALOGY_CORE = 361
 
 # Hash of every pre-existing field and value in list/key order.  The two verbal
 # fields are removed before hashing.  This catches accidental edits, omissions,
 # reordering, or ID changes while allowing the appended metadata to evolve.
-EXPECTED_BASE_SHA256 = "1624e0c9a0575b4ced9e6a6bd8796bc22d4ba341de24bceec55b62f871da475b"
+EXPECTED_BASE_SHA256 = "96b745a901ef34ba1047dec00a4872884357f98e9ebf7dae85d63815c94c0e5a"
 
 SEMANTIC_THEMES = (
     "character_attitude",
@@ -150,7 +150,7 @@ def validate() -> tuple[Validation, Counter[int | None], Counter[str], Counter[s
         )
 
     ids = [word.get("id") for word in words if isinstance(word, dict)]
-    result.check(ids == list(range(1, EXPECTED_TOTAL + 1)), "word IDs must remain ordered 1..4608")
+    result.check(ids == list(range(1, EXPECTED_TOTAL + 1)), f"word IDs must remain ordered 1..{EXPECTED_TOTAL}")
     result.check(len(ids) == len(set(ids)), "word IDs must be unique")
 
     analogy_tokens = analogy_vocabulary(analogies, result)
@@ -220,7 +220,7 @@ def validate() -> tuple[Validation, Counter[int | None], Counter[str], Counter[s
     )
     result.check(
         sum(primary_counts.values()) == sum(EXPECTED_PRIORITY_COUNTS[level] for level in (1, 2, 3)),
-        f"primary semantic coverage: expected 2515, got {sum(primary_counts.values())}",
+        f"primary semantic coverage: expected 2619, got {sum(primary_counts.values())}",
     )
     result.check(
         set(primary_counts) == set(SEMANTIC_THEMES),
