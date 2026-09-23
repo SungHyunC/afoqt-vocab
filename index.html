@@ -77,6 +77,7 @@
   </div>
   <button class="btn ghost" id="btnExam" style="margin-top:10px;font-size:16px;padding:15px">🎯 실전 모의고사 (시간 측정)</button>
   <button class="btn ghost" id="btnReport" style="margin-top:10px;font-size:16px;padding:15px">🔍 내 약점 리포트</button>
+  <button class="btn ghost" id="btnEvidence2" style="margin-top:10px;font-size:16px;padding:15px;border-color:var(--gold)">📄 웨이버 증빙 리포트</button>
 
   <div class="grid3" style="margin-top:16px">
     <div class="card tight stat"><div class="num" id="stStreak">0</div><div class="lbl">🔥 스트릭</div></div>
@@ -901,6 +902,7 @@
 </main>
 
 <main id="view-stats" class="view">
+  <button class="btn primary" id="btnEvidence" style="margin-bottom:6px">📄 웨이버 증빙 리포트 (인쇄 · CSV)</button>
   <h2 class="section" id="calTitle">학습 달력</h2>
   <div class="card">
     <div class="cal" id="calHead"></div>
@@ -941,6 +943,20 @@
 
   <h2 class="section">예상</h2>
   <div class="card" id="projection"></div>
+</main>
+
+<!-- ===== EVIDENCE (웨이버 증빙 리포트) ===== -->
+<main id="view-evidence" class="view">
+  <div class="study-top no-print"><button class="btn sm ghost" id="evBack">← 통계</button><span>📄 증거 리포트</span><span></span></div>
+  <div class="ev-actions no-print">
+    <button class="btn primary sm" id="evPrint">🖨️ 인쇄 / PDF</button>
+    <button class="btn ghost sm" id="evCsvSessions">⬇️ sessions.csv</button>
+    <button class="btn ghost sm" id="evCsvDaily">⬇️ daily.csv</button>
+    <button class="btn ghost sm" id="evCsvExams">⬇️ exams.csv</button>
+    <button class="btn ghost sm" id="evCopy">📋 요약 복사</button>
+  </div>
+  <div class="hintbox no-print" style="margin-bottom:12px">공식 응시일 이후의 학습 시간·문항·시험 점수를 날짜순으로 정리한 증빙 자료예요. 인쇄 → PDF로 저장하고, CSV는 표 계산 프로그램에서 열 수 있어요. 동기화 코드·개인정보는 들어가지 않습니다.</div>
+  <div id="evBody"></div>
 </main>
 
 <!-- ===== EXAM (실전 모의고사) ===== -->
@@ -1114,10 +1130,11 @@
 
     <button class="btn primary" id="saveSettings" style="margin-top:20px">저장</button>
     <div class="row" style="gap:8px;margin-top:10px">
-      <button class="btn ghost sm" id="exportProg" style="flex:1">⬇️ 진도 백업</button>
+      <button class="btn ghost sm" id="exportProg" style="flex:1">⬇️ 진도 백업 (복원용 — 제출 금지)</button>
       <button class="btn ghost sm" id="importProg" style="flex:1">⬆️ 진도 복원</button>
     </div>
     <input type="file" id="importFile" accept="application/json,.json" style="display:none">
+    <button class="btn ghost" id="btnEvidence3" style="margin-top:10px;border-color:var(--gold)">📄 웨이버 증빙 리포트 (인쇄 · CSV)</button>
     <button class="btn ghost" data-study-export style="margin-top:10px">📤 LLM용 풀이 기록 내보내기</button>
     <button class="btn ghost" id="forceUpdate" style="margin-top:10px">🔄 강제 업데이트 (최신 버전 받기)</button>
     <button class="btn ghost" id="closeSettings" style="margin-top:10px">닫기</button>

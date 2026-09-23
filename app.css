@@ -1061,3 +1061,34 @@ body.synfeed-mode .toast{left:50%}
   .synfeed-card,.synfeed-card.is-correct,.synfeed-card.is-wrong,.synfeed-points,.synfeed-milestone{animation:none}
   .synfeed-progress i,.synfeed-switch>i,.synfeed-switch>i::after{transition:none}
 }
+
+/* ---------- 증거 리포트 (웨이버 증빙) ---------- */
+.ev-actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ev-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+.ev-title{font-size:20px;margin:0 0 10px;line-height:1.3}
+.ev-title small,.ev-h small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.ev-h{font-size:15px;margin:0 0 10px}
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:12.5px}
+.ev-kv{display:flex;flex-direction:column} .ev-kv span{color:var(--muted);font-size:11px} .ev-kv b{font-weight:600;word-break:break-word}
+.ev-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0}
+.ev-stats div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}
+.ev-stats b{display:block;font-size:18px} .ev-stats span{font-size:10.5px;color:var(--muted);line-height:1.3}
+.ev-table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px}
+.ev-table th,.ev-table td{border:1px solid var(--line);padding:4px 5px;text-align:left;vertical-align:top}
+.ev-table th{background:var(--bg);font-weight:600;font-size:10.5px;color:var(--muted)} .ev-table td.r{text-align:right;white-space:nowrap}
+.ev-note{font-size:11.5px;color:var(--muted);margin:8px 0 0;line-height:1.45}
+.ev-list{padding-left:18px;font-size:12px;line-height:1.5;margin:0} .ev-list li{margin-bottom:6px}
+.ev-hash{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:9.5px;word-break:break-all}
+@media print{
+  body.print-evidence{background:#fff!important;color:#000!important;padding:0!important}
+  body.print-evidence .appbar,body.print-evidence #nav,body.print-evidence .no-print,body.print-evidence #updBanner,body.print-evidence .toast{display:none!important}
+  body.print-evidence .view{display:none!important}
+  body.print-evidence #view-evidence{display:block!important;max-width:none;padding:0;animation:none}
+  body.print-evidence .ev-card{border:1px solid #999;box-shadow:none;background:#fff;color:#000;break-inside:avoid;page-break-inside:avoid;margin-bottom:10px}
+  body.print-evidence .ev-title small,body.print-evidence .ev-h small,body.print-evidence .ev-kv span,body.print-evidence .ev-note,body.print-evidence .ev-stats span,body.print-evidence .ev-table th{color:#333}
+  body.print-evidence .ev-stats div{background:#fff;border-color:#999}
+  body.print-evidence .ev-table th,body.print-evidence .ev-table td{border-color:#999} body.print-evidence .ev-table th{background:#f2f2f2}
+  body.print-evidence .ev-break{break-before:page;page-break-before:always}
+  body.print-evidence thead{display:table-header-group}
+  @page{margin:14mm}
+}

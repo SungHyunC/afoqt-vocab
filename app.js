@@ -1169,7 +1169,7 @@ async function forceSync(){
    '보이는 상태 + 최근 입력'일 때만 쌓인다. 이벤트는 기기별 SHA-256 체인에 추가만 된다.
    ============================================================ */
 const EV=window.AFOQTEvidence||null;
-const LS_ACT="afoqt_act_open_v1", LS_EV_HEAD="afoqt_ev_head_v1";
+const LS_ACT="afoqt_act_open_v1", LS_EV_HEAD="afoqt_ev_head_v1", LS_EV_ARCHIVE="afoqt_ev_archive_v1";
 const VIEW_ACT={guide:"read",avbook:"read",avstudy:"read",avterms:"read",words:"read",cheatsheet:"read",roots:"read",vabrowse:"read",mathtypes:"read",rootcoach:"rootcoach"};
 let act=null, actLastTouch=0, actPersistTimer=null;
 const tzOffsetMin=()=>-new Date().getTimezoneOffset();
@@ -1214,11 +1214,27 @@ function examKindOf(e){ if(!e) return "preset"; if(e.kind) return e.kind; const 
   if(key.startsWith("mock_")) return "mock"; if(e.learn) return "learn"; if(e.practice) return "practice"; return key?"preset":"picked"; }
 function examActType(e){ const k=examKindOf(e); return k==="retest"?"retest":(k==="drill"||k==="learn")?"drill":"exam"; }
 function examActStart(resumed){ const e=exam; if(!e) return; actStart(examActType(e),{k:String(e.key||""),kd:examKindOf(e),rid:e.runId,rs:resumed?1:0}); }
+function evArchiveRead(){ try{ const a=JSON.parse(localStorage.getItem(LS_EV_ARCHIVE)||"[]"); return Array.isArray(a)?a:[]; }catch{ return []; } }
+function downloadFile(body,name,type){ const url=URL.createObjectURL(new Blob([body],{type})),a=document.createElement("a");
+  a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000); }
+// 리포트 입력은 화이트리스트 객체만 — state 전체(동기화 코드·키 포함)를 넘기지 않는다
+function evidenceReport(){ if(!EV) return null; const c=countByStatus();
+  return EV.buildReport({replicas:state.evReplicas||{},archive:evArchiveRead(),recv:{},
+    settings:{official_attempt_date:state.settings.official_attempt_date,retest_date:state.settings.retest_date,official_scores:state.settings.official_scores,ev_since:state.settings.ev_since},
+    counts:{learned:c.learned,mastered:c.mastered,verified:c.verified,remaining:c.remaining,total:WORDS.length},
+    version:VERSION,deviceId:deviceId(),now:Date.now(),tz:tzOffsetMin()}); }
+function renderEvidence(){ const box=$("#evBody"); if(!box) return;
+  if(!EV){ box.innerHTML=`<div class="card center muted" style="padding:20px">증거 모듈(evidence.js)을 불러오지 못했어요. 설정 → 강제 업데이트 후 다시 열어 주세요.</div>`; return; }
+  const r=evidenceReport(); box.innerHTML=EV.renderHTML(r); }
+function evidenceCsv(kind){ if(!EV) return; const day=todayStr();
+  if(kind==="sessions") downloadFile(EV.csvSessions(state.evReplicas||{},evArchiveRead(),{}),`afoqt-evidence-sessions-${day}.csv`,"text/csv;charset=utf-8");
+  else { const r=evidenceReport(); downloadFile(kind==="daily"?EV.csvDaily(r):EV.csvExams(r),`afoqt-evidence-${kind}-${day}.csv`,"text/csv;charset=utf-8"); }
+  toast("CSV 다운로드를 요청했어요"); }
 
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vafeed:"analogy",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vafeed:"analogy",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math",evidence:"stats"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -1263,7 +1279,7 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,vafeed:renderVaFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,vafeed:renderVaFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath,evidence:renderEvidence}[view]||(()=>{}))();
   // 읽기·복습 화면(가이드·교재·단어장…)도 활동으로 남긴다 — 문제를 안 풀어도 공부한 시간이다
   if(VIEW_ACT[view]&&!(act&&act.view==="view-"+view)) actStart(VIEW_ACT[view],{v:view,k:view==="guide"?guideCur:undefined});
 }
@@ -5857,6 +5873,14 @@ function wire(){
       { const now=Math.round(Date.now()/1000); evAppend({y:"reset",s:now,e:now,z:tzOffsetMin(),m:{note:"local reset"}}); }
       saveNow(); toast("초기화됨 (증거 로그는 유지)"); $("#settingsSheet").classList.remove("open"); go("home"); } };
   $("#forceUpdate").onclick=forceUpdate;
+  // 증거 리포트
+  $("#btnEvidence")&&($("#btnEvidence").onclick=()=>go("evidence")); $("#btnEvidence2")&&($("#btnEvidence2").onclick=()=>go("evidence"));
+  $("#btnEvidence3")&&($("#btnEvidence3").onclick=()=>{ $("#settingsSheet").classList.remove("open"); go("evidence"); });
+  $("#evBack")&&($("#evBack").onclick=()=>go("stats"));
+  $("#evPrint")&&($("#evPrint").onclick=()=>{ renderEvidence(); document.body.classList.add("print-evidence"); setTimeout(()=>window.print(),50); });
+  window.addEventListener("afterprint",()=>document.body.classList.remove("print-evidence"));
+  $("#evCsvSessions")&&($("#evCsvSessions").onclick=()=>evidenceCsv("sessions")); $("#evCsvDaily")&&($("#evCsvDaily").onclick=()=>evidenceCsv("daily")); $("#evCsvExams")&&($("#evCsvExams").onclick=()=>evidenceCsv("exams"));
+  $("#evCopy")&&($("#evCopy").onclick=async()=>{ if(!EV) return; const t=EV.summaryText(evidenceReport()); try{ await navigator.clipboard.writeText(t); toast("요약을 복사했어요"); }catch{ toast("복사가 차단됐어요 — 인쇄/PDF를 이용하세요"); } });
   // Flush pending saves before the app is backgrounded/closed (mobile-safe).
   // On returning to the app, refresh the active hub so today's count and the
   // recommended new-words amount reflect the current day (handles the day
@@ -5957,11 +5981,10 @@ function openStudyExport(){
 }
 function exportProgress(){
   saveNow();
-  const data=JSON.stringify({app:"afoqt-vocab",v:VERSION,code:boundSyncCode(),ts:Date.now(),state},null,2);
-  const url=URL.createObjectURL(new Blob([data],{type:"application/json"}));
-  const a=document.createElement("a"); a.href=url; a.download=`afoqt-backup-${todayStr()}.json`;
-  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
-  toast("백업 파일을 저장했어요 💾");
+  // 복원용 파일 — 동기화 코드가 들어 있으므로 심사 자료로 제출하면 안 된다(증거 제출은 📄 증거 리포트/CSV)
+  const data=JSON.stringify({app:"afoqt-vocab",v:VERSION,note:"RESTORE-ONLY backup. Contains the sync code — never submit or share. 복원용 백업 — 동기화 코드 포함, 제출·공유 금지.",code:boundSyncCode(),ts:Date.now(),state},null,2);
+  downloadFile(data,`afoqt-backup-RESTORE-ONLY-${todayStr()}.json`,"application/json");
+  toast("복원용 백업을 저장했어요 💾 (제출용 아님 — 증거는 📄 리포트/CSV)");
 }
 // Restore: load a backup file, replace local state, reload (loadLocal re-normalizes).
 function importProgress(file){
