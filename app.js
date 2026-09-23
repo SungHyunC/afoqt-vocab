@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.150.0";
+const VERSION = "5.0.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -182,6 +182,7 @@ const DEFAULT_STATE = () => ({
   synFeedReplicaVersion:1,
   synFeedSyncCode:"", // 다른 동기화 코드의 로컬 checkpoint가 섞이지 않게 소유 코드 기록
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
+  wrongTs:{},  // 오답노트 항목별 마지막 변경 시각 'wk:123' -> ms (삭제도 변경) — 기기 간 union이 지운 항목을 되살리지 않게
   evReplicas:{}, // 학습 증거 로그: deviceId -> {v,n,head,ev:[...],updated_at} (append-only 해시 체인)
   evSnapDay:"",  // 오늘 진도 스냅샷을 남겼는지
   evLegacyDone:0, evInstalledAt:"", // 재구성 이벤트 생성 여부 · 이 기기 최초 실행일
@@ -292,7 +293,7 @@ function loadLocal(){
   try{ state=JSON.parse(localStorage.getItem(LS.state))||DEFAULT_STATE(); }catch{ state=DEFAULT_STATE(); }
   const d=DEFAULT_STATE();
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
-  state.wrong=Object.assign({wk:{},va:{},rc:{},ar:{},mk:{},ps:{},av:{}},state.wrong||{});
+  state.wrong=Object.assign({wk:{},va:{},rc:{},ar:{},mk:{},ps:{},av:{}},state.wrong||{}); state.wrongTs=state.wrongTs&&typeof state.wrongTs==="object"?state.wrongTs:{};
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{},topic:{}},state.weak||{});
   state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.qSeen=Object.assign({ar:{},mk:{},ps:{}},state.qSeen||{}); state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{}; state.badges=state.badges||{}; state.dayStats=state.dayStats||{};
   state.examHist=state.examHist||[];
@@ -413,7 +414,10 @@ function isCardDue(c,t=Date.now()){ return !!(c&&c.status!=="new"&&c.verify!=="p
 function dueCards(){ const t=Date.now(),out=[]; for(const w of WORDS){ const c=state.cards[w.id]; if(isCardDue(c,t)) out.push(w.id);} return out; }  // verified는 최종 스윕에서만 재확인 (확인 허브 안내와 일치)
 function newCardIds(limit){
   let cand=newPool();
-  if(flag("high_first")) cand=[...cand].sort((a,b)=>(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)])||a.id-b.id);
+  // 피드·시험에서 틀린 미학습 단어가 있으면 다음 신규 덱 선두로(H4) — 그 다음 tier 우선
+  const wrong=state.wrong.wk||{}, pri=w=>wrong[w.id]?0:1;
+  if(flag("high_first")) cand=[...cand].sort((a,b)=>(pri(a)-pri(b))||(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)])||a.id-b.id);
+  else cand=[...cand].sort((a,b)=>pri(a)-pri(b));
   return cand.slice(0,limit).map(w=>w.id);
 }
 function plannedToday(){ return dueCards().length + Math.min(newPerDay(), newWordsRemaining()); }  // 신규가 바닥나면 목표도 같이 줄어야 링/스트릭 달성 가능
@@ -639,7 +643,7 @@ function renderConfirm(){
     if(q.sweep) gradeSweep(id,ok); else gradeConfirm(id,ok,isRecheck);
     if(ok) q.score++;
     actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
-    setTimeout(()=>{ q.idx++; renderConfirm(); }, ok?550:1300);
+    setTimeout(()=>{ if(confirmQuiz!==q) return; q.idx++; renderConfirm(); }, ok?550:1300);   // 답 직후 나가면 렌더하지 않는다
   });
 }
 let confirmMode="confirm"; // 마지막으로 실행한 모드 — '다시' 버튼용
@@ -930,13 +934,17 @@ function mergeSettings(r){ const rt=syncTime(r.updated_at); if(rt&&rt<=settingsS
 function syncedExamHistory(){ return state.examHist.map(h=>{
   if(!h||!h.items) return h; const summary={...h}; delete summary.items; return summary; }); }
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,examHist:syncedExamHistory(),curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt,vaFeedSession:state.vaFeedSession||null,vaFeedStats:state.vaFeedStats||null}; }
+  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,wrongTs:state.wrongTs||{},examHist:syncedExamHistory(),curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt,vaFeedSession:state.vaFeedSession||null,vaFeedStats:state.vaFeedStats||null}; }
 function mergeMisc(d){
   if(!d) return;
   // VA 피드: 진행(count)이 더 큰 쪽, 같으면 최신 저장본. 통계는 필드별 최대.
   if(d.vaFeedSession&&typeof d.vaFeedSession==="object"){ const r=d.vaFeedSession,c=state.vaFeedSession;
     const rc=safeSynFeedCount(r.count),cc=safeSynFeedCount(c&&c.count);
-    if(!c||rc>cc||(rc===cc&&syncTime(r.updatedAt)>syncTime(c.updatedAt))) state.vaFeedSession=cloneSynFeedSession(r); }
+    // run이 다르면(한쪽에서 '처음부터') 더 늦게 시작한 run이 이긴다(M15); 같은 run이면 진행(count) 큰 쪽, 동률이면 최신 저장본
+    const rRun=r.runId||"",cRun=(c&&c.runId)||"", differentRun=!!(c&&rRun!==cRun);
+    if(!c) state.vaFeedSession=cloneSynFeedSession(r);
+    else if(differentRun){ if(syncTime(r.startedAt)>syncTime(c.startedAt)) state.vaFeedSession=cloneSynFeedSession(r); }
+    else if(rc>cc||(rc===cc&&syncTime(r.updatedAt)>syncTime(c.updatedAt))) state.vaFeedSession=cloneSynFeedSession(r); }
   if(d.vaFeedStats) state.vaFeedStats=mergeSynFeedStats(state.vaFeedStats,d.vaFeedStats);
   // exams: 최고점과 최근 회차를 따로 병합한다. 최근 회차는 updated_at 기준이라
   // 최고점보다 낮게 다시 응시해도 다른 기기의 카드에 정확히 반영된다.
@@ -962,7 +970,13 @@ function mergeMisc(d){
   // sets: union
   ["wkSeen","avp"].forEach(key=>{ Object.assign(state[key], d[key]||{}); });
   ["ar","mk","ps"].forEach(k=>{ Object.assign(state.qSeen[k]||(state.qSeen[k]={}), (d.qSeen||{})[k]||{}); });
-  ["wk","va","rc","ar","mk","ps","av"].forEach(g=>{ Object.assign(state.wrong[g]||(state.wrong[g]={}), (d.wrong||{})[g]||{}); });
+  // 오답노트: 항목별 마지막 변경 시각(wrongTs)이 더 최신인 쪽의 존재/부재를 채택 — 맞혀서 지운 항목이 다른 기기 union으로 되살아나지 않는다(H2)
+  { const lt=state.wrongTs=state.wrongTs||{}, rt=(d.wrongTs&&typeof d.wrongTs==="object")?d.wrongTs:{};
+    ["wk","va","rc","ar","mk","ps","av"].forEach(g=>{ const L=state.wrong[g]||(state.wrong[g]={}), R=(d.wrong||{})[g]||{};
+      for(const id of new Set([...Object.keys(L),...Object.keys(R)])){ const k=g+":"+id, a=lt[k]||0, b=rt[k]||0;
+        if(b>a){ if(R[id]!=null) L[id]=R[id]; else delete L[id]; lt[k]=b; }
+        else if(a===0&&b===0&&R[id]!=null&&L[id]==null) L[id]=R[id];   // 둘 다 시각이 없는 옛 데이터: 기존 union
+        else if(a>=b&&R[id]!=null&&L[id]!=null) L[id]=Math.max(L[id],R[id]); } }); }
   // exam history: union by ts, keep last 200
   const seen=new Set(state.examHist.map(x=>x.ts));
   (d.examHist||[]).forEach(x=>{ if(!seen.has(x.ts)){ state.examHist.push(x); seen.add(x.ts); } });
@@ -981,7 +995,8 @@ function mergeMisc(d){
     if(!state.plan30) state.plan30={start:d.plan30.start,done:{}};
     if(dayDiff(d.plan30.start, state.plan30.start)>0) state.plan30.start=d.plan30.start;
     state.plan30.done=state.plan30.done||{};
-    for(const day in (d.plan30.done||{})) state.plan30.done[day]=Object.assign(state.plan30.done[day]||{}, d.plan30.done[day]); }
+    for(const day in (d.plan30.done||{})){ const L=state.plan30.done[day]=state.plan30.done[day]||{}, R=d.plan30.done[day]||{};
+      for(const k in R){ const a=Number(L[k])||0, b=Number(R[k])||0; if(Math.abs(b)>Math.abs(a)) L[k]=b; } } }
 }
 
 function handleCardRealtime(r){ noteServerRow("vocab_state",r.word_id,r.updated_at);
@@ -1295,6 +1310,9 @@ function go(view,opts={}){
   if(synFeed && view!=="synfeed") pauseSynFeed(); // 독립 피드 이탈 시 현재 문제를 그대로 이어서 저장
   if(vaFeed && view!=="vafeed") vaFeedPause();
   if(ap && view!=="autoplay") apStop();  // leaving hands-free mode: stop audio/timers/wake-lock
+  if(session && view!=="study"){ snapSession(); session=null; }   // 카드 세션은 스냅샷 후 해제 — 화면 뒤에서 '활성'으로 남지 않게(H3)
+  if(confirmQuiz && view!=="confirm") confirmQuiz=null;
+  if(rcCur && view!=="passage") rcCur=null;
   // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
   // 백그라운드에서 섹션이 넘어가거나 자동 제출되지 않게 (모의고사 화면에서 이어하기).
   if(exam && !exam.submitted){
@@ -1416,14 +1434,14 @@ function renderHome(){
 }
 // 홈 '오늘 할 일' — 30일 플랜의 자동 체크 과제(미완료 상위 5개)
 function renderTodayTasks(){ const box=$("#todayTasks"); if(!box) return;
-  const tasks=planTasks(), man=planDone(), isDone=t=>t.done||!!man[t.k];
+  const tasks=planTasks(), man=planDone(), isDone=t=>t.done||(Number(man[t.k])||0)>0;
   const doneN=tasks.filter(isDone).length, show=tasks.filter(t=>!isDone(t)).slice(0,5), rest=tasks.length-doneN-show.length;
   box.innerHTML=`<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:${show.length?8:0}px"><b>📋 오늘 할 일</b><span class="muted" style="font-size:12px">${doneN}/${tasks.length} 완료 · DAY ${planIdx()}/${planLen()}</span></div>
     ${show.length?show.map(t=>`<div class="ptask"><button class="pchk" data-chk="${esc(t.k)}" aria-label="완료 표시"></button>
       <div class="pmeta"><div class="pl">${t.icon} ${esc(t.label)}</div><div class="ps">${esc(t.sub)}${t.min?" · ~"+t.min+"분":""}</div></div>
       <button class="btn sm primary pgo" data-go2="${esc(t.k)}">시작 →</button></div>`).join(""):`<div class="center muted" style="padding:6px 0 2px">🎉 오늘 할 일을 다 했어요 — 남는 시간은 ∞ 피드로.</div>`}
     ${rest>0?`<div class="muted" style="font-size:11.5px">…외 ${rest}개</div>`:""}`;
-  $$("#todayTasks .pchk").forEach(b=>b.onclick=()=>{ man[b.dataset.chk]=1; saveLocal(); renderTodayTasks(); });
+  $$("#todayTasks .pchk").forEach(b=>b.onclick=()=>{ man[b.dataset.chk]=Date.now(); saveLocal(); renderTodayTasks(); });   // 양수=체크(해제는 -Date.now())
   $$("#todayTasks .pgo").forEach(b=>b.onclick=()=>{ const t=tasks.find(x=>x.k===b.dataset.go2); if(t&&t.go) t.go(); }); }
 // 홈 축 카드 부제(이어하기 상태) + 증거 요약 한 줄
 function renderAxisCards(){
@@ -2001,7 +2019,11 @@ function guardSynFeedNewRun(){ if(!guardSynFeedInitialSync()) return false;
       toast("📴 오프라인이에요. 지금은 '이어 풀기'로 진행하고, 새 피드는 연결된 뒤에 만들어 주세요.",3200); return false; }
     return true;
   }
-  if(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)){ toast("⚠️ 처음부터 시작은 PC·모바일 진도를 확인한 뒤 가능해요. 연결 후 다시 시도해 주세요."); return false; }
+  // 서버에 닿을 수 없으면(일시 정지된 프로젝트·긴 장애) 영구히 막지 않고 확인 후 허용(H5)
+  if(boundSbUrl()&&boundSbKey()&&syncInitialSettled&&!syncReady){
+    return confirm("동기화 서버에 연결되지 않아 다른 기기의 진도를 확인할 수 없어요.\n그래도 새 피드를 시작할까요? (나중에 연결되면 더 진행된 쪽으로 자동 정리됩니다)"); }
+  // '처음부터'는 다른 기기의 최신 위치를 확인한 뒤에만 — 답 입력과 달리 되돌릴 수 없는 결정이라 신선도 게이트를 유지한다
+  if(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)){ toast("⚠️ 처음부터 시작은 PC·모바일 진도를 확인한 뒤 가능해요. 잠시 후 다시 시도해 주세요."); return false; }
   if(boundSbUrl()&&boundSbKey()&&Date.now()-synFeedLastPullAt>SYNFEED_REMOTE_FRESH_MS){ pullSynFeedOnForeground();
     toast("⏳ 새 피드를 만들기 전에 다른 기기의 최신 위치를 확인해요. 확인 후 다시 눌러 주세요."); return false; }
   return true; }
@@ -2157,8 +2179,10 @@ function synFeedSave(immediate=false,syncCloud=true,changed=true){ if(!synFeed) 
   if(changed){ synFeed.updatedAt=nowISO(); writeOwnSynFeedCheckpoint(synFeed); }
   else state.synFeedSession=cloneSynFeedSession(synFeed);
   saveSynFeedEmergency(); if(immediate) saveNow(); else saveLocal(false); if(changed&&syncCloud&&sb) queueSynFeedReplica(); }
+// 답 입력은 원격 확인을 기다리지 않는다(H5) — 동기화 설정이 바뀐 탭만 막고, 다른 기기의 앞선 진도는 이미 받은 것이 있을 때만 적용한다.
+// 원격 확인이 진행 중이면 뒤에서 끝나는 대로 refreshSynFeedSession(true)가 반영한다(pullSynFeedOnForeground → handleVerbalRealtime 경로).
 function reconcileSynFeedBeforeInput(){ if(syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()){ toast("다른 탭의 동기화 설정이 바뀌어 안전하게 다시 불러옵니다."); return false; }
-  if(synFeedSyncPending()){ toast("⏳ 다른 기기의 최신 문제 위치를 확인 중이에요."); return false; }
+  if(synFeedSyncPending()) return true;
   const r=refreshSynFeedSession(true); if(!r.activeChanged) return true;
   saveNow(); toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요."); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); return false; }
 function pauseSynFeed(){ if(act&&act.y==="synfeed") actEnd(); synFeedTimerStop(); if(synFeed) synFeedSave(true,false,false); synFeed=null;
@@ -2240,7 +2264,7 @@ function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#syn
   const saved=repairSynFeedSession(state.synFeedSession),can=!!saved,syncing=synFeedSyncPending();
   // 오프라인: 이어 풀기는 항상, 새 시작은 로컬 기록이 없을 때만 (guardSynFeedNewRun과 같은 규칙)
   const offline=navigator.onLine===false;
-  const startBlocked=offline?can:(syncing||!!(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)));
+  const startBlocked=offline?can:(syncing||!!(boundSbUrl()&&boundSbKey()&&syncReady&&!synFeedRemoteFresh));   // 서버 불가(settled&&!syncReady)는 시작 시 confirm — 버튼이 영구 비활성 되지 않게(H5)
   const b=$("#synfeedResume"),start=$("#synfeedStart"); b.classList.toggle("hidden",!can);
   b.disabled=syncing; start.disabled=startBlocked; start.classList.toggle("has-resume",can);
   if(can){ const fc=safeSynFeedCount(saved.firstCount)||saved.count||0,fk=Number.isSafeInteger(saved.firstCount)?safeSynFeedCount(saved.firstCorrect):(saved.correct||0);
@@ -2282,10 +2306,9 @@ function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null
   // 뜻을 보고 고른 답과 재출제 답이 섞이면 Verbal 예상 점수가 부풀려진다.
   const skillSample=!q.isRetry&&!hinted;
   if(skillSample) recordSecAcc("WK",ok);
-  if(!ok){ state.wrong.wk[q.id]=(state.wrong.wk[q.id]||0)+1; markForReview(q.id); s.added=(s.added||0)+1; q.added=true;
+  if(!ok){ s.added=(s.added||0)+1; q.added=true;
     s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:synFeedBase(s)+SYNFEED_RETRY_GAP}); }
-  else if(q.isRetry) delete state.wrong.wk[q.id];
-  if(skillSample){ const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+  answerWK(q.id,ok,{skill:skillSample});   // 정답(첫 시도 포함)은 오답노트에서 제거, new 단어의 오답은 SRS 실패로 기록하지 않는다
   s.recent=(s.recent||[]).filter(id=>id!==q.id); s.recent.push(q.id); if(s.recent.length>3) s.recent=s.recent.slice(-3);
   // Feed counters/checkpoint use a dedicated per-replica row. The ordinary
   // score, weakness and wrong-note fields still use the shared misc snapshot.
@@ -2405,7 +2428,7 @@ function vaFeedAdvance(initial=false){ const s=vaFeed; if(!s) return;
 function startVaFeed(){ const pool=vaFeedPool(); if(pool.length<5){ toast("유추 데이터가 부족해요."); return; }
   const prev=vaFeedRepair(state.vaFeedSession);
   if(prev){ const m=vaFeedSetMeta(prev); if(!confirm(`이어 풀던 기록이 있어요 (SET ${m.setNo}/${m.setCount}, 문제 ${m.position}/${m.length}, 누적 ${prev.count||0}문제).\n처음부터 새 피드를 만들까요?`)) return; }
-  vaFeed={v:1,queue:shuffle(pool),cursor:0,cycle:1,retry:[],count:0,baseCount:0,retryStreak:0,firstCount:0,firstCorrect:0,correct:0,combo:0,bestCombo:0,points:0,current:null,startedAt:nowISO(),updatedAt:nowISO()};
+  vaFeed={v:1,runId:newSynFeedRunId(),queue:shuffle(pool),cursor:0,cycle:1,retry:[],count:0,baseCount:0,retryStreak:0,firstCount:0,firstCorrect:0,correct:0,combo:0,bestCombo:0,points:0,current:null,startedAt:nowISO(),updatedAt:nowISO()};
   vaFeedShowPlay(); actStart("vafeed",{tm:vaFeedTimerOn()?1:0}); vaFeedAdvance(true); }
 function resumeVaFeed(){ const s=vaFeedRepair(state.vaFeedSession); if(!s){ state.vaFeedSession=null; saveLocal(); renderVaFeed(); return; }
   vaFeed=s; vaFeedShowPlay(); actStart("vafeed",{tm:vaFeedTimerOn()?1:0,rs:1}); if(!vaFeed.current) vaFeedAdvance(true); else renderVaFeedPlay(); }
@@ -2436,7 +2459,7 @@ function answerVaFeed(i){ const s=vaFeed,q=s&&s.current; if(!q||q.chosen!=null||
   if(ok&&([5,10,20].includes(s.combo)||s.combo>0&&s.combo%50===0)) q.milestone=`✨ ${s.combo}연속 정답!`;
   bumpDay({studied:1,correct:ok?1:0});
   // 첫 시도만 실력 표본(secAcc VA·약점 관계유형·state.va)에 반영 — recordResult가 오답노트까지 처리
-  if(!q.isRetry) recordResult(q.it,ok); else { if(ok) delete state.wrong.va[q.id]; else state.wrong.va[q.id]=(state.wrong.va[q.id]||0)+1; }
+  if(!q.isRetry) recordResult(q.it,ok); else { if(ok) wrongDel("va",q.id); else wrongAdd("va",q.id); }
   if(!ok){ s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:vaFeedBase(s)+VAFEED_GAP}); }
   if(!q.isRetry) s.baseCount=vaFeedBase(s)+1; s.lastId=q.id;
   vaFeedRecordStat(ok,s.combo); vaFeedSave(); queuePush("app_state"); renderVaFeedPlay(); $("#vafeedNext")?.focus({preventScroll:true}); }
@@ -3470,7 +3493,7 @@ function submitPassage(){ const {p,answers}=rcCur; let got=0;
   p.questions.forEach((q,qi)=>{ const pick=answers[qi];
     $$(`#rcQArea .choice[data-q="${qi}"]`).forEach(b=>{ b.disabled=true; const oi=+b.dataset.o; b.classList.remove("sel","correct","wrong");
       if(oi===q.answer) b.classList.add("correct"); else if(oi===pick) b.classList.add("wrong"); });
-    if(pick===q.answer) got++; recordSecAcc("RC",pick===q.answer);
+    if(pick===q.answer) got++; recordResult(rcItem(p,qi),pick===q.answer);   // 오답노트·문제 유형 약점까지(M16)
     const ex=document.createElement("div"); ex.className="ana-explain"; ex.innerHTML=`${pick===q.answer?"✅":"❌"} ${esc(q.explain||"")}`;
     $$(`#rcQArea .rc-q`)[qi].appendChild(ex);
   });
@@ -4045,7 +4068,7 @@ function startPickedExam(){
   if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
   exam={key:null,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:p.secs,startSecs:p.secs,total:items.length,submitted:false,timerId:null,
-        kind:"picked",runId:newSynFeedRunId(),startedAt:Date.now()};
+        kind:"picked",runId:newSynFeedRunId(),startedAt:Date.now(),timing:specs.length>1?"sections":"total"};
   if(specs.length>1) buildExamSections(exam);   // 과목별 타이머
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
@@ -4068,7 +4091,8 @@ function startExam(key,opts){
   // 실전 AFOQT처럼 서브테스트마다 자기 시계를 준다(전체 통합 타이머 대신).
   // 시간이 끝난 섹션은 닫히고 다음 섹션으로 — 이전 섹션으로 되돌아갈 수 없다.
   // (기출 mock처럼 specs가 없어도 문항이 다과목이면 섹션 타이머를 붙인다)
-  if(!practice&&!learn && new Set(items.map(it=>it.section)).size>1) buildExamSections(exam);
+  exam.timing=learn?"none":(!practice&&new Set(items.map(it=>it.section)).size>1)?"sections":"total";
+  if(exam.timing==="sections") buildExamSections(exam);
   // Activate the exam view directly — do NOT call go("exam") here, since that
   // re-runs renderExamSetup() and would wipe the exam we just built.
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
@@ -4151,7 +4175,7 @@ function saveExamStatic(){
   try{
     const snap={key:e.key,name:e.name,items:e.items,total:e.total,learn:!!e.learn,
       practice:!!e.practice,startSecs:e.startSecs,savedAt:Date.now(),
-      kind:e.kind||null,runId:e.runId||null,startedAt:e.startedAt||null};
+      kind:e.kind||null,runId:e.runId||null,startedAt:e.startedAt||null,timing:e.timing||null};
     if(e.sections) snap.sections=e.sections.map(s=>({code:s.code,from:s.from,to:s.to,secs:s.secs}));
     localStorage.setItem(EXAM_SAVE_KEY,JSON.stringify(snap));
   }catch(err){ clearExamSnap(); }   // quota 초과 등 — 옛 스냅샷이 남아 엉뚱한 시험이 복원되는 것 방지
@@ -4181,7 +4205,7 @@ function loadExamSnap(){
 function confirmDropExamSnap(){
   const s=loadExamSnap(); if(!s) return true;
   const done=(s.answers||[]).filter(a=>a!=null).length;
-  if(!done&&!isMathFullKey(s.key)) return true;
+  if(!done&&s.timing==="none") return true;   // 학습 모드(시계 없음)에서 한 문제도 안 풀었으면 조용히 대체
   return confirm(`⏸ 하다 만 시험이 있어요 — "${s.name||"모의고사"}" ${done}/${s.total}문항.\n새 시험을 시작하면 사라져요. 계속할까요?`);
 }
 function resumeExamSnap(){
@@ -4189,7 +4213,7 @@ function resumeExamSnap(){
   const offlineElapsed=!s.learn&&s.timerAt?Math.max(0,Math.floor((Date.now()-s.timerAt)/1000)):0;
   exam={key:s.key,name:s.name,items:s.items,idx:s.idx||0,answers:s.answers,
     secsLeft:s.secsLeft,startSecs:s.startSecs,total:s.total,submitted:false,timerId:null,
-    times:s.times||undefined,kind:s.kind||undefined,runId:s.runId||newSynFeedRunId(),startedAt:s.startedAt||undefined};
+    times:s.times||undefined,kind:s.kind||undefined,runId:s.runId||newSynFeedRunId(),startedAt:s.startedAt||undefined,timing:s.timing||(s.learn?"none":s.sections?"sections":"total")};
   if(s.learn) exam.learn=true;
   if(s.practice) exam.practice=true;
   if(s.sections){
@@ -4308,6 +4332,15 @@ function refreshExamGrid(){ const e=exam; const b=$(`#examGrid button[data-i="${
 function recordSecAcc(sec,ok){ if(!sec) return; const o=state.secAcc[sec]||(state.secAcc[sec]={c:0,w:0}); if(ok)o.c++; else o.w++;
   // 날짜별·과목별 풀이 수 — 30일 플랜의 '오늘 할 일' 자동 체크에 사용
   const day=todayStr(), ds=state.dayStats[day]||(state.dayStats[day]={}); ds[sec]=(ds[sec]||0)+1; }
+// 오답노트 증감은 항상 이 두 헬퍼로 — 변경 시각(wrongTs)을 함께 남겨 기기 간 병합에서 '맞혀서 지운' 항목이 되살아나지 않게 한다(H2)
+function wrongAdd(g,id){ const b=state.wrong[g]||(state.wrong[g]={}); b[id]=(b[id]||0)+1; (state.wrongTs=state.wrongTs||{})[g+":"+id]=Date.now(); }
+function wrongDel(g,id){ const b=state.wrong[g]; if(b&&b[id]!=null){ delete b[id]; (state.wrongTs=state.wrongTs||{})[g+":"+id]=Date.now(); } }
+// WK 답 처리 단일 경로(피드·시험 공통): 정답이면 오답노트에서 제거, 오답이면 오답노트 누적.
+// 아직 '미학습(new)'인 단어의 오답은 SRS 실패가 아니다(배운 적이 없다) — 카드는 건드리지 않고 다음 신규 덱 선두로만 올린다(H4).
+function answerWK(id,ok,opts={}){ if(id==null) return; const w=WMAP.get(id); if(!w) return;
+  if(ok) wrongDel("wk",id); else { wrongAdd("wk",id); if(opts.markReview!==false&&getCard(id).status!=="new") markForReview(id); }
+  if(opts.skill!==false){ const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+  state.wkSeen[id]=Date.now(); }
 function recordResult(it,ok){
   const W=state.wrong, K=state.weak;
   recordSecAcc(it.section, ok);
@@ -4317,25 +4350,23 @@ function recordResult(it,ok){
   if(["AR","MK","PS","AV"].includes(it.section)&&topic) bump(K.topic||(K.topic={}), it.section+":"+topic);
   // 오답 노트는 틀린 '횟수'를 누적한다(1→2→…) — 반복해서 틀리는 문제를 강조·우선 재출제.
   if(it.section==="WK"&&it.wordId!=null){
-    if(ok) delete W.wk[it.wordId]; else W.wk[it.wordId]=(W.wk[it.wordId]||0)+1;
-    bump(K.wkTier, it.tier||"std");
-    state.wkSeen[it.wordId]=Date.now();        // coverage + 중복 회피용 시각
+    answerWK(it.wordId,ok,{markReview:false});   // 시험은 SRS를 건드리지 않는다(기존 규약) — 오답노트·등급 약점·coverage만
   } else if(it.section==="VA"&&it.anaId!=null){
-    if(ok) delete W.va[it.anaId]; else W.va[it.anaId]=(W.va[it.anaId]||0)+1;
+    if(ok) wrongDel("va",it.anaId); else wrongAdd("va",it.anaId);
     bump(K.vaRel, it.relation||"기타");
     const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok)v.correct=(v.correct||0)+1; else v.wrong=(v.wrong||0)+1; setVA(it.anaId,v);
   } else if(it.section==="RC"&&it.passageId!=null&&READING.some(p=>p.id===Number(it.passageId))){
     // 기출(mock) 지문은 READING 풀에 없어 오답노트에 넣어도 재출제 불가 — 앱 풀 지문만 기록
     const key=it.passageId+":"+(it.qIdx||0);
-    if(ok) delete W.rc[key]; else W.rc[key]=(W.rc[key]||0)+1;
+    if(ok) wrongDel("rc",key); else wrongAdd("rc",key);
     bump(K.rcType, it.qType||"detail");
     const r={...getRC(it.passageId)}; r.seen=true; setRC(it.passageId,r);  // coverage
   } else if(it.section==="AV"&&it.avId!=null){
     state.avp[it.avId]=Date.now();             // coverage + 중복 회피용 시각
-    if(ok) delete W.av[it.avId]; else W.av[it.avId]=(W.av[it.avId]||0)+1;
+    if(ok) wrongDel("av",it.avId); else wrongAdd("av",it.avId);
   } else if(["AR","MK","PS"].includes(it.section)&&it.qid!=null){
     const sec=it.section.toLowerCase();
-    const b=W[sec]; if(b){ if(ok) delete b[it.qid]; else b[it.qid]=(b[it.qid]||0)+1; }
+    if(W[sec]){ if(ok) wrongDel(sec,it.qid); else wrongAdd(sec,it.qid); }
     (state.qSeen[sec]||(state.qSeen[sec]={}))[it.qid]=Date.now();   // 중복 출제 방지
   }
 }
@@ -4356,8 +4387,8 @@ function startRetest(kind){
   const secs=Math.max(120, items.length*25);
   exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
-        kind:"retest",runId:newSynFeedRunId(),startedAt:Date.now()};
-  if(ordered.length>1) buildExamSections(exam);   // 주석대로: 다과목이면 과목별 타이머
+        kind:"retest",runId:newSynFeedRunId(),startedAt:Date.now(),timing:"total"};
+  // 오답 재시험은 과목이 섞여도 문항당 25초 예산의 통합 타이머(M1) — 과목별 실전 시계는 섹션 모의고사의 몫
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
@@ -4574,7 +4605,7 @@ function startDrill(items,name,learn=true){
   const per=learn?300:1.5, secs=Math.max(120, Math.round(items.reduce((s,it)=>s+(SECRATE[it.section]||30)*per,0)));
   exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),learn,
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
-        kind:learn?"learn":"drill",runId:newSynFeedRunId(),startedAt:Date.now()};
+        kind:learn?"learn":"drill",runId:newSynFeedRunId(),startedAt:Date.now(),timing:learn?"none":"total"};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
@@ -4682,7 +4713,7 @@ function submitExam(auto){
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
   $("#examEmoji").textContent=pct>=85?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
   $("#examScore").textContent=`${got} / ${total} 정답 (${pct}%)`+(skipped.length?` · ${skipped.map(k=>SEC_KO[k]||k).join("·")} 건너뜀`:"");
-  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
+  const secName=SEC_KO;
   $("#examBreakDown").innerHTML=Object.keys(bySec).map(k=>
     `<div class="s"><b>${bySec[k].got}/${bySec[k].total}</b><span>${secName[k]||k}</span></div>`).join("");
   // estimated AFOQT-style percentile (unofficial)
@@ -4733,7 +4764,7 @@ function submitExam(auto){
 }
 function renderExamReview(){
   const e=exam; if(!e) return;
-  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
+  const secName=SEC_KO;
   const skip=e._skipped||[];
   $("#examReview").innerHTML=e.items.map((it,i)=>{
     if(skip.includes(it.section)) return "";               // 통째로 건너뛴 과목은 복기에서 제외
@@ -4864,7 +4895,7 @@ function renderReport(){
   const rcBlock=()=>{ const arr=Object.entries(state.weak.rcType).map(([k,o])=>({k,o,a:accPct(o),n:o.c+o.w})).filter(x=>x.n>=2).sort((a,b)=>a.a-b.a);
     return arr.length?`<div class="rep-sub">📖 독해 — 약한 문제 유형</div>${arr.map(x=>repBar(RC_TYPE_KO[x.k]||x.k,x.o,`rc|${enc(x.k)}`)).join("")}`:""; };
   const topicBySec={}; for(const [k,o] of Object.entries(state.weak.topic||{})){ const i=k.indexOf(":"); const sec=k.slice(0,i),t=k.slice(i+1); (topicBySec[sec]=topicBySec[sec]||[]).push({t,o,a:accPct(o),n:o.c+o.w}); }
-  const secKoName={AR:"산수",MK:"수학",PS:"과학",AV:"항공"};
+  const secKoName=SEC_KO;
   const topicBlocks=Object.keys(topicBySec).map(sec=>{ const arr=topicBySec[sec].filter(x=>x.n>=2).sort((a,b)=>a.a-b.a).slice(0,4);
     return arr.length?`<div class="rep-sub">${secKoName[sec]||sec} — 약한 주제</div>${arr.map(x=>repBar(mathStyleTopicName(sec,x.t),x.o,`topic|${enc(sec)}|${enc(x.t)}`)).join("")}`:""; }).join("");
   // 가장 약한 '유형' 하나 — 히어로에서 원탭으로 바로 20문제
@@ -4916,7 +4947,6 @@ function pruneExamDetail(){ const h=state.examHist||[];
 /* ============================================================
    지난 시험 기록 — 목록 → 상세(문항별 해설 복기)
    ============================================================ */
-const EXAM_SECKO={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
 let examLogIdx=null;
 function renderExamLog(){
   const h=(state.examHist||[]).slice().reverse();
@@ -4938,7 +4968,7 @@ function renderExamLog(){
   const x=h[examLogIdx]; if(!x){ examLogIdx=null; return renderExamLog(); }
   $("#elTitle").textContent=`${x.date} · ${Math.round(x.acc*100)}%`;
   $("#elBack").classList.remove("hidden"); $("#elBack").textContent="← 목록"; $("#elBack").onclick=()=>{ examLogIdx=null; window.scrollTo(0,0); renderExamLog(); };
-  const secs=Object.keys(x.bySec||{}).map(k=>`<div class="s"><b>${x.bySec[k].got}/${x.bySec[k].total}</b><span>${EXAM_SECKO[k]||k}</span></div>`).join("");
+  const secs=Object.keys(x.bySec||{}).map(k=>`<div class="s"><b>${x.bySec[k].got}/${x.bySec[k].total}</b><span>${SEC_KO[k]||k}</span></div>`).join("");
   let head=`<div class="card center">
       <div style="font-size:13px;color:var(--muted)">${esc(x.name||x.key||"모의고사")}</div>
       <h2 style="margin:6px 0">${x.got} / ${x.total} 정답 (${Math.round(x.acc*100)}%)</h2>
@@ -4953,7 +4983,7 @@ function renderExamLog(){
     const psg=(it.p!=null)?(()=>{ const p=READING.find(z=>z.id===it.p); return p?`<details class="exam-passage"><summary>📖 ${esc(it.pt||p.title||"지문")} (탭하여 보기)</summary><div class="passage">${esc(p.passage||"")}</div></details>`:""; })():"";
     const tchip=it.ms?` · ${Math.round(it.ms/1000)}초${it.ms>((SECRATE[it.s]||30)*1300)?" 🐢":""}`:"";
     return `<div class="review-q">
-      <div class="rh">${i+1}. ${EXAM_SECKO[it.s]||it.s} ${ok?"✅":un?"⬜ 미응답":"❌"}<span class="muted" style="font-weight:400">${tchip}</span></div>
+      <div class="rh">${i+1}. ${SEC_KO[it.s]||it.s} ${ok?"✅":un?"⬜ 미응답":"❌"}<span class="muted" style="font-weight:400">${tchip}</span></div>
       ${psg}
       <div style="font-weight:600;margin-bottom:6px">${fmtMath(it.t||it.q)}</div>
       ${opts}
@@ -5148,7 +5178,7 @@ function wire(){
   $("#examReviewBtn").onclick=()=>{ renderExamReview(); $("#examReviewBtn").classList.add("hidden"); $("#examReview").scrollIntoView({behavior:"smooth"}); };
   $("#examRetry").onclick=()=>{ if(exam&&exam.key){
       if(String(exam.key).startsWith("mock_")&&!EXAM_PRESETS[exam.key]){ toast("🔒 기출 모의고사는 잠금 해제 후 다시 응시할 수 있어요."); go("exam"); return; }
-      startExam(exam.key);
+      startExam(exam.key,{practice:!!exam.practice});   // 연습 모드 회차를 다시 풀면 연습 모드 그대로(M11)
     } else go("exam"); };
   $("#retestAll").onclick=()=>startRetest("all");
   $("#examDoneHome").onclick=()=>{ if(exam) goExamReturn(exam.key); else go("home"); };
