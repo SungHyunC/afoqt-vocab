@@ -152,7 +152,7 @@ let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
 let BARRON_AR=null, BARRON_MK=null, BARRON_FULL_AR=null, BARRON_FULL_MK=null;
 let state=null, sb=null, realtimeChan=null, realtimeCode=null, realtimeReady=false, syncReady=false, syncInitialSettled=false, settingsSyncUpdatedAt=0;
 let syncSessionCode="",syncSessionUrl="",syncSessionKey="",syncSessionImportMark="",syncCodeMismatch=false,suppressPersistenceForReload=false;
-let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()};
+let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()}, serverDailyRows=new Map();
 
 const DEFAULT_STATE = () => ({
   cards:{},   // WK: id -> {status,reps,lapses,ease,interval,due,starred,updated_at}
@@ -183,10 +183,16 @@ const DEFAULT_STATE = () => ({
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
   evReplicas:{}, // 학습 증거 로그: deviceId -> {v,n,head,ev:[...],updated_at} (append-only 해시 체인)
   evSnapDay:"",  // 오늘 진도 스냅샷을 남겼는지
+  evLegacyDone:0, evInstalledAt:"", // 재구성 이벤트 생성 여부 · 이 기기 최초 실행일
+  session:null, autoplay:null,       // 플래시카드·자동 넘김 이어하기 체크포인트(로컬)
+  vaFeedSession:null, vaFeedStats:{total:0,correct:0,bestCombo:0,days:{}},
+  migSkipFix:0, migExamKind:0, evechk:null,
   settings:{ daily_goal:0, high_first:true, high_only:false,
              verbal_theme_priority:2, verbal_theme_mode:"new",
              syn_feed_priority:2, syn_feed_korean:true,
-             start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
+             start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"",
+             // 웨이버 증빙 기준선: 공식 응시일(변하지 않음) · 재응시 목표일 · 공식 점수(자기 기재)
+             official_attempt_date:CFG.ATTEMPT_DATE||"2026-09-18", retest_date:"", official_scores:"", ev_since:"" },
 });
 
 const SYNFEED_REPLICA_VERSION=1,SYNFEED_MAX_REPLICAS=64;
@@ -324,6 +330,16 @@ function loadLocal(){
   state.synFeedReplicaVersion=SYNFEED_REPLICA_VERSION;
   const emergencyRestored=restoreSynFeedEmergency(activeSyncCode); rebuildSynFeedStats();
   state.settings=Object.assign(d.settings, state.settings||{});
+  { const S=state.settings, isDay=v=>/^\d{4}-\d{2}-\d{2}$/.test(String(v||""));
+    if(!isDay(S.official_attempt_date)) S.official_attempt_date=CFG.ATTEMPT_DATE||"2026-09-18";
+    if(!isDay(S.retest_date)) S.retest_date="";
+    // exam_date는 페이스·달력의 목표일. 비어 있으면 재응시일 → 없으면 공식 응시일(지난 날짜면 30일 지평으로 동작)
+    if(!isDay(S.exam_date)) S.exam_date=S.retest_date||S.official_attempt_date;
+    S.official_scores=String(S.official_scores||"").slice(0,120); if(!isDay(S.ev_since)) S.ev_since=""; }
+  // 1회 마이그레이션: 과거 시험 기록에 종류(kind)를 붙인다 — 오답 재시험·드릴이 모의고사 추이/배지에 섞이지 않게(M2)
+  if(!state.migExamKind){ for(const h of state.examHist){ if(!h||h.kind) continue; const key=String(h.key||""), name=String(h.name||"");
+      h.kind=key.startsWith("mock_")?"mock":h.learn?"learn":key==="retest"?(/오답/.test(name)?"retest":/모의고사/.test(name)?"picked":"drill"):h.practice?"practice":"preset"; }
+    state.migExamKind=1; }
   if(![1,2,3].includes(Number(state.settings.verbal_theme_priority))) state.settings.verbal_theme_priority=2;
   else state.settings.verbal_theme_priority=Number(state.settings.verbal_theme_priority);
   if(!["new","due","all"].includes(state.settings.verbal_theme_mode)) state.settings.verbal_theme_mode="new";
@@ -381,7 +397,10 @@ function verbalPriorityOf(w){ const p=Number(w&&w.verbalPriority); return p===1|
 function verbalThemesOf(w){ return Array.isArray(w&&w.verbalThemes)?w.verbalThemes.filter(x=>VERBAL_THEME_MAP.has(x)):[]; }
 function hasVerbalThemeData(){ return WORDS.some(w=>verbalPriorityOf(w)&&verbalThemesOf(w).length); }
 function newPool(){ let p=WORDS.filter(isNew); if(flag("high_only")) p=p.filter(w=>tierOf(w)!=="std"); return p; }
-function daysLeft(){ return Math.max(1, dayDiff(todayStr(), state.settings.exam_date)+1); }
+// 목표일 = 재응시 목표일(있으면) 아니면 exam_date. 지났거나 없으면 ""(→ 30일 지평으로 페이스 계산)
+function targetDateStr(){ const s=state.settings, d=/^\d{4}-\d{2}-\d{2}$/.test(String(s.retest_date||""))?s.retest_date:s.exam_date;
+  return (d&&dayDiff(todayStr(),d)>=0)?d:""; }
+function daysLeft(){ const t=targetDateStr(); return t?Math.max(1,dayDiff(todayStr(),t)+1):30; }   // 목표일 경과 시 하루 신규 300개로 폭주하던 문제(M13) 방지
 function newWordsRemaining(){ return newPool().length; }
 function autoPace(){ return clamp(Math.ceil(newWordsRemaining()/daysLeft()),5,300); }
 function newPerDay(){ return state.settings.daily_goal>0 ? state.settings.daily_goal : autoPace(); }
@@ -480,7 +499,7 @@ const BADGES=[
 ];
 function badgeMetrics(){
   const c=countByStatus(), hist=state.examHist||[], D=state.daily||{};
-  const mockHist=hist.filter(x=>x&&!x.practice&&!x.learn);
+  const mockHist=hist.filter(isMockRecord);
   const secN=k=>{ const o=state.secAcc[k]; return o?(o.c||0)+(o.w||0):0; };
   const wrongLeft=Object.values(state.wrong||{}).reduce((a,o)=>a+Object.keys(o||{}).length,0);
   const h=new Date().getHours();
@@ -740,10 +759,11 @@ async function pullAll(){
     // supabase v2는 reject하지 않고 {error}를 돌려준다 — 에러를 무시하면 조용히 머지가 빠진다
     const ok=![vs,vp,dl,st,as].some(r=>r&&r.error);
     if(!ok){ console.error("pull partial fail",vs.error||vp.error||dl.error||st.error||as.error); setSyncDot("err"); }
-    if(ok) serverRowTimes={
+    if(ok){ serverRowTimes={
       vocab_state:new Map((vs.data||[]).map(r=>[String(r.word_id),syncTime(r.updated_at)])),
       verbal_progress:new Map((vp.data||[]).map(r=>[r.kind+":"+r.item_id,syncTime(r.updated_at)])),
       daily_log:new Map((dl.data||[]).map(r=>[r.day,syncTime(r.updated_at)]))};
+      serverDailyRows=new Map((dl.data||[]).map(r=>[r.day,r])); }
     if(vs.data) vs.data.forEach(mergeCard);
     if(vp.data) vp.data.forEach(mergeVerbal);
     if(dl.data) dl.data.forEach(mergeDaily);
@@ -844,9 +864,17 @@ function mergeVerbal(r){ if(r.kind==="synfeed") return mergeSynFeedReplica(r).ch
   const cur=tgt[r.item_id]; const d=Object.assign({},r.data,{updated_at:r.updated_at});
   if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ tgt[r.item_id]=d; return true; }
   return false; }
-function mergeDaily(r){ const cur=state.daily[r.day];
-  if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ state.daily[r.day]={studied:r.studied,correct:r.correct,new_learned:r.new_learned,seconds:r.seconds,target:cur?.target||0,goal_met:r.goal_met,updated_at:r.updated_at}; return true; }
-  return false; }
+// 일별 카운터는 기기별 몫이 더해진 값이라 통째로 덮어쓰면(last-write-wins) 다른 기기 몫이
+// 사라지고 스트릭이 뒤로 간다(H1). 필드별 max로 병합한다.
+function mergeDaily(r){ if(!r||!r.day) return false; const cur=state.daily[r.day];
+  if(!cur){ state.daily[r.day]={studied:r.studied||0,correct:r.correct||0,new_learned:r.new_learned||0,seconds:r.seconds||0,target:0,goal_met:!!r.goal_met,updated_at:r.updated_at}; return true; }
+  let changed=false;
+  for(const k of ["studied","correct","new_learned","seconds"]){ const v=Math.max(cur[k]||0,r[k]||0); if(v!==(cur[k]||0)){ cur[k]=v; changed=true; } }
+  if(r.goal_met&&!cur.goal_met){ cur.goal_met=true; changed=true; }
+  if(syncTime(r.updated_at)>syncTime(cur.updated_at)) cur.updated_at=r.updated_at;
+  return changed; }
+function dailyExceeds(local,remote){ if(!local) return false; if(!remote) return !!(local.studied||local.seconds||local.correct||local.new_learned);
+  return ["studied","correct","new_learned","seconds"].some(k=>(local[k]||0)>(remote[k]||0))||(!!local.goal_met&&!remote.goal_met); }
 function mergeSettings(r){ const rt=syncTime(r.updated_at); if(rt&&rt<=settingsSyncUpdatedAt) return false; if(rt) settingsSyncUpdatedAt=rt;
   if(r.daily_goal!=null) state.settings.daily_goal=r.daily_goal;
   if(r.start_date) state.settings.start_date=r.start_date; if(r.exam_date) state.settings.exam_date=r.exam_date;
@@ -936,9 +964,12 @@ function handleVerbalRealtime(r){ noteServerRow("verbal_progress",r.kind+":"+r.i
   if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("verbal_progress",{kind:r.kind,item_id:String(r.item_id),data:cur}); saveLocal(false); softRender(); }
   else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("verbal_progress",{kind:r.kind,item_id:String(r.item_id),data:cur}); }
 function handleDailyRealtime(r){ noteServerRow("daily_log",r.day,r.updated_at);
-  const changed=mergeDaily(r),cur=state.daily[r.day],pending=pushQ.daily_log.get(r.day);
-  if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("daily_log",{day:r.day,...cur}); saveLocal(false); softRender(); }
-  else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("daily_log",{day:r.day,...cur}); }
+  const changed=mergeDaily(r),cur=state.daily[r.day]; if(!cur) return;
+  serverDailyRows.set(r.day,r);
+  // 병합 결과가 서버 행보다 크면 다시 올린다(max 병합) — 같으면 멈춰 echo 루프가 없다
+  const differs=dailyExceeds(cur,r);
+  if(differs){ cur.updated_at=nowISO(); queuePush("daily_log",{day:r.day,...cur}); }
+  if(changed||differs){ saveLocal(false); softRender(); } }
 function handleSettingsRealtime(r){ const pending=pushQ.settings,changed=mergeSettings(r),rt=syncTime(r.updated_at);
   if(changed){ if(pending&&syncTime(pending.updated_at)<=rt){ pushQ.settings={...r,data:r.data||{}}; if(!pushInFlight) schedulePush(pendingPushDelay()); } saveLocal(false); softRender(); }
   else if(rt&&settingsSyncUpdatedAt>rt&&!pending) queuePush("settings",{}); }
@@ -1059,7 +1090,8 @@ function pushAllLocal(){
   // their monotonic counters remain independent, so concurrent answers add up.
   if(state.synFeedReplicas&&state.synFeedReplicas[deviceId()]) queueSynFeedReplica();
   for(const day in state.daily){ const d=state.daily[day],m=serverRowTimes.daily_log;
-    if(!m.has(day)||syncTime(d.updated_at)>m.get(day)) queuePush("daily_log",{day,...d}); }
+    if(!(d.studied||d.seconds||d.correct||d.new_learned)) continue;                 // 빈 행은 올리지 않는다
+    if(!m.has(day)||syncTime(d.updated_at)>m.get(day)||dailyExceeds(d,serverDailyRows.get(day))) queuePush("daily_log",{day,...d}); }
   queuePush("settings",{}); queuePush("app_state");
   return flushPush();
 }
@@ -1191,9 +1223,9 @@ function go(view){
    HOME
    ============================================================ */
 function renderHome(){
-  const dl=dayDiff(todayStr(),state.settings.exam_date);
-  $("#daysLeft").textContent=dl<0?"0":dl;
-  const [,em,ed]=state.settings.exam_date.split("-"); $("#examLine").textContent=`목표일 ${+em}/${+ed}`;
+  const tgt=targetDateStr(), dl=tgt?dayDiff(todayStr(),tgt):-1;
+  $("#daysLeft").textContent=tgt?String(dl):"–";
+  $("#examLine").textContent=tgt?`목표일 ${+tgt.slice(5,7)}/${+tgt.slice(8,10)}${state.settings.retest_date?" (재응시)":""}`:"재응시일 미설정 → ⚙️ 설정";
   const cnt=countByStatus(), today=getDay(), target=today.target||plannedToday();
   const pct=target?clamp(Math.round(today.studied/target*100),0,100):0;
   $("#goalRing").style.setProperty("--p",pct); $("#ringPct").textContent=pct+"%";
@@ -1218,15 +1250,15 @@ function renderHome(){
     }
   }
   // ---- daily pacing (recomputed every render, so it auto-updates as days pass) ----
-  const rawDays=dayDiff(todayStr(),state.settings.exam_date);
+  const rawDays=targetDateStr()?dayDiff(todayStr(),targetDateStr()):-1;
   const remain=newWordsRemaining(), dleft=daysLeft(), pace=newPerDay(), autop=autoPace();
   const note=$("#behindNote");
   if(rawDays<0){
-    // Exam date is in the past — almost always a stale saved date. Make it obvious.
-    $("#recPace").textContent="신규 –";
-    $("#recBasis").textContent="⚠️ 시험 목표일이 지났어요";
+    // 목표일이 없거나 지났다 — 페이스는 30일 지평으로 계산하되, 재응시일 입력을 유도한다
+    $("#recPace").textContent=`신규 ${pace}/일`;
+    $("#recBasis").textContent="재응시일 미설정 · 30일 기준 페이스";
     note.classList.remove("hidden");
-    note.innerHTML=`⚙️ <b>설정 → 시험 목표일</b>을 실제 응시일(예: 2026-08-05)로 바꿔주세요. 그러면 권장량이 다시 계산됩니다.`;
+    note.innerHTML=`⚙️ <b>설정 → 재응시 목표일</b>을 입력하면 그 날짜 기준으로 권장량·달력·플랜이 다시 계산돼요.`;
   } else {
     // Today's real load = due reviews + new. The home headline used to show only
     // "new", which made the study session (reviews+new) look mysteriously doubled.
@@ -1282,7 +1314,9 @@ function renderHome(){
    - 기록이 쌓이면: 최근 정답률 추세를 선형 근사해 "이 페이스면
      시험일에 대략 몇 th" 를 보여준다 (비공식, 상승분은 보수적으로 캡).
    ============================================================ */
-function bigExams(){ return (state.examHist||[]).filter(x=>x&&(x.total||0)>=15&&!x.practice&&!x.learn); }
+// '진짜 모의고사'만: 오답 재시험·드릴·연습·학습 모드는 점수 추이·배지·플랜 판정에서 제외(M2)
+function isMockRecord(x){ return !!x&&!x.practice&&!x.learn&&["preset","mock","picked"].includes(x.kind||"preset"); }
+function bigExams(){ return (state.examHist||[]).filter(x=>isMockRecord(x)&&(x.total||0)>=15); }
 function scoreTrendLine(){
   const h=bigExams().slice(-10); if(h.length<2) return null;
   const t0=h[0].ts, xs=h.map(x=>(x.ts-t0)/86400000), ys=h.map(x=>x.acc);
@@ -1459,7 +1493,7 @@ function planTasks(){
   }
   if(i%7===0){ const today=todayStr();
     t.push({k:"mock",icon:"🎯",label:"모의고사 1회 (시간측정)",sub:"🏁 주간 점검",min:180,
-      done:(state.examHist||[]).some(x=>x&&!x.practice&&!x.learn&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
+      done:(state.examHist||[]).some(x=>isMockRecord(x)&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
   return t;
 }
 function planEndLabel(){ const p=planState(); const d=parseDate(p.start); d.setDate(d.getDate()+planLen()-1);
@@ -4676,7 +4710,7 @@ function loadExamSnap(){
     const st=JSON.parse(localStorage.getItem(EXAM_SAVE_KEY)||"null");
     const dyn=JSON.parse(localStorage.getItem(EXAM_SAVE_DYN)||"null");
     if(!(st&&st.items&&st.items.length&&dyn&&dyn.answers)) return null;
-    if(Date.now()-(dyn.savedAt||0)>48*3600*1000) return null;   // 이틀 지난 시험은 만료
+    if(Date.now()-(dyn.savedAt||0)>48*3600*1000){ clearExamSnap(); return null; }   // 이틀 지난 시험은 만료 — 0.5MB짜리 스냅샷을 남겨두지 않는다
     return {...st,...dyn};
   }catch(e){ return null; }
 }
@@ -5116,10 +5150,13 @@ function runDrill(spec){
 }
 function submitExam(auto){
   const e=exam; if(!e||e.submitted) return;
-  // 통째로 건너뛴 과목(응답 0개) = 의도적 스킵 → 채점·통계·오답노트에서 제외
+  // 통째로 건너뛴 과목(응답 0개 + 시간이 남은 채 넘김) = 의도적 스킵 → 채점·통계·오답노트에서 제외.
+  // 시간 초과로 0답인 과목은 건너뛴 게 아니라 0점이다(M12) — timedOut으로 따로 기록한다.
   const ansBySec={};
   e.items.forEach((it,i)=>{ if(e.answers[i]!=null) ansBySec[it.section]=(ansBySec[it.section]||0)+1; });
-  const skipped=[...new Set(e.items.map(it=>it.section))].filter(sc=>!(ansBySec[sc]>0));
+  const allSecs=[...new Set(e.items.map(it=>it.section))];
+  const timedOut=e.sections?e.sections.filter(s=>s.autoOut).map(s=>s.code):((auto&&!e.learn)?allSecs.slice():[]);
+  const skipped=allSecs.filter(sc=>!(ansBySec[sc]>0)&&!timedOut.includes(sc));
   const counted=e.items.map((it,i)=>i).filter(i=>!skipped.includes(e.items[i].section));
   if(!auto){ const un=counted.filter(i=>e.answers[i]==null).length;
     const skipTxt=skipped.length?`\n(${skipped.map(k=>SEC_KO[k]||k).join("·")}은(는) 한 문제도 안 풀어 통계에서 제외돼요)`:"";
@@ -5128,13 +5165,14 @@ function submitExam(auto){
   // 열려 있던 문항의 시간 구간을 닫는다 (속도 분석용)
   e.times=e.times||new Array(e.total).fill(0);
   if(e._openIdx!=null&&e._openAt){ e.times[e._openIdx]+=Date.now()-e._openAt; e._openIdx=null; }
-  // 아무 문항도 안 풀었으면 기록 없이 종료
-  if(!counted.length){
+  // 아무 문항도 안 풀었으면 점수 기록 없이 종료(증거 로그에는 중단으로만 남긴다)
+  if(!Object.keys(ansBySec).length){
+    if(act&&["exam","retest","drill"].includes(act.y)) actEnd({y:"exam_abandoned",k:e.key||examKindOf(e),n:0,t:e.total,m:{kd:examKindOf(e),ans:0,tot:e.total,to:timedOut.length?1:0}});
     toast("푼 문항이 없어 채점·기록 없이 종료했어요.");
     $("#examRun").classList.add("hidden"); $("#examSetup").classList.remove("hidden");
     exam=null; return;
   }
-  e._skipped=skipped;
+  e._skipped=skipped; e._timedOut=timedOut;
   let got=0; const bySec={};
   counted.forEach(i=>{ const it=e.items[i]; const ok=e.answers[i]===it.answer; if(ok)got++;
     (bySec[it.section]=bySec[it.section]||{got:0,total:0}).total++; if(ok)bySec[it.section].got++;
@@ -5154,7 +5192,7 @@ function submitExam(auto){
   const examTs=Date.now(), examKind=examKindOf(e), examName=String((EXAM_PRESETS[e.key]&&EXAM_PRESETS[e.key].name)||e.name||"모의고사");
   const examEv=actEnd({k:e.key||examKind,sc:got,t:total,n:total,c:got,r:examKind==="mock"?"m":undefined,
     m:{kd:examKind,cs:Math.round(used),bs:Object.fromEntries(Object.keys(bySec).map(k=>[k,[bySec[k].got,bySec[k].total]])),
-       pr:e.practice?1:0,ln:e.learn?1:0,ts:examTs,nm:examName.slice(0,40),sk:skipped.length?skipped:undefined}});
+       pr:e.practice?1:0,ln:e.learn?1:0,ts:examTs,nm:examName.slice(0,40),sk:skipped.length?skipped:undefined,to:timedOut.length?timedOut:undefined}});
   bumpDay({studied:total,correct:got});
   if(e.key&&!e.practice){ const prev=state.exams[e.key]||{};
     const newBest=got>(prev.best||0);   // bestTotal은 그 최고점을 낸 회차의 분모를 유지 ("최고 100/25" 방지)
@@ -5168,7 +5206,10 @@ function submitExam(auto){
     date:todayStr(),got,total,acc:got/total,pctile:e.learn?undefined:estPercentile(got/total),ts:examTs,
     secs:used,bySec:JSON.parse(JSON.stringify(bySec)),items:detail,
     practice:e.practice?1:undefined,learn:e.learn?1:undefined,
-    skipped:skipped.length?skipped.slice():undefined});
+    skipped:skipped.length?skipped.slice():undefined,timedOut:timedOut.length?timedOut.slice():undefined,
+    // 증거용: 종류·시작 시각·활성 시간·기기·시간 측정 여부·출처
+    kind:examKind,runId:e.runId||undefined,startTs:e.startedAt||undefined,active:examEv?examEv.a:undefined,dev:deviceId(),
+    timed:e.learn?0:1,src:examKind==="mock"?"mock":"app"});
   if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
   pruneExamDetail();
   saveNow(); if(sb) queuePush("app_state");
@@ -5473,7 +5514,7 @@ function renderExamLog(){
 }
 function renderExamTrend(){
   // 3문항짜리 드릴·연습(practice) 회차는 추이·최고 기록에서 제외 — bigExams와 같은 기준
-  const h=(state.examHist||[]).filter(x=>x&&(x.total||0)>=10&&!x.practice&&!x.learn); const box=$("#examTrend");
+  const h=bigExams(); const box=$("#examTrend");
   if(h.length<1){ box.innerHTML=`<div class="center muted" style="padding:8px">아직 기록이 없어요. 모의고사를 보면 정답률 추이가 그려집니다.</div>`; return; }
   const data=h.slice(-15), W=300,H=120,pad=22;
   const xs=(i)=>pad+(data.length<=1?W-2*pad:(i/(data.length-1))*(W-2*pad));
