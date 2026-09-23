@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v5-0-0";  // 리뉴얼: 화면 38→19 통합, 5탭 네비, 홈 재구성, 오답노트·피드·시험 버그 수정
+const CACHE = "afoqt-v5-1-0";  // 스타일 통일·죽은 CSS 정리·safe-area, 단어 메타 보정, 캐시버스트·동기화 재시도 등 잔여 버그
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [

@@ -2406,11 +2406,11 @@
    }
   ],
   "hook": "서로(con) 둘둘 말려(volut) 엉킴 → 복잡하게 뒤얽힌",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "state_degree"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 64,
@@ -2732,11 +2732,11 @@
    }
   ],
   "hook": "뒤로 날라(fer) 두다 → 미루다; 나를 낮춰 상대에게 맡기다 → 따르다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "movement_time"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 73,
@@ -3420,9 +3420,12 @@
    }
   ],
   "hook": "원하는 결과를 밖으로(ef) 만들어내는(fic) → 효과적인",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "success_risk",
+   "analogy_core"
+  ]
  },
  {
   "id": 92,
@@ -3763,9 +3766,12 @@
    }
   ],
   "hook": "빗대어 말한(ainos) 수수께끼 같은 → 불가사의한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "clarity_ambiguity",
+   "analogy_core"
+  ]
  },
  {
   "id": 101,
@@ -5468,9 +5474,11 @@
    }
   ],
   "hook": "걱정(souci)이 없는(in) → 태평한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 146,
@@ -7353,11 +7361,11 @@
    }
   ],
   "hook": "김빠지게 납작한(flat) 말 → 진부한 말, 상투적 표현",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "communication"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 197,
@@ -7904,9 +7912,11 @@
    }
   ],
   "hook": "풍차를 거인으로 알고 돌진한 돈키호테처럼 → 비현실적으로 이상적인",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 212,
@@ -9466,9 +9476,11 @@
    }
   ],
   "hook": "진실(veri)과 비슷함(simil) → 사실 같아 보임, 진실성",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "clarity_ambiguity"
+  ]
  },
  {
   "id": 255,
@@ -9855,12 +9867,12 @@
    }
   ],
   "hook": "열정(zelos)이 지나쳐 타협을 모르는 자 → 광신자, 열성파",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 266,
@@ -12962,12 +12974,12 @@
    }
   ],
   "hook": "당장 하라고 몰아붙임(ig) → 긴급한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "movement_time",
    "state_degree"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 352,
@@ -13441,9 +13453,11 @@
    }
   ],
   "hook": "말(loqu)을 크게(grand) 부풀리는 → 과장된, 허풍스러운",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 366,
@@ -13572,11 +13586,11 @@
    }
   ],
   "hook": "갈매기처럼 던져 주는 대로 꿀꺽 삼키는(gull) → 잘 속는",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 370,
@@ -13708,9 +13722,11 @@
    }
   ],
   "hook": "신을 넘보다 몰락하는 그리스 비극 주인공의 교만 → 오만",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 374,
@@ -15189,9 +15205,11 @@
    }
   ],
   "hook": "앞으로 내동댕이쳐진(flig) → 바닥까지 타락한 → 방탕한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "economy_value"
+  ]
  },
  {
   "id": 415,
@@ -15660,9 +15678,11 @@
    }
   ],
   "hook": "속임수(dul) 없이(se) 우직하게 일하는 → 부지런한, 끈기 있는",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 428,
@@ -18433,11 +18453,11 @@
    }
   ],
   "hook": "상대 생각 쪽으로(as) 마음이 기울다(sent) → 동의, 동의하다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "agreement_support"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 507,
@@ -26193,11 +26213,11 @@
    }
   ],
   "hook": "끝(terminus)낼 수 없는(in) → 끝없는 (terminal과 동족)",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "movement_time"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 733,
@@ -27729,11 +27749,11 @@
    }
   ],
   "hook": "위에다(ob) 어둠(fusc)을 덮어씌움 → 모호하게 하다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "clarity_ambiguity"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 778,
@@ -29391,11 +29411,11 @@
    }
   ],
   "hook": "제자리에 알맞게(proprius) 들어맞음 → 적절함, 예의 (proper와 동족)",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 825,
@@ -31260,13 +31280,13 @@
    }
   ],
   "hook": "흩뿌려져(spars) 듬성듬성한 → 희박한, 드문",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "state_degree",
    "economy_value",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 881,
@@ -31464,11 +31484,11 @@
    }
   ],
   "hook": "서로 이기려 애쓰다(strive) 부딪힘 → 갈등, 분쟁",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "conflict_criticism"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 887,
@@ -31703,11 +31723,11 @@
    }
   ],
   "hook": "발(plant)을 아래로(sub) 걸어 넘어뜨리고 그 자리를 차지 → 밀어내고 대체하다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "change_quantity"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 894,
@@ -32563,9 +32583,11 @@
    }
   ],
   "hook": "참(ver)으로 가득한(acious) → 진실한, 정확한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "clarity_ambiguity"
+  ]
  },
  {
   "id": 919,
@@ -32997,12 +33019,12 @@
    }
   ],
   "hook": "끓어오르는 열심(zēlos) → 열의, 열정 (jealous와 동족)",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "emotion_psychology",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 932,
@@ -33886,9 +33908,11 @@
    }
   ],
   "hook": "납 추(plomb)를 드리운 듯 수직으로 흔들림 없는 → 침착함",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
  },
  {
   "id": 958,
@@ -34440,9 +34464,11 @@
    }
   ],
   "hook": "내용이 서로 딱 붙어(her) 함께(co) 이어지는 → 일관성 있는",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "clarity_ambiguity"
+  ]
  },
  {
   "id": 976,
@@ -34610,11 +34636,11 @@
    }
   ],
   "hook": "조용해(qui)져 버림 → 잠자코 받아들이다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "agreement_support"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 981,
@@ -36878,9 +36904,12 @@
    }
   ],
   "hook": "모든 것을 다 씻어(lug) 쓸어가는(de) 물 → 홍수",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "change_quantity",
+   "analogy_core"
+  ]
  },
  {
   "id": 1050,
@@ -38618,9 +38647,11 @@
    }
   ],
   "hook": "지나치게 가득(full) 담아 느끼한 → 과장된 (칭찬)",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 1103,
@@ -40732,9 +40763,12 @@
    }
   ],
   "hook": "잘게 줄인(minut) → 아주 작은; 시간을 잘게 쪼갠 것이 분(minute)",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "state_degree",
+   "analogy_core"
+  ]
  },
  {
   "id": 1169,
@@ -41363,11 +41397,11 @@
    }
   ],
   "hook": "위에서(over) 내리누르는(bear) → 거만한, 위압적인",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1188,
@@ -41627,12 +41661,12 @@
    }
   ],
   "hook": "끝까지(per) 버티고 서 있는(sist) → 끈질긴, 지속적인",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1196,
@@ -44138,12 +44172,12 @@
    }
   ],
   "hook": "힘(val)이 넘치는 기개 → 용맹 (value, valid와 동족)",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "success_risk",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1271,
@@ -44808,11 +44842,11 @@
    }
   ],
   "hook": "전쟁(bellum)을 벌이고 싶어 하는 → 호전적인 (rebel과 동족)",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "conflict_criticism"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1292,
@@ -44846,9 +44880,11 @@
    }
   ],
   "hook": "좋게(bene) 작용하는(fic) → 유익한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "success_risk"
+  ]
  },
  {
   "id": 1293,
@@ -45037,9 +45073,11 @@
    }
   ],
   "hook": "말(cheval) 탄 기사(chevalier)다운 → 기사도적인, 예의 바른",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 1299,
@@ -46685,12 +46723,12 @@
    }
   ],
   "hook": "정도(정상 범위) 밖으로(extra) 떠도는(vag) → 낭비적인, 사치스러운",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "economy_value",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1348,
@@ -50333,11 +50371,11 @@
    }
   ],
   "hook": "다시(re) 가득(plen) 채우다 → 보충하다 (plenty와 동족)",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "change_quantity"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1459,
@@ -54352,12 +54390,12 @@
    }
   ],
   "hook": "진짜에 맞대어(counter) 본떠 만든(feit) → 가짜의, 위조하다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "clarity_ambiguity",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1580,
@@ -55563,12 +55601,12 @@
    }
   ],
   "hook": "열매를 주렁주렁 맺는(fecundus) → 비옥한, 다산의",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "state_degree",
    "change_quantity"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1617,
@@ -57752,9 +57790,11 @@
    }
   ],
   "hook": "담력(anim)이 아주 작은(pusill) → 소심한, 겁쟁이의",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 1683,
@@ -59747,9 +59787,11 @@
    }
   ],
   "hook": "땅(terra) 위에서 사는 → 육상의",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "state_degree"
+  ]
  },
  {
   "id": 1744,
@@ -63165,13 +63207,13 @@
    }
   ],
   "hook": "꽃(flor)이 활짝 피어나다 → 번영하다, 번성하다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "success_risk",
    "change_quantity",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 1847,
@@ -63920,9 +63962,11 @@
    }
   ],
   "hook": "그림 속 늘 눈물짓는 막달라 마리아(Maudlin)처럼 → 눈물 나게 감상적인",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
  },
  {
   "id": 1869,
@@ -63953,9 +63997,11 @@
    }
   ],
   "hook": "내가 서 있는 한가운데(mi)의 장소(lieu) → 둘러싼 환경, 분위기",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "state_degree"
+  ]
  },
  {
   "id": 1870,
@@ -64567,9 +64613,11 @@
    }
   ],
   "hook": "느림(slow)이 가득한 → 나무늘보(sloth)처럼 나태한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 1887,
@@ -68269,9 +68317,11 @@
    }
   ],
   "hook": "배우(histrio)처럼 과장되게 구는 → 연극적인, 과장된",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
  },
  {
   "id": 1998,
@@ -69472,11 +69522,11 @@
    }
   ],
   "hook": "노동(labor)이 잔뜩 드는 → 힘든, 고된",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "state_degree"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 2032,
@@ -75130,9 +75180,11 @@
    }
   ],
   "hook": "더 높게(hance) 만들다 → 향상시키다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "change_quantity"
+  ]
  },
  {
   "id": 2202,
@@ -76080,9 +76132,11 @@
    }
   ],
   "hook": "직접 본 게 아니라 남이 말하는(say) 걸 들은(hear) 것 → 소문, 풍문",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 2232,
@@ -84998,9 +85052,11 @@
    }
   ],
   "hook": "살아(viv) 움직이는 듯한 → 생생한, 선명한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "clarity_ambiguity"
+  ]
  },
  {
   "id": 2499,
@@ -92701,11 +92757,11 @@
    }
   ],
   "hook": "상대의 말을 비틀어(tort) 곧장 되던지다(re) → 쏘아붙이다, 반박하다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "communication"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 2727,
@@ -94902,9 +94958,11 @@
    }
   ],
   "hook": "말이 앞으로 줄줄 흘러넘치는(lix) → 장황한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 2792,
@@ -96523,9 +96581,12 @@
    }
   ],
   "hook": "아주 앞선(ante) 시대에 속한 → 고대의",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "movement_time",
+   "analogy_core"
+  ]
  },
  {
   "id": 2842,
@@ -99140,9 +99201,11 @@
    }
   ],
   "hook": "빛(luc)이 완전히 통과하는(pel) → 투명한, 명확한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "clarity_ambiguity"
+  ]
  },
  {
   "id": 2922,
@@ -101801,9 +101864,11 @@
    }
   ],
   "hook": "아무리 휘저어도(turb) 흔들리지 않는(im) → 평온한, 침착한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
  },
  {
   "id": 3002,
@@ -107786,9 +107851,11 @@
    }
   ],
   "hook": "빛(fulg)이 밖으로 뿜어져 나옴 → 눈부시게 빛나는.",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "state_degree"
+  ]
  },
  {
   "id": 3175,
@@ -109607,12 +109674,12 @@
    }
   ],
   "hook": "대들며(ob-) 소리치는(strep) → 떠들썩하고 통제 안 되는.",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude",
    "communication"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3227,
@@ -109683,9 +109750,11 @@
    }
   ],
   "hook": "온(pan) 사람이 모인 자리(agyris)에서 하는 연설 → 공개 찬사.",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 3229,
@@ -110069,11 +110138,11 @@
    }
   ],
   "hook": "머리(caput)부터 앞으로 곤두박질치는 → 가파르고 급작스러운.",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "success_risk"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3240,
@@ -111178,11 +111247,11 @@
    }
   ],
   "hook": "원래 믿음에서 떨어져 나와 선 사람 → 배교자, 변절자",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "knowledge_judgment"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3272,
@@ -112757,11 +112826,11 @@
    }
   ],
   "hook": "아는 범위 밖까지 값을 채워 넣음 → 외삽·추정하다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "knowledge_judgment"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3315,
@@ -113558,9 +113627,11 @@
    }
   ],
   "hook": "눈물(lachrym)이 많은 → 잘 우는, 슬픈",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
  },
  {
   "id": 3337,
@@ -113586,11 +113657,11 @@
    }
   ],
   "hook": "'마시자(lampons)!' 후렴을 외치며 신나게 조롱하던 풍자시 → 신랄한 풍자",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "conflict_criticism"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3338,
@@ -114702,11 +114773,11 @@
    }
   ],
   "hook": "뒤로 한데 치워 감춰둔(re+con+dit) → 아무나 모르는 심오하고 난해한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "clarity_ambiguity"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3369,
@@ -115182,11 +115253,11 @@
    }
   ],
   "hook": "여신 베누스(Venus)를 향한 사랑과 경배 → 깊은 존경, 숭배",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "emotion_psychology"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3383,
@@ -115713,13 +115784,13 @@
    }
   ],
   "hook": "위쪽으로(ad) 기어오르다(scand) → 상승하다",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "movement_time",
    "change_quantity",
    "analogy_core"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3398,
@@ -117503,11 +117574,11 @@
    }
   ],
   "hook": "돌처럼 그대로 서 있어(stol) 미동도 없음 → 감정 없는, 둔감한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "emotion_psychology"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3450,
@@ -118237,11 +118308,11 @@
    }
   ],
   "hook": "인간(anthrop)을 미워하는(mis) → 인간 혐오적인",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "character_attitude"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3471,
@@ -123996,9 +124067,11 @@
    }
   ],
   "hook": "색(chrom)이 없는(a-) → 무채색의",
+  "afoqtCommon": true,
   "verbalPriority": 1,
-  "verbalThemes": [],
-  "afoqtCommon": true
+  "verbalThemes": [
+   "state_degree"
+  ]
  },
  {
   "id": 3633,
@@ -134824,11 +134897,11 @@
    }
   ],
   "hook": "'세렌딥의 세 왕자'가 우연히 행운을 얻듯 → 뜻밖에 좋은 것을 발견하는.",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "success_risk"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 3940,
@@ -137234,11 +137307,11 @@
    }
   ],
   "hook": "속이 텅 비어 영양가 없는 → 내용이 빈약하고 유치한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "state_degree"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 4012,
@@ -141216,11 +141289,11 @@
    }
   ],
   "hook": "통째로 깎아낸 하나의 돌덩이 → 획일적이고 견고한",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "state_degree"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 4129,
@@ -141322,12 +141395,12 @@
    }
   ],
   "hook": "이름을 지어 불러주는 일 → 명명법, 술어 체계",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "communication",
    "knowledge_judgment"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 4132,
@@ -144309,11 +144382,11 @@
    }
   ],
   "hook": "의식의 문턱 아래에서 작용하는 → 잠재의식적인",
+  "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
    "knowledge_judgment"
-  ],
-  "afoqtCommon": true
+  ]
  },
  {
   "id": 4220,
@@ -157630,7 +157703,8 @@
   "verbalPriority": 1,
   "verbalThemes": [
    "change_quantity",
-   "movement_time"
+   "movement_time",
+   "analogy_core"
   ]
  },
  {
@@ -158050,7 +158124,8 @@
   "verbalPriority": 1,
   "verbalThemes": [
    "communication",
-   "emotion_psychology"
+   "emotion_psychology",
+   "analogy_core"
   ]
  },
  {
@@ -158375,7 +158450,12 @@
     "m": "~한 (형용사)"
    }
   ],
-  "hook": "분명히 놓인(posit) 사실 → 확신하는·긍정적인"
+  "hook": "분명히 놓인(posit) 사실 → 확신하는·긍정적인",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 4637,
@@ -158408,7 +158488,12 @@
     "m": "~한 (형용사)"
    }
   ],
-  "hook": "기쁘게(please) 하지 않는(un) → 불쾌한"
+  "hook": "기쁘게(please) 하지 않는(un) → 불쾌한",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
  },
  {
   "id": 4638,
@@ -158433,7 +158518,12 @@
     "m": "세다·말하다 (OE tellan — teller와 같은 뿌리)"
    }
   ],
-  "hook": "하나씩 세듯(tell) 풀어놓다 → 말하다"
+  "hook": "하나씩 세듯(tell) 풀어놓다 → 말하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 4639,
@@ -158462,7 +158552,13 @@
     "m": "별 (star)"
    }
   ],
-  "hook": "별(aster)이 어긋난(dis) 불운 → 재난"
+  "hook": "별(aster)이 어긋난(dis) 불운 → 재난",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "success_risk",
+   "analogy_core"
+  ]
  },
  {
   "id": 4640,
@@ -158491,7 +158587,12 @@
     "m": "접다 (L plicare: fold)"
    }
   ],
-  "hook": "말을 되(re) 접어(ply) 보내다 → 대답하다"
+  "hook": "말을 되(re) 접어(ply) 보내다 → 대답하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 4641,
@@ -158520,7 +158621,12 @@
     "m": "자리에 놓다 (place)"
    }
   ],
-  "hook": "그 자리(place)에 다시(re) 놓다 → 대체하다"
+  "hook": "그 자리(place)에 다시(re) 놓다 → 대체하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "change_quantity"
+  ]
  },
  {
   "id": 4642,
@@ -158549,7 +158655,13 @@
     "m": "하다, 만들다 (L facilis: easy)"
    }
   ],
-  "hook": "쉽지(facil) 않은(dif) → 어려운"
+  "hook": "쉽지(facil) 않은(dif) → 어려운",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree",
+   "analogy_core"
+  ]
  },
  {
   "id": 4643,
@@ -158578,7 +158690,12 @@
     "m": "~된 (형용사)"
    }
   ],
-  "hook": "갈고리(crook)처럼 굽은 → 구부러진·비뚤어진"
+  "hook": "갈고리(crook)처럼 굽은 → 구부러진·비뚤어진",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 4644,
@@ -158607,7 +158724,12 @@
     "m": "앉다 (L sedere: sit)"
    }
   ],
-  "hook": "힘으로(pos) 눌러앉다(sess) → 소유하다"
+  "hook": "힘으로(pos) 눌러앉다(sess) → 소유하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "economy_value"
+  ]
  },
  {
   "id": 4645,
@@ -158632,7 +158754,12 @@
     "m": "멍청이 (17C gawk: 어수룩한 사람)"
    }
   ],
-  "hook": "어수룩하게(gawk) 입 벌리고 보다 → 멍하니 쳐다보다"
+  "hook": "어수룩하게(gawk) 입 벌리고 보다 → 멍하니 쳐다보다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "character_attitude"
+  ]
  },
  {
   "id": 4646,
@@ -158661,7 +158788,12 @@
     "m": "서 있는 (standing)"
    }
   ],
-  "hook": "밖으로(out) 튀어나와 서 있는 → 뛰어난 / 아직 남은"
+  "hook": "밖으로(out) 튀어나와 서 있는 → 뛰어난 / 아직 남은",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "success_risk"
+  ]
  },
  {
   "id": 4647,
@@ -158686,7 +158818,12 @@
     "m": "멈춤 (Ger Halt machen: 서다)"
    }
   ],
-  "hook": "독일어 구령 Halt! → 멈추다"
+  "hook": "독일어 구령 Halt! → 멈추다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time"
+  ]
  },
  {
   "id": 4648,
@@ -158711,7 +158848,12 @@
     "m": "외치다 (L quiritare: 도와달라 외치다)"
    }
   ],
-  "hook": "도와달라 외치다(quiritare) → 울다·외치다"
+  "hook": "도와달라 외치다(quiritare) → 울다·외치다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
  },
  {
   "id": 4649,
@@ -158740,7 +158882,12 @@
     "m": "잡다, 쥐다 (L tenere: hold)"
    }
   ],
-  "hook": "계속(re) 붙잡고(tain) 있다 → 유지하다"
+  "hook": "계속(re) 붙잡고(tain) 있다 → 유지하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "economy_value"
+  ]
  },
  {
   "id": 4650,
@@ -158769,7 +158916,12 @@
     "m": "~하다 (동사)"
    }
   ],
-  "hook": "소중한(cher) 것으로 대하다 → 아끼다"
+  "hook": "소중한(cher) 것으로 대하다 → 아끼다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "emotion_psychology"
+  ]
  },
  {
   "id": 4651,
@@ -158794,7 +158946,13 @@
     "m": "경계 표시 (OE mearc: boundary)"
    }
   ],
-  "hook": "경계(mearc)를 그어 표시하다 → 표시·자국"
+  "hook": "경계(mearc)를 그어 표시하다 → 표시·자국",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication",
+   "analogy_core"
+  ]
  },
  {
   "id": 4652,
@@ -158819,7 +158977,12 @@
     "m": "넓은 길·광장 (Gk plateia: 넓은)"
    }
   ],
-  "hook": "넓은 광장(plateia) → 자리·장소"
+  "hook": "넓은 광장(plateia) → 자리·장소",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time"
+  ]
  },
  {
   "id": 4653,
@@ -158844,7 +159007,12 @@
     "m": "말 없는 (L mutus: silent)"
    }
   ],
-  "hook": "소리를 내지 않는(mutus) → 말없는·음소거"
+  "hook": "소리를 내지 않는(mutus) → 말없는·음소거",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 4654,
@@ -158869,7 +159037,12 @@
     "m": "고르다 (OE ceosan: taste, try — 맛보고 고르다)"
    }
   ],
-  "hook": "맛보고(ceosan) 고르다 → 선택하다"
+  "hook": "맛보고(ceosan) 고르다 → 선택하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "knowledge_judgment"
+  ]
  },
  {
   "id": 4655,
@@ -158894,7 +159067,12 @@
     "m": "세게 치다 (ME daschen: strike)"
    }
   ],
-  "hook": "세게 치듯 내닫다 → 돌진하다 / 희망을 깨뜨리다"
+  "hook": "세게 치듯 내닫다 → 돌진하다 / 희망을 깨뜨리다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time"
+  ]
  },
  {
   "id": 4656,
@@ -158923,7 +159101,13 @@
     "m": "말하다 (L dicere: say)"
    }
   ],
-  "hook": "법(jus)을 말하는(dic) 사람 → 판단·심판하다"
+  "hook": "법(jus)을 말하는(dic) 사람 → 판단·심판하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "knowledge_judgment",
+   "analogy_core"
+  ]
  },
  {
   "id": 4657,
@@ -158952,7 +159136,12 @@
     "m": "~한 (형용사)"
    }
   ],
-  "hook": "힘(might)이 가득한 → 강력한"
+  "hook": "힘(might)이 가득한 → 강력한",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
  },
  {
   "id": 4658,
@@ -158981,7 +159170,12 @@
     "m": "기준 (standard)"
    }
   ],
-  "hook": "기준(standard) 아래(sub) → 표준 이하의"
+  "hook": "기준(standard) 아래(sub) → 표준 이하의",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
  },
  {
   "id": 4659,
@@ -159010,7 +159204,12 @@
     "m": "취하다 (L emere: take)"
    }
   ],
-  "hook": "앞서(pro) 집어드는(empt) → 즉각적인·부추기다"
+  "hook": "앞서(pro) 집어드는(empt) → 즉각적인·부추기다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time"
+  ]
  },
  {
   "id": 4660,
@@ -159035,7 +159234,13 @@
     "m": "미움 (OE hete: hatred)"
    }
   ],
-  "hook": "깊은 미움(hete) → 미워하다"
+  "hook": "깊은 미움(hete) → 미워하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "emotion_psychology",
+   "analogy_core"
+  ]
  },
  {
   "id": 4661,
@@ -159064,7 +159269,12 @@
     "m": "반복 (반복 동사)"
    }
   ],
-  "hook": "말이 자꾸 걸려(stut) 반복되다 → 더듬다"
+  "hook": "말이 자꾸 걸려(stut) 반복되다 → 더듬다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "communication"
+  ]
  },
  {
   "id": 4662,
@@ -159093,7 +159303,12 @@
     "m": "구부리다 (L flectere: bend)"
    }
   ],
-  "hook": "빛을 되(re) 꺾다(flect) → 반사하다 / 생각을 되짚다"
+  "hook": "빛을 되(re) 꺾다(flect) → 반사하다 / 생각을 되짚다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "knowledge_judgment"
+  ]
  },
  {
   "id": 4663,
@@ -159122,7 +159337,12 @@
     "m": "오다 (L venire: come)"
    }
   ],
-  "hook": "오기(vent) 전에(pre) 미리 막다 → 예방하다"
+  "hook": "오기(vent) 전에(pre) 미리 막다 → 예방하다",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "law_power_control"
+  ]
  },
  {
   "id": 4664,
@@ -159151,7 +159371,12 @@
     "m": "움직이다 (L movere: move)"
    }
   ],
-  "hook": "움직이지(mob) 않는(im) → 고정된"
+  "hook": "움직이지(mob) 않는(im) → 고정된",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "movement_time"
+  ]
  },
  {
   "id": 4665,
@@ -159180,7 +159405,12 @@
     "m": "~한 (형용사)"
    }
   ],
-  "hook": "딱지(scab)투성이처럼 해진 → 초라한"
+  "hook": "딱지(scab)투성이처럼 해진 → 초라한",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "state_degree"
+  ]
  },
  {
   "id": 4666,
@@ -159209,7 +159439,12 @@
     "m": "~한 (형용사)"
    }
   ],
-  "hook": "넘치는(luxus) 것으로 가득한 → 호화로운"
+  "hook": "넘치는(luxus) 것으로 가득한 → 호화로운",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "economy_value"
+  ]
  },
  {
   "id": 4667,
@@ -159242,7 +159477,12 @@
     "m": "~함 (명사)"
    }
   ],
-  "hook": "완전히(de) 텅 비게(vast) 만듦 → 황폐·참화"
+  "hook": "완전히(de) 텅 비게(vast) 만듦 → 황폐·참화",
+  "afoqtCommon": true,
+  "verbalPriority": 1,
+  "verbalThemes": [
+   "success_risk"
+  ]
  },
  {
   "id": 4668,
@@ -159347,7 +159587,8 @@
   "afoqtCommon": true,
   "verbalPriority": 1,
   "verbalThemes": [
-   "agreement_support"
+   "agreement_support",
+   "analogy_core"
   ]
  },
  {

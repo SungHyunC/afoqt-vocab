@@ -46,8 +46,8 @@
     <div id="verbalEstLine" class="hidden" style="font-size:12px;margin-top:8px;color:var(--brand2);font-weight:700"></div>
   </div>
 
-  <div class="card motiv" id="motivBanner" style="margin-top:12px"></div>
-  <div class="card" id="todayTasks" style="margin-top:12px"></div>
+  <div class="card motiv mt12" id="motivBanner"></div>
+  <div class="card mt12" id="todayTasks"></div>
   <div id="scoreProj" style="margin-top:12px"></div>
 
   <div class="axis-grid">
@@ -61,7 +61,7 @@
   </div>
   <button class="btn ghost" id="btnEvidence2" style="margin-top:10px;font-size:15px;padding:14px;border-color:var(--gold)">📄 웨이버 증빙 리포트 <span class="muted" id="evidenceSub" style="font-size:12px;font-weight:600"></span></button>
 
-  <div class="grid3" style="margin-top:14px">
+  <div class="grid3 mt14">
     <div class="card tight stat"><div class="num" id="stStreak">0</div><div class="lbl">🔥 스트릭</div></div>
     <div class="card tight stat"><div class="num" id="stToday">0</div><div class="lbl">오늘 학습</div></div>
     <div class="card tight stat"><div class="num" id="stDue">0</div><div class="lbl">복습 대기</div></div>
@@ -83,12 +83,12 @@
     <div class="seccard" id="secSDI"><div class="ic">📝</div><div class="meta"><b>Self-Description</b><div class="muted">성격검사 안내</div></div><div class="go">›</div></div>
   </div>
 
-  <div class="card" style="margin-top:16px">
+  <div class="card mt16">
     <div class="row" style="justify-content:space-between;align-items:center">
       <div><b>오늘의 권장량</b><div class="muted" style="font-size:12px" id="recBasis">남은 단어 ÷ 남은 일수</div></div>
       <div class="pill" id="recPace">신규 –/일</div>
     </div>
-    <div class="hintbox hidden" id="behindNote" style="margin-top:10px"></div>
+    <div class="hintbox hidden mt10" id="behindNote"></div>
   </div>
 </main>
 
@@ -101,7 +101,7 @@
     <div class="card tight stat"><div class="num" id="vkHigh">0</div><div class="lbl">핵심(high+mid) 학습</div></div>
     <div class="card tight stat"><div class="num" id="vkRemain">0</div><div class="lbl">남은 단어</div></div>
   </div>
-  <button class="btn primary" id="vkNew" style="margin-top:16px">🆕 신규 단어 플래시카드</button>
+  <button class="btn primary mt16" id="vkNew">🆕 신규 단어 플래시카드</button>
   <button class="btn ghost" id="vkReview" style="margin-top:10px;border-color:var(--brand2)">🔁 복습 플래시카드</button>
   <button class="btn ghost" id="vkWrong" style="margin-top:10px;border-color:#ef4444">📛 오답 단어 플래시카드</button>
   <button class="synfeed-entry" id="vkSynFeed" type="button">
@@ -112,9 +112,9 @@
   <button class="btn ghost" id="vkConfirm" style="margin-top:10px;border-color:#22c55e">✅ 확인 시험 — 진짜 외웠는지 검증</button>
   <div class="hintbox" id="vkConfirmSub" style="margin-top:4px">확인할 단어 없음</div>
   <button class="btn ghost" id="vkAuto" style="margin-top:10px;border-color:#f59e0b">🎧 자동 넘김 (운동용·핸즈프리·음성)</button>
-  <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 · 테마·우선순위 덱 (모의고사 단어 포함)</button>
+  <button class="btn ghost mt10" id="vkWords">📚 단어장 · 테마·우선순위 덱 (모의고사 단어 포함)</button>
   <button class="btn ghost" id="vkCoach" style="margin-top:10px;border-color:var(--brand)">🧠 어근 추론 코치 · 어원 사전</button>
-  <button class="btn ghost" id="vkGuide" style="margin-top:10px">📘 단어 공부 가이드</button>
+  <button class="btn ghost mt10" id="vkGuide">📘 단어 공부 가이드</button>
 
   <h2 class="section">학습 우선순위</h2>
   <div class="card">
@@ -122,7 +122,7 @@
       <input type="checkbox" id="optHighFirst" checked></label>
     <label class="switch-row"><span>핵심(high+mid) 단어만 학습 (std 제외)</span>
       <input type="checkbox" id="optHighOnly"></label>
-    <div class="hintbox" style="margin-top:10px">고빈출(high)·중요(mid)·일반(std)은 편집 등급이며 공식 AFOQT 출현 횟수가 아닙니다. 기존 high+mid 우선 학습 동작은 그대로 유지됩니다.</div>
+    <div class="hintbox mt10">고빈출(high)·중요(mid)·일반(std)은 편집 등급이며 공식 AFOQT 출현 횟수가 아닙니다. 기존 high+mid 우선 학습 동작은 그대로 유지됩니다.</div>
   </div>
 </main>
 
@@ -265,8 +265,8 @@
     <label class="switch-row"><span>🔊 한글 뜻도 음성으로 읽기</span><input type="checkbox" id="apKo" checked></label>
     <label class="switch-row"><span>🧩 어근·동의어도 함께 (화면 + 음성)</span><input type="checkbox" id="apExtra" checked></label>
     <label class="switch-row"><span>🔁 끝까지 가면 반복</span><input type="checkbox" id="apLoop" checked></label>
-    <button class="btn primary" id="apGo" style="margin-top:14px">▶︎ 시작</button>
-    <div class="hintbox" style="margin-top:10px">📱 팁: 폰을 세워두고 들으세요. (일부 폰은 화면이 완전히 꺼지면 소리·자동넘김이 멈출 수 있어요 — 화면은 켜둔 채 사용하세요.)</div>
+    <button class="btn primary mt14" id="apGo">▶︎ 시작</button>
+    <div class="hintbox mt10">📱 팁: 폰을 세워두고 들으세요. (일부 폰은 화면이 완전히 꺼지면 소리·자동넘김이 멈출 수 있어요 — 화면은 켜둔 채 사용하세요.)</div>
   </div>
   <div id="apPlayer" class="hidden">
     <div class="progressbar" style="margin-bottom:14px"><i id="apBar"></i></div>
@@ -303,9 +303,9 @@
     <div class="big-emoji">🎉</div>
     <h2 id="doneTitle">세션 완료!</h2>
     <p class="muted" id="doneSub"></p>
-    <button class="btn primary" id="doneQuiz" style="margin-top:10px">⚡ 동의어 무한 피드로</button>
-    <button class="btn ghost" id="doneHome" style="margin-top:10px">홈으로</button>
-    <button class="btn ghost" id="doneMore" style="margin-top:10px">계속 학습</button>
+    <button class="btn primary mt10" id="doneQuiz">⚡ 동의어 무한 피드로</button>
+    <button class="btn ghost mt10" id="doneHome">홈으로</button>
+    <button class="btn ghost mt10" id="doneMore">계속 학습</button>
   </div>
 </main>
 
@@ -324,17 +324,17 @@
     <p class="muted">뒤집어보지 않고 <b>4지선다로 진짜 뜻</b>을 맞혀서 확인해요.<br>
       통과하면 <b>7일 뒤 몰래 한 번 더</b> 물어봐요 — 그때도 맞으면 완전히 마스터, 틀리면 복습으로 돌아가요.<br>
       찍은 단어는 이 두 번의 검증에서 대부분 걸러집니다.</p>
-    <div class="hintbox" id="confirmPoolInfo" style="margin-top:10px"></div>
-    <button class="btn primary" id="confirmGo" style="margin-top:14px">시작</button>
+    <div class="hintbox mt10" id="confirmPoolInfo"></div>
+    <button class="btn primary mt14" id="confirmGo">시작</button>
     <div class="hintbox hidden" id="sweepBlock" style="margin-top:14px;text-align:left"></div>
-    <button class="btn ghost hidden" id="sweepGo" style="margin-top:10px">🧹 최종 스윕 시작</button>
+    <button class="btn ghost hidden mt10" id="sweepGo">🧹 최종 스윕 시작</button>
   </div>
   <div id="confirmDone" class="card center hidden">
     <div class="big-emoji">🏆</div>
     <h2 id="confirmResult"></h2>
     <p class="muted" id="confirmResultSub"></p>
-    <button class="btn primary" id="confirmRetryBtn" style="margin-top:10px">다시</button>
-    <button class="btn ghost" id="confirmHomeBtn" style="margin-top:10px">홈으로</button>
+    <button class="btn primary mt10" id="confirmRetryBtn">다시</button>
+    <button class="btn ghost mt10" id="confirmHomeBtn">홈으로</button>
   </div>
 </main>
 
@@ -446,18 +446,18 @@
 
   <h2 class="section">🔀 Math Knowledge 랜덤 출제</h2>
   <button class="btn primary" id="mkPractice">📝 연습 모드 (시간 여유)</button>
-  <button class="btn ghost" id="mkExam" style="margin-top:10px">🎯 실전 시험 (25문항·22분)</button>
-  <button class="btn ghost" id="mkGuide" style="margin-top:10px">📘 수학 지식 공부 가이드</button>
+  <button class="btn ghost mt10" id="mkExam">🎯 실전 시험 (25문항·22분)</button>
+  <button class="btn ghost mt10" id="mkGuide">📘 수학 지식 공부 가이드</button>
   <div id="mkLast" class="muted" style="font-size:12px;text-align:center;margin-top:8px"></div>
 
   <h2 class="section">🔀 Arithmetic Reasoning 랜덤 출제</h2>
   <button class="btn primary" id="arPractice">📝 연습 모드 (시간 여유)</button>
-  <button class="btn ghost" id="arExam" style="margin-top:10px">🎯 실전 시험 (25문항·29분)</button>
-  <button class="btn ghost" id="arGuide" style="margin-top:10px">📘 산수 추론 공부 가이드</button>
+  <button class="btn ghost mt10" id="arExam">🎯 실전 시험 (25문항·29분)</button>
+  <button class="btn ghost mt10" id="arGuide">📘 산수 추론 공부 가이드</button>
   <div id="arLast" class="muted" style="font-size:12px;text-align:center;margin-top:8px"></div>
   </div>
   <div class="tabpane" data-pane="types">
-    <div class="hintbox" style="margin-bottom:12px">유형을 누르면 개념·공식 → 푸는 순서 → 함정 → 예제가 펼쳐져요. 각 유형 아래 버튼으로 <b>그 유형만 20문제</b> 바로 풀 수 있어요. 정답률 칩은 내가 푼 기록 기준이에요.</div>
+    <div class="hintbox mb12">유형을 누르면 개념·공식 → 푸는 순서 → 함정 → 예제가 펼쳐져요. 각 유형 아래 버튼으로 <b>그 유형만 20문제</b> 바로 풀 수 있어요. 정답률 칩은 내가 푼 기록 기준이에요.</div>
   <div id="mtBody"></div>
   </div>
   <div class="tabpane" data-pane="barron">
@@ -486,19 +486,19 @@
       <div class="card tight stat"><div class="num" id="avTerms">0</div><div class="lbl">항공 용어</div></div>
       <div class="card tight stat"><div class="num" id="avQs">0</div><div class="lbl">문제 수</div></div>
     </div>
-    <button class="btn primary" id="avExam" style="margin-top:16px">🎯 항공 시험 (20문항·8분)</button>
-    <button class="btn ghost" id="avStudy" style="margin-top:10px">📖 문제 훑어보기 (정답·해설 같이·시간無)</button>
-    <button class="btn ghost" id="avBook" style="margin-top:10px">📚 항공 교재 읽기</button>
-    <button class="btn ghost" id="avFlash" style="margin-top:10px">🃏 용어 플립 카드</button>
-    <button class="btn ghost" id="avGuide" style="margin-top:10px">📘 항공 공부 가이드</button>
+    <button class="btn primary mt16" id="avExam">🎯 항공 시험 (20문항·8분)</button>
+    <button class="btn ghost mt10" id="avStudy">📖 문제 훑어보기 (정답·해설 같이·시간無)</button>
+    <button class="btn ghost mt10" id="avBook">📚 항공 교재 읽기</button>
+    <button class="btn ghost mt10" id="avFlash">🃏 용어 플립 카드</button>
+    <button class="btn ghost mt10" id="avGuide">📘 항공 공부 가이드</button>
 
     <h2 class="section">기타 Pilot 서브테스트 — 드릴</h2>
-    <button class="btn ghost" id="trStart" style="margin-top:6px">📊 Table Reading 드릴 (표 읽기)</button>
-    <button class="btn ghost" id="trGuide" style="margin-top:10px">📘 Table Reading 가이드</button>
-    <button class="btn ghost" id="icStart" style="margin-top:10px">🎚️ Instrument Comprehension 드릴 (계기 해석)</button>
-    <button class="btn ghost" id="icGuide" style="margin-top:10px">📘 Instrument 가이드</button>
-    <button class="btn ghost" id="bcStart" style="margin-top:10px">🧱 Block Counting 드릴 (블록 세기)</button>
-    <button class="btn ghost" id="bcGuide" style="margin-top:10px">📘 Block Counting 가이드</button>
+    <button class="btn ghost mt6" id="trStart">📊 Table Reading 드릴 (표 읽기)</button>
+    <button class="btn ghost mt10" id="trGuide">📘 Table Reading 가이드</button>
+    <button class="btn ghost mt10" id="icStart">🎚️ Instrument Comprehension 드릴 (계기 해석)</button>
+    <button class="btn ghost mt10" id="icGuide">📘 Instrument 가이드</button>
+    <button class="btn ghost mt10" id="bcStart">🧱 Block Counting 드릴 (블록 세기)</button>
+    <button class="btn ghost mt10" id="bcGuide">📘 Block Counting 가이드</button>
   </div>
   <div class="tabpane" data-pane="book">
     <div class="study-top"><button class="btn sm ghost hidden" id="avbBack">← 목차</button><span id="avbTitle">📚 항공 교재</span><span></span></div>
@@ -580,10 +580,10 @@
       <div class="card tight stat"><div class="num" id="vaMastered">0</div><div class="lbl">마스터</div></div>
       <div class="card tight stat"><div class="num" id="vaAcc">–</div><div class="lbl">정답률</div></div>
     </div>
-    <button class="synfeed-entry" id="vaFeedBtn" type="button" style="margin-top:16px"><b>∞ 유추 무한 피드</b><small>100문제 SET · 틀리면 5문제 뒤 재도전 · 19초 실전 타이머 옵션</small></button>
+    <button class="synfeed-entry mt16" id="vaFeedBtn" type="button"><b>∞ 유추 무한 피드</b><small>100문제 SET · 틀리면 5문제 뒤 재도전 · 19초 실전 타이머 옵션</small></button>
     <button class="btn ghost" id="vaClassify" style="margin-top:10px;border-color:var(--brand2)">🧩 관계 유형 드릴 20문항 (A:B는 어떤 관계?)</button>
     <button class="btn ghost" id="vaBrowse" style="margin-top:10px;border-color:#22c55e">📖 문제 훑어보기 (정답·해설 같이·시간無)</button>
-    <button class="btn ghost" id="vaGuide" style="margin-top:10px">📘 유추 공부 가이드</button>
+    <button class="btn ghost mt10" id="vaGuide">📘 유추 공부 가이드</button>
   </div>
   </div>
   <div class="tabpane" data-pane="browse">
@@ -615,9 +615,9 @@
     <div class="card tight stat"><div class="num" id="rcDone">0</div><div class="lbl">완료 지문</div></div>
     <div class="card tight stat"><div class="num" id="rcAccTop">–</div><div class="lbl">정답률</div></div>
   </div>
-  <button class="btn ghost" id="rcGuide" style="margin-top:14px">📘 독해 공부 가이드</button>
-  <button class="btn ghost" id="rcExam" style="margin-top:10px">🎯 독해 시험 (시간측정)</button>
-  <div class="wlist" id="rcList" style="margin-top:14px"></div>
+  <button class="btn ghost mt14" id="rcGuide">📘 독해 공부 가이드</button>
+  <button class="btn ghost mt10" id="rcExam">🎯 독해 시험 (시간측정)</button>
+  <div class="wlist mt14" id="rcList"></div>
 </main>
 
 <!-- ===== PASSAGE reader ===== -->
@@ -628,8 +628,8 @@
   <div id="rcResult" class="card center hidden">
     <div class="big-emoji" id="rcEmoji">📘</div>
     <h2 id="rcResultText"></h2>
-    <button class="btn primary" id="rcNext" style="margin-top:10px">다음 지문</button>
-    <button class="btn ghost" id="rcToList" style="margin-top:10px">목록으로</button>
+    <button class="btn primary mt10" id="rcNext">다음 지문</button>
+    <button class="btn ghost mt10" id="rcToList">목록으로</button>
   </div>
 </main>
 
@@ -672,7 +672,7 @@
 
   <h2 class="section">⚡ 풀이 속도 (실전 배분 대비)</h2>
   <div class="card" id="speedStats"></div>
-  <button class="btn ghost" id="btnCheatsheet2" style="margin-top:10px">📜 시험 전 요약 시트</button>
+  <button class="btn ghost mt10" id="btnCheatsheet2">📜 시험 전 요약 시트</button>
   </div>
   <div class="tabpane" data-pane="weak">
     <button class="btn ghost" data-study-export style="margin-bottom:12px">📤 LLM용 풀이 기록 내보내기</button>
@@ -694,7 +694,7 @@
     <button class="btn ghost sm" id="evCsvExams">⬇️ exams.csv</button>
     <button class="btn ghost sm" id="evCopy">📋 요약 복사</button>
   </div>
-  <div class="hintbox no-print" style="margin-bottom:12px">공식 응시일 이후의 학습 시간·문항·시험 점수를 날짜순으로 정리한 증빙 자료예요. 인쇄 → PDF로 저장하고, CSV는 표 계산 프로그램에서 열 수 있어요. 동기화 코드·개인정보는 들어가지 않습니다.</div>
+  <div class="hintbox no-print mb12">공식 응시일 이후의 학습 시간·문항·시험 점수를 날짜순으로 정리한 증빙 자료예요. 인쇄 → PDF로 저장하고, CSV는 표 계산 프로그램에서 열 수 있어요. 동기화 코드·개인정보는 들어가지 않습니다.</div>
   <div id="evBody"></div>
 </main>
 
@@ -719,7 +719,7 @@
       <div class="muted" style="font-size:12.5px;margin-bottom:10px">풀고 싶은 과목만 선택하세요. 선택한 순서와 무관하게 <b>실전 순서·실전 문항수·과목별 제한시간</b>으로 진행돼요.</div>
       <div id="pickSecs" class="pick-secs"></div>
       <div id="pickSum" class="muted" style="font-size:12.5px;margin-top:10px">과목을 선택하세요</div>
-      <button class="btn primary" id="pickStart" style="margin-top:10px" disabled>선택한 과목으로 시작</button>
+      <button class="btn primary mt10" id="pickStart" disabled>선택한 과목으로 시작</button>
     </div>
 
     <h3 class="exam-group">🧩 섹터별 (합성점수)</h3>
@@ -781,9 +781,9 @@
       <div class="muted" style="font-size:12.5px;margin-bottom:10px">🎛️ <b>과목 골라서 재시험</b> — 원하는 과목의 오답만 묶어서 풀 수 있어요.</div>
       <div id="retestPick" class="pick-secs"></div>
       <div id="retestPickSum" class="muted" style="font-size:12.5px;margin-top:10px">과목을 선택하세요</div>
-      <button class="btn primary" id="retestPickStart" style="margin-top:10px" disabled>선택한 과목 오답 재시험</button>
+      <button class="btn primary mt10" id="retestPickStart" disabled>선택한 과목 오답 재시험</button>
     </div>
-    <button class="btn ghost" id="retestAll" style="margin-top:6px">🔁 전체 오답 재시험</button>
+    <button class="btn ghost mt6" id="retestAll">🔁 전체 오답 재시험</button>
   </div>
 
   <!-- running -->
@@ -812,10 +812,10 @@
       <div class="exam-scoreline" id="examBreakDown"></div>
       <div id="examProjection" class="exam-projection hidden"></div>
       <p class="muted" id="examTimeUsed"></p>
-      <div id="examSpeed" class="hintbox hidden" style="margin-top:8px"></div>
-      <button class="btn primary" id="examReviewBtn" style="margin-top:8px">📋 문제 해설 보기</button>
-      <button class="btn ghost" id="examRetry" style="margin-top:10px">다시 풀기</button>
-      <button class="btn ghost" id="examDoneHome" style="margin-top:10px">홈으로</button>
+      <div id="examSpeed" class="hintbox hidden mt8"></div>
+      <button class="btn primary mt8" id="examReviewBtn">📋 문제 해설 보기</button>
+      <button class="btn ghost mt10" id="examRetry">다시 풀기</button>
+      <button class="btn ghost mt10" id="examDoneHome">홈으로</button>
     </div>
     <div id="examReview" style="margin-top:16px"></div>
   </div>
@@ -841,11 +841,11 @@
     <label style="display:flex;gap:9px;align-items:center;font-size:14px;cursor:pointer">
       <input type="checkbox" id="optShowKo"> 문제 한글 번역 표시 (수학·과학·항공·상황판단)
     </label>
-    <div class="hintbox" style="margin-top:6px">끄면 실전처럼 <b>영어 원문만</b> 나와요. 해설은 항상 한국어로 보여요.</div>
+    <div class="hintbox mt6">끄면 실전처럼 <b>영어 원문만</b> 나와요. 해설은 항상 한국어로 보여요.</div>
     <label style="display:flex;gap:9px;align-items:center;font-size:14px;cursor:pointer;margin-top:12px">
       <input type="checkbox" id="optPilotPerfect"> ✈️ 표읽기·블록·계기 만점 처리 (외부 앱에서 연습)
     </label>
-    <div class="hintbox" style="margin-top:6px">켜면 이 세 과목을 <b>만점으로 계산</b>하고(예상 점수), 약점 리포트에서 제외하며, 전체 모의고사에서도 빼요. 플랜에서는 체크만 하면 돼요.</div>
+    <div class="hintbox mt6">켜면 이 세 과목을 <b>만점으로 계산</b>하고(예상 점수), 약점 리포트에서 제외하며, 전체 모의고사에서도 빼요. 플랜에서는 체크만 하면 돼요.</div>
 
     <h3 style="margin-top:22px">🔄 기기 간 동기화</h3>
     <div class="field"><label>동기화 코드 (Sync Code)</label>
@@ -859,7 +859,7 @@
     </div>
     <div class="field"><label>동기화 상태</label><div class="hintbox" id="syncStatusText">오프라인 모드</div></div>
     <button class="btn ghost" id="forceSync" style="margin-top:4px">🔄 지금 강제 동기화 (학습 수 확인)</button>
-    <div class="hintbox" style="margin-top:8px">두 기기에서 이 버튼을 누르면 서버와 즉시 맞추고, "학습 N개 · 마스터 M개 · 피드 P문제"를 보여줘요. 양쪽 숫자가 같으면 동기화 완료예요.</div>
+    <div class="hintbox mt8">두 기기에서 이 버튼을 누르면 서버와 즉시 맞추고, "학습 N개 · 마스터 M개 · 피드 P문제"를 보여줘요. 양쪽 숫자가 같으면 동기화 완료예요.</div>
 
     <details style="margin-top:16px">
       <summary class="muted" style="font-size:13px;cursor:pointer">고급: Supabase 직접 입력</summary>
@@ -875,8 +875,8 @@
     <input type="file" id="importFile" accept="application/json,.json" style="display:none">
     <button class="btn ghost" id="btnEvidence3" style="margin-top:10px;border-color:var(--gold)">📄 웨이버 증빙 리포트 (인쇄 · CSV)</button>
     <button class="btn ghost" data-study-export style="margin-top:10px">📤 LLM용 풀이 기록 내보내기</button>
-    <button class="btn ghost" id="forceUpdate" style="margin-top:10px">🔄 강제 업데이트 (최신 버전 받기)</button>
-    <button class="btn ghost" id="closeSettings" style="margin-top:10px">닫기</button>
+    <button class="btn ghost mt10" id="forceUpdate">🔄 강제 업데이트 (최신 버전 받기)</button>
+    <button class="btn ghost mt10" id="closeSettings">닫기</button>
     <button class="btn ghost" id="resetAll" style="margin-top:10px;color:var(--bad)">⚠️ 학습 기록 초기화</button>
     <div class="center muted" style="font-size:11px;margin-top:14px" id="verLine"></div>
   </div>

@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "5.0.0";
+const VERSION = "5.1.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -1141,7 +1141,7 @@ function pushAllLocal(){
   // The pull above established a timestamp baseline. Heal only missing/newer
   // local rows instead of rewriting thousands of unchanged rows on every load.
   for(const id in state.cards){ const c=state.cards[id],m=serverRowTimes.vocab_state;
-    if(c&&c.status&&c.status!=="new"&&(!m.has(String(id))||syncTime(c.updated_at)>m.get(String(id)))) queuePush("vocab_state",{id:+id,...c}); }
+    if(c&&c.status&&(c.status!=="new"||c.starred)&&(!m.has(String(id))||syncTime(c.updated_at)>m.get(String(id)))) queuePush("vocab_state",{id:+id,...c}); }   // 별표만 단 미학습 카드도 올린다
   for(const id in state.va){ const d=state.va[id],key="va:"+id,m=serverRowTimes.verbal_progress;
     if(!m.has(key)||syncTime(d.updated_at)>m.get(key)) queuePush("verbal_progress",{kind:"va",item_id:String(id),data:d}); }
   for(const id in state.rc){ const d=state.rc[id],key="rc:"+id,m=serverRowTimes.verbal_progress;
@@ -1162,7 +1162,8 @@ function pushAllLocal(){
 // Manual "sync now": pull newest, then push all local, then report the synced totals
 // so two devices can be compared apples-to-apples.
 async function forceSync(){
-  if(!sb){ toast("오프라인 모드예요. 먼저 동기화 코드를 연결하세요."); return; }
+  if(!sb){ if(boundSbUrl()&&boundSbKey()){ toast("동기화 연결을 다시 시도해요…"); await initSync(); if(!sb){ toast("서버에 연결하지 못했어요 — 네트워크를 확인하세요"); return; } }
+    else { toast("오프라인 모드예요. 설정에서 Supabase URL·키를 입력하면 동기화가 켜져요."); return; } }
   if(syncInitializing||forceSyncRunning){ toast("동기화 연결 중… 잠시 후 다시 눌러주세요."); return; }
   forceSyncRunning=true;
   setSyncDot("syncing"); softRender(); toast("동기화 중…");
@@ -2609,7 +2610,7 @@ function renderWords(keep){
   wordRows=WORDS.filter(wordMatches);
   const cnt=$("#wordCount");
   if(cnt) cnt.textContent=wordFilter==="mock"
-    ? `${wordRows.length}개 · 앱 수록 연습 모의고사 6회분 단어`
+    ? `${wordRows.length}개 · 앱 수록 연습 모의고사 단어`
     : `${wordRows.length}개`;
   const box=$("#wordList"); if(!box) return;
   box.innerHTML=""; wordShown=0;
@@ -3504,7 +3505,7 @@ function submitPassage(){ const {p,answers}=rcCur; let got=0;
   $("#rcResultText").textContent=`${got} / ${total} 정답`; $("#rcResult").classList.remove("hidden");
   $("#rcResult").scrollIntoView({behavior:"smooth"});
 }
-function nextPassage(){ const i=READING.findIndex(x=>x.id===rcCur.p.id); const nxt=READING[i+1]; if(nxt) openPassage(nxt.id); else { toast("마지막 지문입니다!"); go("reading"); } }
+function nextPassage(){ const pool=rcPracticePool(), i=pool.findIndex(x=>x.id===rcCur.p.id); const nxt=pool[i+1]; if(nxt) openPassage(nxt.id); else { toast("마지막 지문입니다!"); go("reading"); } }   // 모의고사 전용 지문은 건너뛴다
 
 /* ============================================================
    EXAM — 실전 모의고사 (timed, AFOQT format)
@@ -5463,7 +5464,8 @@ async function loadJSON(path){
   try{
     const ctrl=new AbortController();
     const t=setTimeout(()=>ctrl.abort(), 20000);
-    const r=await fetch(path,{cache:"force-cache",signal:ctrl.signal});
+    // 버전별 URL로 HTTP 캐시를 나눈다 — 새 앱 코드가 옛 JSON(테마 필드 없음 등)과 섞이지 않게(M9). SW는 쿼리까지 키로 쓴다.
+    const r=await fetch(path+(path.includes("?")?"&":"?")+"v="+encodeURIComponent(VERSION),{signal:ctrl.signal});
     clearTimeout(t);
     if(!r.ok) return null;
     return await r.json();
@@ -5530,7 +5532,7 @@ async function _mockKey(pw,salt,iter,hash){
   return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:iter,hash},base,{name:"AES-GCM",length:256},false,["decrypt"]);
 }
 async function mockDecrypt(pw){
-  const r=await fetch("./mockexams.enc.json",{cache:"force-cache"});
+  const r=await fetch("./mockexams.enc.json?v="+encodeURIComponent(VERSION));
   if(!r.ok) throw new Error("enc-fetch");
   const j=await r.json();
   const key=await _mockKey(pw,_mb64(j.salt),j.iter||200000,j.hash||"SHA-256");
