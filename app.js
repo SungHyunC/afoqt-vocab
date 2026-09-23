@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.143.0";
+const VERSION = "4.150.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -152,7 +152,8 @@ let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
 let BARRON_AR=null, BARRON_MK=null, BARRON_FULL_AR=null, BARRON_FULL_MK=null;
 let state=null, sb=null, realtimeChan=null, realtimeCode=null, realtimeReady=false, syncReady=false, syncInitialSettled=false, settingsSyncUpdatedAt=0;
 let syncSessionCode="",syncSessionUrl="",syncSessionKey="",syncSessionImportMark="",syncCodeMismatch=false,suppressPersistenceForReload=false;
-let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()};
+let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()}, serverDailyRows=new Map(), serverEvlogN=new Map();
+let studyLogUnavailable=false;   // study_log 테이블이 아직 없으면(SQL 미실행) 이번 세션은 그 큐만 건너뛴다
 
 const DEFAULT_STATE = () => ({
   cards:{},   // WK: id -> {status,reps,lapses,ease,interval,due,starred,updated_at}
@@ -181,10 +182,18 @@ const DEFAULT_STATE = () => ({
   synFeedReplicaVersion:1,
   synFeedSyncCode:"", // 다른 동기화 코드의 로컬 checkpoint가 섞이지 않게 소유 코드 기록
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
+  evReplicas:{}, // 학습 증거 로그: deviceId -> {v,n,head,ev:[...],updated_at} (append-only 해시 체인)
+  evSnapDay:"",  // 오늘 진도 스냅샷을 남겼는지
+  evLegacyDone:0, evInstalledAt:"", // 재구성 이벤트 생성 여부 · 이 기기 최초 실행일
+  session:null, autoplay:null,       // 플래시카드·자동 넘김 이어하기 체크포인트(로컬)
+  vaFeedSession:null, vaFeedStats:{total:0,correct:0,bestCombo:0,days:{}},
+  migSkipFix:0, migExamKind:0, evechk:null,
   settings:{ daily_goal:0, high_first:true, high_only:false,
              verbal_theme_priority:2, verbal_theme_mode:"new",
              syn_feed_priority:2, syn_feed_korean:true,
-             start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"2026-08-03" },
+             start_date:CFG.START_DATE||"2026-06-01", exam_date:CFG.EXAM_DATE||"",
+             // 웨이버 증빙 기준선: 공식 응시일(변하지 않음) · 재응시 목표일 · 공식 점수(자기 기재)
+             official_attempt_date:CFG.ATTEMPT_DATE||"2026-09-18", retest_date:"", official_scores:"", ev_since:"" },
 });
 
 const SYNFEED_REPLICA_VERSION=1,SYNFEED_MAX_REPLICAS=64;
@@ -305,6 +314,8 @@ function loadLocal(){
     state.migSkipFix=1; saveNow();   // 정정 결과 즉시 저장
   }
   state.speed=state.speed||{}; state.sweepAt=state.sweepAt||{};
+  state.evReplicas=(EV&&state.evReplicas&&typeof state.evReplicas==="object"&&!Array.isArray(state.evReplicas))
+    ?Object.fromEntries(Object.entries(state.evReplicas).filter(([id])=>validSynFeedReplicaId(id)).map(([id,r])=>[id,EV.cleanReplica(r)])):{};
   const activeSyncCode=syncCode(),savedFeedCode=typeof state.synFeedSyncCode==="string"?state.synFeedSyncCode:"";
   syncSessionCode=activeSyncCode; syncSessionUrl=sbUrl(); syncSessionKey=sbKey(); syncSessionImportMark=localStorage.getItem(LS.import)||""; syncCodeMismatch=false;
   const feedCodeChanged=!!savedFeedCode&&savedFeedCode!==activeSyncCode;
@@ -320,6 +331,18 @@ function loadLocal(){
   state.synFeedReplicaVersion=SYNFEED_REPLICA_VERSION;
   const emergencyRestored=restoreSynFeedEmergency(activeSyncCode); rebuildSynFeedStats();
   state.settings=Object.assign(d.settings, state.settings||{});
+  { const S=state.settings, isDay=v=>/^\d{4}-\d{2}-\d{2}$/.test(String(v||""));
+    if(!isDay(S.official_attempt_date)) S.official_attempt_date=CFG.ATTEMPT_DATE||"2026-09-18";
+    if(!isDay(S.retest_date)) S.retest_date="";
+    // exam_date는 페이스·달력의 목표일. 비어 있으면 재응시일 → 없으면 공식 응시일(지난 날짜면 30일 지평으로 동작)
+    if(!isDay(S.exam_date)) S.exam_date=S.retest_date||S.official_attempt_date;
+    S.official_scores=String(S.official_scores||"").slice(0,120); if(!isDay(S.ev_since)) S.ev_since="";
+    if(!isDay(state.evInstalledAt)) state.evInstalledAt=todayStr();          // 이 기기에서 증거 기록이 시작된 날(재구성 경계)
+    if(!S.ev_since) S.ev_since=state.evInstalledAt; }
+  // 1회 마이그레이션: 과거 시험 기록에 종류(kind)를 붙인다 — 오답 재시험·드릴이 모의고사 추이/배지에 섞이지 않게(M2)
+  if(!state.migExamKind){ for(const h of state.examHist){ if(!h||h.kind) continue; const key=String(h.key||""), name=String(h.name||"");
+      h.kind=key.startsWith("mock_")?"mock":h.learn?"learn":key==="retest"?(/오답/.test(name)?"retest":/모의고사/.test(name)?"picked":"drill"):h.practice?"practice":"preset"; }
+    state.migExamKind=1; }
   if(![1,2,3].includes(Number(state.settings.verbal_theme_priority))) state.settings.verbal_theme_priority=2;
   else state.settings.verbal_theme_priority=Number(state.settings.verbal_theme_priority);
   if(!["new","due","all"].includes(state.settings.verbal_theme_mode)) state.settings.verbal_theme_mode="new";
@@ -357,10 +380,15 @@ function getRC(id){ return state.rc[id]||{done:false,score:0,total:0}; }
 function setRC(id,v){ v.updated_at=nowISO(); state.rc[id]=v; saveLocal(); queuePush("verbal_progress",{kind:"rc",item_id:String(id),data:v}); }
 
 /* ---------- daily ---------- */
-function getDay(day=todayStr()){ if(!state.daily[day]) state.daily[day]={studied:0,correct:0,new_learned:0,seconds:0,target:0,goal_met:false}; return state.daily[day]; }
-function bumpDay(f){ const day=todayStr(), d=getDay(day); for(const k in f) d[k]=(d[k]||0)+f[k];
-  if(!d.target) d.target=plannedToday(); d.goal_met=d.studied>=d.target; d.updated_at=nowISO();
-  saveLocal(); queuePush("daily_log",{day,...d}); }
+// 읽기용 getDay는 행을 만들지 않는다 — 홈을 여는 것만으로 빈 행이 생겨 업로드되면 다른 기기의
+// 실제 기록을 덮어쓸 수 있다(H1). 쓰기는 bumpDayAt만 행을 만든다.
+const blankDay=()=>({studied:0,correct:0,new_learned:0,seconds:0,target:0,goal_met:false});
+function getDay(day=todayStr(),create=false){ if(state.daily[day]) return state.daily[day]; const d=blankDay(); if(create) state.daily[day]=d; return d; }
+function bumpDayAt(day,f){ const d=getDay(day,true); for(const k in f) d[k]=(d[k]||0)+f[k];
+  if(day===todayStr()&&!d.target) d.target=plannedToday();
+  d.goal_met=d.target>0?d.studied>=d.target:d.studied>0;   // 목표 0인 날은 '무언가 했으면' 활동일
+  d.updated_at=nowISO(); saveLocal(); queuePush("daily_log",{day,...d}); }
+function bumpDay(f){ bumpDayAt(todayStr(),f); }
 
 /* ============================================================
    SCHEDULE / PACING (tier 우선)
@@ -372,7 +400,10 @@ function verbalPriorityOf(w){ const p=Number(w&&w.verbalPriority); return p===1|
 function verbalThemesOf(w){ return Array.isArray(w&&w.verbalThemes)?w.verbalThemes.filter(x=>VERBAL_THEME_MAP.has(x)):[]; }
 function hasVerbalThemeData(){ return WORDS.some(w=>verbalPriorityOf(w)&&verbalThemesOf(w).length); }
 function newPool(){ let p=WORDS.filter(isNew); if(flag("high_only")) p=p.filter(w=>tierOf(w)!=="std"); return p; }
-function daysLeft(){ return Math.max(1, dayDiff(todayStr(), state.settings.exam_date)+1); }
+// 목표일 = 재응시 목표일(있으면) 아니면 exam_date. 지났거나 없으면 ""(→ 30일 지평으로 페이스 계산)
+function targetDateStr(){ const s=state.settings, d=/^\d{4}-\d{2}-\d{2}$/.test(String(s.retest_date||""))?s.retest_date:s.exam_date;
+  return (d&&dayDiff(todayStr(),d)>=0)?d:""; }
+function daysLeft(){ const t=targetDateStr(); return t?Math.max(1,dayDiff(todayStr(),t)+1):30; }   // 목표일 경과 시 하루 신규 300개로 폭주하던 문제(M13) 방지
 function newWordsRemaining(){ return newPool().length; }
 function autoPace(){ return clamp(Math.ceil(newWordsRemaining()/daysLeft()),5,300); }
 function newPerDay(){ return state.settings.daily_goal>0 ? state.settings.daily_goal : autoPace(); }
@@ -471,7 +502,7 @@ const BADGES=[
 ];
 function badgeMetrics(){
   const c=countByStatus(), hist=state.examHist||[], D=state.daily||{};
-  const mockHist=hist.filter(x=>x&&!x.practice&&!x.learn);
+  const mockHist=hist.filter(isMockRecord);
   const secN=k=>{ const o=state.secAcc[k]; return o?(o.c||0)+(o.w||0):0; };
   const wrongLeft=Object.values(state.wrong||{}).reduce((a,o)=>a+Object.keys(o||{}).length,0);
   const h=new Date().getHours();
@@ -562,7 +593,7 @@ function gradeSweep(id,ok){
 function startSweep(){
   const items=sample(sweepPool(),30);
   if(!items.length){ toast("스윕할 verified 단어가 없어요."); return; }
-  confirmQuiz={items,idx:0,score:0,recheckSet:new Set(),sweep:true};
+  confirmQuiz={items,idx:0,score:0,recheckSet:new Set(),sweep:true}; actStart("confirm",{sw:1});
   $("#confirmStart").classList.add("hidden"); $("#confirmDone").classList.add("hidden"); renderConfirm();
 }
 function renderConfirmHub(){
@@ -590,7 +621,7 @@ function startConfirm(){
   const first=sample(confirmPoolFirst(), Math.max(0,20-recheck.length));
   const items=[...recheck,...first];
   if(!items.length){ toast("지금 확인할 단어가 없어요."); return; }
-  confirmQuiz={items,idx:0,score:0,recheckSet:new Set(recheck)};
+  confirmQuiz={items,idx:0,score:0,recheckSet:new Set(recheck)}; actStart("confirm",{});
   $("#confirmStart").classList.add("hidden"); $("#confirmDone").classList.add("hidden"); renderConfirm();
 }
 function renderConfirm(){
@@ -607,12 +638,12 @@ function renderConfirm(){
     $$("#confirmChoices .choice").forEach(b=>{ b.disabled=true; if(b.textContent===correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
     if(q.sweep) gradeSweep(id,ok); else gradeConfirm(id,ok,isRecheck);
     if(ok) q.score++;
-    bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+    actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
     setTimeout(()=>{ q.idx++; renderConfirm(); }, ok?550:1300);
   });
 }
 let confirmMode="confirm"; // 마지막으로 실행한 모드 — '다시' 버튼용
-function finishConfirm(){
+function finishConfirm(){ actEnd();
   const q=confirmQuiz, total=q.items.length; confirmMode=q.sweep?"sweep":"confirm";
   $("#confirmArea").innerHTML=""; $("#confirmBar").style.width="100%";
   if(q.sweep){
@@ -721,20 +752,26 @@ async function pullAll(){
   if(!sb||syncCodeMismatch||syncCodeChangedElsewhere()) return false; const code=boundSyncCode();
   synFeedRemoteFresh=false;
   try{
-    const [vs,vp,dl,st,as]=await Promise.all([
+    const [vs,vp,dl,st,as,sl]=await Promise.all([
       pullSyncRows("vocab_state",code,["word_id"]),
       pullSyncRows("verbal_progress",code,["kind","item_id"]),
       pullSyncRows("daily_log",code,["day"]),
       sb.from("settings").select("*").eq("user_key",code).maybeSingle(),
       sb.from("app_state").select("*").eq("user_key",code).maybeSingle(),
+      studyLogUnavailable?Promise.resolve({data:null,error:null}):pullSyncRows("study_log",code,["device_id","seq"]).catch(e=>({data:null,error:e})),
     ]);
     // supabase v2는 reject하지 않고 {error}를 돌려준다 — 에러를 무시하면 조용히 머지가 빠진다
     const ok=![vs,vp,dl,st,as].some(r=>r&&r.error);
     if(!ok){ console.error("pull partial fail",vs.error||vp.error||dl.error||st.error||as.error); setSyncDot("err"); }
-    if(ok) serverRowTimes={
+    if(ok){ serverRowTimes={
       vocab_state:new Map((vs.data||[]).map(r=>[String(r.word_id),syncTime(r.updated_at)])),
       verbal_progress:new Map((vp.data||[]).map(r=>[r.kind+":"+r.item_id,syncTime(r.updated_at)])),
       daily_log:new Map((dl.data||[]).map(r=>[r.day,syncTime(r.updated_at)]))};
+      serverDailyRows=new Map((dl.data||[]).map(r=>[r.day,r]));
+      serverEvlogN=new Map((vp.data||[]).filter(r=>r.kind==="evlog").map(r=>["evlog:"+r.item_id,(r.data&&r.data.n)||0])); }
+    // study_log는 선택 테이블 — 없으면 이 세션은 건너뛴다(다른 테이블 판정과 무관)
+    if(sl&&sl.error){ if(/42P01|PGRST205|does not exist|schema cache/i.test(String(sl.error.code+" "+sl.error.message))) studyLogUnavailable=true; else console.warn("study_log pull fail",sl.error); }
+    else if(sl&&sl.data) mergeStudyLogRows(sl.data);
     if(vs.data) vs.data.forEach(mergeCard);
     if(vp.data) vp.data.forEach(mergeVerbal);
     if(dl.data) dl.data.forEach(mergeDaily);
@@ -830,14 +867,40 @@ function writeOwnSynFeedCheckpoint(session){ const r=ownSynFeedReplica(),ts=nowI
   state.synFeedSession=cloneSynFeedSession(snapshot); return r; }
 function queueSynFeedReplica(){ if(!sb) return; const id=deviceId(),raw=state.synFeedReplicas&&state.synFeedReplicas[id]; if(!raw) return;
   const data=cleanSynFeedReplica(raw); state.synFeedReplicas[id]=data; queuePush("verbal_progress",{kind:"synfeed",item_id:id,data}); }
+// 증거 로그 replica 행(kind:"evlog", item_id=deviceId): id union·q 정렬·삭제 없음. 내 행이 서버보다 앞서면 다시 올린다.
+function mergeEvlogRow(r){ if(!EV) return false; const id=String(r&&r.item_id||""); if(!validSynFeedReplicaId(id)||!r.data||typeof r.data!=="object") return false;
+  state.evReplicas=state.evReplicas||{}; const m=EV.mergeReplica(state.evReplicas[id]||null,r.data);
+  if(m.changed) state.evReplicas[id]=m.replica;
+  if(id===deviceId()&&(state.evReplicas[id]||{n:0}).n>((r.data&&r.data.n)||0)) queueEvlogReplica();
+  return m.changed; }
+// study_log(서버 수신 시각 포함) 행 → 기기별 union. 내 이벤트에는 rcv(서버 수신 시각)만 채워진다.
+function mergeStudyLogRows(rows){ if(!EV||!Array.isArray(rows)||!rows.length) return false; const byDev={};
+  for(const r of rows){ const dev=String(r&&r.device_id||""); if(!validSynFeedReplicaId(dev)||!r.data||typeof r.data!=="object") continue;
+    const rcv=Math.round(syncTime(r.received_at)/1000); (byDev[dev]=byDev[dev]||[]).push(rcv?{...r.data,rcv}:r.data); }
+  let changed=false; state.evReplicas=state.evReplicas||{};
+  for(const dev of Object.keys(byDev)){ const m=EV.mergeReplica(state.evReplicas[dev]||null,byDev[dev]); if(m.changed){ state.evReplicas[dev]=m.replica; changed=true; } }
+  return changed; }
+function queueEvlogReplica(){ if(!sb||!EV) return; const id=deviceId(),r=state.evReplicas&&state.evReplicas[id]; if(!r||!r.ev||!r.ev.length) return;
+  const data=EV.cleanReplica(r); data.updated_at=r.updated_at||nowISO(); state.evReplicas[id]=data;
+  queuePush("verbal_progress",{kind:"evlog",item_id:id,data}); }
+function queueEvlogRow(ev){ if(!sb) return; queueEvlogReplica(); if(ev&&!ev.rcv) queuePush("study_log",ev); }
 function mergeVerbal(r){ if(r.kind==="synfeed") return mergeSynFeedReplica(r).changed;
+  if(r.kind==="evlog") return mergeEvlogRow(r);
   const tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null; if(!tgt) return;
   const cur=tgt[r.item_id]; const d=Object.assign({},r.data,{updated_at:r.updated_at});
   if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ tgt[r.item_id]=d; return true; }
   return false; }
-function mergeDaily(r){ const cur=state.daily[r.day];
-  if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ state.daily[r.day]={studied:r.studied,correct:r.correct,new_learned:r.new_learned,seconds:r.seconds,target:cur?.target||0,goal_met:r.goal_met,updated_at:r.updated_at}; return true; }
-  return false; }
+// 일별 카운터는 기기별 몫이 더해진 값이라 통째로 덮어쓰면(last-write-wins) 다른 기기 몫이
+// 사라지고 스트릭이 뒤로 간다(H1). 필드별 max로 병합한다.
+function mergeDaily(r){ if(!r||!r.day) return false; const cur=state.daily[r.day];
+  if(!cur){ state.daily[r.day]={studied:r.studied||0,correct:r.correct||0,new_learned:r.new_learned||0,seconds:r.seconds||0,target:0,goal_met:!!r.goal_met,updated_at:r.updated_at}; return true; }
+  let changed=false;
+  for(const k of ["studied","correct","new_learned","seconds"]){ const v=Math.max(cur[k]||0,r[k]||0); if(v!==(cur[k]||0)){ cur[k]=v; changed=true; } }
+  if(r.goal_met&&!cur.goal_met){ cur.goal_met=true; changed=true; }
+  if(syncTime(r.updated_at)>syncTime(cur.updated_at)) cur.updated_at=r.updated_at;
+  return changed; }
+function dailyExceeds(local,remote){ if(!local) return false; if(!remote) return !!(local.studied||local.seconds||local.correct||local.new_learned);
+  return ["studied","correct","new_learned","seconds"].some(k=>(local[k]||0)>(remote[k]||0))||(!!local.goal_met&&!remote.goal_met); }
 function mergeSettings(r){ const rt=syncTime(r.updated_at); if(rt&&rt<=settingsSyncUpdatedAt) return false; if(rt) settingsSyncUpdatedAt=rt;
   if(r.daily_goal!=null) state.settings.daily_goal=r.daily_goal;
   if(r.start_date) state.settings.start_date=r.start_date; if(r.exam_date) state.settings.exam_date=r.exam_date;
@@ -848,7 +911,16 @@ function mergeSettings(r){ const rt=syncTime(r.updated_at); if(rt&&rt<=settingsS
     if([1,2,3].includes(Number(r.data.verbal_theme_priority))) state.settings.verbal_theme_priority=Number(r.data.verbal_theme_priority);
     if(["new","due","all"].includes(r.data.verbal_theme_mode)) state.settings.verbal_theme_mode=r.data.verbal_theme_mode;
     if([1,2,3,4].includes(Number(r.data.syn_feed_priority))) state.settings.syn_feed_priority=Number(r.data.syn_feed_priority);
-    if(r.data.syn_feed_korean!=null) state.settings.syn_feed_korean=!!r.data.syn_feed_korean; }
+    if(r.data.syn_feed_korean!=null) state.settings.syn_feed_korean=!!r.data.syn_feed_korean;
+    if(r.data.syn_feed_timer!=null) state.settings.syn_feed_timer=!!r.data.syn_feed_timer;
+    if(r.data.va_feed_timer!=null) state.settings.va_feed_timer=!!r.data.va_feed_timer;
+    if(r.data.onboard_done!=null) state.settings.onboard_done=r.data.onboard_done?1:0;
+    // 웨이버 기준선: 날짜는 형식 검사, ev_since는 가장 이른 값 유지(어느 기기가 먼저 기록을 시작했든)
+    const isDay=v=>/^\d{4}-\d{2}-\d{2}$/.test(String(v||""));
+    if(isDay(r.data.official_attempt_date)) state.settings.official_attempt_date=r.data.official_attempt_date;
+    if(r.data.retest_date!=null) state.settings.retest_date=isDay(r.data.retest_date)?r.data.retest_date:"";
+    if(typeof r.data.official_scores==="string") state.settings.official_scores=r.data.official_scores.slice(0,120);
+    if(isDay(r.data.ev_since)&&(!state.settings.ev_since||r.data.ev_since<state.settings.ev_since)) state.settings.ev_since=r.data.ev_since; }
   return true; }
 // The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
@@ -917,6 +989,7 @@ function handleCardRealtime(r){ noteServerRow("vocab_state",r.word_id,r.updated_
   if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); saveLocal(false); softRender(); }
   else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); }
 function handleVerbalRealtime(r){ noteServerRow("verbal_progress",r.kind+":"+r.item_id,r.updated_at);
+  if(r.kind==="evlog"){ serverEvlogN.set("evlog:"+r.item_id,(r.data&&r.data.n)||0); if(mergeEvlogRow(r)){ saveLocal(false); softRender(); } return; }
   if(r.kind==="synfeed"){ const m=mergeSynFeedReplica(r); if(m.needsPush) queueSynFeedReplica();
     if(m.changed){ const feedRefresh=refreshSynFeedSession(true); compactSynFeedReplicas(); saveLocal(false);
       if(feedRefresh.activeChanged){ toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요.");
@@ -927,9 +1000,12 @@ function handleVerbalRealtime(r){ noteServerRow("verbal_progress",r.kind+":"+r.i
   if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("verbal_progress",{kind:r.kind,item_id:String(r.item_id),data:cur}); saveLocal(false); softRender(); }
   else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("verbal_progress",{kind:r.kind,item_id:String(r.item_id),data:cur}); }
 function handleDailyRealtime(r){ noteServerRow("daily_log",r.day,r.updated_at);
-  const changed=mergeDaily(r),cur=state.daily[r.day],pending=pushQ.daily_log.get(r.day);
-  if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("daily_log",{day:r.day,...cur}); saveLocal(false); softRender(); }
-  else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("daily_log",{day:r.day,...cur}); }
+  const changed=mergeDaily(r),cur=state.daily[r.day]; if(!cur) return;
+  serverDailyRows.set(r.day,r);
+  // 병합 결과가 서버 행보다 크면 다시 올린다(max 병합) — 같으면 멈춰 echo 루프가 없다
+  const differs=dailyExceeds(cur,r);
+  if(differs){ cur.updated_at=nowISO(); queuePush("daily_log",{day:r.day,...cur}); }
+  if(changed||differs){ saveLocal(false); softRender(); } }
 function handleSettingsRealtime(r){ const pending=pushQ.settings,changed=mergeSettings(r),rt=syncTime(r.updated_at);
   if(changed){ if(pending&&syncTime(pending.updated_at)<=rt){ pushQ.settings={...r,data:r.data||{}}; if(!pushInFlight) schedulePush(pendingPushDelay()); } saveLocal(false); softRender(); }
   else if(rt&&settingsSyncUpdatedAt>rt&&!pending) queuePush("settings",{}); }
@@ -965,7 +1041,7 @@ function subscribeRealtime(){
       else if(["CHANNEL_ERROR","TIMED_OUT","CLOSED"].includes(status)){ realtimeReady=false; finish(false); } });
   });
 }
-const pushQ={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map(),settings:null,app_state:null};
+const pushQ={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map(),study_log:new Map(),settings:null,app_state:null};
 let pushTimer=null,pushDueAt=0,pushInFlight=null,pushRetryCount=0,pushRetryAt=0;
 const ownAppStateUpdates=new Set();
 function rememberOwnAppState(ts){ ownAppStateUpdates.add(syncTime(ts)); while(ownAppStateUpdates.size>200) ownAppStateUpdates.delete(ownAppStateUpdates.values().next().value); }
@@ -974,15 +1050,19 @@ function rememberOwnAppState(ts){ ownAppStateUpdates.add(syncTime(ts)); while(ow
 function schedulePush(ms){ if(!syncReady) return; const due=Math.max(Date.now()+ms,pushRetryAt||0);
   if(pushTimer&&pushDueAt<=due) return;
   clearTimeout(pushTimer); pushDueAt=due; pushTimer=setTimeout(()=>{ pushTimer=null; pushDueAt=0; flushPush(); },Math.max(0,due-Date.now())); }
-function hasPendingPush(){ return pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.settings||pushQ.app_state; }
-function pendingPushDelay(){ return synFeed?8000:(pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.settings?700:1200); }
+function hasPendingPush(){ return pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.study_log.size||pushQ.settings||pushQ.app_state; }
+function pendingPushDelay(){ return synFeed?8000:(pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.study_log.size||pushQ.settings?700:1200); }
 function queuePush(table,row){ if(!sb||suppressPersistenceForReload||syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()) return; const code=boundSyncCode();
   if(table==="app_state") pushQ.app_state={user_key:code,data:miscBlob(),updated_at:nowISO()};
   else if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at||nowISO()});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at||nowISO()});
   else if(table==="settings"){ const updated_at=nowISO(); settingsSyncUpdatedAt=syncTime(updated_at);
-    pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode,syn_feed_priority:state.settings.syn_feed_priority,syn_feed_korean:state.settings.syn_feed_korean!==false},updated_at}; }
+    pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode,syn_feed_priority:state.settings.syn_feed_priority,syn_feed_korean:state.settings.syn_feed_korean!==false,
+      syn_feed_timer:state.settings.syn_feed_timer===true,va_feed_timer:state.settings.va_feed_timer===true,onboard_done:state.settings.onboard_done?1:0,
+      official_attempt_date:state.settings.official_attempt_date||"",retest_date:state.settings.retest_date||"",official_scores:state.settings.official_scores||"",ev_since:state.settings.ev_since||""},updated_at}; }
+  else if(table==="study_log"){ if(studyLogUnavailable||!row||!row.i) return;
+    pushQ.study_log.set(row.i,{user_key:code,device_id:deviceId(),event_id:row.i,seq:row.q,client_ts:new Date((row.e||0)*1000).toISOString(),data:row}); }
   if(!pushInFlight) schedulePush(pendingPushDelay()); }
 // Mobile browsers may terminate ordinary async work immediately after pagehide.
 // Send the single small feed row with keepalive as a last safety copy; the normal
@@ -996,19 +1076,24 @@ function flushSynFeedKeepalive(allowBoundCodeSwitch=false){ const row=pushQ.verb
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
 // fails just that one table and self-heals on the next push once the DB catches up,
 // instead of silently dropping every table's pending writes.
-async function flushPushMap(table,map,onConflict){ let ok=true; const entries=[...map.entries()];
+async function flushPushMap(table,map,onConflict,opts={}){ let ok=true; const entries=[...map.entries()];
   // Initial sync can contain thousands of learned cards. Bound each REST body so
   // it cannot monopolize a PostgREST connection or hit a gateway payload timeout.
   for(let i=0;i<entries.length;i+=250){ const batch=entries.slice(i,i+250);
-    try{ await sb.from(table).upsert(batch.map(x=>x[1]),{onConflict}).throwOnError();
-      batch.forEach(([key,row])=>{ noteServerRow(table,key,row.updated_at); if(map.get(key)===row) map.delete(key); }); }
-    catch(e){ console.error("push "+table+" fail",e); setSyncDot("err"); ok=false; break; } }
+    // insertOnly(study_log): ON CONFLICT DO NOTHING — anon 키에 update 권한이 없어도 통과한다
+    try{ await sb.from(table).upsert(batch.map(x=>x[1]),{onConflict,ignoreDuplicates:!!opts.insertOnly}).throwOnError();
+      batch.forEach(([key,row])=>{ if(serverRowTimes[table]) noteServerRow(table,key,row.updated_at); if(map.get(key)===row) map.delete(key); }); }
+    catch(e){
+      // 테이블이 아직 없으면(스키마 SQL 미실행) 이 세션은 그 큐만 조용히 비운다 — 로컬 replica가 원본이라 다음 부팅 때 다시 시도
+      if(opts.insertOnly&&/42P01|PGRST205|does not exist|schema cache/i.test(String(e&&(e.code+" "+e.message)))){ studyLogUnavailable=true; map.clear(); console.warn("push "+table+" skipped: table missing"); break; }
+      console.error("push "+table+" fail",e); setSyncDot("err"); ok=false; break; } }
   return ok;
 }
 async function flushPushPass(){ let ok=true;
   if(pushQ.vocab_state.size) ok=await flushPushMap("vocab_state",pushQ.vocab_state,"user_key,word_id")&&ok;
   if(pushQ.verbal_progress.size) ok=await flushPushMap("verbal_progress",pushQ.verbal_progress,"user_key,kind,item_id")&&ok;
   if(pushQ.daily_log.size) ok=await flushPushMap("daily_log",pushQ.daily_log,"user_key,day")&&ok;
+  if(pushQ.study_log.size) ok=await flushPushMap("study_log",pushQ.study_log,"user_key,event_id",{insertOnly:true})&&ok;
   if(pushQ.settings){ const r=pushQ.settings;
     try{ await sb.from("settings").upsert(r,{onConflict:"user_key"}).throwOnError(); if(pushQ.settings===r) pushQ.settings=null; }
     catch(e){ console.error("push settings fail",e); setSyncDot("err"); ok=false; } }
@@ -1037,7 +1122,7 @@ function pushAllLocal(){
   // All call sites completed a full pull and have no active push. Rebuild the
   // queue from current state so rows queued during an earlier failed pull cannot
   // survive as stale snapshots.
-  pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.settings=null; pushQ.app_state=null;
+  pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.study_log.clear(); pushQ.settings=null; pushQ.app_state=null;
   // The pull above established a timestamp baseline. Heal only missing/newer
   // local rows instead of rewriting thousands of unchanged rows on every load.
   for(const id in state.cards){ const c=state.cards[id],m=serverRowTimes.vocab_state;
@@ -1049,8 +1134,13 @@ function pushAllLocal(){
   // One small row owned by this browser. Other replicas are never rewritten:
   // their monotonic counters remain independent, so concurrent answers add up.
   if(state.synFeedReplicas&&state.synFeedReplicas[deviceId()]) queueSynFeedReplica();
+  // 증거 로그: 내 replica 행이 서버보다 앞서 있으면 올리고, 서버 수신 도장(rcv)이 없는 이벤트는 study_log에 넣는다
+  if(EV&&state.evReplicas&&state.evReplicas[deviceId()]){ const own=state.evReplicas[deviceId()], key="evlog:"+deviceId();
+    if(own.ev.length&&(!serverRowTimes.verbal_progress.has(key)||own.n>(serverEvlogN.get(key)||0))) queueEvlogReplica();
+    if(!studyLogUnavailable) for(const ev of own.ev){ if(!ev.rcv) queuePush("study_log",ev); } }
   for(const day in state.daily){ const d=state.daily[day],m=serverRowTimes.daily_log;
-    if(!m.has(day)||syncTime(d.updated_at)>m.get(day)) queuePush("daily_log",{day,...d}); }
+    if(!(d.studied||d.seconds||d.correct||d.new_learned)) continue;                 // 빈 행은 올리지 않는다
+    if(!m.has(day)||syncTime(d.updated_at)>m.get(day)||dailyExceeds(d,serverDailyRows.get(day))) queuePush("daily_log",{day,...d}); }
   queuePush("settings",{}); queuePush("app_state");
   return flushPush();
 }
@@ -1074,9 +1164,92 @@ async function forceSync(){
 }
 
 /* ============================================================
+   EVIDENCE — 활동 시간 추적기 + append-only 학습 로그 (evidence.js 사용)
+   각 활동(카드·피드·시험·지문·읽기…)은 시작~종료가 이벤트 1건이 되고, 활성 시간은
+   '보이는 상태 + 최근 입력'일 때만 쌓인다. 이벤트는 기기별 SHA-256 체인에 추가만 된다.
+   ============================================================ */
+const EV=window.AFOQTEvidence||null;
+const LS_ACT="afoqt_act_open_v1", LS_EV_HEAD="afoqt_ev_head_v1", LS_EV_ARCHIVE="afoqt_ev_archive_v1";
+const VIEW_ACT={guide:"read",avbook:"read",avstudy:"read",avterms:"read",words:"read",cheatsheet:"read",roots:"read",vabrowse:"read",mathtypes:"read",rootcoach:"rootcoach"};
+let act=null, actLastTouch=0, actPersistTimer=null;
+const tzOffsetMin=()=>-new Date().getTimezoneOffset();
+function evOwn(){ state.evReplicas=state.evReplicas||{}; const id=deviceId();
+  state.evReplicas[id]=state.evReplicas[id]?EV.cleanReplica(state.evReplicas[id]):EV.newReplica(); return state.evReplicas[id]; }
+// 이벤트 1건 append. 같은 기기의 다른 탭이 더 앞선 head를 남겼으면 그 뒤에 이어 붙인다(체인 포크 방지).
+function evAppend(fields){ if(!EV||!state) return null;
+  const r=evOwn();
+  try{ const h=JSON.parse(localStorage.getItem(LS_EV_HEAD)||"null");
+    if(h&&h.dev===deviceId()&&Number.isSafeInteger(h.q)&&h.q>r.n&&/^[0-9a-f]{64}$/.test(String(h.h))){ r.n=h.q; r.head=h.h; } }catch{}
+  const ev=EV.makeEvent(r,fields,deviceId()); EV.appendEvent(r,ev,nowISO());
+  try{ localStorage.setItem(LS_EV_HEAD,JSON.stringify({dev:deviceId(),q:ev.q,h:ev.h})); }catch{}
+  saveLocal(false); queueEvidence(ev); return ev; }
+function queueEvidence(ev){ if(typeof queueEvlogRow==="function") queueEvlogRow(ev); }   // 동기화 경로는 SYNC 확장에서 정의
+// 하루 첫 활동 종료 시 진도 스냅샷 1건(어휘 숙련도 타임라인용)
+function evSnapshotIfNeeded(){ if(!EV||!WORDS.length) return; const day=todayStr(); if(state.evSnapDay===day) return; state.evSnapDay=day;
+  const c=countByStatus(), wrongLeft=Object.values(state.wrong||{}).reduce((a,o)=>a+Object.keys(o||{}).length,0), now=Math.round(Date.now()/1000);
+  evAppend({y:"snapshot",s:now,e:now,z:tzOffsetMin(),m:{L:c.learned,M:c.mastered,V:c.verified,W:wrongLeft,R:c.remaining}}); }
+function actStart(type,meta){ actClose(); if(!EV) return; const now=Date.now();
+  act=EV.actNew(type,Object.assign({},meta||{}),now); act.view=($(".view.active")||{}).id||""; actLastTouch=now; actPersist(); }
+function actTouch(){ if(!act) return; const now=Date.now(); if(now-actLastTouch<1000) return; actLastTouch=now; EV.actTouch(act,now); }
+function actCount(ok){ if(!act) return; EV.actCount(act,!!ok); const now=Date.now(); actLastTouch=now; EV.actTouch(act,now); }
+function actPause(){ if(!act) return; EV.actPause(act,Date.now()); actPersist(); }
+function actResume(){ if(!act) return; EV.actResume(act,Date.now()); actLastTouch=Date.now(); }
+// 열린 활동을 15초마다 localStorage에 스냅샷 — 앱이 강제 종료돼도 부팅 때 복구(m.rc=1)된다
+function actPersist(){ clearTimeout(actPersistTimer); actPersistTimer=null; if(!act) return;
+  try{ EV.actAccrue(act,Date.now()); localStorage.setItem(LS_ACT,JSON.stringify({dev:deviceId(),act})); }catch{}
+  actPersistTimer=setTimeout(actPersist,15000); }
+function actEnd(extra){ if(!act) return null; const a=act; act=null; clearTimeout(actPersistTimer); actPersistTimer=null;
+  try{ localStorage.removeItem(LS_ACT); }catch{}
+  const f=EV.actEnd(a,Date.now(),extra||null,tzOffsetMin());
+  if(f.a<3&&!f.n) return null;                                   // 3초 미만·항목 0 → 기록하지 않음
+  const ev=evAppend(f); if(f.a>0) bumpDayAt(EV.dayOf(f.e,f.z),{seconds:f.a}); evSnapshotIfNeeded(); return ev; }
+function actClose(){ if(act) actEnd(); }
+function actRecover(){ if(!EV) return; let raw=null;
+  try{ raw=JSON.parse(localStorage.getItem(LS_ACT)||"null"); localStorage.removeItem(LS_ACT); }catch{ return; }
+  if(!raw||!raw.act||raw.dev!==deviceId()) return; const a=raw.act; if(!a.y||!a.s||!a.tick||typeof a.a!=="number") return;
+  a.paused=false; const f=EV.actEnd(a,a.tick,{m:{rc:1}},tzOffsetMin());  // 마지막으로 계산된 시각에서 종료
+  if(f.a<3&&!f.n) return; evAppend(f); if(f.a>0) bumpDayAt(EV.dayOf(f.e,f.z),{seconds:f.a}); }
+function studyActStart(tag,scopeKey){ actStart(tag==="신규 단어"?"flash_new":tag==="오늘 복습"?"flash_review":"flash_set",{sk:String(scopeKey||tag).slice(0,24)}); }
+function examKindOf(e){ if(!e) return "preset"; if(e.kind) return e.kind; const key=String(e.key||"");
+  if(key.startsWith("mock_")) return "mock"; if(e.learn) return "learn"; if(e.practice) return "practice"; return key?"preset":"picked"; }
+function examActType(e){ const k=examKindOf(e); return k==="retest"?"retest":(k==="drill"||k==="learn")?"drill":"exam"; }
+function examActStart(resumed){ const e=exam; if(!e) return; actStart(examActType(e),{k:String(e.key||""),kd:examKindOf(e),rid:e.runId,rs:resumed?1:0}); }
+function evArchiveRead(){ try{ const a=JSON.parse(localStorage.getItem(LS_EV_ARCHIVE)||"[]"); return Array.isArray(a)?a:[]; }catch{ return []; } }
+// 60일보다 오래된 이벤트는 state 밖(아카이브 키)으로 옮긴다 — 매 저장마다 stringify되는 state를 작게 유지.
+// 아카이브 쓰기가 실패(용량)하면 state의 이벤트를 절대 버리지 않는다.
+const EV_HOT_DAYS=60;
+function evRollArchive(){ if(!EV||!state||!state.evReplicas) return;
+  const cutoff=Math.round(Date.now()/1000)-EV_HOT_DAYS*86400, r=EV.rollArchive(state.evReplicas,evArchiveRead(),cutoff); if(!r.moved) return;
+  try{ localStorage.setItem(LS_EV_ARCHIVE,JSON.stringify(r.archive)); state.evReplicas=r.replicas; saveNow(); }
+  catch(e){ console.warn("evidence archive write failed — events kept in state",e); } }
+// 상세 기록(v4.150) 이전 구간(공식 응시일 ~ 이 기기 설치 전날)을 기존 일별 카운터·시험 기록에서 1회 재구성.
+// 결정적 id(L-d-날짜 / L-x-ts)라 두 기기가 만들어도 집계에서 한 번만 센다. 시간은 플래시카드·시험만 있던 값이다.
+function evLegacyImport(){ if(!EV||!state||state.evLegacyDone) return;
+  const attempt=state.settings.official_attempt_date, install=state.evInstalledAt||todayStr();
+  const fields=EV.legacyImport({daily:state.daily,dayStats:state.dayStats,synDays:(state.synFeedStats||{}).days,vaDays:(state.vaFeedStats||{}).days,apExposure:state.apExposure,examHist:state.examHist},
+    {attemptDate:attempt,installDay:install,z:tzOffsetMin()});
+  for(const f of fields) evAppend(f);
+  state.evLegacyDone=1; saveNow(); }
+function downloadFile(body,name,type){ const url=URL.createObjectURL(new Blob([body],{type})),a=document.createElement("a");
+  a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000); }
+// 리포트 입력은 화이트리스트 객체만 — state 전체(동기화 코드·키 포함)를 넘기지 않는다
+function evidenceReport(){ if(!EV) return null; const c=countByStatus();
+  return EV.buildReport({replicas:state.evReplicas||{},archive:evArchiveRead(),recv:{},
+    settings:{official_attempt_date:state.settings.official_attempt_date,retest_date:state.settings.retest_date,official_scores:state.settings.official_scores,ev_since:state.settings.ev_since},
+    counts:{learned:c.learned,mastered:c.mastered,verified:c.verified,remaining:c.remaining,total:WORDS.length},
+    version:VERSION,deviceId:deviceId(),now:Date.now(),tz:tzOffsetMin()}); }
+function renderEvidence(){ const box=$("#evBody"); if(!box) return;
+  if(!EV){ box.innerHTML=`<div class="card center muted" style="padding:20px">증거 모듈(evidence.js)을 불러오지 못했어요. 설정 → 강제 업데이트 후 다시 열어 주세요.</div>`; return; }
+  const r=evidenceReport(); box.innerHTML=EV.renderHTML(r); }
+function evidenceCsv(kind){ if(!EV) return; const day=todayStr();
+  if(kind==="sessions") downloadFile(EV.csvSessions(state.evReplicas||{},evArchiveRead(),{}),`afoqt-evidence-sessions-${day}.csv`,"text/csv;charset=utf-8");
+  else { const r=evidenceReport(); downloadFile(kind==="daily"?EV.csvDaily(r):EV.csvExams(r),`afoqt-evidence-${kind}-${day}.csv`,"text/csv;charset=utf-8"); }
+  toast("CSV 다운로드를 요청했어요"); }
+
+/* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vafeed:"analogy",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vafeed:"analogy",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math",evidence:"stats"};
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -1092,6 +1265,8 @@ function renderGuide(){
     ((g.sources&&g.sources.length)?`<div class="guide-src"><b>참고:</b> ${g.sources.map(esc).join(" · ")}</div>`:"");
 }
 function go(view){
+  // 활동 시간 추적: 화면이 바뀌면 열린 활동을 닫는다(진행 중 시험은 아래 일시정지 분기에서 ps 표시로 닫음)
+  if(act&&act.view!=="view-"+view&&!(exam&&!exam.submitted&&["exam","retest","drill"].includes(act.y))) actClose();
   if(synFeed && view!=="synfeed") pauseSynFeed(); // 독립 피드 이탈 시 현재 문제를 그대로 이어서 저장
   if(vaFeed && view!=="vafeed") vaFeedPause();
   if(synq && view!=="synq") synq=null;            // 기존 동의어 퀴즈 자동 넘김도 다른 화면 뒤에서 계속되지 않게 정리
@@ -1104,7 +1279,9 @@ function go(view){
     if(exam&&!exam.submitted){
       exam.times=exam.times||new Array(exam.total).fill(0);
       if(exam._openIdx!=null&&exam._openAt){ exam.times[exam._openIdx]+=Date.now()-exam._openAt; exam._openIdx=null; exam._openAt=null; }
-      exam._timerAt=null; saveExamSnap(); stopExamTimer(); examReleaseWake(); exam=null;
+      exam._timerAt=null; saveExamSnap(); stopExamTimer(); examReleaseWake();
+      if(act&&["exam","retest","drill"].includes(act.y)) actEnd({m:{ps:1}});   // 일시정지 구간도 시험 시간으로 기록(runId로 이어짐)
+      exam=null;
       toast(pausedMathBank?"⏸ SET 일시정지 — 수학 화면에서 이어서 풀 수 있어요":pausedMathFull?"⏸ 실전 SET 일시정지 — Barron 스타일 화면에서 이어서 풀 수 있어요":pausedBarron?"⏸ 유형 연습 일시정지 — Barron 스타일 화면에서 이어서 풀 수 있어요":"⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
     } else exam=null;
   }
@@ -1117,16 +1294,18 @@ function go(view){
   const navsel=NAVPARENT[view]||view;
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,vafeed:renderVaFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath}[view]||(()=>{}))();
+  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,vafeed:renderVaFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath,evidence:renderEvidence}[view]||(()=>{}))();
+  // 읽기·복습 화면(가이드·교재·단어장…)도 활동으로 남긴다 — 문제를 안 풀어도 공부한 시간이다
+  if(VIEW_ACT[view]&&!(act&&act.view==="view-"+view)) actStart(VIEW_ACT[view],{v:view,k:view==="guide"?guideCur:undefined});
 }
 
 /* ============================================================
    HOME
    ============================================================ */
 function renderHome(){
-  const dl=dayDiff(todayStr(),state.settings.exam_date);
-  $("#daysLeft").textContent=dl<0?"0":dl;
-  const [,em,ed]=state.settings.exam_date.split("-"); $("#examLine").textContent=`목표일 ${+em}/${+ed}`;
+  const tgt=targetDateStr(), dl=tgt?dayDiff(todayStr(),tgt):-1;
+  $("#daysLeft").textContent=tgt?String(dl):"–";
+  $("#examLine").textContent=tgt?`목표일 ${+tgt.slice(5,7)}/${+tgt.slice(8,10)}${state.settings.retest_date?" (재응시)":""}`:"재응시일 미설정 → ⚙️ 설정";
   const cnt=countByStatus(), today=getDay(), target=today.target||plannedToday();
   const pct=target?clamp(Math.round(today.studied/target*100),0,100):0;
   $("#goalRing").style.setProperty("--p",pct); $("#ringPct").textContent=pct+"%";
@@ -1151,15 +1330,15 @@ function renderHome(){
     }
   }
   // ---- daily pacing (recomputed every render, so it auto-updates as days pass) ----
-  const rawDays=dayDiff(todayStr(),state.settings.exam_date);
+  const rawDays=targetDateStr()?dayDiff(todayStr(),targetDateStr()):-1;
   const remain=newWordsRemaining(), dleft=daysLeft(), pace=newPerDay(), autop=autoPace();
   const note=$("#behindNote");
   if(rawDays<0){
-    // Exam date is in the past — almost always a stale saved date. Make it obvious.
-    $("#recPace").textContent="신규 –";
-    $("#recBasis").textContent="⚠️ 시험 목표일이 지났어요";
+    // 목표일이 없거나 지났다 — 페이스는 30일 지평으로 계산하되, 재응시일 입력을 유도한다
+    $("#recPace").textContent=`신규 ${pace}/일`;
+    $("#recBasis").textContent="재응시일 미설정 · 30일 기준 페이스";
     note.classList.remove("hidden");
-    note.innerHTML=`⚙️ <b>설정 → 시험 목표일</b>을 실제 응시일(예: 2026-08-05)로 바꿔주세요. 그러면 권장량이 다시 계산됩니다.`;
+    note.innerHTML=`⚙️ <b>설정 → 재응시 목표일</b>을 입력하면 그 날짜 기준으로 권장량·달력·플랜이 다시 계산돼요.`;
   } else {
     // Today's real load = due reviews + new. The home headline used to show only
     // "new", which made the study session (reviews+new) look mysteriously doubled.
@@ -1215,7 +1394,9 @@ function renderHome(){
    - 기록이 쌓이면: 최근 정답률 추세를 선형 근사해 "이 페이스면
      시험일에 대략 몇 th" 를 보여준다 (비공식, 상승분은 보수적으로 캡).
    ============================================================ */
-function bigExams(){ return (state.examHist||[]).filter(x=>x&&(x.total||0)>=15&&!x.practice&&!x.learn); }
+// '진짜 모의고사'만: 오답 재시험·드릴·연습·학습 모드는 점수 추이·배지·플랜 판정에서 제외(M2)
+function isMockRecord(x){ return !!x&&!x.practice&&!x.learn&&["preset","mock","picked"].includes(x.kind||"preset"); }
+function bigExams(){ return (state.examHist||[]).filter(x=>isMockRecord(x)&&(x.total||0)>=15); }
 function scoreTrendLine(){
   const h=bigExams().slice(-10); if(h.length<2) return null;
   const t0=h[0].ts, xs=h.map(x=>(x.ts-t0)/86400000), ys=h.map(x=>x.acc);
@@ -1392,7 +1573,7 @@ function planTasks(){
   }
   if(i%7===0){ const today=todayStr();
     t.push({k:"mock",icon:"🎯",label:"모의고사 1회 (시간측정)",sub:"🏁 주간 점검",min:180,
-      done:(state.examHist||[]).some(x=>x&&!x.practice&&!x.learn&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
+      done:(state.examHist||[]).some(x=>isMockRecord(x)&&x.ts&&todayStr(new Date(x.ts))===today), go:()=>go("exam")}); }
   return t;
 }
 function planEndLabel(){ const p=planState(); const d=parseDate(p.start); d.setDate(d.getDate()+planLen()-1);
@@ -1664,7 +1845,7 @@ async function apAcquireWake(){ try{ if("wakeLock" in navigator && !apWake){ apW
   apWake.addEventListener&&apWake.addEventListener("release",()=>{ apWake=null; }); } }catch(e){} }
 function apReleaseWake(){ try{ apWake&&apWake.release&&apWake.release(); }catch(e){} apWake=null; }
 function apClearTimer(){ if(ap&&ap.t){ clearTimeout(ap.t); ap.t=null; } }
-function apStop(){ apClearTimer(); try{ window.speechSynthesis&&window.speechSynthesis.cancel(); }catch(e){} apReleaseWake(); ap=null; }
+function apStop(){ if(act&&act.y==="autoplay") actEnd(); apClearTimer(); try{ window.speechSynthesis&&window.speechSynthesis.cancel(); }catch(e){} apReleaseWake(); ap=null; }
 // 이어보기 체크포인트는 로컬에만 저장(동기화 X — 플래시카드 세션과 동일 방침).
 function apSaveSession(){ if(!ap) return; state.autoplay={queue:ap.queue, idx:ap.idx, scope:ap.scope, speed:ap.speed, ko:ap.ko, loop:ap.loop, extra:ap.extra}; saveLocal(); }
 function renderAutoPlaySetup(){
@@ -1683,7 +1864,7 @@ function resumeAutoPlay(){
   ap={queue:sv.queue.slice(), idx:Math.min(sv.idx||0, sv.queue.length-1), revealed:false, playing:true,
       speed:sv.speed||"normal", ko:sv.ko!==false, loop:sv.loop!==false, extra:sv.extra!==false, scope:sv.scope, t:null};
   $("#apSetup").classList.add("hidden"); $("#apPlayer").classList.remove("hidden");
-  apAcquireWake(); apShowPhase();
+  apAcquireWake(); actStart("autoplay",{sc:String(ap.scope||""),rs:1}); apShowPhase();
 }
 function startAutoPlay(){
   const scope=$("#apScope").value;
@@ -1693,7 +1874,7 @@ function startAutoPlay(){
   ap={queue:ids, idx:0, revealed:false, playing:true, speed:$("#apSpeed").value, ko:$("#apKo").checked,
       loop:$("#apLoop").checked, extra:!$("#apExtra")||$("#apExtra").checked, scope, t:null};
   $("#apSetup").classList.add("hidden"); $("#apPlayer").classList.remove("hidden");
-  apAcquireWake(); apSaveSession(); apShowPhase();
+  apAcquireWake(); actStart("autoplay",{sc:String(scope||"")}); apSaveSession(); apShowPhase();
 }
 function apRender(){
   const s=ap; if(!s) return; const w=WMAP.get(s.queue[s.idx]); if(!w){ return apAdvance(); }
@@ -1713,14 +1894,14 @@ function apRender(){
   if(el) el.textContent = ex?`🎧 오늘 들은 단어 ${ex}개${ex>=AP_STREAK_MIN?" · 스트릭 인정 ✓":` · ${AP_STREAK_MIN}개+면 스트릭 인정`} · `:"";
 }
 function apShowPhase(){ // show word, speak it, then schedule the reveal
-  const s=ap; if(!s) return; s.revealed=false; apRender(); apSaveSession(); // checkpoint each card
+  const s=ap; if(!s) return; s.revealed=false; apRender(); apSaveSession(); actTouch(); // checkpoint each card + 활동 heartbeat
   const w=WMAP.get(s.queue[s.idx]);
   if(s.playing && w) speak(w.word);
   apClearTimer(); if(s.playing) s.t=setTimeout(apRevealPhase, AP_SPEED[s.speed].show);
 }
 function apRevealPhase(){ // reveal meaning, speak it, then schedule advance
   const s=ap; if(!s) return; s.revealed=true;
-  if(s._lastExp!==s.idx){ s._lastExp=s.idx; bumpExposure(); } // 카드당 1회 노출 인정(스트릭용)
+  if(s._lastExp!==s.idx){ s._lastExp=s.idx; bumpExposure(); if(act) act.m.cd=(act.m.cd||0)+1; } // 카드당 1회 노출 인정(스트릭용)
   apRender();
   const w=WMAP.get(s.queue[s.idx]);
   let extraSpoken=false;
@@ -1800,7 +1981,7 @@ function startStudySet(ids,label,options={}){
         doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
         initialQueue:(sv.initialQueue||vq.q).filter(id=>WMAP.has(id)),revealed:false,startTs:Date.now(),
         scope:sv.scope||tag,scopeKey,order:sv.order||order};
-      go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
+      go("study"); studyActStart(sv.scope||tag,scopeKey); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
       toast(`이어서 학습합니다 ▶ ${vq.idx+1} / ${vq.q.length}`,2600);
       return;
     }
@@ -1815,7 +1996,7 @@ function startStudySet(ids,label,options={}){
   session={queue,idx:0,plan:queue.length,studied:0,correct:0,
     doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),scope:tag,scopeKey,order,initialQueue:queue.slice()};
   snapSession(); saveLocal();
-  go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
+  go("study"); studyActStart(tag,scopeKey); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
   toast(`${tag} ${queue.length}개 — 신규 ${newSet.size} · 복습 ${queue.length-newSet.size}`,2800);
 }
 function startStudy(){
@@ -1842,7 +2023,7 @@ function startStudy(){
     doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),initialQueue:queue.slice()};
   // Today's goal == today's flashcard quota, so the home ring and the card
   // counter always agree. Set once per day.
-  const d=getDay(); if(!d.target){ d.target=queue.length; }
+  const d=getDay(todayStr(),true); if(!d.target){ d.target=queue.length; }
   snapSession(); saveLocal();
   go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
   // Make the session size self-explanatory (reviews + new, not a doubled bug).
@@ -1929,22 +2110,25 @@ function flipCard(){
 function reveal(){ if(session&&!session.revealed) flipCard(); }
 function answer(id,q){ const s=session, wasNew=getCard(id).status==="new"; gradeCard(id,q);
   if(wasNew) s.newSet.add(id);
-  const secs=Math.round((Date.now()-(s.cardTs||s.startTs))/1000); s.cardTs=Date.now();
+  // 학습 시간은 활동 추적기(act)가 유휴·백그라운드를 빼고 세션 단위로 기록한다 —
+  // 카드 사이의 무제한 벽시계 시간을 그대로 더하던 방식은 폐기.
+  actTouch();
   if(q==="again"){
     // Card isn't finished — requeue it and remember it was missed. Do NOT count
     // it as progress, so studied/goal reflect UNIQUE cards completed, not taps.
-    s.missSet.add(id); bumpDay({seconds:secs});
+    s.missSet.add(id);
     const w=s.queue.splice(s.idx,1)[0]; s.queue.splice(Math.min(s.idx+3,s.queue.length),0,w);
   } else {
     if(!s.doneSet.has(id)){           // count each card exactly once
       s.doneSet.add(id); s.studied++;
       const missed=s.missSet.has(id); if(!missed) s.correct++;
-      bumpDay({studied:1,correct:missed?0:1,new_learned:s.newSet.has(id)?1:0,seconds:secs});
-    } else bumpDay({seconds:secs});
+      actCount(!missed);
+      bumpDay({studied:1,correct:missed?0:1,new_learned:s.newSet.has(id)?1:0});
+    }
     s.idx++;
   }
   snapSession(); saveLocal(); renderHome(); renderCard(); }
-function finishStudy(){ const s=session, secs=Math.round((Date.now()-s.startTs)/1000);
+function finishStudy(){ actEnd(); const s=session, secs=Math.round((Date.now()-s.startTs)/1000);
   $("#studyArea").innerHTML=""; $("#studyBar").style.width="100%"; $("#studyCount").textContent=`${s.plan} / ${s.plan}`;
   const acc=s.studied?Math.round(s.correct/s.studied*100):0;
   $("#doneSub").textContent=`${s.studied}개 학습 · 정답 ${acc}% · ${Math.round(secs/60)}분`;
@@ -2003,7 +2187,7 @@ function startQuizScope(scope){ go("quiz"); $("#quizScope").value=scope; $("#qui
 function startQuiz(){ const scope=$("#quizScope").value,type=$("#quizType").value; let pool=poolFor(scope);
   if(pool.length<4){ toast("문제 낼 단어가 부족해요. 학습하거나 범위를 넓혀보세요."); return; }
   quiz={items:sample(pool,Math.min(10,pool.length)),idx:0,score:0,type,answered:false};
-  $("#quizStart").classList.add("hidden"); $("#quizDone").classList.add("hidden"); renderQuiz(); }
+  $("#quizStart").classList.add("hidden"); $("#quizDone").classList.add("hidden"); actStart("drill",{kd:"quiz"}); renderQuiz(); }
 function renderQuiz(){ const q=quiz; if(q.idx>=q.items.length) return finishQuiz();
   const id=q.items[q.idx],w=WMAP.get(id);
   let type=q.type==="mix"?["e2k","k2e","syn"][Math.floor(Math.random()*3)]:q.type;
@@ -2022,7 +2206,7 @@ function renderQuiz(){ const q=quiz; if(q.idx>=q.items.length) return finishQuiz
   q.answered=false;
   $$("#choices .choice").forEach(btn=>btn.onclick=()=>{ if(q.answered)return; q.answered=true; const ok=btn.textContent===correct;
     $$("#choices .choice").forEach(b=>{ b.disabled=true; if(b.textContent===correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) q.score+=10; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
+    if(ok) q.score+=10; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
       // 오답 노트에도 반영 — 시험(recordResult)과 동일하게 맞히면 지운다
       if(ok) delete state.wrong.wk[id]; else state.wrong.wk[id]=(state.wrong.wk[id]||0)+1;
       { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
@@ -2047,7 +2231,7 @@ function startSynQuiz(){
   const pool=synPool($("#synqScope").value);
   if(pool.length<4){ toast("이 범위에 동의어 단어가 부족해요. 범위를 넓혀보세요."); return; }
   synq={pool, count:0, correct:0, added:0, learn:$("#synqLearn").checked, auto:$("#synqAuto").checked, history:[], pos:-1};
-  $("#synqSetup").classList.add("hidden"); $("#synqPlay").classList.remove("hidden"); newSynQ();
+  $("#synqSetup").classList.add("hidden"); $("#synqPlay").classList.remove("hidden"); actStart("drill",{kd:"synq"}); newSynQ();
 }
 function synBuildQ(){
   const s=synq; const id=s.pool[Math.random()*s.pool.length|0], w=WMAP.get(id); if(!w) return null;
@@ -2060,7 +2244,7 @@ function newSynQ(){ const s=synq; if(!s) return; let q=null,tries=0; while(!q&&t
 function answerSynQ(i){
   const s=synq, q=s.history[s.pos]; if(!q||q.chosen!=null) return; q.chosen=i;
   const w=WMAP.get(q.id), ok=q.opts[i].ok;
-  s.count++; if(ok) s.correct++;
+  s.count++; if(ok) s.correct++; actCount(ok);
   bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
   if(!ok){ state.wrong.wk[q.id]=(state.wrong.wk[q.id]||0)+1; markForReview(q.id); s.added++; q.added=true; } // 틀리면 오답노트 누적 + 복습 자동 추가
   else delete state.wrong.wk[q.id];   // 맞히면 오답노트에서 제거 (recordResult와 동일 규약)
@@ -2283,7 +2467,7 @@ function reconcileSynFeedBeforeInput(){ if(syncCodeMismatch||syncCodeChangedElse
   if(synFeedSyncPending()){ toast("⏳ 다른 기기의 최신 문제 위치를 확인 중이에요."); return false; }
   const r=refreshSynFeedSession(true); if(!r.activeChanged) return true;
   saveNow(); toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요."); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); return false; }
-function pauseSynFeed(){ synFeedTimerStop(); if(synFeed) synFeedSave(true,false,false); synFeed=null;
+function pauseSynFeed(){ if(act&&act.y==="synfeed") actEnd(); synFeedTimerStop(); if(synFeed) synFeedSave(true,false,false); synFeed=null;
   refreshSynFeedSession(); compactSynFeedReplicas(); saveNow(); flushSynFeedKeepalive(); flushPush(); }
 function synFeedAdvanceBase(s){ s.cursor++;
   if(s.cursor<s.queue.length) return;
@@ -2331,7 +2515,7 @@ function startSynFeed(){ if(!guardSynFeedNewRun()) return; refreshSynFeedSession
   synFeed={v:1,priority,queue,cursor:0,cycle:1,retry:[],recent:[],count:0,baseCount:0,retryStreak:0,firstCount:0,firstCorrect:0,hintCount:0,correct:0,combo:0,bestCombo:0,
     points:0,added:0,seed:(Math.random()*1000000)|0,answerSlots:[],lastAnswerSlot:null,
     current:null,runId:newSynFeedRunId(),runEpoch,replaces,startedAt:nowISO(),updatedAt:nowISO()};
-  synFeedShowPlay(); synFeedAdvance(true); }
+  synFeedShowPlay(); actStart("synfeed",{p:priority,tm:synFeedTimerOn()?1:0,ko:synFeedKorean()?1:0}); synFeedAdvance(true); }
 function resumeSynFeed(){ if(!guardSynFeedInitialSync()) return; refreshSynFeedSession(); const s=repairSynFeedSession(state.synFeedSession); if(!s){ state.synFeedSession=null; saveLocal(false); renderSynFeed(); return; }
   synFeed=s; synFeed.priority=Number(synFeed.priority); synFeed.retry=Array.isArray(synFeed.retry)?synFeed.retry:[];
   synFeed.recent=Array.isArray(synFeed.recent)?s.recent:[]; synFeed.answerSlots=Array.isArray(synFeed.answerSlots)?synFeed.answerSlots:[];
@@ -2339,7 +2523,8 @@ function resumeSynFeed(){ if(!guardSynFeedInitialSync()) return; refreshSynFeedS
   else if(!Number.isInteger(synFeed.lastAnswerSlot)) synFeed.lastAnswerSlot=null;
   if(synFeed.answerSlots[0]===synFeed.lastAnswerSlot) synFeed.answerSlots=[];
   state.settings.syn_feed_priority=synFeed.priority;
-  queuePush("settings",{}); synFeedShowPlay(); if(!synFeed.current) synFeedAdvance(true); else{ synFeedSave(false,false,false); renderSynFeedPlay(); } }
+  queuePush("settings",{}); synFeedShowPlay(); actStart("synfeed",{p:synFeed.priority,tm:synFeedTimerOn()?1:0,ko:synFeedKorean()?1:0,rs:1});
+  if(!synFeed.current) synFeedAdvance(true); else{ synFeedSave(false,false,false); renderSynFeedPlay(); } }
 function synFeedShowPlay(){ $("#synfeedSetup").classList.add("hidden"); $("#synfeedPlay").classList.remove("hidden");
   $("#synfeedKoLive").classList.remove("hidden"); renderSynFeedKoButton(); }
 let synFeedWordFitFrame=0;
@@ -2393,6 +2578,7 @@ function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null
   if(!q.isRetry){ s.firstCount=safeSynFeedCount(s.firstCount)+1; if(ok) s.firstCorrect=safeSynFeedCount(s.firstCorrect)+1;
     if(hinted) s.hintCount=safeSynFeedCount(s.hintCount)+1; }
   q.hinted=hinted;
+  actCount(ok); if(q.isRetry&&act) act.m.rt=(act.m.rt||0)+1;
   if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); }
   else s.combo=0;
   q.gain=ok?10+Math.min(20,Math.max(0,s.combo-1)*2):0; s.points=(s.points||0)+q.gain;
@@ -2504,7 +2690,7 @@ function vaFeedBuild(id,isRetry){ const a=ANALOGIES.find(x=>x.id===id); if(!a) r
   if(!it||!Array.isArray(it.options)||it.options.length!==5||it.answer<0) return null;
   return {id,isRetry:!!isRetry,it,chosen:null,gain:0,milestone:"",nonce:Date.now()+":"+Math.random().toString(36).slice(2,8)}; }
 function vaFeedSave(immediate=false){ if(!vaFeed) return; vaFeed.updatedAt=nowISO(); state.vaFeedSession=cloneSynFeedSession(vaFeed); if(immediate) saveNow(); else saveLocal(); }
-function vaFeedPause(){ vaFeedTimerStop(); if(vaFeed) vaFeedSave(true); vaFeed=null; }
+function vaFeedPause(){ if(act&&act.y==="vafeed") actEnd(); vaFeedTimerStop(); if(vaFeed) vaFeedSave(true); vaFeed=null; }
 function vaFeedAdvanceBase(s){ s.cursor++; if(s.cursor<s.queue.length) return; s.cycle=(s.cycle||1)+1; s.cursor=0;
   const q=shuffle(vaFeedPool()); if(q.length>1&&q[0]===s.lastId){ [q[0],q[1]]=[q[1],q[0]]; } s.queue=q; }
 function vaFeedAdvance(initial=false){ const s=vaFeed; if(!s) return;
@@ -2526,9 +2712,9 @@ function startVaFeed(){ const pool=vaFeedPool(); if(pool.length<5){ toast("유�
   const prev=vaFeedRepair(state.vaFeedSession);
   if(prev){ const m=vaFeedSetMeta(prev); if(!confirm(`이어 풀던 기록이 있어요 (SET ${m.setNo}/${m.setCount}, 문제 ${m.position}/${m.length}, 누적 ${prev.count||0}문제).\n처음부터 새 피드를 만들까요?`)) return; }
   vaFeed={v:1,queue:shuffle(pool),cursor:0,cycle:1,retry:[],count:0,baseCount:0,retryStreak:0,firstCount:0,firstCorrect:0,correct:0,combo:0,bestCombo:0,points:0,current:null,startedAt:nowISO(),updatedAt:nowISO()};
-  vaFeedShowPlay(); vaFeedAdvance(true); }
+  vaFeedShowPlay(); actStart("vafeed",{tm:vaFeedTimerOn()?1:0}); vaFeedAdvance(true); }
 function resumeVaFeed(){ const s=vaFeedRepair(state.vaFeedSession); if(!s){ state.vaFeedSession=null; saveLocal(); renderVaFeed(); return; }
-  vaFeed=s; vaFeedShowPlay(); if(!vaFeed.current) vaFeedAdvance(true); else renderVaFeedPlay(); }
+  vaFeed=s; vaFeedShowPlay(); actStart("vafeed",{tm:vaFeedTimerOn()?1:0,rs:1}); if(!vaFeed.current) vaFeedAdvance(true); else renderVaFeedPlay(); }
 function vaFeedShowPlay(){ $("#vafeedSetup").classList.add("hidden"); $("#vafeedPlay").classList.remove("hidden"); }
 function renderVaFeed(){ $("#vafeedSetup").classList.remove("hidden"); $("#vafeedPlay").classList.add("hidden");
   const st=vaFeedStats(),d=st.days[todayStr()]||{n:0}; $("#vafeedToday").textContent=(d.n||0).toLocaleString(); $("#vafeedBest").textContent=(st.bestCombo||0).toLocaleString();
@@ -2549,6 +2735,7 @@ function vaFeedTimerStart(){ vaFeedTimerStop(); const q=vaFeed&&vaFeed.current; 
 function setVaFeedTimer(on){ state.settings.va_feed_timer=!!on; const c=$("#vafeedTimerOpt"); if(c) c.checked=!!on; saveLocal(); queuePush("settings",{}); if(on) vaFeedTimerStart(); else vaFeedTimerStop(); vaFeedTimerPaint(); }
 function answerVaFeed(i){ const s=vaFeed,q=s&&s.current; if(!q||q.chosen!=null||!q.it.options[i]) return; vaFeedTimerStop();
   q.chosen=i; const ok=i===q.it.answer; s.count++;
+  actCount(ok); if(q.isRetry&&act) act.m.rt=(act.m.rt||0)+1;
   if(!q.isRetry){ s.firstCount=safeSynFeedCount(s.firstCount)+1; if(ok) s.firstCorrect=safeSynFeedCount(s.firstCorrect)+1; }
   if(ok){ s.correct++; s.combo++; s.bestCombo=Math.max(s.bestCombo||0,s.combo); } else s.combo=0;
   q.gain=ok?10+Math.min(20,Math.max(0,s.combo-1)*2):0; s.points=(s.points||0)+q.gain;
@@ -2828,7 +3015,7 @@ function renderRootCoach(){
   if(s.kind==="practice"||s.kind==="worked"){
     if($("#coachHint")) $("#coachHint").onclick=()=>$("#coachHintBox").classList.toggle("hidden");
     $$("#coachOpts .rc-pick").forEach(b=>b.onclick=()=>{
-      const i=+b.dataset.i, ok=i===s.answer;
+      const i=+b.dataset.i, ok=i===s.answer; actCount(ok);
       $$("#coachOpts .rc-pick").forEach((x,xi)=>{ x.disabled=true;
         if(xi===s.answer) x.classList.add("ok"); else if(xi===i) x.classList.add("no"); });
       if($("#coachHintBox")) $("#coachHintBox").classList.remove("hidden");
@@ -2967,7 +3154,7 @@ function startTableReading(){
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-tablereading").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
   $("#trResult").classList.add("hidden"); $("#trTable").innerHTML=trTableHTML();
-  trTimerStart(); renderTRQ();
+  actStart("drill",{kd:"TR"}); trTimerStart(); renderTRQ();
 }
 function trTableHTML(){ const s=trState;
   let h='<div class="tr-wrap"><table class="tr-tbl"><thead><tr><th class="tr-corner">Y\\X</th>';
@@ -2988,10 +3175,10 @@ function renderTRQ(){ const s=trState; if(!s) return; if(s.idx>=s.N) return fini
   $$("#trQ .tr-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
     const v=+btn.dataset.v, ok=v===q.correct;
     $$("#trQ .tr-opts button").forEach(b=>{ b.disabled=true; if(+b.dataset.v===q.correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("TR",ok);
+    if(ok) s.score++; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("TR",ok);
     setTimeout(()=>{ if(trState){ s.idx++; renderTRQ(); } }, ok?320:750); });
 }
-function finishTR(){ const s=trState; if(!s) return; trTimerStop();
+function finishTR(){ const s=trState; if(!s) return; trTimerStop(); actEnd({k:"TR",sc:s.score,t:s.N});
   $("#trQ").innerHTML=""; $("#trBar").style.width="100%";
   const pct=Math.round(s.score/s.N*100);
   $("#trEmoji").textContent=pct>=85?"🏆":pct>=60?"📊":"📈";
@@ -3098,7 +3285,7 @@ function startBlockCounting(){
   bcState={N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-blockcounting").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
-  $("#bcResult").classList.add("hidden"); bcTimerStart(); renderBCQ();
+  $("#bcResult").classList.add("hidden"); actStart("drill",{kd:"BC"}); bcTimerStart(); renderBCQ();
 }
 function bcTimerStart(){ bcTimerStop(); $("#bcTimer").textContent=fmtTime(bcState.secsLeft);
   bcState.timer=setInterval(()=>{ if(!bcState) return bcTimerStop(); bcState.secsLeft--; const t=$("#bcTimer");
@@ -3114,10 +3301,10 @@ function renderBCQ(){ const s=bcState; if(!s) return; if(s.idx>=s.N) return fini
   $$("#bcArea .bc-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
     const v=+btn.dataset.v, ok=v===q.correct;
     $$("#bcArea .bc-opts button").forEach(b=>{ b.disabled=true; if(+b.dataset.v===q.correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("BC",ok);
+    if(ok) s.score++; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("BC",ok);
     setTimeout(()=>{ if(bcState){ s.idx++; renderBCQ(); } }, ok?600:1100); });
 }
-function finishBC(){ const s=bcState; if(!s) return; bcTimerStop();
+function finishBC(){ const s=bcState; if(!s) return; bcTimerStop(); actEnd({k:"BC",sc:s.score,t:s.N});
   $("#bcArea").innerHTML=""; $("#bcBar").style.width="100%";
   const pct=Math.round(s.score/s.N*100);
   $("#bcEmoji").textContent=pct>=80?"🏆":pct>=50?"🧱":"📈";
@@ -3280,7 +3467,7 @@ function startCurrStage(t,si){
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-currplay").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
-  $("#cpDone").classList.add("hidden"); renderCPQ();
+  $("#cpDone").classList.add("hidden"); actStart("drill",{kd:"curr:"+t+":"+si}); renderCPQ();
 }
 function renderCPQ(){
   const s=curSes; if(!s) return; if(s.idx>=s.items.length) return finishCurr();
@@ -3302,7 +3489,7 @@ function renderCPQ(){
     if(s.answered) return; s.answered=true;
     const i=+btn.dataset.i, ok=i===it.answer;
     $$("#cpChoices .choice").forEach((b,bi)=>{ b.disabled=true; if(bi===it.answer) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; $("#cpScore").textContent=`${s.score}개`;
+    if(ok) s.score++; $("#cpScore").textContent=`${s.score}개`; actCount(ok);
     bumpDay({studied:1,correct:ok?1:0});
     if(it.sec) recordSecAcc(it.sec,ok);
     if(it.anaId!=null){ const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok){v.correct=(v.correct||0)+1; delete state.wrong.va[it.anaId];} else {v.wrong=(v.wrong||0)+1; state.wrong.va[it.anaId]=(state.wrong.va[it.anaId]||0)+1;} setVA(it.anaId,v); }
@@ -3312,7 +3499,7 @@ function renderCPQ(){
     $("#cpNext").classList.remove("hidden");
   });
 }
-function finishCurr(){
+function finishCurr(){ actEnd();
   const s=curSes; if(!s) return;
   const st=CURR_TRACKS[s.t].stages[s.si], c=getCurr(s.t);
   const pass=s.score>=st.need;
@@ -3747,7 +3934,7 @@ function startInstrument(){
   icState={N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-instrument").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
-  $("#icResult").classList.add("hidden"); icTimerStart(); renderICQ();
+  $("#icResult").classList.add("hidden"); actStart("drill",{kd:"IC"}); icTimerStart(); renderICQ();
 }
 function icTimerStart(){ icTimerStop(); $("#icTimer").textContent=fmtTime(icState.secsLeft);
   icState.timer=setInterval(()=>{ if(!icState) return icTimerStop(); icState.secsLeft--; const t=$("#icTimer");
@@ -3766,10 +3953,10 @@ function renderICQ(){ const s=icState; if(!s) return; if(s.idx>=s.N) return fini
   $$("#icArea .ic-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
     const i=+btn.dataset.i, ok=i===correctKey;
     $$("#icArea .ic-opts button").forEach((b,bi)=>{ b.disabled=true; if(bi===correctKey) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("IC",ok);
+    if(ok) s.score++; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("IC",ok);
     setTimeout(()=>{ if(icState){ s.idx++; renderICQ(); } }, ok?550:1100); });
 }
-function finishIC(){ const s=icState; if(!s) return; icTimerStop();
+function finishIC(){ const s=icState; if(!s) return; icTimerStop(); actEnd({k:"IC",sc:s.score,t:s.N});
   $("#icArea").innerHTML=""; $("#icBar").style.width="100%";
   const pct=Math.round(s.score/s.N*100);
   $("#icEmoji").textContent=pct>=80?"🏆":pct>=50?"🎚️":"📈";
@@ -3818,7 +4005,7 @@ function startAnalogy(reviewOnly=false){
     const ra=va.status==="mastered"?2:va.seen===0?0:1, rb=vb.status==="mastered"?2:vb.seen===0?0:1; return ra-rb; }); }
   const items=(reviewOnly?pool:pool).slice(0,10);
   vaSession={items,idx:0,score:0,answered:false};
-  $("#vaHub").classList.add("hidden"); $("#vaDone").classList.add("hidden"); $("#vaPlay").classList.remove("hidden"); renderVA();
+  $("#vaHub").classList.add("hidden"); $("#vaDone").classList.add("hidden"); $("#vaPlay").classList.remove("hidden"); actStart("va_practice",{rv:reviewOnly?1:0}); renderVA();
 }
 function renderVA(){ const s=vaSession; if(s.idx>=s.items.length) return finishVA();
   const a=s.items[s.idx];
@@ -3838,14 +4025,14 @@ function renderVA(){ const s=vaSession; if(s.idx>=s.items.length) return finishV
     $$("#vaChoices .choice").forEach(b=>{ b.disabled=true; if(b.dataset.c==="1") b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
     const v={...getVA(a.id)}; v.seen++; if(ok){v.correct++;v.streak++;} else {v.wrong++;v.streak=0;}
     v.status=v.streak>=2?"mastered":"learning"; setVA(a.id,v);
-    if(ok) s.score+=10; bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("VA",ok);
+    if(ok) s.score+=10; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("VA",ok);
     $("#vaScore").textContent=`${s.score}점`;
     $("#vaExplain").innerHTML=`<div class="va-head ${ok?"ok":"no"}">${ok?"✅ 맞혔어요":"❌ 틀렸어요"}</div>`+vaExplainHTML(a);
     $("#vaExplain").classList.remove("hidden");
     $("#vaNext").classList.remove("hidden");
   });
 }
-function finishVA(){ const s=vaSession,total=s.items.length,got=s.score/10,pct=Math.round(got/total*100);
+function finishVA(){ actEnd(); const s=vaSession,total=s.items.length,got=s.score/10,pct=Math.round(got/total*100);
   $("#vaPlay").classList.add("hidden"); $("#vaEmoji").textContent=pct>=90?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
   $("#vaResult").textContent=`${got} / ${total} 정답 (${pct}%)`; $("#vaResultSub").textContent="유추는 관계 패턴을 익히는 게 핵심!";
   $("#vaDone").classList.remove("hidden"); vaSession=null; }
@@ -3891,7 +4078,7 @@ function openPassage(id){ const p=READING.find(x=>x.id===id); if(!p) return; rcC
     +`<button class="btn primary" id="rcSubmit" style="margin-top:6px">채점하기</button>`;
   $$("#rcQArea .choice").forEach(btn=>btn.onclick=()=>{ const qi=btn.dataset.q;
     $$(`#rcQArea .choice[data-q="${qi}"]`).forEach(b=>b.classList.remove("sel")); btn.classList.add("sel"); rcCur.answers[qi]=+btn.dataset.o; });
-  $("#rcSubmit").onclick=submitPassage; go("passage");
+  $("#rcSubmit").onclick=submitPassage; go("passage"); actStart("passage",{id:String(id)});
 }
 function submitPassage(){ const {p,answers}=rcCur; let got=0;
   p.questions.forEach((q,qi)=>{ const pick=answers[qi];
@@ -3902,7 +4089,7 @@ function submitPassage(){ const {p,answers}=rcCur; let got=0;
     $$(`#rcQArea .rc-q`)[qi].appendChild(ex);
   });
   const total=p.questions.length; setRC(p.id,{done:true,score:got,total});
-  bumpDay({studied:total,correct:got}); renderHome();
+  actEnd({n:total,c:got,k:String(p.id)}); bumpDay({studied:total,correct:got}); renderHome();
   $("#rcSubmit").remove();
   $("#rcEmoji").textContent=got===total?"🏆":got>=total*0.6?"📘":"📖";
   $("#rcResultText").textContent=`${got} / ${total} 정답`; $("#rcResult").classList.remove("hidden");
@@ -4475,13 +4662,14 @@ function startPickedExam(){
   const items=p.build();
   if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
   exam={key:null,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
-        secsLeft:p.secs,startSecs:p.secs,total:items.length,submitted:false,timerId:null};
+        secsLeft:p.secs,startSecs:p.secs,total:items.length,submitted:false,timerId:null,
+        kind:"picked",runId:newSynFeedRunId(),startedAt:Date.now()};
   if(specs.length>1) buildExamSections(exam);   // 과목별 타이머
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
   $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
-  startExamTimer(); renderExamQ();
+  startExamTimer(); renderExamQ(); examActStart();
 }
 function startExam(key,opts){
   if(!confirmDropExamSnap()) return;
@@ -4493,7 +4681,8 @@ function startExam(key,opts){
   const secs=learn ? Math.max(120,items.length*300) : practice ? Math.round(p.secs*2.2) : p.secs;
   exam={key,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
-        practice:practice||undefined,learn:learn||undefined};
+        practice:practice||undefined,learn:learn||undefined,
+        kind:String(key).startsWith("mock_")?"mock":learn?"learn":practice?"practice":"preset",runId:newSynFeedRunId(),startedAt:Date.now()};
   // 실전 AFOQT처럼 서브테스트마다 자기 시계를 준다(전체 통합 타이머 대신).
   // 시간이 끝난 섹션은 닫히고 다음 섹션으로 — 이전 섹션으로 되돌아갈 수 없다.
   // (기출 mock처럼 specs가 없어도 문항이 다과목이면 섹션 타이머를 붙인다)
@@ -4504,7 +4693,7 @@ function startExam(key,opts){
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
   $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
-  startExamTimer(); renderExamQ();
+  startExamTimer(); renderExamQ(); examActStart();
 }
 function fmtTime(s){ s=Math.max(0,s|0); return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
 /* ---- 섹션별 타이머 (실전 AFOQT 방식) ----
@@ -4579,7 +4768,8 @@ function saveExamStatic(){
   const e=exam; if(!e||e.submitted) return;
   try{
     const snap={key:e.key,name:e.name,items:e.items,total:e.total,learn:!!e.learn,
-      practice:!!e.practice,startSecs:e.startSecs,savedAt:Date.now()};
+      practice:!!e.practice,startSecs:e.startSecs,savedAt:Date.now(),
+      kind:e.kind||null,runId:e.runId||null,startedAt:e.startedAt||null};
     if(e.sections) snap.sections=e.sections.map(s=>({code:s.code,from:s.from,to:s.to,secs:s.secs}));
     localStorage.setItem(EXAM_SAVE_KEY,JSON.stringify(snap));
   }catch(err){ clearExamSnap(); }   // quota 초과 등 — 옛 스냅샷이 남아 엉뚱한 시험이 복원되는 것 방지
@@ -4600,7 +4790,7 @@ function loadExamSnap(){
     const st=JSON.parse(localStorage.getItem(EXAM_SAVE_KEY)||"null");
     const dyn=JSON.parse(localStorage.getItem(EXAM_SAVE_DYN)||"null");
     if(!(st&&st.items&&st.items.length&&dyn&&dyn.answers)) return null;
-    if(Date.now()-(dyn.savedAt||0)>48*3600*1000) return null;   // 이틀 지난 시험은 만료
+    if(Date.now()-(dyn.savedAt||0)>48*3600*1000){ clearExamSnap(); return null; }   // 이틀 지난 시험은 만료 — 0.5MB짜리 스냅샷을 남겨두지 않는다
     return {...st,...dyn};
   }catch(e){ return null; }
 }
@@ -4617,7 +4807,7 @@ function resumeExamSnap(){
   const offlineElapsed=!s.learn&&s.timerAt?Math.max(0,Math.floor((Date.now()-s.timerAt)/1000)):0;
   exam={key:s.key,name:s.name,items:s.items,idx:s.idx||0,answers:s.answers,
     secsLeft:s.secsLeft,startSecs:s.startSecs,total:s.total,submitted:false,timerId:null,
-    times:s.times||undefined};
+    times:s.times||undefined,kind:s.kind||undefined,runId:s.runId||newSynFeedRunId(),startedAt:s.startedAt||undefined};
   if(s.learn) exam.learn=true;
   if(s.practice) exam.practice=true;
   if(s.sections){
@@ -4630,7 +4820,7 @@ function resumeExamSnap(){
   window.scrollTo(0,0);
   $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
   renderExamQ(); if(offlineElapsed) consumeExamSeconds(offlineElapsed);
-  if(exam&&!exam.submitted){ startExamTimer(); renderExamQ(); toast("⏸ 저장된 지점부터 이어서 시작해요."); }
+  if(exam&&!exam.submitted){ startExamTimer(); renderExamQ(); examActStart(true); toast("⏸ 저장된 지점부터 이어서 시작해요."); }
 }
 function updateTimerUI(){ const t=$("#examTimer"); if(!t||!exam) return;
   if(exam.learn){ t.textContent="📚 연습"; t.classList.remove("warn"); }  // 학습 모드: 카운트다운 숨김
@@ -4709,8 +4899,9 @@ function renderExamQ(){
     $$("#examChoices .choice").forEach(b=>b.classList.toggle("sel",b===btn));
     refreshExamGrid(); saveExamSnap();
     const lastIdx = sec ? sec.to : e.total-1;                 // 섹션 안에서만 자동 진행
-    if(e.idx<lastIdx){ setTimeout(()=>{ const s2=curExamSec(), lim=s2?s2.to:exam.total-1;
-      if(exam&&!exam.submitted&&exam.idx<lim){ exam.idx++; renderExamQ(); } },160); }
+    if(e.idx<lastIdx){ setTimeout(()=>{ if(!exam||exam!==e||exam.submitted) return;   // 답한 직후 나갔으면(exam=null) 자동 진행 안 함
+      const s2=curExamSec(), lim=s2?s2.to:exam.total-1;
+      if(exam.idx<lim){ exam.idx++; renderExamQ(); } },160); }
   });
   const dn=$("#drillNext"); if(dn) dn.onclick=()=>{
     if(e.idx>=e.total-1) submitExam(false);
@@ -4782,13 +4973,14 @@ function startRetest(kind){
     : "오답 재시험";
   const secs=Math.max(120, items.length*25);
   exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),
-        secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
+        secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
+        kind:"retest",runId:newSynFeedRunId(),startedAt:Date.now()};
   if(ordered.length>1) buildExamSections(exam);   // 주석대로: 다과목이면 과목별 타이머
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
   $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
-  startExamTimer(); renderExamQ();
+  startExamTimer(); renderExamQ(); examActStart();
 }
 /* ============================================================
    시험 전 요약 시트 — 공식·관계유형·항공핵심·어근을 한 페이지로
@@ -4996,12 +5188,13 @@ function startDrill(items,name,learn=true){
   // 학습 모드는 넉넉하게(문항당 5분) — 해설 읽는 동안 자동 제출 안 되게.
   const per=learn?300:1.5, secs=Math.max(120, Math.round(items.reduce((s,it)=>s+(SECRATE[it.section]||30)*per,0)));
   exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),learn,
-        secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null};
+        secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
+        kind:learn?"learn":"drill",runId:newSynFeedRunId(),startedAt:Date.now()};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
   $("#examSetup").classList.add("hidden"); $("#examResult").classList.add("hidden"); $("#examRun").classList.remove("hidden");
-  startExamTimer(); renderExamQ();
+  startExamTimer(); renderExamQ(); examActStart();
 }
 function drillRCType(type){
   const pool=[]; rcPracticePool().forEach(p=>(p.questions||[]).forEach((q,qi)=>{ if(q.type===type) pool.push([p,qi]); }));
@@ -5037,10 +5230,13 @@ function runDrill(spec){
 }
 function submitExam(auto){
   const e=exam; if(!e||e.submitted) return;
-  // 통째로 건너뛴 과목(응답 0개) = 의도적 스킵 → 채점·통계·오답노트에서 제외
+  // 통째로 건너뛴 과목(응답 0개 + 시간이 남은 채 넘김) = 의도적 스킵 → 채점·통계·오답노트에서 제외.
+  // 시간 초과로 0답인 과목은 건너뛴 게 아니라 0점이다(M12) — timedOut으로 따로 기록한다.
   const ansBySec={};
   e.items.forEach((it,i)=>{ if(e.answers[i]!=null) ansBySec[it.section]=(ansBySec[it.section]||0)+1; });
-  const skipped=[...new Set(e.items.map(it=>it.section))].filter(sc=>!(ansBySec[sc]>0));
+  const allSecs=[...new Set(e.items.map(it=>it.section))];
+  const timedOut=e.sections?e.sections.filter(s=>s.autoOut).map(s=>s.code):((auto&&!e.learn)?allSecs.slice():[]);
+  const skipped=allSecs.filter(sc=>!(ansBySec[sc]>0)&&!timedOut.includes(sc));
   const counted=e.items.map((it,i)=>i).filter(i=>!skipped.includes(e.items[i].section));
   if(!auto){ const un=counted.filter(i=>e.answers[i]==null).length;
     const skipTxt=skipped.length?`\n(${skipped.map(k=>SEC_KO[k]||k).join("·")}은(는) 한 문제도 안 풀어 통계에서 제외돼요)`:"";
@@ -5049,13 +5245,14 @@ function submitExam(auto){
   // 열려 있던 문항의 시간 구간을 닫는다 (속도 분석용)
   e.times=e.times||new Array(e.total).fill(0);
   if(e._openIdx!=null&&e._openAt){ e.times[e._openIdx]+=Date.now()-e._openAt; e._openIdx=null; }
-  // 아무 문항도 안 풀었으면 기록 없이 종료
-  if(!counted.length){
+  // 아무 문항도 안 풀었으면 점수 기록 없이 종료(증거 로그에는 중단으로만 남긴다)
+  if(!Object.keys(ansBySec).length){
+    if(act&&["exam","retest","drill"].includes(act.y)) actEnd({y:"exam_abandoned",k:e.key||examKindOf(e),n:0,t:e.total,m:{kd:examKindOf(e),ans:0,tot:e.total,to:timedOut.length?1:0}});
     toast("푼 문항이 없어 채점·기록 없이 종료했어요.");
     $("#examRun").classList.add("hidden"); $("#examSetup").classList.remove("hidden");
     exam=null; return;
   }
-  e._skipped=skipped;
+  e._skipped=skipped; e._timedOut=timedOut;
   let got=0; const bySec={};
   counted.forEach(i=>{ const it=e.items[i]; const ok=e.answers[i]===it.answer; if(ok)got++;
     (bySec[it.section]=bySec[it.section]||{got:0,total:0}).total++; if(ok)bySec[it.section].got++;
@@ -5072,6 +5269,10 @@ function submitExam(auto){
   const used = e.sections
     ? e.sections.reduce((a,s)=>a+(s.secs-Math.max(0,s.leftAtDone!=null?s.leftAtDone:s.left)),0)   // 섹션별 실제 소요 합 (수동 제출은 남긴 시간 반영)
     : (e.startSecs||(EXAM_PRESETS[e.key]?EXAM_PRESETS[e.key].secs:0))-Math.max(0,e.secsLeft);
+  const examTs=Date.now(), examKind=examKindOf(e), examName=String((EXAM_PRESETS[e.key]&&EXAM_PRESETS[e.key].name)||e.name||"모의고사");
+  const examEv=actEnd({k:e.key||examKind,sc:got,t:total,n:total,c:got,r:examKind==="mock"?"m":undefined,
+    m:{kd:examKind,cs:Math.round(used),bs:Object.fromEntries(Object.keys(bySec).map(k=>[k,[bySec[k].got,bySec[k].total]])),
+       pr:e.practice?1:0,ln:e.learn?1:0,ts:examTs,nm:examName.slice(0,40),sk:skipped.length?skipped:undefined,to:timedOut.length?timedOut:undefined}});
   bumpDay({studied:total,correct:got});
   if(e.key&&!e.practice){ const prev=state.exams[e.key]||{};
     const newBest=got>(prev.best||0);   // bestTotal은 그 최고점을 낸 회차의 분모를 유지 ("최고 100/25" 방지)
@@ -5082,10 +5283,13 @@ function submitExam(auto){
     u:e.answers[i],a:it.answer,x:it.explain||"",p:it.passageId!=null?it.passageId:null,pt:it.passageTitle||"",
     ms:Math.round(e.times[i]||0)}; });
   state.examHist.push({key:e.key||"retest",name:(EXAM_PRESETS[e.key]&&EXAM_PRESETS[e.key].name)||e.name||"모의고사",
-    date:todayStr(),got,total,acc:got/total,pctile:e.learn?undefined:estPercentile(got/total),ts:Date.now(),
+    date:todayStr(),got,total,acc:got/total,pctile:e.learn?undefined:estPercentile(got/total),ts:examTs,
     secs:used,bySec:JSON.parse(JSON.stringify(bySec)),items:detail,
     practice:e.practice?1:undefined,learn:e.learn?1:undefined,
-    skipped:skipped.length?skipped.slice():undefined});
+    skipped:skipped.length?skipped.slice():undefined,timedOut:timedOut.length?timedOut.slice():undefined,
+    // 증거용: 종류·시작 시각·활성 시간·기기·시간 측정 여부·출처
+    kind:examKind,runId:e.runId||undefined,startTs:e.startedAt||undefined,active:examEv?examEv.a:undefined,dev:deviceId(),
+    timed:e.learn?0:1,src:examKind==="mock"?"mock":"app"});
   if(state.examHist.length>200) state.examHist=state.examHist.slice(-200);
   pruneExamDetail();
   saveNow(); if(sb) queuePush("app_state");
@@ -5390,7 +5594,7 @@ function renderExamLog(){
 }
 function renderExamTrend(){
   // 3문항짜리 드릴·연습(practice) 회차는 추이·최고 기록에서 제외 — bigExams와 같은 기준
-  const h=(state.examHist||[]).filter(x=>x&&(x.total||0)>=10&&!x.practice&&!x.learn); const box=$("#examTrend");
+  const h=bigExams(); const box=$("#examTrend");
   if(h.length<1){ box.innerHTML=`<div class="center muted" style="padding:8px">아직 기록이 없어요. 모의고사를 보면 정답률 추이가 그려집니다.</div>`; return; }
   const data=h.slice(-15), W=300,H=120,pad=22;
   const xs=(i)=>pad+(data.length<=1?W-2*pad:(i/(data.length-1))*(W-2*pad));
@@ -5437,6 +5641,8 @@ function createGeneric(){ const bg=document.createElement("div"); bg.className="
   bg.innerHTML=`<div class="sheet" id="genericSheetBody"></div>`; bg.onclick=e=>{ if(e.target===bg) closeSheet(); }; document.body.appendChild(bg); return bg; }
 function closeSheet(){ $("#genericSheet")?.classList.remove("open"); }
 function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#setStart").value=state.settings.start_date; $("#setExam").value=state.settings.exam_date;
+  $("#setAttempt")&&($("#setAttempt").value=state.settings.official_attempt_date||""); $("#setRetest")&&($("#setRetest").value=state.settings.retest_date||"");
+  $("#setOfficial")&&($("#setOfficial").value=state.settings.official_scores||"");
   $("#optShowKo")&&($("#optShowKo").checked=!flag("hide_ko"));
   $("#optPilotPerfect")&&($("#optPilotPerfect").checked=pilotPerfect());
   $("#setUrl").value=localStorage.getItem(LS.url)||""; $("#setKey").value=localStorage.getItem(LS.key)||"";
@@ -5444,6 +5650,14 @@ function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#
   setSyncDot(syncReady?"on":(synFeedSyncPending()?"syncing":(boundSbUrl()&&boundSbKey()?"err":"off"))); $("#settingsSheet").classList.add("open"); }
 function saveSettings(){ const g=parseInt($("#setGoal").value,10); state.settings.daily_goal=isNaN(g)?0:Math.max(0,g);
   if($("#setStart").value) state.settings.start_date=$("#setStart").value; if($("#setExam").value) state.settings.exam_date=$("#setExam").value;
+  // 웨이버 기준선 — 공식 응시일은 독립 필드라 재응시일을 바꿔도 원래 응시 기록이 사라지지 않는다
+  { const S=state.settings, before=[S.official_attempt_date,S.retest_date,S.official_scores].join("|");
+    if($("#setAttempt")&&$("#setAttempt").value) S.official_attempt_date=$("#setAttempt").value;
+    if($("#setRetest")) S.retest_date=$("#setRetest").value||"";
+    if(S.retest_date) S.exam_date=S.retest_date;                       // 페이스·달력·플랜은 재응시일 기준
+    if($("#setOfficial")) S.official_scores=($("#setOfficial").value||"").trim().slice(0,120);
+    if(before!==[S.official_attempt_date,S.retest_date,S.official_scores].join("|")){ const now=Math.round(Date.now()/1000);
+      evAppend({y:"baseline_set",s:now,e:now,z:tzOffsetMin(),m:{ad:S.official_attempt_date,rd:S.retest_date,os:S.official_scores.slice(0,48)}}); } }
   const url=$("#setUrl").value.trim(),key=$("#setKey").value.trim(); let re=false;
   if(url!==(localStorage.getItem(LS.url)||"")){ localStorage.setItem(LS.url,url); re=true; }
   if(key!==(localStorage.getItem(LS.key)||"")){ localStorage.setItem(LS.key,key); re=true; }
@@ -5586,7 +5800,10 @@ function wire(){
   $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
   $("#examExit").onclick=()=>go("home");
   $("#examQuit").onclick=()=>{ if(!exam||exam.submitted||confirm("시험을 그만두고 나갈까요? 기록은 저장되지 않아요.")){
-    const back=exam?mathExamReturnView(exam.key):"home"; stopExamTimer(); clearExamSnap(); examReleaseWake(); exam=null; go(back); } };
+    const back=exam?mathExamReturnView(exam.key):"home"; stopExamTimer(); clearExamSnap(); examReleaseWake();
+    if(exam&&act&&["exam","retest","drill"].includes(act.y)){ const ans=exam.answers.filter(a=>a!=null).length;
+      actEnd({y:"exam_abandoned",k:exam.key||examKindOf(exam),n:ans,t:exam.total,m:{kd:examKindOf(exam),ans,tot:exam.total}}); }
+    exam=null; go(back); } };
   $("#examPrev").onclick=()=>{ if(!exam) return; const s=curExamSec(), lo=s?s.from:0;
     if(exam.idx>lo){ exam.idx--; renderExamQ(); } };
   $("#examNext").onclick=()=>{ if(!exam) return; const s=curExamSec(), hi=s?s.to:exam.total-1;
@@ -5663,17 +5880,34 @@ function wire(){
   $("#enterCode").onclick=()=>{ const c=prompt("다른 기기와 동기화할 코드를 입력하세요:",boundSyncCode()); if(c&&c.trim()){ flushSynFeedKeepalive(); localStorage.setItem(LS.code,c.trim()); toast("코드 적용 — 동기화 중…"); location.reload(); } };
   $("#forceSync").onclick=forceSync;
   $("#resetAll").onclick=()=>{ if(confirm("이 기기의 학습 기록을 모두 지웁니다. 계속할까요?")){ clearSynFeedEmergency(); synFeed=null;
-      clearTimeout(saveTimer); clearTimeout(pushTimer); pushTimer=null; pushDueAt=0; pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.settings=null; pushQ.app_state=null;
-      state=DEFAULT_STATE(); state.synFeedSyncCode=boundSyncCode(); saveNow(); toast("초기화됨"); $("#settingsSheet").classList.remove("open"); go("home"); } };
+      clearTimeout(saveTimer); clearTimeout(pushTimer); pushTimer=null; pushDueAt=0; pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.study_log.clear(); pushQ.settings=null; pushQ.app_state=null;
+      // 증거 로그는 초기화해도 지우지 않는다(append-only) — 대신 '초기화' 이벤트를 남긴다
+      const keep={evReplicas:state.evReplicas||{},evLegacyDone:state.evLegacyDone||0,evInstalledAt:state.evInstalledAt||"",evSnapDay:state.evSnapDay||""},
+        base={official_attempt_date:state.settings.official_attempt_date,retest_date:state.settings.retest_date,official_scores:state.settings.official_scores,ev_since:state.settings.ev_since};
+      state=Object.assign(DEFAULT_STATE(),keep); Object.assign(state.settings,base); state.synFeedSyncCode=boundSyncCode();
+      { const now=Math.round(Date.now()/1000); evAppend({y:"reset",s:now,e:now,z:tzOffsetMin(),m:{note:"local reset"}}); }
+      saveNow(); toast("초기화됨 (증거 로그는 유지)"); $("#settingsSheet").classList.remove("open"); go("home"); } };
   $("#forceUpdate").onclick=forceUpdate;
+  // 증거 리포트
+  $("#btnEvidence")&&($("#btnEvidence").onclick=()=>go("evidence")); $("#btnEvidence2")&&($("#btnEvidence2").onclick=()=>go("evidence"));
+  $("#btnEvidence3")&&($("#btnEvidence3").onclick=()=>{ $("#settingsSheet").classList.remove("open"); go("evidence"); });
+  $("#evBack")&&($("#evBack").onclick=()=>go("stats"));
+  $("#evPrint")&&($("#evPrint").onclick=()=>{ renderEvidence(); document.body.classList.add("print-evidence"); setTimeout(()=>window.print(),50); });
+  window.addEventListener("afterprint",()=>document.body.classList.remove("print-evidence"));
+  $("#evCsvSessions")&&($("#evCsvSessions").onclick=()=>evidenceCsv("sessions")); $("#evCsvDaily")&&($("#evCsvDaily").onclick=()=>evidenceCsv("daily")); $("#evCsvExams")&&($("#evCsvExams").onclick=()=>evidenceCsv("exams"));
+  $("#evCopy")&&($("#evCopy").onclick=async()=>{ if(!EV) return; const t=EV.summaryText(evidenceReport()); try{ await navigator.clipboard.writeText(t); toast("요약을 복사했어요"); }catch{ toast("복사가 차단됐어요 — 인쇄/PDF를 이용하세요"); } });
   // Flush pending saves before the app is backgrounded/closed (mobile-safe).
   // On returning to the app, refresh the active hub so today's count and the
   // recommended new-words amount reflect the current day (handles the day
   // rolling over while the app/PWA was left open in the background).
+  // 활동 시간 추적: 입력이 있을 때만 시간을 인정한다(1초 스로틀은 actTouch 안에서)
+  ["pointerdown","keydown","touchstart","scroll"].forEach(t=>document.addEventListener(t,actTouch,{capture:true,passive:true}));
+  window.addEventListener("pageshow",e=>{ if(e.persisted){ const v=(($(".view.active")||{}).id||"").replace("view-",""); if(VIEW_ACT[v]) actStart(VIEW_ACT[v],{v}); } });
   document.addEventListener("visibilitychange",()=>{
     // Backgrounding/lock fires this while the page is still alive — flush the
     // pending server push here so mobile "study then close" doesn't lose progress.
     if(document.visibilityState==="hidden"){
+      actPause();   // 자리 비운 시간은 학습 시간이 아니다
       synFeedWasBackgrounded=true; synFeedRemoteFresh=false; synFeedTimerStop(); vaFeedTimerStop(); if(vaFeed) vaFeedSave(true);   // 자리 비운 시간이 문제 시간으로 흐르지 않게
       if(suppressPersistenceForReload||syncCodeMismatch) return;
       if(synFeed){ synFeedSave(true,false,false); flushSynFeedKeepalive(); } // 저장만 하며 stale clock은 올리지 않음
@@ -5686,6 +5920,7 @@ function wire(){
           saveExamSnap(); }
       }
       saveNow(); flushPush(); return; }
+    actResume();
     if(synFeedWasBackgrounded){ synFeedWasBackgrounded=false; pullSynFeedOnForeground();
       if(synFeed&&synFeed.current&&synFeed.current.chosen==null&&$("#view-synfeed")?.classList.contains("active")) synFeedTimerStart(); }
     if(vaFeed&&vaFeed.current&&vaFeed.current.chosen==null&&$("#view-vafeed")?.classList.contains("active")) vaFeedTimerStart();
@@ -5710,7 +5945,7 @@ function wire(){
     if(todayStr()!==lastDay){ lastDay=todayStr(); if(!sessionActive()){ const a=$(".view.active")?.id;
       if(a==="view-home") renderHome(); else softRender(); } }
   }, 60000);
-  const flushBeforeExit=()=>{ if(suppressPersistenceForReload||syncCodeMismatch) return; if(synFeed) synFeedSave(true,false,false); if(vaFeed) vaFeedSave(true); flushSynFeedKeepalive();
+  const flushBeforeExit=()=>{ if(suppressPersistenceForReload||syncCodeMismatch) return; actClose(); if(synFeed) synFeedSave(true,false,false); if(vaFeed) vaFeedSave(true); flushSynFeedKeepalive();
     if(exam&&!exam.submitted){ settleExamClock(); if(exam&&!exam.submitted) saveExamSnap(); }
     saveNow(); flushPush(); };
   window.addEventListener("pagehide",flushBeforeExit);
@@ -5761,11 +5996,10 @@ function openStudyExport(){
 }
 function exportProgress(){
   saveNow();
-  const data=JSON.stringify({app:"afoqt-vocab",v:VERSION,code:boundSyncCode(),ts:Date.now(),state},null,2);
-  const url=URL.createObjectURL(new Blob([data],{type:"application/json"}));
-  const a=document.createElement("a"); a.href=url; a.download=`afoqt-backup-${todayStr()}.json`;
-  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
-  toast("백업 파일을 저장했어요 💾");
+  // 복원용 파일 — 동기화 코드가 들어 있으므로 심사 자료로 제출하면 안 된다(증거 제출은 📄 증거 리포트/CSV)
+  const data=JSON.stringify({app:"afoqt-vocab",v:VERSION,note:"RESTORE-ONLY backup. Contains the sync code — never submit or share. 복원용 백업 — 동기화 코드 포함, 제출·공유 금지.",code:boundSyncCode(),ts:Date.now(),state},null,2);
+  downloadFile(data,`afoqt-backup-RESTORE-ONLY-${todayStr()}.json`,"application/json");
+  toast("복원용 백업을 저장했어요 💾 (제출용 아님 — 증거는 📄 리포트/CSV)");
 }
 // Restore: load a backup file, replace local state, reload (loadLocal re-normalizes).
 function importProgress(file){
@@ -5788,6 +6022,7 @@ function importProgress(file){
         if(oldImportRaw==null) localStorage.removeItem(LS.import); else localStorage.setItem(LS.import,oldImportRaw); }catch{}
       state=oldState; synFeed=oldFeed; suppressPersistenceForReload=false; saveLocal(false);
       if(sb&&!syncReady) schedulePullRetry(); else if(sb&&hasPendingPush()) schedulePush(0); throw e; }
+    try{ localStorage.setItem("afoqt_ev_note_v1",JSON.stringify({y:"restore",m:{v:String(d.v||"").slice(0,20),ts:Number(d.ts)||0}})); }catch{}
     state=st; synFeed=null; clearSynFeedEmergency(targetCode);
     toast("복원 완료 — 새로고침합니다"); setTimeout(()=>location.reload(),700);
   }catch(e){ console.error(e); toast("복원 실패: 백업 파일과 브라우저 저장 공간을 확인해 주세요"); } };
@@ -5914,6 +6149,11 @@ async function boot(){
       registerMathStylePresets(); registerMathFullPresets(); }
     PHYSCI=await loadJSON("./physicalscience.json")||[];
     SITJUD=await loadJSON("./situational.json")||[];
+    evRollArchive();   // 60일 지난 증거 이벤트는 아카이브로
+    evLegacyImport();  // 첫 실행: 응시일~설치 전날을 기존 기록에서 재구성
+    actRecover();   // 이전 실행이 강제 종료됐으면 열려 있던 활동을 마지막 계산 시각으로 마감
+    try{ const note=JSON.parse(localStorage.getItem("afoqt_ev_note_v1")||"null"); localStorage.removeItem("afoqt_ev_note_v1");
+      if(note&&note.y){ const now=Math.round(Date.now()/1000); evAppend({y:String(note.y),s:now,e:now,z:tzOffsetMin(),m:note.m||{}}); } }catch{}
     $("#boot").classList.remove("active"); go("home");
     maybeOnboard();
     initSync();   // non-blocking: app already usable

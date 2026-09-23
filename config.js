@@ -18,6 +18,7 @@ window.AFOQT_CONFIG = {
   SUPABASE_ANON_KEY: "sb_publishable__MviWEJZbvRXVnEe32pD4w_QuwwXWpA",
 
   // 학습 일정 (기본값)
-  START_DATE: "2026-06-01",  // 단어 외우기 시작
-  EXAM_DATE:  "2026-09-11",  // 시험 응시일 (금)
+  START_DATE: "2026-06-01",   // 단어 외우기 시작
+  ATTEMPT_DATE: "2026-09-18", // 공식 AFOQT 응시일 — 웨이버 증빙 기간의 시작점(설정에서 변경 가능)
+  EXAM_DATE:  "",             // 재응시 목표일은 앱 설정에서 입력 (비우면 30일 지평으로 페이스 계산)
 };

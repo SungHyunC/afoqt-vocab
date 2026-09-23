@@ -17,7 +17,7 @@
 <header class="appbar">
   <div>
     <h1 id="barTitle">AFOQT Master</h1>
-    <div class="sub" id="bar-sub">전 과목 대비 · 목표 9월 초</div>
+    <div class="sub" id="bar-sub">전 과목 대비 · 재응시 준비</div>
   </div>
   <div class="row" style="align-items:center;gap:10px">
     <span class="sync-dot off" id="syncDot" title="동기화 상태"></span>
@@ -54,7 +54,7 @@
       <div>
         <div class="muted" style="font-size:13px;opacity:.9">시험까지</div>
         <div class="days"><span id="daysLeft">–</span> <small>일</small></div>
-        <div class="goal-line" id="examLine">목표일 8/3</div>
+        <div class="goal-line" id="examLine">목표일 –</div>
       </div>
       <div class="ring" id="goalRing" style="--p:0">
         <div class="v"><b id="ringPct">0%</b><span>오늘 목표</span></div>
@@ -77,6 +77,7 @@
   </div>
   <button class="btn ghost" id="btnExam" style="margin-top:10px;font-size:16px;padding:15px">🎯 실전 모의고사 (시간 측정)</button>
   <button class="btn ghost" id="btnReport" style="margin-top:10px;font-size:16px;padding:15px">🔍 내 약점 리포트</button>
+  <button class="btn ghost" id="btnEvidence2" style="margin-top:10px;font-size:16px;padding:15px;border-color:var(--gold)">📄 웨이버 증빙 리포트</button>
 
   <div class="grid3" style="margin-top:16px">
     <div class="card tight stat"><div class="num" id="stStreak">0</div><div class="lbl">🔥 스트릭</div></div>
@@ -901,6 +902,7 @@
 </main>
 
 <main id="view-stats" class="view">
+  <button class="btn primary" id="btnEvidence" style="margin-bottom:6px">📄 웨이버 증빙 리포트 (인쇄 · CSV)</button>
   <h2 class="section" id="calTitle">학습 달력</h2>
   <div class="card">
     <div class="cal" id="calHead"></div>
@@ -941,6 +943,20 @@
 
   <h2 class="section">예상</h2>
   <div class="card" id="projection"></div>
+</main>
+
+<!-- ===== EVIDENCE (웨이버 증빙 리포트) ===== -->
+<main id="view-evidence" class="view">
+  <div class="study-top no-print"><button class="btn sm ghost" id="evBack">← 통계</button><span>📄 증거 리포트</span><span></span></div>
+  <div class="ev-actions no-print">
+    <button class="btn primary sm" id="evPrint">🖨️ 인쇄 / PDF</button>
+    <button class="btn ghost sm" id="evCsvSessions">⬇️ sessions.csv</button>
+    <button class="btn ghost sm" id="evCsvDaily">⬇️ daily.csv</button>
+    <button class="btn ghost sm" id="evCsvExams">⬇️ exams.csv</button>
+    <button class="btn ghost sm" id="evCopy">📋 요약 복사</button>
+  </div>
+  <div class="hintbox no-print" style="margin-bottom:12px">공식 응시일 이후의 학습 시간·문항·시험 점수를 날짜순으로 정리한 증빙 자료예요. 인쇄 → PDF로 저장하고, CSV는 표 계산 프로그램에서 열 수 있어요. 동기화 코드·개인정보는 들어가지 않습니다.</div>
+  <div id="evBody"></div>
 </main>
 
 <!-- ===== EXAM (실전 모의고사) ===== -->
@@ -1074,7 +1090,13 @@
     <div class="field"><label>하루 신규 단어 (비우면 자동 계산)</label>
       <input type="number" id="setGoal" min="0" step="5" placeholder="자동"></div>
     <div class="field"><label>시작일</label><input type="date" id="setStart"></div>
-    <div class="field"><label>시험 목표일</label><input type="date" id="setExam"></div>
+    <div class="field"><label>시험 목표일 (재응시일을 넣으면 자동으로 맞춰짐)</label><input type="date" id="setExam"></div>
+
+    <h3 style="margin-top:22px">📄 웨이버 증빙 기준선</h3>
+    <div class="field"><label>공식 AFOQT 응시일 (증빙 기간의 시작)</label><input type="date" id="setAttempt"></div>
+    <div class="field"><label>재응시 목표일 (비우면 미정)</label><input type="date" id="setRetest"></div>
+    <div class="field"><label>공식 점수 (자기 기재 · 선택)</label><input id="setOfficial" maxlength="120" placeholder="예: Pilot 45 · CSO 60 · Verbal 52 · Quant 40"></div>
+    <div class="hintbox">증거 리포트 헤더에 쓰이는 값이에요. 응시일을 바꿔도 이전 기록은 지워지지 않고, 재응시일을 넣으면 권장량·달력·플랜이 그 날짜 기준으로 바뀝니다.</div>
 
     <h3 style="margin-top:22px">🈶 학습 옵션</h3>
     <label style="display:flex;gap:9px;align-items:center;font-size:14px;cursor:pointer">
@@ -1108,10 +1130,11 @@
 
     <button class="btn primary" id="saveSettings" style="margin-top:20px">저장</button>
     <div class="row" style="gap:8px;margin-top:10px">
-      <button class="btn ghost sm" id="exportProg" style="flex:1">⬇️ 진도 백업</button>
+      <button class="btn ghost sm" id="exportProg" style="flex:1">⬇️ 진도 백업 (복원용 — 제출 금지)</button>
       <button class="btn ghost sm" id="importProg" style="flex:1">⬆️ 진도 복원</button>
     </div>
     <input type="file" id="importFile" accept="application/json,.json" style="display:none">
+    <button class="btn ghost" id="btnEvidence3" style="margin-top:10px;border-color:var(--gold)">📄 웨이버 증빙 리포트 (인쇄 · CSV)</button>
     <button class="btn ghost" data-study-export style="margin-top:10px">📤 LLM용 풀이 기록 내보내기</button>
     <button class="btn ghost" id="forceUpdate" style="margin-top:10px">🔄 강제 업데이트 (최신 버전 받기)</button>
     <button class="btn ghost" id="closeSettings" style="margin-top:10px">닫기</button>
@@ -1138,6 +1161,7 @@
      Supabase is loaded separately and never blocks startup (see loadSupabase in app.js). -->
 <script src="./config.js"></script>
 <script src="./study-export.js"></script>
+<script src="./evidence.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>
