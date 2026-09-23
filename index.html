@@ -27,26 +27,6 @@
 
 <div id="boot" class="view active"><div class="spinner"></div><p class="center muted">불러오는 중…</p></div>
 
-<!-- ===== 30일 완성 플랜 ===== -->
-<main id="view-plan" class="view">
-  <h2 class="section" style="margin-top:0">🗣️ Verbal 역전 16일</h2>
-  <div class="card" id="v16"></div>
-  <h2 class="section">🗓️ 완성 플랜</h2>
-  <div class="card" id="planHead"></div>
-  <h2 class="section">오늘 할 일</h2>
-  <div id="planTasks"></div>
-  <div class="card center hidden" id="planAllDone" style="margin-top:12px;border-color:var(--ok)">
-    <div class="big-emoji">🎉</div><b>오늘 할 일 완료!</b>
-    <div class="muted" style="font-size:12px;margin-top:4px">내일 또 만나요. 남는 시간은 🎧 자동 넘김으로 가볍게.</div>
-  </div>
-  <label style="display:flex;gap:9px;align-items:flex-start;margin-top:14px;font-size:12.5px;color:var(--muted);cursor:pointer">
-    <input type="checkbox" id="optPlanPsSj" style="margin-top:2px">
-    <span>🔬 과학·상황판단도 플랜에 포함 (격일 소량)<br>
-      <span style="font-size:11px">두 과목은 주요 합성점수(Pilot·Verbal·Quant) 비중이 낮아 기본은 제외 — 전 과목 90+가 목표면 켜세요.</span></span>
-  </label>
-  <div class="hintbox" style="margin-top:14px">매일 여기만 보고 위에서부터 하나씩 하면 돼요. 단어 + Verbal·Quant·Pilot이 매일 하나씩 배치돼요. 학습하면 <b>자동으로 체크</b>되고, 직접 원을 눌러 체크할 수도 있어요.</div>
-</main>
-
 <!-- ===== HOME ===== -->
 <main id="view-home" class="view">
   <div class="card hero">
@@ -69,9 +49,7 @@
 
   <div id="scoreProj" style="margin-top:12px"></div>
 
-  <button class="btn primary" id="btnDaily" style="margin-top:16px;font-size:17px;padding:17px">📅 오늘의 통합 학습 (전 영역)</button>
-  <button class="btn ghost" id="btnCurr" style="margin-top:10px;font-size:16px;padding:15px">🎓 커리큘럼 학습 (기초 → 실전 · 15+ 목표)</button>
-  <div class="row" style="gap:8px;margin-top:10px">
+  <div class="row" style="gap:8px;margin-top:16px">
     <button class="btn ghost" id="btnStartNew" style="flex:1;font-size:15px;padding:15px 8px">🆕 신규 단어</button>
     <button class="btn ghost" id="btnStartRev" style="flex:1;font-size:15px;padding:15px 8px">🔁 복습</button>
   </div>
@@ -157,7 +135,6 @@
   <button class="btn ghost" id="vkReview" style="margin-top:10px;border-color:var(--brand2)">🔁 복습 플래시카드</button>
   <button class="btn ghost" id="vkMock" style="margin-top:10px;border-color:var(--gold)">📕 모의고사 단어 플래시카드 — 앱 수록 연습 세트 148개</button>
   <button class="btn ghost" id="vkWrong" style="margin-top:10px;border-color:#ef4444">📛 오답 단어 플래시카드</button>
-  <button class="btn ghost" id="vkThemes" style="margin-top:10px;border-color:var(--brand2)">🗂️ 고빈출 테마별 플래시카드</button>
   <button class="btn ghost" id="vkAuto" style="margin-top:10px;border-color:#f59e0b">🎧 자동 넘김 (운동용·핸즈프리·음성)</button>
   <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
   <button class="synfeed-entry" id="vkSynFeed" type="button">
@@ -165,15 +142,12 @@
     <span class="synfeed-entry-copy"><b>동의어 무한 피드</b><small>답을 확인하고 직접 넘기는 일상 반복 학습</small></span>
     <span class="synfeed-entry-go" aria-hidden="true">›</span>
   </button>
-  <button class="btn ghost" id="vkSynq" style="margin-top:10px;border-color:var(--brand2)">⚡ 동의어 퀴즈 (WK 실전형 · 빠른 반복)</button>
-  <button class="btn ghost" id="vkQuiz" style="margin-top:10px">🧠 빠른 퀴즈 (연습용 · 시간 無)</button>
   <button class="btn ghost" id="vkConfirm" style="margin-top:10px;border-color:#22c55e">✅ 확인 시험 — 진짜 외웠는지 검증</button>
   <div class="hintbox" id="vkConfirmSub" style="margin-top:4px">확인할 단어 없음</div>
   <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 보기</button>
   <button class="btn ghost" id="vkCoach" style="margin-top:10px;border-color:var(--brand)">🧠 어근 추론 코치 — 모르는 단어 좁히는 법</button>
   <button class="btn ghost" id="vkRoots" style="margin-top:10px">🔤 어원 사전 (접두사·어근 검색)</button>
   <button class="btn ghost" id="vkGuide" style="margin-top:10px">📘 단어 공부 가이드</button>
-  <button class="btn ghost" id="vkCurr" style="margin-top:10px">🎓 커리큘럼 (기초부터)</button>
 
   <h2 class="section">학습 우선순위</h2>
   <div class="card">
@@ -183,36 +157,6 @@
       <input type="checkbox" id="optHighOnly"></label>
     <div class="hintbox" style="margin-top:10px">고빈출(high)·중요(mid)·일반(std)은 편집 등급이며 공식 AFOQT 출현 횟수가 아닙니다. 기존 high+mid 우선 학습 동작은 그대로 유지됩니다.</div>
   </div>
-</main>
-
-<!-- ===== VERBAL THEME DECKS ===== -->
-<main id="view-themes" class="view">
-  <div class="study-top"><button class="btn sm ghost" id="themeBack">← 어휘</button><span>🗂️ 테마 덱</span><span></span></div>
-  <h2 class="theme-title">고빈출 테마별 플래시카드</h2>
-  <p class="muted theme-intro">의미군별로 집중 학습합니다. 한 단어가 보조 의미나 유추 관계에 따라 여러 덱에 들어가도 SRS 진도는 하나로 공유됩니다.</p>
-  <div class="hintbox theme-basis"><b>분류 근거</b><br>🔥 P1은 앱 수록 연습 모의고사 또는 AFOQT 대비 목록 등재, ⭐ P2는 나머지 high, 📌 P3는 나머지 mid입니다. 공식 AFOQT 기출 빈도나 출현 횟수 통계는 아닙니다.</div>
-
-  <div class="card theme-controls" aria-label="테마 덱 학습 설정">
-    <fieldset>
-      <legend>우선순위 범위</legend>
-      <div class="theme-choice-grid priority">
-        <label><input type="radio" name="themePriority" value="1"><span>🔥 최우선만<small>P1</small></span></label>
-        <label><input type="radio" name="themePriority" value="2" checked><span>⭐ 고빈출까지<small>P1+P2</small></span></label>
-        <label><input type="radio" name="themePriority" value="3"><span>📌 중요까지<small>P1+P2+P3</small></span></label>
-      </div>
-    </fieldset>
-    <fieldset>
-      <legend>학습 방식</legend>
-      <div class="theme-choice-grid">
-        <label><input type="radio" name="themeMode" value="new" checked><span>🆕 신규 단어</span></label>
-        <label><input type="radio" name="themeMode" value="due"><span>🔁 복습 대기</span></label>
-        <label><input type="radio" name="themeMode" value="all"><span>🔀 전체 섞기</span></label>
-      </div>
-    </fieldset>
-  </div>
-  <button class="theme-resume hidden" id="themeResume" type="button"></button>
-  <div class="hintbox hidden" id="themeDataNote"></div>
-  <div class="theme-deck-list" id="themeDeckList" aria-live="polite"></div>
 </main>
 
 <!-- ===== SYNONYM MEMORY FEED (standalone endless mode) ===== -->
@@ -329,34 +273,6 @@
   </section>
 </main>
 
-<!-- ===== SYNONYM QUIZ (WK 실전형 · 연속) ===== -->
-<main id="view-synq" class="view">
-  <div class="study-top"><button class="btn sm ghost" id="synqBack">← 어휘</button><span id="synqScore">0 / 0</span><span></span></div>
-  <div id="synqSetup">
-    <h2 class="section">⚡ 동의어 퀴즈</h2>
-    <p class="muted" style="margin:0 0 14px">AFOQT Word Knowledge 실전형 — 단어 하나에 <b>가장 비슷한 뜻</b>을 5개 중에서 고르면 바로 다음 문제로. 빠르게 연속 반복돼요.</p>
-    <div class="field"><label>범위</label>
-      <select id="synqScope">
-        <option value="high" selected>⭐ 핵심 단어 (high+mid)</option>
-        <option value="learned">학습한 단어</option>
-        <option value="due">복습 대기 단어</option>
-        <option value="today">📅 오늘 학습한 단어</option>
-        <option value="starred">★ 즐겨찾기</option>
-        <option value="all">전체 단어</option>
-      </select>
-    </div>
-    <label class="switch-row"><span>🆕 모르는 단어는 한글 뜻 힌트 보기 (학습 모드)</span><input type="checkbox" id="synqLearn" checked></label>
-    <label class="switch-row"><span>⚡ 정답 확인 없이 자동으로 다음 문제 (빠른 반복)</span><input type="checkbox" id="synqAuto"></label>
-    <button class="btn primary" id="synqGo" style="margin-top:14px">▶︎ 시작</button>
-    <div class="hintbox" style="margin-top:10px">아직 안 외운 단어는 <b>뜻을 힌트로</b> 보여줘서 처음이어도 배우며 풀 수 있어요(마스터한 단어는 힌트 없이 진짜 테스트). 틀린 단어는 <b>자동으로 플래시카드 복습에 추가</b>돼요.</div>
-  </div>
-  <div id="synqPlay" class="hidden">
-    <div id="synqArea"></div>
-    <div class="kbd-hint"><span><kbd>1</kbd>~<kbd>5</kbd> 보기 선택</span><span><kbd>Space</kbd> 새 문제</span><span><kbd>←</kbd> <kbd>→</kbd> 이전·다음</span></div>
-    <button class="btn ghost" id="synqStop" style="margin-top:14px">그만하기</button>
-  </div>
-</main>
-
 <!-- ===== AUTO-PLAY (hands-free / workout) ===== -->
 <main id="view-autoplay" class="view">
   <div class="study-top"><button class="btn sm ghost" id="apBack">← 어휘</button><span id="apCount"></span><span></span></div>
@@ -418,51 +334,9 @@
     <div class="big-emoji">🎉</div>
     <h2 id="doneTitle">세션 완료!</h2>
     <p class="muted" id="doneSub"></p>
-    <button class="btn primary" id="doneQuiz" style="margin-top:10px">🧠 오늘 배운 단어 퀴즈</button>
+    <button class="btn primary" id="doneQuiz" style="margin-top:10px">⚡ 동의어 무한 피드로</button>
     <button class="btn ghost" id="doneHome" style="margin-top:10px">홈으로</button>
     <button class="btn ghost" id="doneMore" style="margin-top:10px">계속 학습</button>
-  </div>
-</main>
-
-<!-- ===== QUIZ ===== -->
-<main id="view-quiz" class="view">
-  <div class="study-top">
-    <button class="btn sm ghost" id="quizBack">← 나가기</button>
-    <span id="quizCount">0 / 0</span>
-    <span id="quizScore">0점</span>
-  </div>
-  <div class="progressbar" style="margin-bottom:14px"><i id="quizBar"></i></div>
-  <div id="quizArea"></div>
-  <div id="quizStart" class="card center">
-    <div class="big-emoji">🧠</div>
-    <h2>퀴즈 모드</h2>
-    <p class="muted">학습한 단어로 10문제 객관식</p>
-    <div class="field"><label>출제 범위</label>
-      <select id="quizScope">
-        <option value="today">📅 오늘 학습한 단어</option>
-        <option value="learned">학습한 단어</option>
-        <option value="high">⭐ 핵심 단어 (high+mid)</option>
-        <option value="due">복습 대기 단어</option>
-        <option value="starred">★ 즐겨찾기</option>
-        <option value="all">전체 단어</option>
-      </select>
-    </div>
-    <div class="field"><label>유형</label>
-      <select id="quizType">
-        <option value="mix">혼합</option>
-        <option value="e2k">영어 → 뜻</option>
-        <option value="k2e">뜻 → 영어</option>
-        <option value="syn">동의어 찾기</option>
-      </select>
-    </div>
-    <button class="btn primary" id="quizGo" style="margin-top:14px">시작</button>
-  </div>
-  <div id="quizDone" class="card center hidden">
-    <div class="big-emoji" id="quizEmoji">🎯</div>
-    <h2 id="quizResult"></h2>
-    <p class="muted" id="quizResultSub"></p>
-    <button class="btn primary" id="quizRetry" style="margin-top:10px">다시</button>
-    <button class="btn ghost" id="quizHomeBtn" style="margin-top:10px">홈으로</button>
   </div>
 </main>
 
@@ -709,83 +583,6 @@
   </div>
 </main>
 
-<!-- ===== TABLE READING ===== -->
-<main id="view-tablereading" class="view">
-  <div class="study-top"><button class="btn sm ghost" id="trBack">← 항공</button><span id="trCount" class="muted" style="font-size:13px">0 / 0</span><span class="exam-timer" id="trTimer">0:00</span></div>
-  <div class="progressbar" style="margin-bottom:12px"><i id="trBar"></i></div>
-  <div id="trTable"></div>
-  <div id="trQ"></div>
-  <div id="trResult" class="card center hidden">
-    <div class="big-emoji" id="trEmoji">📊</div>
-    <h2 id="trScore"></h2><p class="muted" id="trSub"></p>
-    <button class="btn primary" id="trRetry" style="margin-top:8px">다시</button>
-    <button class="btn ghost" id="trHome" style="margin-top:10px">항공으로</button>
-  </div>
-</main>
-
-<!-- ===== BLOCK COUNTING ===== -->
-<main id="view-blockcounting" class="view">
-  <div class="study-top"><button class="btn sm ghost" id="bcBack">← 항공</button><span id="bcCount" class="muted" style="font-size:13px">0 / 0</span><span class="exam-timer" id="bcTimer">0:00</span></div>
-  <div class="progressbar" style="margin-bottom:12px"><i id="bcBar"></i></div>
-  <div id="bcArea"></div>
-  <div id="bcResult" class="card center hidden">
-    <div class="big-emoji" id="bcEmoji">🧱</div>
-    <h2 id="bcScore"></h2><p class="muted" id="bcSub"></p>
-    <button class="btn primary" id="bcRetry" style="margin-top:8px">다시</button>
-    <button class="btn ghost" id="bcHome" style="margin-top:10px">항공으로</button>
-  </div>
-</main>
-
-<!-- ===== CURRICULUM (커리큘럼 학습) ===== -->
-<main id="view-curriculum" class="view">
-  <div class="study-top"><button class="btn sm ghost" id="currBack">← 홈</button><span>🎓 커리큘럼</span><span></span></div>
-  <div class="guide-hero"><h2 style="font-size:18px">기초부터 차근차근 → 실전 졸업</h2>
-    <div class="fmt">각 단계 <b>10문제 중 8개</b> 이상 맞히면 다음 단계가 열려요. 마지막 단계는 <b>실전 시험 15/25</b> — 통과하면 졸업! 🎯 2주 안에 한 트랙씩 끝내는 걸 추천해요.</div></div>
-  <div class="filters" id="currTabs">
-    <button class="chip on" data-ct="va">🔗 유추</button>
-    <button class="chip" data-ct="wk">📇 단어</button>
-    <button class="chip" data-ct="rc">📖 독해</button>
-  </div>
-  <div id="currStages"></div>
-</main>
-
-<!-- ===== CURRICULUM play ===== -->
-<main id="view-currplay" class="view">
-  <div class="study-top"><button class="btn sm ghost" id="cpBack">← 커리큘럼</button><span id="cpCount">0 / 0</span><span id="cpScore">0점</span></div>
-  <div class="progressbar" style="margin-bottom:14px"><i id="cpBar"></i></div>
-  <div id="cpArea"></div>
-  <div id="cpDone" class="card center hidden">
-    <div class="big-emoji" id="cpEmoji">🎓</div>
-    <h2 id="cpResult"></h2>
-    <p class="muted" id="cpSub"></p>
-    <button class="btn primary" id="cpRetry" style="margin-top:8px">다시 도전</button>
-    <button class="btn ghost" id="cpToCurr" style="margin-top:10px">커리큘럼으로</button>
-  </div>
-</main>
-
-<!-- ===== GENERIC SUBTEST HUB (AR/MK/PS/SJ) ===== -->
-<main id="view-subtest" class="view">
-  <div class="study-top"><button class="btn sm ghost" id="subBack">← 홈</button><span id="subNav"></span><span></span></div>
-  <div class="guide-hero"><h2 id="subTitle"></h2><div class="fmt" id="subFormat"></div></div>
-  <button class="btn primary" id="subExam">🎯 실전 시험 시작 (시간측정)</button>
-  <button class="btn ghost" id="subPractice" style="margin-top:10px">📝 연습 모드 (시간 여유)</button>
-  <button class="btn ghost" id="subGuide" style="margin-top:10px">📘 공부 가이드</button>
-  <div id="subLast" class="muted" style="font-size:12px;text-align:center;margin-top:14px"></div>
-</main>
-
-<!-- ===== INSTRUMENT COMPREHENSION ===== -->
-<main id="view-instrument" class="view">
-  <div class="study-top"><button class="btn sm ghost" id="icBack">← 항공</button><span id="icCount" class="muted" style="font-size:13px">0 / 0</span><span class="exam-timer" id="icTimer">0:00</span></div>
-  <div class="progressbar" style="margin-bottom:12px"><i id="icBar"></i></div>
-  <div id="icArea"></div>
-  <div id="icResult" class="card center hidden">
-    <div class="big-emoji" id="icEmoji">🎚️</div>
-    <h2 id="icScore"></h2><p class="muted" id="icSub"></p>
-    <button class="btn primary" id="icRetry" style="margin-top:8px">다시</button>
-    <button class="btn ghost" id="icHome" style="margin-top:10px">항공으로</button>
-  </div>
-</main>
-
 <!-- ===== CHEAT SHEET (시험 전 요약 시트) ===== -->
 <main id="view-cheatsheet" class="view">
   <div class="study-top"><button class="btn sm ghost" id="csBack">← 뒤로</button><span>📜 시험 전 요약 시트</span><button class="btn sm ghost" id="csPrint">🖨️ 인쇄</button></div>
@@ -812,29 +609,10 @@
       <div class="card tight stat"><div class="num" id="vaMastered">0</div><div class="lbl">마스터</div></div>
       <div class="card tight stat"><div class="num" id="vaAcc">–</div><div class="lbl">정답률</div></div>
     </div>
-    <button class="btn primary" id="vaStart" style="margin-top:16px">▶︎ 유추 연습 시작</button>
-    <button class="synfeed-entry" id="vaFeedBtn" type="button" style="margin-top:10px"><b>∞ 유추 무한 피드</b><small>100문제 SET · 틀리면 5문제 뒤 재도전 · 19초 실전 타이머 옵션</small></button>
+    <button class="synfeed-entry" id="vaFeedBtn" type="button" style="margin-top:16px"><b>∞ 유추 무한 피드</b><small>100문제 SET · 틀리면 5문제 뒤 재도전 · 19초 실전 타이머 옵션</small></button>
+    <button class="btn ghost" id="vaClassify" style="margin-top:10px;border-color:var(--brand2)">🧩 관계 유형 드릴 20문항 (A:B는 어떤 관계?)</button>
     <button class="btn ghost" id="vaBrowse" style="margin-top:10px;border-color:#22c55e">📖 문제 훑어보기 (정답·해설 같이·시간無)</button>
     <button class="btn ghost" id="vaGuide" style="margin-top:10px">📘 유추 공부 가이드</button>
-    <button class="btn ghost" id="vaCurr" style="margin-top:10px">🎓 커리큘럼 (관계 분류부터)</button>
-    <button class="btn ghost" id="vaExam" style="margin-top:10px">🎯 유추 시험 (시간측정)</button>
-    <button class="btn ghost" id="vaReview" style="margin-top:10px">🔁 틀린 문제 복습</button>
-  </div>
-  <div id="vaPlay" class="hidden">
-    <div class="study-top">
-      <button class="btn sm ghost" id="vaBack">← 나가기</button>
-      <span id="vaCount">0 / 0</span>
-      <span id="vaScore">0점</span>
-    </div>
-    <div class="progressbar" style="margin-bottom:14px"><i id="vaSessBar"></i></div>
-    <div id="vaArea"></div>
-  </div>
-  <div id="vaDone" class="card center hidden">
-    <div class="big-emoji" id="vaEmoji">🎯</div>
-    <h2 id="vaResult"></h2>
-    <p class="muted" id="vaResultSub"></p>
-    <button class="btn primary" id="vaRetry" style="margin-top:10px">계속</button>
-    <button class="btn ghost" id="vaHomeBtn" style="margin-top:10px">홈으로</button>
   </div>
   </div>
   <div class="tabpane" data-pane="browse">
@@ -867,7 +645,6 @@
     <div class="card tight stat"><div class="num" id="rcAccTop">–</div><div class="lbl">정답률</div></div>
   </div>
   <button class="btn ghost" id="rcGuide" style="margin-top:14px">📘 독해 공부 가이드</button>
-  <button class="btn ghost" id="rcCurr" style="margin-top:10px">🎓 커리큘럼 (주제 찾기부터)</button>
   <button class="btn ghost" id="rcExam" style="margin-top:10px">🎯 독해 시험 (시간측정)</button>
   <div class="wlist" id="rcList" style="margin-top:14px"></div>
 </main>
@@ -1137,7 +914,6 @@
 <nav class="nav" id="nav">
   <button id="navToggle" class="nav-toggle" aria-label="메뉴 접기">◀</button>
   <button data-go="home" class="on"><span class="ic">🏠</span>홈</button>
-  <button data-go="plan"><span class="ic">🗓️</span>플랜</button>
   <button data-go="vocab"><span class="ic">📇</span>어휘</button>
   <button data-go="analogy"><span class="ic">🔗</span>유추</button>
   <button data-go="reading"><span class="ic">📖</span>독해</button>
