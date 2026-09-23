@@ -1092,3 +1092,10 @@ body.synfeed-mode .toast{left:50%}
   body.print-evidence thead{display:table-header-group}
   @page{margin:14mm}
 }
+
+/* ---------- 허브 안 탭 (교재·문제·용어집 / SET·유형·Barron / 요약·약점·기록 …) ---------- */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 10px;margin:0 0 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:0 0 auto;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:700;white-space:nowrap}
+.tabs button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.tabpane{display:none} .tabpane.active{display:block;animation:fade .2s ease}

@@ -1170,7 +1170,7 @@ async function forceSync(){
    ============================================================ */
 const EV=window.AFOQTEvidence||null;
 const LS_ACT="afoqt_act_open_v1", LS_EV_HEAD="afoqt_ev_head_v1", LS_EV_ARCHIVE="afoqt_ev_archive_v1";
-const VIEW_ACT={guide:"read",avbook:"read",avstudy:"read",avterms:"read",words:"read",cheatsheet:"read",roots:"read",vabrowse:"read",mathtypes:"read",rootcoach:"rootcoach"};
+const VIEW_ACT={guide:"read",words:"read",cheatsheet:"read"};   // 탭 안 읽기 화면은 TAB_ACT(setTab)에서
 let act=null, actLastTouch=0, actPersistTimer=null;
 const tzOffsetMin=()=>-new Date().getTimezoneOffset();
 function evOwn(){ state.evReplicas=state.evReplicas||{}; const id=deviceId();
@@ -1249,7 +1249,29 @@ function evidenceCsv(kind){ if(!EV) return; const day=todayStr();
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vafeed:"analogy",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math",evidence:"stats"};
+const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vafeed:"analogy",passage:"reading",exam:"home",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",math:"math",confirm:"vocab",cheatsheet:"home",evidence:"stats"};
+// 옛 화면 이름 → [부모 화면, 탭]. 흡수된 화면으로 가는 go("report") 같은 호출(다른 브랜치·옛 링크 포함)이 깨지지 않게 하는 안전망.
+const VIEW_ALIAS={themes:["words"],roots:["rootcoach","roots"],avbook:["aviation","book"],avstudy:["aviation","study"],avterms:["aviation","terms"],avflash:["aviation","terms"],
+  mathtypes:["math","types"],barronmath:["math","barron"],report:["stats","weak"],examlog:["stats","log"],vabrowse:["analogy","browse"],plan:["home"],subtest:["math"],
+  curriculum:["home"],currplay:["home"],synq:["synfeed"],quiz:["vocab"],tablereading:["exam"],blockcounting:["exam"],instrument:["exam"]};
+function navParentOf(view){ if(view==="guide") return guideCur==="wk"?"vocab":"home"; return NAVPARENT[view]||view; }
+// 허브 안 탭: 마크업은 [data-tabs="view"] 버튼 + .tabpane[data-pane]. 탭별 렌더러·활동(읽기 화면) 매핑.
+const TAB_DEFAULT={aviation:"hub",math:"sets",stats:"summary",rootcoach:"coach",analogy:"hub"};
+const TAB_RENDER={"aviation:hub":()=>renderAviation(),"aviation:book":()=>renderAvBook(),"aviation:study":()=>renderAvStudy(),"aviation:terms":()=>renderAvTerms(),
+  "math:sets":()=>renderMath(),"math:types":()=>renderMathTypes(),"math:barron":()=>renderBarronMath(),
+  "stats:summary":()=>renderStats(),"stats:weak":()=>renderReport(),"stats:log":()=>{ examLogIdx=null; renderExamLog(); },
+  "rootcoach:coach":()=>renderRootCoach(),"rootcoach:roots":()=>renderRoots(),"analogy:hub":()=>renderAnalogyHub(),"analogy:browse":()=>renderVaBrowse()};
+const TAB_ACT={"aviation:book":"read","aviation:study":"read","aviation:terms":"read","math:types":"read","rootcoach:coach":"rootcoach","rootcoach:roots":"read","analogy:browse":"read"};
+const tabCur={};
+function setTab(view,tab){ const host=$("#view-"+view); if(!host) return; const tabs=$$(`[data-tabs="${view}"] [data-tab]`,host); if(!tabs.length) return;
+  if(!tab||!tabs.some(b=>b.dataset.tab===tab)) tab=tabCur[view]||TAB_DEFAULT[view]||tabs[0].dataset.tab;
+  tabCur[view]=tab;
+  tabs.forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));
+  $$(".tabpane",host).forEach(p=>p.classList.toggle("active",p.dataset.pane===tab));
+  const key=view+":"+tab, type=TAB_ACT[key];
+  if(type){ if(!(act&&act.m&&act.m.v===key)) actStart(type,{v:key}); }
+  else if(act&&act.m&&String(act.m.v||"").startsWith(view+":")) actClose();   // 읽기 탭에서 일반 탭으로
+  const r=TAB_RENDER[key]; if(r) r(); }
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
@@ -1264,7 +1286,9 @@ function renderGuide(){
     ((g.tips&&g.tips.length)?`<div class="guide-tips"><h3>⚡ 빠른 팁</h3><ul>${g.tips.map(t=>`<li>${fmtMath(t)}</li>`).join("")}</ul></div>`:"")+
     ((g.sources&&g.sources.length)?`<div class="guide-src"><b>참고:</b> ${g.sources.map(esc).join(" · ")}</div>`:"");
 }
-function go(view){
+function go(view,opts={}){
+  const alias=VIEW_ALIAS[view]; if(alias&&!$("#view-"+view)){ opts={...opts,tab:alias[1]||opts.tab}; view=alias[0]; }
+  if(!$("#view-"+view)){ console.warn("go: unknown view",view); view="home"; }
   // 활동 시간 추적: 화면이 바뀌면 열린 활동을 닫는다(진행 중 시험은 아래 일시정지 분기에서 ps 표시로 닫음)
   if(act&&act.view!=="view-"+view&&!(exam&&!exam.submitted&&["exam","retest","drill"].includes(act.y))) actClose();
   if(synFeed && view!=="synfeed") pauseSynFeed(); // 독립 피드 이탈 시 현재 문제를 그대로 이어서 저장
@@ -1291,10 +1315,15 @@ function go(view){
   const themeMeta=$("meta[name='theme-color']"); if(themeMeta) themeMeta.setAttribute("content",feedMode?"#080d1d":"#4f46e5");
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
-  const navsel=NAVPARENT[view]||view;
+  const navsel=navParentOf(view);
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,vafeed:renderVaFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath,evidence:renderEvidence}[view]||(()=>{}))();
+  if(!opts.keep){   // keep: 시험 시작처럼 호출자가 직접 화면을 채울 때(렌더러가 방금 만든 상태를 지우지 않게)
+    const R={home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,vafeed:renderVaFeed,
+      analogy:()=>setTab("analogy",opts.tab),reading:renderReading,stats:()=>setTab("stats",opts.tab),exam:renderExamSetup,rootcoach:()=>setTab("rootcoach",opts.tab),guide:renderGuide,
+      aviation:()=>setTab("aviation",opts.tab),subtest:renderSubtest,curriculum:renderCurriculum,confirm:renderConfirmHub,math:()=>setTab("math",opts.tab),autoplay:renderAutoPlaySetup,
+      cheatsheet:renderCheatsheet,evidence:renderEvidence};
+    (R[view]||(()=>{}))(); }
   // 읽기·복습 화면(가이드·교재·단어장…)도 활동으로 남긴다 — 문제를 안 풀어도 공부한 시간이다
   if(VIEW_ACT[view]&&!(act&&act.view==="view-"+view)) actStart(VIEW_ACT[view],{v:view,k:view==="guide"?guideCur:undefined});
 }
@@ -3049,6 +3078,7 @@ function renderAviation(){
 }
 let avtFilter="all", avtSearch="";
 function renderAvTerms(){
+  if(avf&&$("#avfBox")&&!$("#avfBox").classList.contains("hidden")) return;   // 플립 카드 모드 중엔 목록을 다시 그리지 않는다
   let list=AVTERMS.filter(t=>{
     if(avtFilter!=="all"&&t.category!==avtFilter) return false;
     if(avtSearch){ const q=avtSearch.toLowerCase();
@@ -3085,7 +3115,7 @@ let avBookCh=null;
 function renderAvBook(){
   if(avBookCh==null||!AVBOOK.length){  // table of contents
     $("#avbTitle").textContent="📚 항공 교재";
-    $("#avbBack").textContent="← 항공"; $("#avbBack").onclick=()=>go("aviation");
+    $("#avbBack").classList.add("hidden");
     if(!AVBOOK.length){ $("#avbBody").innerHTML=`<div class="card center muted" style="padding:20px">교재 준비 중이에요.</div>`; return; }
     $("#avbBody").innerHTML=`<p class="muted" style="margin:0 0 12px;font-size:13px">업로드한 PDF 교재에서 정리한 항공 지식을 책처럼 읽어보세요. 챕터를 고르면 됩니다.</p>`+
       AVBOOK.map(c=>`<button class="book-toc" data-ch="${c.id}"><span class="tt">${esc(c.title)}</span><span class="muted">${c.sections.length}절 ›</span></button>`).join("");
@@ -3094,7 +3124,7 @@ function renderAvBook(){
   }
   const idx=AVBOOK.findIndex(x=>x.id===avBookCh), c=AVBOOK[idx]||AVBOOK[0];
   $("#avbTitle").textContent=`${idx+1}/${AVBOOK.length}`;
-  $("#avbBack").textContent="← 목차"; $("#avbBack").onclick=()=>{ avBookCh=null; window.scrollTo(0,0); renderAvBook(); };
+  $("#avbBack").classList.remove("hidden"); $("#avbBack").textContent="← 목차"; $("#avbBack").onclick=()=>{ avBookCh=null; window.scrollTo(0,0); renderAvBook(); };
   const prev=idx>0?AVBOOK[idx-1]:null, next=idx<AVBOOK.length-1?AVBOOK[idx+1]:null;
   $("#avbBody").innerHTML=
     `<h2 class="book-title">${esc(c.title)}</h2>`+
@@ -3113,8 +3143,10 @@ let avf=null;
 function startAvFlash(){
   if(!AVTERMS.length) return;
   avf={items:shuffle(AVTERMS),idx:0,flipped:false};
+  $("#avtBrowse").classList.add("hidden"); $("#avfBox").classList.remove("hidden");
   renderAvFlash();
 }
+function avFlashClose(){ avf=null; $("#avfBox").classList.add("hidden"); $("#avtBrowse").classList.remove("hidden"); }
 function renderAvFlash(){
   const s=avf; if(!s) return; const t=s.items[s.idx];
   $("#avfCount").textContent=`${s.idx+1} / ${s.items.length}`;
@@ -3129,7 +3161,7 @@ function renderAvFlash(){
   $("#avfNext").onclick=avfNext;
   $("#avfPrev").onclick=()=>{ if(s.idx>0){ s.idx--; s.flipped=false; renderAvFlash(); } };
 }
-function avfNext(){ const s=avf; if(s.idx<s.items.length-1){ s.idx++; s.flipped=false; renderAvFlash(); } else { toast("용어 카드 끝! 🎉"); go("aviation"); } }
+function avfNext(){ const s=avf; if(s.idx<s.items.length-1){ s.idx++; s.flipped=false; renderAvFlash(); } else { toast("용어 카드 끝! 🎉"); avFlashClose(); } }
 
 /* ============================================================
    TABLE READING (Pilot subtest — procedural)
@@ -3689,7 +3721,8 @@ let mathStyleOpenSec="AR";
 function isMathStyleKey(key){ return /^mathstyle_(ar|mk)_v\d+_[a-z0-9_]+$/.test(String(key||"")); }
 function isMathFullKey(key){ return /^mathfull_(ar|mk)_v\d+_[a-z0-9_]+$/.test(String(key||"")); }
 function isBarronMathKey(key){ return isMathStyleKey(key)||isMathFullKey(key); }
-function mathExamReturnView(key){ return isBarronMathKey(key)?"barronmath":isMathBankKey(key)?"math":"home"; }
+function mathExamReturnView(key){ return isBarronMathKey(key)?["math","barron"]:isMathBankKey(key)?["math","sets"]:["home"]; }
+function goExamReturn(key){ const r=mathExamReturnView(key); go(r[0],{tab:r[1]}); }
 function mathStyleData(sec){ return sec==="AR"?BARRON_AR:sec==="MK"?BARRON_MK:null; }
 function mathStyleTypes(sec){ const d=mathStyleData(sec); return d&&Array.isArray(d.types)?d.types:[]; }
 function mathStyleQuestions(sec){ const d=mathStyleData(sec); return d&&Array.isArray(d.questions)?d.questions:[]; }
@@ -5402,14 +5435,7 @@ function renderStats(){
           return `<div class="badge ${on?"on":"off"}" title="${esc(b.d||b.name)}"><div class="bi">${b.icon}</div><div class="bn">${esc(b.name)}</div></div>`;
         }).join("")}</div></div>`;
     }).join(""); }
-  const left=daysLeft(),rem=cnt.remaining,pace=newPerDay(),fin=pace?Math.ceil(rem/pace):0,ok=fin<=left;
-  const todayDueN=dueCards().length, todayNewN=Math.min(pace,rem), todayN=todayDueN+todayNewN;
-  $("#projection").innerHTML=rem===0?`<div class="center"><div class="big-emoji">🏁</div><b>모든 단어 학습 완료!</b><div class="muted">이제 복습으로 마스터하세요.</div></div>`
-    :`📅 <b>오늘은 ${todayN}개</b> (복습 ${todayDueN} + 신규 ${todayNewN})<br>
-      남은 단어 <b>${rem}</b>개 · 시험까지 <b>${left}</b>일<br>이 페이스(신규 ${pace}/일)면 <b>약 ${fin}일</b>에 1회독.<br>
-      <span style="color:${ok?'var(--ok)':'var(--warn)'}">${ok?'✅ 일정 내 완주 가능!':'⚠️ 하루 신규 단어를 늘리면 더 안전해요.'}</span>
-      <div class="muted" style="font-size:12px;margin-top:6px">⏳ 쉬는 날엔 남은 단어는 그대로, 남은 일수만 줄어서 다음날 개수가 자동으로 늘어나요.</div>`;
-  renderComposite(); renderExamTrend(); renderSpeedStats(); renderWeakness();
+  renderComposite(); renderExamTrend(); renderSpeedStats();
 }
 // 과목별 평균 풀이 속도 vs 실전 배분 시간 (누적)
 function renderSpeedStats(){
@@ -5469,7 +5495,7 @@ function repBar(label,o,drill){ const p=accPct(o); const n=(o?.c||0)+(o?.w||0); 
   const btn=drill?`<button class="drillbtn" data-drill="${esc(drill)}">${styleDrill?"유형 연습":"20문제"} ›</button>`:"";
   return `<div class="rep-row ${drill?"has-drill":""}"><div class="lab"><span>${esc(label)}</span><span class="muted">${p}% · ${o.w||0}틀림/${n}</span></div>
     <div class="row" style="gap:8px;align-items:center"><div class="progressbar mini" style="flex:1"><i style="width:${p}%;background:${col}"></i></div>${btn}</div></div>`; }
-function openReport(){ go("report"); }
+function openReport(){ go("stats",{tab:"weak"}); }
 function renderReport(){
   const box=$("#repBody"); if(!box) return;
   const subs=SUBTESTS.filter(s=>!(pilotPerfect()&&PILOT_VISUAL.includes(s.code)))
@@ -5544,7 +5570,7 @@ function renderExamLog(){
   const h=(state.examHist||[]).slice().reverse();
   if(examLogIdx==null){
     $("#elTitle").textContent="📋 지난 시험 기록";
-    $("#elBack").textContent="← 통계"; $("#elBack").onclick=()=>go("stats");
+    $("#elBack").classList.add("hidden");
     if(!h.length){ $("#elBody").innerHTML=`<div class="card center muted" style="padding:20px">아직 본 시험이 없어요.<br>모의고사를 보면 여기에 기록이 남아요.</div>`; return; }
     $("#elBody").innerHTML=`<div class="muted" style="font-size:12px;margin-bottom:10px">총 ${h.length}회 · 문항별 해설은 최근 10회까지 볼 수 있어요.</div>`+
       h.map((x,i)=>{ const pct=Math.round(x.acc*100);
@@ -5559,7 +5585,7 @@ function renderExamLog(){
   }
   const x=h[examLogIdx]; if(!x){ examLogIdx=null; return renderExamLog(); }
   $("#elTitle").textContent=`${x.date} · ${Math.round(x.acc*100)}%`;
-  $("#elBack").textContent="← 목록"; $("#elBack").onclick=()=>{ examLogIdx=null; window.scrollTo(0,0); renderExamLog(); };
+  $("#elBack").classList.remove("hidden"); $("#elBack").textContent="← 목록"; $("#elBack").onclick=()=>{ examLogIdx=null; window.scrollTo(0,0); renderExamLog(); };
   const secs=Object.keys(x.bySec||{}).map(k=>`<div class="s"><b>${x.bySec[k].got}/${x.bySec[k].total}</b><span>${EXAM_SECKO[k]||k}</span></div>`).join("");
   let head=`<div class="card center">
       <div style="font-size:13px;color:var(--muted)">${esc(x.name||x.key||"모의고사")}</div>
@@ -5612,26 +5638,6 @@ function renderExamTrend(){
       <span class="pill">최고 <b>${Math.round(best*100)}%</b></span>
       <span class="pill">응시 <b>${h.length}</b>회</span></div>`;
 }
-function renderWeakness(){
-  const box=$("#weakAnalysis");
-  const relName=r=>r, typeName={main_idea:"주제",detail:"세부사항",inference:"추론",vocab_in_context:"문맥 어휘",tone_purpose:"어조/목적"},
-        tierName={high:"고빈출(high)",mid:"중요(mid)",std:"일반(std)"};
-  const collect=(obj,namer)=>Object.keys(obj).map(k=>{const o=obj[k],t=o.c+o.w;return{k,name:namer(k),acc:t?o.c/t:0,t,w:o.w};}).filter(x=>x.t>=2);
-  const va=collect(state.weak.vaRel,relName).sort((a,b)=>a.acc-b.acc).slice(0,4);
-  const rc=collect(state.weak.rcType,k=>typeName[k]||k).sort((a,b)=>a.acc-b.acc).slice(0,4);
-  const wk=collect(state.weak.wkTier,k=>tierName[k]||k).sort((a,b)=>a.acc-b.acc);
-  if(!va.length&&!rc.length&&!wk.length){ box.innerHTML=`<div class="center muted" style="padding:8px">모의고사를 풀면 유형별 정답률을 분석해 약점을 알려드려요.</div>`; return; }
-  const bar=x=>{const p=Math.round(x.acc*100),col=p<50?"var(--bad)":p<75?"var(--warn)":"var(--ok)";
-    return `<div style="margin:6px 0"><div class="row" style="justify-content:space-between;font-size:12px"><span>${esc(x.name)}</span><span class="muted">${p}% · ${x.w}틀림</span></div>
-      <div class="progressbar mini"><i style="width:${p}%;background:${col}"></i></div></div>`;}
-  let html="";
-  if(wk.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:2px 0 4px">단어 등급별</div>`+wk.map(bar).join(""); }
-  if(va.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:10px 0 4px">유추 — 약한 관계 유형</div>`+va.map(bar).join(""); }
-  if(rc.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:10px 0 4px">독해 — 약한 문제 유형</div>`+rc.map(bar).join(""); }
-  const worst=[...va,...rc,...wk].sort((a,b)=>a.acc-b.acc)[0];
-  if(worst) html+=`<div class="hintbox" style="margin-top:12px">💡 가장 약한 부분: <b>${esc(worst.name)}</b> (${Math.round(worst.acc*100)}%). 집중 연습을 추천해요.</div>`;
-  box.innerHTML=html;
-}
 
 /* ============================================================
    SHEETS / SETTINGS
@@ -5676,7 +5682,7 @@ function softRender(){
   // sync echo must not reset the analogy/reading view and kick the user out.
   if(sessionActive()) return;
   const a=$(".view.active")?.id;
-  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-math":renderMath,"view-barronmath":renderBarronMath,"view-stats":renderStats}[a]||(()=>{}))(); }
+  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-math":()=>setTab("math"),"view-aviation":()=>setTab("aviation"),"view-stats":()=>setTab("stats"),"view-stats":renderStats}[a]||(()=>{}))(); }
 window.__softRender=softRender; // test/debug hook
 
 /* ============================================================
@@ -5695,7 +5701,7 @@ function wire(){
     if(!changed) return;
     flushSynFeedKeepalive(true); syncCodeMismatch=true; clearTimeout(saveTimer); saveTimer=null; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0;
     clearTimeout(pullRetryTimer); pullRetryTimer=null; toast("동기화 설정이 바뀌어 안전하게 다시 불러옵니다."); location.reload(); });
-  $$("#nav button[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  $$("#nav button[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go,{tab:TAB_DEFAULT[b.dataset.go]}));   // 하단 탭은 항상 허브의 기본 탭으로
   // 사이드바 접기/펴기(넓은 화면). 상태 기억.
   const applyNavCollapsed=()=>{ const c=localStorage.getItem("afoqt_nav_collapsed")==="1";
     document.body.classList.toggle("nav-collapsed",c); const t=$("#navToggle"); if(t){ t.textContent=c?"▶":"◀"; t.setAttribute("aria-label",c?"메뉴 펴기":"메뉴 접기"); } };
@@ -5710,13 +5716,9 @@ function wire(){
   $("#btnCurr").onclick=()=>openCurriculum();
   $("#vkCurr").onclick=()=>openCurriculum("wk"); $("#vaCurr").onclick=()=>openCurriculum("va"); $("#rcCurr").onclick=()=>openCurriculum("rc");
   $("#currBack").onclick=()=>go("home");
-  $("#repBack").onclick=()=>go("stats"); $("#btnReport")&&($("#btnReport").onclick=openReport); $("#repOpen")&&($("#repOpen").onclick=openReport);
-  $("#btnExamLog")&&($("#btnExamLog").onclick=()=>{ examLogIdx=null; go("examlog"); });
-  // 수학 유형별 공략
-  $("#btnMathTypes")&&($("#btnMathTypes").onclick=()=>go("mathtypes"));
-  $("#mtBack")&&($("#mtBack").onclick=()=>go("math"));
-  $("#btnBarronMath")&&($("#btnBarronMath").onclick=()=>go("barronmath"));
-  $("#bmBack")&&($("#bmBack").onclick=()=>go("math"));
+  $("#btnReport")&&($("#btnReport").onclick=openReport);
+  // 허브 안 탭 전환
+  $$("[data-tabs] [data-tab]").forEach(b=>b.onclick=()=>setTab(b.closest("[data-tabs]").dataset.tabs,b.dataset.tab));
   // 요약 시트
   $("#btnCheatsheet")&&($("#btnCheatsheet").onclick=()=>openCheatsheet("exam"));
   $("#btnCheatsheet2")&&($("#btnCheatsheet2").onclick=()=>openCheatsheet("stats"));
@@ -5761,7 +5763,7 @@ function wire(){
   $("#synqBack").onclick=()=>{ synq=null; go("vocab"); }; $("#synqStop").onclick=()=>{ synq=null; renderSynQuiz(); };
   $("#vkAuto").onclick=()=>go("autoplay"); $("#apBack").onclick=()=>go("vocab"); $("#apGo").onclick=startAutoPlay;
   $("#apPlay").onclick=apTogglePlay; $("#apPrev").onclick=()=>apManual(-1); $("#apNext").onclick=()=>apManual(1);
-  $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
+  $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("rootcoach",{tab:"roots"});
   $("#vkThemes")&&($("#vkThemes").onclick=()=>go("themes"));
   $("#themeBack")&&($("#themeBack").onclick=()=>go("vocab"));
   $$('input[name="themePriority"]').forEach(x=>x.onchange=e=>{ if(!e.target.checked) return;
@@ -5770,13 +5772,12 @@ function wire(){
     state.settings.verbal_theme_mode=e.target.value; themeExpandedCode=null; saveLocal(); queuePush("settings",{}); renderThemes(); });
   $("#vkGuide").onclick=()=>openGuide("wk"); $("#vaGuide").onclick=()=>openGuide("va"); $("#rcGuide").onclick=()=>openGuide("rc");
   // aviation
-  $("#avFlash").onclick=()=>go("avflash"); $("#avGlossary").onclick=()=>go("avterms");
-  $("#avStudy").onclick=()=>go("avstudy"); $("#avsBack").onclick=()=>go("aviation");
-  $("#avBook").onclick=()=>{ avBookCh=null; go("avbook"); };
+  $("#avFlash").onclick=()=>{ setTab("aviation","terms"); startAvFlash(); }; $("#avfBack").onclick=avFlashClose;
+  $("#avStudy").onclick=()=>setTab("aviation","study");
+  $("#avBook").onclick=()=>{ avBookCh=null; setTab("aviation","book"); };
   $("#avsSearch").oninput=e=>{ avsSearch=e.target.value.trim(); renderAvStudy(); };
   $$("#avsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#avsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); avsFilter=c.dataset.as; renderAvStudy(); });
   $("#avExam").onclick=()=>startExam("av"); $("#avGuide").onclick=()=>openGuide("av");
-  $("#avtBack").onclick=()=>go("aviation"); $("#avfBack").onclick=()=>go("aviation");
   $("#trStart").onclick=startTableReading; $("#trGuide").onclick=()=>openGuide("tr");
   $("#trBack").onclick=()=>{ trTimerStop(); trState=null; go("aviation"); }; $("#trRetry").onclick=startTableReading; $("#trHome").onclick=()=>{ trState=null; go("aviation"); };
   $("#bcStart").onclick=startBlockCounting; $("#bcGuide").onclick=()=>openGuide("bc");
@@ -5787,7 +5788,6 @@ function wire(){
   $("#importFile").onchange=e=>{ if(e.target.files&&e.target.files[0]) importProgress(e.target.files[0]); e.target.value=""; };
   $("#avtSearch").oninput=e=>{ avtSearch=e.target.value.trim(); renderAvTerms(); };
   $$("#avtFilters .chip").forEach(c=>c.onclick=()=>{ $$("#avtFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); avtFilter=c.dataset.af; renderAvTerms(); });
-  $("#rootsBack").onclick=()=>go("vocab");
   $("#rootsSearch").oninput=e=>{ rootSearch=e.target.value.trim(); renderRoots(); };
   $$("#rootsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#rootsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); rootFilter=c.dataset.rf; renderRoots(); });
   // root coach
@@ -5800,10 +5800,10 @@ function wire(){
   $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
   $("#examExit").onclick=()=>go("home");
   $("#examQuit").onclick=()=>{ if(!exam||exam.submitted||confirm("시험을 그만두고 나갈까요? 기록은 저장되지 않아요.")){
-    const back=exam?mathExamReturnView(exam.key):"home"; stopExamTimer(); clearExamSnap(); examReleaseWake();
+    const back=exam?mathExamReturnView(exam.key):["home"]; stopExamTimer(); clearExamSnap(); examReleaseWake();
     if(exam&&act&&["exam","retest","drill"].includes(act.y)){ const ans=exam.answers.filter(a=>a!=null).length;
       actEnd({y:"exam_abandoned",k:exam.key||examKindOf(exam),n:ans,t:exam.total,m:{kd:examKindOf(exam),ans,tot:exam.total}}); }
-    exam=null; go(back); } };
+    exam=null; go(back[0],{tab:back[1]}); } };
   $("#examPrev").onclick=()=>{ if(!exam) return; const s=curExamSec(), lo=s?s.from:0;
     if(exam.idx>lo){ exam.idx--; renderExamQ(); } };
   $("#examNext").onclick=()=>{ if(!exam) return; const s=curExamSec(), hi=s?s.to:exam.total-1;
@@ -5819,7 +5819,7 @@ function wire(){
       startExam(exam.key);
     } else go("exam"); };
   $("#retestAll").onclick=()=>startRetest("all");
-  $("#examDoneHome").onclick=()=>go(exam?mathExamReturnView(exam.key):"home");
+  $("#examDoneHome").onclick=()=>{ if(exam) goExamReturn(exam.key); else go("home"); };
   $("#optHighFirst").onchange=e=>{ state.settings.high_first=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optShowKo")&&($("#optShowKo").onchange=e=>{ state.settings.hide_ko=!e.target.checked; saveLocal(); queuePush("settings",{});
@@ -5864,7 +5864,7 @@ function wire(){
   // analogy
   $("#vaStart").onclick=()=>startAnalogy(false); $("#vaReview").onclick=()=>startAnalogy(true);
   $("#vaExam").onclick=()=>startExam("va");
-  $("#vaBrowse").onclick=()=>go("vabrowse"); $("#vabBack").onclick=()=>go("analogy");
+  $("#vaBrowse").onclick=()=>setTab("analogy","browse");
   $("#vabSearch").oninput=e=>{ vaBrowseSearch=e.target.value.trim(); renderVaBrowse(); };
   $$("#vabFilters .chip").forEach(c=>c.onclick=()=>{ $$("#vabFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); vaBrowseFilter=c.dataset.vr; renderVaBrowse(); });
   $("#vaBack").onclick=()=>{ vaSession=null; renderAnalogyHub(); }; $("#vaRetry").onclick=()=>startAnalogy(false); $("#vaHomeBtn").onclick=()=>go("home");
