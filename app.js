@@ -1215,6 +1215,21 @@ function examKindOf(e){ if(!e) return "preset"; if(e.kind) return e.kind; const 
 function examActType(e){ const k=examKindOf(e); return k==="retest"?"retest":(k==="drill"||k==="learn")?"drill":"exam"; }
 function examActStart(resumed){ const e=exam; if(!e) return; actStart(examActType(e),{k:String(e.key||""),kd:examKindOf(e),rid:e.runId,rs:resumed?1:0}); }
 function evArchiveRead(){ try{ const a=JSON.parse(localStorage.getItem(LS_EV_ARCHIVE)||"[]"); return Array.isArray(a)?a:[]; }catch{ return []; } }
+// 60일보다 오래된 이벤트는 state 밖(아카이브 키)으로 옮긴다 — 매 저장마다 stringify되는 state를 작게 유지.
+// 아카이브 쓰기가 실패(용량)하면 state의 이벤트를 절대 버리지 않는다.
+const EV_HOT_DAYS=60;
+function evRollArchive(){ if(!EV||!state||!state.evReplicas) return;
+  const cutoff=Math.round(Date.now()/1000)-EV_HOT_DAYS*86400, r=EV.rollArchive(state.evReplicas,evArchiveRead(),cutoff); if(!r.moved) return;
+  try{ localStorage.setItem(LS_EV_ARCHIVE,JSON.stringify(r.archive)); state.evReplicas=r.replicas; saveNow(); }
+  catch(e){ console.warn("evidence archive write failed — events kept in state",e); } }
+// 상세 기록(v4.150) 이전 구간(공식 응시일 ~ 이 기기 설치 전날)을 기존 일별 카운터·시험 기록에서 1회 재구성.
+// 결정적 id(L-d-날짜 / L-x-ts)라 두 기기가 만들어도 집계에서 한 번만 센다. 시간은 플래시카드·시험만 있던 값이다.
+function evLegacyImport(){ if(!EV||!state||state.evLegacyDone) return;
+  const attempt=state.settings.official_attempt_date, install=state.evInstalledAt||todayStr();
+  const fields=EV.legacyImport({daily:state.daily,dayStats:state.dayStats,synDays:(state.synFeedStats||{}).days,vaDays:(state.vaFeedStats||{}).days,apExposure:state.apExposure,examHist:state.examHist},
+    {attemptDate:attempt,installDay:install,z:tzOffsetMin()});
+  for(const f of fields) evAppend(f);
+  state.evLegacyDone=1; saveNow(); }
 function downloadFile(body,name,type){ const url=URL.createObjectURL(new Blob([body],{type})),a=document.createElement("a");
   a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000); }
 // 리포트 입력은 화이트리스트 객체만 — state 전체(동기화 코드·키 포함)를 넘기지 않는다
@@ -6134,6 +6149,8 @@ async function boot(){
       registerMathStylePresets(); registerMathFullPresets(); }
     PHYSCI=await loadJSON("./physicalscience.json")||[];
     SITJUD=await loadJSON("./situational.json")||[];
+    evRollArchive();   // 60일 지난 증거 이벤트는 아카이브로
+    evLegacyImport();  // 첫 실행: 응시일~설치 전날을 기존 기록에서 재구성
     actRecover();   // 이전 실행이 강제 종료됐으면 열려 있던 활동을 마지막 계산 시각으로 마감
     try{ const note=JSON.parse(localStorage.getItem("afoqt_ev_note_v1")||"null"); localStorage.removeItem("afoqt_ev_note_v1");
       if(note&&note.y){ const now=Math.round(Date.now()/1000); evAppend({y:String(note.y),s:now,e:now,z:tzOffsetMin(),m:note.m||{}}); } }catch{}

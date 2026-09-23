@@ -218,7 +218,9 @@ function legacyImport(src, opts){
     const kd=h.kind||(key.startsWith("mock_")?"mock":key==="retest"?"retest":h.learn?"learn":h.practice?"practice":!key?"picked":"preset");
     const bs={}; if(isObj(h.bySec)) for(const k of Object.keys(h.bySec).sort()) bs[str(k,4)]=[int(h.bySec[k].got),int(h.bySec[k].total)];
     const m={kd,ts:h.ts,cs:secs}; if(h.name) m.nm=str(h.name,40); if(h.practice) m.pr=1; if(h.learn) m.ln=1; if(Object.keys(bs).length) m.bs=bs; if(Array.isArray(h.skipped)&&h.skipped.length) m.sk=h.skipped.slice(0,12);
-    out.push({i:"L-x-"+h.ts,y:"legacy_exam",s:Math.max(0,end-secs),e:end,z,a:secs,n:int(h.total),c:int(h.got),k:key||"retest",sc:int(h.got),t:int(h.total),r:key.startsWith("mock_")?"m":"L",m}); }
+    // 시험 기록은 실제 제출 시각이 있는 원본이라 '재구성(L)' 표시 대신 legacy_exam 타입으로만 구분한다(mock 출처는 유지)
+    const f={i:"L-x-"+h.ts,y:"legacy_exam",s:Math.max(0,end-secs),e:end,z,a:secs,n:int(h.total),c:int(h.got),k:key||"retest",sc:int(h.got),t:int(h.total),m};
+    if(key.startsWith("mock_")) f.r="m"; out.push(f); }
   return out; }
 
 /* ---------- 리포트 모델 (입력은 화이트리스트 객체만 — 동기화 코드·키가 들어올 자리가 없다) ---------- */
