@@ -6,7 +6,7 @@
 (() => {
 "use strict";
 
-const VERSION = "4.150.0";
+const VERSION = "5.0.0";
 const CFG = window.AFOQT_CONFIG || {};
 const LS = { state:"afoqt_state_v2", code:"afoqt_sync_code", device:"afoqt_device_id", synfeed:"afoqt_synfeed_checkpoint_v1", import:"afoqt_import_handoff_v1", url:"afoqt_sb_url", key:"afoqt_sb_key" };
 
@@ -182,6 +182,7 @@ const DEFAULT_STATE = () => ({
   synFeedReplicaVersion:1,
   synFeedSyncCode:"", // 다른 동기화 코드의 로컬 checkpoint가 섞이지 않게 소유 코드 기록
   examHist:[], // 점수 추이: {key,date,got,total,acc,pctile,ts}
+  wrongTs:{},  // 오답노트 항목별 마지막 변경 시각 'wk:123' -> ms (삭제도 변경) — 기기 간 union이 지운 항목을 되살리지 않게
   evReplicas:{}, // 학습 증거 로그: deviceId -> {v,n,head,ev:[...],updated_at} (append-only 해시 체인)
   evSnapDay:"",  // 오늘 진도 스냅샷을 남겼는지
   evLegacyDone:0, evInstalledAt:"", // 재구성 이벤트 생성 여부 · 이 기기 최초 실행일
@@ -292,7 +293,7 @@ function loadLocal(){
   try{ state=JSON.parse(localStorage.getItem(LS.state))||DEFAULT_STATE(); }catch{ state=DEFAULT_STATE(); }
   const d=DEFAULT_STATE();
   state.cards=state.cards||{}; state.va=state.va||{}; state.rc=state.rc||{}; state.daily=state.daily||{}; state.exams=state.exams||{};
-  state.wrong=Object.assign({wk:{},va:{},rc:{},ar:{},mk:{},ps:{},av:{}},state.wrong||{});
+  state.wrong=Object.assign({wk:{},va:{},rc:{},ar:{},mk:{},ps:{},av:{}},state.wrong||{}); state.wrongTs=state.wrongTs&&typeof state.wrongTs==="object"?state.wrongTs:{};
   state.weak=Object.assign({vaRel:{},rcType:{},wkTier:{},topic:{}},state.weak||{});
   state.wkSeen=state.wkSeen||{}; state.avp=state.avp||{}; state.qSeen=Object.assign({ar:{},mk:{},ps:{}},state.qSeen||{}); state.secAcc=state.secAcc||{}; state.curr=state.curr||{}; state.checklist=state.checklist||{}; state.apExposure=state.apExposure||{}; state.badges=state.badges||{}; state.dayStats=state.dayStats||{};
   state.examHist=state.examHist||[];
@@ -413,7 +414,10 @@ function isCardDue(c,t=Date.now()){ return !!(c&&c.status!=="new"&&c.verify!=="p
 function dueCards(){ const t=Date.now(),out=[]; for(const w of WORDS){ const c=state.cards[w.id]; if(isCardDue(c,t)) out.push(w.id);} return out; }  // verified는 최종 스윕에서만 재확인 (확인 허브 안내와 일치)
 function newCardIds(limit){
   let cand=newPool();
-  if(flag("high_first")) cand=[...cand].sort((a,b)=>(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)])||a.id-b.id);
+  // 피드·시험에서 틀린 미학습 단어가 있으면 다음 신규 덱 선두로(H4) — 그 다음 tier 우선
+  const wrong=state.wrong.wk||{}, pri=w=>wrong[w.id]?0:1;
+  if(flag("high_first")) cand=[...cand].sort((a,b)=>(pri(a)-pri(b))||(TIERRANK[tierOf(a)]-TIERRANK[tierOf(b)])||a.id-b.id);
+  else cand=[...cand].sort((a,b)=>pri(a)-pri(b));
   return cand.slice(0,limit).map(w=>w.id);
 }
 function plannedToday(){ return dueCards().length + Math.min(newPerDay(), newWordsRemaining()); }  // 신규가 바닥나면 목표도 같이 줄어야 링/스트릭 달성 가능
@@ -639,7 +643,7 @@ function renderConfirm(){
     if(q.sweep) gradeSweep(id,ok); else gradeConfirm(id,ok,isRecheck);
     if(ok) q.score++;
     actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
-    setTimeout(()=>{ q.idx++; renderConfirm(); }, ok?550:1300);
+    setTimeout(()=>{ if(confirmQuiz!==q) return; q.idx++; renderConfirm(); }, ok?550:1300);   // 답 직후 나가면 렌더하지 않는다
   });
 }
 let confirmMode="confirm"; // 마지막으로 실행한 모드 — '다시' 버튼용
@@ -930,13 +934,17 @@ function mergeSettings(r){ const rt=syncTime(r.updated_at); if(rt&&rt<=settingsS
 function syncedExamHistory(){ return state.examHist.map(h=>{
   if(!h||!h.items) return h; const summary={...h}; delete summary.items; return summary; }); }
 function miscBlob(){ return {exams:state.exams,wrong:state.wrong,weak:state.weak,secAcc:state.secAcc,
-  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,examHist:syncedExamHistory(),curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt,vaFeedSession:state.vaFeedSession||null,vaFeedStats:state.vaFeedStats||null}; }
+  wkSeen:state.wkSeen,avp:state.avp,qSeen:state.qSeen,wrongTs:state.wrongTs||{},examHist:syncedExamHistory(),curr:state.curr,checklist:state.checklist,apExposure:state.apExposure,badges:state.badges,dayStats:state.dayStats,plan30:state.plan30,speed:state.speed,sweepAt:state.sweepAt,vaFeedSession:state.vaFeedSession||null,vaFeedStats:state.vaFeedStats||null}; }
 function mergeMisc(d){
   if(!d) return;
   // VA 피드: 진행(count)이 더 큰 쪽, 같으면 최신 저장본. 통계는 필드별 최대.
   if(d.vaFeedSession&&typeof d.vaFeedSession==="object"){ const r=d.vaFeedSession,c=state.vaFeedSession;
     const rc=safeSynFeedCount(r.count),cc=safeSynFeedCount(c&&c.count);
-    if(!c||rc>cc||(rc===cc&&syncTime(r.updatedAt)>syncTime(c.updatedAt))) state.vaFeedSession=cloneSynFeedSession(r); }
+    // run이 다르면(한쪽에서 '처음부터') 더 늦게 시작한 run이 이긴다(M15); 같은 run이면 진행(count) 큰 쪽, 동률이면 최신 저장본
+    const rRun=r.runId||"",cRun=(c&&c.runId)||"", differentRun=!!(c&&rRun!==cRun);
+    if(!c) state.vaFeedSession=cloneSynFeedSession(r);
+    else if(differentRun){ if(syncTime(r.startedAt)>syncTime(c.startedAt)) state.vaFeedSession=cloneSynFeedSession(r); }
+    else if(rc>cc||(rc===cc&&syncTime(r.updatedAt)>syncTime(c.updatedAt))) state.vaFeedSession=cloneSynFeedSession(r); }
   if(d.vaFeedStats) state.vaFeedStats=mergeSynFeedStats(state.vaFeedStats,d.vaFeedStats);
   // exams: 최고점과 최근 회차를 따로 병합한다. 최근 회차는 updated_at 기준이라
   // 최고점보다 낮게 다시 응시해도 다른 기기의 카드에 정확히 반영된다.
@@ -962,7 +970,13 @@ function mergeMisc(d){
   // sets: union
   ["wkSeen","avp"].forEach(key=>{ Object.assign(state[key], d[key]||{}); });
   ["ar","mk","ps"].forEach(k=>{ Object.assign(state.qSeen[k]||(state.qSeen[k]={}), (d.qSeen||{})[k]||{}); });
-  ["wk","va","rc","ar","mk","ps","av"].forEach(g=>{ Object.assign(state.wrong[g]||(state.wrong[g]={}), (d.wrong||{})[g]||{}); });
+  // 오답노트: 항목별 마지막 변경 시각(wrongTs)이 더 최신인 쪽의 존재/부재를 채택 — 맞혀서 지운 항목이 다른 기기 union으로 되살아나지 않는다(H2)
+  { const lt=state.wrongTs=state.wrongTs||{}, rt=(d.wrongTs&&typeof d.wrongTs==="object")?d.wrongTs:{};
+    ["wk","va","rc","ar","mk","ps","av"].forEach(g=>{ const L=state.wrong[g]||(state.wrong[g]={}), R=(d.wrong||{})[g]||{};
+      for(const id of new Set([...Object.keys(L),...Object.keys(R)])){ const k=g+":"+id, a=lt[k]||0, b=rt[k]||0;
+        if(b>a){ if(R[id]!=null) L[id]=R[id]; else delete L[id]; lt[k]=b; }
+        else if(a===0&&b===0&&R[id]!=null&&L[id]==null) L[id]=R[id];   // 둘 다 시각이 없는 옛 데이터: 기존 union
+        else if(a>=b&&R[id]!=null&&L[id]!=null) L[id]=Math.max(L[id],R[id]); } }); }
   // exam history: union by ts, keep last 200
   const seen=new Set(state.examHist.map(x=>x.ts));
   (d.examHist||[]).forEach(x=>{ if(!seen.has(x.ts)){ state.examHist.push(x); seen.add(x.ts); } });
@@ -981,7 +995,8 @@ function mergeMisc(d){
     if(!state.plan30) state.plan30={start:d.plan30.start,done:{}};
     if(dayDiff(d.plan30.start, state.plan30.start)>0) state.plan30.start=d.plan30.start;
     state.plan30.done=state.plan30.done||{};
-    for(const day in (d.plan30.done||{})) state.plan30.done[day]=Object.assign(state.plan30.done[day]||{}, d.plan30.done[day]); }
+    for(const day in (d.plan30.done||{})){ const L=state.plan30.done[day]=state.plan30.done[day]||{}, R=d.plan30.done[day]||{};
+      for(const k in R){ const a=Number(L[k])||0, b=Number(R[k])||0; if(Math.abs(b)>Math.abs(a)) L[k]=b; } } }
 }
 
 function handleCardRealtime(r){ noteServerRow("vocab_state",r.word_id,r.updated_at);
@@ -1170,7 +1185,7 @@ async function forceSync(){
    ============================================================ */
 const EV=window.AFOQTEvidence||null;
 const LS_ACT="afoqt_act_open_v1", LS_EV_HEAD="afoqt_ev_head_v1", LS_EV_ARCHIVE="afoqt_ev_archive_v1";
-const VIEW_ACT={guide:"read",avbook:"read",avstudy:"read",avterms:"read",words:"read",cheatsheet:"read",roots:"read",vabrowse:"read",mathtypes:"read",rootcoach:"rootcoach"};
+const VIEW_ACT={guide:"read",words:"read",cheatsheet:"read"};   // 탭 안 읽기 화면은 TAB_ACT(setTab)에서
 let act=null, actLastTouch=0, actPersistTimer=null;
 const tzOffsetMin=()=>-new Date().getTimezoneOffset();
 function evOwn(){ state.evReplicas=state.evReplicas||{}; const id=deviceId();
@@ -1249,12 +1264,35 @@ function evidenceCsv(kind){ if(!EV) return; const day=todayStr();
 /* ============================================================
    NAVIGATION
    ============================================================ */
-const NAVPARENT={study:"vocab",quiz:"vocab",words:"vocab",themes:"vocab",roots:"vocab",rootcoach:"vocab",guide:"vocab",autoplay:"vocab",synq:"vocab",synfeed:"vocab",vafeed:"analogy",vabrowse:"analogy",passage:"reading",exam:"home",avterms:"aviation",avstudy:"aviation",avbook:"aviation",avflash:"aviation",tablereading:"aviation",blockcounting:"aviation",instrument:"aviation",subtest:"home",curriculum:"home",currplay:"home",report:"stats",examlog:"stats",math:"math",confirm:"vocab",cheatsheet:"home",mathtypes:"math",barronmath:"math",evidence:"stats"};
+// 하단 5탭: 홈 · 피드(synfeed) · 카드(vocab) · 시험(exam) · 기록(stats). 과목 허브(유추·독해·수학·항공)는 홈의 과목 그리드에서 들어간다.
+const NAVPARENT={study:"vocab",words:"vocab",rootcoach:"vocab",autoplay:"vocab",confirm:"vocab",vafeed:"synfeed",analogy:"home",reading:"home",passage:"home",math:"home",aviation:"home",cheatsheet:"exam",evidence:"stats"};
+// 옛 화면 이름 → [부모 화면, 탭]. 흡수된 화면으로 가는 go("report") 같은 호출(다른 브랜치·옛 링크 포함)이 깨지지 않게 하는 안전망.
+const VIEW_ALIAS={themes:["words"],roots:["rootcoach","roots"],avbook:["aviation","book"],avstudy:["aviation","study"],avterms:["aviation","terms"],avflash:["aviation","terms"],
+  mathtypes:["math","types"],barronmath:["math","barron"],report:["stats","weak"],examlog:["stats","log"],vabrowse:["analogy","browse"],plan:["home"],subtest:["math"],
+  curriculum:["home"],currplay:["home"],synq:["synfeed"],quiz:["vocab"],tablereading:["exam"],blockcounting:["exam"],instrument:["exam"]};
+function navParentOf(view){ if(view==="guide") return guideCur==="wk"?"vocab":"home"; return NAVPARENT[view]||view; }
+// 허브 안 탭: 마크업은 [data-tabs="view"] 버튼 + .tabpane[data-pane]. 탭별 렌더러·활동(읽기 화면) 매핑.
+const TAB_DEFAULT={aviation:"hub",math:"sets",stats:"summary",rootcoach:"coach",analogy:"hub"};
+const TAB_RENDER={"aviation:hub":()=>renderAviation(),"aviation:book":()=>renderAvBook(),"aviation:study":()=>renderAvStudy(),"aviation:terms":()=>renderAvTerms(),
+  "math:sets":()=>renderMath(),"math:types":()=>renderMathTypes(),"math:barron":()=>renderBarronMath(),
+  "stats:summary":()=>renderStats(),"stats:weak":()=>renderReport(),"stats:log":()=>{ examLogIdx=null; renderExamLog(); },
+  "rootcoach:coach":()=>renderRootCoach(),"rootcoach:roots":()=>renderRoots(),"analogy:hub":()=>renderAnalogyHub(),"analogy:browse":()=>renderVaBrowse()};
+const TAB_ACT={"aviation:book":"read","aviation:study":"read","aviation:terms":"read","math:types":"read","rootcoach:coach":"rootcoach","rootcoach:roots":"read","analogy:browse":"read"};
+const tabCur={};
+function setTab(view,tab){ const host=$("#view-"+view); if(!host) return; const tabs=$$(`[data-tabs="${view}"] [data-tab]`,host); if(!tabs.length) return;
+  if(!tab||!tabs.some(b=>b.dataset.tab===tab)) tab=tabCur[view]||TAB_DEFAULT[view]||tabs[0].dataset.tab;
+  tabCur[view]=tab;
+  tabs.forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));
+  $$(".tabpane",host).forEach(p=>p.classList.toggle("active",p.dataset.pane===tab));
+  const key=view+":"+tab, type=TAB_ACT[key];
+  if(type){ if(!(act&&act.m&&act.m.v===key)) actStart(type,{v:key}); }
+  else if(act&&act.m&&String(act.m.v||"").startsWith(view+":")) actClose();   // 읽기 탭에서 일반 탭으로
+  const r=TAB_RENDER[key]; if(r) r(); }
 let guideCur="wk";
 function openGuide(key){ guideCur=key; go("guide"); }
 function renderGuide(){
   const g=GUIDES[guideCur];
-  const back={wk:"vocab",va:"analogy",rc:"reading",av:"aviation",tr:"aviation",bc:"aviation",ic:"aviation",ar:"math",mk:"math",ps:"subtest",sj:"subtest",sdi:"home"}[guideCur]||"home";
+  const back={wk:"vocab",va:"analogy",rc:"reading",av:"aviation",tr:"aviation",bc:"aviation",ic:"aviation",ar:"math",mk:"math",ps:"home",sj:"home",sdi:"home"}[guideCur]||"home";
   $("#guideBack").onclick=()=>go(back);
   $("#guideNav").textContent="📘 공부 가이드";
   if(!g){ $("#guideBody").innerHTML=`<div class="card center muted" style="padding:20px">가이드 준비 중이에요.</div>`; return; }
@@ -1264,13 +1302,17 @@ function renderGuide(){
     ((g.tips&&g.tips.length)?`<div class="guide-tips"><h3>⚡ 빠른 팁</h3><ul>${g.tips.map(t=>`<li>${fmtMath(t)}</li>`).join("")}</ul></div>`:"")+
     ((g.sources&&g.sources.length)?`<div class="guide-src"><b>참고:</b> ${g.sources.map(esc).join(" · ")}</div>`:"");
 }
-function go(view){
+function go(view,opts={}){
+  const alias=VIEW_ALIAS[view]; if(alias&&!$("#view-"+view)){ opts={...opts,tab:alias[1]||opts.tab}; view=alias[0]; }
+  if(!$("#view-"+view)){ console.warn("go: unknown view",view); view="home"; }
   // 활동 시간 추적: 화면이 바뀌면 열린 활동을 닫는다(진행 중 시험은 아래 일시정지 분기에서 ps 표시로 닫음)
   if(act&&act.view!=="view-"+view&&!(exam&&!exam.submitted&&["exam","retest","drill"].includes(act.y))) actClose();
   if(synFeed && view!=="synfeed") pauseSynFeed(); // 독립 피드 이탈 시 현재 문제를 그대로 이어서 저장
   if(vaFeed && view!=="vafeed") vaFeedPause();
-  if(synq && view!=="synq") synq=null;            // 기존 동의어 퀴즈 자동 넘김도 다른 화면 뒤에서 계속되지 않게 정리
   if(ap && view!=="autoplay") apStop();  // leaving hands-free mode: stop audio/timers/wake-lock
+  if(session && view!=="study"){ snapSession(); session=null; }   // 카드 세션은 스냅샷 후 해제 — 화면 뒤에서 '활성'으로 남지 않게(H3)
+  if(confirmQuiz && view!=="confirm") confirmQuiz=null;
+  if(rcCur && view!=="passage") rcCur=null;
   // 진행 중 시험이 있으면 '일시정지'로 스냅샷을 남기고 완전히 멈춘다 — 네비로 이탈해도
   // 백그라운드에서 섹션이 넘어가거나 자동 제출되지 않게 (모의고사 화면에서 이어하기).
   if(exam && !exam.submitted){
@@ -1285,16 +1327,20 @@ function go(view){
       toast(pausedMathBank?"⏸ SET 일시정지 — 수학 화면에서 이어서 풀 수 있어요":pausedMathFull?"⏸ 실전 SET 일시정지 — Barron 스타일 화면에서 이어서 풀 수 있어요":pausedBarron?"⏸ 유형 연습 일시정지 — Barron 스타일 화면에서 이어서 풀 수 있어요":"⏸ 시험 일시정지 — 모의고사 화면에서 이어서 풀 수 있어요");
     } else exam=null;
   }
-  trTimerStop(); bcTimerStop(); icTimerStop();   // 시각과목 연습도 이탈 시 시계 정지(orphan 인터벌 방지)
   const feedMode=view==="synfeed"||view==="vafeed";
   document.body.classList.toggle("synfeed-mode",feedMode);
   const themeMeta=$("meta[name='theme-color']"); if(themeMeta) themeMeta.setAttribute("content",feedMode?"#080d1d":"#4f46e5");
   $$(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
-  const navsel=NAVPARENT[view]||view;
+  const navsel=navParentOf(view);
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===navsel));
   window.scrollTo(0,0);
-  ({home:renderHome,plan:renderPlan,vocab:renderVocab,words:renderWords,themes:renderThemes,synq:renderSynQuiz,synfeed:renderSynFeed,vafeed:renderVaFeed,analogy:renderAnalogyHub,vabrowse:renderVaBrowse,reading:renderReading,stats:renderStats,exam:renderExamSetup,roots:renderRoots,rootcoach:renderRootCoach,guide:renderGuide,aviation:renderAviation,avterms:renderAvTerms,avstudy:renderAvStudy,avbook:renderAvBook,avflash:startAvFlash,subtest:renderSubtest,curriculum:renderCurriculum,report:renderReport,examlog:renderExamLog,confirm:renderConfirmHub,math:renderMath,autoplay:renderAutoPlaySetup,cheatsheet:renderCheatsheet,mathtypes:renderMathTypes,barronmath:renderBarronMath,evidence:renderEvidence}[view]||(()=>{}))();
+  if(!opts.keep){   // keep: 시험 시작처럼 호출자가 직접 화면을 채울 때(렌더러가 방금 만든 상태를 지우지 않게)
+    const R={home:renderHome,vocab:renderVocab,words:renderWords,synfeed:renderSynFeed,vafeed:renderVaFeed,
+      analogy:()=>setTab("analogy",opts.tab),reading:renderReading,stats:()=>setTab("stats",opts.tab),exam:renderExamSetup,rootcoach:()=>setTab("rootcoach",opts.tab),guide:renderGuide,
+      aviation:()=>setTab("aviation",opts.tab),confirm:renderConfirmHub,math:()=>setTab("math",opts.tab),autoplay:renderAutoPlaySetup,
+      cheatsheet:renderCheatsheet,evidence:renderEvidence};
+    (R[view]||(()=>{}))(); }
   // 읽기·복습 화면(가이드·교재·단어장…)도 활동으로 남긴다 — 문제를 안 풀어도 공부한 시간이다
   if(VIEW_ACT[view]&&!(act&&act.view==="view-"+view)) actStart(VIEW_ACT[view],{v:view,k:view==="guide"?guideCur:undefined});
 }
@@ -1384,9 +1430,32 @@ function renderHome(){
   const vEst=compositeEst(["WK","VA","RC"]), el=$("#verbalEstLine");
   if(el){ if(vEst.pct!=null){ el.classList.remove("hidden"); el.textContent=`🗣 Verbal 예상 백분위 ${vEst.pct}th (정답률 ${Math.round(vEst.acc*100)}%) · 통계 탭에서 상세`; }
     else el.classList.add("hidden"); }
-  renderScoreProj();
-  renderWeekPlan();
+  renderScoreProj(); renderTodayTasks(); renderAxisCards();
 }
+// 홈 '오늘 할 일' — 30일 플랜의 자동 체크 과제(미완료 상위 5개)
+function renderTodayTasks(){ const box=$("#todayTasks"); if(!box) return;
+  const tasks=planTasks(), man=planDone(), isDone=t=>t.done||(Number(man[t.k])||0)>0;
+  const doneN=tasks.filter(isDone).length, show=tasks.filter(t=>!isDone(t)).slice(0,5), rest=tasks.length-doneN-show.length;
+  box.innerHTML=`<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:${show.length?8:0}px"><b>📋 오늘 할 일</b><span class="muted" style="font-size:12px">${doneN}/${tasks.length} 완료 · DAY ${planIdx()}/${planLen()}</span></div>
+    ${show.length?show.map(t=>`<div class="ptask"><button class="pchk" data-chk="${esc(t.k)}" aria-label="완료 표시"></button>
+      <div class="pmeta"><div class="pl">${t.icon} ${esc(t.label)}</div><div class="ps">${esc(t.sub)}${t.min?" · ~"+t.min+"분":""}</div></div>
+      <button class="btn sm primary pgo" data-go2="${esc(t.k)}">시작 →</button></div>`).join(""):`<div class="center muted" style="padding:6px 0 2px">🎉 오늘 할 일을 다 했어요 — 남는 시간은 ∞ 피드로.</div>`}
+    ${rest>0?`<div class="muted" style="font-size:11.5px">…외 ${rest}개</div>`:""}`;
+  $$("#todayTasks .pchk").forEach(b=>b.onclick=()=>{ man[b.dataset.chk]=Date.now(); saveLocal(); renderTodayTasks(); });   // 양수=체크(해제는 -Date.now())
+  $$("#todayTasks .pgo").forEach(b=>b.onclick=()=>{ const t=tasks.find(x=>x.k===b.dataset.go2); if(t&&t.go) t.go(); }); }
+// 홈 축 카드 부제(이어하기 상태) + 증거 요약 한 줄
+function renderAxisCards(){
+  const sf=repairSynFeedSession(state.synFeedSession), vf=vaFeedRepair(state.vaFeedSession);
+  const fs=$("#axFeedSub"); if(fs){ const a=sf?(()=>{ const m=synFeedSetMeta(sf); return `동의어 SET ${m.setNo} · ${m.position}/${m.length} 이어서`; })():"동의어 피드 시작";
+    const b=vf?(()=>{ const m=vaFeedSetMeta(vf); return `유추 SET ${m.setNo} · ${m.position}/${m.length}`; })():"유추 피드"; fs.textContent=`${a} · ${b}`; }
+  const cs=$("#axCardsSub"); if(cs){ const due=dueCards().length, nw=newDeckCount(), wr=wrongWordIds().length, cf=confirmPoolFirst().length+confirmPoolRecheck().length;
+    cs.textContent=`복습 ${due} · 신규 ${nw} · 오답 ${wr} · 확인 ${cf}`; }
+  const es=$("#axExamSub"); if(es){ const snap=loadExamSnap(), wc=wrongCounts(), wt=WRONG_ORDER.reduce((n,k)=>n+wc[k],0), last=bigExams().slice(-1)[0];
+    es.textContent=snap?`⏸ ${snap.name||"모의고사"} 이어하기 · 오답 ${wt}`:`${last?`최근 ${Math.round(last.acc*100)}% · `:""}오답 재시험 ${wt}문제`; }
+  const sl=$("#sinceLine"), ev=$("#evidenceSub");
+  if(EV&&(sl||ev)){ const r=evidenceReport(), sm=r.summary, from=r.period.from.slice(5).replace("-","/").replace(/^0/,"");
+    if(sl) sl.textContent=`📄 ${from} 응시 이후 활동 ${sm.activeLabel} · ${sm.daysActive}일 · 시험 ${sm.exams}회 (증거 기록 중)`;
+    if(ev) ev.textContent=`${sm.activeLabel} · ${sm.daysActive}일`; } }
 /* ============================================================
    예상 점수 프로젝션 + 진단 모의고사 유도 (홈 카드)
    ------------------------------------------------------------
@@ -1452,53 +1521,10 @@ function renderScoreProj(){
     <div class="guide-src" style="margin-top:8px">※ 최근 추세 기반 비공식 추정 — 모의고사를 볼수록 정확해져요.</div></div>`;
   const dg=$("#diagGo"); if(dg) dg.onclick=()=>startExam("afoqt");
 }
-function weekKey(){ const d=new Date(); const off=(d.getDay()+6)%7; d.setDate(d.getDate()-off); return todayStr(d); }
-// 12주 Academic Aptitude(전 과목 균형) 플랜을 이번 주 체크리스트로.
-// daysLeft 구간에 따라 단계가 자동 전환된다(과제는 매주 리셋되는 '이번 주 목표').
-function examPhase(){ const d=daysLeft();
-  if(d>49) return {key:"base",name:"1단계 · 기초·볼륨",emoji:"🌱",tasks:[
-    "📇 단어: 매일 권장량 완료 (+🎧 자동 넘김으로 이동 중 복습)",
-    "🔢 수학: 공부 가이드로 공식 정리 → 연습 모드",
-    "🔗 유추: 훑어보기로 관계 유형 익히기",
-    "📖 독해: 하루 지문 2~3개 (정확도 우선)",
-    "🧠 어근 코치 1회독"]};
-  if(d>21) return {key:"build",name:"2단계 · 드릴·속도",emoji:"💪",tasks:[
-    "✅ 확인 시험으로 외운 단어 검증 (찍은 것 솎아내기)",
-    "🔢 수학 실전 시험 격일 (AR·MK 번갈아)",
-    "📖 독해 24분 타이머로 실전 페이스",
-    "🔗 유추 시험 15+ 달성",
-    "🎯 주 1회 전과목 모의고사 → 📊 약점 확인"]};
-  if(d>10) return {key:"mock",name:"3단계 · 실전 시뮬",emoji:"🎯",tasks:[
-    "🎯 주 2회 풀 모의고사 (실제 시간·연속)",
-    "🧩 📊 약점 리포트의 낮은 과목만 집중 보강",
-    "📕 오답 노트 재시험",
-    "📇 단어·공식 유지 복습 (확인 시험 재확인)",
-    "📊 예상 점수 90%대 확인"]};
-  const ed=String(state.settings.exam_date||"").slice(5).replace("-","/").replace(/^0/,"");
-  return {key:"final",name:"마무리 (D-10)",emoji:"🔥",tasks:[
-    "📕 오답·핵심 단어만 빠르게",
-    "🎯 가벼운 모의고사 1회",
-    "📊 예상 점수 최종 확인",
-    "😴 컨디션·수면 관리",
-    `✅ ${ed||"시험일"} 응시 준비물·일정 확인`]};
-}
-function renderWeekPlan(){
-  const box=$("#weekPlan"); if(!box) return;
-  const dl=Math.max(0,dayDiff(todayStr(),state.settings.exam_date));
-  const ph=examPhase(), key=weekKey()+":"+ph.key;
-  const ck=state.checklist[key]||(state.checklist[key]={});
-  const done=ph.tasks.filter((_,i)=>ck[i]).length, pct=Math.round(done/ph.tasks.length*100);
-  box.innerHTML=`<div class="wp-head"><div class="wp-phase">${ph.emoji} 이번 주 · ${esc(ph.name)}</div><div class="wp-dday">D-${dl}</div></div>
-    <div class="muted" style="font-size:11px">${done}/${ph.tasks.length} 완료 · 시험까지 ${dl}일</div>
-    <div class="wp-bar"><i style="width:${pct}%"></i></div>
-    ${ph.tasks.map((t,i)=>`<div class="wp-task ${ck[i]?"on":""}" data-i="${i}"><div class="wp-box">${ck[i]?"✓":""}</div><div class="tx">${esc(t)}</div></div>`).join("")}`;
-  $$("#weekPlan .wp-task").forEach(el=>el.onclick=()=>{ const i=+el.dataset.i; if(ck[i]) delete ck[i]; else ck[i]=1; saveLocal(); renderWeekPlan(); });
-}
-
 /* ============================================================
    30일 완성 플랜 — 매일 '오늘 할 일'을 정해주고, 실제 진행에서 자동 체크.
    ============================================================ */
-const PLAN_DAYS=30;                    // 기본값(시험일 정보가 없을 때)
+const PLAN_DAYS=30;   // 기본값(시험일 정보가 없을 때)
 // 플랜 길이 = 시험까지 남은 일수 - 12일(마지막 실전·마무리 기간). 시작 시 1회 정해 고정.
 function planLenCalc(){ const left=dayDiff(todayStr(), state.settings.exam_date);
   return clamp(left-12, 14, 45); }
@@ -1522,9 +1548,9 @@ const PLAN_DAILY=[
   {k:"ar",icon:"➗",sec:"AR",n:15,min:25,tag:"🔢 Quant", label:"산수 추론 1세트",           go:()=>startExam("ar",{practice:true})},
   {k:"mk",icon:"📐",sec:"MK",n:15,min:25,tag:"🔢 Quant", label:"수학 지식 1세트",           go:()=>startExam("mk",{practice:true})},
   {k:"av",icon:"✈️",sec:"AV",n:20,min:15,tag:"✈️ Pilot", label:"항공 지식 1세트",           go:()=>startExam("av",{practice:true})},
-  {k:"tr",icon:"📊",sec:"TR",n:20,min:4, tag:"✈️ Pilot", label:"표 읽기 드릴 · 3.5분",      go:()=>startTableReading()},
-  {k:"bc",icon:"🧱",sec:"BC",n:10,min:3, tag:"✈️ Pilot", label:"블록 세기 드릴 · 3분",      go:()=>startBlockCounting()},
-  {k:"ic",icon:"🎚️",sec:"IC",n:12,min:3, tag:"✈️ Pilot", label:"계기 해석 드릴 · 3분",      go:()=>startInstrument()},
+  {k:"tr",icon:"📊",sec:"TR",n:20,min:4, tag:"✈️ Pilot", label:"표 읽기 드릴 · 20문항",      go:()=>startPilotDrill("TR")},
+  {k:"bc",icon:"🧱",sec:"BC",n:10,min:3, tag:"✈️ Pilot", label:"블록 세기 드릴 · 10문항",      go:()=>startPilotDrill("BC")},
+  {k:"ic",icon:"🎚️",sec:"IC",n:12,min:3, tag:"✈️ Pilot", label:"계기 해석 드릴 · 12문항",      go:()=>startPilotDrill("IC")},
 ];
 function planTasks(){
   const i=planIdx(), d=getDay(), t=[];
@@ -1542,13 +1568,13 @@ function planTasks(){
   t.push({k:"wk",icon:"📇",label:`단어 플래시카드 — 신규 ${nw} + 복습 ${due}`,sub:"📇 단어",
     min:Math.round((nw*25+due*7)/60),
     done:(d.new_learned||0)>=nw || (coreRemain()===0&&(d.studied||0)>0), go:()=>startStudyNew()});
-  t.push({k:"syn",icon:"⚡",label:"동의어 퀴즈 20문항",sub:"📇 단어",min:10,
-    done:dayStat("WK")>=20, go:()=>go("synq")});
+  t.push({k:"syn",icon:"⚡",label:"동의어 무한 피드 20문항",sub:"📇 단어",min:10,
+    done:dayStat("WK")>=20, go:()=>go("synfeed")});
   // 유추·독해는 남은 분량 ÷ 플랜 잔여일 → 플랜 종료일에 1회독이 끝나도록 자동 산출
   const vaN=clamp(Math.ceil(vaRemain()/planLeft()),10,60);
   const rcN=clamp(Math.ceil(rcRemainQ()/planLeft()),5,32);
   t.push({k:"va",icon:"🔗",label:`유추 ${vaN}문항`,sub:"🗣 Verbal",min:Math.round(vaN*0.8),
-    done:dayStat("VA")>=vaN, go:()=>{ go("analogy"); startAnalogy(false); }});
+    done:dayStat("VA")>=vaN, go:()=>go("vafeed")});
   t.push({k:"rc",icon:"📖",label:`독해 ${rcN}문항 (24분 타이머)`,sub:"🗣 Verbal",min:Math.round(rcN*2.2),
     done:dayStat("RC")>=rcN, go:()=>go("reading")});
   for(const x of PLAN_DAILY){
@@ -1563,7 +1589,7 @@ function planTasks(){
     if(i%2===0) t.push({k:"ps",icon:"🔬",label:"과학 10문항",sub:"기타",min:8,
       done:dayStat("PS")>=10, go:()=>startExam("ps",{practice:true})});
     if(i%3===0) t.push({k:"sj",icon:"🧭",label:"상황판단 8문항",sub:"기타",min:15,
-      done:dayStat("SJ")>=8, go:()=>{ subCur="sj"; go("subtest"); }});
+      done:dayStat("SJ")>=8, go:()=>startExam("sj",{practice:true})});
   }
   // 시험 임박(D-7): verified 단어 최종 스윕 — 막판 망각 방지
   const dExam=dayDiff(todayStr(),state.settings.exam_date);
@@ -1584,146 +1610,8 @@ function planDone(){ const p=planState(); return p.done[todayStr()]||(p.done[tod
    날짜는 exam_date에서 역산하므로 시험일을 바꿔도 자동으로 따라간다.
    (i=0 → D-16 … i=15 → D-1)
    ============================================================ */
-const V16_PHASE={0:["1구간 · 어휘 엔진 걸기","코어 절반 노출 + 유추 관계 체득. 독해는 시간 재지 말고 정확도만."],
-                 6:["2구간 · 실전 속도 붙이기","코어 완주 + 세 과목 모두 실제 시험 시간으로. 타이머를 끄지 않는다."],
-                 12:["3구간 · 굳히기","신규 어휘 중단. 새로 넣으면 외운 단어가 밀린다."]};
-const V16=[
- {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 — 플래시카드",go:()=>startStudySet(mockWordIds(),"모의고사 단어")},
-         {i:"🔗",l:"유추 훑어보기 — 관계 유형 구경",go:()=>go("vabrowse")},
-         {i:"📖",l:"독해 2지문 (타이머 없이 정확도만)",go:()=>go("reading")}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
-         {i:"🔗",l:"반의어 집중 30문항 — 유추 최다 관계(10.8%)",go:()=>{go("analogy");startAnalogy(false);}},
-         {i:"📖",l:"독해 2지문",go:()=>go("reading")}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
-         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}},
-         {i:"📖",l:"독해 2지문",go:()=>go("reading")},
-         {i:"📐",l:"수학 25문항 — Pilot 유지",go:()=>startExam("mk",{practice:true})}]},
- {tasks:[{i:"📇",l:"어휘 신규 120개 — 주말 증량",go:()=>startStudyNew()},
-         {i:"📖",l:"독해 4지문",go:()=>go("reading")},
-         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}}]},
- {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudyNew()},
-         {i:"🎯",l:"Verbal 섹터 모의고사 1회 — 오늘 점수를 남겨야 비교가 된다",go:()=>startExam("secVerbal")},
-         {i:"📊",l:"약점 리포트 확인",go:()=>go("report")}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
-         {i:"📕",l:"어제 모의고사 오답 전부 복기",go:()=>go("report")},
-         {i:"✈️",l:"항공 20문항 — Pilot 유지",go:()=>startExam("av",{practice:true})}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
-         {i:"⏱️",l:"단어 시험 25문항 5분 — 모르면 즉시 찍고 넘기기",go:()=>startExam("wk")},
-         {i:"📖",l:"독해 2지문 · 지문당 4분 48초",go:()=>go("reading")}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
-         {i:"⏱️",l:"유추 25문항 8분 실전",go:()=>startExam("va")},
-         {i:"📐",l:"수학 25문항",go:()=>startExam("mk",{practice:true})}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
-         {i:"⏱️",l:"독해 25문항 24분 풀세트 — 지문 하나에 4분 48초 넘기면 넘어가기",go:()=>startExam("rc")},
-         {i:"🔗",l:"유추 25문항",go:()=>{go("analogy");startAnalogy(false);}}]},
- {tasks:[{i:"📇",l:"어휘 신규 88개",go:()=>startStudyNew()},
-         {i:"✅",l:"확인 시험 — 1구간에 외운 단어 검증",go:()=>go("confirm")},
-         {i:"✈️",l:"항공 20문항",go:()=>startExam("av",{practice:true})}]},
- {tasks:[{i:"📇",l:"어휘 신규 120개",go:()=>startStudyNew()},
-         {i:"🎯",l:"T01 Verbal 3과목 연속 — 유추 8분 → 단어 5분 → 독해 24분",go:()=>go("exam")},
-         {i:"📕",l:"오답 정리",go:()=>go("report")}]},
- {tasks:[{i:"📇",l:"어휘 신규 120개 — 코어 1,052개 완주",go:()=>startStudyNew()},
-         {i:"📕",l:"어제 오답 재시험",go:()=>go("report")},
-         {i:"📐",l:"수학 25문항",go:()=>startExam("mk",{practice:true})}]},
- {tasks:[{i:"🚫",l:"신규 중단 — 학습중·복습 단어만 반복",go:()=>go("synq")},
-         {i:"🎯",l:"T02 Verbal 3과목",go:()=>go("exam")},
-         {i:"📕",l:"오답 정리",go:()=>go("report")}]},
- {tasks:[{i:"📕",l:"오답 노트 재시험",go:()=>go("report")},
-         {i:"🎯",l:"BARRON1 Verbal",go:()=>go("exam")},
-         {i:"✈️",l:"항공 20문항",go:()=>startExam("av",{practice:true})}]},
- {tasks:[{i:"🎯",l:"TRIVIUM1 Verbal",go:()=>go("exam")},
-         {i:"📜",l:"시험 전 요약 시트 1회독",go:()=>openCheatsheet("plan")},
-         {i:"📇",l:"흔들리는 단어만 훑기",go:()=>go("synq")}]},
- {tasks:[{i:"📕",l:"모의고사 출제 단어 148개 훑기",go:()=>openWordsMock()},
-         {i:"📜",l:"요약 시트 한 번 더",go:()=>openCheatsheet("plan")},
-         {i:"😴",l:"새 문제 금지 · 일찍 자기 — 전날 잠이 실력이다",go:null}]},
-];
-function v16Date(i){ const ex=parseDate(state.settings.exam_date||"2026-09-11");
-  const d=new Date(ex); d.setDate(d.getDate()-(16-i)); return todayStr(d); }
-function v16State(){ if(!state.v16) state.v16={done:{}}; if(!state.v16.done) state.v16.done={}; return state.v16; }
-function openWordsMock(){ go("words"); wordFilter="mock"; wordSearch="";
-  const sb=$("#searchBox"); if(sb) sb.value="";
-  $$("#wordFilters .chip").forEach(c=>c.classList.toggle("on",c.dataset.f==="mock"));
-  renderWords(); }
 let v16Open=null;
-function renderV16(){
-  const box=$("#v16"); if(!box) return;
-  const st=v16State(), today=todayStr();
-  let dn=0, tot=0;
-  V16.forEach((d,i)=>{ tot+=d.tasks.length; d.tasks.forEach((_,j)=>{ if(st.done[i+":"+j]) dn++; }); });
-  const pct=tot?Math.round(dn/tot*100):0;
-  const todayIdx=V16.findIndex((_,i)=>v16Date(i)===today);
-  if(v16Open===null) v16Open = todayIdx>=0 ? todayIdx : 0;
-  const rows=V16.map((d,i)=>{
-    const ds=v16Date(i), wd="일월화수목금토"[parseDate(ds).getDay()];
-    const c=d.tasks.filter((_,j)=>st.done[i+":"+j]).length, all=c===d.tasks.length;
-    const isToday=ds===today, past=ds<today && !isToday, open=v16Open===i;
-    const ph=V16_PHASE[i];
-    const head=ph?`<div class="v16-ph"><b>${esc(ph[0])}</b><span>${esc(ph[1])}</span></div>`:"";
-    const body=open?`<div class="v16-tasks">${d.tasks.map((t,j)=>{
-        const on=!!st.done[i+":"+j];
-        return `<div class="v16-t ${on?"on":""}">
-          <button class="v16-box" data-ck="${i}:${j}" aria-label="완료 표시">${on?"✓":""}</button>
-          <div class="v16-l">${t.i} ${esc(t.l)}</div>
-          ${t.go&&!on?`<button class="btn sm primary v16-go" data-go3="${i}:${j}">시작 →</button>`:""}
-        </div>`; }).join("")}</div>`:"";
-    return `${head}<div class="v16-d ${isToday?"today":""} ${past?"past":""} ${all?"all":""}" data-d="${i}">
-        <div class="v16-hd" data-tg="${i}">
-          <div class="v16-dn">D-${16-i}</div>
-          <div class="v16-dt">${ds.slice(5).replace("-","/")} <span>(${wd})</span></div>
-          <div class="v16-pr">${all?"✓ 완료":c+"/"+d.tasks.length}</div>
-          <div class="v16-ar">${open?"▾":"▸"}</div>
-        </div>${body}</div>`;
-  }).join("");
-  box.innerHTML=`<div class="row" style="justify-content:space-between;align-items:flex-start">
-      <div><div class="muted" style="font-size:13px">🗣 Verbal 역전 16일</div>
-        <div class="plan-day">${dn}<small> / ${tot} 완료</small></div>
-        <div class="muted" style="font-size:12px;margin-top:4px">어휘가 유추·단어·독해 셋 전부에 들어간다</div></div>
-      <div class="ring" style="--p:${pct}"><div class="v"><b>${pct}%</b><span>16일</span></div></div>
-    </div>
-    <div class="progressbar" style="margin-top:12px"><i style="width:${pct}%"></i></div>
-    <div class="v16-list">${rows}</div>`;
-  $$("#v16 .v16-hd").forEach(el=>el.onclick=()=>{ const i=+el.dataset.tg; v16Open=(v16Open===i?-1:i); renderV16(); });
-  $$("#v16 .v16-box").forEach(b=>b.onclick=e=>{ e.stopPropagation(); const k=b.dataset.ck;
-    if(st.done[k]) delete st.done[k]; else st.done[k]=1; saveLocal(); renderV16(); });
-  $$("#v16 .v16-go").forEach(b=>b.onclick=e=>{ e.stopPropagation();
-    const [i,j]=b.dataset.go3.split(":").map(Number); const t=V16[i].tasks[j]; if(t&&t.go) t.go(); });
-}
 
-function renderPlan(){
-  const p=planState(), i=planIdx(), tasks=planTasks(), man=planDone();
-  const isDone=t=>t.done||!!man[t.k];
-  const doneN=tasks.filter(isDone).length, pct=Math.round(doneN/tasks.length*100);
-  const core=coreTotal(), left=coreRemain(), learned=core-left;
-  const examLeft=Math.max(0,dayDiff(todayStr(),state.settings.exam_date));
-  const leftMin=tasks.filter(t=>!isDone(t)).reduce((a,b)=>a+(b.min||0),0);
-  const hhmm=m=>m<=0?"완료":(m>=60?`${Math.floor(m/60)}시간 ${m%60?m%60+"분":""}`.trim():`${m}분`);
-  $("#planHead").innerHTML=`
-    <div class="row" style="justify-content:space-between;align-items:flex-start">
-      <div><div class="muted" style="font-size:13px">${planLen()}일 완성 플랜</div>
-        <div class="plan-day">DAY <b>${i}</b><small> / ${planLen()}</small></div>
-        <div class="muted" style="font-size:12px;margin-top:4px">시험까지 ${examLeft}일 · 핵심(high+mid) ${learned}/${core}</div>
-        <div style="font-size:12px;margin-top:6px;color:var(--brand2);font-weight:700">⏱️ 남은 예상 ${hhmm(leftMin)}</div>
-        <div class="muted" style="font-size:11px;margin-top:3px">🏁 ${planEndLabel()} 전 과목 1회독 완료 예정</div></div>
-      <div class="ring" style="--p:${pct}"><div class="v"><b>${pct}%</b><span>오늘</span></div></div>
-    </div>
-    <div class="progressbar" style="margin-top:12px"><i style="width:${Math.round(i/planLen()*100)}%"></i></div>
-    <div class="muted" style="font-size:11px;margin-top:6px">플랜 진행 ${Math.round(i/planLen()*100)}% · 핵심(high+mid) ${core?Math.round(learned/core*100):0}% 완료</div>`;
-  $("#planTasks").innerHTML=tasks.map(t=>{ const dn=isDone(t);
-    return `<div class="ptask ${dn?"on":""}" data-k="${esc(t.k)}">
-      <button class="pchk" data-chk="${esc(t.k)}" aria-label="완료 표시">${dn?"✓":""}</button>
-      <div class="pmeta"><div class="pl">${t.icon} ${esc(t.label)}</div><div class="ps">${esc(t.sub)}${t.min?" · ~"+t.min+"분":""}${t.done?" · 자동 완료":""}</div></div>
-      ${dn?"":`<button class="btn sm primary pgo" data-go2="${esc(t.k)}">시작 →</button>`}
-    </div>`; }).join("");
-  $$("#planTasks .pchk").forEach(b=>b.onclick=()=>{ const k=b.dataset.chk;
-    if(man[k]) delete man[k]; else man[k]=1; saveLocal(); renderPlan(); });
-  $$("#planTasks .pgo").forEach(b=>b.onclick=()=>{ const t=tasks.find(x=>x.k===b.dataset.go2); if(t&&t.go) t.go(); });
-  renderV16();
-  $("#planAllDone").classList.toggle("hidden", doneN<tasks.length);
-  const ps=$("#optPlanPsSj");
-  if(ps){ ps.checked=flag("plan_ps_sj");
-    ps.onchange=e=>{ state.settings.plan_ps_sj=e.target.checked; saveLocal(); queuePush("settings",{}); renderPlan(); }; }
-}
 
 /* ============================================================
    VOCAB HUB
@@ -1732,11 +1620,6 @@ function renderVocab(){
   const cnt=countByStatus();
   deckBtnPaint("#vkNew","#vkReview");
   $("#vkLearned").textContent=cnt.learned; $("#vkMastered").textContent=cnt.mastered;
-  // 모의고사 묶음을 하다 말았으면 버튼에 이어서 할 위치를 표시한다.
-  { const b=$("#vkMock"), sv=state.session, n=mockWordIds().length;
-    if(b) b.textContent = (sv&&studyScopeKey(sv)==="모의고사 단어"&&sv.idx<sv.plan)
-      ? `📕 모의고사 단어 플래시카드 — ${sv.idx+1}/${sv.plan} 이어서`
-      : `📕 모의고사 단어 플래시카드 — 앱 수록 연습 세트 ${n}개`; }
   // 오답 단어 덱 — 개수/이어하기 표시, 0개면 비활성
   { const b=$("#vkWrong"), sv=state.session, n=wrongWordIds().length;
     if(b){
@@ -1764,7 +1647,6 @@ function renderVocab(){
 /* ============================================================
    VERBAL THEME DECKS
    ============================================================ */
-let themeExpandedCode=null, renderedThemeChunks=new Map();
 function themePriorityLimit(){ const p=Number(state.settings.verbal_theme_priority); return [1,2,3].includes(p)?p:2; }
 function themeStudyMode(){ const m=state.settings.verbal_theme_mode; return ["new","due","all"].includes(m)?m:"new"; }
 function themeWords(code,limit=themePriorityLimit()){
@@ -1790,51 +1672,6 @@ function themeStats(rows){ const t=Date.now(); let fresh=0,due=0,mastered=0;
   return {total:rows.length,fresh,due,mastered,pct:rows.length?Math.round(mastered/rows.length*100):0};
 }
 function themeSessionUnfinished(s){ return !!(s&&s.queue&&s.queue.length&&s.idx<s.queue.length); }
-function renderThemes(){
-  const p=themePriorityLimit(), mode=themeStudyMode();
-  const priorityLabel={1:"P1",2:"P1+P2",3:"P1+P2+P3"}[p];
-  $$('input[name="themePriority"]').forEach(x=>x.checked=Number(x.value)===p);
-  $$('input[name="themeMode"]').forEach(x=>x.checked=x.value===mode);
-  const dataNote=$("#themeDataNote"), list=$("#themeDeckList"), resume=$("#themeResume");
-  if(!list) return;
-  const sv=state.session, savedKey=studyScopeKey(sv), canResume=themeSessionUnfinished(sv)&&String(savedKey||"").startsWith("theme:");
-  if(resume){ resume.classList.toggle("hidden",!canResume);
-    if(canResume){ resume.innerHTML=`<div><b>⏸ 이어서 학습</b><span>${esc(sv.scope||"테마 덱")} · ${sv.idx+1}/${sv.plan}</span></div><span aria-hidden="true">›</span>`;
-      resume.onclick=()=>startStudySet([],sv.scope||"테마 덱",{scopeKey:savedKey,order:sv.order||"given"}); } }
-  if(!hasVerbalThemeData()){
-    if(dataNote){ dataNote.classList.remove("hidden"); dataNote.innerHTML="<b>테마 분류 데이터를 찾지 못했어요.</b><br>이전 오프라인 캐시의 words.json일 수 있습니다. 인터넷에 연결한 뒤 설정의 ‘강제 업데이트’를 실행해 주세요. 기존 플래시카드와 학습 기록은 그대로 안전합니다."; }
-    list.innerHTML=`<div class="card center theme-empty"><div class="big-emoji">🗂️</div><b>테마 덱 데이터 업데이트가 필요해요</b><p class="muted">기존 단어 데이터에는 verbalPriority / verbalThemes 필드가 없습니다.</p></div>`;
-    return;
-  }
-  if(dataNote) dataNote.classList.add("hidden");
-  renderedThemeChunks=new Map();
-  list.innerHTML=VERBAL_THEMES.map(theme=>{
-    const all=themeWords(theme.code,p), stats=themeStats(all), selected=themeModePool(all,mode), chunks=balancedThemeChunks(selected);
-    const open=themeExpandedCode===theme.code, bodyId=`theme-body-${theme.code}`;
-    const chunkHTML=chunks.length?chunks.map((chunk,i)=>{
-      const scopeKey=`theme:${theme.code}:p${p}:${mode}:chunk${i+1}`;
-      const label=`${theme.icon} ${theme.name} · ${priorityLabel} · ${VERBAL_MODE_LABEL[mode]} · 덱 ${i+1}/${chunks.length}`;
-      const key=`${theme.code}:${i}`; renderedThemeChunks.set(key,{ids:chunk.map(w=>w.id),scopeKey,label,order:mode==="all"?"shuffle":"given"});
-      const continuing=themeSessionUnfinished(sv)&&savedKey===scopeKey;
-      const first=chunk[0], last=chunk[chunk.length-1], sub=chunk.length>1?`${first.word} – ${last.word}`:first.word;
-      return `<button class="theme-chunk" data-theme-chunk="${key}" aria-label="${esc(label)}, ${chunk.length}개${continuing?", 이어서 학습":""}">
-        <span class="theme-chunk-main"><b>${chunks.length>1?`덱 ${i+1}`:"학습 시작"}</b><small>${esc(sub)}</small></span>
-        <span class="theme-chunk-count">${continuing?`${sv.idx+1}/${sv.plan} 이어서`:`${chunk.length}개`}</span><span class="theme-chevron" aria-hidden="true">›</span></button>`;
-    }).join(""):`<div class="theme-no-pool">${VERBAL_MODE_LABEL[mode]}에 해당하는 단어가 없어요.</div>`;
-    return `<section class="theme-card">
-      <button class="theme-head" data-theme-toggle="${theme.code}" aria-expanded="${open}" aria-controls="${bodyId}">
-        <span class="theme-icon" aria-hidden="true">${theme.icon}</span>
-        <span class="theme-meta"><b>${esc(theme.name)}</b><small>${esc(theme.desc)}</small>
-          <span class="theme-statline">전체 ${stats.total} · 미학습 ${stats.fresh} · 복습 ${stats.due} · 마스터 ${stats.pct}%</span>
-          <span class="theme-progress" aria-hidden="true"><i style="width:${stats.pct}%"></i></span></span>
-        <span class="theme-toggle-mark" aria-hidden="true">${open?"−":"+"}</span></button>
-      <div class="theme-body${open?"":" hidden"}" id="${bodyId}">${chunkHTML}</div></section>`;
-  }).join("");
-  $$("[data-theme-toggle]",list).forEach(b=>b.onclick=()=>{ const code=b.dataset.themeToggle;
-    themeExpandedCode=themeExpandedCode===code?null:code; renderThemes();
-    list.querySelector(`[data-theme-toggle="${code}"]`)?.focus(); });
-  $$("[data-theme-chunk]",list).forEach(b=>b.onclick=()=>{ const d=renderedThemeChunks.get(b.dataset.themeChunk); if(d) startStudySet(d.ids,d.label,{scopeKey:d.scopeKey,order:d.order}); });
-}
 
 /* ============================================================
    자동 넘김 (핸즈프리 / 운동용) — 화면 안 만져도 단어→뜻→다음 자동 진행 + 음성
@@ -1999,37 +1836,6 @@ function startStudySet(ids,label,options={}){
   go("study"); studyActStart(tag,scopeKey); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
   toast(`${tag} ${queue.length}개 — 신규 ${newSet.size} · 복습 ${queue.length-newSet.size}`,2800);
 }
-function startStudy(){
-  // Resume an unfinished session (don't restart from scratch when you re-enter).
-  const sv=state.session;
-  if(sv&&!sv.scope&&sv.day===todayStr()&&sv.queue&&sv.queue.length&&sv.idx<sv.queue.length){
-    const vq=validQueue(sv);
-    if(vq.idx<vq.q.length){
-      session={queue:vq.q,idx:vq.idx,plan:vq.q.length,studied:sv.studied||0,correct:sv.correct||0,
-        doneSet:new Set(sv.done||[]),missSet:new Set(sv.miss||[]),newSet:new Set(sv.neww||[]),
-        initialQueue:(sv.initialQueue||vq.q).filter(id=>WMAP.has(id)),revealed:false,startTs:Date.now()};
-      go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart(); toast("이어서 학습합니다 ▶");
-      return;
-    }
-  }
-  if(!confirmDropSession(sv,"오늘 학습")) return;   // 미완 묶음 덱 무언 덮어쓰기 방지
-  const due=dueCards(), news=newCardIds(newPerDay());
-  let queue=[...due,...news];
-  if(!queue.length) queue=newCardIds(newPerDay());
-  if(!queue.length){ toast("오늘 학습할 카드가 없어요! 🎉"); go("home"); return; }
-  // Cards that are still "new" at session start are the new-learning portion.
-  const newSet=new Set(queue.filter(id=>getCard(id).status==="new"));
-  session={queue,idx:0,plan:queue.length,studied:0,correct:0,
-    doneSet:new Set(),missSet:new Set(),newSet,revealed:false,startTs:Date.now(),initialQueue:queue.slice()};
-  // Today's goal == today's flashcard quota, so the home ring and the card
-  // counter always agree. Set once per day.
-  const d=getDay(todayStr(),true); if(!d.target){ d.target=queue.length; }
-  snapSession(); saveLocal();
-  go("study"); $("#studyDone").classList.add("hidden"); renderCard(); updateStudyRestart();
-  // Make the session size self-explanatory (reviews + new, not a doubled bug).
-  const revCount=queue.length-newSet.size;
-  toast(`오늘 ${queue.length}개 — 복습 ${revCount} · 신규 ${newSet.size}`, 2600);
-}
 // ---- 신규 / 복습 분리 덱 ----
 // 복습이 1,000개+ 쌓이면 통합 큐에서 신규가 맨 뒤에 묻힌다 — 덱을 분리해 각자 시작.
 // startStudySet 재사용: scope 이어하기·처음부터·세션 충돌 confirm·id 검증이 그대로 적용된다.
@@ -2139,8 +1945,8 @@ function finishStudy(){ actEnd(); const s=session, secs=Math.round((Date.now()-s
     const bundles=Math.ceil(dueLeft/REVIEW_CHUNK), nB=newLeft>0?Math.ceil(newWordsRemaining()/newLeft):0;
     more.textContent = dueLeft>0 ? `🔁 이어서 복습 ${Math.min(dueLeft,REVIEW_CHUNK)}개${bundles>1?` (남은 ${bundles}묶음)`:""}`
       : `🆕 이어서 신규 ${newLeft}개${nB>1?` (남은 ${nB}묶음)`:""}`; }
-  if(String(studyScopeKey(s)||"").startsWith("theme:")){ const more=$("#doneMore");
-    more.classList.remove("hidden"); more.dataset.next="themes"; more.textContent="🗂️ 테마 덱 목록으로 돌아가기"; }
+  if(/^(theme:|words:)/.test(String(studyScopeKey(s)||""))){ const more=$("#doneMore");
+    more.classList.remove("hidden"); more.dataset.next="words"; more.textContent="📚 단어장으로 돌아가기"; }
   if(getDay().goal_met) toast("🔥 오늘 목표 달성! 스트릭 +1"); session=null; state.session=null; saveLocal(); updateStudyRestart(); }
 
 // PC 키보드 조작 — 마우스 없이 빠르게 넘긴다.
@@ -2174,7 +1980,6 @@ function wireStudyKeys(){
 /* ============================================================
    QUIZ (WK)
    ============================================================ */
-let quiz=null;
 function poolFor(scope){
   if(scope==="all") return WORDS.map(w=>w.id);
   if(scope==="high") return WORDS.filter(w=>tierOf(w)!=="std").map(w=>w.id);
@@ -2183,105 +1988,12 @@ function poolFor(scope){
   if(scope==="today") return WORDS.filter(w=>{const c=state.cards[w.id];return c&&c.status!=="new"&&c.updated_at&&todayStr(new Date(c.updated_at))===todayStr();}).map(w=>w.id);
   return WORDS.filter(w=>{const c=state.cards[w.id];return c&&c.status!=="new";}).map(w=>w.id);
 }
-function startQuizScope(scope){ go("quiz"); $("#quizScope").value=scope; $("#quizStart").classList.remove("hidden"); $("#quizDone").classList.add("hidden"); $("#quizArea").innerHTML=""; startQuiz(); }
-function startQuiz(){ const scope=$("#quizScope").value,type=$("#quizType").value; let pool=poolFor(scope);
-  if(pool.length<4){ toast("문제 낼 단어가 부족해요. 학습하거나 범위를 넓혀보세요."); return; }
-  quiz={items:sample(pool,Math.min(10,pool.length)),idx:0,score:0,type,answered:false};
-  $("#quizStart").classList.add("hidden"); $("#quizDone").classList.add("hidden"); actStart("drill",{kd:"quiz"}); renderQuiz(); }
-function renderQuiz(){ const q=quiz; if(q.idx>=q.items.length) return finishQuiz();
-  const id=q.items[q.idx],w=WMAP.get(id);
-  let type=q.type==="mix"?["e2k","k2e","syn"][Math.floor(Math.random()*3)]:q.type;
-  if(type==="syn"&&!(w.synonyms&&w.synonyms.length)) type="e2k";
-  $("#quizCount").textContent=`${q.idx+1} / ${q.items.length}`; $("#quizScore").textContent=`${q.score}점`; $("#quizBar").style.width=(q.idx/q.items.length*100)+"%";
-  let prompt,qword,correct,choices;
-  if(type==="e2k"){ prompt="이 단어의 뜻은?"; qword=w.word; correct=w.kor; choices=korChoices(w,3); }
-  else if(type==="k2e"){ prompt="다음 뜻의 단어는?"; qword=w.kor; correct=w.word;
-    const wS=new Set((w.synonyms||[]).map(x=>String(x).toLowerCase()));
-    choices=shuffle(WORDS).filter(x=>x.id!==id&&!wkNeighbor(w,x,wS)).slice(0,3).map(x=>x.word); }
-  else { prompt=`"${w.word}" 와(과) 비슷한 말은?`; qword=w.word; correct=wkPickCorrect(w);
-    const d=wkDistractors(w,correct,3); choices=d?d.map(x=>x.t):sample(WORDS.filter(x=>x.id!==id&&x.synonyms&&x.synonyms.length),3).map(x=>x.synonyms[0]); }
-  const opts=shuffle([correct,...choices]);
-  $("#quizArea").innerHTML=`<div class="card"><div class="q-prompt">${esc(prompt)}</div><div class="q-word" style="${wordFont(qword,26)}">${esc(qword)}</div>
-    <div class="choices" id="choices">${opts.map(o=>`<button class="choice">${esc(o)}</button>`).join("")}</div></div>`;
-  q.answered=false;
-  $$("#choices .choice").forEach(btn=>btn.onclick=()=>{ if(q.answered)return; q.answered=true; const ok=btn.textContent===correct;
-    $$("#choices .choice").forEach(b=>{ b.disabled=true; if(b.textContent===correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) q.score+=10; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
-      // 오답 노트에도 반영 — 시험(recordResult)과 동일하게 맞히면 지운다
-      if(ok) delete state.wrong.wk[id]; else state.wrong.wk[id]=(state.wrong.wk[id]||0)+1;
-      { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
-      renderHome();
-    setTimeout(()=>{ q.idx++; renderQuiz(); }, ok?550:1100); });
-}
-function finishQuiz(){ const q=quiz,total=q.items.length,got=q.score/10,pct=Math.round(got/total*100);
-  $("#quizArea").innerHTML=""; $("#quizBar").style.width="100%";
-  $("#quizEmoji").textContent=pct>=90?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
-  $("#quizResult").textContent=`${got} / ${total} 정답 (${pct}%)`;
-  $("#quizResultSub").textContent=pct>=90?"완벽해요!":pct>=70?"좋아요, 계속!":"복습하면 금방 올라요.";
-  $("#quizDone").classList.remove("hidden"); quiz=null; }
 
 /* ============================================================
    동의어 퀴즈 (WK 실전형 · 연속 반복) — 단어 하나에 '가장 비슷한 뜻' 고르기.
    진도(SRS)는 안 건드리고, 기존 퀴즈처럼 일일활동·예상점수(WK)·오답노트에만 반영.
    ============================================================ */
-let synq=null;
-function synPool(scope){ return poolFor(scope).filter(id=>{ const w=WMAP.get(id); return w&&w.synonyms&&w.synonyms.length; }); }
-function renderSynQuiz(){ synq=null; $("#synqSetup").classList.remove("hidden"); $("#synqPlay").classList.add("hidden"); }
-function startSynQuiz(){
-  const pool=synPool($("#synqScope").value);
-  if(pool.length<4){ toast("이 범위에 동의어 단어가 부족해요. 범위를 넓혀보세요."); return; }
-  synq={pool, count:0, correct:0, added:0, learn:$("#synqLearn").checked, auto:$("#synqAuto").checked, history:[], pos:-1};
-  $("#synqSetup").classList.add("hidden"); $("#synqPlay").classList.remove("hidden"); actStart("drill",{kd:"synq"}); newSynQ();
-}
-function synBuildQ(){
-  const s=synq; const id=s.pool[Math.random()*s.pool.length|0], w=WMAP.get(id); if(!w) return null;
-  const correct=wkPickCorrect(w); if(!correct) return null;
-  const dist=wkDistractors(w,correct,4); if(!dist) return null;   // 의미 이웃 차단·품사 일치 (보기 5개)
-  return {id, opts:shuffle([{t:correct,ok:1,gloss:w.kor||""},...dist.map(d=>({t:d.t,ok:0,gloss:d.kor}))]), chosen:null, added:false};
-}
-function newSynQ(){ const s=synq; if(!s) return; let q=null,tries=0; while(!q&&tries++<15) q=synBuildQ(); if(!q) return;
-  s.history.push(q); if(s.history.length>60) s.history.shift(); s.pos=s.history.length-1; renderSynAt(); }
-function answerSynQ(i){
-  const s=synq, q=s.history[s.pos]; if(!q||q.chosen!=null) return; q.chosen=i;
-  const w=WMAP.get(q.id), ok=q.opts[i].ok;
-  s.count++; if(ok) s.correct++; actCount(ok);
-  bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("WK",ok);
-  if(!ok){ state.wrong.wk[q.id]=(state.wrong.wk[q.id]||0)+1; markForReview(q.id); s.added++; q.added=true; } // 틀리면 오답노트 누적 + 복습 자동 추가
-  else delete state.wrong.wk[q.id];   // 맞히면 오답노트에서 제거 (recordResult와 동일 규약)
-  { const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
-  saveLocal(); renderSynAt();
-  // 자동 넘김 옵션(기본 OFF): 최신 문제일 때만 자동으로 새 문제
-  if(s.auto){ setTimeout(()=>{ if(synq && synq.pos===synq.history.length-1) newSynQ(); }, ok?900:1800); }
-}
 // 히스토리 위치(pos)의 문제를 렌더 — 답 전엔 인터랙티브, 답 후엔 정답 공개+이전/다음 네비.
-function renderSynAt(){
-  const s=synq; if(!s||!s.history.length) return;
-  const q=s.history[s.pos], w=WMAP.get(q.id); if(!w) return;
-  const answered=q.chosen!=null, isPast=s.pos<s.history.length-1;
-  const st=getCard(q.id).status, unknown=(st==="new"||st==="learning");
-  const hint=(s.learn&&unknown&&w.kor&&!answered)?`<div class="synq-hint">💡 뜻: ${esc(w.kor)} <span class="muted">— 뜻에 맞는 동의어를 고르세요</span></div>`:"";
-  const posLabel=s.history.length>1?`<span class="muted" style="font-size:11px"> · ${s.pos+1}/${s.history.length}${isPast?" · 지난 문제 다시보기":""}</span>`:"";
-  $("#synqScore").textContent=`${s.correct} / ${s.count}${s.count?` · ${Math.round(s.correct/s.count*100)}%`:""}${s.added?` · 📇${s.added}`:""}`;
-  const choicesHTML=q.opts.map((o,i)=>{ let cls=""; if(answered){ if(o.ok) cls="correct"; else if(i===q.chosen) cls="wrong"; }
-    // 답한 뒤엔 보기 4개의 뜻을 함께 표시 → 다른 단어들도 무슨 뜻인지 학습.
-    const gl = answered && o.gloss ? `<span class="opt-gloss">${esc(o.gloss)}</span>` : "";
-    return `<button class="choice ${cls}" data-i="${i}" ${answered?"disabled":""}>${esc(o.t)}${gl}</button>`; }).join("");
-  const ok=answered?q.opts[q.chosen].ok:null;
-  const explain=answered?`<div class="ana-explain"><b>${ok?"✅ 정답":"❌ 오답"}</b> · <b>${esc(w.word)}</b> = ${esc(w.kor||"")}${(w.synonyms&&w.synonyms.length)?`<br><span class="muted">동의어: ${esc(w.synonyms.slice(0,5).join(", "))}</span>`:""}${q.added?`<br><span style="color:var(--brand2)">📇 플래시카드 복습에 추가됨</span>`:""}</div>`:"";
-  const prevBtn=s.pos>0?`<button class="btn ghost" id="synqPrev" style="flex:1">← 이전</button>`:`<span style="flex:1"></span>`;
-  const nextBtn=answered?`<button class="btn primary" id="synqNext" style="flex:1">${isPast?"다음 →":"새 문제 →"}</button>`:(isPast?`<button class="btn primary" id="synqNext" style="flex:1">다음 →</button>`:`<span style="flex:1"></span>`);
-  const nav=`<div class="row" style="gap:8px;margin-top:12px">${prevBtn}${nextBtn}</div>`;
-  $("#synqArea").innerHTML=`<div class="card">
-    <div class="q-prompt">가장 비슷한 뜻은?${posLabel}</div>
-    <div class="word-row"><div class="q-word" style="${wordFont(w.word,26)}">${esc(w.word)}</div>${spkBtn(w.word)}</div>
-    ${hint}
-    <div class="choices" id="synqChoices">${choicesHTML}</div>
-    ${explain}${nav}</div>`;
-  wireSpeakers($("#synqArea"));
-  if(!answered){ $$("#synqChoices .choice").forEach(btn=>btn.onclick=()=>answerSynQ(+btn.dataset.i)); }
-  if($("#synqPrev")) $("#synqPrev").onclick=()=>{ if(s.pos>0){ s.pos--; renderSynAt(); } };
-  if($("#synqNext")) $("#synqNext").onclick=()=>{ if(s.pos<s.history.length-1){ s.pos++; renderSynAt(); } else { newSynQ(); } };
-}
 
 /* ============================================================
    동의어 무한 피드 — 기존 WK 동의어 퀴즈와 완전히 분리된 일상 암기 모드.
@@ -2307,7 +2019,11 @@ function guardSynFeedNewRun(){ if(!guardSynFeedInitialSync()) return false;
       toast("📴 오프라인이에요. 지금은 '이어 풀기'로 진행하고, 새 피드는 연결된 뒤에 만들어 주세요.",3200); return false; }
     return true;
   }
-  if(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)){ toast("⚠️ 처음부터 시작은 PC·모바일 진도를 확인한 뒤 가능해요. 연결 후 다시 시도해 주세요."); return false; }
+  // 서버에 닿을 수 없으면(일시 정지된 프로젝트·긴 장애) 영구히 막지 않고 확인 후 허용(H5)
+  if(boundSbUrl()&&boundSbKey()&&syncInitialSettled&&!syncReady){
+    return confirm("동기화 서버에 연결되지 않아 다른 기기의 진도를 확인할 수 없어요.\n그래도 새 피드를 시작할까요? (나중에 연결되면 더 진행된 쪽으로 자동 정리됩니다)"); }
+  // '처음부터'는 다른 기기의 최신 위치를 확인한 뒤에만 — 답 입력과 달리 되돌릴 수 없는 결정이라 신선도 게이트를 유지한다
+  if(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)){ toast("⚠️ 처음부터 시작은 PC·모바일 진도를 확인한 뒤 가능해요. 잠시 후 다시 시도해 주세요."); return false; }
   if(boundSbUrl()&&boundSbKey()&&Date.now()-synFeedLastPullAt>SYNFEED_REMOTE_FRESH_MS){ pullSynFeedOnForeground();
     toast("⏳ 새 피드를 만들기 전에 다른 기기의 최신 위치를 확인해요. 확인 후 다시 눌러 주세요."); return false; }
   return true; }
@@ -2463,8 +2179,10 @@ function synFeedSave(immediate=false,syncCloud=true,changed=true){ if(!synFeed) 
   if(changed){ synFeed.updatedAt=nowISO(); writeOwnSynFeedCheckpoint(synFeed); }
   else state.synFeedSession=cloneSynFeedSession(synFeed);
   saveSynFeedEmergency(); if(immediate) saveNow(); else saveLocal(false); if(changed&&syncCloud&&sb) queueSynFeedReplica(); }
+// 답 입력은 원격 확인을 기다리지 않는다(H5) — 동기화 설정이 바뀐 탭만 막고, 다른 기기의 앞선 진도는 이미 받은 것이 있을 때만 적용한다.
+// 원격 확인이 진행 중이면 뒤에서 끝나는 대로 refreshSynFeedSession(true)가 반영한다(pullSynFeedOnForeground → handleVerbalRealtime 경로).
 function reconcileSynFeedBeforeInput(){ if(syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()){ toast("다른 탭의 동기화 설정이 바뀌어 안전하게 다시 불러옵니다."); return false; }
-  if(synFeedSyncPending()){ toast("⏳ 다른 기기의 최신 문제 위치를 확인 중이에요."); return false; }
+  if(synFeedSyncPending()) return true;
   const r=refreshSynFeedSession(true); if(!r.activeChanged) return true;
   saveNow(); toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요."); if(!synFeed.current) synFeedAdvance(true); else renderSynFeedPlay(); return false; }
 function pauseSynFeed(){ if(act&&act.y==="synfeed") actEnd(); synFeedTimerStop(); if(synFeed) synFeedSave(true,false,false); synFeed=null;
@@ -2546,7 +2264,7 @@ function renderSynFeed(){ $("#synfeedSetup").classList.remove("hidden"); $("#syn
   const saved=repairSynFeedSession(state.synFeedSession),can=!!saved,syncing=synFeedSyncPending();
   // 오프라인: 이어 풀기는 항상, 새 시작은 로컬 기록이 없을 때만 (guardSynFeedNewRun과 같은 규칙)
   const offline=navigator.onLine===false;
-  const startBlocked=offline?can:(syncing||!!(boundSbUrl()&&boundSbKey()&&(!syncReady||!synFeedRemoteFresh)));
+  const startBlocked=offline?can:(syncing||!!(boundSbUrl()&&boundSbKey()&&syncReady&&!synFeedRemoteFresh));   // 서버 불가(settled&&!syncReady)는 시작 시 confirm — 버튼이 영구 비활성 되지 않게(H5)
   const b=$("#synfeedResume"),start=$("#synfeedStart"); b.classList.toggle("hidden",!can);
   b.disabled=syncing; start.disabled=startBlocked; start.classList.toggle("has-resume",can);
   if(can){ const fc=safeSynFeedCount(saved.firstCount)||saved.count||0,fk=Number.isSafeInteger(saved.firstCount)?safeSynFeedCount(saved.firstCorrect):(saved.correct||0);
@@ -2588,10 +2306,9 @@ function answerSynFeed(i){ const s=synFeed,q=s&&s.current; if(!q||q.chosen!=null
   // 뜻을 보고 고른 답과 재출제 답이 섞이면 Verbal 예상 점수가 부풀려진다.
   const skillSample=!q.isRetry&&!hinted;
   if(skillSample) recordSecAcc("WK",ok);
-  if(!ok){ state.wrong.wk[q.id]=(state.wrong.wk[q.id]||0)+1; markForReview(q.id); s.added=(s.added||0)+1; q.added=true;
+  if(!ok){ s.added=(s.added||0)+1; q.added=true;
     s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:synFeedBase(s)+SYNFEED_RETRY_GAP}); }
-  else if(q.isRetry) delete state.wrong.wk[q.id];
-  if(skillSample){ const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+  answerWK(q.id,ok,{skill:skillSample});   // 정답(첫 시도 포함)은 오답노트에서 제거, new 단어의 오답은 SRS 실패로 기록하지 않는다
   s.recent=(s.recent||[]).filter(id=>id!==q.id); s.recent.push(q.id); if(s.recent.length>3) s.recent=s.recent.slice(-3);
   // Feed counters/checkpoint use a dedicated per-replica row. The ordinary
   // score, weakness and wrong-note fields still use the shared misc snapshot.
@@ -2711,7 +2428,7 @@ function vaFeedAdvance(initial=false){ const s=vaFeed; if(!s) return;
 function startVaFeed(){ const pool=vaFeedPool(); if(pool.length<5){ toast("유추 데이터가 부족해요."); return; }
   const prev=vaFeedRepair(state.vaFeedSession);
   if(prev){ const m=vaFeedSetMeta(prev); if(!confirm(`이어 풀던 기록이 있어요 (SET ${m.setNo}/${m.setCount}, 문제 ${m.position}/${m.length}, 누적 ${prev.count||0}문제).\n처음부터 새 피드를 만들까요?`)) return; }
-  vaFeed={v:1,queue:shuffle(pool),cursor:0,cycle:1,retry:[],count:0,baseCount:0,retryStreak:0,firstCount:0,firstCorrect:0,correct:0,combo:0,bestCombo:0,points:0,current:null,startedAt:nowISO(),updatedAt:nowISO()};
+  vaFeed={v:1,runId:newSynFeedRunId(),queue:shuffle(pool),cursor:0,cycle:1,retry:[],count:0,baseCount:0,retryStreak:0,firstCount:0,firstCorrect:0,correct:0,combo:0,bestCombo:0,points:0,current:null,startedAt:nowISO(),updatedAt:nowISO()};
   vaFeedShowPlay(); actStart("vafeed",{tm:vaFeedTimerOn()?1:0}); vaFeedAdvance(true); }
 function resumeVaFeed(){ const s=vaFeedRepair(state.vaFeedSession); if(!s){ state.vaFeedSession=null; saveLocal(); renderVaFeed(); return; }
   vaFeed=s; vaFeedShowPlay(); actStart("vafeed",{tm:vaFeedTimerOn()?1:0,rs:1}); if(!vaFeed.current) vaFeedAdvance(true); else renderVaFeedPlay(); }
@@ -2742,7 +2459,7 @@ function answerVaFeed(i){ const s=vaFeed,q=s&&s.current; if(!q||q.chosen!=null||
   if(ok&&([5,10,20].includes(s.combo)||s.combo>0&&s.combo%50===0)) q.milestone=`✨ ${s.combo}연속 정답!`;
   bumpDay({studied:1,correct:ok?1:0});
   // 첫 시도만 실력 표본(secAcc VA·약점 관계유형·state.va)에 반영 — recordResult가 오답노트까지 처리
-  if(!q.isRetry) recordResult(q.it,ok); else { if(ok) delete state.wrong.va[q.id]; else state.wrong.va[q.id]=(state.wrong.va[q.id]||0)+1; }
+  if(!q.isRetry) recordResult(q.it,ok); else { if(ok) wrongDel("va",q.id); else wrongAdd("va",q.id); }
   if(!ok){ s.retry=(s.retry||[]).filter(r=>r.id!==q.id); s.retry.push({id:q.id,dueAt:vaFeedBase(s)+VAFEED_GAP}); }
   if(!q.isRetry) s.baseCount=vaFeedBase(s)+1; s.lastId=q.id;
   vaFeedRecordStat(ok,s.combo); vaFeedSave(); queuePush("app_state"); renderVaFeedPlay(); $("#vafeedNext")?.focus({preventScroll:true}); }
@@ -2814,7 +2531,7 @@ function wireChoiceKeys(){
     let box=null,next=null,prev=null;
     const feedView=(vis("#view-synfeed")&&synFeed&&$("#synfeedChoices"))?"syn":(vis("#view-vafeed")&&vaFeed&&$("#vafeedChoices"))?"va":null;
     if(feedView){
-      const F=feedView==="syn"?{box:"#synfeedChoices",cur:()=>synFeed.current,adv:synFeedAdvance,back:"vocab"}:{box:"#vafeedChoices",cur:()=>vaFeed.current,adv:vaFeedAdvance,back:"analogy"};
+      const F=feedView==="syn"?{box:"#synfeedChoices",cur:()=>synFeed.current,adv:synFeedAdvance,back:"home"}:{box:"#vafeedChoices",cur:()=>vaFeed.current,adv:vaFeedAdvance,back:"home"};
       const c=e.code,dig=/^(Digit|Numpad)([1-5])$/.exec(c);
       if(dig){ const b=[...$(F.box).querySelectorAll(".synfeed-choice")][+dig[2]-1];
         if(b&&!b.disabled){ e.preventDefault(); b.click(); } return; }
@@ -2825,8 +2542,6 @@ function wireChoiceKeys(){
         if(t&&t.tagName==="BUTTON"&&(c==="Enter"||c==="NumpadEnter"||c==="Space")) return;
         const cq=F.cur(); if(cq&&cq.chosen!=null){ e.preventDefault(); F.adv(); } return; }
       if(c==="Escape"){ e.preventDefault(); go(F.back); } return;
-    } else if(vis("#view-synq")&&typeof synq!=="undefined"&&synq&&$("#synqChoices")){
-      box=$("#synqChoices"); next=$("#synqNext"); prev=$("#synqPrev");
     } else if(vis("#view-exam")&&exam&&!exam.submitted&&$("#examChoices")){
       box=$("#examChoices"); next=$("#drillNext")||$("#examNext"); prev=$("#examPrev");
     } else return;
@@ -2851,6 +2566,7 @@ function wordMatches(w){
   if(wordFilter==="afoqt"&&!w.afoqtCommon) return false;
   if(wordFilter==="mock"&&!(w.mock&&w.mock.length)) return false;
   if(wordFilter==="wrong"&&!state.wrong.wk[w.id]) return false;
+  if(wordFilter==="due"&&!isCardDue(c)) return false;
   if(wordFilter==="high"&&tierOf(w)==="std") return false;
   if(wordFilter==="gre"&&w.source!=="gre-magoosh") return false;
   if(["new","learning","review","mastered"].includes(wordFilter)&&c.status!==wordFilter) return false;
@@ -2907,12 +2623,17 @@ function renderWords(keep){
   if(resume){ resume.classList.toggle("hidden",!canResumeOther);
     if(canResumeOther){ resume.innerHTML=`<div><b>⏸ 단어장 학습 이어서</b><span>${esc(sv.scope||"단어장 필터")} · ${sv.idx+1}/${sv.plan}</span></div><span aria-hidden="true">›</span>`;
       resume.onclick=()=>startStudySet([],sv.scope||"단어장 필터",{scopeKey:savedKey,order:sv.order||"given"}); } }
-  const sbtn=$("#wordStudy");
+  const sbtn=$("#wordStudy"), decks=$("#wordDecks"), label=wordFilter==="mock"&&wordThemeFilter==="all"&&!wordPriorityFilter&&!wordSearch?"모의고사 단어":"단어장 필터";
+  // 150개가 넘는 조건은 옛 테마 덱처럼 비슷한 크기의 덱으로 나눠 준다(한 세션 상한 유지)
+  const chunks=wordRows.length>150?balancedThemeChunks(wordRows):[];
   if(sbtn){ const continuing=themeSessionUnfinished(sv)&&savedKey===key;
-    sbtn.classList.toggle("hidden", wordRows.length===0&&!continuing);
+    sbtn.classList.toggle("hidden", (wordRows.length===0||chunks.length>0)&&!continuing);
     sbtn.textContent=continuing?`▶︎ ${sv.idx+1}/${sv.plan} 이어서`:`▶︎ 이 ${wordRows.length}개로 플래시카드`;
-    const label=wordFilter==="mock"&&wordThemeFilter==="all"&&!wordPriorityFilter&&!wordSearch?"모의고사 단어":"단어장 필터";
     sbtn.onclick=()=>startStudySet(wordRows.map(w=>w.id),label,{scopeKey:key}); }
+  if(decks){ decks.classList.toggle("hidden",!chunks.length);
+    decks.innerHTML=chunks.map((chunk,i)=>{ const ck=`${key}:chunk${i+1}`, cont=themeSessionUnfinished(sv)&&savedKey===ck;
+      return `<button class="theme-chunk" data-wchunk="${i}"><span class="theme-chunk-main"><b>덱 ${i+1}/${chunks.length}</b><small>${esc(chunk[0].word)} – ${esc(chunk[chunk.length-1].word)}</small></span><span class="theme-chunk-count">${cont?`${sv.idx+1}/${sv.plan} 이어서`:`${chunk.length}개`}</span><span class="theme-chevron" aria-hidden="true">›</span></button>`; }).join("");
+    $$("#wordDecks [data-wchunk]").forEach(b=>b.onclick=()=>{ const i=+b.dataset.wchunk; startStudySet(chunks[i].map(w=>w.id),`${label} 덱 ${i+1}/${chunks.length}`,{scopeKey:`${key}:chunk${i+1}`,order:"given"}); }); }
 }
 function showWord(id){ const w=WMAP.get(id),c=getCard(id);
   const syn=(w.synonyms||[]).map(x=>`<span>${esc(x)}</span>`).join("");
@@ -3049,6 +2770,7 @@ function renderAviation(){
 }
 let avtFilter="all", avtSearch="";
 function renderAvTerms(){
+  if(avf&&$("#avfBox")&&!$("#avfBox").classList.contains("hidden")) return;   // 플립 카드 모드 중엔 목록을 다시 그리지 않는다
   let list=AVTERMS.filter(t=>{
     if(avtFilter!=="all"&&t.category!==avtFilter) return false;
     if(avtSearch){ const q=avtSearch.toLowerCase();
@@ -3085,7 +2807,7 @@ let avBookCh=null;
 function renderAvBook(){
   if(avBookCh==null||!AVBOOK.length){  // table of contents
     $("#avbTitle").textContent="📚 항공 교재";
-    $("#avbBack").textContent="← 항공"; $("#avbBack").onclick=()=>go("aviation");
+    $("#avbBack").classList.add("hidden");
     if(!AVBOOK.length){ $("#avbBody").innerHTML=`<div class="card center muted" style="padding:20px">교재 준비 중이에요.</div>`; return; }
     $("#avbBody").innerHTML=`<p class="muted" style="margin:0 0 12px;font-size:13px">업로드한 PDF 교재에서 정리한 항공 지식을 책처럼 읽어보세요. 챕터를 고르면 됩니다.</p>`+
       AVBOOK.map(c=>`<button class="book-toc" data-ch="${c.id}"><span class="tt">${esc(c.title)}</span><span class="muted">${c.sections.length}절 ›</span></button>`).join("");
@@ -3094,7 +2816,7 @@ function renderAvBook(){
   }
   const idx=AVBOOK.findIndex(x=>x.id===avBookCh), c=AVBOOK[idx]||AVBOOK[0];
   $("#avbTitle").textContent=`${idx+1}/${AVBOOK.length}`;
-  $("#avbBack").textContent="← 목차"; $("#avbBack").onclick=()=>{ avBookCh=null; window.scrollTo(0,0); renderAvBook(); };
+  $("#avbBack").classList.remove("hidden"); $("#avbBack").textContent="← 목차"; $("#avbBack").onclick=()=>{ avBookCh=null; window.scrollTo(0,0); renderAvBook(); };
   const prev=idx>0?AVBOOK[idx-1]:null, next=idx<AVBOOK.length-1?AVBOOK[idx+1]:null;
   $("#avbBody").innerHTML=
     `<h2 class="book-title">${esc(c.title)}</h2>`+
@@ -3113,8 +2835,10 @@ let avf=null;
 function startAvFlash(){
   if(!AVTERMS.length) return;
   avf={items:shuffle(AVTERMS),idx:0,flipped:false};
+  $("#avtBrowse").classList.add("hidden"); $("#avfBox").classList.remove("hidden");
   renderAvFlash();
 }
+function avFlashClose(){ avf=null; $("#avfBox").classList.add("hidden"); $("#avtBrowse").classList.remove("hidden"); }
 function renderAvFlash(){
   const s=avf; if(!s) return; const t=s.items[s.idx];
   $("#avfCount").textContent=`${s.idx+1} / ${s.items.length}`;
@@ -3129,68 +2853,15 @@ function renderAvFlash(){
   $("#avfNext").onclick=avfNext;
   $("#avfPrev").onclick=()=>{ if(s.idx>0){ s.idx--; s.flipped=false; renderAvFlash(); } };
 }
-function avfNext(){ const s=avf; if(s.idx<s.items.length-1){ s.idx++; s.flipped=false; renderAvFlash(); } else { toast("용어 카드 끝! 🎉"); go("aviation"); } }
+function avfNext(){ const s=avf; if(s.idx<s.items.length-1){ s.idx++; s.flipped=false; renderAvFlash(); } else { toast("용어 카드 끝! 🎉"); avFlashClose(); } }
 
 /* ============================================================
    TABLE READING (Pilot subtest — procedural)
    ============================================================ */
-let trState=null;
-function startTableReading(){
-  const xs=[]; for(let x=-5;x<=5;x++) xs.push(x);
-  const ys=[]; for(let y=5;y>=-5;y--) ys.push(y);
-  const grid=ys.map(()=>xs.map(()=>10+(Math.random()*90|0)));
-  const N=20, secs=210, qs=[];
-  for(let i=0;i<N;i++){
-    const xi=Math.random()*xs.length|0, yi=Math.random()*ys.length|0, correct=grid[yi][xi];
-    const opts=new Set([correct]); let g=0;
-    while(opts.size<5&&g++<60){ let v;
-      if(Math.random()<0.6){ const ny=clamp(yi+(Math.random()<.5?-1:1),0,ys.length-1), nx=clamp(xi+(Math.random()<.5?-1:1),0,xs.length-1); v=grid[ny][nx]; }
-      else v=10+(Math.random()*90|0); opts.add(v); }
-    while(opts.size<5) opts.add(10+(Math.random()*90|0));
-    qs.push({x:xs[xi],y:ys[yi],correct,options:shuffle([...opts])});
-  }
-  trTimerStop();   // 이전 세션 타이머를 state 교체 전에 정지(orphan 방지)
-  trState={xs,ys,grid,N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
-  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-tablereading").classList.add("active");
-  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
-  $("#trResult").classList.add("hidden"); $("#trTable").innerHTML=trTableHTML();
-  actStart("drill",{kd:"TR"}); trTimerStart(); renderTRQ();
-}
-function trTableHTML(){ const s=trState;
-  let h='<div class="tr-wrap"><table class="tr-tbl"><thead><tr><th class="tr-corner">Y\\X</th>';
-  s.xs.forEach(x=>h+=`<th>${x}</th>`); h+='</tr></thead><tbody>';
-  s.ys.forEach((y,yi)=>{ h+=`<tr><th>${y}</th>`; s.grid[yi].forEach(v=>h+=`<td>${v}</td>`); h+='</tr>'; });
-  return h+'</tbody></table></div>';
-}
-function trTimerStart(){ trTimerStop(); $("#trTimer").textContent=fmtTime(trState.secsLeft);
-  trState.timer=setInterval(()=>{ if(!trState) return trTimerStop(); trState.secsLeft--; const t=$("#trTimer");
-    if(t){ t.textContent=fmtTime(trState.secsLeft); t.classList.toggle("warn",trState.secsLeft<=15); }
-    if(trState.secsLeft<=0) finishTR(); },1000); }
-function trTimerStop(){ if(trState&&trState.timer){ clearInterval(trState.timer); trState.timer=null; } }
-function renderTRQ(){ const s=trState; if(!s) return; if(s.idx>=s.N) return finishTR();
-  const q=s.qs[s.idx]; s.answered=false;
-  $("#trCount").textContent=`${s.idx+1} / ${s.N}`; $("#trBar").style.width=(s.idx/s.N*100)+"%";
-  $("#trQ").innerHTML=`<div class="tr-q"><div class="tr-coord">X = <b>${q.x}</b> , Y = <b>${q.y}</b> 의 값은?</div>
-    <div class="tr-opts">${q.options.map(o=>`<button data-v="${o}">${o}</button>`).join("")}</div></div>`;
-  $$("#trQ .tr-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
-    const v=+btn.dataset.v, ok=v===q.correct;
-    $$("#trQ .tr-opts button").forEach(b=>{ b.disabled=true; if(+b.dataset.v===q.correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("TR",ok);
-    setTimeout(()=>{ if(trState){ s.idx++; renderTRQ(); } }, ok?320:750); });
-}
-function finishTR(){ const s=trState; if(!s) return; trTimerStop(); actEnd({k:"TR",sc:s.score,t:s.N});
-  $("#trQ").innerHTML=""; $("#trBar").style.width="100%";
-  const pct=Math.round(s.score/s.N*100);
-  $("#trEmoji").textContent=pct>=85?"🏆":pct>=60?"📊":"📈";
-  $("#trScore").textContent=`${s.score} / ${s.N} 정답 (${pct}%)`;
-  $("#trSub").textContent=`소요 ${fmtTime(s.secs-Math.max(0,s.secsLeft))} · 실제 시험: 40문항 7분`;
-  $("#trResult").classList.remove("hidden");
-}
 
 /* ============================================================
    BLOCK COUNTING (Pilot subtest — procedural, isometric SVG)
    ============================================================ */
-let bcState=null;
 // 등축 투영에서 타깃 블록의 윗면이 뒤에 그려지는 블록들에 가려지지 않는지 기하학적으로 판정.
 // (그리기 순서: x+y 오름차순, 같으면 z 오름차순 → 뒤에 그려질수록 위에 덮인다)
 function bcTopVisible(blocks,t){
@@ -3278,40 +2949,6 @@ function bcSVG(fig){
     if(c.isT) label=`<text x="${(c.sx+ox).toFixed(1)}" y="${(c.sy+th/2+oy).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="800" fill="#0f172a">?</text>`; });
   return svg+label+'</svg>';   // 라벨은 항상 맨 위에
 }
-function startBlockCounting(){
-  const N=10, secs=180, qs=[];
-  for(let i=0;i<N;i++){ const f=genBlockFigure(); qs.push({fig:f,correct:f.touch,options:bcOptions(f.touch)}); }
-  bcTimerStop();
-  bcState={N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
-  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-blockcounting").classList.add("active");
-  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
-  $("#bcResult").classList.add("hidden"); actStart("drill",{kd:"BC"}); bcTimerStart(); renderBCQ();
-}
-function bcTimerStart(){ bcTimerStop(); $("#bcTimer").textContent=fmtTime(bcState.secsLeft);
-  bcState.timer=setInterval(()=>{ if(!bcState) return bcTimerStop(); bcState.secsLeft--; const t=$("#bcTimer");
-    if(t){ t.textContent=fmtTime(bcState.secsLeft); t.classList.toggle("warn",bcState.secsLeft<=15); }
-    if(bcState.secsLeft<=0) finishBC(); },1000); }
-function bcTimerStop(){ if(bcState&&bcState.timer){ clearInterval(bcState.timer); bcState.timer=null; } }
-function renderBCQ(){ const s=bcState; if(!s) return; if(s.idx>=s.N) return finishBC();
-  const q=s.qs[s.idx]; s.answered=false;
-  $("#bcCount").textContent=`${s.idx+1} / ${s.N}`; $("#bcBar").style.width=(s.idx/s.N*100)+"%";
-  $("#bcArea").innerHTML=`<div class="bc-fig">${bcSVG(q.fig)}</div>
-    <div class="bc-q"><b>?</b> 블록(청록색)이 <b>닿는</b> 블록은 몇 개?</div>
-    <div class="bc-opts">${q.options.map(o=>`<button data-v="${o}">${o}</button>`).join("")}</div>`;
-  $$("#bcArea .bc-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
-    const v=+btn.dataset.v, ok=v===q.correct;
-    $$("#bcArea .bc-opts button").forEach(b=>{ b.disabled=true; if(+b.dataset.v===q.correct) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("BC",ok);
-    setTimeout(()=>{ if(bcState){ s.idx++; renderBCQ(); } }, ok?600:1100); });
-}
-function finishBC(){ const s=bcState; if(!s) return; bcTimerStop(); actEnd({k:"BC",sc:s.score,t:s.N});
-  $("#bcArea").innerHTML=""; $("#bcBar").style.width="100%";
-  const pct=Math.round(s.score/s.N*100);
-  $("#bcEmoji").textContent=pct>=80?"🏆":pct>=50?"🧱":"📈";
-  $("#bcScore").textContent=`${s.score} / ${s.N} 정답 (${pct}%)`;
-  $("#bcSub").textContent=`소요 ${fmtTime(s.secs-Math.max(0,s.secsLeft))} · 실제 시험: 30문항 4.5분 · 대각선은 닿는 게 아니에요`;
-  $("#bcResult").classList.remove("hidden");
-}
 
 /* ============================================================
    CURRICULUM (커리큘럼 학습 — 기초 스킬부터 단계별, 통과해야 다음 단계)
@@ -3361,167 +2998,26 @@ function buildVAClassify(n){
   }
   return out;
 }
-function buildVACurrStage(withHint,n){
-  let pool=ANALOGIES.filter(a=>vaRelKo(a.relation));
-  if(withHint) pool=pool.filter(a=>VA_EASY_CATS.has(vaRelKo(a.relation)));
-  const out=shuffle(pool).slice(0,n).map(a=>{
-    const opts=shuffle(a.options.map(o=>({t:`${o.pair[0]} : ${o.pair[1]}`,c:!!o.correct})));
-    return {prompt:"같은 관계의 짝을 고르세요",stem:a.question,
-      hint:withHint?`힌트: ${vaRelKo(a.relation)}`:null, anaId:a.id, sec:"VA",
-      options:opts.map(o=>o.t),answer:opts.findIndex(o=>o.c),
-      explain:`관계: ${a.relation} — ${a.explain||""}`};
-  });
-  return out;
-}
 // Meaning key = the English gloss in parens (e.g. "이전의 (before)" -> "before"),
 // so prefixes that share a meaning (ante-/pre-, anti-/contra-/ob-, ...) never
 // appear as two different-looking options for the same question.
-function rootKey(m){ const g=/\(([^)]+)\)/.exec(m||""); return (g?g[1]:(m||"")).trim().toLowerCase(); }
-function buildWKRootsQ(n){
-  if(ROOTS.length<8) return [];
-  const out=[];
-  for(const r of shuffle(ROOTS)){
-    if(out.length>=n) break;
-    const ck=rootKey(r.meaning), used=new Set([ck]), dist=[];
-    for(const x of shuffle(ROOTS)){ if(dist.length>=3) break; if(x.form===r.form) continue;
-      const k=rootKey(x.meaning); if(used.has(k)) continue; used.add(k); dist.push(x.meaning); }
-    if(dist.length<3) continue;
-    const opts=shuffle([r.meaning,...dist]);
-    out.push({prompt:"이 어원(접두사·어근)의 뜻은?",stem:r.form,options:opts,answer:opts.indexOf(r.meaning),
-      explain:`${r.form} = ${r.meaning} · 예: ${(r.examples||[]).slice(0,3).join(", ")}`});
-  }
-  return out;
-}
-function buildWKSynCurr(n){
-  const pool=WORDS.filter(w=>w.afoqtCommon&&w.synonyms&&w.synonyms.length);
-  const out=[];
-  for(const w of shuffle(pool)){ if(out.length>=n) break;
-    const it=buildWKfor(w); if(!it) continue;
-    out.push({prompt:"의미가 가장 가까운 단어는?",stem:it.stem,options:it.options,answer:it.answer,
-      wordId:w.id, sec:"WK", explain:it.explain});
-  }
-  return out;
-}
-function buildRCType(types,n){
-  const out=[];
-  for(const p of shuffle(rcPracticePool())){ if(out.length>=n) break;
-    const qi=p.questions.findIndex(q=>types.includes(q.type));
-    if(qi<0) continue; const q=p.questions[qi];
-    out.push({prompt:q.q,passage:p.passage,passageTitle:p.title,sec:"RC",
-      options:q.options.slice(),answer:q.answer,explain:q.explain||""});
-  }
-  return out;
-}
 
-const CURR_TRACKS={
-  va:{name:"유추",icon:"🔗",stages:[
-    {name:"1단계 · 관계 분류",desc:"DOG : BARK → '동물 : 소리'처럼, 두 단어의 관계 유형부터 맞히는 기초 훈련",n:10,need:8,build:n=>buildVAClassify(n)},
-    {name:"2단계 · 힌트 유추",desc:"관계 힌트를 보면서 같은 관계의 짝 고르기 (쉬운 관계 위주)",n:10,need:8,build:n=>buildVACurrStage(true,n)},
-    {name:"3단계 · 일반 유추",desc:"힌트 없이 실전 형식 그대로",n:10,need:8,build:n=>buildVACurrStage(false,n)},
-    {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 8분 실전 — 15개 이상 맞히면 졸업!",exam:"va",need:15}]},
-  wk:{name:"단어",icon:"📇",stages:[
-    {name:"1단계 · 어원 기초",desc:"접두사·어근의 뜻 맞히기 — 모르는 단어 추론의 무기",n:10,need:8,build:n=>buildWKRootsQ(n)},
-    {name:"2단계 · 핵심 동의어",desc:"AFOQT 핵심(high+mid) 단어로 동의어 고르기 (시간 부담 없이)",n:10,need:8,build:n=>buildWKSynCurr(n)},
-    {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 5분 실전 — 15개 이상이면 졸업!",exam:"wk",need:15}]},
-  rc:{name:"독해",icon:"📖",stages:[
-    {name:"1단계 · 주제 찾기",desc:"지문의 중심 내용(main idea)만 집중 훈련",n:6,need:5,build:n=>buildRCType(["main_idea"],n)},
-    {name:"2단계 · 세부·추론",desc:"세부사항과 추론 문제 풀기",n:8,need:6,build:n=>buildRCType(["detail","inference"],n)},
-    {name:"🎓 졸업 · 실전 시험",desc:"25문항 · 24분 실전 — 15개 이상이면 졸업!",exam:"rc",need:15}]},
-};
-let curTrack="va", curSes=null;
-function getCurr(t){ return state.curr[t]||(state.curr[t]={unlocked:0,passed:{},best:{}}); }
-function stagePassed(t,si){ const tr=CURR_TRACKS[t], st=tr.stages[si], c=getCurr(t);
-  if(st.exam) return (state.exams[st.exam]?.best||0)>=st.need;
-  return !!c.passed[si]; }
-function stageUnlocked(t,si){ if(si===0) return true; return stagePassed(t,si-1); }
-function openCurriculum(track){ if(track) curTrack=track; go("curriculum"); }
-function renderCurriculum(){
-  $$("#currTabs .chip").forEach(c=>c.classList.toggle("on",c.dataset.ct===curTrack));
-  const tr=CURR_TRACKS[curTrack], c=getCurr(curTrack);
-  $("#currStages").innerHTML=tr.stages.map((st,si)=>{
-    const passed=stagePassed(curTrack,si), un=stageUnlocked(curTrack,si);
-    const icon=passed?"✅":un?"▶️":"🔒";
-    let stLine;
-    if(st.exam){ const b=state.exams[st.exam]?.best;
-      stLine=passed?`통과! 최고 ${b}/${state.exams[st.exam].bestTotal}`:(b!=null?`최고 ${b}/25 · 목표 ${st.need}+`:`목표 ${st.need}/25 이상`); }
-    else { const b=c.best[si];
-      stLine=passed?`통과! 최고 ${b}/${st.n}`:(b!=null?`최고 ${b}/${st.n} · 통과 기준 ${st.need}/${st.n}`:`${st.n}문제 중 ${st.need}개 이상`); }
-    return `<button class="stage-card ${passed?"passed":un?"cur":"locked"}" data-si="${si}">
-      <div class="sic">${icon}</div>
-      <div class="meta"><b>${esc(st.name)}</b><div class="muted">${esc(st.desc)}</div>
-        <div class="st" style="color:${passed?"var(--ok)":un?"var(--brand2)":"var(--muted)"}">${esc(stLine)}</div></div>
-      <div class="go">›</div></button>`;
-  }).join("");
-  $$("#currStages .stage-card").forEach(b=>b.onclick=()=>{
-    const si=+b.dataset.si, st=CURR_TRACKS[curTrack].stages[si];
-    if(!stageUnlocked(curTrack,si)){ toast("이전 단계를 먼저 통과하세요 🔒"); return; }
-    if(st.exam){ startExam(st.exam); return; }
-    startCurrStage(curTrack,si);
-  });
-}
-function startCurrStage(t,si){
-  const st=CURR_TRACKS[t].stages[si];
-  const items=st.build(st.n);
-  if(items.length<st.n){ toast("문제를 만들 데이터가 부족해요."); return; }
-  curSes={t,si,items,idx:0,score:0,answered:false};
-  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-currplay").classList.add("active");
-  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
-  window.scrollTo(0,0);
-  $("#cpDone").classList.add("hidden"); actStart("drill",{kd:"curr:"+t+":"+si}); renderCPQ();
-}
-function renderCPQ(){
-  const s=curSes; if(!s) return; if(s.idx>=s.items.length) return finishCurr();
-  const it=s.items[s.idx]; s.answered=false;
-  window.__cpAnswer=it.answer; // test/debug hook
-  $("#cpCount").textContent=`${s.idx+1} / ${s.items.length}`;
-  $("#cpScore").textContent=`${s.score}개`;
-  $("#cpBar").style.width=(s.idx/s.items.length*100)+"%";
-  const passage=it.passage?`<details class="exam-passage" open><summary>📖 ${esc(it.passageTitle||"지문")}</summary><div class="passage">${esc(it.passage)}</div></details>`:"";
-  $("#cpArea").innerHTML=`${passage}<div class="card">
-      ${it.hint?`<span class="cp-hint">💡 ${esc(it.hint)}</span>`:""}
-      <div class="exam-prompt">${fmtMath(it.prompt)}</div>
-      ${it.stem?`<div class="cp-stem">${fmtMath(it.stem)}</div>`:""}
-      <div class="choices" id="cpChoices">${it.options.map((o,i)=>`<button class="choice" data-i="${i}">${fmtMath(o)}</button>`).join("")}</div>
-      <div class="ana-explain hidden" id="cpExplain"></div>
-      <button class="btn primary hidden" id="cpNext" style="margin-top:14px">${s.idx>=s.items.length-1?"결과 보기 →":"다음 →"}</button></div>`;
-  $("#cpNext").onclick=()=>{ s.idx++; renderCPQ(); };
-  $$("#cpChoices .choice").forEach(btn=>btn.onclick=()=>{
-    if(s.answered) return; s.answered=true;
-    const i=+btn.dataset.i, ok=i===it.answer;
-    $$("#cpChoices .choice").forEach((b,bi)=>{ b.disabled=true; if(bi===it.answer) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; $("#cpScore").textContent=`${s.score}개`; actCount(ok);
-    bumpDay({studied:1,correct:ok?1:0});
-    if(it.sec) recordSecAcc(it.sec,ok);
-    if(it.anaId!=null){ const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok){v.correct=(v.correct||0)+1; delete state.wrong.va[it.anaId];} else {v.wrong=(v.wrong||0)+1; state.wrong.va[it.anaId]=(state.wrong.va[it.anaId]||0)+1;} setVA(it.anaId,v); }
-    if(it.wordId!=null){ if(ok) delete state.wrong.wk[it.wordId]; else state.wrong.wk[it.wordId]=(state.wrong.wk[it.wordId]||0)+1; }
-    $("#cpExplain").innerHTML=`<b>${ok?"✅ 정답":"❌ 오답"}</b><br>${fmtMath(it.explain||"")}`;
-    $("#cpExplain").classList.remove("hidden");
-    $("#cpNext").classList.remove("hidden");
-  });
-}
-function finishCurr(){ actEnd();
-  const s=curSes; if(!s) return;
-  const st=CURR_TRACKS[s.t].stages[s.si], c=getCurr(s.t);
-  const pass=s.score>=st.need;
-  c.best[s.si]=Math.max(c.best[s.si]||0,s.score);
-  if(pass){ c.passed[s.si]=1; c.unlocked=Math.max(c.unlocked||0,s.si+1); }
-  saveNow();
-  $("#cpArea").innerHTML=""; $("#cpBar").style.width="100%";
-  $("#cpEmoji").textContent=pass?"🎉":"💪";
-  $("#cpResult").textContent=`${s.score} / ${s.items.length} (기준 ${st.need})`;
-  $("#cpSub").textContent=pass
-    ?(s.si+1<CURR_TRACKS[s.t].stages.length?"통과! 다음 단계가 열렸어요.":"트랙 완료!")
-    :"아쉬워요 — 한 번 더 도전하면 금방 통과해요.";
-  $("#cpDone").classList.remove("hidden");
-  curSes={...s,done:true};
-}
 
 /* ============================================================
    GENERIC SUBTEST HUB (Arithmetic / Math / Physical Science / Situational)
    ============================================================ */
-let subCur=null;
-const SUBPOOL={ar:()=>ARITH,mk:()=>MATHK,ps:()=>PHYSCI,sj:()=>SITJUD};
-function openSubtest(key){ subCur=key; go("subtest"); }
+// 과학·상황판단은 전용 화면 대신 시트 하나(실전·연습·가이드) — 산수·수학은 수학 탭으로
+const SUBPOOL={ps:()=>PHYSCI,sj:()=>SITJUD};
+function openSubjectSheet(key){ if(key==="ar"||key==="mk"){ go("math"); return; }
+  const p=EXAM_PRESETS[key], g=GUIDES[key], pool=(SUBPOOL[key]?SUBPOOL[key]():[])||[], r=state.exams[key], ready=pool.length>0;
+  openSheet(`<h3>${esc(p?p.name:key)}</h3><p class="muted" style="font-size:13px">📋 ${esc(ready?((g&&g.format)||(p&&p.label)||""):"콘텐츠 준비 중이에요.")}</p>
+    <p class="muted" style="font-size:12px">${r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal} · `:""}문제 ${pool.length}개</p>
+    <button class="btn primary" id="subExam" style="margin-top:10px" ${ready?"":"disabled"}>🎯 실전 시험 (시간측정)</button>
+    <button class="btn ghost" id="subPractice" style="margin-top:10px" ${ready?"":"disabled"}>📝 연습 모드 (시간 여유)</button>
+    <button class="btn ghost" id="subGuide" style="margin-top:10px">📘 공부 가이드</button>
+    <button class="btn ghost" id="subClose" style="margin-top:10px">닫기</button>`);
+  $("#subExam").onclick=()=>{ closeSheet(); startExam(key); }; $("#subPractice").onclick=()=>{ closeSheet(); startExam(key,{practice:true}); };
+  $("#subGuide").onclick=()=>{ closeSheet(); openGuide(key); }; $("#subClose").onclick=closeSheet; }
 /* ============================================================
    수학 유형별 공략 — AR·MK 전 유형: 개념·공식 → 푸는 순서 → 함정 →
    실제 풀에서 뽑은 예제 → "이 유형만 20문제" 드릴
@@ -3689,7 +3185,8 @@ let mathStyleOpenSec="AR";
 function isMathStyleKey(key){ return /^mathstyle_(ar|mk)_v\d+_[a-z0-9_]+$/.test(String(key||"")); }
 function isMathFullKey(key){ return /^mathfull_(ar|mk)_v\d+_[a-z0-9_]+$/.test(String(key||"")); }
 function isBarronMathKey(key){ return isMathStyleKey(key)||isMathFullKey(key); }
-function mathExamReturnView(key){ return isBarronMathKey(key)?"barronmath":isMathBankKey(key)?"math":"home"; }
+function mathExamReturnView(key){ return isBarronMathKey(key)?["math","barron"]:isMathBankKey(key)?["math","sets"]:["home"]; }
+function goExamReturn(key){ const r=mathExamReturnView(key); go(r[0],{tab:r[1]}); }
 function mathStyleData(sec){ return sec==="AR"?BARRON_AR:sec==="MK"?BARRON_MK:null; }
 function mathStyleTypes(sec){ const d=mathStyleData(sec); return d&&Array.isArray(d.types)?d.types:[]; }
 function mathStyleQuestions(sec){ const d=mathStyleData(sec); return d&&Array.isArray(d.questions)?d.questions:[]; }
@@ -3821,24 +3318,10 @@ function renderMath(){
     $(el).textContent = r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal}`:"아직 기록 없음"; };
   line("#mkLast","mk"); line("#arLast","ar");
 }
-function renderSubtest(){
-  const key=subCur, p=EXAM_PRESETS[key], g=GUIDES[key];
-  const pool=(SUBPOOL[key]?SUBPOOL[key]():[])||[]; const ready=pool.length>0;
-  $("#subNav").textContent="과목";
-  $("#subTitle").textContent=p?p.name:key;
-  $("#subFormat").innerHTML="📋 "+esc(ready?((g&&g.format)||(p&&p.label)||""):"콘텐츠 준비 중이에요. 잠시 후 다시 시도하세요.");
-  $("#subExam").disabled=!ready; $("#subPractice").disabled=!ready;
-  const r=state.exams[key];
-  $("#subLast").textContent=ready?(r?`최고 ${r.best}/${r.bestTotal} · 최근 ${r.last}/${r.lastTotal} · 문제 ${pool.length}개`:`문제 ${pool.length}개 · 아직 기록 없음`):"";
-  $("#subExam").onclick=()=>startExam(key);
-  $("#subPractice").onclick=()=>startExam(key,{practice:true});
-  $("#subGuide").onclick=()=>openGuide(key);
-}
 
 /* ============================================================
    INSTRUMENT COMPREHENSION (Pilot subtest — procedural SVG)
    ============================================================ */
-let icState=null;
 const IC_BANKS=[-45,-30,0,30,45], IC_PITCH=[-1,0,1];
 // 실전 AFOQT처럼 자세계+나침반 2계기: 기수 방향(heading)까지 맞혀야 한다.
 const IC_HDG=[0,90,180,270], IC_HDG_KO={0:"북",90:"동",180:"남",270:"서"};
@@ -3928,42 +3411,6 @@ function genIC(){
   }
   return {bank,pitch,heading,options:shuffle(opts)};
 }
-function startInstrument(){
-  const N=12, secs=180, qs=[]; for(let i=0;i<N;i++) qs.push(genIC());
-  icTimerStop();
-  icState={N,secs,secsLeft:secs,idx:0,score:0,timer:null,answered:false,qs};
-  $$(".view").forEach(v=>v.classList.remove("active")); $("#view-instrument").classList.add("active");
-  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="aviation")); window.scrollTo(0,0);
-  $("#icResult").classList.add("hidden"); actStart("drill",{kd:"IC"}); icTimerStart(); renderICQ();
-}
-function icTimerStart(){ icTimerStop(); $("#icTimer").textContent=fmtTime(icState.secsLeft);
-  icState.timer=setInterval(()=>{ if(!icState) return icTimerStop(); icState.secsLeft--; const t=$("#icTimer");
-    if(t){ t.textContent=fmtTime(icState.secsLeft); t.classList.toggle("warn",icState.secsLeft<=15); }
-    if(icState.secsLeft<=0) finishIC(); },1000); }
-function icTimerStop(){ if(icState&&icState.timer){ clearInterval(icState.timer); icState.timer=null; } }
-function renderICQ(){ const s=icState; if(!s) return; if(s.idx>=s.N) return finishIC();
-  const q=s.qs[s.idx]; s.answered=false; const correctKey=q.options.findIndex(o=>o.bank===q.bank&&o.pitch===q.pitch&&o.heading===q.heading);
-  $("#icCount").textContent=`${s.idx+1} / ${s.N}`; $("#icBar").style.width=(s.idx/s.N*100)+"%";
-  $("#icArea").innerHTML=`<div class="ic-instruments">
-      <div class="ic-dial">${attitudeSVG(q.bank,q.pitch)}<div class="lbl">자세계 (Attitude)</div></div>
-      <div class="ic-dial">${compassSVG(q.heading)}<div class="lbl">나침반 (Compass)</div></div></div>
-    <div class="ic-prompt">두 계기를 보고 <b>같은 자세·방향</b>의 비행기를 고르세요
-      <br><span class="muted" style="font-size:12px">뱅크(기울기)·피치(상승/하강)에 나침반의 기수 방향까지! 남향(정면)은 뱅크가 거울처럼 반대로 보여요</span></div>
-    <div class="ic-opts">${q.options.map((o,i)=>`<button data-i="${i}">${planeSVG(o.bank,o.pitch,o.heading)}<div class="ol">${icLabel(o)}</div></button>`).join("")}</div>`;
-  $$("#icArea .ic-opts button").forEach(btn=>btn.onclick=()=>{ if(s.answered) return; s.answered=true;
-    const i=+btn.dataset.i, ok=i===correctKey;
-    $$("#icArea .ic-opts button").forEach((b,bi)=>{ b.disabled=true; if(bi===correctKey) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    if(ok) s.score++; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("IC",ok);
-    setTimeout(()=>{ if(icState){ s.idx++; renderICQ(); } }, ok?550:1100); });
-}
-function finishIC(){ const s=icState; if(!s) return; icTimerStop(); actEnd({k:"IC",sc:s.score,t:s.N});
-  $("#icArea").innerHTML=""; $("#icBar").style.width="100%";
-  const pct=Math.round(s.score/s.N*100);
-  $("#icEmoji").textContent=pct>=80?"🏆":pct>=50?"🎚️":"📈";
-  $("#icScore").textContent=`${s.score} / ${s.N} 정답 (${pct}%)`;
-  $("#icSub").textContent=`소요 ${fmtTime(s.secs-Math.max(0,s.secsLeft))} · 실제 시험: 25문항 5분`;
-  $("#icResult").classList.remove("hidden");
-}
 
 /* ============================================================
    VERBAL ANALOGIES
@@ -3993,49 +3440,11 @@ function renderVaBrowse(){
       <div class="rx">${vaExplainHTML(a)}</div></div>`;
   }).join("")||`<div class="card center muted" style="padding:14px">검색 결과가 없어요.</div>`;
 }
-function renderAnalogyHub(){ $("#vaPlay").classList.add("hidden"); $("#vaDone").classList.add("hidden"); $("#vaHub").classList.remove("hidden");
+function renderAnalogyHub(){ $("#vaHub").classList.remove("hidden");
   const s=vaStats(); $("#vaSeen").textContent=s.seen; $("#vaMastered").textContent=s.mastered; $("#vaAcc").textContent=s.acc==null?"–":s.acc+"%";
-  $("#vaStart").disabled=!ANALOGIES.length; if(!ANALOGIES.length) $("#vaStart").textContent="준비 중 (데이터 없음)"; }
-let vaSession=null;
-function startAnalogy(reviewOnly=false){
-  let pool=ANALOGIES.slice();
-  if(reviewOnly){ pool=pool.filter(a=>{const v=getVA(a.id);return v.seen>0&&v.status!=="mastered";});
-    if(!pool.length){ toast("복습할 틀린 문제가 없어요 👍"); return; } }
-  else { pool.sort((a,b)=>{ const va=getVA(a.id),vb=getVA(b.id);
-    const ra=va.status==="mastered"?2:va.seen===0?0:1, rb=vb.status==="mastered"?2:vb.seen===0?0:1; return ra-rb; }); }
-  const items=(reviewOnly?pool:pool).slice(0,10);
-  vaSession={items,idx:0,score:0,answered:false};
-  $("#vaHub").classList.add("hidden"); $("#vaDone").classList.add("hidden"); $("#vaPlay").classList.remove("hidden"); actStart("va_practice",{rv:reviewOnly?1:0}); renderVA();
-}
-function renderVA(){ const s=vaSession; if(s.idx>=s.items.length) return finishVA();
-  const a=s.items[s.idx];
-  $("#vaCount").textContent=`${s.idx+1} / ${s.items.length}`; $("#vaScore").textContent=`${s.score}점`; $("#vaSessBar").style.width=(s.idx/s.items.length*100)+"%";
-  const opts=shuffle(a.options.map((o,i)=>({...o,i})));
-  const last=s.idx>=s.items.length-1;
-  $("#vaArea").innerHTML=`<div class="card">
-      <div class="ana-q">다음과 같은 관계는?</div>
-      <div class="ana-stem">${esc(a.stem[0])} : ${esc(a.stem[1])}</div>
-      <div class="choices" id="vaChoices">${opts.map(o=>`<button class="choice" data-c="${o.correct?1:0}">${esc(o.pair[0])} : ${esc(o.pair[1])}</button>`).join("")}</div>
-      <div class="ana-explain hidden" id="vaExplain"></div>
-      <button class="btn primary hidden" id="vaNext" style="margin-top:14px">${last?"결과 보기 →":"다음 문제 →"}</button>
-    </div>`;
-  s.answered=false;
-  $("#vaNext").onclick=()=>{ s.idx++; renderVA(); };
-  $$("#vaChoices .choice").forEach(btn=>btn.onclick=()=>{ if(s.answered)return; s.answered=true; const ok=btn.dataset.c==="1";
-    $$("#vaChoices .choice").forEach(b=>{ b.disabled=true; if(b.dataset.c==="1") b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); });
-    const v={...getVA(a.id)}; v.seen++; if(ok){v.correct++;v.streak++;} else {v.wrong++;v.streak=0;}
-    v.status=v.streak>=2?"mastered":"learning"; setVA(a.id,v);
-    if(ok) s.score+=10; actCount(ok); bumpDay({studied:1,correct:ok?1:0}); recordSecAcc("VA",ok);
-    $("#vaScore").textContent=`${s.score}점`;
-    $("#vaExplain").innerHTML=`<div class="va-head ${ok?"ok":"no"}">${ok?"✅ 맞혔어요":"❌ 틀렸어요"}</div>`+vaExplainHTML(a);
-    $("#vaExplain").classList.remove("hidden");
-    $("#vaNext").classList.remove("hidden");
-  });
-}
-function finishVA(){ actEnd(); const s=vaSession,total=s.items.length,got=s.score/10,pct=Math.round(got/total*100);
-  $("#vaPlay").classList.add("hidden"); $("#vaEmoji").textContent=pct>=90?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
-  $("#vaResult").textContent=`${got} / ${total} 정답 (${pct}%)`; $("#vaResultSub").textContent="유추는 관계 패턴을 익히는 게 핵심!";
-  $("#vaDone").classList.remove("hidden"); vaSession=null; }
+  const c=$("#vaClassify"); if(c) c.disabled=!ANALOGIES.length; }
+// 관계 유형 드릴(옛 커리큘럼 1단계) — 통계 표본에는 넣지 않는다(skipStats)
+function startVaClassifyDrill(){ const items=buildVAClassify(20).map(it=>({...it,section:"VA",skipStats:true})); startDrill(items,"관계 유형 드릴 · 20문항"); }
 
 /* ============================================================
    READING COMPREHENSION
@@ -4084,7 +3493,7 @@ function submitPassage(){ const {p,answers}=rcCur; let got=0;
   p.questions.forEach((q,qi)=>{ const pick=answers[qi];
     $$(`#rcQArea .choice[data-q="${qi}"]`).forEach(b=>{ b.disabled=true; const oi=+b.dataset.o; b.classList.remove("sel","correct","wrong");
       if(oi===q.answer) b.classList.add("correct"); else if(oi===pick) b.classList.add("wrong"); });
-    if(pick===q.answer) got++; recordSecAcc("RC",pick===q.answer);
+    if(pick===q.answer) got++; recordResult(rcItem(p,qi),pick===q.answer);   // 오답노트·문제 유형 약점까지(M16)
     const ex=document.createElement("div"); ex.className="ana-explain"; ex.innerHTML=`${pick===q.answer?"✅":"❌"} ${esc(q.explain||"")}`;
     $$(`#rcQArea .rc-q`)[qi].appendChild(ex);
   });
@@ -4143,10 +3552,6 @@ const EXAM_PRESETS={
   // ── kept for the Subtest hub (not shown in the exam-screen groups) ──
   ps: composeMock("Physical Science",        [["PS",20]]),
   sj: composeMock("Situational Judgment",    [["SJ",16]]),
-  // ── legacy Verbal-only full mock (kept for old history keys / quick links) ──
-  full: composeMock("Verbal 전체 모의고사",   [["WK",25],["VA",25],["RC",25]], "Verbal 실전"),
-  // ── balanced daily mixed practice (generous timer = low pressure) ──
-  daily:{name:"오늘의 통합 학습", secs:1500, build:()=>[...buildWK(8),...buildVA(6),...buildRC(4),...buildAV(4)], label:"전 영역 22문항"},
 };
 function buildAV(n){
   return pickFresh(AVIATION, n, q=>state.avp[q.id]||0).map(q=>({
@@ -4663,7 +4068,7 @@ function startPickedExam(){
   if(items.length<3){ toast("문제를 만들 데이터가 부족해요."); return; }
   exam={key:null,name:p.name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:p.secs,startSecs:p.secs,total:items.length,submitted:false,timerId:null,
-        kind:"picked",runId:newSynFeedRunId(),startedAt:Date.now()};
+        kind:"picked",runId:newSynFeedRunId(),startedAt:Date.now(),timing:specs.length>1?"sections":"total"};
   if(specs.length>1) buildExamSections(exam);   // 과목별 타이머
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
@@ -4686,7 +4091,8 @@ function startExam(key,opts){
   // 실전 AFOQT처럼 서브테스트마다 자기 시계를 준다(전체 통합 타이머 대신).
   // 시간이 끝난 섹션은 닫히고 다음 섹션으로 — 이전 섹션으로 되돌아갈 수 없다.
   // (기출 mock처럼 specs가 없어도 문항이 다과목이면 섹션 타이머를 붙인다)
-  if(!practice&&!learn && new Set(items.map(it=>it.section)).size>1) buildExamSections(exam);
+  exam.timing=learn?"none":(!practice&&new Set(items.map(it=>it.section)).size>1)?"sections":"total";
+  if(exam.timing==="sections") buildExamSections(exam);
   // Activate the exam view directly — do NOT call go("exam") here, since that
   // re-runs renderExamSetup() and would wipe the exam we just built.
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
@@ -4769,7 +4175,7 @@ function saveExamStatic(){
   try{
     const snap={key:e.key,name:e.name,items:e.items,total:e.total,learn:!!e.learn,
       practice:!!e.practice,startSecs:e.startSecs,savedAt:Date.now(),
-      kind:e.kind||null,runId:e.runId||null,startedAt:e.startedAt||null};
+      kind:e.kind||null,runId:e.runId||null,startedAt:e.startedAt||null,timing:e.timing||null};
     if(e.sections) snap.sections=e.sections.map(s=>({code:s.code,from:s.from,to:s.to,secs:s.secs}));
     localStorage.setItem(EXAM_SAVE_KEY,JSON.stringify(snap));
   }catch(err){ clearExamSnap(); }   // quota 초과 등 — 옛 스냅샷이 남아 엉뚱한 시험이 복원되는 것 방지
@@ -4799,7 +4205,7 @@ function loadExamSnap(){
 function confirmDropExamSnap(){
   const s=loadExamSnap(); if(!s) return true;
   const done=(s.answers||[]).filter(a=>a!=null).length;
-  if(!done&&!isMathFullKey(s.key)) return true;
+  if(!done&&s.timing==="none") return true;   // 학습 모드(시계 없음)에서 한 문제도 안 풀었으면 조용히 대체
   return confirm(`⏸ 하다 만 시험이 있어요 — "${s.name||"모의고사"}" ${done}/${s.total}문항.\n새 시험을 시작하면 사라져요. 계속할까요?`);
 }
 function resumeExamSnap(){
@@ -4807,7 +4213,7 @@ function resumeExamSnap(){
   const offlineElapsed=!s.learn&&s.timerAt?Math.max(0,Math.floor((Date.now()-s.timerAt)/1000)):0;
   exam={key:s.key,name:s.name,items:s.items,idx:s.idx||0,answers:s.answers,
     secsLeft:s.secsLeft,startSecs:s.startSecs,total:s.total,submitted:false,timerId:null,
-    times:s.times||undefined,kind:s.kind||undefined,runId:s.runId||newSynFeedRunId(),startedAt:s.startedAt||undefined};
+    times:s.times||undefined,kind:s.kind||undefined,runId:s.runId||newSynFeedRunId(),startedAt:s.startedAt||undefined,timing:s.timing||(s.learn?"none":s.sections?"sections":"total")};
   if(s.learn) exam.learn=true;
   if(s.practice) exam.practice=true;
   if(s.sections){
@@ -4926,6 +4332,15 @@ function refreshExamGrid(){ const e=exam; const b=$(`#examGrid button[data-i="${
 function recordSecAcc(sec,ok){ if(!sec) return; const o=state.secAcc[sec]||(state.secAcc[sec]={c:0,w:0}); if(ok)o.c++; else o.w++;
   // 날짜별·과목별 풀이 수 — 30일 플랜의 '오늘 할 일' 자동 체크에 사용
   const day=todayStr(), ds=state.dayStats[day]||(state.dayStats[day]={}); ds[sec]=(ds[sec]||0)+1; }
+// 오답노트 증감은 항상 이 두 헬퍼로 — 변경 시각(wrongTs)을 함께 남겨 기기 간 병합에서 '맞혀서 지운' 항목이 되살아나지 않게 한다(H2)
+function wrongAdd(g,id){ const b=state.wrong[g]||(state.wrong[g]={}); b[id]=(b[id]||0)+1; (state.wrongTs=state.wrongTs||{})[g+":"+id]=Date.now(); }
+function wrongDel(g,id){ const b=state.wrong[g]; if(b&&b[id]!=null){ delete b[id]; (state.wrongTs=state.wrongTs||{})[g+":"+id]=Date.now(); } }
+// WK 답 처리 단일 경로(피드·시험 공통): 정답이면 오답노트에서 제거, 오답이면 오답노트 누적.
+// 아직 '미학습(new)'인 단어의 오답은 SRS 실패가 아니다(배운 적이 없다) — 카드는 건드리지 않고 다음 신규 덱 선두로만 올린다(H4).
+function answerWK(id,ok,opts={}){ if(id==null) return; const w=WMAP.get(id); if(!w) return;
+  if(ok) wrongDel("wk",id); else { wrongAdd("wk",id); if(opts.markReview!==false&&getCard(id).status!=="new") markForReview(id); }
+  if(opts.skill!==false){ const o=state.weak.wkTier[tierOf(w)]||(state.weak.wkTier[tierOf(w)]={c:0,w:0}); if(ok)o.c++; else o.w++; }
+  state.wkSeen[id]=Date.now(); }
 function recordResult(it,ok){
   const W=state.wrong, K=state.weak;
   recordSecAcc(it.section, ok);
@@ -4935,25 +4350,23 @@ function recordResult(it,ok){
   if(["AR","MK","PS","AV"].includes(it.section)&&topic) bump(K.topic||(K.topic={}), it.section+":"+topic);
   // 오답 노트는 틀린 '횟수'를 누적한다(1→2→…) — 반복해서 틀리는 문제를 강조·우선 재출제.
   if(it.section==="WK"&&it.wordId!=null){
-    if(ok) delete W.wk[it.wordId]; else W.wk[it.wordId]=(W.wk[it.wordId]||0)+1;
-    bump(K.wkTier, it.tier||"std");
-    state.wkSeen[it.wordId]=Date.now();        // coverage + 중복 회피용 시각
+    answerWK(it.wordId,ok,{markReview:false});   // 시험은 SRS를 건드리지 않는다(기존 규약) — 오답노트·등급 약점·coverage만
   } else if(it.section==="VA"&&it.anaId!=null){
-    if(ok) delete W.va[it.anaId]; else W.va[it.anaId]=(W.va[it.anaId]||0)+1;
+    if(ok) wrongDel("va",it.anaId); else wrongAdd("va",it.anaId);
     bump(K.vaRel, it.relation||"기타");
     const v={...getVA(it.anaId)}; v.seen=(v.seen||0)+1; if(ok)v.correct=(v.correct||0)+1; else v.wrong=(v.wrong||0)+1; setVA(it.anaId,v);
   } else if(it.section==="RC"&&it.passageId!=null&&READING.some(p=>p.id===Number(it.passageId))){
     // 기출(mock) 지문은 READING 풀에 없어 오답노트에 넣어도 재출제 불가 — 앱 풀 지문만 기록
     const key=it.passageId+":"+(it.qIdx||0);
-    if(ok) delete W.rc[key]; else W.rc[key]=(W.rc[key]||0)+1;
+    if(ok) wrongDel("rc",key); else wrongAdd("rc",key);
     bump(K.rcType, it.qType||"detail");
     const r={...getRC(it.passageId)}; r.seen=true; setRC(it.passageId,r);  // coverage
   } else if(it.section==="AV"&&it.avId!=null){
     state.avp[it.avId]=Date.now();             // coverage + 중복 회피용 시각
-    if(ok) delete W.av[it.avId]; else W.av[it.avId]=(W.av[it.avId]||0)+1;
+    if(ok) wrongDel("av",it.avId); else wrongAdd("av",it.avId);
   } else if(["AR","MK","PS"].includes(it.section)&&it.qid!=null){
     const sec=it.section.toLowerCase();
-    const b=W[sec]; if(b){ if(ok) delete b[it.qid]; else b[it.qid]=(b[it.qid]||0)+1; }
+    if(W[sec]){ if(ok) wrongDel(sec,it.qid); else wrongAdd(sec,it.qid); }
     (state.qSeen[sec]||(state.qSeen[sec]={}))[it.qid]=Date.now();   // 중복 출제 방지
   }
 }
@@ -4974,8 +4387,8 @@ function startRetest(kind){
   const secs=Math.max(120, items.length*25);
   exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
-        kind:"retest",runId:newSynFeedRunId(),startedAt:Date.now()};
-  if(ordered.length>1) buildExamSections(exam);   // 주석대로: 다과목이면 과목별 타이머
+        kind:"retest",runId:newSynFeedRunId(),startedAt:Date.now(),timing:"total"};
+  // 오답 재시험은 과목이 섞여도 문항당 25초 예산의 통합 타이머(M1) — 과목별 실전 시계는 섹션 모의고사의 몫
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
@@ -5181,6 +4594,9 @@ function renderCheatsheet(){
    약점 원탭 드릴 — 약점 리포트의 '유형' 한 줄에서 그 유형만 20문제 즉시 연습
    ============================================================ */
 // learn=true → 유형 연습(문제마다 즉시 해설). false → 시간 재는 실전 드릴.
+// 표읽기·블록·계기 드릴 — 전용 화면 대신 시험 러너(시간 측정, 즉시 채점 없음)로 20/10/12문항
+function startPilotDrill(sec){ const spec={TR:[buildTR,20,"표 읽기 드릴"],BC:[buildBC,10,"블록 세기 드릴"],IC:[buildIC,12,"계기 해석 드릴"]}[sec]; if(!spec) return;
+  startDrill(spec[0](spec[1]),`${spec[2]} · ${spec[1]}문항`,false); }
 function startDrill(items,name,learn=true){
   items=(items||[]).slice(0,20);
   if(items.length<3){ toast("이 유형은 문제가 부족해요."); return; }
@@ -5189,7 +4605,7 @@ function startDrill(items,name,learn=true){
   const per=learn?300:1.5, secs=Math.max(120, Math.round(items.reduce((s,it)=>s+(SECRATE[it.section]||30)*per,0)));
   exam={key:null,name,items,idx:0,answers:new Array(items.length).fill(null),learn,
         secsLeft:secs,startSecs:secs,total:items.length,submitted:false,timerId:null,
-        kind:learn?"learn":"drill",runId:newSynFeedRunId(),startedAt:Date.now()};
+        kind:learn?"learn":"drill",runId:newSynFeedRunId(),startedAt:Date.now(),timing:learn?"none":"total"};
   $$(".view").forEach(v=>v.classList.remove("active")); $("#view-exam").classList.add("active");
   $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==="home"));
   window.scrollTo(0,0);
@@ -5256,7 +4672,7 @@ function submitExam(auto){
   let got=0; const bySec={};
   counted.forEach(i=>{ const it=e.items[i]; const ok=e.answers[i]===it.answer; if(ok)got++;
     (bySec[it.section]=bySec[it.section]||{got:0,total:0}).total++; if(ok)bySec[it.section].got++;
-    recordResult(it,ok); });
+    if(!it.skipStats) recordResult(it,ok); });
   // 풀이 속도 집계: 답한 문항만, 목표(실전 배분)의 1.3배 초과면 '느림'
   const speedBySec={};
   e.items.forEach((it,i)=>{ if(e.answers[i]==null) return; const ms=e.times[i]||0; if(!ms) return;
@@ -5297,7 +4713,7 @@ function submitExam(auto){
   $("#examRun").classList.add("hidden"); $("#examResult").classList.remove("hidden");
   $("#examEmoji").textContent=pct>=85?"🏆":pct>=70?"🎯":pct>=50?"💪":"📚";
   $("#examScore").textContent=`${got} / ${total} 정답 (${pct}%)`+(skipped.length?` · ${skipped.map(k=>SEC_KO[k]||k).join("·")} 건너뜀`:"");
-  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
+  const secName=SEC_KO;
   $("#examBreakDown").innerHTML=Object.keys(bySec).map(k=>
     `<div class="s"><b>${bySec[k].got}/${bySec[k].total}</b><span>${secName[k]||k}</span></div>`).join("");
   // estimated AFOQT-style percentile (unofficial)
@@ -5348,7 +4764,7 @@ function submitExam(auto){
 }
 function renderExamReview(){
   const e=exam; if(!e) return;
-  const secName={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
+  const secName=SEC_KO;
   const skip=e._skipped||[];
   $("#examReview").innerHTML=e.items.map((it,i)=>{
     if(skip.includes(it.section)) return "";               // 통째로 건너뛴 과목은 복기에서 제외
@@ -5402,14 +4818,7 @@ function renderStats(){
           return `<div class="badge ${on?"on":"off"}" title="${esc(b.d||b.name)}"><div class="bi">${b.icon}</div><div class="bn">${esc(b.name)}</div></div>`;
         }).join("")}</div></div>`;
     }).join(""); }
-  const left=daysLeft(),rem=cnt.remaining,pace=newPerDay(),fin=pace?Math.ceil(rem/pace):0,ok=fin<=left;
-  const todayDueN=dueCards().length, todayNewN=Math.min(pace,rem), todayN=todayDueN+todayNewN;
-  $("#projection").innerHTML=rem===0?`<div class="center"><div class="big-emoji">🏁</div><b>모든 단어 학습 완료!</b><div class="muted">이제 복습으로 마스터하세요.</div></div>`
-    :`📅 <b>오늘은 ${todayN}개</b> (복습 ${todayDueN} + 신규 ${todayNewN})<br>
-      남은 단어 <b>${rem}</b>개 · 시험까지 <b>${left}</b>일<br>이 페이스(신규 ${pace}/일)면 <b>약 ${fin}일</b>에 1회독.<br>
-      <span style="color:${ok?'var(--ok)':'var(--warn)'}">${ok?'✅ 일정 내 완주 가능!':'⚠️ 하루 신규 단어를 늘리면 더 안전해요.'}</span>
-      <div class="muted" style="font-size:12px;margin-top:6px">⏳ 쉬는 날엔 남은 단어는 그대로, 남은 일수만 줄어서 다음날 개수가 자동으로 늘어나요.</div>`;
-  renderComposite(); renderExamTrend(); renderSpeedStats(); renderWeakness();
+  renderComposite(); renderExamTrend(); renderSpeedStats();
 }
 // 과목별 평균 풀이 속도 vs 실전 배분 시간 (누적)
 function renderSpeedStats(){
@@ -5452,13 +4861,13 @@ const SUBTESTS=[
   {code:"WK",name:"단어 (Word Knowledge)",go:()=>startExam("wk")},
   {code:"VA",name:"유추 (Verbal Analogies)",go:()=>startExam("va")},
   {code:"RC",name:"독해 (Reading)",go:()=>startExam("rc")},
-  {code:"AR",name:"산수 (Arithmetic)",go:()=>openSubtest("ar")},
-  {code:"MK",name:"수학 (Math Knowledge)",go:()=>openSubtest("mk")},
-  {code:"PS",name:"과학 (Physical Science)",go:()=>openSubtest("ps")},
+  {code:"AR",name:"산수 (Arithmetic)",go:()=>go("math")},
+  {code:"MK",name:"수학 (Math Knowledge)",go:()=>go("math")},
+  {code:"PS",name:"과학 (Physical Science)",go:()=>openSubjectSheet("ps")},
   {code:"AV",name:"항공 (Aviation)",go:()=>startExam("av")},
-  {code:"TR",name:"표 읽기 (Table Reading)",go:()=>startTableReading()},
-  {code:"BC",name:"블록 세기 (Block Counting)",go:()=>startBlockCounting()},
-  {code:"IC",name:"계기 (Instrument Comp.)",go:()=>startInstrument()},
+  {code:"TR",name:"표 읽기 (Table Reading)",go:()=>startPilotDrill("TR")},
+  {code:"BC",name:"블록 세기 (Block Counting)",go:()=>startPilotDrill("BC")},
+  {code:"IC",name:"계기 (Instrument Comp.)",go:()=>startPilotDrill("IC")},
 ];
 const RC_TYPE_KO={main_idea:"주제",detail:"세부사항",inference:"추론",vocab_in_context:"문맥 어휘",tone_purpose:"어조/목적"};
 const WK_TIER_KO={high:"고빈출(high)",mid:"중요(mid)",std:"일반(std)"};
@@ -5469,14 +4878,14 @@ function repBar(label,o,drill){ const p=accPct(o); const n=(o?.c||0)+(o?.w||0); 
   const btn=drill?`<button class="drillbtn" data-drill="${esc(drill)}">${styleDrill?"유형 연습":"20문제"} ›</button>`:"";
   return `<div class="rep-row ${drill?"has-drill":""}"><div class="lab"><span>${esc(label)}</span><span class="muted">${p}% · ${o.w||0}틀림/${n}</span></div>
     <div class="row" style="gap:8px;align-items:center"><div class="progressbar mini" style="flex:1"><i style="width:${p}%;background:${col}"></i></div>${btn}</div></div>`; }
-function openReport(){ go("report"); }
+function openReport(){ go("stats",{tab:"weak"}); }
 function renderReport(){
   const box=$("#repBody"); if(!box) return;
   const subs=SUBTESTS.filter(s=>!(pilotPerfect()&&PILOT_VISUAL.includes(s.code)))
     .map(s=>({...s,o:state.secAcc[s.code]})).filter(s=>((s.o?.c||0)+(s.o?.w||0))>=3)
     .map(s=>({...s,acc:accPct(s.o),n:(s.o.c||0)+(s.o.w||0)})).sort((a,b)=>a.acc-b.acc);
   if(!subs.length){ box.innerHTML=`<div class="card rep-empty">아직 분석할 데이터가 부족해요.<br>퀴즈·시험·커리큘럼을 조금 풀면 약점을 분석해 드릴게요.<br><button class="btn primary" id="repGoDaily" style="max-width:240px;margin:14px auto 0">📅 오늘의 통합 학습 시작</button></div>`;
-    $("#repGoDaily")&&($("#repGoDaily").onclick=()=>startExam("daily")); return; }
+    $("#repGoDaily")&&($("#repGoDaily").onclick=()=>go("exam")); return; }
   const worst=subs[0];
   const enc=encodeURIComponent;
   const wkBlock=()=>{ const arr=Object.entries(state.weak.wkTier).map(([k,o])=>({k,o,n:o.c+o.w})).filter(x=>x.n>=2);
@@ -5486,7 +4895,7 @@ function renderReport(){
   const rcBlock=()=>{ const arr=Object.entries(state.weak.rcType).map(([k,o])=>({k,o,a:accPct(o),n:o.c+o.w})).filter(x=>x.n>=2).sort((a,b)=>a.a-b.a);
     return arr.length?`<div class="rep-sub">📖 독해 — 약한 문제 유형</div>${arr.map(x=>repBar(RC_TYPE_KO[x.k]||x.k,x.o,`rc|${enc(x.k)}`)).join("")}`:""; };
   const topicBySec={}; for(const [k,o] of Object.entries(state.weak.topic||{})){ const i=k.indexOf(":"); const sec=k.slice(0,i),t=k.slice(i+1); (topicBySec[sec]=topicBySec[sec]||[]).push({t,o,a:accPct(o),n:o.c+o.w}); }
-  const secKoName={AR:"산수",MK:"수학",PS:"과학",AV:"항공"};
+  const secKoName=SEC_KO;
   const topicBlocks=Object.keys(topicBySec).map(sec=>{ const arr=topicBySec[sec].filter(x=>x.n>=2).sort((a,b)=>a.a-b.a).slice(0,4);
     return arr.length?`<div class="rep-sub">${secKoName[sec]||sec} — 약한 주제</div>${arr.map(x=>repBar(mathStyleTopicName(sec,x.t),x.o,`topic|${enc(sec)}|${enc(x.t)}`)).join("")}`:""; }).join("");
   // 가장 약한 '유형' 하나 — 히어로에서 원탭으로 바로 20문제
@@ -5538,13 +4947,12 @@ function pruneExamDetail(){ const h=state.examHist||[];
 /* ============================================================
    지난 시험 기록 — 목록 → 상세(문항별 해설 복기)
    ============================================================ */
-const EXAM_SECKO={WK:"단어",VA:"유추",RC:"독해",AV:"항공",AR:"산수",MK:"수학",PS:"과학",SJ:"상황",TR:"표읽기",IC:"계기",BC:"블록"};
 let examLogIdx=null;
 function renderExamLog(){
   const h=(state.examHist||[]).slice().reverse();
   if(examLogIdx==null){
     $("#elTitle").textContent="📋 지난 시험 기록";
-    $("#elBack").textContent="← 통계"; $("#elBack").onclick=()=>go("stats");
+    $("#elBack").classList.add("hidden");
     if(!h.length){ $("#elBody").innerHTML=`<div class="card center muted" style="padding:20px">아직 본 시험이 없어요.<br>모의고사를 보면 여기에 기록이 남아요.</div>`; return; }
     $("#elBody").innerHTML=`<div class="muted" style="font-size:12px;margin-bottom:10px">총 ${h.length}회 · 문항별 해설은 최근 10회까지 볼 수 있어요.</div>`+
       h.map((x,i)=>{ const pct=Math.round(x.acc*100);
@@ -5559,8 +4967,8 @@ function renderExamLog(){
   }
   const x=h[examLogIdx]; if(!x){ examLogIdx=null; return renderExamLog(); }
   $("#elTitle").textContent=`${x.date} · ${Math.round(x.acc*100)}%`;
-  $("#elBack").textContent="← 목록"; $("#elBack").onclick=()=>{ examLogIdx=null; window.scrollTo(0,0); renderExamLog(); };
-  const secs=Object.keys(x.bySec||{}).map(k=>`<div class="s"><b>${x.bySec[k].got}/${x.bySec[k].total}</b><span>${EXAM_SECKO[k]||k}</span></div>`).join("");
+  $("#elBack").classList.remove("hidden"); $("#elBack").textContent="← 목록"; $("#elBack").onclick=()=>{ examLogIdx=null; window.scrollTo(0,0); renderExamLog(); };
+  const secs=Object.keys(x.bySec||{}).map(k=>`<div class="s"><b>${x.bySec[k].got}/${x.bySec[k].total}</b><span>${SEC_KO[k]||k}</span></div>`).join("");
   let head=`<div class="card center">
       <div style="font-size:13px;color:var(--muted)">${esc(x.name||x.key||"모의고사")}</div>
       <h2 style="margin:6px 0">${x.got} / ${x.total} 정답 (${Math.round(x.acc*100)}%)</h2>
@@ -5575,7 +4983,7 @@ function renderExamLog(){
     const psg=(it.p!=null)?(()=>{ const p=READING.find(z=>z.id===it.p); return p?`<details class="exam-passage"><summary>📖 ${esc(it.pt||p.title||"지문")} (탭하여 보기)</summary><div class="passage">${esc(p.passage||"")}</div></details>`:""; })():"";
     const tchip=it.ms?` · ${Math.round(it.ms/1000)}초${it.ms>((SECRATE[it.s]||30)*1300)?" 🐢":""}`:"";
     return `<div class="review-q">
-      <div class="rh">${i+1}. ${EXAM_SECKO[it.s]||it.s} ${ok?"✅":un?"⬜ 미응답":"❌"}<span class="muted" style="font-weight:400">${tchip}</span></div>
+      <div class="rh">${i+1}. ${SEC_KO[it.s]||it.s} ${ok?"✅":un?"⬜ 미응답":"❌"}<span class="muted" style="font-weight:400">${tchip}</span></div>
       ${psg}
       <div style="font-weight:600;margin-bottom:6px">${fmtMath(it.t||it.q)}</div>
       ${opts}
@@ -5611,26 +5019,6 @@ function renderExamTrend(){
       <span class="pill">예상 백분위 <b>${last.pctile}th</b></span>
       <span class="pill">최고 <b>${Math.round(best*100)}%</b></span>
       <span class="pill">응시 <b>${h.length}</b>회</span></div>`;
-}
-function renderWeakness(){
-  const box=$("#weakAnalysis");
-  const relName=r=>r, typeName={main_idea:"주제",detail:"세부사항",inference:"추론",vocab_in_context:"문맥 어휘",tone_purpose:"어조/목적"},
-        tierName={high:"고빈출(high)",mid:"중요(mid)",std:"일반(std)"};
-  const collect=(obj,namer)=>Object.keys(obj).map(k=>{const o=obj[k],t=o.c+o.w;return{k,name:namer(k),acc:t?o.c/t:0,t,w:o.w};}).filter(x=>x.t>=2);
-  const va=collect(state.weak.vaRel,relName).sort((a,b)=>a.acc-b.acc).slice(0,4);
-  const rc=collect(state.weak.rcType,k=>typeName[k]||k).sort((a,b)=>a.acc-b.acc).slice(0,4);
-  const wk=collect(state.weak.wkTier,k=>tierName[k]||k).sort((a,b)=>a.acc-b.acc);
-  if(!va.length&&!rc.length&&!wk.length){ box.innerHTML=`<div class="center muted" style="padding:8px">모의고사를 풀면 유형별 정답률을 분석해 약점을 알려드려요.</div>`; return; }
-  const bar=x=>{const p=Math.round(x.acc*100),col=p<50?"var(--bad)":p<75?"var(--warn)":"var(--ok)";
-    return `<div style="margin:6px 0"><div class="row" style="justify-content:space-between;font-size:12px"><span>${esc(x.name)}</span><span class="muted">${p}% · ${x.w}틀림</span></div>
-      <div class="progressbar mini"><i style="width:${p}%;background:${col}"></i></div></div>`;}
-  let html="";
-  if(wk.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:2px 0 4px">단어 등급별</div>`+wk.map(bar).join(""); }
-  if(va.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:10px 0 4px">유추 — 약한 관계 유형</div>`+va.map(bar).join(""); }
-  if(rc.length){ html+=`<div style="font-size:12px;font-weight:700;color:var(--brand2);margin:10px 0 4px">독해 — 약한 문제 유형</div>`+rc.map(bar).join(""); }
-  const worst=[...va,...rc,...wk].sort((a,b)=>a.acc-b.acc)[0];
-  if(worst) html+=`<div class="hintbox" style="margin-top:12px">💡 가장 약한 부분: <b>${esc(worst.name)}</b> (${Math.round(worst.acc*100)}%). 집중 연습을 추천해요.</div>`;
-  box.innerHTML=html;
 }
 
 /* ============================================================
@@ -5676,8 +5064,7 @@ function softRender(){
   // sync echo must not reset the analogy/reading view and kick the user out.
   if(sessionActive()) return;
   const a=$(".view.active")?.id;
-  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-themes":renderThemes,"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-math":renderMath,"view-barronmath":renderBarronMath,"view-stats":renderStats}[a]||(()=>{}))(); }
-window.__softRender=softRender; // test/debug hook
+  ({"view-home":renderHome,"view-vocab":renderVocab,"view-words":()=>renderWords(true),"view-synfeed":renderSynFeed,"view-analogy":renderAnalogyHub,"view-reading":renderReading,"view-math":()=>setTab("math"),"view-aviation":()=>setTab("aviation"),"view-stats":()=>setTab("stats"),"view-stats":renderStats}[a]||(()=>{}))(); }
 
 /* ============================================================
    WIRING
@@ -5695,7 +5082,7 @@ function wire(){
     if(!changed) return;
     flushSynFeedKeepalive(true); syncCodeMismatch=true; clearTimeout(saveTimer); saveTimer=null; clearTimeout(pushTimer); pushTimer=null; pushDueAt=0;
     clearTimeout(pullRetryTimer); pullRetryTimer=null; toast("동기화 설정이 바뀌어 안전하게 다시 불러옵니다."); location.reload(); });
-  $$("#nav button[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  $$("#nav button[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go,{tab:TAB_DEFAULT[b.dataset.go]}));   // 하단 탭은 항상 허브의 기본 탭으로
   // 사이드바 접기/펴기(넓은 화면). 상태 기억.
   const applyNavCollapsed=()=>{ const c=localStorage.getItem("afoqt_nav_collapsed")==="1";
     document.body.classList.toggle("nav-collapsed",c); const t=$("#navToggle"); if(t){ t.textContent=c?"▶":"◀"; t.setAttribute("aria-label",c?"메뉴 펴기":"메뉴 접기"); } };
@@ -5705,50 +5092,35 @@ function wire(){
   // home
   $("#btnStartNew")&&($("#btnStartNew").onclick=startStudyNew);
   $("#btnStartRev")&&($("#btnStartRev").onclick=startStudyReview);
-  $("#btnExam").onclick=()=>go("exam");
-  $("#btnDaily").onclick=()=>startExam("daily");
-  $("#btnCurr").onclick=()=>openCurriculum();
-  $("#vkCurr").onclick=()=>openCurriculum("wk"); $("#vaCurr").onclick=()=>openCurriculum("va"); $("#rcCurr").onclick=()=>openCurriculum("rc");
-  $("#currBack").onclick=()=>go("home");
-  $("#repBack").onclick=()=>go("stats"); $("#btnReport")&&($("#btnReport").onclick=openReport); $("#repOpen")&&($("#repOpen").onclick=openReport);
-  $("#btnExamLog")&&($("#btnExamLog").onclick=()=>{ examLogIdx=null; go("examlog"); });
-  // 수학 유형별 공략
-  $("#btnMathTypes")&&($("#btnMathTypes").onclick=()=>go("mathtypes"));
-  $("#mtBack")&&($("#mtBack").onclick=()=>go("math"));
-  $("#btnBarronMath")&&($("#btnBarronMath").onclick=()=>go("barronmath"));
-  $("#bmBack")&&($("#bmBack").onclick=()=>go("math"));
+  $("#axFeed").onclick=()=>go("synfeed"); $("#axCards").onclick=()=>go("vocab"); $("#axExam").onclick=()=>go("exam");
+  $$(".feed-seg [data-feed]").forEach(b=>b.onclick=()=>go(b.dataset.feed));
+  $("#btnReport")&&($("#btnReport").onclick=openReport);
+  // 허브 안 탭 전환
+  $$("[data-tabs] [data-tab]").forEach(b=>b.onclick=()=>setTab(b.closest("[data-tabs]").dataset.tabs,b.dataset.tab));
   // 요약 시트
   $("#btnCheatsheet")&&($("#btnCheatsheet").onclick=()=>openCheatsheet("exam"));
   $("#btnCheatsheet2")&&($("#btnCheatsheet2").onclick=()=>openCheatsheet("stats"));
   $("#csBack")&&($("#csBack").onclick=()=>go(csFrom||"exam"));
   $("#csPrint")&&($("#csPrint").onclick=()=>{ $$("#csBody details").forEach(d=>d.open=true); window.print(); });
-  $$("#currTabs .chip").forEach(c=>c.onclick=()=>{ curTrack=c.dataset.ct; renderCurriculum(); });
-  $("#cpBack").onclick=()=>{ curSes=null; go("curriculum"); };
-  $("#cpRetry").onclick=()=>{ const t=curSes?.t??curTrack, si=curSes?.si??0; curSes=null; startCurrStage(t,si); };
-  $("#cpToCurr").onclick=()=>{ curSes=null; go("curriculum"); };
   $("#secWK").onclick=()=>go("vocab"); $("#secVA").onclick=()=>go("analogy"); $("#secRC").onclick=()=>go("reading");
   $("#secAV").onclick=()=>go("aviation");
   $("#mkPractice").onclick=()=>startExam("mk",{practice:true}); $("#mkExam").onclick=()=>startExam("mk"); $("#mkGuide").onclick=()=>openGuide("mk");
   $("#arPractice").onclick=()=>startExam("ar",{practice:true}); $("#arExam").onclick=()=>startExam("ar"); $("#arGuide").onclick=()=>openGuide("ar");
-  $("#secAR").onclick=()=>openSubtest("ar"); $("#secMK").onclick=()=>openSubtest("mk");
-  $("#secPS").onclick=()=>openSubtest("ps"); $("#secSJ").onclick=()=>openSubtest("sj");
-  $("#secTR").onclick=startTableReading; $("#secIC").onclick=startInstrument; $("#secBC").onclick=startBlockCounting;
+  $("#secAR").onclick=()=>go("math"); $("#secMK").onclick=()=>go("math");
+  $("#secPS").onclick=()=>openSubjectSheet("ps"); $("#secSJ").onclick=()=>openSubjectSheet("sj");
+  $("#secTR").onclick=()=>startPilotDrill("TR"); $("#secIC").onclick=()=>startPilotDrill("IC"); $("#secBC").onclick=()=>startPilotDrill("BC");
   $("#secSDI").onclick=()=>openGuide("sdi");
-  // generic subtest hub
-  $("#subBack").onclick=()=>go("home");
-  // instrument comprehension
-  $("#icStart").onclick=startInstrument; $("#icGuide").onclick=()=>openGuide("ic");
-  $("#icBack").onclick=()=>{ icTimerStop(); icState=null; go("aviation"); }; $("#icRetry").onclick=startInstrument; $("#icHome").onclick=()=>{ icState=null; go("aviation"); };
+  $("#icStart").onclick=()=>startPilotDrill("IC"); $("#icGuide").onclick=()=>openGuide("ic");
   // vocab hub
   $("#vkNew")&&($("#vkNew").onclick=startStudyNew);
   $("#vkReview")&&($("#vkReview").onclick=startStudyReview);
-  $("#vkQuiz").onclick=()=>go("quiz"); $("#vkWords").onclick=()=>go("words");
+  $("#vkWords").onclick=()=>go("words");
   $("#vkSynFeed").onclick=()=>go("synfeed");
-  $("#synfeedBack").onclick=()=>go("vocab"); $("#synfeedPause").onclick=()=>go("vocab");
+  $("#synfeedBack").onclick=()=>go("home"); $("#synfeedPause").onclick=()=>{ pauseSynFeed(); renderSynFeed(); };
   $("#synfeedStart").onclick=startSynFeed; $("#synfeedResume").onclick=resumeSynFeed;
   // VA 무한 피드
   $("#vaFeedBtn")&&($("#vaFeedBtn").onclick=()=>go("vafeed"));
-  $("#vafeedBack")&&($("#vafeedBack").onclick=()=>go("analogy")); $("#vafeedPause")&&($("#vafeedPause").onclick=()=>go("analogy"));
+  $("#vafeedBack")&&($("#vafeedBack").onclick=()=>go("home")); $("#vafeedPause")&&($("#vafeedPause").onclick=()=>{ vaFeedPause(); renderVaFeed(); });
   $("#vafeedStart")&&($("#vafeedStart").onclick=startVaFeed); $("#vafeedResume")&&($("#vafeedResume").onclick=resumeVaFeed);
   $("#vafeedTimerOpt")&&($("#vafeedTimerOpt").onchange=e=>setVaFeedTimer(e.target.checked));
   $("#vafeedTimer")&&($("#vafeedTimer").onclick=()=>{ setVaFeedTimer(false); toast("⏱ 타이머 끔 — 설정에서 다시 켤 수 있어요"); });
@@ -5757,37 +5129,27 @@ function wire(){
   $("#synfeedKoLive").onclick=()=>setSynFeedKorean(!synFeedKorean());
   $("#synfeedTimerOpt")&&($("#synfeedTimerOpt").onchange=e=>setSynFeedTimer(e.target.checked));
   $("#synfeedTimer")&&($("#synfeedTimer").onclick=()=>{ setSynFeedTimer(false); toast("⏱ 타이머 끔 — 설정에서 다시 켤 수 있어요"); });
-  $("#vkSynq").onclick=()=>go("synq"); $("#synqGo").onclick=startSynQuiz;
-  $("#synqBack").onclick=()=>{ synq=null; go("vocab"); }; $("#synqStop").onclick=()=>{ synq=null; renderSynQuiz(); };
   $("#vkAuto").onclick=()=>go("autoplay"); $("#apBack").onclick=()=>go("vocab"); $("#apGo").onclick=startAutoPlay;
   $("#apPlay").onclick=apTogglePlay; $("#apPrev").onclick=()=>apManual(-1); $("#apNext").onclick=()=>apManual(1);
-  $("#vkExam").onclick=()=>startExam("wk"); $("#vkRoots").onclick=()=>go("roots");
-  $("#vkThemes")&&($("#vkThemes").onclick=()=>go("themes"));
-  $("#themeBack")&&($("#themeBack").onclick=()=>go("vocab"));
-  $$('input[name="themePriority"]').forEach(x=>x.onchange=e=>{ if(!e.target.checked) return;
-    state.settings.verbal_theme_priority=Number(e.target.value); themeExpandedCode=null; saveLocal(); queuePush("settings",{}); renderThemes(); });
-  $$('input[name="themeMode"]').forEach(x=>x.onchange=e=>{ if(!e.target.checked) return;
-    state.settings.verbal_theme_mode=e.target.value; themeExpandedCode=null; saveLocal(); queuePush("settings",{}); renderThemes(); });
+
   $("#vkGuide").onclick=()=>openGuide("wk"); $("#vaGuide").onclick=()=>openGuide("va"); $("#rcGuide").onclick=()=>openGuide("rc");
+  // 첫 실행(리뉴얼 전환) 기록 — 화면 수 절반 이하로 통합됨
+  if(!state.uiVersion||state.uiVersion<2){ const now=Math.round(Date.now()/1000); evAppend({y:"migrate",s:now,e:now,z:tzOffsetMin(),m:{from:String(state.uiVersion||1),to:"2"}}); state.uiVersion=2; saveLocal(false); }
   // aviation
-  $("#avFlash").onclick=()=>go("avflash"); $("#avGlossary").onclick=()=>go("avterms");
-  $("#avStudy").onclick=()=>go("avstudy"); $("#avsBack").onclick=()=>go("aviation");
-  $("#avBook").onclick=()=>{ avBookCh=null; go("avbook"); };
+  $("#avFlash").onclick=()=>{ setTab("aviation","terms"); startAvFlash(); }; $("#avfBack").onclick=avFlashClose;
+  $("#avStudy").onclick=()=>setTab("aviation","study");
+  $("#avBook").onclick=()=>{ avBookCh=null; setTab("aviation","book"); };
   $("#avsSearch").oninput=e=>{ avsSearch=e.target.value.trim(); renderAvStudy(); };
   $$("#avsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#avsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); avsFilter=c.dataset.as; renderAvStudy(); });
   $("#avExam").onclick=()=>startExam("av"); $("#avGuide").onclick=()=>openGuide("av");
-  $("#avtBack").onclick=()=>go("aviation"); $("#avfBack").onclick=()=>go("aviation");
-  $("#trStart").onclick=startTableReading; $("#trGuide").onclick=()=>openGuide("tr");
-  $("#trBack").onclick=()=>{ trTimerStop(); trState=null; go("aviation"); }; $("#trRetry").onclick=startTableReading; $("#trHome").onclick=()=>{ trState=null; go("aviation"); };
-  $("#bcStart").onclick=startBlockCounting; $("#bcGuide").onclick=()=>openGuide("bc");
-  $("#bcBack").onclick=()=>{ bcTimerStop(); bcState=null; go("aviation"); }; $("#bcRetry").onclick=startBlockCounting; $("#bcHome").onclick=()=>{ bcState=null; go("aviation"); };
+  $("#trStart").onclick=()=>startPilotDrill("TR"); $("#trGuide").onclick=()=>openGuide("tr");
+  $("#bcStart").onclick=()=>startPilotDrill("BC"); $("#bcGuide").onclick=()=>openGuide("bc");
   $("#exportProg").onclick=exportProgress;
   $$("[data-study-export]").forEach(b=>b.onclick=openStudyExport);
   $("#importProg").onclick=()=>$("#importFile").click();
   $("#importFile").onchange=e=>{ if(e.target.files&&e.target.files[0]) importProgress(e.target.files[0]); e.target.value=""; };
   $("#avtSearch").oninput=e=>{ avtSearch=e.target.value.trim(); renderAvTerms(); };
   $$("#avtFilters .chip").forEach(c=>c.onclick=()=>{ $$("#avtFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); avtFilter=c.dataset.af; renderAvTerms(); });
-  $("#rootsBack").onclick=()=>go("vocab");
   $("#rootsSearch").oninput=e=>{ rootSearch=e.target.value.trim(); renderRoots(); };
   $$("#rootsFilters .chip").forEach(c=>c.onclick=()=>{ $$("#rootsFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); rootFilter=c.dataset.rf; renderRoots(); });
   // root coach
@@ -5800,10 +5162,10 @@ function wire(){
   $$("#examSetup .exam-preset").forEach(b=>b.onclick=()=>startExam(b.dataset.exam));
   $("#examExit").onclick=()=>go("home");
   $("#examQuit").onclick=()=>{ if(!exam||exam.submitted||confirm("시험을 그만두고 나갈까요? 기록은 저장되지 않아요.")){
-    const back=exam?mathExamReturnView(exam.key):"home"; stopExamTimer(); clearExamSnap(); examReleaseWake();
+    const back=exam?mathExamReturnView(exam.key):["home"]; stopExamTimer(); clearExamSnap(); examReleaseWake();
     if(exam&&act&&["exam","retest","drill"].includes(act.y)){ const ans=exam.answers.filter(a=>a!=null).length;
       actEnd({y:"exam_abandoned",k:exam.key||examKindOf(exam),n:ans,t:exam.total,m:{kd:examKindOf(exam),ans,tot:exam.total}}); }
-    exam=null; go(back); } };
+    exam=null; go(back[0],{tab:back[1]}); } };
   $("#examPrev").onclick=()=>{ if(!exam) return; const s=curExamSec(), lo=s?s.from:0;
     if(exam.idx>lo){ exam.idx--; renderExamQ(); } };
   $("#examNext").onclick=()=>{ if(!exam) return; const s=curExamSec(), hi=s?s.to:exam.total-1;
@@ -5816,10 +5178,10 @@ function wire(){
   $("#examReviewBtn").onclick=()=>{ renderExamReview(); $("#examReviewBtn").classList.add("hidden"); $("#examReview").scrollIntoView({behavior:"smooth"}); };
   $("#examRetry").onclick=()=>{ if(exam&&exam.key){
       if(String(exam.key).startsWith("mock_")&&!EXAM_PRESETS[exam.key]){ toast("🔒 기출 모의고사는 잠금 해제 후 다시 응시할 수 있어요."); go("exam"); return; }
-      startExam(exam.key);
+      startExam(exam.key,{practice:!!exam.practice});   // 연습 모드 회차를 다시 풀면 연습 모드 그대로(M11)
     } else go("exam"); };
   $("#retestAll").onclick=()=>startRetest("all");
-  $("#examDoneHome").onclick=()=>go(exam?mathExamReturnView(exam.key):"home");
+  $("#examDoneHome").onclick=()=>{ if(exam) goExamReturn(exam.key); else go("home"); };
   $("#optHighFirst").onchange=e=>{ state.settings.high_first=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optHighOnly").onchange=e=>{ state.settings.high_only=e.target.checked; saveLocal(); queuePush("settings",{}); renderHome(); };
   $("#optShowKo")&&($("#optShowKo").onchange=e=>{ state.settings.hide_ko=!e.target.checked; saveLocal(); queuePush("settings",{});
@@ -5827,18 +5189,11 @@ function wire(){
   $("#optPilotPerfect")&&($("#optPilotPerfect").onchange=e=>{ state.settings.pilot_perfect=e.target.checked; saveLocal(); queuePush("settings",{});
     toast(e.target.checked?"표읽기·블록·계기를 만점으로 계산해요 ✈️":"세 과목을 다시 앱 성적으로 계산해요"); renderHome(); });
   // study
-  $("#studyBack").onclick=()=>{ const key=studyScopeKey(session), back=String(key||"").startsWith("theme:")?"themes":String(key||"").startsWith("words:")?"words":"vocab";
+  $("#studyBack").onclick=()=>{ const key=studyScopeKey(session), back=/^(theme:|words:)/.test(String(key||""))?"words":"vocab";
     session=null; go(back); };
-  $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=e=>{ if(e.currentTarget.dataset.next==="themes"){ go("themes"); return; }
+  $("#doneHome").onclick=()=>go("home"); $("#doneMore").onclick=e=>{ if(e.currentTarget.dataset.next==="words"){ go("words"); return; }
     if(dueCards().length) startStudyReview(); else startStudyNew(); };
-  $("#doneQuiz").onclick=()=>{ if(poolFor("today").length<4){ toast("오늘 학습한 단어가 4개 이상이면 퀴즈를 볼 수 있어요"); return; } session=null; startQuizScope("today"); };
-  // quiz
-  $("#quizBack").onclick=()=>{ quiz=null;   // 안 지우면 sessionActive()가 영구 true — 홈 갱신·SW 업데이트가 멈춘다
-    $("#quizStart").classList.remove("hidden"); $("#quizDone").classList.add("hidden"); $("#quizArea").innerHTML="";
-    go("vocab"); };
-  $("#quizGo").onclick=startQuiz;
-  $("#quizRetry").onclick=()=>{ $("#quizDone").classList.add("hidden"); $("#quizStart").classList.remove("hidden"); $("#quizArea").innerHTML=""; };
-  $("#quizHomeBtn").onclick=()=>go("home");
+  $("#doneQuiz").onclick=()=>{ session=null; go("synfeed"); };
   $("#vkConfirm").onclick=()=>go("confirm");
   $("#confirmBack").onclick=()=>{ confirmQuiz=null;
     $("#confirmStart").classList.remove("hidden"); $("#confirmDone").classList.add("hidden"); $("#confirmArea").innerHTML="";
@@ -5853,7 +5208,6 @@ function wire(){
   $("#wordsBack").onclick=()=>go("vocab"); $("#searchBox").oninput=e=>{ wordSearch=e.target.value.trim(); renderWords(); };
   $("#wordThemeFilter")&&($("#wordThemeFilter").onchange=e=>{ wordThemeFilter=e.target.value; renderWords(); });
   $("#wordPriorityFilter")&&($("#wordPriorityFilter").onchange=e=>{ wordPriorityFilter=Number(e.target.value)||0; renderWords(); });
-  $("#vkMock")&&($("#vkMock").onclick=()=>startStudySet(mockWordIds(),"모의고사 단어"));
   $("#vkWrong")&&($("#vkWrong").onclick=()=>startStudySet(wrongWordIds(),"오답 단어"));
   // 무한 스크롤: 중첩 스크롤러도 잡도록 capture 단계에서 듣는다.
   window.addEventListener("scroll",pumpWords,true); window.addEventListener("resize",pumpWords);
@@ -5862,12 +5216,10 @@ function wire(){
   { const m=$("#wordMore"); if(m) m.onclick=()=>appendWords(WORD_PAGE); }
   $$("#wordFilters .chip").forEach(c=>c.onclick=()=>{ $$("#wordFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); wordFilter=c.dataset.f; renderWords(); });
   // analogy
-  $("#vaStart").onclick=()=>startAnalogy(false); $("#vaReview").onclick=()=>startAnalogy(true);
-  $("#vaExam").onclick=()=>startExam("va");
-  $("#vaBrowse").onclick=()=>go("vabrowse"); $("#vabBack").onclick=()=>go("analogy");
+  $("#vaClassify")&&($("#vaClassify").onclick=startVaClassifyDrill);
+  $("#vaBrowse").onclick=()=>setTab("analogy","browse");
   $("#vabSearch").oninput=e=>{ vaBrowseSearch=e.target.value.trim(); renderVaBrowse(); };
   $$("#vabFilters .chip").forEach(c=>c.onclick=()=>{ $$("#vabFilters .chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); vaBrowseFilter=c.dataset.vr; renderVaBrowse(); });
-  $("#vaBack").onclick=()=>{ vaSession=null; renderAnalogyHub(); }; $("#vaRetry").onclick=()=>startAnalogy(false); $("#vaHomeBtn").onclick=()=>go("home");
   // reading
   $("#rcBack").onclick=()=>go("reading"); $("#rcToList").onclick=()=>go("reading"); $("#rcNext").onclick=nextPassage;
   $("#rcExam").onclick=()=>startExam("rc");
@@ -5960,7 +5312,7 @@ let lastDay=todayStr();
    ============================================================ */
 // Register the service worker and auto-apply updates so users never get stuck
 // on a stale cached version (no need for ?v= cache-busting URLs).
-function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!vaSession||!!quiz||!!synq||!!synFeed||!!vaFeed||!!trState||!!bcState||!!icState||!!(curSes&&!curSes.done); }
+function sessionActive(){ return !!(exam&&!exam.submitted)||!!session||!!synFeed||!!vaFeed||!!(ap&&ap.playing); }
 // Nuke all caches + service workers and hard-reload — guarantees the latest
 // version, fixing any "I still see the old app" situation. Learning data lives
 // in localStorage, which is NOT touched here.

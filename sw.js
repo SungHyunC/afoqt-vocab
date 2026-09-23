@@ -1,5 +1,5 @@
 /* AFOQT Master — Service Worker (오프라인 캐시) */
-const CACHE = "afoqt-v4-150-0";  // 증거 기록 시스템(활동 시간 추적·해시 체인 로그·증빙 리포트/CSV)
+const CACHE = "afoqt-v5-0-0";  // 리뉴얼: 화면 38→19 통합, 5탭 네비, 홈 재구성, 오답노트·피드·시험 버그 수정
 // Same-origin assets only. The Supabase CDN is loaded lazily by the app and
 // must never block install or startup.
 const ASSETS = [
