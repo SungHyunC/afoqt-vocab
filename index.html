@@ -1074,7 +1074,13 @@
     <div class="field"><label>하루 신규 단어 (비우면 자동 계산)</label>
       <input type="number" id="setGoal" min="0" step="5" placeholder="자동"></div>
     <div class="field"><label>시작일</label><input type="date" id="setStart"></div>
-    <div class="field"><label>시험 목표일</label><input type="date" id="setExam"></div>
+    <div class="field"><label>시험 목표일 (재응시일을 넣으면 자동으로 맞춰짐)</label><input type="date" id="setExam"></div>
+
+    <h3 style="margin-top:22px">📄 웨이버 증빙 기준선</h3>
+    <div class="field"><label>공식 AFOQT 응시일 (증빙 기간의 시작)</label><input type="date" id="setAttempt"></div>
+    <div class="field"><label>재응시 목표일 (비우면 미정)</label><input type="date" id="setRetest"></div>
+    <div class="field"><label>공식 점수 (자기 기재 · 선택)</label><input id="setOfficial" maxlength="120" placeholder="예: Pilot 45 · CSO 60 · Verbal 52 · Quant 40"></div>
+    <div class="hintbox">증거 리포트 헤더에 쓰이는 값이에요. 응시일을 바꿔도 이전 기록은 지워지지 않고, 재응시일을 넣으면 권장량·달력·플랜이 그 날짜 기준으로 바뀝니다.</div>
 
     <h3 style="margin-top:22px">🈶 학습 옵션</h3>
     <label style="display:flex;gap:9px;align-items:center;font-size:14px;cursor:pointer">

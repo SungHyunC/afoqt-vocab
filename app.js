@@ -152,7 +152,8 @@ let ARITH=[], MATHK=[], PHYSCI=[], SITJUD=[];
 let BARRON_AR=null, BARRON_MK=null, BARRON_FULL_AR=null, BARRON_FULL_MK=null;
 let state=null, sb=null, realtimeChan=null, realtimeCode=null, realtimeReady=false, syncReady=false, syncInitialSettled=false, settingsSyncUpdatedAt=0;
 let syncSessionCode="",syncSessionUrl="",syncSessionKey="",syncSessionImportMark="",syncCodeMismatch=false,suppressPersistenceForReload=false;
-let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()}, serverDailyRows=new Map();
+let serverRowTimes={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map()}, serverDailyRows=new Map(), serverEvlogN=new Map();
+let studyLogUnavailable=false;   // study_log 테이블이 아직 없으면(SQL 미실행) 이번 세션은 그 큐만 건너뛴다
 
 const DEFAULT_STATE = () => ({
   cards:{},   // WK: id -> {status,reps,lapses,ease,interval,due,starred,updated_at}
@@ -335,7 +336,9 @@ function loadLocal(){
     if(!isDay(S.retest_date)) S.retest_date="";
     // exam_date는 페이스·달력의 목표일. 비어 있으면 재응시일 → 없으면 공식 응시일(지난 날짜면 30일 지평으로 동작)
     if(!isDay(S.exam_date)) S.exam_date=S.retest_date||S.official_attempt_date;
-    S.official_scores=String(S.official_scores||"").slice(0,120); if(!isDay(S.ev_since)) S.ev_since=""; }
+    S.official_scores=String(S.official_scores||"").slice(0,120); if(!isDay(S.ev_since)) S.ev_since="";
+    if(!isDay(state.evInstalledAt)) state.evInstalledAt=todayStr();          // 이 기기에서 증거 기록이 시작된 날(재구성 경계)
+    if(!S.ev_since) S.ev_since=state.evInstalledAt; }
   // 1회 마이그레이션: 과거 시험 기록에 종류(kind)를 붙인다 — 오답 재시험·드릴이 모의고사 추이/배지에 섞이지 않게(M2)
   if(!state.migExamKind){ for(const h of state.examHist){ if(!h||h.kind) continue; const key=String(h.key||""), name=String(h.name||"");
       h.kind=key.startsWith("mock_")?"mock":h.learn?"learn":key==="retest"?(/오답/.test(name)?"retest":/모의고사/.test(name)?"picked":"drill"):h.practice?"practice":"preset"; }
@@ -749,12 +752,13 @@ async function pullAll(){
   if(!sb||syncCodeMismatch||syncCodeChangedElsewhere()) return false; const code=boundSyncCode();
   synFeedRemoteFresh=false;
   try{
-    const [vs,vp,dl,st,as]=await Promise.all([
+    const [vs,vp,dl,st,as,sl]=await Promise.all([
       pullSyncRows("vocab_state",code,["word_id"]),
       pullSyncRows("verbal_progress",code,["kind","item_id"]),
       pullSyncRows("daily_log",code,["day"]),
       sb.from("settings").select("*").eq("user_key",code).maybeSingle(),
       sb.from("app_state").select("*").eq("user_key",code).maybeSingle(),
+      studyLogUnavailable?Promise.resolve({data:null,error:null}):pullSyncRows("study_log",code,["device_id","seq"]).catch(e=>({data:null,error:e})),
     ]);
     // supabase v2는 reject하지 않고 {error}를 돌려준다 — 에러를 무시하면 조용히 머지가 빠진다
     const ok=![vs,vp,dl,st,as].some(r=>r&&r.error);
@@ -763,7 +767,11 @@ async function pullAll(){
       vocab_state:new Map((vs.data||[]).map(r=>[String(r.word_id),syncTime(r.updated_at)])),
       verbal_progress:new Map((vp.data||[]).map(r=>[r.kind+":"+r.item_id,syncTime(r.updated_at)])),
       daily_log:new Map((dl.data||[]).map(r=>[r.day,syncTime(r.updated_at)]))};
-      serverDailyRows=new Map((dl.data||[]).map(r=>[r.day,r])); }
+      serverDailyRows=new Map((dl.data||[]).map(r=>[r.day,r]));
+      serverEvlogN=new Map((vp.data||[]).filter(r=>r.kind==="evlog").map(r=>["evlog:"+r.item_id,(r.data&&r.data.n)||0])); }
+    // study_log는 선택 테이블 — 없으면 이 세션은 건너뛴다(다른 테이블 판정과 무관)
+    if(sl&&sl.error){ if(/42P01|PGRST205|does not exist|schema cache/i.test(String(sl.error.code+" "+sl.error.message))) studyLogUnavailable=true; else console.warn("study_log pull fail",sl.error); }
+    else if(sl&&sl.data) mergeStudyLogRows(sl.data);
     if(vs.data) vs.data.forEach(mergeCard);
     if(vp.data) vp.data.forEach(mergeVerbal);
     if(dl.data) dl.data.forEach(mergeDaily);
@@ -859,7 +867,25 @@ function writeOwnSynFeedCheckpoint(session){ const r=ownSynFeedReplica(),ts=nowI
   state.synFeedSession=cloneSynFeedSession(snapshot); return r; }
 function queueSynFeedReplica(){ if(!sb) return; const id=deviceId(),raw=state.synFeedReplicas&&state.synFeedReplicas[id]; if(!raw) return;
   const data=cleanSynFeedReplica(raw); state.synFeedReplicas[id]=data; queuePush("verbal_progress",{kind:"synfeed",item_id:id,data}); }
+// 증거 로그 replica 행(kind:"evlog", item_id=deviceId): id union·q 정렬·삭제 없음. 내 행이 서버보다 앞서면 다시 올린다.
+function mergeEvlogRow(r){ if(!EV) return false; const id=String(r&&r.item_id||""); if(!validSynFeedReplicaId(id)||!r.data||typeof r.data!=="object") return false;
+  state.evReplicas=state.evReplicas||{}; const m=EV.mergeReplica(state.evReplicas[id]||null,r.data);
+  if(m.changed) state.evReplicas[id]=m.replica;
+  if(id===deviceId()&&(state.evReplicas[id]||{n:0}).n>((r.data&&r.data.n)||0)) queueEvlogReplica();
+  return m.changed; }
+// study_log(서버 수신 시각 포함) 행 → 기기별 union. 내 이벤트에는 rcv(서버 수신 시각)만 채워진다.
+function mergeStudyLogRows(rows){ if(!EV||!Array.isArray(rows)||!rows.length) return false; const byDev={};
+  for(const r of rows){ const dev=String(r&&r.device_id||""); if(!validSynFeedReplicaId(dev)||!r.data||typeof r.data!=="object") continue;
+    const rcv=Math.round(syncTime(r.received_at)/1000); (byDev[dev]=byDev[dev]||[]).push(rcv?{...r.data,rcv}:r.data); }
+  let changed=false; state.evReplicas=state.evReplicas||{};
+  for(const dev of Object.keys(byDev)){ const m=EV.mergeReplica(state.evReplicas[dev]||null,byDev[dev]); if(m.changed){ state.evReplicas[dev]=m.replica; changed=true; } }
+  return changed; }
+function queueEvlogReplica(){ if(!sb||!EV) return; const id=deviceId(),r=state.evReplicas&&state.evReplicas[id]; if(!r||!r.ev||!r.ev.length) return;
+  const data=EV.cleanReplica(r); data.updated_at=r.updated_at||nowISO(); state.evReplicas[id]=data;
+  queuePush("verbal_progress",{kind:"evlog",item_id:id,data}); }
+function queueEvlogRow(ev){ if(!sb) return; queueEvlogReplica(); if(ev&&!ev.rcv) queuePush("study_log",ev); }
 function mergeVerbal(r){ if(r.kind==="synfeed") return mergeSynFeedReplica(r).changed;
+  if(r.kind==="evlog") return mergeEvlogRow(r);
   const tgt=r.kind==="va"?state.va:r.kind==="rc"?state.rc:null; if(!tgt) return;
   const cur=tgt[r.item_id]; const d=Object.assign({},r.data,{updated_at:r.updated_at});
   if(!cur||syncTime(r.updated_at)>syncTime(cur.updated_at)){ tgt[r.item_id]=d; return true; }
@@ -885,7 +911,16 @@ function mergeSettings(r){ const rt=syncTime(r.updated_at); if(rt&&rt<=settingsS
     if([1,2,3].includes(Number(r.data.verbal_theme_priority))) state.settings.verbal_theme_priority=Number(r.data.verbal_theme_priority);
     if(["new","due","all"].includes(r.data.verbal_theme_mode)) state.settings.verbal_theme_mode=r.data.verbal_theme_mode;
     if([1,2,3,4].includes(Number(r.data.syn_feed_priority))) state.settings.syn_feed_priority=Number(r.data.syn_feed_priority);
-    if(r.data.syn_feed_korean!=null) state.settings.syn_feed_korean=!!r.data.syn_feed_korean; }
+    if(r.data.syn_feed_korean!=null) state.settings.syn_feed_korean=!!r.data.syn_feed_korean;
+    if(r.data.syn_feed_timer!=null) state.settings.syn_feed_timer=!!r.data.syn_feed_timer;
+    if(r.data.va_feed_timer!=null) state.settings.va_feed_timer=!!r.data.va_feed_timer;
+    if(r.data.onboard_done!=null) state.settings.onboard_done=r.data.onboard_done?1:0;
+    // 웨이버 기준선: 날짜는 형식 검사, ev_since는 가장 이른 값 유지(어느 기기가 먼저 기록을 시작했든)
+    const isDay=v=>/^\d{4}-\d{2}-\d{2}$/.test(String(v||""));
+    if(isDay(r.data.official_attempt_date)) state.settings.official_attempt_date=r.data.official_attempt_date;
+    if(r.data.retest_date!=null) state.settings.retest_date=isDay(r.data.retest_date)?r.data.retest_date:"";
+    if(typeof r.data.official_scores==="string") state.settings.official_scores=r.data.official_scores.slice(0,120);
+    if(isDay(r.data.ev_since)&&(!state.settings.ev_since||r.data.ev_since<state.settings.ev_since)) state.settings.ev_since=r.data.ev_since; }
   return true; }
 // The "misc" state (exams, wrong-notes, weakness, predicted-score tallies,
 // coverage, exam history, curriculum) synced as one JSON blob, field-merged so
@@ -954,6 +989,7 @@ function handleCardRealtime(r){ noteServerRow("vocab_state",r.word_id,r.updated_
   if(changed){ if(pending&&syncTime(pending.updated_at)<=syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); saveLocal(false); softRender(); }
   else if(cur&&syncTime(cur.updated_at)>syncTime(r.updated_at)) queuePush("vocab_state",{id:r.word_id,...cur}); }
 function handleVerbalRealtime(r){ noteServerRow("verbal_progress",r.kind+":"+r.item_id,r.updated_at);
+  if(r.kind==="evlog"){ serverEvlogN.set("evlog:"+r.item_id,(r.data&&r.data.n)||0); if(mergeEvlogRow(r)){ saveLocal(false); softRender(); } return; }
   if(r.kind==="synfeed"){ const m=mergeSynFeedReplica(r); if(m.needsPush) queueSynFeedReplica();
     if(m.changed){ const feedRefresh=refreshSynFeedSession(true); compactSynFeedReplicas(); saveLocal(false);
       if(feedRefresh.activeChanged){ toast("🔄 다른 기기에서 더 진행한 지점으로 이어졌어요.");
@@ -1005,7 +1041,7 @@ function subscribeRealtime(){
       else if(["CHANNEL_ERROR","TIMED_OUT","CLOSED"].includes(status)){ realtimeReady=false; finish(false); } });
   });
 }
-const pushQ={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map(),settings:null,app_state:null};
+const pushQ={vocab_state:new Map(),verbal_progress:new Map(),daily_log:new Map(),study_log:new Map(),settings:null,app_state:null};
 let pushTimer=null,pushDueAt=0,pushInFlight=null,pushRetryCount=0,pushRetryAt=0;
 const ownAppStateUpdates=new Set();
 function rememberOwnAppState(ts){ ownAppStateUpdates.add(syncTime(ts)); while(ownAppStateUpdates.size>200) ownAppStateUpdates.delete(ownAppStateUpdates.values().next().value); }
@@ -1014,15 +1050,19 @@ function rememberOwnAppState(ts){ ownAppStateUpdates.add(syncTime(ts)); while(ow
 function schedulePush(ms){ if(!syncReady) return; const due=Math.max(Date.now()+ms,pushRetryAt||0);
   if(pushTimer&&pushDueAt<=due) return;
   clearTimeout(pushTimer); pushDueAt=due; pushTimer=setTimeout(()=>{ pushTimer=null; pushDueAt=0; flushPush(); },Math.max(0,due-Date.now())); }
-function hasPendingPush(){ return pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.settings||pushQ.app_state; }
-function pendingPushDelay(){ return synFeed?8000:(pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.settings?700:1200); }
+function hasPendingPush(){ return pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.study_log.size||pushQ.settings||pushQ.app_state; }
+function pendingPushDelay(){ return synFeed?8000:(pushQ.vocab_state.size||pushQ.verbal_progress.size||pushQ.daily_log.size||pushQ.study_log.size||pushQ.settings?700:1200); }
 function queuePush(table,row){ if(!sb||suppressPersistenceForReload||syncCodeMismatch||syncCodeChangedElsewhere()||importHandoffChanged()) return; const code=boundSyncCode();
   if(table==="app_state") pushQ.app_state={user_key:code,data:miscBlob(),updated_at:nowISO()};
   else if(table==="vocab_state") pushQ.vocab_state.set(row.id,{user_key:code,word_id:row.id,status:row.status,reps:row.reps,lapses:row.lapses,ease:row.ease,interval:row.interval,due:row.due,starred:!!row.starred,verify:row.verify||null,verify_due:row.verifyDue||null,updated_at:row.updated_at||nowISO()});
   else if(table==="verbal_progress") pushQ.verbal_progress.set(row.kind+":"+row.item_id,{user_key:code,kind:row.kind,item_id:row.item_id,data:row.data,updated_at:row.data.updated_at||nowISO()});
   else if(table==="daily_log") pushQ.daily_log.set(row.day,{user_key:code,day:row.day,studied:row.studied,correct:row.correct,new_learned:row.new_learned,seconds:row.seconds,goal_met:row.goal_met,updated_at:row.updated_at||nowISO()});
   else if(table==="settings"){ const updated_at=nowISO(); settingsSyncUpdatedAt=syncTime(updated_at);
-    pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode,syn_feed_priority:state.settings.syn_feed_priority,syn_feed_korean:state.settings.syn_feed_korean!==false},updated_at}; }
+    pushQ.settings={user_key:code,daily_goal:state.settings.daily_goal,start_date:state.settings.start_date,exam_date:state.settings.exam_date,data:{high_first:state.settings.high_first,high_only:state.settings.high_only,plan_ps_sj:!!state.settings.plan_ps_sj,hide_ko:!!state.settings.hide_ko,pilot_perfect:state.settings.pilot_perfect!==false,verbal_theme_priority:state.settings.verbal_theme_priority,verbal_theme_mode:state.settings.verbal_theme_mode,syn_feed_priority:state.settings.syn_feed_priority,syn_feed_korean:state.settings.syn_feed_korean!==false,
+      syn_feed_timer:state.settings.syn_feed_timer===true,va_feed_timer:state.settings.va_feed_timer===true,onboard_done:state.settings.onboard_done?1:0,
+      official_attempt_date:state.settings.official_attempt_date||"",retest_date:state.settings.retest_date||"",official_scores:state.settings.official_scores||"",ev_since:state.settings.ev_since||""},updated_at}; }
+  else if(table==="study_log"){ if(studyLogUnavailable||!row||!row.i) return;
+    pushQ.study_log.set(row.i,{user_key:code,device_id:deviceId(),event_id:row.i,seq:row.q,client_ts:new Date((row.e||0)*1000).toISOString(),data:row}); }
   if(!pushInFlight) schedulePush(pendingPushDelay()); }
 // Mobile browsers may terminate ordinary async work immediately after pagehide.
 // Send the single small feed row with keepalive as a last safety copy; the normal
@@ -1036,19 +1076,24 @@ function flushSynFeedKeepalive(allowBoundCodeSwitch=false){ const row=pushQ.verb
 // so a stale schema (e.g. a column added client-side before the SQL migration runs)
 // fails just that one table and self-heals on the next push once the DB catches up,
 // instead of silently dropping every table's pending writes.
-async function flushPushMap(table,map,onConflict){ let ok=true; const entries=[...map.entries()];
+async function flushPushMap(table,map,onConflict,opts={}){ let ok=true; const entries=[...map.entries()];
   // Initial sync can contain thousands of learned cards. Bound each REST body so
   // it cannot monopolize a PostgREST connection or hit a gateway payload timeout.
   for(let i=0;i<entries.length;i+=250){ const batch=entries.slice(i,i+250);
-    try{ await sb.from(table).upsert(batch.map(x=>x[1]),{onConflict}).throwOnError();
-      batch.forEach(([key,row])=>{ noteServerRow(table,key,row.updated_at); if(map.get(key)===row) map.delete(key); }); }
-    catch(e){ console.error("push "+table+" fail",e); setSyncDot("err"); ok=false; break; } }
+    // insertOnly(study_log): ON CONFLICT DO NOTHING — anon 키에 update 권한이 없어도 통과한다
+    try{ await sb.from(table).upsert(batch.map(x=>x[1]),{onConflict,ignoreDuplicates:!!opts.insertOnly}).throwOnError();
+      batch.forEach(([key,row])=>{ if(serverRowTimes[table]) noteServerRow(table,key,row.updated_at); if(map.get(key)===row) map.delete(key); }); }
+    catch(e){
+      // 테이블이 아직 없으면(스키마 SQL 미실행) 이 세션은 그 큐만 조용히 비운다 — 로컬 replica가 원본이라 다음 부팅 때 다시 시도
+      if(opts.insertOnly&&/42P01|PGRST205|does not exist|schema cache/i.test(String(e&&(e.code+" "+e.message)))){ studyLogUnavailable=true; map.clear(); console.warn("push "+table+" skipped: table missing"); break; }
+      console.error("push "+table+" fail",e); setSyncDot("err"); ok=false; break; } }
   return ok;
 }
 async function flushPushPass(){ let ok=true;
   if(pushQ.vocab_state.size) ok=await flushPushMap("vocab_state",pushQ.vocab_state,"user_key,word_id")&&ok;
   if(pushQ.verbal_progress.size) ok=await flushPushMap("verbal_progress",pushQ.verbal_progress,"user_key,kind,item_id")&&ok;
   if(pushQ.daily_log.size) ok=await flushPushMap("daily_log",pushQ.daily_log,"user_key,day")&&ok;
+  if(pushQ.study_log.size) ok=await flushPushMap("study_log",pushQ.study_log,"user_key,event_id",{insertOnly:true})&&ok;
   if(pushQ.settings){ const r=pushQ.settings;
     try{ await sb.from("settings").upsert(r,{onConflict:"user_key"}).throwOnError(); if(pushQ.settings===r) pushQ.settings=null; }
     catch(e){ console.error("push settings fail",e); setSyncDot("err"); ok=false; } }
@@ -1077,7 +1122,7 @@ function pushAllLocal(){
   // All call sites completed a full pull and have no active push. Rebuild the
   // queue from current state so rows queued during an earlier failed pull cannot
   // survive as stale snapshots.
-  pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.settings=null; pushQ.app_state=null;
+  pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.study_log.clear(); pushQ.settings=null; pushQ.app_state=null;
   // The pull above established a timestamp baseline. Heal only missing/newer
   // local rows instead of rewriting thousands of unchanged rows on every load.
   for(const id in state.cards){ const c=state.cards[id],m=serverRowTimes.vocab_state;
@@ -1089,6 +1134,10 @@ function pushAllLocal(){
   // One small row owned by this browser. Other replicas are never rewritten:
   // their monotonic counters remain independent, so concurrent answers add up.
   if(state.synFeedReplicas&&state.synFeedReplicas[deviceId()]) queueSynFeedReplica();
+  // 증거 로그: 내 replica 행이 서버보다 앞서 있으면 올리고, 서버 수신 도장(rcv)이 없는 이벤트는 study_log에 넣는다
+  if(EV&&state.evReplicas&&state.evReplicas[deviceId()]){ const own=state.evReplicas[deviceId()], key="evlog:"+deviceId();
+    if(own.ev.length&&(!serverRowTimes.verbal_progress.has(key)||own.n>(serverEvlogN.get(key)||0))) queueEvlogReplica();
+    if(!studyLogUnavailable) for(const ev of own.ev){ if(!ev.rcv) queuePush("study_log",ev); } }
   for(const day in state.daily){ const d=state.daily[day],m=serverRowTimes.daily_log;
     if(!(d.studied||d.seconds||d.correct||d.new_learned)) continue;                 // 빈 행은 올리지 않는다
     if(!m.has(day)||syncTime(d.updated_at)>m.get(day)||dailyExceeds(d,serverDailyRows.get(day))) queuePush("daily_log",{day,...d}); }
@@ -5561,6 +5610,8 @@ function createGeneric(){ const bg=document.createElement("div"); bg.className="
   bg.innerHTML=`<div class="sheet" id="genericSheetBody"></div>`; bg.onclick=e=>{ if(e.target===bg) closeSheet(); }; document.body.appendChild(bg); return bg; }
 function closeSheet(){ $("#genericSheet")?.classList.remove("open"); }
 function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#setStart").value=state.settings.start_date; $("#setExam").value=state.settings.exam_date;
+  $("#setAttempt")&&($("#setAttempt").value=state.settings.official_attempt_date||""); $("#setRetest")&&($("#setRetest").value=state.settings.retest_date||"");
+  $("#setOfficial")&&($("#setOfficial").value=state.settings.official_scores||"");
   $("#optShowKo")&&($("#optShowKo").checked=!flag("hide_ko"));
   $("#optPilotPerfect")&&($("#optPilotPerfect").checked=pilotPerfect());
   $("#setUrl").value=localStorage.getItem(LS.url)||""; $("#setKey").value=localStorage.getItem(LS.key)||"";
@@ -5568,6 +5619,14 @@ function openSettings(){ $("#setGoal").value=state.settings.daily_goal||""; $("#
   setSyncDot(syncReady?"on":(synFeedSyncPending()?"syncing":(boundSbUrl()&&boundSbKey()?"err":"off"))); $("#settingsSheet").classList.add("open"); }
 function saveSettings(){ const g=parseInt($("#setGoal").value,10); state.settings.daily_goal=isNaN(g)?0:Math.max(0,g);
   if($("#setStart").value) state.settings.start_date=$("#setStart").value; if($("#setExam").value) state.settings.exam_date=$("#setExam").value;
+  // 웨이버 기준선 — 공식 응시일은 독립 필드라 재응시일을 바꿔도 원래 응시 기록이 사라지지 않는다
+  { const S=state.settings, before=[S.official_attempt_date,S.retest_date,S.official_scores].join("|");
+    if($("#setAttempt")&&$("#setAttempt").value) S.official_attempt_date=$("#setAttempt").value;
+    if($("#setRetest")) S.retest_date=$("#setRetest").value||"";
+    if(S.retest_date) S.exam_date=S.retest_date;                       // 페이스·달력·플랜은 재응시일 기준
+    if($("#setOfficial")) S.official_scores=($("#setOfficial").value||"").trim().slice(0,120);
+    if(before!==[S.official_attempt_date,S.retest_date,S.official_scores].join("|")){ const now=Math.round(Date.now()/1000);
+      evAppend({y:"baseline_set",s:now,e:now,z:tzOffsetMin(),m:{ad:S.official_attempt_date,rd:S.retest_date,os:S.official_scores.slice(0,48)}}); } }
   const url=$("#setUrl").value.trim(),key=$("#setKey").value.trim(); let re=false;
   if(url!==(localStorage.getItem(LS.url)||"")){ localStorage.setItem(LS.url,url); re=true; }
   if(key!==(localStorage.getItem(LS.key)||"")){ localStorage.setItem(LS.key,key); re=true; }
@@ -5790,8 +5849,13 @@ function wire(){
   $("#enterCode").onclick=()=>{ const c=prompt("다른 기기와 동기화할 코드를 입력하세요:",boundSyncCode()); if(c&&c.trim()){ flushSynFeedKeepalive(); localStorage.setItem(LS.code,c.trim()); toast("코드 적용 — 동기화 중…"); location.reload(); } };
   $("#forceSync").onclick=forceSync;
   $("#resetAll").onclick=()=>{ if(confirm("이 기기의 학습 기록을 모두 지웁니다. 계속할까요?")){ clearSynFeedEmergency(); synFeed=null;
-      clearTimeout(saveTimer); clearTimeout(pushTimer); pushTimer=null; pushDueAt=0; pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.settings=null; pushQ.app_state=null;
-      state=DEFAULT_STATE(); state.synFeedSyncCode=boundSyncCode(); saveNow(); toast("초기화됨"); $("#settingsSheet").classList.remove("open"); go("home"); } };
+      clearTimeout(saveTimer); clearTimeout(pushTimer); pushTimer=null; pushDueAt=0; pushQ.vocab_state.clear(); pushQ.verbal_progress.clear(); pushQ.daily_log.clear(); pushQ.study_log.clear(); pushQ.settings=null; pushQ.app_state=null;
+      // 증거 로그는 초기화해도 지우지 않는다(append-only) — 대신 '초기화' 이벤트를 남긴다
+      const keep={evReplicas:state.evReplicas||{},evLegacyDone:state.evLegacyDone||0,evInstalledAt:state.evInstalledAt||"",evSnapDay:state.evSnapDay||""},
+        base={official_attempt_date:state.settings.official_attempt_date,retest_date:state.settings.retest_date,official_scores:state.settings.official_scores,ev_since:state.settings.ev_since};
+      state=Object.assign(DEFAULT_STATE(),keep); Object.assign(state.settings,base); state.synFeedSyncCode=boundSyncCode();
+      { const now=Math.round(Date.now()/1000); evAppend({y:"reset",s:now,e:now,z:tzOffsetMin(),m:{note:"local reset"}}); }
+      saveNow(); toast("초기화됨 (증거 로그는 유지)"); $("#settingsSheet").classList.remove("open"); go("home"); } };
   $("#forceUpdate").onclick=forceUpdate;
   // Flush pending saves before the app is backgrounded/closed (mobile-safe).
   // On returning to the app, refresh the active hub so today's count and the
@@ -5920,6 +5984,7 @@ function importProgress(file){
         if(oldImportRaw==null) localStorage.removeItem(LS.import); else localStorage.setItem(LS.import,oldImportRaw); }catch{}
       state=oldState; synFeed=oldFeed; suppressPersistenceForReload=false; saveLocal(false);
       if(sb&&!syncReady) schedulePullRetry(); else if(sb&&hasPendingPush()) schedulePush(0); throw e; }
+    try{ localStorage.setItem("afoqt_ev_note_v1",JSON.stringify({y:"restore",m:{v:String(d.v||"").slice(0,20),ts:Number(d.ts)||0}})); }catch{}
     state=st; synFeed=null; clearSynFeedEmergency(targetCode);
     toast("복원 완료 — 새로고침합니다"); setTimeout(()=>location.reload(),700);
   }catch(e){ console.error(e); toast("복원 실패: 백업 파일과 브라우저 저장 공간을 확인해 주세요"); } };
@@ -6047,6 +6112,8 @@ async function boot(){
     PHYSCI=await loadJSON("./physicalscience.json")||[];
     SITJUD=await loadJSON("./situational.json")||[];
     actRecover();   // 이전 실행이 강제 종료됐으면 열려 있던 활동을 마지막 계산 시각으로 마감
+    try{ const note=JSON.parse(localStorage.getItem("afoqt_ev_note_v1")||"null"); localStorage.removeItem("afoqt_ev_note_v1");
+      if(note&&note.y){ const now=Math.round(Date.now()/1000); evAppend({y:String(note.y),s:now,e:now,z:tzOffsetMin(),m:note.m||{}}); } }catch{}
     $("#boot").classList.remove("active"); go("home");
     maybeOnboard();
     initSync();   // non-blocking: app already usable
