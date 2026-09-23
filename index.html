@@ -32,7 +32,7 @@
   <div class="card hero">
     <div class="row" style="justify-content:space-between;align-items:flex-start">
       <div>
-        <div class="muted" style="font-size:13px;opacity:.9">시험까지</div>
+        <div class="muted" style="font-size:13px;opacity:.9">재응시까지</div>
         <div class="days"><span id="daysLeft">–</span> <small>일</small></div>
         <div class="goal-line" id="examLine">목표일 –</div>
       </div>
@@ -42,76 +42,46 @@
     </div>
     <div class="progressbar"><i id="overallBar"></i></div>
     <div class="muted" style="font-size:12px;margin-top:6px" id="overallLine">AFOQT 준비도</div>
+    <div class="hero-since" id="sinceLine"></div>
     <div id="verbalEstLine" class="hidden" style="font-size:12px;margin-top:8px;color:var(--brand2);font-weight:700"></div>
   </div>
 
   <div class="card motiv" id="motivBanner" style="margin-top:12px"></div>
-
+  <div class="card" id="todayTasks" style="margin-top:12px"></div>
   <div id="scoreProj" style="margin-top:12px"></div>
 
-  <div class="row" style="gap:8px;margin-top:16px">
-    <button class="btn ghost" id="btnStartNew" style="flex:1;font-size:15px;padding:15px 8px">🆕 신규 단어</button>
-    <button class="btn ghost" id="btnStartRev" style="flex:1;font-size:15px;padding:15px 8px">🔁 복습</button>
+  <div class="axis-grid">
+    <button class="axis-card" id="axFeed" type="button"><span class="ax-ic">∞</span><span class="ax-meta"><b>무한 피드</b><span class="muted" id="axFeedSub">동의어 · 유추 — 한 문제씩 계속</span></span><span class="ax-go">›</span></button>
+    <button class="axis-card" id="axCards" type="button"><span class="ax-ic">🃏</span><span class="ax-meta"><b>플래시카드</b><span class="muted" id="axCardsSub">신규 · 복습 · 오답 · 확인</span></span><span class="ax-go">›</span></button>
+    <button class="axis-card" id="axExam" type="button"><span class="ax-ic">🎯</span><span class="ax-meta"><b>모의고사</b><span class="muted" id="axExamSub">전체 · 과목별 · 오답 재시험</span></span><span class="ax-go">›</span></button>
   </div>
-  <button class="btn ghost" id="btnExam" style="margin-top:10px;font-size:16px;padding:15px">🎯 실전 모의고사 (시간 측정)</button>
-  <button class="btn ghost" id="btnReport" style="margin-top:10px;font-size:16px;padding:15px">🔍 내 약점 리포트</button>
-  <button class="btn ghost" id="btnEvidence2" style="margin-top:10px;font-size:16px;padding:15px;border-color:var(--gold)">📄 웨이버 증빙 리포트</button>
+  <div class="row" style="gap:8px;margin-top:10px">
+    <button class="btn ghost" id="btnStartNew" style="flex:1;font-size:14px;padding:13px 8px">🆕 신규 단어</button>
+    <button class="btn ghost" id="btnStartRev" style="flex:1;font-size:14px;padding:13px 8px">🔁 복습</button>
+  </div>
+  <button class="btn ghost" id="btnEvidence2" style="margin-top:10px;font-size:15px;padding:14px;border-color:var(--gold)">📄 웨이버 증빙 리포트 <span class="muted" id="evidenceSub" style="font-size:12px;font-weight:600"></span></button>
 
-  <div class="grid3" style="margin-top:16px">
+  <div class="grid3" style="margin-top:14px">
     <div class="card tight stat"><div class="num" id="stStreak">0</div><div class="lbl">🔥 스트릭</div></div>
     <div class="card tight stat"><div class="num" id="stToday">0</div><div class="lbl">오늘 학습</div></div>
     <div class="card tight stat"><div class="num" id="stDue">0</div><div class="lbl">복습 대기</div></div>
   </div>
 
-  <div class="card" id="weekPlan" style="margin-top:16px"></div>
-
-  <h2 class="section">🗣 언어 (Verbal)</h2>
-  <div class="seccard" id="secWK">
-    <div class="ic">📇</div>
-    <div class="meta"><b>Word Knowledge</b><div class="muted" id="wkSub">어휘 · 동의어</div>
-      <div class="progressbar mini"><i id="wkBar"></i></div></div>
-    <div class="go">›</div>
+  <h2 class="section">📚 과목별 학습</h2>
+  <div class="dir-grid">
+    <div class="seccard" id="secWK"><div class="ic">📇</div><div class="meta"><b>Word Knowledge</b><div class="muted" id="wkSub">어휘</div><div class="progressbar mini"><i id="wkBar"></i></div></div><div class="go">›</div></div>
+    <div class="seccard" id="secVA"><div class="ic">🔗</div><div class="meta"><b>Verbal Analogies</b><div class="muted" id="vaSub">유추</div><div class="progressbar mini"><i id="vaBar"></i></div></div><div class="go">›</div></div>
+    <div class="seccard" id="secRC"><div class="ic">📖</div><div class="meta"><b>Reading</b><div class="muted" id="rcSub">독해</div><div class="progressbar mini"><i id="rcBar"></i></div></div><div class="go">›</div></div>
+    <div class="seccard" id="secAV"><div class="ic">🛩️</div><div class="meta"><b>Aviation</b><div class="muted" id="avSub">항공 지식</div><div class="progressbar mini"><i id="avBarH"></i></div></div><div class="go">›</div></div>
+    <div class="seccard" id="secAR"><div class="ic">➗</div><div class="meta"><b>Arithmetic</b><div class="muted">산수 · 25문항 29분</div></div><div class="go">›</div></div>
+    <div class="seccard" id="secMK"><div class="ic">📐</div><div class="meta"><b>Math Knowledge</b><div class="muted">수학 · 25문항 22분</div></div><div class="go">›</div></div>
+    <div class="seccard" id="secTR"><div class="ic">📊</div><div class="meta"><b>Table Reading</b><div class="muted">표 읽기 드릴</div></div><div class="go">›</div></div>
+    <div class="seccard" id="secIC"><div class="ic">🎚️</div><div class="meta"><b>Instrument</b><div class="muted">계기 해석 드릴</div></div><div class="go">›</div></div>
+    <div class="seccard" id="secBC"><div class="ic">🧱</div><div class="meta"><b>Block Counting</b><div class="muted">블록 세기 드릴</div></div><div class="go">›</div></div>
+    <div class="seccard" id="secPS"><div class="ic">🔬</div><div class="meta"><b>Physical Science</b><div class="muted">과학 · 20문항 10분</div></div><div class="go">›</div></div>
+    <div class="seccard" id="secSJ"><div class="ic">🧭</div><div class="meta"><b>Situational</b><div class="muted">상황판단 · 16문항</div></div><div class="go">›</div></div>
+    <div class="seccard" id="secSDI"><div class="ic">📝</div><div class="meta"><b>Self-Description</b><div class="muted">성격검사 안내</div></div><div class="go">›</div></div>
   </div>
-  <div class="seccard" id="secVA">
-    <div class="ic">🔗</div>
-    <div class="meta"><b>Verbal Analogies</b><div class="muted" id="vaSub">유추 추론</div>
-      <div class="progressbar mini"><i id="vaBar"></i></div></div>
-    <div class="go">›</div>
-  </div>
-  <div class="seccard" id="secRC">
-    <div class="ic">📖</div>
-    <div class="meta"><b>Reading Comprehension</b><div class="muted" id="rcSub">독해</div>
-      <div class="progressbar mini"><i id="rcBar"></i></div></div>
-    <div class="go">›</div>
-  </div>
-
-  <h2 class="section">🔢 수리 (Quantitative)</h2>
-  <div class="seccard" id="secAR"><div class="ic">➗</div>
-    <div class="meta"><b>Arithmetic Reasoning</b><div class="muted">문장형 수학 · 25문항·29분</div></div><div class="go">›</div></div>
-  <div class="seccard" id="secMK"><div class="ic">📐</div>
-    <div class="meta"><b>Math Knowledge</b><div class="muted">대수·기하 · 25문항·22분</div></div><div class="go">›</div></div>
-
-  <h2 class="section">✈️ Pilot · 공간</h2>
-  <div class="seccard" id="secAV">
-    <div class="ic">🛩️</div>
-    <div class="meta"><b>Aviation Information</b><div class="muted" id="avSub">항공 지식 · 한글 병기</div>
-      <div class="progressbar mini"><i id="avBarH"></i></div></div>
-    <div class="go">›</div>
-  </div>
-  <div class="seccard" id="secTR"><div class="ic">📊</div>
-    <div class="meta"><b>Table Reading</b><div class="muted">표 읽기 · 40문항·7분</div></div><div class="go">›</div></div>
-  <div class="seccard" id="secIC"><div class="ic">🎚️</div>
-    <div class="meta"><b>Instrument Comprehension</b><div class="muted">계기 해석 · 25문항·5분</div></div><div class="go">›</div></div>
-  <div class="seccard" id="secBC"><div class="ic">🧱</div>
-    <div class="meta"><b>Block Counting</b><div class="muted">블록 세기 · 30문항·5분</div></div><div class="go">›</div></div>
-
-  <h2 class="section">🔬 기타</h2>
-  <div class="seccard" id="secPS"><div class="ic">🔬</div>
-    <div class="meta"><b>Physical Science</b><div class="muted">고교 물리·화학 · 20문항·10분</div></div><div class="go">›</div></div>
-  <div class="seccard" id="secSJ"><div class="ic">🧭</div>
-    <div class="meta"><b>Situational Judgment</b><div class="muted">리더십·판단 · 16문항·35분</div></div><div class="go">›</div></div>
-  <div class="seccard" id="secSDI"><div class="ic">📝</div>
-    <div class="meta"><b>Self-Description Inventory</b><div class="muted">성격검사(미채점) · 안내</div></div><div class="go">›</div></div>
 
   <div class="card" style="margin-top:16px">
     <div class="row" style="justify-content:space-between;align-items:center">
@@ -133,10 +103,7 @@
   </div>
   <button class="btn primary" id="vkNew" style="margin-top:16px">🆕 신규 단어 플래시카드</button>
   <button class="btn ghost" id="vkReview" style="margin-top:10px;border-color:var(--brand2)">🔁 복습 플래시카드</button>
-  <button class="btn ghost" id="vkMock" style="margin-top:10px;border-color:var(--gold)">📕 모의고사 단어 플래시카드 — 앱 수록 연습 세트 148개</button>
   <button class="btn ghost" id="vkWrong" style="margin-top:10px;border-color:#ef4444">📛 오답 단어 플래시카드</button>
-  <button class="btn ghost" id="vkAuto" style="margin-top:10px;border-color:#f59e0b">🎧 자동 넘김 (운동용·핸즈프리·음성)</button>
-  <button class="btn ghost" id="vkExam" style="margin-top:10px">🎯 단어 시험 (실전 · 시간측정 · 채점)</button>
   <button class="synfeed-entry" id="vkSynFeed" type="button">
     <span class="synfeed-entry-icon" aria-hidden="true">∞</span>
     <span class="synfeed-entry-copy"><b>동의어 무한 피드</b><small>답을 확인하고 직접 넘기는 일상 반복 학습</small></span>
@@ -144,9 +111,9 @@
   </button>
   <button class="btn ghost" id="vkConfirm" style="margin-top:10px;border-color:#22c55e">✅ 확인 시험 — 진짜 외웠는지 검증</button>
   <div class="hintbox" id="vkConfirmSub" style="margin-top:4px">확인할 단어 없음</div>
-  <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 보기</button>
-  <button class="btn ghost" id="vkCoach" style="margin-top:10px;border-color:var(--brand)">🧠 어근 추론 코치 — 모르는 단어 좁히는 법</button>
-  <button class="btn ghost" id="vkRoots" style="margin-top:10px">🔤 어원 사전 (접두사·어근 검색)</button>
+  <button class="btn ghost" id="vkAuto" style="margin-top:10px;border-color:#f59e0b">🎧 자동 넘김 (운동용·핸즈프리·음성)</button>
+  <button class="btn ghost" id="vkWords" style="margin-top:10px">📚 단어장 · 테마·우선순위 덱 (모의고사 단어 포함)</button>
+  <button class="btn ghost" id="vkCoach" style="margin-top:10px;border-color:var(--brand)">🧠 어근 추론 코치 · 어원 사전</button>
   <button class="btn ghost" id="vkGuide" style="margin-top:10px">📘 단어 공부 가이드</button>
 
   <h2 class="section">학습 우선순위</h2>
@@ -162,12 +129,13 @@
 <!-- ===== SYNONYM MEMORY FEED (standalone endless mode) ===== -->
 <main id="view-synfeed" class="view synfeed-view">
   <div class="synfeed-topbar">
-    <button class="synfeed-back" id="synfeedBack" type="button">← 어휘</button>
+    <button class="synfeed-back" id="synfeedBack" type="button">← 홈</button>
     <div class="synfeed-brand"><span aria-hidden="true">∞</span> <span class="synfeed-brand-full">SYNONYM FEED</span><span class="synfeed-brand-short">FEED</span></div>
     <button class="synfeed-ko-live hidden" id="synfeedKoLive" type="button" aria-pressed="true">한글 ON</button>
   </div>
 
   <section id="synfeedSetup" class="synfeed-setup">
+    <div class="feed-seg"><button type="button" class="on" data-feed="synfeed">📇 동의어 피드</button><button type="button" data-feed="vafeed">🔗 유추 피드</button></div>
     <div class="synfeed-hero">
       <div class="synfeed-kicker">WORD KNOWLEDGE · ENDLESS</div>
       <h2>한 문제씩, 계속.<br><span>동의어를 반사적으로</span></h2>
@@ -230,11 +198,12 @@
 <!-- ===== VA 무한 피드 ===== -->
 <main id="view-vafeed" class="view synfeed-view">
   <div class="synfeed-topbar">
-    <button class="synfeed-back" id="vafeedBack" type="button">← 유추</button>
+    <button class="synfeed-back" id="vafeedBack" type="button">← 홈</button>
     <div class="synfeed-brand"><span aria-hidden="true">∞</span> <span class="synfeed-brand-full">ANALOGY FEED</span><span class="synfeed-brand-short">FEED</span></div>
     <span></span>
   </div>
   <section id="vafeedSetup" class="synfeed-setup">
+    <div class="feed-seg"><button type="button" data-feed="synfeed">📇 동의어 피드</button><button type="button" class="on" data-feed="vafeed">🔗 유추 피드</button></div>
     <div class="synfeed-hero">
       <div class="synfeed-kicker">VERBAL ANALOGIES · ENDLESS</div>
       <h2>한 문제씩, 계속.<br><span>관계 유형을 반사적으로</span></h2>
@@ -403,6 +372,7 @@
     <button class="chip" data-f="afoqt">⭐ AFOQT 대비 목록</button>
     <button class="chip" data-f="mock">📕 앱 수록 모의고사</button>
     <button class="chip" data-f="wrong">📛 오답</button>
+    <button class="chip" data-f="due">🔁 복습 대기</button>
     <button class="chip" data-f="high">핵심(high+mid)</button>
     <button class="chip" data-f="gre">GRE</button>
     <button class="chip" data-f="starred">★ 즐겨찾기</button>
@@ -416,6 +386,7 @@
     <div class="muted" id="wordCount" style="font-size:12px"></div>
     <button class="btn sm primary hidden" id="wordStudy" style="flex:0 0 auto"></button>
   </div>
+  <div id="wordDecks" class="hidden" style="margin:0 0 10px"></div>
   <div class="wlist" id="wordList"></div>
   <div id="wordMore" class="center muted" style="padding:16px;font-size:13px;cursor:pointer;display:none"></div>
 </main>
@@ -914,12 +885,10 @@
 <nav class="nav" id="nav">
   <button id="navToggle" class="nav-toggle" aria-label="메뉴 접기">◀</button>
   <button data-go="home" class="on"><span class="ic">🏠</span>홈</button>
-  <button data-go="vocab"><span class="ic">📇</span>어휘</button>
-  <button data-go="analogy"><span class="ic">🔗</span>유추</button>
-  <button data-go="reading"><span class="ic">📖</span>독해</button>
-  <button data-go="math"><span class="ic">🔢</span>수학</button>
-  <button data-go="aviation"><span class="ic">✈️</span>항공</button>
-  <button data-go="stats"><span class="ic">📊</span>통계</button>
+  <button data-go="synfeed"><span class="ic">∞</span>피드</button>
+  <button data-go="vocab"><span class="ic">🃏</span>카드</button>
+  <button data-go="exam"><span class="ic">🎯</span>시험</button>
+  <button data-go="stats"><span class="ic">📊</span>기록</button>
 </nav>
 
 <div class="toast" id="toast"></div>

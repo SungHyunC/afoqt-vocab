@@ -649,8 +649,6 @@ sub{vertical-align:-.25em}
 .ptask .ps{font-size:11px;color:var(--muted);margin-top:2px}
 .ptask.on .pl{opacity:.6;text-decoration:line-through}
 .pgo{flex:0 0 auto}
-/* 내비 8개 — 아주 좁은 폰에서 살짝 축소 */
-@media (max-width:400px){ .nav button{font-size:9px} .nav button .ic{font-size:19px} }
 
 /* ---------- 단어 어근 분해 ---------- */
 .wroots{margin:12px 0;padding:10px 12px;background:var(--card2);border-left:3px solid var(--brand2);
@@ -1099,3 +1097,24 @@ body.synfeed-mode .toast{left:50%}
 .tabs button{flex:0 0 auto;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:700;white-space:nowrap}
 .tabs button.on{background:var(--brand);border-color:var(--brand);color:#fff}
 .tabpane{display:none} .tabpane.active{display:block;animation:fade .2s ease}
+
+/* ---------- 홈 재구성: 축 카드 · 과목 그리드 · 증거 한 줄 ---------- */
+.hero-since{font-size:12px;margin-top:8px;color:#fde68a;font-weight:700}
+.axis-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+.axis-card{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:16px;text-align:left;box-shadow:var(--shadow);width:100%}
+.axis-card:active{transform:scale(.99)}
+.axis-card .ax-ic{font-size:28px;width:38px;text-align:center;flex:0 0 auto}
+.axis-card .ax-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.axis-card .ax-meta b{font-size:15px}
+.axis-card .ax-meta .muted{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.axis-card .ax-go{font-size:22px;color:var(--muted)}
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dir-grid .seccard{margin:0;padding:11px 12px;gap:10px;border-radius:13px;box-shadow:none}
+.dir-grid .seccard .ic{font-size:20px}
+.dir-grid .seccard .meta b{font-size:12.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dir-grid .seccard .muted{font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dir-grid .seccard .go{display:none}
+/* 피드 설정 화면의 동의어|유추 전환 */
+.feed-seg{display:flex;gap:6px;margin:0 0 12px}
+.feed-seg button{flex:1;padding:9px;border-radius:12px;border:1px solid #ffffff22;color:#94a3b8;font-weight:700;background:transparent;font-size:13px}
+.feed-seg button.on{background:var(--brand);border-color:var(--brand);color:#fff}
